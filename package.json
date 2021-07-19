@@ -1,0 +1,27 @@
+{
+  "name": "workshops",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "Erik Behrends",
+    "web": "https://behrends.io"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build"
+  },
+  "dependencies": {
+    "next": "^11.0.1",
+    "nextra": "1.0.0-beta.2",
+    "nextra-theme-docs": "1.2.0-beta.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.6",
+    "postcss": "^8.3.5",
+    "tailwindcss": "^2.2.4"
+  }
+}

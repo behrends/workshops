@@ -1,0 +1,15 @@
+{
+  "html": {
+    "title": "HTML",
+    "type": "nav"
+  },
+  "css": {
+    "title": "CSS",
+    "type": "nav"
+  },
+  "impressum": {
+    "title": "Impressum",
+    "type": "nav",
+    "hidden": true
+  }
+}
