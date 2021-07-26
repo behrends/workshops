@@ -1,10 +1,6 @@
 {
-  "html": {
-    "title": "HTML",
-    "type": "nav"
-  },
-  "css": {
-    "title": "CSS",
+  "web-prog": {
+    "title": "Web-Programmierung",
     "type": "nav"
   },
   "impressum": {

@@ -21,12 +21,8 @@ export default function Home() {
         </p>
 
         <div className="flex flex-wrap items-center justify-around max-w-full mt-6 sm:w-full">
-          <Link href="/html">
-            <h1>HTML</h1>
-          </Link>
-
-          <Link href="/css">
-            <h1>CSS</h1>
+          <Link href="/web-prog">
+            <h1 className="cursor-pointer">Web-Programmierung (WWI/WDS)</h1>
           </Link>
         </div>
       </main>
