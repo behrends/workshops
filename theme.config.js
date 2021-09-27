@@ -8,6 +8,7 @@ export default {
   unstable_stork: false,
   darkMode: true,
   defaultMenuCollapsed: false,
+  floatTOC: true,
   font: true,
   footer: true,
   footerText: (
