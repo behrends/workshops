@@ -1,21 +1,40 @@
 # Web-Programmierung (WWI/WDS)
 
-Jeder einzelne Abschnitt in der linken Navigationsleiste entspricht einem Vorlesungsblock
-mit 4 Stunden und enthält einzelne Lektionen, die in der Regel nicht länger als 30 Minuten
-sind (inklusive oder zusätzlich Übungen?)
+Jeder einzelne Abschnitt in der linken Navigationsleiste 
+entspricht einem Vorlesungsblock mit 4 Stunden und enthält 
+einzelne Lektionen, die in der Regel nicht länger als 30 Minuten
+sind. An manche dieser Lektionen schließen Übungsaufgaben an, 
+die zusätzlich bis zu 30 Minuten einschließlich einer 
+Diskussion beanspruchen können.
 
-In dieser Veranstaltung gibt es 33 Stunden, d.h. 7 Vorlesungsblöcke mit 4 Stunden und 1 mit 
-5 Stunden. Nur die ersten X Blöcke werden komplett als Workshops genutzt. Ab dem (X+1). Termin
-gibt es nur kurze Inputs zu Beginn und die restliche Zeit wird für Coaching während des Projekts
-genutzt.
+In dieser Veranstaltung gibt es 33 Stunden, d.h. sieben 
+Vorlesungsblöcke mit 4 Stunden und einem mit 5 Stunden. 
+Nur die ersten drei Termine werden komplett als Workshops genutzt. 
+Ab dem vierten Termin startet das Web-Projekt, sodass ein Teil
+der Vorlesungszeit auch für die Programmierung und das Coaching
+genutzt wird.
 
-Zielgruppe/Voraussetzungen: grundlegende Programmierkenntnisse
+## Terminplanung
 
-Lernziel: Webanwendung für einen Datenservice bauen (z.B. KI-API)
+- Einleitung, HTML
+- CSS Teil 1
+- CSS Teil 2 (u.a. FlexBox)
+- Vorstellung App-Idee, JavaScript Teil 1
+- JavaScript Teil 2
+- JavaScript Teil 3
+- JSON, HTTP
+- Präsentation der Projekte, Abschluss und Ausblick
 
-Inhalte: HTML, CSS, JavaScript (Frontend-Entwicklung)
+## Voraussetzungen
+Grundlegende Programmierkenntnisse
 
-Die Prüfungsleistung ist ein Portfolio (eigene Ideen oder Vorgabe?):
+## Lernziel
+Web-Frontend mit HTML, CSS und JavaScript (ohne Frameworks) 
+in Projektgruppen (2-3 Studierende) für einen Datenservice 
+bauen.
+
+## Prüfungsleistung
+Die Prüfungsleistung ist ein Portfolio 
 
 - Mockups mit Excalidraw oder Figma
 - Responsives HTML/CSS-Grundgerüst mit statischen Daten (Tailwind?)
