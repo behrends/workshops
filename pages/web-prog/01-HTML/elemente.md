@@ -24,7 +24,10 @@ der App-Idee wird auf dem Whiteboard oder Excalidraw entworfen:
 Städtenamen mit der aktuellen Temperatur, einem kleinen Bild für
 die Wetterlage (z.B. eine Sonne).
 
-Dabei kann zunächst mit `h1`, `p`
+Dabei kann zunächst mit `h1`, `p`, `img` in Codepen gearbeitet 
+werden (Komponente). Oder gleich in Glitch bzw. VS Code?
+
+Icons z.B. von [RemixIcon.com](https://remixicon.com/)
 
 Kurze Beschreibung einiger Elemente:
 
