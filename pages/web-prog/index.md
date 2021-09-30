@@ -10,7 +10,7 @@ sind. An manche dieser Lektionen schließen Übungsaufgaben an,
 die zusätzlich bis zu 30 Minuten einschließlich einer 
 Diskussion beanspruchen können.
 
-In dieser Veranstaltung gibt es 33 Stunden, d.h. sieben 
+In dieser Veranstaltung gibt es 33 Stunden, d.h. in der Regel sieben 
 Vorlesungsblöcke mit 4 Stunden und einem mit 5 Stunden. 
 Nur die ersten drei Termine werden komplett als Workshops genutzt. 
 Ab dem vierten Termin startet das Web-Projekt, sodass ein Teil
@@ -22,6 +22,20 @@ Note to self (hier oder woanders?): Beispiel-App zur Vorbereitung
 
 „Hausaufgaben“ nach jedem Termin: Kurs auf freecodecamp.org belegen
 (Teil X-Y mit URLs in Moodle).
+
+**TODO: keine Redundanz zu Einleitung? &xrarr; unten aufräumen**
+
+**TODO: Workshop Notes vs. Lecture Notes für Studies vs. Reveal-Folien**
+
+**TODO: Whiteboard oder Excalidraw nutzen**
+
+**TODO: Workshop Notes online public oder in Moodle** 
+
+**TODO: Nice-To-Have weitere Callouts für Beispiele, Wichtiges, Bemerkungen, …**
+
+**TODO: jeden Tag eine Linksammlung als Markdown-Page in Moodle**
+
+**TODO: weitere Notizen am Anfang? global sammeln wie in Lectures?**
 
 ## Terminplanung
 
