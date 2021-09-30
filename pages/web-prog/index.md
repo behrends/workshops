@@ -1,5 +1,8 @@
 # Web-Programmierung (WWI/WDS)
 
+TODO: hier nur die Verwendung der Seiten und allgemeines beschreiben?
+Die erste Vorlesung ist HTML/intro
+
 Jeder einzelne Abschnitt in der linken Navigationsleiste 
 entspricht einem Vorlesungsblock mit 4 Stunden und enthält 
 einzelne Lektionen, die in der Regel nicht länger als 30 Minuten
@@ -14,14 +17,20 @@ Ab dem vierten Termin startet das Web-Projekt, sodass ein Teil
 der Vorlesungszeit auch für die Programmierung und das Coaching
 genutzt wird.
 
+Note to self (hier oder woanders?): Beispiel-App zur Vorbereitung
+(weiter-)entwickeln.
+
+„Hausaufgaben“ nach jedem Termin: Kurs auf freecodecamp.org belegen
+(Teil X-Y mit URLs in Moodle).
+
 ## Terminplanung
 
 - Einleitung, HTML
 - CSS Teil 1
 - CSS Teil 2 (u.a. FlexBox)
 - Vorstellung App-Idee, JavaScript Teil 1
-- JavaScript Teil 2
-- JavaScript Teil 3
+- JavaScript (u.a. DOM) Teil 2
+- JavaScript (u.a. Async) Teil 3
 - JSON, HTTP
 - Präsentation der Projekte, Abschluss und Ausblick
 
@@ -34,15 +43,22 @@ in Projektgruppen (2-3 Studierende) für einen Datenservice
 bauen.
 
 ## Prüfungsleistung
-Die Prüfungsleistung ist ein Portfolio 
+Die Prüfungsleistung ist ein Portfolio (TODO: check in Prüfungsordnung?)
 
 - Mockups mit Excalidraw oder Figma
-- Responsives HTML/CSS-Grundgerüst mit statischen Daten (Tailwind?)
+- Responsives HTML/CSS-Grundgerüst mit statischen Daten
 - Interaktives UI mit JavaScript
 - Anbindung der Daten einer vorgegebenen API (JSON-Placeholder oder Flask/NodeJS-Server)
-- Bonus: Integration eines echten KI-Service
+- Bonus (bzw. Nice-To-Have): Integration eines echten KI-Service
 
+Programmentwurf relativ klein, evtl. nur eine HTML-, CSS-, JavaScript-Datei?
         
+## Meine Notizen
 
+siehe auch [The Carpentries: Workshop Introduction (Instructor Training)](https://carpentries.github.io/instructor-training/23-introductions/index.html)
+
+Selbststudium: [ProgContent: HTML kompakt](https://progcontent.com/html-kompakt) oder [Mozilla Developer Network: Introduction to HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML)
+
+Referenz: TODO Sammlung der besprochenen Key Points und beim Programmieren [devdocs.io](https://devdocs.io/) (aber auch MDN und natürlich StackOverlflow). Glossar? Cheatsheet?
 
 TODO: eigener Kurs für TIF?
