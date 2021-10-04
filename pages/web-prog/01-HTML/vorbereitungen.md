@@ -1,33 +1,29 @@
-# Vorbereitungen
-
 import Callout from 'nextra-theme-docs/callout'
 
-<Callout>
-  **Dauer:** höchstens 45 Minuten
+# Vorbereitungen
 
+<Callout>
+  **Dauer:** höchstens 45 Minuten \
   Vorführung / Live Coding: 20 Minuten \
   Übung: 15 Minuten \
   Diskussion: 10 Minuten
 
-  Themen:
-
+  **Themen:**
   - Motivation: Beispiel-App zeigen (_whole game teaching_)
   - Gemeinsam App entwickeln (_live coding_, _learning by doing_)
   - Entwicklungsumgebungen (lokal und in der Cloud)
 
-  Übung: VS Code installieren, Projekt erstellen und starten
+  **Übung:** VS Code installieren, Projekt erstellen und starten
 
-  **Ziel:** Einrichtung der Entwicklungsumgebung
+  **Ziele:** Einstieg ins Thema, Einrichtung der Entwicklungsumgebung
 </Callout>
 
 ## Beispiel-App
 
-TODO: App bauen!
-
-Eine Beispiel-App (TODO Wetter?) dient zur Veranschaulichung des 
-konkreten Lernziels. Diese App wurde als reines Webfrontend mit 
-HTML, CSS und JavaScript ohne Frameworks entwickelt und kann
-hier ausprobiert werden (TODO: Link auf Deployment und Code).
+Eine Beispiel-App dient zur Veranschaulichung des konkreten Lernziels. 
+Diese App wurde als reines Webfrontend mit HTML, CSS und JavaScript 
+ohne Frameworks entwickelt und kann hier ausprobiert werden:
+[wds20a-final.glitch.me](https://wds20a-final.glitch.me)
 
 Wir werden diese App gemeinsam während der ersten Termine
 entwickeln und somit ein Teil der wesentlichen Konzepte
@@ -41,7 +37,7 @@ Wir haben nur 33 Vorlesungsstunden, daher beschränken wir die Themen:
 
 - nur Frontend (HTML/CSS/JavaScript)
 - kein Backend (PHP, ASP.NET, …)
-- Single Page App (keine Navigation)
+- Single Page App (evtl. nur eine HTML-Seite)
 - keine Frameworks (reines HTML/CSS/JavaScript)
 
 **33 Vorlesungsstunden sind auch für HTML/CSS/JavaScript sehr knapp…**
@@ -50,13 +46,12 @@ Weitere Technologien des Internets und der Webentwicklung
 werden ggf. in anderen Vorlesungen behandelt.
 
 Eine [_Frontend Developer Roadmap_](https://roadmap.sh) zeigt den 
-Umfang der Front-Webentwicklung ohne Backend
+großen Umfang der Front-Webentwicklung ohne Backend.
 
 JavaScript und auch CSS entwickeln sich beständig weiter und haben ein großes Umfeld mit einigen Frameworks und Erweiterungen, siehe z.B.
 
 - [_State of JavaScript_](https://stateofjs.com)
 - [_State of CSS_](https://stateofcss.com)
-
 
 HTML, CSS und JavaScript stellen nur die Grundlagen und den Ausgangspunkt der clientseitigen Web-Entwicklung im Frontend dar (d.h. zur Ausführung im Browser).
 
@@ -64,9 +59,9 @@ HTML, CSS und JavaScript stellen nur die Grundlagen und den Ausgangspunkt der cl
 
 In der gemeinsamen „Vorlesung“ wird hauptsächlich **aktives** Lernen
 durch Live Coding stattfinden. Dabei sollten die Studierenden
-mitprogrammieren und interaktiv Fragen stellen. **Daher bitte immer den 
-Laptop mitbringen.** Folien wird es kaum geben, da diese nur ein 
-**passives** Lernen ermöglichen. 
+mitprogrammieren und interaktiv Fragen stellen. **Daher sollten alle 
+bitte immer ihren Laptop mitbringen.** Folien wird es kaum geben, 
+da diese nur ein **passives** Lernen ermöglichen. 
 
 Aufgrund der knappen Zeit werden nur die wesentliche Aspekte im Unterricht 
 besprochen. Durch praktische Übungen und insbesondere das Gruppenprojekt 
@@ -76,8 +71,9 @@ In Moodle wird Material zum Nachschlagen bereitgestellt. Eigene Recherchen
 im Selbststudium sind während der Webentwicklung unumgänglich und 
 verstärken das aktive Lernen. 
 
-Der Dozent bietet Hilfestellung und Coaching während des Projekts an. Wir werden in den späteren Terminen auch Zeit für das gemeinsame Programmieren 
-haben.
+Dozierende bieten Hilfestellung und Coaching während des Projekts an. 
+Wir werden in den späteren Terminen auch Zeit für das gemeinsame
+Programmieren haben.
 
 ## Entwicklungsumgebung
 
@@ -86,6 +82,10 @@ fast jede Entwicklungsumgebung für andere Programmiersprachen, da
 diese meistens auch Unterstützung für HTML, CSS und JavaScript bieten.
 Außerdem gibt es sehr gut funktionierende Entwicklungsumgebungen in 
 der Cloud, für die nur eine Internetverbindung und ein Browser benötigt wird.
+
+<Callout type="warning">
+Welche Entwicklungsumgebungen setzen Sie gerne ein (lokal/cloud)?
+</Callout>
 
 ### Lokal auf dem eigenen Rechner (z.B. VS Code)
 
@@ -100,19 +100,31 @@ Vorführung: VS Code mit Live Server und der Beispiel-App,
 Ablauf der Entwicklung und des LiveCodings (mitmachen!)
 ```
 
+[VS Code](https://code.visualstudio.com) kann in allen Betriebssystemen
+installiert werden. Eine nützliche Erweiterung ist der _Live Server_,
+mit dem lokale Web-Projekte lokal gestartet und in einem Browser 
+ausgeführt werden können.
+
 ### Webentwicklung in der Cloud
 
 Es gibt zahlreiche Programmierumgebungen für Webentwickler in
 der Cloud. 
 
 ```
-Vorführung: Beispiel-App in Glitch und/oder Replit (TODO), 
-Ablauf der Entwicklung und des LiveCodings (mitmachen!)
+Vorführung: Beispiel-App in Glitch, Ablauf der Entwicklung und 
+des LiveCodings (mitmachen!)
 ```
 
+Es gibt einige weitere Cloud-Umgebungen, wie z.B. die sehr umfangreiche
+Plattform [replit](https://replit.com). Projekte wie 
+[Gitpod](https://www.gitpod.io) lassen die Grenze von lokal/cloud 
+verschwinden, indem VS Code auch im Browser unterstützt wird.
+
 [Codepen](https://codepen.io) ist sehr nützlich für Beispiele. 
-Hier werden im Gegensatz zu Glich und Replit die Dateien verborgen
-und es gibt nur drei Editoren jeweils für HTML, CSS und JavaScript.
+Hier werden im Gegensatz zu Glich die Dateien verborgen
+und es gibt nur drei Editoren jeweils für HTML, CSS und JavaScript. 
+Dadurch lassen sich einzelne Bestandteile bzw. Komponenten einer
+Webanwendung unabhängig vom Rest der App programmieren.
 
 
 ## Übung
@@ -121,9 +133,19 @@ und es gibt nur drei Editoren jeweils für HTML, CSS und JavaScript.
 - In VS Code die Erweiterung (bzw. _extension_) „_Live Server_“ einrichten
 - Datei `index.html` erstellen und in Projektordner speichern (TODO: Vorführung?)
 - Beliebigen Text in `index.html` eingeben, speichern und Live Server starten
-- glitch.com (https://www.glitch.new/blank) oder replit.com ausprobieren (nur mit Anmeldung)
+- glitch.com via [glitch.new/blank](https://www.glitch.new/blank) und [codepen.io](https://codepen.io) ausprobieren.
 
-## Zusammenfassung???
+## Zusammenfassung
+
+- HTML, CSS und JavaScript sind als Frontend-Technologien, die 
+vom Browser ausgeführt werden, Bestandteil jeder Webanwendung
+- Im Backend kommen beliebige andere Sprachen zum Einsatz
+- In dieser Veranstaltung beschränken wir uns aufgrund der wenigen 
+Zeit auf HTML, CSS und JavaScript
+- Mit reinem HTML, CSS und JavaScript lassen sich bereits nicht-triviale
+Anwendungen bauen (siehe Beispiel-App)
+- Für das Live Coding und die Arbeit im Team werden Codepen, Glitch, und
+VS Code empfohlen.
 
 ## Diskussion
 
@@ -137,6 +159,9 @@ erstellt werden und VS Code kann nützlich für die lokale Entwicklung sein.
 Im Prinzip wäre auch eine Entwicklung im Team mit Codepen möglich, wenn
 es nur eine Datei jeweils für HTML, CSS und JavaScript gibt.
 
-Kennt jemand weitere empfehlenswerte Editoren, Cloud-Umgebungen, etc.?
+Für die Arbeit in Glitch und Codepen kann eine kostenlose Anmeldung 
+sinnvoll sein, damit die Anwendungen nicht verloren gehen.
 
-NodeJS wird in der Vorlesung und im Projekt nicht benötigt.
+Kennt jemand weitere empfehlenswerte Editoren, Cloud-Umgebungen, Tools?
+
+**Bemerkung:** NodeJS wird in der Vorlesung und im Projekt nicht benötigt.
