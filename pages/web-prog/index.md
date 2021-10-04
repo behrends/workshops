@@ -22,3 +22,7 @@ Lektion wird am Anfang der Lektion beschrieben.
   entwickeln und die relevanten Konzepte mit den Inhalten 
   dieser Seiten abgleichen.
 </Callout>
+
+<Callout type="error" emoji="‼️">
+  Die tatsächliche Dauer einer Lektion ermitteln und ggf. anpassen!
+</Callout>
