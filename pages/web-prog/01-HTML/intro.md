@@ -1,6 +1,6 @@
-# Einleitung
-
 import Callout from 'nextra-theme-docs/callout'
+
+# Einleitung
 
 <Callout>
   **Dauer:** höchstens 45 Minuten
@@ -36,7 +36,9 @@ Vorstellungsrunde der Studies:
 - Was sind Ihre Erfahrungen mit der Webentwicklung?  <br/> (HTML, CSS, JavaScript, PHP, ASP.NET, usw.)
 - Kennen Sie sich mit git aus?
 
-**&xrarr; Strichliste zu HTML/CSS/JS/git usw. am Whiteboard**
+<Callout type="warning">
+  **&xrarr; Strichliste zu HTML/CSS/JS/git usw. am Whiteboard**
+</Callout>
 
 ## Infos zur Veranstaltung
 
@@ -74,12 +76,11 @@ Die Prüfungsleistung ist ein Portfolio.
 
 **Voraussichtliche Bewertung:**
 
-- 15% Vorstellung einer App-Idee (voraussichtlich am 4. Termin)
+- 15% Vorstellung einer App-Idee (wahrscheinlich am 4. Termin)
 - 15% Präsentation des Ergebnis (am letzten Termin)
 - 70% Umsetzung der App-Idee als Webanwendung (Abgabe in Moodle am Ende der letzten Vorlesungswoche)
 
 Umsetzung mit reinem HTML, CSS und JavaScript ohne Frameworks. 
 
 **Mehr Details zum Projekt und zum Bewertungsschema gibt es an einem späteren Termin!**
-
         
