@@ -3,8 +3,8 @@ import Callout from 'nextra-theme-docs/callout'
 # Elemente
 
 <Callout>
-  **Dauer:** 30 Minuten \
-  Vorführung / Live Coding: 30 Minuten
+  **Dauer:** 40 Minuten \
+  keine Übung, dafür interaktives Live-Coding und ggf. Diskussion
 
   **Themen:**
 
@@ -13,7 +13,9 @@ import Callout from 'nextra-theme-docs/callout'
   - Textformatierung
   - Block- und Inline-Elemente
 
-  **Ziel:** erste Elemente für Text kennenlernen
+  **Ziele:** 
+  - erste Elemente für Text kennenlernen
+  - Unterschied von Block- und inline-Elementen verstehen
 </Callout>
 
 ## Erste grobe App-Idee
@@ -23,19 +25,21 @@ Live-Coding beginnt!
 ```
 
 Gemeinsam entwickeln wir die Wetter-App. Eine einfache Skizze
-der App-Idee wird auf dem Whiteboard oder Excalidraw entworfen:
+der App-Idee wird auf dem Whiteboard oder online mit 
+[Excalidraw](https://excalidraw.com) entworfen:
 
 - Überschrift
-- Erklärung in Text
-- zweiteilige Liste:
-  - Stadtname
-     - Temperatur
-     - Wetterlage (z.B. „sonnig“)
-     - Wind (z.B. „leichte Böen“)
-- kleines Bild/Icon für das Wetter
+- Blöcke von p-Elementen untereinander:
+  - Basel 21 Wolken(später als Bild/Icon)
+  - Berlin 19 Regen(später als Bild/Icon)
+  - Barcelona Sonne(später als Bild/Icon)
 
-Dabei kann zunächst mit `h1`, `p`, `ul`, `li`, `img` in Codepen gearbeitet 
-werden (Komponente). Wir starten in VS Code (alternativ in Codepen/Glitch)
+<Callout type="warning">
+Wir halten es hier ganz bewusst **SEHR einfach**, da CSS erst nächste
+Woche dazukommt.
+</Callout>
+
+Wir starten mit `h1`, `p`, `b`, `i` in VS Code (alternativ in Codepen/Glitch)
 und übernehmen ggf. das HTML-Grundgerüst von 
 [glitch.new/blank](https://www.glitch.new/blank).
 
@@ -50,6 +54,10 @@ dargestellt. Allerdings werden wir erst mit CSS die Möglichkeit erhalten,
 die Erscheinung von HTML-Elementen beliebig zu gestalten.
 </Callout>
 
+```
+Überschrift mit h1: Meine Wetter-App (oder so ähnlich)
+``` 
+
 [Überschriften auf Prog Content](https://www.progcontent.com/html-kompakt/ueberschriften)
 
 ## Texte in Paragraphen
@@ -59,6 +67,10 @@ Zusammengehörende Texte werden meistens mit dem `p`-Element umgeben
 (`p` steht für _paragraph_).
 
 [Text in Paragraphen auf Prog Content](https://www.progcontent.com/html-kompakt/paragraphen)
+
+```
+Mehrere p-Elemente untereinander mit Beispiel-Daten für Städte
+```
 
 ## Textformatierung
 
@@ -75,6 +87,10 @@ Block- und inline-Elementen (siehe folgenden Abschnitt)
 
 [Textformatierung auf Prog Content](https://www.progcontent.com/html-kompakt/textformatierung)
 
+```
+Name der Stadt in Fettdruck, Temperatur in kursiver Schrift
+```
+
 ## Block- und inline
 
 Vergleichen wir den `p`-Tag mit den Elementen `b` und `i`. Was fällt auf? 
@@ -90,8 +106,3 @@ ausgestattet. Wir werden diese noch im Detail kennenlernen und einsetzen.
 
 [Mehr zu Block- und inline-Elemente auf Prog Content](https://www.progcontent.com/html-kompakt/block-inline)
 
-
-
-- [Bilder auf Prog Content](https://www.progcontent.com/html-kompakt/bilder)
-
-Icons z.B. von [RemixIcon.com](https://remixicon.com/)

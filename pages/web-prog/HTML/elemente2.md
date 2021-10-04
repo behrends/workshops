@@ -1,59 +1,94 @@
-# Weitere Elemente
-
 import Callout from 'nextra-theme-docs/callout'
 
+# Weitere Elemente
+
 <Callout>
-  **Dauer:** 30 Minuten
+  **Dauer:** 45 Minuten \
+  Vorführung / Live Coding: 30 Minuten \
+  Übung: 15 Minuten
 
-  Vorführung / Live Coding: 20 Minuten \
-  Übung: 10 Minuten \
+  **Themen:**
 
-  Themen:
-
-  - Blockelemente und inline Elemente
-  - Listen
-  - Links
+  - Bilder
   - Formulare
+  - Ausblick: Listen, Tabellen, Links
 
-  Übung: Liste und Formular programmieren
+  **Übung:** Liste und Formular programmieren
 
-  **Ziel:** Weitere Elemente besprechen und insbesondere Formulare erstellen
+  **Ziel:** Umgang mit Bildern und Formularen erlernen
+
 </Callout>
 
-## Erste grobe App-Idee
+## Bilder
+
+Mit dem `img`-Tag lernen wir einerseits das erste leere Element kennen
+(ohne Kindelemente und schließendes Tag). Mit dem `src`-Attribut wird auf die 
+Bilddatei verwiesen (lokal oder im Web). Das `alt`-Attribut dient zur 
+Beschreibung des Bildes, z.B. zur Verwendung eines _screen readers_ oder für 
+Leute mit Sehschwäche.
+
+<Callout type="warning">
+Wir können aufgrund der begrenzten Zeit nur wenige Themen ansprechen. 
+Allerdings ist das Thema der Barrierefreiheit (_accessibility_ )für „echte“ 
+Web-Projekte sehr wichtig, nicht zuletzt weil da hierzu gesetzliche Vorgaben 
+gibt. Gleiches gilt auch für den Datenschutz und einige weitere Themen.
+</Callout>
+
+[Bilder auf Prog Content](https://www.progcontent.com/html-kompakt/bilder)
+
+Es gibt viele Sammlungen von frei verfügbaren Icons und Bildern im Web. 
+Für die Icons in der Beispiel-App bedienen wir uns bei 
+[RemixIcon.com](https://remixicon.com/). Bilder sind u.a. bei 
+[Pexels](https://www.pexels.com) zu finden.
 
 ```
-Live-Coding beginnt!
+Icons für Sonne, Wolken und Regen bei RemixIcon herunterladen. Dann lokal
+in VS Code einbetten (z.B. unter images/). Zeigen, wie diese auf glitch
+hochgeladen werden (in assets/). In VS Code auf Icons bei glitch verweisen?
 ```
 
-Gemeinsam entwickeln wir die Wetter-App. Eine einfache Skizze
-der App-Idee wird auf dem Whiteboard oder Excalidraw entworfen:
+## Formular-Elemente zur Eingabe
 
-- Überschrift
-- Erklärung in Text
-- zweiteilige Liste:
-  - Stadtname
-     - Temperatur
-     - Wetterlage (z.B. „sonnig“)
-     - Wind (z.B. „leichte Böen“)
-- kleines Bild/Icon für das Wetter
+Mit Formular-Elementen erhalten wir die Möglichkeit, durch die Eingabe von
+Daten mit einer Webanwendung zu interagieren. Bei Verwendung eines Backends
+werden Formular-Daten per HTTP an den Server geschickt &mdash; dies werden
+wir hier nicht besprechen. Wir verwenden verschiedene Formular-Elemente
+nur clientseitig im Browser-Frontend (später werden die Daten mit JavaScript
+vom Browser verarbeitet.)
 
-Dabei kann zunächst mit `h1`, `p`, `ul`, `li`, `img` in Codepen gearbeitet 
-werden (Komponente). Wir starten in VS Code (alternativ in Codepen/Glitch)
-und übernehmen ggf. das HTML-Grundgerüst von 
-[glitch.new/blank](https://www.glitch.new/blank).
+[Formulare auf Prog Content](https://www.progcontent.com/html-kompakt/formulare)
 
-## Live-Coding: Formular
 
-Stadt der Wetterliste hinzufügen
+```
+Auswahlliste mit Städten und Textfeld zur Suche in der Beispiel-App erstellen
+```
 
-- [Formulare auf Prog Content](https://www.progcontent.com/html-kompakt/formulare)
+## Ausblick auf weitere Elemente
 
-## Live-Coding: divs
+Es gibt noch einige weitere Elemente, z.B. geschachtelte Elemente für
 
-Überführung in `div`-Elemente
+- [Listen und Aufzählungen](https://www.progcontent.com/html-kompakt/listen)
+- [Tabellen](https://www.progcontent.com/html-kompakt/tabellen)
 
-- [Blockelemente und inline Elemente auf Prog Content](https://www.progcontent.com/html-kompakt/block-inline)
+[Links](https://www.progcontent.com/html-kompakt/links_) auf andere 
+Webseiten oder HTML-Seiten innerhalb einer Webanwendung können mit dem
+`a`-Element deklariert werden (_anchor_-Tag):
+
+```
+<a href="https://www.dhbw-loerrach.de">Gehe zur DHBW Lörrach</a>
+```
+
+HTML kann außerdem mit Strukturelementen wie `nav`, `header`, `footer`, 
+`main`, `section`, usw. ausgestattet werden. 
+
+<Callout type="warning">
+HTML zu lernen bedeutet, sich mit dem „Vokabular“ der 
+verfügbaren Elemente vertraut zu machen.
+</Callout>
+
+In unserer Beispiel-App werden wir hauptsächlich `div`-Elemente einsetzen.
+Vielleicht kommen später weitere Elemente zum Einsatz, die wir dann bei
+Bedarf kennenlernen und einsetzen.
 
 ## Übung 
 
@@ -62,4 +97,9 @@ Listen kurz zeigen, Wetterdetails als Liste unterhalb der Städtenamen
 (z.B. Sonnenstunden, Niederschlag, Wind, Luftfeuchtigkeit)
 
 b) 
-Falls Zeit ist: komplexes Formular nachbauen?
+Falls Zeit ist: komplexes Formular nachbauen (Filter für Suche in der App oder
+Pizza-Konfigurator mit Codepen)
+
+c)
+Für zuhause im Selbststudium: das interaktive Tutorial 
+[Basic HTML bei freeCodeCamp](https://www.freecodecamp.org/learn/responsive-web-design/) durchspielen (1-2 Stunden?)

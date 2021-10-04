@@ -3,10 +3,10 @@ import Callout from 'nextra-theme-docs/callout'
 # Einleitung
 
 <Callout>
-  **Dauer:** höchstens 45 Minuten
+  **Dauer:** höchstens 35 Minuten
 
-  Vorstellung und Einleitung: 30 Minuten \
-  Fragen und Antworten: höchstens 15 Minuten
+  Vorstellung und Einleitung: 25 Minuten \
+  Fragen und Antworten: höchstens 10 Minuten
 
   - Vorstellung
   - Ablauf und Organisatorisches
@@ -55,7 +55,9 @@ der Webentwicklung kennenlernen. Projektgruppen (2-3 Studierende)
 bauen eine clientseitige Webanwendung mit HTML, CSS und JavaScript 
 (ohne Frameworks).
 
-**Bemerkung: Wir haben nur 33 Vorlesungsstunden…**
+<Callout type="error">
+Wir haben nur 33 Vorlesungsstunden…
+</Callout>
 
 ## Inhalte
 

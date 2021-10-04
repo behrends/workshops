@@ -3,10 +3,10 @@ import Callout from 'nextra-theme-docs/callout'
 # Vorbereitungen
 
 <Callout>
-  **Dauer:** höchstens 45 Minuten \
+  **Dauer:** höchstens 35 Minuten \
   Vorführung / Live Coding: 20 Minuten \
-  Übung: 15 Minuten \
-  Diskussion: 10 Minuten
+  Übung: 10 Minuten \
+  Diskussion: 5 Minuten
 
   **Themen:**
   - Motivation: Beispiel-App zeigen (_whole game teaching_)
@@ -126,26 +126,24 @@ und es gibt nur drei Editoren jeweils für HTML, CSS und JavaScript.
 Dadurch lassen sich einzelne Bestandteile bzw. Komponenten einer
 Webanwendung unabhängig vom Rest der App programmieren.
 
-
 ## Übung
+
+Zu Beginn uns zwischendurch vorführen: Datei `index.html` erstellen und
+mit Text füllen, _Live Server_ starten (_Go Live_).
 
 - VS Code herunterladen und installieren
 - In VS Code die Erweiterung (bzw. _extension_) „_Live Server_“ einrichten
-- Datei `index.html` erstellen und in Projektordner speichern (TODO: Vorführung?)
-- Beliebigen Text in `index.html` eingeben, speichern und Live Server starten
+- Datei `index.html` erstellen und in Projektordner speichern.
+- Beliebigen Text in `index.html` eingeben, speichern und Live Server starten.
 - glitch.com via [glitch.new/blank](https://www.glitch.new/blank) und [codepen.io](https://codepen.io) ausprobieren.
 
 ## Zusammenfassung
 
-- HTML, CSS und JavaScript sind als Frontend-Technologien, die 
-vom Browser ausgeführt werden, Bestandteil jeder Webanwendung
-- Im Backend kommen beliebige andere Sprachen zum Einsatz
-- In dieser Veranstaltung beschränken wir uns aufgrund der wenigen 
-Zeit auf HTML, CSS und JavaScript
-- Mit reinem HTML, CSS und JavaScript lassen sich bereits nicht-triviale
-Anwendungen bauen (siehe Beispiel-App)
-- Für das Live Coding und die Arbeit im Team werden Codepen, Glitch, und
-VS Code empfohlen.
+- HTML, CSS und JavaScript sind als Frontend-Technologien, die vom Browser ausgeführt werden, Bestandteil jeder Webanwendung.
+- Im Backend kommen beliebige andere Sprachen zum Einsatz.
+- In dieser Veranstaltung beschränken wir uns aufgrund der wenigen Zeit auf HTML, CSS und JavaScript.
+- Mit reinem HTML, CSS und JavaScript lassen sich bereits nicht-triviale Anwendungen bauen (siehe Beispiel-App).
+- Für das Live Coding und die Arbeit im Team werden Codepen, Glitch, und VS Code empfohlen.
 
 ## Diskussion
 

@@ -1,6 +1,8 @@
 ## Notes for workshops
 
-Built with [NextJS](https://nextjs.org/) and [Nextra](https://nextra.vercel.app/) by using Git/GitHub as a single source of truth, and [Netlify](https://www.netlify.com) for deployment.
+Built with [NextJS](https://nextjs.org/) and [Nextra](https://nextra.vercel.app/) 
+by using Git/GitHub as a single source of truth, and 
+[Vercel](https://www.vercel.com) for deployment.
 
 ## Licenses 
 
