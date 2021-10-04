@@ -111,8 +111,7 @@ inspiziert werden.
 - [ProgContent: HTML Lernressourcen](https://www.progcontent.com/html-kompakt/lernressourcen) 
 - [Mozilla Developer Network: Introduction to HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML)
 - [devdocs.io](https://devdocs.io/) fasst Dokumentation für viele Technologien zusammen
-- Im Web gibt es z.B. auch praktische _Cheat Sheets_ zum Nachschlagen 
-- Google, StackOverflow, usw. helfen dabei, schnell gute Antworten zu 
-finden 
+- Im Web gibt es viele praktische _Cheat Sheets_ zum Nachschlagen, z.B. zu [HTML bei Codecademy](https://www.codecademy.com/learn/learn-html/modules/learn-html-elements/cheatsheet).
+- [StackOverflow](https://stackoverflow.com) hilft dabei, Antworten zu bestimmten Fragen finden (häufig ist das erste Ergebnis einer Suche eine passende Diskussion bei StackOverflow).
 
 

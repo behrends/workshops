@@ -20,6 +20,29 @@ import Callout from 'nextra-theme-docs/callout'
   **Ziel:** Weitere Elemente besprechen und insbesondere Formulare erstellen
 </Callout>
 
+## Erste grobe App-Idee
+
+```
+Live-Coding beginnt!
+```
+
+Gemeinsam entwickeln wir die Wetter-App. Eine einfache Skizze
+der App-Idee wird auf dem Whiteboard oder Excalidraw entworfen:
+
+- Überschrift
+- Erklärung in Text
+- zweiteilige Liste:
+  - Stadtname
+     - Temperatur
+     - Wetterlage (z.B. „sonnig“)
+     - Wind (z.B. „leichte Böen“)
+- kleines Bild/Icon für das Wetter
+
+Dabei kann zunächst mit `h1`, `p`, `ul`, `li`, `img` in Codepen gearbeitet 
+werden (Komponente). Wir starten in VS Code (alternativ in Codepen/Glitch)
+und übernehmen ggf. das HTML-Grundgerüst von 
+[glitch.new/blank](https://www.glitch.new/blank).
+
 ## Live-Coding: Formular
 
 Stadt der Wetterliste hinzufügen
