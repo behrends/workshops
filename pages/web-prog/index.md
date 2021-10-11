@@ -26,3 +26,7 @@ Lektion wird am Anfang der Lektion beschrieben.
 <Callout type="error" emoji="‼️">
   Die tatsächliche Dauer einer Lektion ermitteln und ggf. anpassen!
 </Callout>
+
+Weitere Informationen zu Inhalten, dem Ablauf und der 
+Prüfungsleistung sind auf der [nächsten Seite](web-prog/HTML/intro) 
+zu finden.

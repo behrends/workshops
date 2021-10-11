@@ -3,12 +3,14 @@ import Callout from 'nextra-theme-docs/callout'
 # Einleitung
 
 <Callout>
-  **Dauer:** TODO
+  **Dauer:** 30 Minuten \
+  Wiederholung und Live Coding
 
   **Themen:**
-  - Todo
+  - CSS allgemein
+  - Aufbau von CSS-Regeln
 
-  **Ziele:** Einstieg ins Thema
+  **Ziele:** In das Thema CSS einsteigen
 </Callout>
 
 ## Rückblick letzter Termin
@@ -19,22 +21,58 @@ Feedback bzw. Fragen zu [Basic HTML bei freeCodeCamp](https://www.freecodecamp.o
 - Wie lange hat es gedauert?
 - War es nützlich?
 
-## TODO: DevTools im Browser
-
-Jeder Browser hat eingebaute Werkzeuge für Entwickler
-(_web developer tools_). Öffnen durch Menü im Browser
-oder Tastenbefehl (z.B. `F12`). 
-
 ```
-Kurze Vorführung der DevTools in Firefox und/oder Chrome
+➔ Kurze Besprechung des Pizza-Konfigurators (Formular)
 ```
 
-```
-Ausprobieren:
-HTML mit View Source und DevTools lernen, indem Elemente
-inspiziert werden.
+<Callout type="warning" emoji="👉">
+HTML haben wir sehr schnell behandelt. Bei Bedarf werden wir im Zusammenhang
+mit CSS und JavaScript zusätzlich einzelne HTML-Elemente besprechen.
+</Callout>
+
+<Callout type="warning">
+Praktische Schnellübersicht der HTML-Elemente in diesem 
+[Cheat sheet bei Codecademy](https://www.codecademy.com/learn/learn-html/modules/learn-html-elements/cheatsheet)
+</Callout>
+
+## Einführung in CSS
+
+CSS steht für „_Cascading Style Sheets_“ und wird verwendet, um die 
+Gestaltung und Darstellung von HTML-Dokumenten zu beeinflussen. 
+
+- _Stylesheets_ sind Dateien, die CSS beinhalten
+- _Cascading_ („kaskadierend“) meint vereinfacht ausgedrückt, dass bestimmte CSS-Regeln Vorrang gegenüber anderen haben können. 
+
+CSS ist im Vergleich zu HTML deutlich umfangreicher und komplexer. 
+Wir werden heute und beim nächsten Termin grundlegende Prinzipien
+und Beispiele von CSS kennenlernen.
+
+Mit CSS werden Regeln zur Gestaltung bestimmter HTML-Elemente definiert. 
+Betrachten wir z.B. folgende CSS-Regel:
+
+```css
+h1 {
+  color: red;
+  text-decoration: underline;
+}
 ```
 
-## Inline-Styles
+Wird diese Regel auf ein HTML-Dokument angewendet (wie das 
+genau geht werden wir noch sehen), dann bewirkt diese, dass 
+Hauptüberschriften (bzw. h1-Elemente) eine rote Schriftfarbe 
+erhalten und unterstrichen dargestellt werden.
 
-Überführung der Elemente in `div`-Elemente mit inline-Styles als erster Schritt?
+```
+➔ Beispiel in Codepen zeigen mit kurzen Bemerkungen zum Aufbau von
+CSS-Regeln und weiteren Eigenschaften (z.B. Schriftgröße)
+```
+
+Weitere allgemeine Infos zu CSS bei 
+[Prog Content](https://www.progcontent.com/css-kompakt/intro).
+
+## Lernressourcen
+
+- [CSS kompakt bei Prog Content](https://www.progcontent.com/css-kompakt)
+- [CSS im MDN &mdash; Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [Learn CSS bei web.dev von Google](https://web.dev/learn/css/)
+
