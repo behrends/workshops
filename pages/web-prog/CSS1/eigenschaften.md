@@ -8,6 +8,7 @@ import Callout from 'nextra-theme-docs/callout'
   **Themen:**
   - Schriften
   - Farben
+  - Werte von Eigenschaften
 
   **Ziele:** Ausblick auf CSS-Eigenschaften geben
 </Callout>
@@ -66,5 +67,23 @@ Verwendung von Eigenschaften besprechen. Durch das
 Web-Projekt lernen wir automatisch einige weitere
 Eigenschaften zur Gestaltung mit CSS.
 </Callout>
+
+## Werte von Eigenschaften
+
+Es gibt Eigenschaften, die aus mehreren Werten bestehen.
+Diese werden durch Leerzeichen voneinander getrennt.
+Folgendes Beispiel zeigt, wie ein Rahmen mit der Dicke
+von 2 Pixeln bestehend aus Punkten in orange um ein 
+Element mit dem `class`-Attribut `weather_location`
+dargestellt werden soll:
+
+```css
+.weather_location {
+  border: 2px dotted orange;
+}
+```
+
+Zu beachten ist, dass Werte von Eigenschaften ohne 
+Anführungszeichen definiert werden.
 
 [Siehe auch Prog Content](https://www.progcontent.com/css-kompakt/eigenschaften)
