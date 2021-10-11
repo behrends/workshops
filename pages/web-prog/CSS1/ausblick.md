@@ -7,13 +7,17 @@ import Callout from 'nextra-theme-docs/callout'
   Ausblick 10 Minuten \
   Übungsaufgabe und Besprechung 35 Minuten
 
-  **Themen:**
-  - Todo
-
   **Ziele:** CSS zur Gestaltung anwenden
 </Callout>
 
+## Ausblick
+
+In [CSS Teil 2](/web-prog/CSS2/kaskade) werden wir u.a. 
+das Box-Modell und das FlexBox-Layout kennenlernen, sodass 
+wir neben der Gestaltung auch die Möglichkeit erhalten, 
+Elemente flexibel in einem Layout zu positionieren.
+
 ## „Hausaufgabe“ und Projekt
 
-- Aufgabe zu CSS: etwas nachbauen
-- Gruppen bilden und grobe App-Ideen entwickeln
+- Aufgabe zu CSS: etwas nachbauen (entweder Vorschlag am Whiteboard oder die Wetter-App)
+- Gruppen bilden und grobe App-Ideen diskutieren
