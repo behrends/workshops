@@ -97,7 +97,7 @@ Listen kurz zeigen, Wetterdetails als Liste unterhalb der Städtenamen
 (z.B. Sonnenstunden, Niederschlag, Wind, Luftfeuchtigkeit)
 
 b) 
-Falls Zeit ist: komplexes Formular nachbauen (Filter für Suche in der App oder
+Falls Zeit übrig ist: komplexes Formular nachbauen (Filter für Suche in der App oder
 Pizza-Konfigurator mit Codepen)
 
 c)

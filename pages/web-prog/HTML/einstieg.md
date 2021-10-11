@@ -3,8 +3,8 @@ import Callout from 'nextra-theme-docs/callout'
 # Einstieg in HTML
 
 <Callout>
-  **Dauer:** 25 Minuten \
-  Vorführung / Live Coding: 25 Minuten
+  **Dauer:** 30 Minuten \
+  Vorführung / Live Coding: 30 Minuten
 
   **Themen:**
 
@@ -89,29 +89,13 @@ HTML-Dokumente auf Korrektheit validieren: https://validator.w3.org/
 ```
 
 
-## DevTools im Browser
-
-Jeder Browser hat eingebaute Werkzeuge für Entwickler
-(_web developer tools_). Öffnen durch Menü im Browser
-oder Tastenbefehl (z.B. `F12`). 
-
-```
-Kurze Vorführung der DevTools in Firefox und/oder Chrome
-```
-
-```
-Ausprobieren:
-HTML mit View Source und DevTools lernen, indem Elemente
-inspiziert werden.
-```
-
 ### Lernressourcen 
 
 - [ProgContent: HTML kompakt](https://progcontent.com/html-kompakt) 
 - [ProgContent: HTML Lernressourcen](https://www.progcontent.com/html-kompakt/lernressourcen) 
 - [Mozilla Developer Network: Introduction to HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML)
-- [devdocs.io](https://devdocs.io/) fasst Dokumentation für viele Technologien zusammen
-- Im Web gibt es viele praktische _Cheat Sheets_ zum Nachschlagen, z.B. zu [HTML bei Codecademy](https://www.codecademy.com/learn/learn-html/modules/learn-html-elements/cheatsheet).
+- [devdocs.io](https://devdocs.io/) fasst Dokumentation für viele Technologien zusammen.
+- Im Web gibt es viele praktische _Cheat Sheets_ („Spickzettel“) zum Nachschlagen, z.B. zu [HTML bei Codecademy](https://www.codecademy.com/learn/learn-html/modules/learn-html-elements/cheatsheet). Nützlich ist auch diese große [Sammlung von Cheat Sheets](https://codehouse-app.netlify.app) zu verschiedenen Technologien.
 - [StackOverflow](https://stackoverflow.com) hilft dabei, Antworten zu bestimmten Fragen finden (häufig ist das erste Ergebnis einer Suche eine passende Diskussion bei StackOverflow).
 
 

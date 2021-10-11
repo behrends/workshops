@@ -87,24 +87,6 @@ der Cloud, für die nur eine Internetverbindung und ein Browser benötigt wird.
 Welche Entwicklungsumgebungen setzen Sie gerne ein (lokal/cloud)?
 </Callout>
 
-### Lokal auf dem eigenen Rechner (z.B. VS Code)
-
-Lediglich ein Texteditor wird benötigt. Empfohlen wird der flexible und
-kostenlose Editor Visual Studio Code von Microsoft (VS Code), der von
-vielen Webentwicklern eingesetzt wird. Es können aber auch andere Editoren
-verwendet werden. VS Code wird empfohlen, da mit diesem das Live Coding
-vorgeführt wird. 
-
-```
-Vorführung: VS Code mit Live Server und der Beispiel-App, 
-Ablauf der Entwicklung und des LiveCodings (mitmachen!)
-```
-
-[VS Code](https://code.visualstudio.com) kann in allen Betriebssystemen
-installiert werden. Eine nützliche Erweiterung ist der _Live Server_,
-mit dem lokale Web-Projekte lokal gestartet und in einem Browser 
-ausgeführt werden können.
-
 ### Webentwicklung in der Cloud
 
 Es gibt zahlreiche Programmierumgebungen für Webentwickler in
@@ -126,9 +108,29 @@ und es gibt nur drei Editoren jeweils für HTML, CSS und JavaScript.
 Dadurch lassen sich einzelne Bestandteile bzw. Komponenten einer
 Webanwendung unabhängig vom Rest der App programmieren.
 
+### Lokal auf dem eigenen Rechner (z.B. VS Code)
+
+Lediglich ein Texteditor wird benötigt. Empfohlen wird der flexible und
+kostenlose Editor Visual Studio Code von Microsoft (VS Code), der von
+vielen Webentwicklern eingesetzt wird. Es können aber auch andere Editoren
+verwendet werden. VS Code wird empfohlen, da mit diesem das Live Coding
+vorgeführt wird. 
+
+```
+Vorführung: VS Code mit Live Server und der Beispiel-App, 
+Ablauf der Entwicklung und des LiveCodings (mitmachen!)
+```
+
+[VS Code](https://code.visualstudio.com) kann in allen Betriebssystemen
+installiert werden. Eine nützliche Erweiterung ist der _Live Server_,
+mit dem lokale Web-Projekte lokal gestartet und in einem Browser 
+ausgeführt werden können.
+
+
 ## Übung
 
-Zu Beginn uns zwischendurch vorführen: Datei `index.html` erstellen und
+Zu Beginn und ggf. zwischendurch nochmals vorführen 
+(falls Fragen/Probleme auftauchen): Datei `index.html` erstellen und
 mit Text füllen, _Live Server_ starten (_Go Live_).
 
 - VS Code herunterladen und installieren
