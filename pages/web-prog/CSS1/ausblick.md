@@ -20,4 +20,5 @@ Elemente flexibel in einem Layout zu positionieren.
 ## „Hausaufgabe“ und Projekt
 
 - Aufgabe zu CSS: etwas nachbauen (entweder Vorschlag am Whiteboard oder die Wetter-App)
+- [Basic CSS auf freeCodeCamp (erste Hälfte der Lektionen)](https://www.freecodecamp.org/learn/responsive-web-design/#basic-css)
 - Gruppen bilden und grobe App-Ideen diskutieren
