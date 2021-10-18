@@ -6,9 +6,10 @@ import Callout from 'nextra-theme-docs/callout'
   **Dauer:** 30 Minuten
 
   **Themen:**
-  - Todo
+  - Kaskade (Reihenfolge in der Anwendung der Regel)
+  - Spezifizität (Der spezifischste Selektor „gewinnt“)
 
-  **Ziele:** Einstieg ins Thema
+  **Ziel:** Grundlegendes Verständnis der Anwendung von CSS-Regeln erhalten
 </Callout>
 
 Oft werden mehrere Stylesheets verwendet und es kann auch sein, dass die 
@@ -32,8 +33,50 @@ Die Reihenfolge der Anwendung wird durch die Anordnung der Regeln in
 CSS-Dateien oder Einbindung von Stylesheets durch link-Elemente im 
 HTML-Dokument bestimmt.
 
-<Callout type="warning">
-Einfaches Beispiel siehe 
+<Callout type="warning" emoji="👨🏻‍💻">
+Einfaches Beispiel mit mehreren Styles für `h1`-Elemente siehe 
 [ProgContent zu Kaskade](https://www.progcontent.com/css-kompakt/kaskade) 
 oder Codepen.
 </Callout>
+
+## Spezifizität
+
+Die Spezifizität (_specificity_) bestimmt, wie spezifisch ein 
+Selektor ist. Dabei spielt es anders als bei der Kaskade keine Rolle, 
+wo die Regel in der Reihenfolge der Deklarationen steht.
+
+Auch hier wieder ein vereinfachter Merksatz:
+
+> Je spezifischer der Selektor, desto größer die Priorität dieser 
+> Regel — egal wo diese Regeln in den Stylesheets deklariert wird.
+
+Die Spezifizität ist bei der Vielzahl der möglichen Selektoren ein Recht komplexes Thema, von dem wir hier nur die Grundprinzipien besprechen. Wir betrachten hier nur folgendes:
+
+- `id`-Selektoren sind stärker als class-Selektoren
+- `class`-Selektoren sind stärker als Elementtyp-Selektoren
+
+<Callout type="warning" emoji="👨🏻‍💻">
+Ein Beispiel mit mehreren Styles für siehe 
+[ProgContent zu Spezifizität](https://www.progcontent.com/css-kompakt/kaskade) 
+oder schrittweise zeigen mit `class` und `id`-Selektoren auf Codepen.
+</Callout>
+
+Mehr zu den konkreten Berechnungen der Spezifizität beim 
+[Mozilla Developer Network (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity).
+
+**Bemerkung**: CSS in `style`-Attributen direkt an HTML-Elementen haben 
+immer Vorrang bzw. höchste Priorität.
+
+## Zusammenfassung
+
+**Kaskade** ergibt sich aus der Reihenfolge in der Anwendung einer Regel.
+
+**Spezifizität** bedeutet, dass der spezifischste Selektor „gewinnt“ und
+somit eine höhere Priorität gegenüber anderen Selektoren hat, falls diese 
+die gleichen Elemente betreffen.
+
+Es gibt viele weitere Details in Bezug auf die Anwendung von CSS-Regeln.
+Für den Einstieg in die Arbeit mit CSS genügt ein grundlegendes Verständnis
+dieser Konzepte &mdash; insbesondere, wenn die Webanwendung nicht zu komplex 
+ist. Im Laufe der praktischen Erfahrung mit CSS können bei Bedarf zusätzliche 
+Aspekte vertieft werden.
