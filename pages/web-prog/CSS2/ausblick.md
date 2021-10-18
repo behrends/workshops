@@ -11,6 +11,10 @@ import Callout from 'nextra-theme-docs/callout'
   **Ziele:** Einstieg ins Thema
 </Callout>
 
+## Übung
+
+Mondrian-Muster mit Flex-Box gestalten?
+
 ## Mockups 
 
 - Papier

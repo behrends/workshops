@@ -10,3 +10,9 @@ import Callout from 'nextra-theme-docs/callout'
 
   **Ziele:** Einstieg ins Thema
 </Callout>
+
+
+
+## Ausblick Grid-Layout
+
+TODO: Link auf MDN oder web.dev?

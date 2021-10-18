@@ -3,29 +3,106 @@ import Callout from 'nextra-theme-docs/callout'
 # Das Box-Modell
 
 <Callout>
-  **Dauer:** 30 Minuten
+  **Dauer:** 45 Minuten \
+  Vorführung: 30 Minuten \
+  Gemeinsames Coding an der Wetter-App: 15 Minuten
 
   **Themen:**
-  - Todo
+  - Box-Modell: HTML-Elemente sind rechteckige „Boxen“
+  - Boxen haben Ränder und Abstände nach innen und außen
 
-  **Ziele:** Einstieg ins Thema
+  **Ziele:** 
+  - Verständnis des Box-Modells (HTML aus Sicht von CSS)
+  - Entwicklerwerkzeuge (_dev tools_) im Browser kennenlernen
+</Callout>
+
+Aus CSS-Sicht sind alle HTML-Elemente rechteckige „Boxen“ mit Rändern und 
+Abständen nach außen und innen. Dieses Konzept wird in CSS „Box-Modell“
+(_box model_) genannt.
+
+![Box-Modell](/images/web-prog/box-model.png)
+
+## Rand
+
+Verschiedene CSS-Eigenschaften für den Rand:
+
+- `border-width` bestimmt die Dicke des Randes (Angabe in Pixeln)
+- `border-style` steht für die Art des Randes (durchgehende Linie, gestrichelt, usw.)
+- `border-color` legt die Farbe des Randes fest
+- `border-radius` wird für runde Ecken genutzt
+
+<Callout type="warning" emoji="👨🏻‍💻">
+Beispiele siehe [ProgContent zu Box-Modell](https://www.progcontent.com/css-kompakt/box-model) 
+oder schrittweise auf Codepen entwickeln.
+</Callout>
+
+Die folgenden Eigenschaften ergeben einen schwarzen, gestrichelten Rand, 
+der 3 Pixel dick ist:
+
+```
+border-width: 3px;
+border-style: dashed;
+border-color: black;
+```
+
+was wiederum so zusammengefasst werden kann (mit dem gleichen Ergebnis):
+
+```
+border: 3px dashed black;
+```
+
+<Callout type="warning">
+&xrarr; In CSS gibt es mehrere solcher kombinierten Eigenschaften.
+</Callout>
+
+## Abstände
+
+Bei einer Box gibt es den Außenabstand (`margin`) und den Innenabstand 
+(`padding`) &mdash; siehe Abbildung am Anfang. Zu beiden Eigenschaften 
+werden meistens Werte in Pixeln angegeben. `margin` und `padding`
+betreffen gleichermaßen alle vier Seiten der Box.
+
+Sowohl für `margin` (Abstand außerhalb der Box) also auch für `padding`
+(Abstand des Inhalts einer Box zum Rand der Box) können mit 
+`padding-top/-bottom/-left/-right` bzw. `margin-top/-bottom/-left/-right`
+die Abstände an einzelnen Seiten festgelegt werden.
+
+<Callout type="warning">
+Etwas ausführlichere Beschreibung auf 
+[ProgContent](https://www.progcontent.com/css-kompakt/box-model#abstände) 
+</Callout>
+
+### Hinweis zum vertikalen Abstand
+
+Angenommen es gibt zwei Boxen, die direkt untereinander dargestellt werden. 
+Wenn die obere Box einen unteren Außenabstand mit margin-bottom definiert und die 
+untere Box mit margin-top einen äußeren Abstand nach oben hat, dann werden diese 
+beiden vertikalen Abstände nicht addiert, sondern nur der größere der beiden 
+Abstände wirkt sich aus.
+
+<Callout type="warning">
+(Vertikale) Abstände können durch Ausprobieren z.B. auf 
+[Codepen](https://codepen.io/pen/) direkt nachvollzogen werden.
 </Callout>
 
 ## DevTools im Browser
 
 Jeder Browser hat eingebaute Werkzeuge für Entwickler
 (_web developer tools_). Öffnen durch Menü im Browser
-oder Tastenbefehl (z.B. `F12`). 
+oder Tastenbefehl (z.B. `F12` in den meisten Browsern). 
 
 Hiermit kann (neben vielen anderen Dingen) das Box-Modell
-eines HTML-Fragments visuell nachvollzogen werden.
+eines HTML-Fragments visuell nachvollzogen werden. Dazu
+werden einzelne Elemente inspiziert (_inspect element_),
+sodass Abstände und Ränder sichtbar werden.
 
 ```
 Kurze Vorführung der DevTools in Firefox und/oder Chrome
 ```
 
-```
-Ausprobieren:
-HTML mit View Source und DevTools lernen, indem Elemente
-inspiziert werden.
-```
+## Weiterentwicklung der Beispiel-App
+
+<Callout type="warning" emoji="👨🏻‍💻">
+Die Wettereinträge und das Formular werden mit Abständen und Rändern
+ausgestattet. 
+</Callout>
