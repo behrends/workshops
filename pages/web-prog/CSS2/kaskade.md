@@ -26,3 +26,14 @@ Dazu ein vereinfachter Merksatz:
 
 > Bei gleichstarken Selektoren hat die Regel Vorrang, die als letztes in der 
 > Reihenfolge der Anwendung ist.
+
+Mit „gleichstark“ ist hier die _Spezifizität_ gemeint (mehr dazu unten). 
+Die Reihenfolge der Anwendung wird durch die Anordnung der Regeln in 
+CSS-Dateien oder Einbindung von Stylesheets durch link-Elemente im 
+HTML-Dokument bestimmt.
+
+<Callout type="warning">
+Einfaches Beispiel siehe 
+[ProgContent zu Kaskade](https://www.progcontent.com/css-kompakt/kaskade) 
+oder Codepen.
+</Callout>
