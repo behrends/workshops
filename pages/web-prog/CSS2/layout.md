@@ -3,9 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Layout mit FlexBox
 
 <Callout>
-  **Dauer:** 75 Minuten \
-  Vorführung: 45 Minuten \
-  Übung und Besprechung: 30 Minuten
+  **Dauer:** 45 Minuten
 
   **Thema:** FlexBox: Ausrichtung und Anordnung
 
@@ -49,7 +47,7 @@ Verlauf der Haupt- und Querachse mit `flex-direction`, `justify-content`
 und `align-items` am Whiteboard darstellen.
 </Callout> 
 
-## Anordnung mit justify-content und align-items
+## Anordnung mit `justify-content` und `align-items`
 
 Mit den Eigenschaften `justify-content` und `align-items` kann die 
 konkrete Anordnung der Elemente bestimmt werden für 
@@ -78,16 +76,16 @@ die nächste Zeile bzw. Spalte erreicht werden:
 flex-wrap: wrap;
 ```
 
-## Ausblick Grid-Layout und position
+## Weiteres zu FlexBox 
+
+Wir haben oben die wichtigsten Eigenschaften des FlexBox-Layouts besprochen:
+
+- Aktivierung mit `display: flex;`
+- Ausrichtung der Hauptachse mit `flex-direction: …;`
+- Anordnung auf der Hauptachse mit `justify-content: …;`
+- Anordnung auf der Querachse mit `align-items: …;`
+- Umbrüche mit `flex-wrap: wrap;`
 
 Mehr zu FlexBox im Mozilla Developer Network (MDN) 
 [hier](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) und 
 [hier](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout).
-
-Eine ähnlich mächtige Alternative zum FlexBox-Layout ist das [GridLayout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout).
-
-Mit der Eigenschaft `position` kann die Positionierung einzelner Elemente
-bestimmt werden, mehr dazu bei [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/position).
-
-## Übung
-
