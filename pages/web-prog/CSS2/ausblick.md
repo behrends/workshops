@@ -8,6 +8,8 @@ import Callout from 'nextra-theme-docs/callout'
 
   **Themen:**
   - Ausblick auf weiterführende Themen
+  - Empfohlenes Selbststudium HTML/CSS
+  - Gruppen entwerfen Ideen für das Projekt
 </Callout>
 
 ## Ausblick
@@ -50,11 +52,44 @@ es verschiedene Ansätze und Tools:
 - [Figma](https://www.figma.com)
 - es gibt viele weitere Tools…
 
-## Ausblick und „Hausaufgabe“
+<Callout type="warning">
+Es gibt unterschiedliche Vorgehensweisen für Entwürfe von Webanwendungen:
 
-Beim nächsten (oder übernächsten) Termin werden die App-Ideen 
-vorgestellt. Jede Gruppe entwirft Mockups und präsentiert diese.
+- Skizzen auf Papier &xrarr; statischer Prototyp mit HTML und CSS
+- Skizzen auf Papier/Whiteboard &xrarr; Mockups mit Excalidraw &xrarr; statischer Prototyp mit HTML und CSS
+- Skizzen auf Papier &xrarr; Mockups mit Excalidraw &xrarr; Klick-Prototyp mit Figma &xrarr; Prototyp mit HTML und CSS
+
+Manche Teams erstellen möglichst bald einen statischen Prototypen
+mit HTML und CSS während es auch Teams gibt, die zunächst komplexere
+Klick-Prototypen in einem geeigneten Tool erstellen bevor die
+Umsetzung in HTML, CSS und JavaScript erfolgt.
+</Callout>
+
+## Selbststudium HTML und CSS
 
 Zur Vertiefung der Themen HTML und CSS können weiterhin auf 
-die interaktiven Lektionen auf [freeCodeCamp](https://freeCodeCamp.org)
-genutzt werden.
+die interaktiven Lektionen im Kurs [Responsive Web Design bei freeCodeCamp](https://www.freecodecamp.org/learn/responsive-web-design/)
+genutzt werden:
+
+- [Basic CSS (restliche Lektionen)](https://www.freecodecamp.org/learn/responsive-web-design/#basic-css)
+- [Applied Visual Design](https://www.freecodecamp.org/learn/responsive-web-design/#applied-visual-design)
+- [CSS Flexbox](https://www.freecodecamp.org/learn/responsive-web-design/#css-flexbox)
+
+## Weiterer Ablauf
+
+Die restliche Zeit heute nutzen die Gruppen für die Arbeit
+an Ihren Projektideen (erste Skizzen, Mockups). Der Dozent 
+steht für Fragen zur Verfügung.
+
+Beim nächsten Termin stellt jede Gruppe ihre Projektidee kurz
+dem Dozenten vor, damit die Idee bestätigt wird und die Gruppe
+sich dann auf die Vorstellung vorbereiten kann.
+
+Am übernächsten Termin präsentiert jede Gruppe 10-15 Minuten
+lang ihre Projektidee (Details dazu folgen noch).
+
+<Callout type="warning">
+&xrarr; Jede Gruppe schickt dem Dozenten eine E-Mail mit den Namen
+der beteiligten Personen und falls bekannt eine kurze Beschreibung
+der Projektidee.
+</Callout>

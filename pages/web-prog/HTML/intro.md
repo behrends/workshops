@@ -67,8 +67,8 @@ Themen geplant:
 - Einleitung, HTML (heute!)
 - CSS Teil 1
 - CSS Teil 2 (u.a. FlexBox)
-- Vorstellung App-Idee, JavaScript Teil 1
-- JavaScript (u.a. DOM) Teil 2
+- JavaScript Teil 1, Besprechung App-Idee
+- JavaScript (u.a. DOM) Teil 2, Vorstellung App-Idee <br/> (idealerweise Termin mit 5 Vorlesungsstunden)
 - JavaScript (u.a. Async) Teil 3
 - Verschiedenes: JSON, HTTP, …
 - Präsentation der Projekte, Abschluss und Ausblick
