@@ -8,9 +8,19 @@ import Callout from 'nextra-theme-docs/callout'
   Besprechung: 15 Minuten
 </Callout>
 
-Kachel-Muster bzw. Mondrian-Gemälde mit Flex-Box nachbauen.
+Bauen Sie dieses Kachelmuster bzw. Gemälde von Piet Mondrian mit einem 
+Flexbox-Layout nach:
 
-TODO: Vorgaben und Beispiele
+![Mondrian Kacheln](/images/web-prog/mondrian.jpg)
 
+Quelle: [Wikipedia](https://en.wikipedia.org/wiki/Piet_Mondrian)
 
+<Callout type="warning">
+Bemerkungen:
+
+- Sie können dafür ein neues Projekt in VS Code erstellen oder [Codepen](https://codepen.io/pen) verwenden.
+- Einzelne Kacheln können durch `div`-Elemente mit fester Breite (CSS-Eigenschaft `width`) und Höhe (`height`) definiert werden.
+- Die Hintergrundfarbe wird mit `background-color` bestimmt.
+- Denken Sie auch an die Ränder der Boxen.
+</Callout>
 
