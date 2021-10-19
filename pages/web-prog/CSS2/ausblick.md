@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Ausblick und nächste Schritte
 
 <Callout>
-  **Dauer:** 15 Minuten \
+  **Dauer:** 25 Minuten \
   restliche Zeit: Arbeit in den Gruppen
 
   **Themen:**

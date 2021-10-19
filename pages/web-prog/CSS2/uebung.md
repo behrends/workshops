@@ -3,9 +3,9 @@ import Callout from 'nextra-theme-docs/callout'
 # Übung zu FlexBox
 
 <Callout>
-  **Dauer:** 45 Minuten \
-  Übung: 30 Minuten \
-  Besprechung: 15 Minuten
+  **Dauer:** 35 Minuten \
+  Übung: 25 Minuten \
+  Besprechung: 10 Minuten
 </Callout>
 
 Bauen Sie dieses Kachelmuster bzw. Gemälde von Piet Mondrian mit einem 
