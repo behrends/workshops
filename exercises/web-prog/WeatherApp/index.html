@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WDS20a</title>
+
+    <!-- CSS Stylesheet einbinden -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Wetter-App</h1>
+    <h2>Beispiel-App in Web-Programmieren WDS20a</h2>
+
+    <div>
+      <select>
+        <option>Hamburg</option>
+        <option>Paris</option>
+        <option>New York</option>
+        <option>Sydney</option>
+      </select>
+
+      <br />
+      <br />
+
+      <input type="text" placeholder="Ort hinzufügen" />
+      <button id="search_btn">Suchen</button>
+
+      <br />
+    </div>
+
+    <div id="temp_control">
+      <label>
+        Fahrenheit
+        <input type="radio" name="temp" />
+      </label>
+
+      Celsius
+      <input type="radio" name="temp" />
+    </div>
+
+    <div id="weather_list">
+      <div class="weather_location">
+        <div class="location">Basel</div>
+        <div class="weather_info">
+          <span>
+            <span class="temperature">14 Grad</span>
+            <span class="condition">heiter</span>
+          </span>
+          <!-- Bild mit URL (Web-Adresse) im Internet referenzieren -->
+          <img
+            src="https://cdn.glitch.me/310b328a-0b18-4be3-89e5-0a8141588308%2Fsun-line.png?v=1633440374363"
+            alt="Sonne"
+          />
+        </div>
+      </div>
+
+      <div class="weather_location">
+        <div class="location">Berlin</div>
+        <div class="weather_info">
+          <span>
+            <span class="temperature">14 Grad</span>
+            <span class="condition">heiter</span>
+          </span>
+          <!-- Bild mit URL (Web-Adresse) im Internet referenzieren -->
+          <img
+            src="https://cdn.glitch.me/310b328a-0b18-4be3-89e5-0a8141588308%2Fsun-line.png?v=1633440374363"
+            alt="Sonne"
+          />
+        </div>
+      </div>
+
+      <div class="weather_location">
+        <div class="location">London</div>
+        <div class="weather_info">
+          <span>
+            <span class="temperature">14 Grad</span>
+            <span class="condition">heiter</span>
+          </span>
+          <!-- Bild mit URL (Web-Adresse) im Internet referenzieren -->
+          <img
+            src="https://cdn.glitch.me/310b328a-0b18-4be3-89e5-0a8141588308%2Fsun-line.png?v=1633440374363"
+            alt="Sonne"
+          />
+        </div>
+      </div>
+
+      <div class="weather_location">
+        <div class="location">Madrid</div>
+        <div class="weather_info">
+          <span>
+            <span class="temperature">14 Grad</span>
+            <span class="condition">heiter</span>
+          </span>
+          <!-- Bild mit URL (Web-Adresse) im Internet referenzieren -->
+          <img
+            src="https://cdn.glitch.me/310b328a-0b18-4be3-89e5-0a8141588308%2Fsun-line.png?v=1633440374363"
+            alt="Sonne"
+          />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
