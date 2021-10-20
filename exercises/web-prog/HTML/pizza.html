@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PIZZA</title>
+  </head>
+  <body>
+    <h1>Pizza-Konfigurator</h1>
+
+    <h3>Größe</h3>
+    <label> 
+      Klein
+      <input type="radio" name="size" value="small" />
+    </label>
+    <label>
+      Normal
+      <input type="radio" name="size" value="normal" checked/>
+    </label>
+    <label>
+      Familienpizza
+      <input type="radio" name="size" value="family"/>
+    </label>
+
+    <br/>
+    <br/>
+
+    <h3>Belege</h3>
+
+    <label>
+      Oliven
+      <input type="checkbox" value="olives"/>
+    </label>
+    <label>
+      Champignons
+      <input type="checkbox" value="mushrooms"/>
+    </label>
+    <label>
+      Gorgonzola
+      <input type="checkbox" value="gorgonzola"/>
+    </label>
+    <label>
+      Chili
+      <input type="checkbox" value="chili"/>
+    </label>
+
+    <br/>
+    <br/>
+
+    <label>
+      Lieferort:
+    <select>
+      <option>Lörrach</option>
+      <option>Weil</option>
+      <option>Basel</option>
+    </select>
+    </label>
+
+    <br/>
+    <br/>
+
+    <input type="text" placeholder="Besondere Wünsche"/>
+
+    <button>Bestellung abschicken</button>
+  </body>
+</html>
