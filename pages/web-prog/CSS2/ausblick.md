@@ -30,6 +30,11 @@ Styles, Layouts und UI-Komponenten definieren. Beliebte Beispiele:
 - [tailwind](https://tailwindcss.com)
 - [Bootstrap](https://getbootstrap.com)
 
+Mit [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
+ist es möglich, eigene HTML-Elemente bzw. -Tags zu erstellen. Es gibt bereits
+Frameworks, die eine Sammlung von fertigen Webkomponenten bereitstellen,
+siehe z.B. [Shoelace](https://shoelace.style/).
+
 **Bemerkung:** 
 Wir werden keine Frameworks in der Beispiel-App und im Projekt 
 einsetzen, da wir zunächst die Prinzipien CSS grundlegend lernen wollen.
