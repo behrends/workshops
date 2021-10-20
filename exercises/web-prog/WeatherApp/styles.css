@@ -1,11 +1,13 @@
-/* Elementselektor, hier body */
 body {
   font-family: sans-serif;
 }
 
-/* id-Selektor */
-#search_btn {
-  background-color: lightskyblue;
+#add_locations {
+  margin-bottom: 20px;
+}
+
+#select_locations {
+  margin-bottom: 10px;
 }
 
 #temp_control {
@@ -19,7 +21,6 @@ body {
   flex-wrap: wrap;
 }
 
-/* class-Selektor */
 .weather_location {
   border: 2px solid silver;
   border-radius: 4px;
@@ -38,6 +39,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.weather_img {
+  width: 24px;
+  height: 24px;
 }
 
 .temperature {

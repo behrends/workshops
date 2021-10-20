@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
   <head>
     <title>WDS20a</title>
-
-    <!-- CSS Stylesheet einbinden -->
+    <meta charset="utf-8" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <h1>Wetter-App</h1>
-    <h2>Beispiel-App in Web-Programmieren WDS20a</h2>
 
-    <div>
-      <select>
-        <option>Hamburg</option>
-        <option>Paris</option>
-        <option>New York</option>
-        <option>Sydney</option>
-      </select>
+    <div id="add_locations">
+      <div id="select_locations">
+        <label>
+          Beispiel-Orte:
+          <select>
+            <option>Hamburg</option>
+            <option>Paris</option>
+            <option>New York</option>
+            <option>Sydney</option>
+          </select>
+        </label>
+      </div>
 
-      <br />
-      <br />
-
-      <input type="text" placeholder="Ort hinzufügen" />
-      <button id="search_btn">Suchen</button>
-
-      <br />
+      <div id="search_locations">
+        <input type="text" placeholder="Ort hinzufügen" />
+        <button id="search_btn">Suchen</button>
+      </div>
     </div>
 
     <div id="temp_control">
@@ -42,13 +42,14 @@
         <div class="location">Basel</div>
         <div class="weather_info">
           <span>
-            <span class="temperature">14 Grad</span>
-            <span class="condition">heiter</span>
+            <span class="temperature">12 Grad</span>
+            <span class="condition">bewölkt</span>
           </span>
           <!-- Bild mit URL (Web-Adresse) im Internet referenzieren -->
           <img
-            src="https://cdn.glitch.me/310b328a-0b18-4be3-89e5-0a8141588308%2Fsun-line.png?v=1633440374363"
-            alt="Sonne"
+            class="weather_img"
+            src="https://cdn.glitch.com/c569e324-22c3-491c-ab27-94a3498d6207%2Fcloudy-line.png?v=1633008253459"
+            alt="Wolken"
           />
         </div>
       </div>
@@ -62,8 +63,9 @@
           </span>
           <!-- Bild mit URL (Web-Adresse) im Internet referenzieren -->
           <img
-            src="https://cdn.glitch.me/310b328a-0b18-4be3-89e5-0a8141588308%2Fsun-line.png?v=1633440374363"
-            alt="Sonne"
+            class="weather_img"
+            src="https://cdn.glitch.me/c569e324-22c3-491c-ab27-94a3498d6207%2Fsun-cloudy-line.png?v=1634724998045"
+            alt="Heiter"
           />
         </div>
       </div>
@@ -72,13 +74,14 @@
         <div class="location">London</div>
         <div class="weather_info">
           <span>
-            <span class="temperature">14 Grad</span>
-            <span class="condition">heiter</span>
+            <span class="temperature">8 Grad</span>
+            <span class="condition">regnerisch</span>
           </span>
           <!-- Bild mit URL (Web-Adresse) im Internet referenzieren -->
           <img
-            src="https://cdn.glitch.me/310b328a-0b18-4be3-89e5-0a8141588308%2Fsun-line.png?v=1633440374363"
-            alt="Sonne"
+            class="weather_img"
+            src="https://cdn.glitch.com/c569e324-22c3-491c-ab27-94a3498d6207%2Fshowers-line.png?v=1633008562834"
+            alt="Regen"
           />
         </div>
       </div>
@@ -87,12 +90,13 @@
         <div class="location">Madrid</div>
         <div class="weather_info">
           <span>
-            <span class="temperature">14 Grad</span>
-            <span class="condition">heiter</span>
+            <span class="temperature">19 Grad</span>
+            <span class="condition">sonnig</span>
           </span>
           <!-- Bild mit URL (Web-Adresse) im Internet referenzieren -->
           <img
-            src="https://cdn.glitch.me/310b328a-0b18-4be3-89e5-0a8141588308%2Fsun-line.png?v=1633440374363"
+            class="weather_img"
+            src="https://cdn.glitch.com/c569e324-22c3-491c-ab27-94a3498d6207%2Fsun-line.png?v=1633008214083"
             alt="Sonne"
           />
         </div>
