@@ -21,6 +21,9 @@ Lektion wird am Anfang der Lektion beschrieben.
   eine Beispiel-App (Wetter, Notizen, Filme, usw.) von Anfang 
   entwickeln und die relevanten Konzepte mit den Inhalten 
   dieser Seiten abgleichen.
+
+  Der Code der Beispiel-App und Lösungen zu Übungen finden
+  sich im Ordner `exercises` des [git-Repositories](https://github.com/behrends/workshops).
 </Callout>
 
 <Callout type="error" emoji="‼️">
