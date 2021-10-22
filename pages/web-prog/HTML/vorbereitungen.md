@@ -126,6 +126,7 @@ installiert werden. Eine nützliche Erweiterung ist der _Live Server_,
 mit dem lokale Web-Projekte lokal gestartet und in einem Browser 
 ausgeführt werden können.
 
+VS Code im Browser: [vscode.dev](https://vscode.dev/)
 
 ## Übung
 
