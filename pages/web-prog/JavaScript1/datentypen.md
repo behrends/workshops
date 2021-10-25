@@ -1,0 +1,130 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Datentypen / Operatoren
+
+<Callout>
+  **Dauer:** 20 Minuten
+
+  **Themen:**
+  - JavaScript hat wenige relevante Datentypen
+  - Operatoren funktionieren wie in C, C++, C# und Java
+</Callout>
+
+# Datentypen
+
+Folgende Datentypen in JavaScript sind hier relevant:
+
+- `number`
+- `string`
+- `boolean`
+- `object`
+- `undefined`
+- `null`
+
+## number
+
+Der Typ `number` umfasst ganze Zahlen (z.B. `123`) und 
+Gleitkommazahlen (z.B. `3.1415`). Es gibt also keinen 
+besonderen Datentyp für Gleitkommazahlen.
+
+## string
+
+Zeichenketten bzw. Strings werden mit `"`, `'` oder `` ` `` 
+umgeben. Hier werden Strings hauptsächlich mit einfachen 
+Anführungszeichen angegeben (also `'`). Mit Template-Strings,
+die mit `` ` `` umgeben werden, lassen sich Zeichenketten 
+dynamisch durch Interpolation von JavaScript-Ausdrücken erstellen. 
+Dabei werden die interpolierten Ausdrücke in
+`${ ... }` angegeben:
+
+```js
+const firstName = 'John';
+const lastName = 'Doe';
+
+console.log(`Full name: ${firstName} ${lastName}`);
+```
+
+Dies ist manchmal eleganter oder kompakter als die String-Konkatenation mit `+`.
+
+## boolean
+
+Die Wahrheitswerte `true` und `false` sind 
+die einzigen möglichen Werte von `boolean`.
+
+<Callout type="warning">
+Die Werte werden anders als in Python klein geschrieben.
+</Callout>
+
+## object
+
+Zu `object` zählen Objekte, Arrays und Funktionen. 
+
+Dazu folgen eigene Lektionen.
+
+## null
+
+`null` ist ein Nullwert, der nüztlich ist, um nicht vorhandene oder 
+noch nicht gesetzte Werte auszudrücken. Dazu ein Beispiel:
+
+```js
+// deklariere Objekt mit lastName = null (sozusagen unbekannt)
+const joe = { firstName: 'John', lastName: null };
+
+// ... später erhält die Eigenschaft lastName einen konkreten Wert:
+joe.lastName = 'Smith';
+```
+
+## undefined
+
+`undefined` ist der Wert von nicht initialisierten Variablen und der Rückgabewert
+von Funktionen ohne `return`-Anweisung. Außerdem ergibt der Zugriff auf nicht vorhandene Eigenschaften
+von Objekten den Wert `undefined`. Im Code sollte `undefined` nicht in Zuweisungen verwendet werden,
+statt dessen kann `null` für Nullwerte eingesetzt werden, um z.B. auszudrücken, dass eine bestimmte
+Eigenschaft eines Objektes (noch) keinen Wert hat (siehe Beispiel zu `null` oben).
+
+## Operatoren
+
+In JavaScript haben wir die bekannten arithmetischen 
+und logischen Operatoren sowie Vergleiche:
+
+```js
+// arithmetische Berechnungen
+50.0 - 10 + ((300 / 40) % 8);
+
+// Inkrement/Dekrement
+let i = 1;
+i++;
+--i; // nun hat i wieder den Wert  1
+
+// Zusammengesetze Zuweisungen
+i += 10;
+
+// String-Konkatenation
+console.log('Hallo ' + 'Leute!');
+
+// Vergleiche
+3 <= 4; // true
+3 > 4; // false
+
+// logische Operatoren
+3 <= 4 && 4 > 3; // true
+3 >= 4 && 4 > 3; // false
+3 >= 4 || 4 > 3; // true
+3 >= 4 || 4 < 3; // false
+!(3 >= 4 || 4 < 3); // true
+```
+
+Es gibt zwei Arten, in JavaScript Gleichheit von Ausdrücken zu 
+überprüfen: `==` und `===` beziehungsweise `!=` und `!===` für 
+Ungleichheit. Empfohlen wird der Einsatz des „strikten“
+Vergleichs mit `===` (bzw. `!==`), denn die „lose“ Gleichheit 
+`==` (bzw. `!=`) kann beim Vergleich von Werten unterschiedlichen 
+Datentyps zu unerwarteten Ergebnissen führen:
+
+```js
+// schwacher Vergleich liefert true
+1 == '1'; // --> true
+
+// starker Vergleich liefert wie erwartet false
+1 === '1'; // --> false
+```

@@ -1,0 +1,53 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Variablen und Konstanten
+
+<Callout>
+  **Dauer:** 15 Minuten
+
+  **Themen:**
+  - Variablen mit `let` deklarieren
+  - Konstanten mit `const` definieren
+</Callout>
+
+Die Werte von Variablen können sich ändern, die von 
+Konstanten nicht. Variablen werden mit `let` und Konstanten 
+mit `const` deklariert Zur Laufzeit können einer Variablen 
+beliebige Werte verschiedener Typen zugewiesen werden. 
+Konstanten wird nur einmal mit einem Wert initialisiert, der
+nicht durch eine Zuweisung geändert werden kann.
+
+```js
+// lokale Variablen werden mit let deklariert
+let localVar = 'Joe';
+let otherVar; // noch ohne Wert
+// Typen der Variablen können sich ändern
+// --> JavaScript ist dynamisch typisiert
+// (im Gegensatz zur statischen Typisierung in Java)
+localVar = 123;
+localVar = false;
+otherVar = true;
+otherVar = 321;
+
+// Variablen sind Namen, an die Werte gebunden werden
+// Variablen haben keine Typen — nur die an Variablen
+// gebundenen Werte
+let x;
+x = 1; // x hat einen Wert vom Typ number
+x = 'Hallo'; // x hat einen Wert vom Typ string
+
+// Konstanten
+const localConstant = 3.1415;
+// Konstanten darf kein neuer Wert zugewiesen werden
+// localConstant = 123; // --> Fehler
+
+// Konstanten benötigen bei der Deklaration einen Wert
+// const otherConstant; // --> Fehler
+```
+
+<Callout type="warning">
+Es gibt auch die Möglichkeit, Variablen mit `var` zu 
+deklarieren, was hier nicht behandelt wird. Oft wird 
+davon abgeraten, `var` zu verwenden – mehr dazu z.B. unter
+[javascript.info/var](https://javascript.info/var)
+</Callout>

@@ -1,0 +1,70 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Einleitung
+
+<Callout>
+  **Dauer:** 20 Minuten
+
+  **Themen:**
+  - Allgemeines zu JavaScript
+  - Wichtige Eigenschaften der Sprache
+
+  **Ziel:** Erste Eindrücke zu JavaScript erhalten
+</Callout>
+
+Programmierkenntnisse in Java oder Python werden vorausgesetzt.
+Falls JavaScript bekannt ist, dann genügt eine kurze Wiederholung.
+
+An diesem Termin werden nur die wichtigsten Aspekte von JavaScript
+gezeigt. Dabei wird JavaScript zunächst hauptsächlich als 
+allgemeine Programmiersprache behandelt. Auf die Besonderheiten 
+der Web-Browser und das DOM wird nur kurz eingegangen.
+
+Für WDS-Kurse, die an der DHBW in den ersten beiden Semestern mit 
+Python gearbeitet haben, wird auf wesentliche Unterschiede 
+zwischen JavaScript und Python hingewiesen.
+
+## Allgemeines
+
+- Veröffentlichung von JavaScript Ende 1995.
+- JavaScript wurde in 2-3 Wochen konzipiert und implementiert. 
+- Standardisierung durch ECMAScript (seit einigen Jahren mit jährlichen Neuerungen)
+- Momentan ist JavaScript die einzige Programmiersprache, die von Browsern ausgeführt werden kann <br/> (in Zukunft evtl. weitere Sprachen mit ByteCode durch [WebAssembly (Wasm)](https://webassembly.org/))
+- Mit [NodeJS](https://nodejs.org) u.a. jenseits von Browsern verwendbar (z.B. Server-Backends, mobile Apps mit React Native, …)
+- JavaScript ≠ Java (ähnlich wie Carpet ≠ Car)
+
+In den DevTools jedes Browsers (`F12`) gibt es eine 
+interaktive JavaScript-Umgebung (genannt „Konsole“ oder _console_ ).
+
+Zahlreiche Programmierumgebungen im Browser:
+
+- [Codepen](https://codepen.io)
+- [JSFiddle](https://jsfiddle.net/)
+- [JS Bin](https://jsbin.com/)
+- [Replit](https://replit.com)
+- [Code Sandbox](https://codesandbox.io)
+- [StackBlitz](https://stackblitz.com)
+- …
+
+## Überblick relevanter Eigenschaften
+
+Eigenschaften in Browser-Console vorführen:
+
+- interpretierte Skriptsprache (zeilenweise Ausführung)
+- Anweisung endet mit Zeilenumbruch oder `;`
+- dynamisch typisiert ([TypeScript](https://www.typescriptlang.org/) ist eine _sehr_ beliebte Erweiterung für statische Typisierung)
+- Variablen mit `let`, Konstanten mit `const`
+- nur ein Datentyp für Zahlen (`number`)
+- drei Arten, Strings zu deklarieren ('', "", ``)
+- Boolean-Werte sind `true` und `false`
+- `null` und `undefined` für „unbestimmte“ und „undefinierte“ Werte
+- Kommentare mit `//` für eine Zeile oder mit `/* */` für Blöcke
+- imperative Kontrollstrukturen wie C, C++, C#, Java, usw. (`if/else/else if, for, while, …`)
+- Arrays (vgl. Listen) und Objects (vgl. Dictionaries, HashMaps)
+- Funktionen sind Objekte erster Ordnung (`function`, `=>`)
+- Objektorientierung mit Klassen und Vererbung möglich (basiert auf  _prototypes_)
+- es gibt einige seltsame Eigenschaften, z.B. `[] + [] = ???` <br/> (siehe auch [JavaScript-Garden](https://bonsaiden.github.io/JavaScript-Garden/) oder das Video [Wat (4:17min)](https://www.destroyallsoftware.com/talks/wat))
+- &xrarr; seit ein paar Jahren erhebliche Verbesserungen!
+
+Vergleiche zwischen Java und JavaScript 
+[auf ProgContent](https://www.progcontent.com/js-from-java/intro).

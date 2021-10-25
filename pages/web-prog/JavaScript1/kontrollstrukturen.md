@@ -1,0 +1,88 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Kontrollstrukturen: if, else, while, for
+
+<Callout>
+  **Dauer:** 15 Minuten
+
+  **Themen:**
+  - Verzweigungen mit `if/else if/else`
+  - Schleifen mit `while` und `for`
+</Callout>
+
+## Verzweigungen mit if/else
+
+Eine Verzweigung wird in JavaScript mit `if` und optional
+mit `else if` und `else` definiert, jeweils gefolgt von
+einem Block mit geschweiften Klammern `{...}`:
+
+```js
+if( ...ein logischer Ausdruck X... ) {
+  // Anweisungen in diesem Block werden ausgeführt,
+  // wenn X wahr (true) ist
+} else if( ...ein logischer Ausdruck Y... ) {
+  // Anweisungen in diesem Block werden ausgeführt,
+  // wenn X falsch (false) und Y wahr (true) ist
+} else if( ...ein logischer Ausdruck Z... ) {
+  // Anweisungen in diesem Block werden ausgeführt,
+  // wenn X und Y falsch (false) sind und Z wahr (true) ist
+  // es können mehrere else if Blöcke folgen
+} else {
+  // Anweisungen in diesem Block werden ausgeführt, wenn alle
+  // Bedingungen der if und else if Blöcke falsch (false) sind
+}
+```
+
+<Callout type="warning">
+Wer viel mit Python gearbeitet hat, sollte darauf achten,
+dass es in JavaScript `else if` heißt und **nicht** `elif`.
+
+Auch hier sei wieder auf die geschweiften Klammern hingewiesen.
+</Callout>
+
+## Schleifen (while und for)
+
+### while
+
+
+```js
+while (Bedingung === true) {
+  // do something
+}
+```
+
+Die Bedingung im `while`-Ausdruck muss einen Wert vom Typ `boolean` 
+(`true` oder `false`) liefern. Die Schleife läuft solange wie die 
+Bedingung `true` ist.
+
+```js
+let x = 10;
+while (x > 0) {
+  x--;
+  console.log(x);
+}
+```
+
+## for
+
+```js
+for (Initialisierung; Bedingung; Aktualisierung) {
+  // do something
+}
+```
+
+Die Zählvariable sollte mit `let` definiert werden.
+
+```js
+for (let i = 0; i < 10; i++) {
+  console.log(i);
+}
+```
+
+<Callout>
+In Python werden häufig _List Comprehensions_ verwendet. 
+
+In JavaScript gibt es ebenfalls einen `in`-Operator, der 
+etwas anders funktioniert. Außerdem hat JavaScript noch
+weitere Konstrukte für Listen, wie z.B. `forEach()`.
+</Callout>

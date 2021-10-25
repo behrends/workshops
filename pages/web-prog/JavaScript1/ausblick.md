@@ -1,0 +1,49 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Ausblick und Lernressourcen
+
+<Callout>
+  **Dauer:** höchstens 30 Minuten
+
+  **Themen:**
+  - Ausblick auf JavaScript im Browser
+  - Dokumentation zum Nachschlagen
+  - Tutorials und Bücher zur Vertiefung
+
+  **Ziel:** JavaScript im Selbststudium lernen
+</Callout>
+
+## JavaScript im Browser
+
+Im nächsten Abschnitt [JavaScript Teil 2](/web-prog/JavaScript2/)
+werden wir besprechen, wie JavaScript im Browser verwendet 
+wird und mit dem DOM (_document object model_) funktioniert.
+
+<Callout type="warning">
+Wenn wir noch Zeit haben, dann könnten wir uns kurz
+anschauen, wie JavaScript in HTML-Dokumenten mit
+dem `script`-Element eingebunden wird und ein 
+kleines Beispiel mit einem Zähler in Codepen programmieren.
+</Callout>
+
+## Dokumentation
+
+Dokumentation dient zum systematischen Nachschlagen. 
+
+- [Mozilla Developer Network (MDN – developer.mozilla.org)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+## Tutorials
+
+Tutorials und Online-Bücher können zur Vertiefung und 
+Erweiterung des Wissens herangezogen werden. 
+
+Zum Teil bieten diese Webseiten weitere Themen außer JavaScript an.
+
+- [freeCodeCamp.org](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/)
+- [javascript.info](https://javascript.info)
+
+## Online-Bücher
+
+- [Eloquent JavaScript (https://eloquentjavascript.net)](https://eloquentjavascript.net/)
+- [Introduction to Programming with JavaScript by Launch School (https://launchschool.com/books/javascript)](https://launchschool.com/books/javascript)
+- [You Don't Know JS Yet (https://github.com/getify/You-Dont-Know-JS)](https://github.com/getify/You-Dont-Know-JS)
