@@ -1,7 +1,8 @@
-const search = document.getElementById('search_btn');
+const search_btn = document.getElementById('search_btn');
+const search_input = document.getElementById('search_input');
 
 function doSearch() {
-  alert('Suche ausführen!');
+  alert('Suche nach: ' + search_input.value);
 }
 
-search.addEventListener('click', doSearch);
+search_btn.addEventListener('click', doSearch);
