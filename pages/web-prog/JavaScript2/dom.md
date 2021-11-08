@@ -1,6 +1,6 @@
 import Callout from 'nextra-theme-docs/callout'
 
-# Einleitung
+# Document Object Model
 
 <Callout>
   **Dauer:** 30 Minuten
@@ -11,3 +11,5 @@ import Callout from 'nextra-theme-docs/callout'
 
   **Ziel:** Mit JavaScript im Browser programmieren
 </Callout>
+
+Eventuell separate, kurze Einleitung zum `script`-Tag?

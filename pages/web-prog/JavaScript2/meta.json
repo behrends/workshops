@@ -1,3 +1,7 @@
 {
-  "index": "Einleitung"
+  "presentation": "Vorstellung App-Ideen",
+  "dom": "Document Object Model",
+  "dom-events": "Events",
+  "dom-methoden": "Methoden der DOM-API",
+  "projekt": "Projekt"
 }
