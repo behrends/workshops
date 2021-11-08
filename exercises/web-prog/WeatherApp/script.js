@@ -22,7 +22,8 @@ function addLocation(name, temp, condition, image) {
 }
 
 function doSearch() {
-  const location_name = search_input.value;
+  const location_name = search_input.value.trim();
+  if (location_name.length === 0) return;
   // TODO: eigentliche Suche nach Ort durchführen
   // TODO: Ort nur hinzufügen, wenn Daten gefunden wurden
   // TODO: Fehlermeldung falls keine Daten gefunden wurden
