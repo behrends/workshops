@@ -17,3 +17,8 @@ Falls Fragen auftauchen oder Hilfe benötigt wird, bitte beim Dozenten melden.
 
 Bei Bedarf können die MUST-HAVE-Anforderungen
 der Projekte besprochen werden.
+
+Nützliche Links:
+
+- [Vanilla Web Projects - Quellcode für mehrere, kleine Webanwendungen](https://github.com/bradtraversy/vanillawebprojects)
+- [htmldom.dev - Beispiele für verschiedene Use Cases mit der DOM-API](https://htmldom.dev/)
