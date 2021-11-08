@@ -1,3 +1,4 @@
+const add_btn = document.getElementById('add_btn');
 const search_btn = document.getElementById('search_btn');
 const search_input = document.getElementById('search_input');
 const weather_list = document.getElementById('weather_list');
@@ -35,4 +36,9 @@ function doSearch() {
   search_input.value = '';
 }
 
+function doAddFromList() {
+  alert('Füge Ort hinzu');
+}
+
 search_btn.addEventListener('click', doSearch);
+add_btn.addEventListener('click', doAddFromList);
