@@ -1,6 +1,7 @@
 const add_btn = document.getElementById('add_btn');
 const search_btn = document.getElementById('search_btn');
 const search_input = document.getElementById('search_input');
+const selected_location = document.getElementById('selected_location');
 const weather_list = document.getElementById('weather_list');
 
 function addLocation(name, temp, condition, image) {
@@ -37,7 +38,13 @@ function doSearch() {
 }
 
 function doAddFromList() {
-  alert('Füge Ort hinzu');
+  const location_name = selected_location.value;
+  // TODO: Daten zu Ort suchen
+  // TODO: doppelte Orte vermeiden?
+  const temp = 13;
+  const condition = 'heiter';
+  const image = "https://cdn.glitch.me/c569e324-22c3-491c-ab27-94a3498d6207%2Fsun-cloudy-line.png?v=1634724998045";
+  addLocation(location_name, temp, condition, image);
 }
 
 search_btn.addEventListener('click', doSearch);
