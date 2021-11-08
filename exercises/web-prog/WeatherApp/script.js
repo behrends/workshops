@@ -32,6 +32,7 @@ function doSearch() {
   const condition = 'sonnig';
   const image = "https://cdn.glitch.com/c569e324-22c3-491c-ab27-94a3498d6207%2Fsun-line.png?v=1633008214083";
   addLocation(location_name, temp, condition, image);
+  search_input.value = '';
 }
 
 search_btn.addEventListener('click', doSearch);
