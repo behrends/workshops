@@ -20,5 +20,5 @@ der Projekte besprochen werden.
 
 Nützliche Links:
 
-- [Vanilla Web Projects - Quellcode für mehrere, kleine Webanwendungen](https://github.com/bradtraversy/vanillawebprojects)
+- [Vanilla Web Projects - Quellcode für mehrere, kleine Webanwendungen ohne Frameworks](https://github.com/bradtraversy/vanillawebprojects)
 - [htmldom.dev - Beispiele für verschiedene Use Cases mit der DOM-API](https://htmldom.dev/)
