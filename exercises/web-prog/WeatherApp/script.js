@@ -6,6 +6,8 @@ const selected_location = document.getElementById(
 );
 const weather_list = document.getElementById('weather_list');
 
+const weatherURL = `https://api.open-meteo.com/v1/forecast?hourly=temperature_2m`;
+
 function addLocation(name, temp, condition, image) {
   const new_location = document.createElement('div');
   new_location.classList.add('weather_location');
@@ -40,16 +42,25 @@ function doSearch() {
   search_input.value = '';
 }
 
-function doAddFromList() {
+async function doAddFromList() {
   const location_index = selected_location.value;
-  const location_name = locations[location_index].name;
-  // TODO: Daten zu Ort suchen
+  const location = locations[location_index];
+
+  const temp = await loadData(location.latitude, location.longitude);
+
+  // TODO: condition und image korrekt laden
   // TODO: doppelte Orte vermeiden?
-  const temp = 13;
   const condition = 'heiter';
   const image =
     'https://cdn.glitch.me/c569e324-22c3-491c-ab27-94a3498d6207%2Fsun-cloudy-line.png?v=1634724998045';
-  addLocation(location_name, temp, condition, image);
+  addLocation(location.name, temp, condition, image);
+}
+
+async function loadData(latitude, longitude) {
+  const url = `${weatherURL}&latitude=${latitude}&longitude=${longitude}`;
+  const data = await fetch(url);
+  const json = await data.json();
+  return Math.trunc(json.hourly.temperature_2m[0]);
 }
 
 search_btn.addEventListener('click', doSearch);
