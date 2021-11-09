@@ -41,7 +41,8 @@ function doSearch() {
 }
 
 function doAddFromList() {
-  const location_name = selected_location.value;
+  const location_index = selected_location.value;
+  const location_name = locations[location_index].name;
   // TODO: Daten zu Ort suchen
   // TODO: doppelte Orte vermeiden?
   const temp = 13;
