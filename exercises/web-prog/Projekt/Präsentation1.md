@@ -1,4 +1,4 @@
-Jede Gruppe stellt ihre App-Idee kurz vor (10-15 Minuten inklusive Diskussion).
+Jede Gruppe stellt ihre App-Idee kurz vor (10-15 Minuten inklusive Diskussion). Alle Personen in der Gruppe sollen einen Teil der Präsentation halten.
 
 Dazu können Sie mit Folien (Powerpoint, Google Slides, o.a.) arbeiten, um allgemeine Informationen zur Anwendung darzustellen (Idee, Webservice, Ziele, usw..).
 
