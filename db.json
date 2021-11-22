@@ -1,0 +1,8 @@
+{
+  "locations": [
+    { "id": 1, "name": "Hamburg", "temp": 2 },
+    { "id": 2, "name": "Paris", "temp": 4 },
+    { "id": 3, "name": "New York", "temp": -1 },
+    { "id": 4, "name": "Sydney", "temp": 20 }
+  ]
+}
