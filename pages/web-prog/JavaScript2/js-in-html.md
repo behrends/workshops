@@ -1,0 +1,112 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# JavaScript in HTML einbinden
+
+<Callout>
+  **Dauer:** 15 Minuten
+
+  **Themen:**
+  - `script`-Tag bindet JavaScript ein
+
+  **Ziel:** Beginn der Programmierung mit JavaScript im Browser
+</Callout>
+
+<Callout type="warning">
+Die meisten Konzepte werden in Form von Live-Coding gezeigt.
+
+Hierzu wird die Beispiel-App im aktuellen Stand ohne JavaScript
+so weiterentwickelt, dass die App mit JavaScript dynamisch wird
+(z.B. Elemente im HTML/DOM hinzufügen).
+
+Die Inhalte auf den folgenden Seiten sind auf das Wesentliche
+reduziert, da zusätzliche Erläuterungen direkt vor Ort am Whiteboard 
+oder online in [Excalidraw](https://excalidraw.com) gegeben werden.
+</Callout>
+
+## `script`-Tag
+
+HTML stellt mit `script` ein spezielles Element bzw. Tag bereit,
+mit dem JavaScript in HTML eingebettet werden kann:
+
+```html
+<script>
+  const greeting = 'Hallo JavaScript';
+  console.log(greeting);
+  alert(greeting);
+</script>
+```
+
+Innerhalb eines `script`-Tags kann JavaScript-Code stehen, der
+direkt vom Browser ausgeführt wird, wenn die HTML-Seite geladen
+wird und der Browser bei der Verarbeitung des HTMLs auf solch
+ein `script`-Element stößt.
+
+Hier erhalten wir durch `console.log` eine Ausgabe in der Konsole 
+der Dev-Tools des Browsers und durch `alert` ein Hinweisfenster angezeigt.
+
+Da der JavaScript-Code in Webanwendungen ziemlich umfangreich
+werden kann, wird JavaScript meistens in separate Dateien ausgelagert.
+
+## JavaScript aus Dateien einbinden
+
+Der `script`-Tag wird in der Regel dafür verwendet, um JavaScript-Code
+aus einer Datei zu laden. Dazu steht das Attribut `src` bereit, in dem
+der Dateiname angegeben wird:
+
+```html
+<script src="script.js"></script>
+```
+
+Im obigen Beispiel wird eine Datei namens `script.js` geladen, die 
+im gleichen Verzeichnis liegt, wie die HTML-Datei, welche die Deklaration
+dieses `script`-Elementes enthält.
+
+<Callout type="warning">
+**Bemerkungen**
+
+- Es können beliebig viele `script`-Tags deklariert werden, um JavaScript-Code aus mehreren Dateien zu laden.
+- Anstatt einer lokalen Datei kann im `src`-Attribut eine URL für eine JavaScript-Datei im Web angegeben werden.
+- Für unsere „kleine“ Webanwendung genügt evtl. eine lokale JavaScript-Datei, die wir z.B. `script.js` nennen können.
+</Callout>
+
+## `script`-Tag am Ende des HTMLs 
+
+In der HTML-Datei unserer Beispiel-App wird im `head`-Element 
+ein CSS-Stylesheet mit dem `link`-Tag eingebunden. Es wäre also
+naheliegend, direkt unterhalb des `link`-Elements ein `script`-Tag
+für die Einbindung unseres JavaScript-Codes zu deklarieren. 
+Bei dieser Vorgehensweise würde der JavaScript-Code geladen und
+ausgeführt werden, **bevor** die HTML-Inhalte unserer Webanwendungen
+dargestellt werden. 
+
+Damit der JavaScript-Code erst dann ausgeführt wird, **nachdem** 
+das HTML-Dokument geladen wurde, deklarieren wir `script`-Tags
+**als letztes Element im `body`-Tag**:
+
+```html
+<html>
+  <head>
+    <!-- hier NICHT JavaScript einbinden -->
+  </head>
+  <body>
+    <h1>Überschrift</h1>
+    <!-- weitere Inhalte -->
+    <!-- script-Tags für JavaScript am Ende von body! -->
+    <script src="script.js"></script>
+  </body>
+</html>
+```
+
+<Callout type="warning">
+Es ist durchaus möglich, die `script`-Tags am Anfang der HTML-Datei
+im `head`-Element zu deklarieren. In diesem Fall könnte die Notwendigkeit
+entstehen, den eingebundenen JavaScript-Code so zu programmieren, dass der 
+Zeitpunkt abgewartet wird, bis alle HTML-Elemente dargestellt wurden 
+(dies kann z.B. bei Bildern eine kurze Weile dauern). Zu dieser Vorgehensweise 
+sind im Web zahlreiche Beispiele zu finden (Stichworte „_html load event_“ oder „_DOMContentLoaded_“)
+
+Für viele Anwendungsfälle und insbesondere unsere „kleine“ Webanwendung
+genügt es, `script`-Tags am Ende des `body`-Elementes zu deklarieren. Dies
+ist meistens der einfachste Ansatz, da hierdurch die Notwendigkeit wegfällt, 
+den Code so zu programmieren, dass auf den oben erwähnten Zeitpunkt gewartet wird.
+</Callout>

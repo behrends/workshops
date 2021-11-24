@@ -6,18 +6,9 @@ import Callout from 'nextra-theme-docs/callout'
   **Dauer:** 30 Minuten
 
   **Themen:**
-  - `script`-Tag
   - DOM &mdash; _document object model_
 
-  **Ziel:** Mit JavaScript im Browser programmieren
-</Callout>
-
-<Callout type="warning">
-Die meisten Konzepte werden in Form von Live-Coding gezeigt.
-
-Hierzu wird die Beispiel-App im aktuellen Stand ohne JavaScript
-so weiterentwickelt, dass die App mit JavaScript dynamisch wird
-(Elemente hinzufügen, evtl. auch Daten mit `fetch` laden)
+  **Ziel:** Grundverständnis vom DOM erhalten
 </Callout>
 
 Verwendete Methoden der DOM-API:
@@ -29,5 +20,4 @@ Verwendete Methoden der DOM-API:
 - `element.classList.add()` (einem Element eine (CSS-)Klasse hinzufügen)
 - `element.value` (auf den Wert einer Eingaben oder Auswahl im Formularelementen zugreifen)
 - `element.setAttribute()` (Wert für ein Attribut eines Elementes setzen)
-
-Eventuell separate, kurze Einleitung zum `script`-Tag?
+- `element.addEventListener('click', function)` (Mit einer Funktion das Verhalten beim Klicken eines Element definieren)
