@@ -69,9 +69,9 @@ Themen geplant:
 - CSS Teil 2 (u.a. FlexBox)
 - JavaScript Teil 1, Besprechung App-Idee
 - JavaScript (u.a. DOM) Teil 2, Vorstellung App-Idee <br/> (idealerweise Termin mit 5 Vorlesungsstunden)
-- JavaScript (u.a. Async) Teil 3
-- Verschiedenes: JSON, HTTP, …
-- Präsentation der Projekte, Abschluss und Ausblick
+- JavaScript (u.a. JSON, fetch, async/await) Teil 3
+- Zeit zum Programmieren, evtl. Ausblick (z.B. TypeScript, React), Tipps und Hilfe
+- Präsentation der Projekte, Abschluss
 
 ## Prüfungsleistung
 Die Prüfungsleistung ist ein Portfolio.
