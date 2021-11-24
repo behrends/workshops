@@ -11,13 +11,68 @@ import Callout from 'nextra-theme-docs/callout'
   **Ziel:** Grundverständnis vom DOM erhalten
 </Callout>
 
-Verwendete Methoden der DOM-API:
+### HTML als Document Object Model (DOM)
 
-- `document.getElementById()` (bestimmte Elemente finden und einer Variablen zuweisen)
-- `document.createElement()` (neue Elemente erzeugen, diese sind dann noch nicht sichtbar)
-- `element.appendChild()` (neues Element, das durch `createElement` erzeugt wurde, dem DOM/HTML hinzufügen)
-- `element.innerHTML = ...` (HTML-Inhalt eines Elements festlegen)
-- `element.classList.add()` (einem Element eine (CSS-)Klasse hinzufügen)
-- `element.value` (auf den Wert einer Eingaben oder Auswahl im Formularelementen zugreifen)
-- `element.setAttribute()` (Wert für ein Attribut eines Elementes setzen)
-- `element.addEventListener('click', function)` (Mit einer Funktion das Verhalten beim Klicken eines Element definieren)
+Wenn der Browser ein HTML-Dokument verarbeitet, dann werden die als
+HTML-Elemente definierten Inhalte dargestellt (Texte, Bilder, usw.). 
+Außerdem erzeugt der Browser basierend auf dem HTML eine Datenstruktur,
+die als _Document Object Model_ (DOM) bezeichnet wird und die wir
+in der Programmierung mit JavaScript nutzen können, um z.B. HTML-Elemente
+zu referenzieren, Verhalten bei Klicks zu definieren und Inhalte im
+HTML zu verändern. Das DOM stellt eine Programmierschnittstelle bzw. 
+API (_application programming interface_) zur Verfügung, die wir bei
+der Programmierung mit JavaScript im Browser einsetzen.
+
+<Callout type="warning">
+Das DOM existiert bei der Programmierung mit JavaScript nur im Browser 
+(Frontend). In anderen JavaScript-Umgebungen wie z.B. NodeJS (Backend) 
+gibt es kein DOM. 
+</Callout>
+
+Das folgende Beispiel zeigt einen abgewandelten und verkürzten
+Ausschnitt der HTML-Datei unserer Wetter-App:
+
+```html
+<html>
+  <head> <!-- ... --> </head>
+  <body>
+    <h1>Wetter-App</h1>
+
+    <div id="list">
+      <div class="location">Basel</div>
+      <div class="location">Freiburg</div>
+      <div class="location">Lörrach</div>
+    </div>
+
+    <button id="add_btn">Neu</button>
+
+    <!-- ... -->
+
+  </body>
+</html>
+```
+
+Der Browser verarbeitet dieses HTML zu einem DOM, das zur 
+Veranschaulichung so aussehen könnte:
+
+![DOM](/images/web-prog/dom.png)
+
+Die Struktur des DOM ist hierarchisch bzw. baumartig geordnet.
+Elemente haben Eltern- und Kindelemente wie in den
+Knoten der Baumstruktur des DOMs zu erkennen ist. Attribute
+werden hier den Elementen grafisch in Kreisen zugeordnet.
+
+### Zugriff auf DOM via `document`
+
+Im Browser kann im JavaScript-Code auf das Objekt `document`
+zugegriffen werden. `document` stellt verschiedene API-Methoden
+bereit, mit denen unterschiedliche Operation im DOM vorgenommen
+werden können. Wir stellen auf den folgenden Seiten einige häufig 
+verwendete Methoden der DOM-API beispielhaft vor (die Spezifikation 
+des DOM ist sehr umfangreich!).
+
+<Callout type="warning">
+Ein paar Methoden des `document`-Objekts interaktiv in der JavaScript-Konsole des Browsers vorführen.
+</Callout>
+
+

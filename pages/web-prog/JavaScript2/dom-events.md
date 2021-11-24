@@ -6,8 +6,41 @@ import Callout from 'nextra-theme-docs/callout'
   **Dauer:** 30 Minuten
 
   **Themen:**
-  - `onload`
-  - `onClick`
+  - `element.addEventListener`
+  - `click`-Events
 
   **Ziel:** Auf Ereignisse bzw. Events im DOM mit JavaScript reagieren
+</Callout>
+
+Einem HTML-Element kann ein sogenannter „Eventhandler“ zugewiesen
+werden. Dabei handelt es sich in der Regel um eine Funktion, die
+beim Eintreten eines bestimmten Ereignis (_event_) aufgerufen wird:
+
+```javascript
+const addButton = document.getElementById('add_btn');
+const locationInput = document.getElementById('location_input');
+
+function createNewLocation() {
+  // Eingabe des Ortsnamen aus Textinput-Element auslesen
+  const locationName = locationInput.value
+  // Funktion erstellt HTML-Element (siehe vorige Seite)
+  createNewLocation(locationName);
+}
+
+// Eventhandler ist
+addButton.addEventListener('click', createNewLocation)
+```
+
+Beim Event/Ereignis `'click'`, d.h. beim Klicken des Buttons,
+wird nun die Funktion `createNewLocation` aufgerufen, die somit
+als Eventhandler ausgeführt wird.
+
+<Callout type="warning">
+LiveCoding: Klick auf den Add-Button liest die Eingabe des Ortsnamen
+im Textinput und erstellt einen neuen Ort mit diesem Namen.
+
+Verwendete Methoden:
+- `element.value` (auf den Wert einer Eingaben oder Auswahl im Formularelementen zugreifen)
+- `element.addEventListener('click', function)` (Mit einer Funktion das Verhalten beim Klicken eines Element definieren)
+- Entferne Aufruf der Funktion `addWeatherLocation`
 </Callout>
