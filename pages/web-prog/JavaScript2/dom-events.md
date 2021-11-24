@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Events im DOM
 
 <Callout>
-  **Dauer:** 30 Minuten
+  **Dauer:** ca. 15 Minuten
 
   **Themen:**
   - `element.addEventListener`
@@ -20,7 +20,7 @@ beim Eintreten eines bestimmten Ereignis (_event_) aufgerufen wird:
 const addButton = document.getElementById('add_btn');
 const locationInput = document.getElementById('location_input');
 
-function createNewLocation() {
+function addLocation() {
   // Eingabe des Ortsnamen aus Textinput-Element auslesen
   const locationName = locationInput.value
   // Funktion erstellt HTML-Element (siehe vorige Seite)
@@ -28,11 +28,11 @@ function createNewLocation() {
 }
 
 // Eventhandler ist
-addButton.addEventListener('click', createNewLocation)
+addButton.addEventListener('click', addLocation)
 ```
 
 Beim Event/Ereignis `'click'`, d.h. beim Klicken des Buttons,
-wird nun die Funktion `createNewLocation` aufgerufen, die somit
+wird nun die Funktion `addLocation` aufgerufen, die somit
 als Eventhandler ausgeführt wird.
 
 <Callout type="warning">
@@ -42,5 +42,4 @@ im Textinput und erstellt einen neuen Ort mit diesem Namen.
 Verwendete Methoden:
 - `element.value` (auf den Wert einer Eingaben oder Auswahl im Formularelementen zugreifen)
 - `element.addEventListener('click', function)` (Mit einer Funktion das Verhalten beim Klicken eines Element definieren)
-- Entferne Aufruf der Funktion `addWeatherLocation`
 </Callout>

@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Document Object Model
 
 <Callout>
-  **Dauer:** 30 Minuten
+  **Dauer:** ca. 15 Minuten
 
   **Themen:**
   - DOM &mdash; _document object model_
@@ -57,16 +57,16 @@ Veranschaulichung so aussehen könnte:
 
 ![DOM](/images/web-prog/dom.png)
 
-Die Struktur des DOM ist hierarchisch bzw. baumartig geordnet.
-Elemente haben Eltern- und Kindelemente wie in den
-Knoten der Baumstruktur des DOMs zu erkennen ist. Attribute
-werden hier den Elementen grafisch in Kreisen zugeordnet.
+Die Struktur des DOM ist gemäß der HTML-Datei hierarchisch bzw. 
+baumartig geordnet. Elemente haben Eltern- und Kindelemente wie in 
+den Knoten der Baumstruktur des DOMs zu erkennen ist. Attribute
+werden den Elementen in dieser Darstellung grafisch in Kreisen zugeordnet.
 
 ### Zugriff auf DOM via `document`
 
 Im Browser kann im JavaScript-Code auf das Objekt `document`
 zugegriffen werden. `document` stellt verschiedene API-Methoden
-bereit, mit denen unterschiedliche Operation im DOM vorgenommen
+bereit, mit denen unterschiedliche Operationen im DOM vorgenommen
 werden können. Wir stellen auf den folgenden Seiten einige häufig 
 verwendete Methoden der DOM-API beispielhaft vor (die Spezifikation 
 des DOM ist sehr umfangreich!).

@@ -72,8 +72,8 @@ dieses `script`-Elementes enthält.
 ## `script`-Tag am Ende des HTMLs 
 
 In der HTML-Datei unserer Beispiel-App wird im `head`-Element 
-ein CSS-Stylesheet mit dem `link`-Tag eingebunden. Es wäre also
-naheliegend, direkt unterhalb des `link`-Elements ein `script`-Tag
+ein CSS-Stylesheet mit dem `link`-Tag eingebunden. Es scheint daher
+naheliegend zu sein, direkt unterhalb des `link`-Elements ein `script`-Tag
 für die Einbindung unseres JavaScript-Codes zu deklarieren. 
 Bei dieser Vorgehensweise würde der JavaScript-Code geladen und
 ausgeführt werden, **bevor** die HTML-Inhalte unserer Webanwendungen

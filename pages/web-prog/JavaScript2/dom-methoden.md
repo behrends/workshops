@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Methoden der DOM-API
 
 <Callout>
-  **Dauer:** 30 Minuten
+  **Dauer:** max. 30 Minuten
 
   **Themen:**
   - Elemente im DOM finden
@@ -17,7 +17,7 @@ import Callout from 'nextra-theme-docs/callout'
 ### Auf Elemente zugreifen
 
 Die einfachste Art, um auf bestimmte Elemente im DOM
-zuzugreifen wird durch die Methode `document.getElementById`
+zuzugreifen, wird durch die Methode `document.getElementById`
 ermöglicht. So weist folgender JavaScript-Code der Konstanten
 `listElement` eine Referenz auf das Element mit dem `id`-Attribut
 zu, das den Wert `list` hat (im DOM-Beispiel ist dies das `div`-Element,
@@ -28,13 +28,14 @@ const listElement = document.getElementById('list');
 ```
 
 Als Parameter wird der Methode `getElementById` beim Aufruf demnach 
-der Wert des `id`-Attributs des gewünschten Elements übergeben.
+der Wert des `id`-Attributs des gewünschten Elements übergeben und
+die Methode liefert eine Referenz auf das entsprechende Element zurück.
 
 Weitere nützlich Methode für den Zugriff auf beliebige Elemente
 in der DOM-Struktur sind die Methoden [`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) (liefert
 das erste passende Element) und [`document.querySelectorAll`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll) 
 (liefert alle passenden Elemente), die jeweils mit flexiblen 
-Abfrageausdrücken aufgerufen werden (siehe verlinkte Beschreibungen 
+Abfrageausdrücken aufgerufen werden können (siehe verlinkte Dokumentation 
 in MDN).
 
 ### Elemente erstellen
@@ -45,14 +46,15 @@ Mit `document.createElement` können neue Elemente erstellt werden:
 const newDiv = document.createElement('div');
 ```
 
-Der Parameter für `createElement` ist der gewünschte Tag-Name. 
+Der Parameter für `createElement` ist der gewünschte Tag-Name und
+der Rückgabewert ist ein neues Element.
 Ein mit `createElement` erzeugtes Element ist noch nicht Teil
-des DOM bzw. noch nicht im HTML des Browsers sichtbar. Dafür 
+des DOM bzw. noch nicht im HTML des Browsers sichtbar. Um das Element
+an eine gewünschte Position in die DOM-Datenstruktur einzufügen, 
 bietet sich die Verwendung der Methode `appendChild` an. 
 
-`appendChild` wird anstelle von `document` in Bezug auf 
-ein bestimmtes Element aufgerufen, an das das neue Element 
-als Kindelement angehängt werden soll:
+`appendChild` wird in Bezug auf ein bestimmtes Element aufgerufen, an 
+das das neue Element als Kindelement angehängt werden soll (daher nicht mit `document`):
 
 ```javascript
 // wir verwenden das Element in listElement (siehe oben)
@@ -70,10 +72,15 @@ function createNewLocation(name) {
   listElement.innerHTML = name;
   listElement.appendChild(newDiv);
 }
+
+createNewLocation('Hamburg');
 ```
 
 Hierdurch erscheint im Beispiel neben den `div`-Elementen für 
-Basel, Freiburg und Lörrach auch ein neues Element für Hamburg.
+Basel, Freiburg und Lörrach auch ein neues Element für Hamburg,
+das wir zusätzlich mit der CSS-Klasse `location` ausstatten (siehe
+`classList.add`) und das mit `innerHTML` einen Inhalt bekommt (hier 
+zunächst nur Inhalt des Funktionsparameters `name`).
 
 Somit lassen sich dynamisch neue HTML- bzw. DOM-Element erstellen.
 Die API des DOM stellt hierfür viele weitere Methoden bereit.
