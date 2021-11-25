@@ -1,3 +1,6 @@
 {
-  "daten": "Datenquellen"
+  "daten": "Datenquellen",
+  "json": "JSON-Daten im Web",
+  "fetch": "fetch mit async/await",
+  "gruppenarbeit": "Gruppenarbeit"
 }

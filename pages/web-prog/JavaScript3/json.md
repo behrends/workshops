@@ -1,0 +1,130 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# JSON-Daten im Web
+
+<Callout>
+  **Dauer:** 20 Minuten
+
+  **Themen:**
+  - JSON als Datenaustauschformat
+  - my-json-server als API für statische JSON-Daten 
+
+  **Ziel:** Eigene Datenquellen im Web erstellen
+</Callout>
+
+<Callout type="warning" emoji="👨🏻‍💻">
+Durch das LiveCoding werden die folgenden Konzepte ausführlicher
+erläutert und vorgeführt.
+</Callout>
+
+### JSON
+
+Wenn Webanwendungen Daten von anderen Webservices laden, dann
+geschieht dies meistens im JSON-Format. JSON steht für 
+_**J**ava**S**cript **O**bject **N**otation_ und ist stark an
+die Syntax von JavaScript-Objekte angelehnt. 
+
+Betrachten wir nochmals ein JavaScript-Array:
+
+```javascript
+const temperatures = [
+  { name: 'Hamburg', temp: 2 },
+  { name: 'Paris', temp: 4 },
+  { name: 'New York', temp: -1 },
+  { name: 'Sydney', temp: 20 },
+];
+```
+
+In JSON hat dieses Array folgende Form:
+
+```json
+[
+  {"name":"Hamburg","temp":2},
+  {"name":"Paris","temp":4},
+  {"name":"New York","temp":-1},
+  {"name":"Sydney","temp":20}
+]
+```
+
+Die JSON-Datenstruktur stellt alle Eigenschaften (hier `name` und
+`temp`) als Strings dar und wird insgesamt auch als String aufgefasst.
+
+JSON-Strings lassen sich leicht in JavaScript-Objekte umwandeln,
+weshalb sich dieses Datenformat sehr gut für den Datenaustausch
+in Webanwendungen eignet.
+
+### my-json-server als API für statische JSON-Daten 
+
+Mit Hilfe von [my-json-server](https://my-json-server.typicode.com)
+können statische JSON-Datenquellen als einfache Webservices 
+bereitgestellt werden. Dazu ist lediglich eine Datei namens 
+`db.json` nötig, welche die JSON-Daten enthält:
+
+```json
+{ 
+  "locations": [
+    { "id": 1, "name": "Hamburg", "temp": 2 },
+    { "id": 2, "name": "Paris", "temp": 4 },
+    { "id": 3, "name": "New York", "temp": -1 },
+    { "id": 4, "name": "Sydney", "temp": 20 }
+  ]
+}
+```
+
+Hier wurden zusätzlich `id`-Eigenschaften erstellt, die den
+eindeutigen Zugriff auf einzelnen Datensätze für die Orte
+erleichtern. Mit der Eigenschaft `locations` werden die 
+Daten in einer „Ressource“  zusammengefasst.
+
+Wenn die Datei `db.json` im Hauptverzeichnis eines 
+GitHub-Repositories gespeichert wird, dann kann auf die Daten
+via my-json.server.typicode.com zugegriffen werden, z.B.:
+
+```
+https://my-json-server.typicode.com/behrends/workshops/locations/3
+```
+
+&xrarr; Siehe dazu `db.json` in [github.com/behrends/workshops](https://github.com/behrends/workshops)
+
+Durch die Datei `db.json` in einem GitHub-Repository (`GITHUB-REPO`)
+eines dort registrierten Accounts (`GITHUB-USER`) kann also auf einzelne
+Datensätze mit einer bestimmten `ID` (oben `3`) in einem Ressource 
+(`RESOURCE`, oben `locations`) dynamisch zugegriffen werden:
+
+```
+https://my-json-server.typicode.com/GITHUB-USER/GITHUB-REPO/RESOURCE/ID
+```
+
+<Callout type="warning">
+In den JSON-Daten bzw. `db.json` werden „äußere“ Schlüssel 
+als „Ressource“ (siehe `locations` oben) und `id`-Attribute 
+benötigt, damit die eindeutige Adressierung einzelner Datensätze 
+in einer URL gelingt.
+</Callout>
+
+Somit ist es also möglich, mit relativ wenig Aufwand eine 
+statische JSON-Datenquelle im Web bereitzustellen.
+
+<Callout type="warning" emoji="👨🏻‍💻">
+Daten via my-json-server z.B. direkt im Browser laden.
+</Callout>
+
+<Callout type="warning" emoji="👨🏻‍💻">
+ggf. Übung: eigene Datei db.json mit anderer Datenstruktur erstellen und
+bei GitHub veröffentlichen und die URL für den zweiten Eintrag 
+erstellen (`burger`):
+
+```json
+{
+  "food": [
+    {"id":1,"name":"pizza"},
+    {"id":2,"name":"burger"},
+    {"id":3,"name":"schnitzel"}
+  ]
+}
+```
+
+</Callout>
+
+Wir werden diese Datenquelle nutzen, um auf diese
+mit `fetch` aus der Webanwendung zuzugreifen.
