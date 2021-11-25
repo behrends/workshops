@@ -1,0 +1,36 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Struktur und Links
+
+<Callout>
+  **Dauer:** ca 10 min.
+
+  **Themen:** 
+  - Strukturierung von JavaScript-Dateien mit Funktionen
+  - Nützliche Links
+
+</Callout>
+
+### Struktur in script.js
+
+Am Anfang der Datei `script.js` werden für alle benötigten Elemente 
+Konstanten initialisiert, denen mit `document.getElementById` die 
+entsprechenden DOM-Elemente zugewiesen werden.
+
+In Funktionen wird das Verhalten der Klick-Eventhandler definiert und
+mit weiteren Funktionen können z.B. passende Template-Strings für 
+neue HTML-/DOM-Elemente erzeugt werden. Durch diese Funktionen bleibt
+der Code einigermaßen übersichtlich.
+
+Für komplexere Anforderungen bzw. Code-Strukturen können in
+JavaScript Klassen und Module mit weiteren Dateien verwendet werden.
+
+### Links
+
+Mehrere kleine Beispiel-Projekte für Webanwendungen ohne Frameworks mit Quellcode:
+
+- [Vanilla Web Projects](https://github.com/bradtraversy/vanillawebprojects)
+
+Praktische Sammlung von Code-Beispielen für verschiedene Use Cases mit der DOM-API:
+
+- [htmldom.dev](https://htmldom.dev/)

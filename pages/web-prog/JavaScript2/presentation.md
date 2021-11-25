@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Vorstellung der App-Ideen
 
 <Callout>
-  **Dauer:** 90-120 Minuten \
+  **Dauer:** 60-90 Minuten \
   (je nach Gruppenzahl und Diskussionsbedarf)
 </Callout>
 
