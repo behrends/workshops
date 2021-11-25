@@ -60,7 +60,8 @@ localStorage.setItem('countries', JSON.stringify(myData));
 
 Mit `JSON.stringify` wird ein JavaScript-Objekt in 
 einen JSON-String umgewandelt. Umgekehrt erzeugt
-`JSON.parse` aus JSON-Daten ein JavaScript-Objekt.
+`JSON.parse` aus einem String im JSON-Format ein 
+JavaScript-Objekt.
 
 Die Daten stehen der Webanwendung auch erneutem Laden
 im `localStorage` zur Verfügung. Jeder Browser hat sein
