@@ -70,7 +70,7 @@ Themen geplant:
 - JavaScript Teil 1, Besprechung App-Idee
 - JavaScript (u.a. DOM) Teil 2, Vorstellung App-Idee <br/> (idealerweise Termin mit 5 Vorlesungsstunden)
 - JavaScript (u.a. JSON, fetch, async/await) Teil 3
-- Zeit zum Programmieren, evtl. Ausblick (z.B. TypeScript, React), Tipps und Hilfe
+- Zeit zum Programmieren, evtl. Ausblick (z.B. localStorage, TypeScript, React)
 - Präsentation der Projekte, Abschluss
 
 ## Prüfungsleistung
