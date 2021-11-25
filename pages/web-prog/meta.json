@@ -1,11 +1,11 @@
 {
   "index": "Übersicht",
-  "HTML": "HTML",
-  "CSS1": "CSS Teil 1",
-  "CSS2": "CSS Teil 2",
-  "JavaScript1": "JavaScript Teil 1",
-  "JavaScript2": "JavaScript Teil 2",
-  "JavaScript3": "JavaScript Teil 3",
-  "Projekt": "Projekt",
-  "Abschluss": "Abschluss"
+  "HTML": "1 - HTML",
+  "CSS1": "2 - CSS Teil 1",
+  "CSS2": "3 - CSS Teil 2",
+  "JavaScript1": "4 - JavaScript Teil 1",
+  "JavaScript2": "5 - JavaScript Teil 2",
+  "JavaScript3": "6 - JavaScript Teil 3",
+  "Projekt": "7 - Projekt",
+  "Abschluss": "8 - Abschluss"
 }
