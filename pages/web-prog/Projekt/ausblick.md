@@ -58,13 +58,21 @@ myData.push({id: 4, country:'I'});
 localStorage.setItem('countries', JSON.stringify(myData));
 ```
 
+Mit `JSON.stringify` wird ein JavaScript-Objekt in 
+einen JSON-String umgewandelt. Umgekehrt erzeugt
+`JSON.parse` aus JSON-Daten ein JavaScript-Objekt.
+
 Die Daten stehen der Webanwendung auch erneutem Laden
 im `localStorage` zur Verfügung. Jeder Browser hat sein
 eigenes `localStorage`-Objekt (clientseitig).
 
 ### Daten in der Cloud
 
-Es gibt einige Beispiele von Datenbanken in der Cloud:
+Wenn die lokale Speicherung mit `localStorage` nicht mehr
+ausreicht, kann auf eine Datenbank in der Cloud umgestiegen
+werden &mdash; solange es die jeweilige Situation in Bezug 
+auf den Datenschutz zulässt. Es gibt einige Beispiele von 
+Datenbanken in der Cloud:
 
 - [Firebase von Google](https://firebase.google.com)
 - [Supabase](https://supabase.io)
@@ -81,12 +89,13 @@ wodurch der Code stabiler und wartbarer werden kann.
 
 TypeScript ist eine Erweiterung von JavaScript. Somit
 ist JavaScript-Code bereits gültiges TypeScript (allerdings
-ohne Typisierung) und dies bedeutet, dass TypeScript
-nahtlos in bestehenden Projekte eingesetzt werden kann.
+ohne Typisierung). Dies bedeutet, dass TypeScript
+nahtlos und schrittweise in bestehenden Projekten 
+eingesetzt bzw. angewendet werden kann.
 
 ### Frameworks
 
-In komplexeren Webanwendungen in der Regel eines 
+In komplexeren Webanwendungen wird in der Regel eines 
 der vielen Web-Frameworks genutzt, u.a. um den Code besser
 zu strukturieren und um die Zusammenarbeit in größeren
 Teams besser zu koordinieren:
@@ -99,6 +108,7 @@ Teams besser zu koordinieren:
 
 <Callout type="warning">
 Relevante Trends im Bereich der Webentwicklung werden 
-jedes Jahr in einer Umfrage ermittelt, siehe 
-[StateOfJS](https://stateofjs.com)
+jedes Jahr in einer breit angelegten Umfrage unter 
+Webprogrammierern ermittelt, deren Ergebnisse bei 
+[StateOfJS](https://stateofjs.com) veröffentlicht werden.
 </Callout>
