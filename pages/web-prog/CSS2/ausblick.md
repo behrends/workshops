@@ -29,6 +29,7 @@ Styles, Layouts und UI-Komponenten definieren. Beliebte Beispiele:
 
 - [tailwind](https://tailwindcss.com)
 - [Bootstrap](https://getbootstrap.com)
+- [Stitches](https://stitches.dev/) und [Radix](https://www.radix-ui.com/)
 
 Mit [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 ist es möglich, eigene HTML-Elemente bzw. -Tags zu erstellen. Es gibt bereits
