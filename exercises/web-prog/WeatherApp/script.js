@@ -1,3 +1,8 @@
+// TODOS: localStorage
+// geonames API o.a. für Orte (anstatt my-json-server)
+// Detail-Ansicht
+// Fahrenheit <-> Celsius
+// trim input, avoid duplicates, remove element, usw.
 const add_btn = document.getElementById('add_btn');
 const search_btn = document.getElementById('search_btn');
 const search_input = document.getElementById('search_input');
