@@ -3,6 +3,10 @@
     "title": "Web-Programmierung",
     "type": "nav"
   },
+  "mobile": {
+    "title": "Mobile Apps",
+    "type": "nav"
+  },
   "impressum": {
     "title": "Impressum",
     "type": "nav",

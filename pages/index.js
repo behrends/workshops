@@ -6,10 +6,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Head>
         <title>Workshops</title>
-        <meta
-          name="description"
-          content="Workshop Notizen"
-        />
+        <meta name="description" content="Workshop Notizen" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -22,7 +19,17 @@ export default function Home() {
 
         <div className="flex flex-wrap items-center justify-around max-w-full mt-6 sm:w-full">
           <Link href="/web-prog">
-            <h1 className="cursor-pointer">Web-Programmierung (WWI/WDS)</h1>
+            <h1 className="cursor-pointer">
+              Web-Programmierung (WWI/WDS)
+            </h1>
+          </Link>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-around max-w-full mt-6 sm:w-full">
+          <Link href="/mobile">
+            <h1 className="cursor-pointer">
+              Entwicklung mobiler Apps (TIF)
+            </h1>
           </Link>
         </div>
       </main>
