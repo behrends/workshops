@@ -26,61 +26,51 @@ Dozent stellt sich bei Bedarf vor (z.B. bei zwei Kursen mit Wahlmodul):
 - Themen: Programmierung, Webentwicklung, mobile Apps, Datenbanken, …
 - weitere aktuelle Interessen: Digitale Lehre (Online/Präsenz, Didaktik, …), 3D in Webanwendungen (ThreeJS, react-three-fiber), Web3 (Blockchain, dApps, …)
 
-## Organisatorisches
-
-Es gibt einen Moodle-Kursraum für das Vorlesungsmaterial (Folien, Links, usw.).
-
-Bewertete Prüfungsleistung: Entwicklung einer Smartphone-App im Team
-&xrarr; mehr dazu später
-
-Wir treffen uns zunächst immer zu den Terminen im Kurskalender in der Videokonferenz.
-
-Wenn die Entwicklung der App in den Teams beginnt, dann ändern wir das Format der Vorlesung (Zeit zum Programmieren und für Fragen und Feedback). Termine könnten dann auch nur online stattfinden.
-
 
 ## Infos zur Veranstaltung
 
-- Es gibt 33 Vorlesungsstunden.
-- Programmierkenntnisse (in Python, Java, …) werden vorausgesetzt.
+- Im Moodle-Kursraum wird das Vorlesungsmaterial gesammelt.
+- Es gibt 72 Vorlesungsstunden.
+- Programmierkenntnisse in einer beliebigen Sprache werden vorausgesetzt (JavaScript, Java, Python, …). 
 - Bitte Laptop mitbringen, da es immer wieder „Live-Coding“ zum Mitmachen gibt. 
 - Informationen und Lernmaterial sind in Moodle zu finden.
-- Manche Termine finden evtl. online in BBB statt (noch nicht sicher, wird angekündigt).
+- Manche Termine finden evtl. online in BBB statt (wird zeitnah angekündigt).
+- Wenn die Entwicklung der App in den Teams beginnt, dann ändern wir das Format der Vorlesung (Zeit zum Programmieren und für Fragen und Feedback). Termine könnten dann auch nur online stattfinden.
+- Bei online-Terminen treffen wir uns zunächst immer in der Videokonferenz &mdash; auch wenn bei späteren Terminen die Zeit hauptsächlich zum Programmieren genutzt wird.
+
 
 ## Lernziel
 
-Mit HTML, CSS und JavaScript die wesentlichen Frontendtechnologien 
-der Webentwicklung kennenlernen. Projektgruppen (2-3 Studierende)
-bauen eine clientseitige Webanwendung mit HTML, CSS und JavaScript 
-(ohne Frameworks).
+Verschiedene Ansätze zur Entwicklung mobiler Smartphone-Apps 
+werden vorgestellt und ausprobiert, sodass hierzu ein Überblick 
+erhalten wird. Projektgruppen (2-3 Leute) entwickeln eine mobile 
+App, um somit praktische und vertiefende Kenntnisse in eine 
+Entwicklungsplattform zu erhalten.
 
-<Callout type="error">
-Wir haben nur 33 Vorlesungsstunden…
-</Callout>
 
 ## Inhalte
 
-An 33 Vorlesungsstunden, die sich auf 8 Termine aufteilen, sind diese 
-Themen geplant:
+Folgende Themen sind geplant:
 
-- Einleitung, HTML (heute!)
-- CSS Teil 1
-- CSS Teil 2 (u.a. FlexBox)
-- JavaScript Teil 1, Besprechung App-Idee
-- JavaScript (u.a. DOM) Teil 2, Vorstellung App-Idee <br/> (idealerweise Termin mit 5 Vorlesungsstunden)
-- JavaScript (u.a. JSON, fetch, async/await) Teil 3
-- Zeit zum Programmieren, evtl. Ausblick (z.B. localStorage, TypeScript, React)
-- Präsentation der Projekte, Abschluss
+- Einleitung, Android Teil 1 (heute!)
+- Android Teil 2
+- React Native Teil 1
+- React Native Teil 2
+- Flutter ?
+- PWA ?
+- ionic ?
+- App-Projekt beginnt
+- mehrere Termine zum Programmieren
+- zusätzliche Inhalte und Themen nach Bedarf
+- Präsentation der Apps, Abschluss
 
 ## Prüfungsleistung
-Die Prüfungsleistung ist ein Portfolio.
+Die Prüfungsleistung ist ein „Programmentwurf“, d.h. in 
+Teams von 2-3 Personen wird eine App programmiert.
 
-**Voraussichtliche Bewertung:**
-
-- 15% Vorstellung einer App-Idee (wahrscheinlich am 4. Termin)
-- 15% Präsentation des Ergebnis (am letzten Termin)
-- 70% Umsetzung der App-Idee als Webanwendung (Abgabe in Moodle am Ende der letzten Vorlesungswoche)
-
-Umsetzung mit reinem HTML, CSS und JavaScript ohne Frameworks. 
+- Framework bzw. Entwicklungsansatz wird gewählt
+- App-Idee konzipieren (es gibt einen Vorschlag zur Orientierung gegeben)
+- ggf. Mockups, Wireframes oder Klickprototypen erstellen
 
 **Mehr Details zum Projekt und zum Bewertungsschema gibt es an einem späteren Termin!**
         
