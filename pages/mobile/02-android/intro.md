@@ -52,8 +52,6 @@ bzw. Android Jetpack oder Jetpack Compose.
 
 
 - https://developer.android.com/courses
-- weitere bei Udacity usw?
-- mein Kurs :-)
 
 <Callout type="warning">
 Zu den verschiedenen Jetpack-bzw. AndroidX-Bibliotheken
@@ -75,3 +73,15 @@ und `androidx` relevant sind:
 
 - `android`: [developer.android.com/reference/packages](https://developer.android.com/reference/packages)
 - `androix`: [developer.android.com/reference/androidx/packages](https://developer.android.com/reference/androidx/packages)
+
+### Weitere Ressourcen
+
+TODO!
+
+Jede Menge im Web zu finden:
+
+- YouTube (u.a. offizieller Dev-Channel von Google)
+- Android Dev Blog
+- weitere Kurse bei Udacity usw?
+- mein Kurs :-)
+
