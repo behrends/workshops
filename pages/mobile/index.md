@@ -32,6 +32,15 @@ Lektion wird am Anfang der Lektion beschrieben.
   Die tatsächliche Dauer einer Lektion ermitteln und ggf. anpassen!
 </Callout>
 
+## Organisatorische Vorbereitungen
+
+Diese Veranstaltung ist ein Wahlmodul, daher auf folgendes
+achten:
+
+- Moodle-Raum mit manueller Einschreibung beantragen
+- Teilnehmende Personen einzeln in Moodle-Raum eintragen
+- Kommunikation via Ankündigungen in Moodle (oder E-Mail-Verteiler)
+
 Weitere Informationen zu Inhalten, dem Ablauf und der 
 Prüfungsleistung sind auf der [nächsten Seite](mobile/01-intro/intro) 
 zu finden.

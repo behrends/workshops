@@ -1,4 +1,8 @@
 {
-  "intro": "Einleitung",
-  "statistiken": "Statistiken"
+  "organisatorisches": "Organisatorisches",
+  "statistiken": "Statistiken",
+  "programmieren": "Programmieren",
+  "plattformen": "Plattformen",
+  "ablauf": "Ablauf",
+  "android": "Android"
 }
