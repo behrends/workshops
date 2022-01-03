@@ -12,6 +12,10 @@ import Callout from 'nextra-theme-docs/callout'
   **Ziel:** 
 </Callout>
 
+## Notizen 
+
+Zeigen: Emulator in Android Studio
+
 ## Dokumentation
 
 In der offiziellen Entwickler-Dokumentation zu Android unter

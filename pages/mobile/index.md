@@ -40,7 +40,3 @@ achten:
 - Moodle-Raum mit manueller Einschreibung beantragen
 - Teilnehmende Personen einzeln in Moodle-Raum eintragen
 - Kommunikation via Ankündigungen in Moodle (oder E-Mail-Verteiler)
-
-Weitere Informationen zu Inhalten, dem Ablauf und der 
-Prüfungsleistung sind auf der [nächsten Seite](mobile/01-intro/intro) 
-zu finden.

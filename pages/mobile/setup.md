@@ -1,0 +1,149 @@
+import Callout from 'nextra-theme-docs/callout'
+
+<Callout>
+Es spart viel Zeit, wenn die Studierenden vor Beginn der 
+Veranstaltung Android Studio bei sich auf dem Rechner
+installieren.
+
+Die folgende Anleitung kann ein paar Tage vor dem ersten 
+Termin als Ankündigung im Moodle-Raum an alle teilnehmenden 
+Personen geschickt werden. 
+
+Es könnte auch sinnvoll sein, die E-Mail-Verteiler 
+der Kurse für eine kurze E-Mail zu nutzen, um sicherzustellen,
+dass alle Studierenden, die dieses Wahlmodul belegen, korrekt
+im Moodle-Raum eingetragen wurden.
+
+Diese Informationen sollten idealerweise jedes Jahr
+aktualisiert werden.
+</Callout>
+
+# Android Studio einrichten
+
+Für die Entwicklung mobiler Apps benötigen wir unter
+anderem die Software _Android Studio_. Diese wird von
+Google bereitgestellt, ist kostenlos und kann auf 
+allen Betriebssystemen installiert werden 
+(Windows, MacBooks, Linux).
+
+Das Herunterladen, die Installation und die Einrichtung 
+von Android Studio kann je nach Internetverbindung und 
+Rechnergeschwindigkeit durchaus 1-2 Stunden dauern. 
+Falls es hierbei zu Problemen kommt, dann können diese
+am ersten Vorlesungstermin besprochen werden.
+
+Als Vorbereitung zur Veranstaltung wäre es somit sehr
+hilfreich, wenn Sie Android Studio vor dem ersten 
+Vorlesungstermin bei sich installieren und einrichten. 
+Dazu sind diese Schritte nötig:
+
+1. Android Studio herunterladen und installieren
+1. Android Studio starten
+1. Setup von Android Studio durchführen
+1. Optional: Neues Projekt erstellen und App auf dem Emulator ausführen 
+
+Im folgenden wird beschrieben, wie bei den einzelnen Schritten
+für die Einrichtung von Android Studio vorzugehen ist.
+
+> **Bemerkung:** 
+> Android Studio basiert auf der IntelliJ-Plattform von 
+> Jetbrains. Es ist möglich, IntelliJ mit den 
+> Funktionalitäten für die Android-Entwicklung zu erweitern, 
+> sodass eine separate Installation von Android Studio nicht 
+> benötigt wird. Wir werden hier allerdings nicht auf diesen 
+> Ansatz eingehen.
+
+
+## 1. Android Studio herunterladen und installieren
+Laden Sie die für Ihren Rechner passende Version von Android Studio von 
+der Webseite [developer.android.com/studio](https://developer.android.com/studio)
+herunter (siehe Button `Download Android Studio`). 
+
+**Achtung bei MacBooks**: Falls Sie ein MacBook mit 
+einem M1-Chip nutzen, dann sollten Sie zu den `Download 
+options` wechseln und dort die Version für 
+`Mac (64-bit, ARM)` herunterladen.
+
+Der Download ist ca. 1 Gigabyte groß. Führen Sie die
+Installationsdatei von Android Studio bei sich auf 
+dem Rechner aus und installieren Sie somit die Software.
+
+## 2. Android Studio starten
+Starten Sie nun Android Studio, nachdem Sie die Software bei 
+sich auf dem Rechner installiert haben.
+
+Nun könnte es sein, dass Updates für Android Studio zu 
+installieren sind. Diese können Sie durch Bestätigung 
+installieren. Starten Sie bei Aufforderung Android Studio 
+erneut. Danach oder falls keine Updates erforderlich waren,
+können Sie mit der Einrichtung von Android Studio beginnen,
+wie im folgenden Abschnitt beschrieben.
+
+## 3. Setup von Android Studio durchführen
+Beim ersten Start von Android Studio nach der Installation 
+erscheint ein Dialog, der schrittweise durch die Einrichtung 
+der Software leitet. Hier können die Vorschläge bzw. 
+Standardkonfigurationen akzeptiert werden.
+
+Nun wird erneut einiges heruntergeladen, was je nach 
+Internetverbindung und Rechnergeschwindigkeit eine gewisse 
+Zeit beansprucht.
+
+Am Ende dieses Vorgangs könnte es wiederum notwendig sein, 
+Android Studio neu zu starten.
+
+Android Studio ist nun eingerichtet und einsatzbereit. 
+Der folgende Schritt ist nicht unbedingt nötig und kann
+freiwillig durchgeführt werden, um eine erste App zu erstellen.
+
+## 4. Optional: Neues Projekt erstellen und App auf dem Emulator ausführen 
+Wir werden diesen Schritt gemeinsam beim ersten 
+Vorlesungstermin durchführen.
+
+Wenn Sie möchten, dann können Sie diese Schritte bei sich 
+ausprobieren, um zu überprüfen, dass die Einrichtung von
+Android Studio erfolgreich war:
+
+1. Erstellen Sie ein neues Projekt, in dem Sie unter `Phone and Tablet` die Vorlage `Empty Activity` auswählen.
+2. Nun wird eventuell wieder einiges konfiguriert und heruntergeladen.
+3. Das Projekt wird schließlich in Android Studio geöffnet.
+4. Nachdem das Projekt kompiliert wurde, können Sie die App mit dem „Play-Button“ auf dem Emulator ausführen (grünes Dreieck in der oberen Werkzeugleiste).
+
+## Fehlerbehandlungen
+Falls Fehler auftauchen und nicht behoben werden können,
+dann besteht beim ersten Termin die Möglichkeit, diese
+zu besprechen.
+
+Außerdem finden sich durch Internetrecherchen z.B. bei
+[stack overflow](https://stackoverflow.com) oftmals die
+Lösungen zu häufig auftretenden Problemen.
+
+### Windows 
+
+Leider kann der Dozent die Installation von Android Studio 
+nicht selbst auf einem Windows-Rechner durchführen. 
+
+Falls Probleme mit Android Studio unter Windows auftauchen,
+dann können diese hoffentlich durch die gegenseitige 
+Unterstützung der Studierenden zu Beginn der Vorlesung gelöst 
+werden.
+
+### Lizenzen akzeptieren
+
+Beim Dozenten erschien z.B. beim Starten der App auf dem Emulator 
+diese Fehlermeldung:
+
+```
+Failed to install the following Android SDK packages as some licences have not been accepted.
+...
+To build this project, accept the SDK license agreements and install the missing components using the Android Studio SDK Manager.
+```
+
+Dieses Problem konnte wie folgt gelöst werden:
+1. SDK-Manager öffnen (Icon bestehend aus Würfel und nach unten gerichtetem Pfeil in der Werkzeugleiste).
+1. Es öffnet sich ein Fenster mit dem SDK-Manager
+1. Im Reiter `SDK Tools` den Eintrag `Android SDK Command-line Tools (latest)` wählen
+1. Mit `Apply` die Änderung anwenden
+1. Ein Dialog erscheint, in dem die Lizenz akzeptiert werden kann, und das Herunterladen der `Android SDK Command-line Tools` kann beginnen.
+1. Danach sollte es möglich sein, die App auf dem Emulator zu starten.
+
