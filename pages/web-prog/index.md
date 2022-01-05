@@ -3,10 +3,12 @@ import Callout from 'nextra-theme-docs/callout'
 # Web-Programmierung (WWI/WDS)
 
 Jeder Abschnitt in der linken Navigationsleiste entspricht einem 
-Vorlesungsblock mit 4 Stunden (zweimal 90 Minuten) und enthält 
-Lektionen mit Übungen, die zusammen in der Regel nicht 
-länger als 45 Minuten sind. Die Dauer, Inhalte und Ziele jeder 
-Lektion wird am Anfang der Lektion beschrieben.
+Block mit 4 Vorlesungsstunden. Eine Vorlesungsstunde ist 45 Minuten
+lang, sodass ein Vorlesungsblock 180 Minuten bzw. zweimal 90 Minuten
+dauert. Jeder Block besteht aus einzelnen Lektionen mit Übungen. 
+In der Regel ist eine Lektion einschließlich Übung nicht 
+länger als 45 Minuten. Am Anfang jeder Lektion werden ihre Dauer, 
+Inhalte und Ziele beschrieben.
 
 <Callout>
   Die Vorlesung ist wie ein Workshop organisiert und orientiert
