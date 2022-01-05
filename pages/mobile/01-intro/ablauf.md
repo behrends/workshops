@@ -96,6 +96,13 @@ Zu Beginn lernen wir verschiedene Frameworks kennen:
 Pro Framework benötigen wir wenige Termine, sodass Teil 1 
 insgesamt 6-8 Termine beansprucht.
 
+<Callout type="warning" emoji="‼️">
+Nur durch das Programmieren wird App-Entwicklung gelernt.
+
+In der Vorlesung können die Themen nur kurz und knapp 
+vorgestellt werden — eigene Recherchen sind notwendig 
+(u.a. in Android Developer Docs).
+</Callout>
 
 ### Teil 2: App in Teams programmieren
 
