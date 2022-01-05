@@ -41,3 +41,9 @@ ist in vielen Ländern sehr unterschiedlich, wie beim
 - Wer hat ein Android-Handy oder ein iPhone?
 - Wer hat Windows-Laptop, ein MacBook oder ein Linux-Notebook?
 - Wie sicher fühlen Sie sich mit git? 
+
+<Callout type="warning">
+Präsenz: Hand heben und Notizen am Whiteboard
+
+BBB: Umfrage + Screenshot des Ergebnis
+</Callout>

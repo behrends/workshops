@@ -52,8 +52,6 @@ das _responsive Design_ und _Service Workers_ u.a. für Offline-
 Funktionalität. Unter dem Begriff _Progressive Web Apps_ (_PWA_) 
 werden diese Techniken zusammengefasst. 
 
-TODO: zwei mal 4 Stunden zu PWAs?
-
 Ein paar nützliche Links zu PWAs:
 
 - [Infos über PWAs bei web.dev (Google)](https://web.dev/progressive-web-apps/)
