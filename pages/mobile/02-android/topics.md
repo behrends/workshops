@@ -12,6 +12,8 @@ import Callout from 'nextra-theme-docs/callout'
   **Ziel:** 
 </Callout>
 
+**Was schaffen wir in wenigen Terminen? Flutter/PWA/ionic vorbereiten?**
+
 ## TODO: nur Teile davon behandeln?
 
 - Setup: Android Studio, Emulator, Handy

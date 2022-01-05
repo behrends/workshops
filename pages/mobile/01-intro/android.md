@@ -3,21 +3,17 @@ import Callout from 'nextra-theme-docs/callout'
 # Android
 
 <Callout>
-  **Dauer:** 30 Minuten
+  **Dauer:** 30-45 Minuten \
+  Restliche Zeit steht für Fragen, Diskussion und Hilfe bei Problemen
+  mit Android Studio zur Verfügung.
 
-  - TODO
+  - Android Studio: Projekte erstellen und ausführen
+  - Zugang zum Videokurs
 
   **Ziel:** Alle haben Android Studio eingerichtet. Neue Projekte 
   können erstellt und auf dem Emulator ausgeführt werden.
 </Callout>
 
-## TODO
-
-<Callout type="warning">
-Hausaufgabe bis zum nächsten Termin? 
-
-z.B. Videokurs?
-</Callout>
 
 ## Native App-Entwicklung für Android
 
@@ -34,9 +30,9 @@ Seit einigen Jahren empfiehlt Google für die native
 Android-App-Entwicklung die Programmiersprache Kotlin &mdash;
 insbesondere dann, wenn neue App-Projekte gestartet werden.
 Obwohl Java weiterhin unterstützt wird, werden hier nur Beispiele
-mit Kotlin gezeigt. Für die App-Projekte ist Java weiterhin erlaubt.
+mit Kotlin gezeigt. Für die App-Projekte ist Java dennoch erlaubt.
 
-## Projekt in Android Studio erstellen
+## Projekt in Android Studio erstellen und ausführen
 
 Projekt gemeinsam erstellen
 
@@ -56,11 +52,43 @@ so können diese besprochen bzw. diskutiert werden.
 Insbesondere gibt es immer wieder unter Windows besondere
 Situationen, die zu Fehler führen können. Hier können sich die 
 Studierenden idealerweise gegenseitig mit Tipps helfen.
+
+Eventuell können Infos zu Problemen unter Windows hier auf
+einer eigenen Seite gesammelt werden.
 </Callout>
 
-App auf eigenem Handy ausführen
-Etwas anders auf jedem Gerät bzw. bei jedem Hersteller
+## App auf eigenem Handy ausführen
+Ist ein Android-Handy vorhanden, so kann dies via USB-Kabel
+mit dem Laptop verbunden werden. In Android Studio kann die
+App dann auf dem Handy ausgeführt werden. Dazu einige Bemerkungen
 
-Windows: eventuell Treiber herunterladen
+- In den Einstellungen des Handies müssen die Entwickleroptionen freigeschaltet werden (siehe Hinweis unten).
+- Für Windows müssen eventuell Treiber heruntergeladen werden
+- Etwas anders auf jedem Gerät bzw. bei jedem Hersteller
+- &xrarr; evtl. eigene Recherchen notwendig
 
-Direkt auf das Video verweisen: Abschnitt 1, Video 7 im Kurs zu Android
+Studierende erhalten Zugang zu einem Android-Videokurs (siehe 
+folgender Abschnitt). Im Videokurs wird in Abschnitt 1, Video 7
+gezeigt, wie auf einem Android-Handy die Entwickleroptionen
+freigeschaltet werden.
+
+**Zugang zum Android-Videokurs: Link ist in Moodle zu finden.**
+
+## Optional: Genymotion
+
+Genymotion ist ein alternativer Android-Emulator, mit dem sich 
+viele verschiedene Geräte unterschiedlicher Hersteller simulieren 
+lassen (u.a. von Samsung).
+
+Benötigt allerdings eine Installation von VirtualBox.
+
+Hier gibt es eine kostenlose Version für den persönlichen 
+Gebrauch: [www.genymotion.com/download/](https://www.genymotion.com/download/)
+
+## Hausaufgabe
+
+Falls noch nicht erfolgt, dann Android Studio installieren,
+neues Projekt erstellen und App auf Emulator oder Handy ausführen
+(siehe [Vorbereitung](/mobile/setup)).
+
+Abschnitt 2 im Videokurs durcharbeiten (_Aufbau von Projekten für Android-Apps verstehen_).

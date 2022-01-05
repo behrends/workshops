@@ -12,6 +12,11 @@ import Callout from 'nextra-theme-docs/callout'
   **Ziel:** 
 </Callout>
 
+## Videokurs
+
+Themen werden mittels Live Coding kurz vorgestellt mit passenden
+Verweisen auf den Videokurs bzw. Dokumentation.
+
 ## Dokumentation
 
 In der offiziellen Entwickler-Dokumentation zu Android unter

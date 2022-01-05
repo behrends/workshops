@@ -23,16 +23,14 @@ erhalten.
 
 ## Veranstaltung besteht aus zwei Teilen
 
-**Teil 1:** einige Termine am Anfang \
+**Teil 1:** bis zu 9 Termine am Anfang („Vorlesung“) \
 Vorstellung verschiedener Ansätze (z.B. Android mit Kotlin und React Native).
 
-**Teil 2:** restliche Termine \
+**Teil 2:** restliche Termine („Labor“) \
 App in Gruppen von 2-3 Leuten programmieren, Zeit zum Programmieren, Fragen und Feedback zum Code und bei Bedarf Behandlung besonderer Themen 
 
 - Wenn die Entwicklung der App in den Teams beginnt, dann ändern wir das Format der Vorlesung: <br/> &xrarr; Zeit zum Programmieren und für Fragen und Feedback
 - Bei online-Terminen treffen wir uns zunächst immer in der Videokonferenz &mdash; auch wenn bei späteren Terminen die Zeit hauptsächlich zum Programmieren genutzt wird.
-
-
 
 ## Format der Vorlesung
 
@@ -94,7 +92,7 @@ Zu Beginn lernen wir verschiedene Frameworks kennen:
 - ionic ?
 
 Pro Framework benötigen wir wenige Termine, sodass Teil 1 
-insgesamt 6-8 Termine beansprucht.
+(„Vorlesung“) bis zu 9 Termine beansprucht.
 
 <Callout type="warning" emoji="‼️">
 Nur durch das Programmieren wird App-Entwicklung gelernt.
