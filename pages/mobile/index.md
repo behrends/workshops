@@ -38,7 +38,14 @@ Inhalte und Ziele beschrieben.
 </Callout>
 
 <Callout type="error" emoji="‼️">
-  Die tatsächliche Dauer einer Lektion ermitteln und ggf. anpassen!
+Jedes Jahr vor jeder Lektion checken:
+
+- Abschnittsnummern im Videokurs
+- Links auf Dev Docs und Code Labs
+- Was kann sich noch ändern (auch inhaltlich)?
+- Kamen neue Themen oder Ansätze hinzu (z.B. Jetpack Compose)?
+
+Die tatsächliche Dauer jeder Lektion ermitteln und ggf. anpassen!
 </Callout>
 
 ## Organisatorische Vorbereitungen

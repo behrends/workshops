@@ -85,6 +85,19 @@ Benötigt allerdings eine Installation von VirtualBox.
 Hier gibt es eine kostenlose Version für den persönlichen 
 Gebrauch: [www.genymotion.com/download/](https://www.genymotion.com/download/)
 
+## Gemeinsame Übung
+
+Falls Zeit übrig ist, dann können wir gemeinsam folgende
+Übung durchführen und besprechen:
+
+<Callout type="warning" emoji="👨🏻‍💻">
+App so ändern, dass anstatt `Hello World!` die Begrüßung auf deutsch erscheint, also `Hallo Welt!`.
+
+Fällt Ihnen nach dieser Änderung etwas im Layout Editor auf? Wie kann dies anders gelöst werden? Wie könnte die Begrüßung automatisch in der Sprache angezeigt werden, die in den Einstellungen auf dem Handy gewählt wurde?
+
+Zusätzlich könnten auch verschiedene Schriftarten und -größen und Farben ausprobiert werden.
+</Callout>
+
 ## Hausaufgabe
 
 Falls noch nicht erfolgt, dann Android Studio installieren,
