@@ -40,12 +40,12 @@ ausgeben:
 Das Programm soll also z.B. für die Zahlen `3, 5, 8, 10, 7` folgende Ausgabe erzeugen:
 
 ```
- 3
- !!!!!
- ********
- %%%%%%%%%%
- 7
- ```
+3
+!!!!!
+********
+%%%%%%%%%%
+7
+```
 
 Wer Lust und Zeit hat, kann das Programm so abwandeln,
 dass es mit Eingabeparametern oder Benutzerabfrage für
