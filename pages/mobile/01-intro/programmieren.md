@@ -25,19 +25,37 @@ In 30 Minuten geht es weiter mit einer Besprechung der Lösungen.
 Erstellen Sie in einer Programmiersprache Ihrer Wahl
 ein Programm, dass folgendes leistet:
 
-- TODO: Aufgabentext und eigene Lösung (--> exercises.)
+Deklarieren Sie eine Variable oder Konstante, die eine 
+Liste von beliebigen Zahlen enthält 
+(z.B. `3, 5, 8, 10, 7`).
 
-Ausgabe eines Musters als Text.
+Das Programm soll für jede Zahl in der Liste folgendes 
+ausgeben:
+
+- für gerade Zahlen eine Folge von `*` deren Anzahl der Zahl entspricht 
+- für Vielfache von 5 eine Folge von `!` deren Anzahl der Zahl entspricht
+- für Vielfache von 2 und 5 eine Folge von `%` deren Anzahl der Zahl entspricht
+- alle anderen Zahlen werden direkt ausgegeben
+
+Das Programm soll also z.B. für die Zahlen `3, 5, 8, 10, 7` folgende Ausgabe erzeugen:
+
+```
+ 3
+ !!!!!
+ ********
+ %%%%%%%%%%
+ 7
+ ```
 
 Wer Lust und Zeit hat, kann das Programm so abwandeln,
 dass es mit Eingabeparametern oder Benutzerabfrage für
-die Anzahl der TODO ausgeführt wird, sodass TODO frei
-konfigurierbar ist.
+die Zahlen in der Liste ausgeführt wird.
 
 Für die Lösung der Aufgabe sollten 20 Minuten ausreichen.
 Geben Sie Ihre Lösung in Moodle ab. Es ist kein Problem,
-wenn Sie die Aufgabe nicht lösen können. Sollten Sie früher
-fertig sein, können Sie die Zeit für eine Pause nutzen.
+wenn Sie die Aufgabe nicht lösen können. Sollten Sie 
+früher fertig sein, können Sie die Zeit für eine Pause 
+nutzen.
 
 
 <Callout type="warning" emoji="👨🏻‍💻">
