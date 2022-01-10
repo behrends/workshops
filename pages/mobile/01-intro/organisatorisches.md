@@ -54,3 +54,4 @@ Teams von 2-3 Personen wird eine App programmiert.
 
 **Mehr Details zum Projekt und zum Bewertungsschema gibt es an einem späteren Termin!**
         
+&xrarr; Weitere Infos zum konkreten Ablauf und den Inhalten folgen in einer [späteren Lektion](/mobile/01-intro/ablauf).
