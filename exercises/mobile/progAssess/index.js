@@ -30,22 +30,14 @@ if (cliArgs.length > 0 && !isNaN(parseInt(cliArgs[0]))) {
 }
 
 for (let i = 0; i < list.length; i++) {
-  const number = list[i];
-  let symbol = number;
-  if (number % 5 === 0 && number % 2 === 0) {
-    symbol = '%';
-  } else if (number % 2 === 0) {
-    symbol = '*';
-  } else if (number % 5 === 0) {
-    symbol = '!';
-  }
-
+  let number = list[i];
   let line = number;
-  if (number % 5 === 0 || number % 2 === 0) {
-    line = '';
-    for (let j = 1; j <= number; j++) {
-      line = line + symbol;
-    }
+  if (number % 10 === 0) {
+    line = '%'.repeat(number);
+  } else if (number % 2 === 0) {
+    line = '*'.repeat(number);
+  } else if (number % 5 === 0) {
+    line = '!'.repeat(number);
   }
   console.log(line);
 }
