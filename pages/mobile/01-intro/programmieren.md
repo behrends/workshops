@@ -23,12 +23,25 @@ In 30 Minuten geht es weiter mit einer Besprechung der Lösungen.
 ## Aufgabe
 
 Erstellen Sie in einer Programmiersprache Ihrer Wahl
-ein Programm, dass folgendes leistet:
+ein Programm, dass folgendes leistet.
 
-Deklarieren Sie eine Variable oder Konstante, die eine 
-Liste von beliebigen Zahlen enthält 
+Deklarieren zunächst Sie eine Variable oder Konstante, 
+die eine  Liste von beliebigen Zahlen enthält 
 (z.B. `3, 5, 8, 10, 7`).
 
+Die folgenden Aufgaben bauen so einander auf, dass 
+jede Aufgabe die vorige erweitert. Passen Sie die
+Lösung schrittweise für jede Teilaufgabe an. Somit
+steigert sich die Schwierigkeit mit jeder Teilaufgabe.
+
+**Erste Teilaufgabe** \
+Geben Sie jede Zahl in der Liste in einer neuen Zeile aus.
+
+**Zweite Teilaufgabe** \
+Geben Sie für gerade Zahlen in der Liste ein besonderes 
+Zeichen wie z.B. `*` anstatt der Zahl aus.
+
+**Dritte Teilaufgabe** \
 Das Programm soll für jede Zahl in der Liste folgendes 
 ausgeben:
 
@@ -47,9 +60,13 @@ Das Programm soll also z.B. für die Zahlen `3, 5, 8, 10, 7` folgende Ausgabe er
 7
 ```
 
+Sie können gerne eine „Online-Programmierumgebung“ 
+wie z.B. [replit.com](https://replit.com) verwenden,
+die verschiedene Programmiersprachen unterstützt.
+
 Wer Lust und Zeit hat, kann das Programm so abwandeln,
 dass es mit Eingabeparametern oder Benutzerabfrage für
-die Zahlen in der Liste ausgeführt wird.
+die Zahlen in der Liste ausgeführt wird. 
 
 Für die Lösung der Aufgabe sollten 20 Minuten ausreichen.
 Geben Sie Ihre Lösung in Moodle ab. Es ist kein Problem,
