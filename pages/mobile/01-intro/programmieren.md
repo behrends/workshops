@@ -67,3 +67,7 @@ Für die Besprechung der Lösungen planen wir bis zu 10
 Minuten ein. Für Lösungen in verschiedenen Programmiersprachen
 kann [replit.com](https://replit.com) verwendet werden oder
 Studierende führen Ihre Lösung vor.
+
+<Callout type="warning">
+Musterlösung in Moodle bereitstellen.
+</Callout>

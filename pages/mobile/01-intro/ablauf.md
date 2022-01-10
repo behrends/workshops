@@ -23,11 +23,15 @@ erhalten.
 
 ## Veranstaltung besteht aus zwei Teilen
 
+Laut Modulbeschreibung besteht diese Veranstaltung aus
+einem „Vorlesungsanteil“ mit 36 Stunden und aus einem
+„Labor“ mit ebenfalls 36 Stunden.
+
 **Teil 1:** bis zu 9 Termine am Anfang („Vorlesung“) \
 Vorstellung verschiedener Ansätze (z.B. Android mit Kotlin und React Native).
 
 **Teil 2:** restliche Termine („Labor“) \
-App in Gruppen von 2-3 Leuten programmieren, Zeit zum Programmieren, Fragen und Feedback zum Code und bei Bedarf Behandlung besonderer Themen 
+App in Gruppen von 2-3 Leuten programmieren, Zeit zum Programmieren, Fragen und Feedback zum Code und bei Bedarf Behandlung besonderer Themen (evtl. in kleineren Gruppen)
 
 - Wenn die Entwicklung der App in den Teams beginnt, dann ändern wir das Format der Vorlesung: <br/> &xrarr; Zeit zum Programmieren und für Fragen und Feedback
 - Bei online-Terminen treffen wir uns zunächst immer in der Videokonferenz &mdash; auch wenn bei späteren Terminen die Zeit hauptsächlich zum Programmieren genutzt wird.
