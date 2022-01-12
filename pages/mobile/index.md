@@ -16,7 +16,7 @@ Inhalte und Ziele beschrieben.
   Beispiel-Anwendungen vermittelt.
   Vorführungen finden in Form von _Live Coding_ statt, bei dem
   die Studierenden auf ihren Laptops direkt den vorgeführten Code 
-  eingeben können. 
+  eingeben und mit eigenen Anpassungen nachvollziehen können. 
 </Callout>
 
 <Callout type="warning" emoji="✅">

@@ -1,4 +1,8 @@
 {
+  "prog": {
+    "title": "Programmierung",
+    "type": "nav"
+  },
   "web-prog": {
     "title": "Web-Programmierung",
     "type": "nav"
