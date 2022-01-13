@@ -2,5 +2,9 @@
   "vorstellung": "Vorstellung",
   "motivation": "Motivation",
   "organisatorisches": "Organisatorisches",
-  "ablauf": "Ablauf"
+  "ablauf": "Ablauf",
+  "intro": "Einführung",
+  "javascript": "JavaScript",
+  "hello_world": "Hello, World!",
+  "uebung": "Übung"
 }

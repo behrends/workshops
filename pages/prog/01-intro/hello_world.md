@@ -1,0 +1,154 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Hello, World!
+
+<Callout>
+  **Dauer:** 45 Minuten
+
+  - Beispielprogramm "Hello, World!"
+
+  **Ziel:** Live Coding zum Mitmachen beginnt
+</Callout>
+
+Die klassische Einführung in eine Programmiersprache
+besteht darin, ein Programm zu schreiben, dass die Begrüßung
+
+```
+Hello, World!
+```
+
+auf dem Bildschirm anzeigt bzw. ausgibt. Wir betrachten dies 
+kurz  in JavaScript.
+
+<Callout type="warning">
+Für alle, die schon Programmiererfahrungen haben:
+
+Die ersten Schritte sollen zunächst diejenigen an die
+Programmierung heranführen, die noch nie oder nur wenig
+programmiert haben. Am Anfang könnte das meiste demnach
+schon bekannt sein, aber das Tempo wird sich schrittweise
+erhöhen und hoffentlich sind bald auch für Erfahrene einige 
+unbekannte Aspekte oder nützliche Tipps dabei.
+</Callout>
+
+## Strings für Text
+
+<Callout type="warning" emoji="👨🏻‍💻">
+&xrarr; Vorführung der Konsole in Chrome und/oder Firefox
+
+&xrarr; Jeder kann mitmachen (`F12` im Chrome-Browser)
+</Callout>
+
+In fast allen Programmiersprachen wird beliebiger Text wie z.B. 
+`Hello, World!` als **String** (Zeichenkette) bezeichnet.
+
+Strings werden in fast allen Programmiersprachen mit doppelten Anführungszeichen umgeben:
+
+```js
+"Hello, World!"
+```
+
+Für das Hello-World-Programm benötigen wir also den String `"Hello, 
+World!"` und einen „Befehl“, um einen String auf dem Bildschirm 
+anzuzeigen bzw. auszugeben. 
+
+## Ausgabe auf Bildschirm 
+
+Um etwas auf dem Bildschirm auszugeben, hat JavaScript z.B. die 
+folgende **Funktion** (manchmal auch **Methode** genannt):
+
+```js
+console.log()
+```
+
+Die runden Klammern deuten bei Funktionen (und Methoden) an, dass diese verwendet bzw. **aufgerufen** werden.
+
+Um mit dieser Funktion etwas bestimmtes auszugeben, müssen wir 
+hier beim **Funktionsaufruf** (oder **Methodenaufruf**) einen 
+**Parameter** (manchmal auch **Argument** genannt) in den runden 
+Klammern einsetzen. Wir verwenden also den String 
+`"Hello, World!"`:
+
+```js
+console.log("Hello, World!") 
+```
+
+Oft sagen wir hierzu auch „der Funktion bzw. Methode beim Aufruf 
+ein Parameter oder ein Argument übergeben“.
+
+Es gibt auch Funktionen/Methoden ohne Parameter und solche mit 
+mehreren Parametern. Ebenso können sie ein Ergebnis als 
+**Rückgabewert** liefern (hier bei `console.log()` nicht relevant).
+
+Nun haben wir eine korrekte **Anweisung** in JavaScript 
+programmiert.
+
+Grundlegend und stark vereinfacht gesagt besteht die Programmierung 
+in vielen Sprachen daraus, aufeinanderfolgende Anweisungen zu 
+schreiben, die dann ausgeführt werden. 
+
+Ein paar Bemerkungen dazu:
+
+- In JavaScript können mehrere Anweisungen durch Zeilenumbruch oder Semikolon voneinander getrennt werden.
+- Oft ist daher JavaScript-Code mit Semikolon am Ende einer Anweisung zu sehen: <br/> 
+    ```console.log("Hello, World!");```
+- Im Unterrichtsmaterial wird meistens das Semikolon am Ende einer Anweisung angegeben.
+- Jeder Browser hat eine JavaScript-Konsole, in der JavaScript-Code ausprobiert werden kann. Dort funktioniert auch die Methode  `console.log()`.
+- Im Browser kann auch etwas in einem UI-Dialog mit `alert()`  angezeigt werden.
+- In dieser Vorlesung betrachten wir JavaScript weitestgehend ohne HTML und CSS (&xrarr; dies findet evtl. in der Vorlesung „Web-Engineering“ statt).
+
+## Programmierumgebung
+
+Für die Verwendung einer Programmiersprache werden zusätzliche
+Werkzeuge wie Editoren, Interpreter/Compiler oder komplette
+Entwicklungsumgebungen benötigt.
+
+JavaScript hat den Vorteil, dass jeder Browser eine sogenannte
+Konsole hat, in der mit JavaScript experimentiert werden kann
+(außer auf dem Smartphone oder Tablet). Die Konsole
+(_console_) ist Teil der Entwicklerwerkzeuge (_developer tools_)
+eines Browsers und kann meistens mit der Funktionstaste `F12`
+geöffnet werden.
+
+Später lernen wir weitere Programmierumgebungen wie z.B.
+den Editor [VS Code](https://code.visualstudio.com), die
+JavaScript-Laufzeitumgebung [NodeJS](https://nodejs.org) und
+die Online-Programmierumgebung [replit.com](https://replit.com)
+kennen. Letztere unterstützt neben JavaScript auch viele 
+weitere Programmiersprachen.
+
+<Callout type="warning">
+ Wir werden den JavaScript-Code in den ersten Vorlesungsterminen 
+ und für die Übungen in kleinen Beispielen im Browser schreiben. Es 
+ muss also nichts installiert werden.
+
+Für das Programmierprojekt kann später auch [NodeJS](https://nodejs.org) zur Programmierung direkt auf dem Laptop installiert werden 
+&mdash; eventuell ist dies jedoch nicht unbedingt nötig (siehe 
+spätere Infos zum Projekt). 
+
+Für die Programmierung von JavaScript kann im Prinzip jeder 
+Texteditor eingesetzt werden (VS Code, Web-/PhpStorm, Notepad++, 
+usw.). 
+
+Beim Programmierprojekt sollten alle Mitglieder einer Gruppe die 
+gleiche Entwicklungsumgebung einsetzen, damit die Teamarbeit 
+einheitlich abläuft. Hierzu ist dann auch die Verwendung von 
+[git](https://git-scm.org) sinnvoll. 
+</Callout>
+
+## Inspiration 
+
+Es gibt einigende spannende Programmierungen für besondere
+Einsatzbereiche wie Grafik oder Spiele, die direkt ohne etwas
+installieren zu müssen online im Browser funktionieren.
+In folgenden Beispiele wird mit 
+
+- Grafische Programmierung mit [p5js](https://p5js.org) &mdash; basiert auf [Processing](https://processing.org/)
+- Spiele mit [MakeCode Arcade](https://arcade.makecode.com) &mdash; unterstützt Scratch, JavaScript und Python
+- Spiele mit [Kaboom](https://kaboomjs.com) von [replit.com](https://blog.replit.com/kaboom)
+
+<Callout type="warning" emoji="🙋🏻‍♂️❓">
+Kennen Sie weitere Programmierumgebungen, die direkt im 
+Browser verwendet werden können? \
+(Muss nicht unbedingt auf JavaScript ausgelegt sein.)
+</Callout>
