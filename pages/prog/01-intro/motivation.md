@@ -5,7 +5,8 @@ import Callout from 'nextra-theme-docs/callout'
 <Callout>
   **Dauer:** 30 Minuten
 
-  Warum programmieren (weiter)lernen?
+  - Warum programmieren (weiter)lernen?
+  - Lernziele
 
   **Ziel:** Motivation zu dieser Vorlesung
 </Callout>
@@ -37,12 +38,48 @@ vorangetrieben werden:
 - …
 - &xrarr; TODO: diese Liste jedes Jahr mit den neuesten Hypes erweitern 😉
 
+## Programmieren: Fähigkeit der Zukunft
 
+Der IT-Branchenverband bitkom berichtet immer
+wieder über die Fachkräftelücke, z.B. 
+Anfang 20022 über [96000 offene IT-Jobs](https://www.bitkom.org/Presse/Presseinformation/IT-Fachkraefteluecke-wird-groesser). Daraus ein 
+Zitat:
 
+> Software-Spezialistinnen und -Spezialisten sind mit Abstand am gefragtesten. Vier von zehn Unternehmen (41 Prozent) mit vakanten IT-Jobs suchen Software-Entwicklerinnen beziehungsweise Software-Architekten. 
 
-## Prüfungsleistung
-Die Prüfungsleistung ist ein „Programmentwurf“, d.h. in 
-Teams von 2-3 Personen wird ein Programmierprojekt umgesetzt.
+Programmieren ist ein konkretes Beispiel für 
+die allgemeine Fähigkeit, komplexe Probleme
+lösen zu können (_Complex Problem Solving_). 
+Diese findet sich in den „TOP 10 Fähigkeiten“,
+die Unternehmen heutzutage von ihren Mitarbeitenden
+erwarten &mdash; siehe auch [diesen Bericht des _World Economic Forums_](https://www.weforum.org/reports/the-future-of-jobs-report-2020/in-full/infographics-e4e69e4de7)
 
-**Mehr Details zum Projekt und zum Bewertungsschema gibt es an einem späteren Termin!**
-        
+Insbesondere bewirken die Trends der Digitalisierung,
+dass es sinnvoll sein kann
+
+- Fähigkeiten zu erwerben, die sich nicht (leicht) automatisieren lassen.
+- Diese Fähigkeiten richtig gut zu beherrschen,
+- &xrarr; woraus sich das lebenslange Lernen ergibt (z.B. neue Programmiersprachen, Frameworks und APIs, und neuartige bzw. sich wandelnde Konzepte wie z.B. [Web3/Blockchain](https://ethereum.org/en/developers/docs/web2-vs-web3/)).
+
+## Lernziele
+
+Wir haben folgende Lernziele, die selbstverständlich 
+nach Ablauf der Veranstaltung nicht vollständig sind
+und uns vielleicht sogar ein Leben lang begleiten.
+
+**Programmieren**
+
+- Grundlagen der imperativen und prozeduralen Programmierung
+- Konzepte der objektorientierten Programmierung
+- Programme lesen und verstehen können
+- Erlerntes in andere Programmiersprachen übertragen können
+
+**„Informatisches Denken“ (computational thinking)**
+
+- Vorgänge klar und systematisch ausdrücken, so dass sie von Computern ausgeführt werden können
+- Probleme durch Programmentwürfe lösen (sprachunabhängig)
+
+**Nicht-technische Fähigkeiten (soft skills)**
+
+- Zusammenarbeit und Teamwork
+- Geduld, Durchhaltevermögen, Beharrlichkeit, Frustrationstoleranz, … 😎
