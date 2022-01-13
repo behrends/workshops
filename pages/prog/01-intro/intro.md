@@ -12,8 +12,8 @@ import Callout from 'nextra-theme-docs/callout'
 
 ## Programmiersprachen
 
-Es gibt viele verschiedene Programmiersprachen. So listet
-Wikipedia mehr als [800 Sprachen auf](https://en.wikipedia.org/wiki/List_of_programming_languages).
+Es gibt viele verschiedene Programmiersprachen. Wikipedia listet
+mehr als [800 Sprachen auf](https://en.wikipedia.org/wiki/List_of_programming_languages).
 
 Um die Beliebtheit, die Verbreitung und den Stellenwert (Relevanz)
 von Programmiersprachen zu messen, gibt es unterschiedliche 

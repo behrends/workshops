@@ -81,8 +81,7 @@ zum Mitmachen mit anschließenden Aufgaben zur Übung:
 eigenständig lösen können. Falls dies nicht der Fall sein sollte,
 dann ist **unbedingt** Nacharbeiten im Selbststudium nötig. 
 Fast jedes Thema baut auf den zuvor vermittelten Inhalten auf,
-sodass diese so vollständig wie möglich verstanden und beherrscht
-werden müssen, damit neue Inhalte verstanden werden (_mastery based learning_).
+sodass diese möglichst vollständig beherrscht werden sollten, damit neue Inhalte verstanden werden (_mastery based learning_).
 
 <Callout type="warning">
 &xrarr; Notizen und Links zum Nachschlagen finden sich auf dieser „Workshops“-Webseite

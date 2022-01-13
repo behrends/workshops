@@ -25,8 +25,8 @@ Folgende Punkte können auf dem Whiteboard oder online skizziert werden (z.B. be
 - Kinos &xrarr; Netflix, YouTube
 - …
 
-Die allgegenwärtige Digitalisierung kann nur mit Programmierern
-vorangetrieben werden:
+Für die allgegenwärtige Digitalisierung werden überall Leute 
+gesucht und benötigt, die programmieren können:
 
 - Umstellung der Datenverarbeitung (z.B. von Papier/Excel auf eine Webandwendung mit Datenbank)
 - Automatisierung von Routineaufgaben und Prozessen
@@ -42,7 +42,7 @@ vorangetrieben werden:
 
 Der IT-Branchenverband bitkom berichtet immer
 wieder über die Fachkräftelücke, z.B. 
-Anfang 20022 über [96000 offene IT-Jobs](https://www.bitkom.org/Presse/Presseinformation/IT-Fachkraefteluecke-wird-groesser). Daraus ein 
+Anfang 2022 über [96000 offene IT-Jobs](https://www.bitkom.org/Presse/Presseinformation/IT-Fachkraefteluecke-wird-groesser). Daraus ein 
 Zitat:
 
 > Software-Spezialistinnen und -Spezialisten sind mit Abstand am gefragtesten. Vier von zehn Unternehmen (41 Prozent) mit vakanten IT-Jobs suchen Software-Entwicklerinnen beziehungsweise Software-Architekten. 
@@ -52,7 +52,7 @@ die allgemeine Fähigkeit, komplexe Probleme
 lösen zu können (_Complex Problem Solving_). 
 Diese findet sich in den „TOP 10 Fähigkeiten“,
 die Unternehmen heutzutage von ihren Mitarbeitenden
-erwarten &mdash; siehe auch [diesen Bericht des _World Economic Forums_](https://www.weforum.org/reports/the-future-of-jobs-report-2020/in-full/infographics-e4e69e4de7)
+erwarten &mdash; siehe auch [diesen Bericht des _World Economic Forums_](https://www.weforum.org/reports/the-future-of-jobs-report-2020/in-full/infographics-e4e69e4de7).
 
 Insbesondere bewirken die Trends der Digitalisierung,
 dass es sinnvoll sein kann

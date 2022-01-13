@@ -19,7 +19,7 @@ Folgende Punkte können auf dem Whiteboard oder online skizziert werden (z.B. be
 - Im Moodle-Kursraum wird das Vorlesungsmaterial gesammelt.
 - Das bereitgestellte Material stellt kein vollständiges Skript dar!
 - **&xrarr; eigene Recherchen, das Nacharbeiten und Vertiefung sind im Studium notwendig**
-- &xrarr; im Web einiges an Lernmaterial zu finden &mdash; einiges wird an passender Stelle empfohlen
+- &xrarr; Im Web ist viel Lernmaterial zu finden &mdash; einiges wird an passender Stelle empfohlen.
 - Einiges wird auch am Rechner mit Live Coding oder am Whiteboard besprochen.
 - Bitte Laptop mitbringen, da es immer wieder „Live-Coding“ zum Mitmachen gibt. 
 - Manche Termine finden evtl. online in BBB statt (wird zeitnah angekündigt).
