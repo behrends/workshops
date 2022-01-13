@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Vorstellung
 
 <Callout>
-  **Dauer:** 30 Minuten
+  **Dauer:** höchstens 45 Minuten
 
   - Vorstellungsrunde zum Kennenlernen
 

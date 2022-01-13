@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Ablauf
 
 <Callout>
-  **Dauer:** 15 Minuten
+  **Dauer:** 20 Minuten
 
   - Lernziel
   - Aufbau und Format der Vorlesung
@@ -12,49 +12,59 @@ import Callout from 'nextra-theme-docs/callout'
   **Ziel:** Orientierung für diese Vorlesung
 </Callout>
 
-## Lernziel
+Für diese Veranstaltung gibt es 96 Vorlesungsstunden.
+Zusätzlich gibt es 24 Stunden begleitetes Selbststudium
+(_allerdings nicht Anfang 2022 in TIF21A und TIF21B_).
+Bemerkung: eine Vorlesungsstunde hat 45 Minuten.
 
-Verschiedene Ansätze zur Entwicklung mobiler Smartphone-Apps 
-werden vorgestellt und ausprobiert, sodass hierzu ein 
-Überblick erhalten wird. Projektgruppen (2-3 Leute) 
-entwickeln eine mobile App, um somit praktische und 
-vertiefende Kenntnisse in eine Entwicklungsplattform zu 
-erhalten.
+Begleitetes Selbststudium findet ohne Anwesenheitspflicht ist. Hier 
+gibt es Übungen, Coaching, Zeit zum Programmieren, Arbeiten mit git 
+(24 Std.)
 
-## Veranstaltung besteht aus zwei Teilen
+Die Termine für das „Begleitete Selbststudium“ sind als solche im 
+Kurskalender bezeichnet (siehe Kalender im Browser oder in der 
+Campus App). Kontakt mit Dozenten ist hierbei bei Bedarf möglich 
+(E-Mail, Big Blue Button, etc.). 
 
-Laut Modulbeschreibung besteht diese Veranstaltung aus
-einem „Vorlesungsanteil“ mit 36 Stunden und aus einem
-„Labor“ mit ebenfalls 36 Stunden.
+## Veranstaltung mit zwei Teilen
 
-**Teil 1:** bis zu 9 Termine am Anfang („Vorlesung“) \
-Vorstellung verschiedener Ansätze (z.B. Android mit Kotlin und React Native).
+Die Vorlesung besteht aus zwei Teilen:
 
-**Teil 2:** restliche Termine („Labor“) \
-App in Gruppen von 2-3 Leuten programmieren, Zeit zum Programmieren, Fragen und Feedback zum Code und bei Bedarf Behandlung besonderer Themen (evtl. in kleineren Gruppen)
+**Teil 1:** Grundlagen der imperativen und prozeduralen Programmierung, Übungen zur Vertiefung (ca. 1/3 der Zeit)
 
-- Wenn die Entwicklung der App in den Teams beginnt, dann ändern wir das Format der Vorlesung: <br/> &xrarr; Zeit zum Programmieren und für Fragen und Feedback
+**Teil 2:** Einfache Objektorientierung und ausgewählte weiterführende Konzepte, Programmierprojekt (ca. 2/3 der Zeit) 
+
+- Wenn die Entwicklung der Projekte in den Teams beginnt, dann ändern wir das Format der Vorlesung: <br/> &xrarr; Zeit zum Programmieren und für Fragen und Feedback
 - Bei online-Terminen treffen wir uns zunächst immer in der Videokonferenz &mdash; auch wenn bei späteren Terminen die Zeit hauptsächlich zum Programmieren genutzt wird.
+
+## Programmieren lernen und vertiefen
+
+Die Vorlesung setzt zwar keine Vorkenntnisse voraus, jedoch werden wir die aufeinander aufbauenden Themen in relativ kurzer Zeit behandelt.
+
+Das eigentliche Ziel ist, Programmierprojekte im Team umsetzen zu können.
+
+Es kann sehr demotivierend sein, wenn wir programmieren wollen und dabei mit nicht genügend gefestigten Grundlagen „kämpfen“ müssen.
+
+Wir wollen also zunächst die Grundlagen aus Teil 1 so gut wie möglich festigen.
+
+Dafür sind insbesondere die Übungsaufgaben und das Selbststudium wichtig.
 
 ## Format der Vorlesung
 
 In der gemeinsamen „Vorlesung“ wird hauptsächlich **aktives** Lernen
 durch Live Coding stattfinden. Dabei sollten die Studierenden
-mitprogrammieren und interaktiv Fragen stellen. **Daher sollten alle 
-bitte immer ihren Laptop mitbringen.** Folien wird es kaum geben, 
-da diese nur ein **passives** Lernen ermöglichen. 
+mitprogrammieren und interaktiv Fragen stellen. **Daher sollten 
+alle bitte immer ihren Laptop mitbringen.** Folien wird es kaum 
+geben, da diese nur ein **passives** Lernen ermöglichen. 
 
-Da die Frameworks sehr umfangreich sind und sich ständig
-weiterentwickeln, werden im Unterricht nur die wesentliche 
-Aspekte besprochen. Durch praktische Übungen und insbesondere das 
-Gruppenprojekt werden die Inhalte angewendet und vertieft. 
+Durch praktische Übungen und insbesondere das Gruppenprojekt 
+werden die Inhalte angewendet und vertieft. 
 
-In Moodle wird Material zum Nachschlagen bereitgestellt. Eigene Recherchen
-im Selbststudium sind während der App-Entwicklung unumgänglich und 
-verstärken das aktive Lernen. 
+In Moodle wird Material zum Nachschlagen bereitgestellt. Eigene 
+Recherchen im Selbststudium sind während des Projekts 
+unumgänglich und verstärken das aktive Lernen. 
 
-Dozierende bieten Hilfestellung und Coaching während des Projekts an. 
-Wir werden in den späteren Terminen auch Zeit für das gemeinsame
+Dozierende bieten Hilfestellung und Coaching während des Projekts an. Wir werden in den späteren Terminen auch Zeit für das gemeinsame
 Programmieren haben.
 
 ### Ablauf einer Lerneinheit
@@ -62,80 +72,20 @@ Programmieren haben.
 Eine Lerneinheit besteht in der Regel aus Live Coding 
 zum Mitmachen mit anschließenden Aufgaben zur Übung:
 
-1. Kurze Vorstellung eines Themas im Kurs anhand der Entwicklung einer kleinen App (Live Coding)
-1. Kleine Aufgaben dazu individuell oder in Gruppen bearbeiten
+1. Kurze Vorstellung eines Themas im Kurs mit Live Coding
+1. Kleine Aufgaben dazu bearbeiten
 1. Dozent kann dabei helfen (bei online-Terminen in „Gruppenräumen“ bzw. „Breakout-Rooms“).
 1. Abschließende Besprechung der Lösung und Übergang zum nächsten Thema
 
-Aufgaben bauen aufeinander auf und ergeben eine kleine App.
+**Wichtige Bemerkung:** Die Studierenden sollten jede Übung
+eigenständig lösen können. Falls dies nicht der Fall sein sollte,
+dann ist **unbedingt** Nacharbeiten im Selbststudium nötig. 
+Fast jedes Thema baut auf den zuvor vermittelten Inhalten auf,
+sodass diese so vollständig wie möglich verstanden und beherrscht
+werden müssen, damit neue Inhalte verstanden werden (_mastery based learning_).
 
 <Callout type="warning">
 &xrarr; Notizen und Links zum Nachschlagen finden sich auf dieser „Workshops“-Webseite
-
-&xrarr; In der Vorlesung können Themen nur vorgestellt werden, denn es gibt zahlreiche, umfangreiche Themen mit ständigen Änderungen.
-
-&xrarr; Eigene Recherchen notwendig (Dokumentation, Videokurse, …)
-</Callout>
-
-## Inhalte
-
-Es gibt insgesamt 72 Vorlesungsstunden. 
-
-<Callout type="warning" emoji="⌛️">
-Gemeinsamer Blick in den Kurskalender zur groben Terminplanung
-</Callout>
-
-### TODO Notiz
-
-Teil 1: Programmieren lernen (Grundbegriffe und -konzepte kennenlernen)
-Idealerweise im CrashCourse und mastery based Selbststudium auf progcontent.com (evtl. parallel oder vor Vorlesungsbeginn). Dies ist für Leute ohne Vorkenntnisse oder mit nur ganz wenig Programmiererfahrung gedacht.
-
-Teil 2: JavaScript lernen (wissen, verstehen und können.)
-Hierzu wird Teil 1 zwingend vorausgesetzt. Teil 2 benötigt 16-20 Vorlesungsstd. bzw. 2-3 Wochen. Dies ist auch für Leute mit Erfahrung in anderen Programmiersprachen relevant. Unterricht kurz und knapp, Übungen, online-Material (wie z.B. progcontent.com), evtl. flipped classroom.
-
-Teil 3: Programmierprojekt (Kompetenzen, Anwendung!)
-Restliche Vorlesungstermine mit kurzen Erklärungen, Coaching, Code Review, Feedback und Lernanweisungen bzw. Verweise auf konkrete Dinge, die zu Wiederholen/Vertiefen sind. 
-
-### Teil 1: Plattformen und Frameworks ausprobieren
-
-Zu Beginn lernen wir verschiedene Frameworks kennen:
-
-- Android (ab heute!)
-- React Native
-- Flutter ?
-- PWA ?
-- ionic ?
-
-Pro Framework benötigen wir wenige Termine, sodass Teil 1 
-(„Vorlesung“) bis zu 9 Termine beansprucht.
-
-<Callout type="warning" emoji="‼️">
-Nur durch das Programmieren wird App-Entwicklung gelernt.
-
-In der Vorlesung können die Themen nur kurz und knapp 
-vorgestellt werden — eigene Recherchen sind notwendig 
-(u.a. in Android Developer Docs).
-</Callout>
-
-### Teil 2: App in Teams programmieren
-
-Nachdem beispielhafte Frameworks betrachtet wurden, können
-die Teams einen Entwicklungsansatz für ihre App-Idee wählen.
-Dies sollte spätestens nach 6 Wochen beginnen.
-
-Die restlichen Termine dienen hauptsächlich zur Programmierung
-mit der Möglichkeit, bestimmte Aspekte in der Vorlesung zu
-ergänzen.
-
-- App-Projekt beginnt
-- restliche Termine hauptsächlich zum Programmieren
-- zusätzliche Inhalte und Themen nach Bedarf
-- Präsentation der Apps, Abschluss
-
-<Callout type="warning" emoji="🤔">
-Bei Bedarf können einzelne Aspekte in kleineren Gruppen
-besprochen werden, da manche Themen nach Wahl des Frameworks
-nur noch für einige Gruppen relevant sind.
 </Callout>
 
 ## Online Live Coding
@@ -167,4 +117,8 @@ Im „schwebenden“ Fenster ist ein Knopf, mit dem das Fenster wieder im urspr�
 
 <Callout type="warning" emoji="👨🏻‍💻">
 Kurze Vorführung der „Bild-im-Bild“-Funktion.
+</Callout>
+
+<Callout>
+Spätestens jetzt 15 Minuten Pause.
 </Callout>
