@@ -50,3 +50,4 @@ Nennen Sie reihum bitte Ihre
 - Welche Programmiersprache wurde unterrichtet?
 - Wer wird im Unternehmen programmieren?
   - (Ansonsten falls bekannt: Was wird Ihre Tätigkeit sein?)
+- Haben Sie Erfahrung mit git? (sicher/geht so/noch nicht/nie gehört)
