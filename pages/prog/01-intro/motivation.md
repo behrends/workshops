@@ -38,6 +38,9 @@ gesucht und benötigt, die programmieren können:
 - …
 - &xrarr; TODO: diese Liste jedes Jahr mit den neuesten Hypes erweitern 😉
 
+Marc Andreesen sagte diesen Trend bereits 2011 mit der 
+Überschrift [„Software is eating the world“](https://www.wsj.com/articles/SB10001424053111903480904576512250915629460) voraus.
+
 ## Programmieren: Fähigkeit der Zukunft
 
 Der IT-Branchenverband bitkom berichtet immer
