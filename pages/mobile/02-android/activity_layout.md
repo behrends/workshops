@@ -93,11 +93,6 @@ button.setOnClickListener {
 
 **Achtung**: Wieder auf `imports` achten.
 
-
-**Live-Coding**
-- `onClick` mit `Toast` zur Anzeigen einer Rückmeldung
-- `findViewById` für die Referenzierung von UI-Elementen, die im Code der `Activity` verwendet werden
-
 **Übung** \
 Erstellen Sie im UI einen zusätzlichen `Button`, der 
 den eingegebenen Text zurücksetzt (braucht nicht viel

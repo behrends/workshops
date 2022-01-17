@@ -70,7 +70,7 @@ AndroidX-APIs zu verwenden.
 ### Guides
 
 Die Android-Dokumentation enthält unter 
-[developer.android.com/guide](developer.android.com/guide) 
+[developer.android.com/guide](https://developer.android.com/guide) 
 eine sehr umfangreiche und stufenweise Anleitung für
 den Einstieg in die native Android-App-Entwicklung.
 
