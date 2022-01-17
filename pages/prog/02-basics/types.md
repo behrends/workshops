@@ -1,0 +1,152 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Datentypen
+
+<Callout>
+  **Dauer:** 20 Minuten
+
+  - Variablen
+  - Konstanten
+
+  **Ziel:** Datentypen in JavaScript verstehen
+</Callout>
+
+
+**Vorbemerkung: statisch vs. dynamisch typisiert**
+
+Ein wichtiges Programmiersprachenprinzip ist das der 
+Typisierung: ist eine Sprache statisch oder dynamisch typisiert?
+
+Java hat ein statisches Typsystem (wie u.a. auch C#). Grob 
+bedeutet dies, dass u.a. der Typ einer Variablen statisch 
+festgelegt wird, nicht verändert werden kann und nur 
+typkompatible Werte zugewiesen werden dürfen.
+
+JavaScript hat ein dynamisches Typsystem (wie u.a. auch Python). 
+Hier können sich die Typen von Variablen durch beliebige 
+Wertzuweisungen ändern.
+
+> Java is to JavaScript as ham is to hamster (or car is to carpet)
+
+## Übersicht
+
+ In JavaScript gibt es u.a. folgende Datentypen:
+
+- `number` – sowohl ganze Zahlen als auch für Gleitkommazahlen (nur ein Datentyp!)
+- `string` – Zeichenketten bzw. Text beliebiger Länge
+- `boolean` – die beiden Wahrheitswerte `true` und `false`
+- `object` – Arrays/Felder, Objekte/Dictionaries (nicht objektorientiert) und Funktionen
+- `null` und `undefined` für (noch) nicht vorhandene und undefinierte Werte.
+
+Außerdem gibt es den Symbol-Typ, den wir nicht behandeln werden.
+
+JavaScript ist dynamisch typisiert: bei Variablen-/
+Konstantendeklarationen und Funktionsdefinitionen werden keine
+Datentypen angegeben. Diese werden dynamisch zur Laufzeit 
+ermittelt. 
+
+## number
+
+`number` deckt ganze Zahlen und Gleitkommazahlen ab.
+
+Gleitkommazahlen: Schreibweise mit Punkt (`.`) statt wie im Deutschen üblich mit Komma, z.B. `3.14`
+
+Zusätzlich gibt es noch spezielle Werte wie `NaN` (_not a number_)
+oder `Infinity`.
+
+```js
+100 / "sinnloser String" ; // --> ergibt NaN
+100 / 0 ; // --> ergibt Infinity
+```
+
+<Callout type="warning">
+Was ergibt `0.1 + 0.2`?
+
+Die Antwort wird hier erklärt: 
+[0.30000000000000004.com](https://0.30000000000000004.com/)
+
+&xrarr; Relevant für alle Programmiersprachen…
+</Callout>
+
+## Wahrheitswerte
+
+Der Typ für logische Wahrheitswerte heißt `boolean`.
+
+Es gibt nur zwei mögliche Werte für diesen Typen:
+`true` und `false`. 
+
+## string 
+
+Text-Werte werden Zeichenketten oder Strings genannt.
+
+Es gibt drei verschiedene Arten, in JavaScript Strings zu deklarieren:
+
+```js
+let s1 = "String mit doppelten Anführungszeichen";
+let s2 = 'String mit einfachen Anführungszeichen';
+let s3 = `String mit Backtick oder schrägem Apostroph`;
+```
+
+In allen drei Fällen erhalten wir Strings. Die Begrenzer (Anführungszeichen) dürfen nicht vermischt werden,
+
+Für einzelne Zeichen gibt es keinen Datentyp `char` wie in Java —
+auch `'a'` ist ein String. 
+
+### Template-Strings
+
+Praktisch ist die Stringinterpolation mit Template-Strings.
+Durch `${...}` können innerhalb von   
+
+```
+`ein String mit Interpolation ${2+3}`
+// --> dies ergibt den String
+// ein String mit Interpolation 5
+```
+
+dynamisch beliebige JavaScript-Ausdrücke eingesetzt werden:
+
+```js	
+let firstName = 'Jane';
+let lastName = 'Smith';
+
+// gewöhnliche String-Konkatenation:	
+console.log("Der Name lautet " + firstName + " " + lastName);
+	
+// kompakter mit Template-Strings:	
+console.log(`Der Name lautet ${firstName} ${lastName}`);
+```
+
+Hinweis: In Template-Strings funktionieren maskierte Zeichen wie z.B. `\n` nicht.
+
+### Objekte, Arrays und Funktionen
+
+Diese behandeln wir später. Nur ein kurzes Beispiel:
+
+```js
+// ein Array (sozusagen eine Liste):
+let list = [1,2,3,4]; 
+
+// ein Objekt:
+let person = {firstName: 'Jane', lastName: 'Smith'}; 
+```
+
+### typeof (Operator)
+
+`typeof` ergibt den Namen des Typs für einen JavaScript-Ausdruck.
+
+Dadurch kann der Typ z.B. für Variablen oder Funktionsparameter 
+zur Laufzeit herausgefunden werden.
+
+```js
+typeof "Hallo"; // --> ergibt "string"
+typeof 2;       // --> ergibt "number"
+typeof false;   // --> ergibt "boolean"
+``` 
+
+Achtung: für Arrays ergibt `typeof` den Wert `"object"`, für 
+Funktionen kommt jedoch `"function"` heraus:
+
+```js
+typeof [1,2,3,4,5]; // --> ergibt "object"
+typeof console.log; // --> ergibt "function"
+```
