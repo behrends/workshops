@@ -1,3 +1,8 @@
 {
-  "intro": "Einstieg"
+  "intro": "Einstieg",
+  "aufbau_projekte": "Aufbau Projekte",
+  "kotlin": "Kotlin lernen",
+  "layouts": "UI-Layouts",
+  "activity_layout": "Activity und Layout",
+  "view_binding": "View Binding"
 }

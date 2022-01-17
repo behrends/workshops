@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Einstieg
 
 <Callout>
-  **Dauer:** höchstens 20 Minuten
+  **Dauer:** 20 Minuten
 
   - Verschiedenes Lernmaterial vorstellen
 
@@ -156,7 +156,7 @@ bei der Programmierung mit bestimmten APIs deren
 korrekte Verwendung sichergestellt werden soll.
 </Callout>
 
-## Weiteres Lernamterial
+## Weiteres Lernmaterial
 
 Im Web gibt es jede Menge Material unterschiedlichster
 Art. Ein paar weitere Empfehlungen:

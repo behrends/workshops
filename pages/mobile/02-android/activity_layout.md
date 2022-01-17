@@ -1,0 +1,110 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Zusammenspiel von Activity und Layout
+
+<Callout>
+  **Dauer:** 45 Minuten
+
+  - Das Layout beschreibt lediglich das UI
+  - Activity enthält Code für das Verhalten eines UIs  
+
+  **Ziel:** Activity und Layout zusammen verstehen
+</Callout>
+
+**vorher evtl. Pause**
+
+## Activities
+
+Eine `Activity` beschreibt eine bestimmte UI-Aktivität
+bzw. einen UI-Bereich oder „Screen“, in dem mit der 
+Android-App interagiert wird (z.B. Eingabe von Notizen).
+
+Eine `Activity` hat sogenannte „Lebenszyklen“, auf die
+im Code Einfluss genommen werden kann. Dabei werden
+verschiedene Methoden von Android automatisch zu 
+unterschiedlichen Zeitpunkten aufgerufen und können
+bei Bedarf im Code der `Activity` überschrieben bzw. 
+neu definiert werden. Mindestens die Methode/Funktion
+`onCreate()` **muss* definiert werden, da dies die 
+Funktion ist, die automatisch ausgeführt wird, wenn 
+die `Activity` gestartet wird. 
+
+![Activity Lifecycle](/images/mobile/activity_lifecycle.png)
+
+Bildquelle: [Android Developer Docs](https://developer.android.com/guide/components/activities/intro-activities)
+
+Der Lebenszyklus wird intern vom „_Activity Manager_“ 
+verwaltet.
+
+Die zugehörigen Funktionen (`onCreate()` etc.) werden 
+**automatisch** vom Activity Manager aufgerufen &mdash;
+wir rufen diese Funktionen nie selbst im Code auf
+(und wir erstellen auch keine „`Activity`-Objekte“ 
+durch einen Konstruktoraufruf o.ä.).
+
+Bei `onCreate()` etc. handelt es sich um 
+_callback_-Funktionen. 
+
+## Layout und Activity zusammen
+
+Die Verbindung von Layout und `Activity` wird nun 
+demonstriert, d.h. insbesondere wie in der `Activity`
+auf bestimmte UI-Elemente zugegriffen werden kann.
+
+Dazu wollen wir den eingegebenen Text im durch Klicken
+bzw. Antippen eines `Buttons` anzeigen.
+
+Das Hinzufügen eines `Buttons` sollte  im visuellen
+Layout-Editor problemlos klappen. Dieses XML sollte
+herauskommen:
+
+```xml
+<Button
+    android:id="@+id/button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Speichern" />
+```
+
+Zunächst erstellen wir mit `findViewById()` in 
+der Funktion `onCreate` der `Activity` eine 
+Referenz auf den `Button`:
+
+```kotlin
+val button = findViewById<Button>(R.id.button)
+```
+
+Hierzu ist einiges zu sagen, z.B. dass in Kotlin Konstanten
+mit `val` definiert werden und Typdeklaration in manchen
+Fällen nicht nötig ist, da `findViewById<Button>` den
+Typen des Rückgabewertes definiert. 
+
+**Achtung**: Dabei wird eine neue `import`-Anweisung für
+`Button` erstellt.
+
+Danach kann der `Button` mit einem _Listener_ ausgestattet
+werden (bzw. eine _Callback_-Funktion) erhalten:
+
+```
+button.setOnClickListener {
+    Toast.makeText(this, "Mit Listener!", Toast.LENGTH_LONG).show()
+}
+```
+
+**Achtung**: Wieder auf `imports` achten.
+
+
+**Live-Coding**
+- `onClick` mit `Toast` zur Anzeigen einer Rückmeldung
+- `findViewById` für die Referenzierung von UI-Elementen, die im Code der `Activity` verwendet werden
+
+**Übung** \
+Erstellen Sie im UI einen zusätzlichen `Button`, der 
+den eingegebenen Text zurücksetzt (braucht nicht viel
+Zeit, wird nicht Teil der App sein).
+
+<Callout type="warning">
+**Vertiefendes Material**
+
+Material: Abschnitt 4 (komplett) im Videokurs zu Android 
+</Callout>
