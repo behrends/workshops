@@ -86,7 +86,7 @@ Typen des Rückgabewertes definiert.
 Danach kann der `Button` mit einem _Listener_ ausgestattet
 werden (bzw. eine _Callback_-Funktion) erhalten:
 
-```
+```kotlin
 button.setOnClickListener {
     Toast.makeText(this, "Mit Listener!", Toast.LENGTH_LONG).show()
 }
