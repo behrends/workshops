@@ -3,7 +3,8 @@ import Callout from 'nextra-theme-docs/callout'
 # Zusammenspiel von Activity und Layout
 
 <Callout>
-  **Dauer:** 45 Minuten
+  **Dauer:** 50 Minuten \
+  inklusive Übung, Pause und Besprechung
 
   - Das Layout beschreibt lediglich das UI
   - Activity enthält Code für das Verhalten eines UIs  
@@ -25,7 +26,7 @@ verschiedene Methoden von Android automatisch zu
 unterschiedlichen Zeitpunkten aufgerufen und können
 bei Bedarf im Code der `Activity` überschrieben bzw. 
 neu definiert werden. Mindestens die Methode/Funktion
-`onCreate()` **muss* definiert werden, da dies die 
+`onCreate()` **muss** definiert werden, da dies die 
 Funktion ist, die automatisch ausgeführt wird, wenn 
 die `Activity` gestartet wird. 
 
@@ -94,9 +95,12 @@ button.setOnClickListener {
 **Achtung**: Wieder auf `imports` achten.
 
 **Übung** \
-Erstellen Sie im UI einen zusätzlichen `Button`, der 
-den eingegebenen Text zurücksetzt (braucht nicht viel
-Zeit, wird nicht Teil der App sein).
+a) Erstellen Sie im UI einen zusätzlichen `Button`, der 
+den eingegebenen Text zurücksetzt (wird nicht Teil der App sein).
+
+b) Erstellen Sie im UI ein weiteres Eingabefeld (`EditText`)
+und einen weiteren `Button`, die sich wie die bereits
+vorhandenen verhalten (wird nicht Teil der App sein).
 
 <Callout type="warning">
 **Vertiefendes Material**

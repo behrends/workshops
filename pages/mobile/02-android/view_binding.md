@@ -3,18 +3,56 @@ import Callout from 'nextra-theme-docs/callout'
 # View Binding
 
 <Callout>
-  **Dauer:** 30 Minuten
+  **Dauer:** 20 Minuten
 
   - `View Binding` ist „direkter“ als `findViewById` 
 
   **Ziel:** Alternative für `findViewById` kennenlernen
 </Callout>
 
-**Live-Coding**
-- `onClick` mit `setOnClickListener` ersetzen
-- Problem: `findViewById` häufig im Code umständlich, Vereinfachung mit View Binding
-- `View Binding` in Datei `build.gradle` aktivieren
-- automatisch generierte Klasse `ActivityMainBinding` mit `binding.view…` statt `findViewById` verwenden
+Mit [`ViewBinding`](https://developer.android.com/topic/libraries/view-binding) wird für ein XML-Layout automatisch
+ein „`binding`“-Objekt erzeugt, mit via `id`-Namen direkt
+auf die View-Elemente zugegriffen werden kann. Somit sind
+`findViewById`-Aufrufe mit `R.id.…` nicht mehr nötig und
+der Code in einer `Activity` wird etwas kompakter.
+
+## `ViewBinding` in `build.gradle` aktivieren
+
+Diese Änderung in `build.gradle` am Ende des
+`android`-Blocks eintragen:
+
+```groovy
+buildFeatures {
+    viewBinding true
+}
+```
+
+## `Binding`-Klasse verwenden
+
+Aus `activity_main.xml` wird nun automatisch die Klasse 
+`ActivityMainBinding` generiert, d.h. der Name der 
+Layout-Datei ergibt den Namen der Klasse.
+
+In `MainActivity.kt` kann nun `onCreate()` so umgeschrieben
+werden:
+
+```kotlin
+import com.example.mynotes.databinding.ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.button.setOnClickListener {
+            val title = binding.editNoteTitle.text.toString()
+            Toast.makeText(this, title, Toast.LENGTH_LONG).show()
+        }
+    }
+}
+```
+
 
 <Callout type="warning">
 **Vertiefendes Material**
@@ -28,4 +66,7 @@ weiterführende Themen wie z.B. `Data Binding`,
 interessant sein könnten.
 </Callout>
 
-TODO: Übung und Pause/Ende?
+<Callout type="warning">
+Falls am Ende noch Zeit übrig ist, könnte über `strings.xml`
+gesprochen werden.
+</Callout>
