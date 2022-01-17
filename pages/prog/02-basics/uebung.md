@@ -3,11 +3,16 @@ import Callout from 'nextra-theme-docs/callout'
 # Übung
 
 <Callout>
-  **Dauer:** restliche Zeit dieses Blocks
+  **Dauer:** 30 Minuten
 
   - Übung zum Einstieg
 
   **Ziel:** In die praktische Programmierung einsteigen
+</Callout>
+
+<Callout type="warning">
+Bei Bedarf kurze Wiederholung (`Hello, World!`) in 
+[replit.com](https://replit.com)
 </Callout>
 
 Experimentieren Sie mit dem „Hello, World!“-Programm so, dass 

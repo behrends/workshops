@@ -3,7 +3,8 @@ import Callout from 'nextra-theme-docs/callout'
 # Hello, World!
 
 <Callout>
-  **Dauer:** 45 Minuten
+  **Dauer:** 45-60 Minuten \
+  (abhängig von Diskussion während Live Coding)
 
   - Beispielprogramm "Hello, World!"
 
@@ -151,4 +152,9 @@ In folgenden Beispiele wird mit
 Kennen Sie weitere Programmierumgebungen, die direkt im 
 Browser verwendet werden können? \
 (Muss nicht unbedingt auf JavaScript ausgelegt sein.)
+</Callout>
+
+<Callout type="warning" emoji="👨🏻‍💻">
+Falls genügend Zeit ist, dann kann die [Übung](/prog/02-basics/uebung) vom nächsten Block vorgezogen
+werden. 
 </Callout>
