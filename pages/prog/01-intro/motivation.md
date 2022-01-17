@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Motivation
 
 <Callout>
-  **Dauer:** 15 Minuten
+  **Dauer:** 20 Minuten
 
   - Warum programmieren (weiter)lernen?
   - Lernziele

@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Ablauf
 
 <Callout>
-  **Dauer:** 20 Minuten
+  **Dauer:** 15 Minuten
 
   - Lernziel
   - Aufbau und Format der Vorlesung
