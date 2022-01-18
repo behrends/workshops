@@ -15,6 +15,13 @@ Bei Bedarf kurze Wiederholung (`Hello, World!`) in
 [replit.com](https://replit.com)
 </Callout>
 
+<Callout type="warning">
+Diese Aufgabe in Moodle als Textseite eintragen.
+
+In Moodle eine Abgabe eingerichten werden, um eine 
+Einschätzung der Kenntnisse zu bekommen.
+</Callout>
+
 Experimentieren Sie mit dem „Hello, World!“-Programm so, dass 
 nacheinander Begrüßungen in mehreren Sprachen Ihrer Wahl
 ausgegeben werden, z.B.
@@ -28,12 +35,8 @@ Hola mundo!
 
 Nutzen Sie dazu die Browser-Konsole oder [replit.com](https://replit.com) mit „NodeJS“ als _Template_.
 
-<Callout type="warning">
-Diese Aufgabe in Moodle als Textseite eintragen.
-
-In Moodle kann eine Abgabe eingerichtet werden, um eine 
-Einschätzung der Kenntnisse zu bekommen.
-</Callout>
+Geben Sie das Programm in Moodle ab (auch wenn es nicht 
+funktionieren sollte).
 
 ## Zusatzaufgaben
 
@@ -44,3 +47,9 @@ verwenden.
 Erweitern Sie das Programm außerdem so, dass Sie Ihren Namen
 in einer Eingabeaufforderung eingeben können (z.B. mit `prompt`)
 und die Begrüßung an Sie anstatt an die Welt gerichtet wird.
+
+Wenn Sie noch Zeit und Lust haben, dann können Sie diese Aufgabe
+zum Vergleich in einer anderen Programmiersprache Ihrer Wahl umsetzen.
+
+Geben Sie das Programm in Moodle ab (auch wenn es nicht 
+funktionieren sollte).
