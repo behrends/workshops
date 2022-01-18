@@ -138,7 +138,8 @@ einheitlich abläuft. Hierzu ist dann auch die Verwendung von
 </Callout>
 
 Es gibt weitere Alternativen zu NodeJS für 
-JavaScript-Laufzeitumgebungen:
+JavaScript-Laufzeitumgebungen, die aber noch nicht ausgereift
+oder etabliert sind:
 
 - [Deno](https://deno.land)
 - [Rome](https://rome.tools)

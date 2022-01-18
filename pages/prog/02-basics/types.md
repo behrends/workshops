@@ -28,6 +28,15 @@ Wertzuweisungen ändern.
 
 > Java is to JavaScript as ham is to hamster (or car is to carpet)
 
+(Für den Vergleich von Java mit JavaScript wird nochmals auf
+diese [Tabelle](https://www.progcontent.com/js-from-java/intro)
+verwiesen.)
+
+Mit der überaus populären „Spracherweiterung“ 
+[TypeScript](https://typescriptlang.org)
+werden JavaScript statische Typen hinzugefügt.
+
+
 ## Übersicht
 
  In JavaScript gibt es u.a. folgende Datentypen:
