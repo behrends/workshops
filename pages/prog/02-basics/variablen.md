@@ -36,6 +36,14 @@ let myVariable;
 let variable2;
 ```
 
+Werden mehrere Variablen nacheinander deklariert, so 
+lassen sich diese auf einer Zeile mit `,` getrennt
+auflisten:
+
+```js
+let myVariable, variable2;
+```
+
 Mit einer **Zuweisung** erhält die Variable einen Wert. 
 Nachfolgende Zuweisungen ändern den aktuellen Wert in der 
 Variablen.
@@ -51,6 +59,27 @@ myVariable = 1;
 // der Variablen wird ein neuer Wert zugewiesen
 myVariable = 24;
 ```
+
+<Callout type="warning">
+Wird eine Variable ohne `let` deklariert, d.h. bei der
+ersten Verwendung z.B. so initialisiert (ohne dass es 
+vorher eine Deklaration mit `let` gab):
+
+```js
+// --> Annahme: vorher gibt es kein let!!!
+global = "globale Variabel";
+```
+
+dann wird dadurch eine **globale** Variable erstellt,
+die überall im Programm (d.h. in allen Funktionen und
+anderen Gültigkeitsbereichen) sichtbar ist. Dies sollte
+in der Regel vermieden werden, da hierdurch durch die 
+globale Zugriffsmöglichkeit ungewollte oder schwer
+nachvollziehbar Änderungen der Variablen auftreten können.
+In wenigen Ausnahmen können globale Variablen dennoch 
+gelegentlich nützlich sein.
+</Callout>
+
 
 **Reservierte Schlüsselwörter** sind das „Vokabular“ 
 einer Programmiersprache, die nicht für Bezeichner 
@@ -105,6 +134,34 @@ console.log(luckyNumber);
 // verwendet werden	
 console.log(thisVariableDoesNotExist); // ReferenceError
 ```
+
+<Callout type="warning">
+Es gibt auch die Möglichkeit, Variablen mit `var` zu deklarieren.
+Davon wird inzwischen abgeraten &mdash; auch wenn dies noch
+immer möglich ist und oftmals keine Probleme verursacht.
+
+Ein Grund dafür ist, dass es mit `var` keine Unterscheidung
+zwischen Variablen und Konstant gibt. Ein anderer besteht 
+darin, dass mit `var` deklarierte Variablen in verschiedenen 
+Gültigkeitsbereichen sichtbar sein können:
+
+```js
+if (true) {
+  var name = "Alice"; // verwende "let" anstatt "var"
+}
+
+console.log(name); // Ausgabe ist Alice, Variable hier sichtbar
+// die Variable name sollte hier nicht sichtbar sein!
+// --> d.h. mit let erhalten wir hier einen ReferenceError
+```
+
+Mit `let` und `const` tritt dieses Problem nicht auf,
+da hierbei der Gültigkeitsbereich nur im umgebenden Block liegt.
+
+Die Quelle des Beispiel-Codes und mehr Infos dazu 
+sind unter [javascript.info/var](https://javascript.info/var]
+zu finden.
+</Callout>
 
 ## Konstanten
 
@@ -164,6 +221,19 @@ Beispiele nicht zulässiger Bezeichner:
 - `1Name`
 - `Gibt's-nicht`
 - `class`
+
+Variablennamen werden in JavaScript in der Regel in 
+sogenannter _CamelCase_-Form formuliert, d.h. die
+Bezeichner beginnen mit einem kleinen Buchstaben
+und Teilbezeichnungen im Namen beginnen mit einem
+Großbuchstaben:
+
+```js
+// Variablennamen in Camel Case
+let theAnswer = 42;
+let firstName = "Alice";
+let anotherLongVariableName = "something";
+```
 
 ## Schlüsselwörter
 
