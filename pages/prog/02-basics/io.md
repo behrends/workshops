@@ -59,12 +59,12 @@ eingeleitet, auf die dann nach `[` verschiedene „Anweisungen“ zur
 Formatierung folgen.
 
 ```js	
-const orange = '33';	
-const underline = '4';
-const format = '\033[' + orange + ';' + underline + 'm';	
-console.log(format + 'Hello orange underline!' + '\033[0m');
+const orange = "33";	
+const underline = "4";
+const format = "\033[" + orange + ";" + underline + "m";	
+console.log(format + "Hello orange underline!" + "\033[0m");
  
-console.log('wieder ohne Formatierung');
+console.log("wieder ohne Formatierung");
 ```
 
 Dies ist ein überraschend mächtiges Konzept, mit dem sich nicht 

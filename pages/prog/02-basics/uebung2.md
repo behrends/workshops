@@ -11,6 +11,9 @@ import Callout from 'nextra-theme-docs/callout'
   **Ziel:** Variablen, Berechnungen, Ein- und Ausgabe
 </Callout>
 
+<Callout type="warning">
+Auch in Moodle stellen (evtl. inklusive Abgabe).
+</Callout>
 
 Setzen Sie die Programmieraufgaben dieses Blatts z.B. online auf 
 [replit.com](https://replit.com) um. Bei Fragen können Sie 

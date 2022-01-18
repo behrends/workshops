@@ -12,7 +12,9 @@ import Callout from 'nextra-theme-docs/callout'
 
 <Callout type="warning">
 Bei Bedarf kurze Wiederholung (`Hello, World!`) in 
-[replit.com](https://replit.com)
+[replit.com](https://replit.com).
+
+Tipps zu replit geben (z.B. F1, Tastaturkürzel unter "?")
 </Callout>
 
 <Callout type="warning">

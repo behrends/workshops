@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Grundbegriffe
 
 <Callout>
-  **Dauer:** 25 Minuten
+  **Dauer:** 20 Minuten
 
   - Anweisungen
   - Syntax und Semantik
@@ -15,8 +15,19 @@ import Callout from 'nextra-theme-docs/callout'
 
 ## Anweisungen
 
-Anweisungen sind die eigentlichen „Befehle“ in einer Programmiersprache. Sie entsprechen meistens einer Zeile Code 
+Anweisungen sind die eigentlichen „Befehle“ in einer 
+Programmiersprache. Sie entsprechen meistens (!) einer Zeile Code 
 und müssen mit einem Zeilenumbruch oder einem Semikolon enden.
+Allerdings können Anweisungen auch über mehrere Zeilen laufen
+(z.B. die Definition eines längeren Arrays oder Objekts).
+
+<Callout type="warning">
+Wenn ein Semikolon am Ende der Anweisung steht, dann
+ist leicht zu sehen, wo die Anweisung endet.
+
+**&xrarr; In den Code-Beispielen werden wir mit Semikolon 
+am Anweisungsende arbeiten**
+</Callout>
 
 Beispiel mit einer Bildschirmausgabe des Texts `Hello, World!` 
 gefolgt von der Berechnung einer Summe mit Variablenzuweisung 
@@ -54,6 +65,9 @@ einem Block mit `{ ... }` zusammengefasst werden (Funktionen,
 
 Syntaktisch korrekt: „Die Sonne scheint immer.“
 Syntaktisch inkorrekt: „Scheint Sonne die immer.“
+
+&xrarr; Programmiersprachen unterscheiden sich wie 
+gesprochene Sprachen z.T. sehr stark in ihrer Syntax.
 
 **Semantik:** \
 Bedeutung der einzelnen Sätze und Ausdrücke einer Sprache. So 
