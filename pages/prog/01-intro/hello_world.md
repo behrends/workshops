@@ -137,6 +137,13 @@ einheitlich abläuft. Hierzu ist dann auch die Verwendung von
 [git](https://git-scm.org) sinnvoll. 
 </Callout>
 
+Es gibt weitere Alternativen zu NodeJS für 
+JavaScript-Laufzeitumgebungen:
+
+- [Deno](https://deno.land)
+- [Rome](https://rome.tools)
+- weitere?
+
 ## Inspiration 
 
 Es gibt einigende spannende Programmierungen für besondere
