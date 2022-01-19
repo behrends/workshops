@@ -189,6 +189,9 @@ einen Standort oder Wegbeschreibung anzuzeigen.
 einem weiteren Button ansteuern (falls Zeit ist,
 dann mit Datenübergabe).
 
+Stellen Sie `EditActivity` auf `ViewBinding` um
+(siehe [vorigen Abschnitt](/mobile/02-android/view_binding)).
+
 Diese weitere Activity kann danach wieder gelöscht werden.
 </Callout>
 

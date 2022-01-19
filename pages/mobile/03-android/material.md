@@ -69,6 +69,7 @@ der eingegebenen Werte angezeigt werden:
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Titel der Notiz"
+        app:errorEnabled="true"
         android:minHeight="48dp"/>
 </com.google.android.material.textfield.TextInputLayout>
 ```
