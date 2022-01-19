@@ -62,7 +62,7 @@ Eintrag in `AndroidManifest.xml` erstellt.
 
 Um die Änderungen einfach zu halten, ändern
 wir das XML-Layout in `activity_edit.xml` so,
-dass ein _LinaerLayout_ verwendet wird:
+dass ein _LinearLayout_ verwendet wird. 
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -83,8 +83,97 @@ empfohlen.
 
 ## Mit Intent zur Activity navigieren
 
-- `startActivity` mit Intent,
-- Daten mit Extra übergeben und anzeigen.
+Ein `Intent` (deutsch „Absicht“) ist ein Objekt,
+mit wir u.a. von einer Activity zu einer anderen
+navigieren können.
+
+Der Konstruktur der `Intent`-Klasse kann hierfür
+mit zwei Argumenten aufgerufen werden:
+
+- „Start“: der Kontext (z.B. die Activity) in dem der `Intent` verwendet wird 
+- „Ziel“: die Activity zu der navigiert werden soll
+
+<Callout type="warning">
+Am Whiteboard bzw. in [Excalidraw](https://excalidraw.com)
+zwei Activities mit Pfeilen skizzieren.
+</Callout>
+
+In unserem Fall wird der Kontext `this` sein, d.h. die
+`MainActivity` von der aus navigiert wird und die Ziel-Activity
+wird mit Hilfe der zugrundeliegenden Java-Klasse angegeben
+(hier `EditActivity::class.java`):
+
+```kotlin
+val intent = Intent(this, EditActivity::class.java)
+```
+
+In unserer Activity steht eine geerbte Hilfsfunktion 
+`startActivity()` bereit, der ein `Intent`-Objekt
+als Parameter übergeben wird.
+
+Somit ist folgende Änderung in `MainActivity` durchzuführen,
+damit durch Antippen des `Buttons` durch `startActivity()`
+und dem `Intent`-Objekt zur `EditActivity` navigiert wird:
+
+```kotlin
+binding.button.setOnClickListener {
+    val noteTitle = binding.editNoteTitle.text.toString()
+    if(noteTitle.trim().isEmpty()) {
+        binding.editNoteTitle.error = "Titel darf nicht leer sein."
+    } else {
+        val intent = Intent(this, EditActivity::class.java)
+        startActivity(intent)
+    }
+}
+```
+
+## Daten mit Extra übergeben und anzeigen.
+
+Zunächst erweitern wir das XML-Layout `activity_edit.xml`
+der `EditActivity` mit einer `TextView` zur Anzeige
+des Notiztitels:
+
+```xml
+<TextView
+    android:id="@+id/noteTitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Hier erscheint der Titel"/>
+```
+
+Mit `putExtra()` können Daten bzw. `key/value`-basierte
+Informationen einem `Intent`-Objekt hinzugefügt werden:
+
+```kotlin
+binding.button.setOnClickListener {
+    val noteTitle = binding.editNoteTitle.text.toString()
+    if(noteTitle.trim().isEmpty()) {
+        binding.editNoteTitle.error = "Titel darf nicht leer sein."
+    } else {
+        val intent = Intent(this, EditActivity::class.java)
+        // Daten mit putExtra dem Intent hinzufügen
+        intent.putExtra("NOTE_TITLE", noteTitle)
+        startActivity(intent)
+    }
+}
+```
+
+In der `EditActivity` können wir aus einem `intent`-Objekt
+in `onCreate` die enthaltenen bzw. „übergebenen“ Daten
+auslesen und anzeigen:
+
+```kotlin
+class EditActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_edit)
+        val noteTitle = intent.getStringExtra("NOTE_TITLE")
+        findViewById<TextView>(R.id.noteTitle).text = noteTitle
+    }
+}
+```
+
+## Zusammenfassung
 
 Bei einfachen Apps mit wenigen Activities bzw.
 Screen ist eine Navigation so möglich. 
@@ -96,7 +185,11 @@ weiterzuverwenden oder um in Google Maps eine
 einen Standort oder Wegbeschreibung anzuzeigen.
 
 <Callout type="warning" emoji="👨🏻‍💻">
-Übung: eine weitere Activity hinzufügen und mit Button ansteuern
+Übung: Eine weitere Activity hinzufügen und mit 
+einem weiteren Button ansteuern (falls Zeit ist,
+dann mit Datenübergabe).
+
+Diese weitere Activity kann danach wieder gelöscht werden.
 </Callout>
 
 <Callout type="warning">
