@@ -4,7 +4,8 @@
   "01-intro": "1 - Einleitung",
   "02-android": "2 - Android Teil 1",
   "03-android": "3 - Android Teil 2",
-  "04-react_native": "4 - React Native Teil 1",
-  "05-react_native": "5 - React Native Teil 2",
-  "06-misc": "6 - Weitere Frameworks"
+  "04-android": "4 - Android Teil 3",
+  "05-react_native": "5 - React Native Teil 1",
+  "06-react_native": "6 - React Native Teil 2",
+  "07-misc": "7 - Weitere Frameworks"
 }
