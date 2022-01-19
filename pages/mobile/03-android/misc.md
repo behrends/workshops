@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Verschiedenes
 
 <Callout>
-  **Dauer:** 30 Minuten
+  **Dauer:** 35 Minuten
 
   - strings.xml
   - Abhängigkeiten aktuell halten

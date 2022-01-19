@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Material Design in Android
 
 <Callout>
-  **Dauer:** 30 Minuten
+  **Dauer:** 25 Minuten
 
   - Eingabefeld aus Material Design
 

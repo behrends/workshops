@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Activities mit Intents verknüpfen (Teil 1)
 
 <Callout>
-  **Dauer:** 60 Minuten \
+  **Dauer:** bis zu 90 Minuten \
   inklusive Übung, Pause und Besprechung
 
   - Activies erstellen und ansteuern
@@ -199,7 +199,7 @@ Diese weitere Activity kann danach wieder gelöscht werden.
 **Vertiefendes Material**
 
 Guides in den Android Developer Docs: 
-- https://developer.android.com/training/basics/firstapp/starting-activityLink/URL
+- https://developer.android.com/training/basics/firstapp/starting-activity
 - https://developer.android.com/guide/components/activities/intro-activities 
 
 Dieses Material ist nicht im Videokurs 
