@@ -67,6 +67,6 @@ interessant sein könnten.
 </Callout>
 
 <Callout type="warning">
-Falls am Ende noch Zeit übrig ist, könnte über `strings.xml`
-gesprochen werden.
+Falls am Ende noch Zeit übrig ist, könnte über `strings.xml` gesprochen werden 
+(siehe [nächste Seite](/mobile/03-android/misc))
 </Callout>
