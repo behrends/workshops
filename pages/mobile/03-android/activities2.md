@@ -7,21 +7,14 @@ import Callout from 'nextra-theme-docs/callout'
 
   - startActivityForResult (zu Activity zurückkehren)
 
-  **Ziel:** Mehr Übung und Details zu Activities/Intents 
+  **Ziel:** Umgang mit Activities/Intents vertiefen
 </Callout>
 
- 
-`startActivityForResult`, `EditText` und Übergabe 
-des geänderten Wertes, Nicht ändern bei Back-Buttons
+TODO
 
-Beachte/Hinweise: Intents auch für andere Apps 
-(Kamera, Map), evtl. Lebenszyklus und 
-Konfigurationsänderung (Gerät drehen) mit Callbacks 
-und `Log.d` demonstrieren?
-
-<Callout type="warning" emoji="👨🏻‍💻">
-Aufgabe: ???
-</Callout>
+-  `startActivityForResult`
+- `Button` zum Löschen der Notiz? Datenübergabe
+-  Back-Button löscht nicht
 
 <Callout type="warning">
 **Vertiefendes Material**
