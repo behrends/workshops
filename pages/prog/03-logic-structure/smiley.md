@@ -52,6 +52,21 @@ bauen:
 
 ![Smiley](/images/prog/smiley.png)
 
+**Hinweise zum Vorgehen:** \
+Erstellen Sie für die Zeichnung der einzelnen Bestandteile 
+des Smileys jeweils passende Funktionen, die Sie dann in
+der `draw`-Funktion aufrufen, z.B.
+
+```js
+function draw() {
+  background(220);
+  // die folgenden drei Funktionen sind zu schreiben!
+  drawFace();
+  drawEyes();
+  drawMouth();
+}
+```
+
 Der Sadley sieht dann so aus und sollte erscheinen,
 wenn der Mauszeiger in die untere Hälfte der `canvas`
 bewegt wird:

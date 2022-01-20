@@ -107,7 +107,8 @@ zugewiesen (im Beispiel oben `name`).
 Dies funktioniert leider nicht in NodeJS — aber es gibt z.B. 
 `readline-sync`, siehe unten.
 
-Wie kann der Text in eine Zahl für Berechnungen umgewandelt werden?
+Wie kann der Text in eine ganze Zahl für Berechnungen 
+umgewandelt werden?
 
 ```js
 let num = prompt("Bitte eine Zahl eingeben");
@@ -116,7 +117,8 @@ num = parseInt(num); // wandelt Text in Zahl um
 
 Achtung: wird keine Zahl eingegeben, dann muss dies evtl. mit 
 `if`  oder `try...catch` abgefangen werden (später), sonst 
-ergibt `parseInt` den Wert `NaN`. Es gibt auch `parseFloat` für Gleitkommazahlen. 
+ergibt `parseInt` den Wert `NaN`. Es gibt auch `parseFloat` 
+für Gleitkommazahlen. 
 
 
 ## Eingabe in NodeJS

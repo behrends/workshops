@@ -68,3 +68,10 @@ und Sekunden zerlegt.
   2 Minuten und
   1 Sekunden.
 ```
+
+
+**Hinweise:**
+
+- Mit `%` (Modulo) kann der Rest einer ganzzahligen Division berechnet werden.
+- In JavaScript kann eine Division eine Gleitkommazahl ergeben.
+- Die Hilfsfunktion `Math.floor()` rundet Gleitkommazahlen ab (z.B. ergibt `Math.floor(14.23)` den Wert `14`). Dies kann bei der Division nützlich sein.

@@ -128,8 +128,8 @@ Folgende logischen Operatoren sind relevant:
 
 | Operator | Beschreibung | Erläuterung |
 |---|---|---|
-| `&&` | UND (zweistellig) | `true` falls beide Operanden wahr sind, sonst `false` |
-| `\|\|` | ODER (zweistellig) | `true` falls mind. ein Operand wahr ist, sonst `false` |
+| `&&` | logisches UND (zweistelliger Operator) | `true` falls beide Operanden wahr sind, sonst `false` |
+| `\|\|` | logisches ODER (zweistellig) | `true` falls mind. ein Operand wahr ist, sonst `false` |
 | `!` | Negation (einstellig) | `!true` ergibt `false` und umgekehrt |
 
 ```js
@@ -137,6 +137,12 @@ let x = (8 < 9) && (1 > 5); // --> false
 let y = (8 < 9) || (1 > 5); // --> true
 let z = !x; // --> true
 ```
+
+<Callout type="warning">
+Wir nennen das Zeichen `&` der Einfachheit halber
+**„Und-Zeichen“** und der **„senkrechte Strich“** `|` 
+wird in der Programmierung häufig auf Englisch „_pipe_“ genannt.
+</Callout>
 
 Die weiteren logischen Operatoren wie z.B. `&` und `|` 
 behandeln wir nicht. 
@@ -163,7 +169,14 @@ x++; // --> Erhöht x um 1
 --x; // --> Verringert x um 1
 ```
 
-Der Wert der Variablen x wird geändert!
+Der Wert der Variablen x wird geändert! \
+(`++` und `--` führen entsprechende Zuweisungen aus)
+
+<Callout type="warning">
+Die Inkrement- und Dekrement-Operatoren dürfen nicht mit
+Konstanten verwendet werden, da diesen keine neuen Werte
+zugewiesen werden dürfen.
+</Callout>
 
 **Einstellige Operatoren: Quiz**
 
