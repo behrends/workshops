@@ -10,3 +10,9 @@ import Callout from 'nextra-theme-docs/callout'
 
   **Ziel:** Alle Werkzeuge für React Native einrichten
 </Callout>
+
+TODOs: 
+
+- Wo werden Mockup-Tools erwähnt (z.B. 
+Excalidraw und Figma für ein einfaches bzw. ein komplexes Tool).
+- Termin für die Vorstellung der App-Ideen festlegen

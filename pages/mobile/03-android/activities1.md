@@ -184,6 +184,13 @@ mit der Kamera-App ein Foto aufzunehmen und
 weiterzuverwenden oder um in Google Maps eine
 einen Standort oder Wegbeschreibung anzuzeigen.
 
+<Callout type="warning">
+Um den aktuellen Stand der App nachzuvollziehen, sollte das 
+Android-Studio-Projekt gezippt an passender Stelle in Moodle 
+hochgeladen werden (vorher mit `./gradlew clean` oder
+`Build > Clean Project` aufräumen).
+</Callout>
+
 <Callout type="warning" emoji="👨🏻‍💻">
 Übung: Eine weitere Activity hinzufügen und mit 
 einem weiteren Button ansteuern (falls Zeit ist,

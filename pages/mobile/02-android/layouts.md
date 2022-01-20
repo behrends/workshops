@@ -112,6 +112,13 @@ Datei `res/values/strings.xml` ausgelagert werden sollten
 (u.a. wenn die App mehrsprachig werden soll).
 
 <Callout type="warning">
+Um den aktuellen Stand der App nachzuvollziehen, sollte das 
+Android-Studio-Projekt gezippt an passender Stelle in Moodle 
+hochgeladen werden (vorher mit `./gradlew clean` oder
+`Build > Clean Project` aufräumen).
+</Callout>
+
+<Callout type="warning">
 **Vertiefendes Material**
 
 [Codelab zu Linear Layouts](https://codelabs.developers.google.com/codelabs/kotlin-android-training-linear-layout)
