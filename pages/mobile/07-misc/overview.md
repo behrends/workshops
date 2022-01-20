@@ -11,7 +11,7 @@ import Callout from 'nextra-theme-docs/callout'
 </Callout>
 
 - [Flutter](https://flutter.dev)
-- [ionic](https://ionic.io)
+- [ionic](https://ionic.io) TODO: check pricing
 - PWAs
 - TODO: Xamarin/Maui verlinken
 - gibt es noch weitere?
