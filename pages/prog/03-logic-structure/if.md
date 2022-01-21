@@ -55,7 +55,7 @@ if( ...ein logischer Ausdruck X vom Typ boolean... ) {
 Ein Beispiel dazu:
 
 ```js
-const i = prompt("Bitte Zahl eingeben")
+const i = prompt("Bitte Zahl eingeben");
 
 if(i >= 0) {	
   console.log(`${i} ist nicht negativ`);

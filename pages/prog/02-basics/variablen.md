@@ -159,7 +159,7 @@ Mit `let` und `const` tritt dieses Problem nicht auf,
 da hierbei der Gültigkeitsbereich nur im umgebenden Block liegt.
 
 Die Quelle des Beispiel-Codes und mehr Infos dazu 
-sind unter [javascript.info/var](https://javascript.info/var]
+sind unter [javascript.info/var](https://javascript.info/var)
 zu finden.
 </Callout>
 
