@@ -22,6 +22,11 @@ Diese Aufgabe in Moodle als Textseite eintragen.
 
 In Moodle eine Abgabe eingerichten werden, um eine 
 Einschätzung der Kenntnisse zu bekommen.
+
+Abgabe kann als Texteingabe oder Dateiabgabe erfolgen.
+In der Texteingabe kann der Code stehen oder der 
+Browser-Link auf ein öffentliches Projekt in replit.com
+eingetragen werden.
 </Callout>
 
 Experimentieren Sie mit dem „Hello, World!“-Programm so, dass 
