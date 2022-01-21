@@ -120,6 +120,16 @@ Achtung: wird keine Zahl eingegeben, dann muss dies evtl. mit
 ergibt `parseInt` den Wert `NaN`. Es gibt auch `parseFloat` 
 für Gleitkommazahlen. 
 
+<Callout type="warning">
+Wenn `parseInt` mit einem String aufgerufen wird, der mit 
+Ziffern beginnt, dann werden die Ziffern bis zum ersten
+Buchstaben als Zahl interpretiert, z.B.
+
+```js
+parseInt("1234XYZ"); // ---> ergibt 1234
+```
+</Callout>
+
 
 ## Eingabe in NodeJS
 

@@ -119,6 +119,16 @@ Daher sollte eigentlich immer der **starke** Vergleich mit
 
 Entsprechendes gilt für den Test auf Ungleichheit mit `!==`. 
 
+<Callout type="warning">
+Beim „schwachen“ Vergleich (`==` und `!=`) wird sozusagen
+nur der „Inhalt“ einer Variablen oder eines Ausdrucks 
+überprüft, wohingegen der „starke“ Vergleich (`===` und `!==`)
+sowohl Inhalt als auch den Datentypen in den Vergleich einbezieht.
+So ergibt der Vergleich mit `===` für einen Wert vom Typ `string` 
+mit einem Wert vom Typ `number` grundsätzlich `false`, da dies
+verschiedene Datentypen sind.
+</Callout>
+
 ## Logische Operatoren
 
 Logische Operatoren werden auf Wahrheitswerte angewendet. 
@@ -143,6 +153,23 @@ Wir nennen das Zeichen `&` der Einfachheit halber
 **„Und-Zeichen“** und der **„senkrechte Strich“** `|` 
 wird in der Programmierung häufig auf Englisch „_pipe_“ genannt.
 </Callout>
+
+**Beispiel**
+
+```js
+// Mehrfachdeklaration
+let age = 23, age2 = 134, age3 = 17;
+
+// UND: Alter eines Erwachsenen liegt zwischen 18 und 120 
+age >= 18 && age < 120; // true  (beide sind true)
+age2 >= 18 && age2 < 120; // false (eine ist false)
+
+// ODER: Alter darf nicht zwischen 14 und 18 liegen
+// Situation: Jugendliche dürfen nicht auf den Spielplatz
+age >= 18 || age < 14; // true (eine ist true)
+age3 >= 18 || age3 < 14; // false (beide sind false)
+```
+
 
 Die weiteren logischen Operatoren wie z.B. `&` und `|` 
 behandeln wir nicht. 
@@ -253,3 +280,21 @@ let x = 1000;
 let y = 100;
 let ergebnis = x > y ? "stimmt" : "leider nicht";
 ```
+
+## Prioritäten der Operatoren
+
+Aus der Schule kennen wir vielleicht den Merksatz
+„_Punktrechnung vor Strichrechnung_“, mit dem 
+ausgedrückt wird, dass in einer Berechnung z.B. mit 
+Multiplikation und Addition zuerst die Multiplikation
+ausgeführt wird.
+
+In Programmiersprachen gilt hierbei das gleiche.
+Zusätzlich werden für alle Operatoren Prioritäten
+definiert, die sich auf die Auswertung von Ausdrücken
+mit mehreren unterschiedlichen Operatoren auswirken.
+
+Mehr dazu hier: 
+
+- [Operator Precedence bei javascript.info](https://javascript.info/operators#operator-precedence)
+- [Operator Precedence im Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence)
