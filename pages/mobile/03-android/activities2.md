@@ -57,6 +57,8 @@ private val startForResult =
     }
 ```
 
+**&xrarr; Wie immer an die Imports denken!**
+
 Im obigen Code ist zu sehen, wie von der „anderen“ Activity
 ein `Intent`-Objekt ausgelesen wird. In unserem Beispiel
 „erwarten“ wir einen Eintrag (`Extra`) im `Intent`-Objekt

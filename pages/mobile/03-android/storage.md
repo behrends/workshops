@@ -5,14 +5,50 @@ import Callout from 'nextra-theme-docs/callout'
 <Callout>
   **Dauer:** 30 Minuten (bzw. restliche Zeit) \
 
-  - `SharedPreferences`
+  - `SharedPreferences` kurz zeigen
 
   **Ziel:** Daten auf einfache Weise speichern
 </Callout>
 
-[SharedPreferences](https://developer.android.com/training/data-storage/shared-preferences)
+Im Rahmen des „Crashkurses“ während der Vorlesung
+werden wir nicht im Detail über [Room](https://developer.android.com/training/data-storage/room)) sprechen, das eine
+umfangreichen API darstellt, um Daten via SQL auf dem
+Android-Gerät zu speichern (insbesondere mit `ViewModel` und 
+`LiveData`). Dazu gibt es einen Abschnitt im Videokurs und 
+gute Dokumentation (siehe ganz unten).
 
-TODO: Room, SQL, LiveData usw.
+Für Anwendungsfälle, bei denen wenige oder einfache Daten 
+gespeichert werden sollen, stehen die [SharedPreferences](https://developer.android.com/training/data-storage/shared-preferences)
+zur Verfügung.
+
+Bei Interesse bzw. ausreichender Zeit kann gezeigt werden,
+wie per `Button`-Druck Daten in `SharedPreferences` gespeichert
+und ausgelesen werden können. Hierzu nur Code-Fragmente zur
+Andeutung:
+
+**Daten in `SharedPreferences` speichern**
+
+Zum Beispiel in `setOnClickListener` eines weiteren Buttons:
+
+```kotlin
+// speichere Titel in Shared Preferences
+  val sharedPref = this.getPreferences(Context.MODE_PRIVATE)
+  with (sharedPref.edit()) {
+      putString("TITLE", title)
+      apply()
+  }
+```
+
+**Daten aus `SharedPreferences` lesen**
+
+```kotlin
+// lese Titel aus den Shared Preferences
+val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
+val currentTitle = sharedPref.getString("TITLE", "")
+binding.displayTitle.text = currentTitle
+```
+
+**&xrarr; Wie immer an die Imports denken!**
 
 <Callout type="warning">
 **Vertiefendes Material**
