@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Daten speichern
 
 <Callout>
-  **Dauer:** 30 Minuten (bzw. restliche Zeit) \
+  **Dauer:** 30 Minuten (bzw. restliche Zeit)
 
   - `SharedPreferences` kurz zeigen
 
