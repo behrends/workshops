@@ -7,11 +7,11 @@ import Callout from 'nextra-theme-docs/callout'
 
   - Activities mit Navigationskomponente ersetzen
 
-  **Ziel:** Nachvoll
+  **Ziel:** Praktischer Umgang mit dem Navigationsgraph
 </Callout>
 
 Die nachfolgenden Schritte beschreiben, wie unsere Beispiel-App
-in eine 
+in eine App mit Navigationsgraph umgebaut wird.
 
 Dabei bleibt nur eine Activity übrig, in der mittels `NavHost`
 und `NavHostFragment` die verschiedenen Fragmente einzelner
@@ -147,7 +147,7 @@ class HomeFragment : Fragment() {
                 Toast.makeText(context, "BUTTON CLICKED!", Toast.LENGTH_LONG).show()
             }
         }
-        return view;
+        return view
     }
 }
 ```
