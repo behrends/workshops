@@ -67,7 +67,30 @@ dessen Wert `true` ist, wird dem Textinhalt im
 `EditText`-Element ein leerer String zugewiesen, sodass
 der zuvor eingegebene Textinhalt entfernt wird.
 
-In `MainActivity` muss zusätzlich noch das Verhalten
+Zur Vorbereitung des nächsten Schrittes muss die 
+in `onCreate` deklarierte lokale Variable `binding` in eine
+Instanzvariable umgewandelt werden:
+
+```kotlin
+class MainActivity : AppCompatActivity() {
+
+    // Instanzvariable für view binding
+    private lateinit var binding: ActivityMainBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        // usw... der Rest bleibt gleich ...
+```
+
+<Callout type="warning">
+`lateinit` signalisiert für Kotlin, dass die Variable 
+`binding` erst später initialisiert wird (hier in`onCreate`).
+</Callout>
+
+In `MainActivity` muss schließlich noch das Verhalten
 des „Speichern“-Buttons so angepasst werden, dass die 
 eben definierte Funktion `startForResult` anstatt 
 `startActivity` verwendet wird:
