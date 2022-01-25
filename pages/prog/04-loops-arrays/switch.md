@@ -179,4 +179,5 @@ switch(true) {
 
 Hier wird sozusagen jeder `case`-Ausdruck mit `true`
 verglichen, sodass hierdurch beliebige Verzweigungen
-mit `if/else if/else` ausgedrückt werden können.
+(`if/else if/else`) auch mit `switch` 
+ausgedrückt werden können.
