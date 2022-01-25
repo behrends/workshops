@@ -41,7 +41,7 @@ export default {
     </span>
   ),
   // footerText: `© ${new Date().getFullYear()} Erik Behrends.`,
-  footerEditLink: 'Diese Seite bearbeiten.',
+  footerEditLink: 'Diese Seite kommentieren oder bearbeiten.',
   logo: <span className="font-extrabold">Workshops</span>,
   head: (
     <>
@@ -49,14 +49,8 @@ export default {
         name="viewport"
         content="width=device-width, initial-scale=1.0"
       />
-      <meta
-        name="description"
-        content="Workshops Notizen"
-      />
-      <meta
-        name="og:title"
-        content="Workshops Notizen"
-      />
+      <meta name="description" content="Workshops Notizen" />
+      <meta name="og:title" content="Workshops Notizen" />
     </>
   ),
 };
