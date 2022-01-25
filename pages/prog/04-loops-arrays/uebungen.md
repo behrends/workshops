@@ -116,6 +116,10 @@ Durchschnittliche Punktzahl: 84
 Durchschnittsnote: gut
 ```
 
+**Zusatzaufgabe:** Wandeln Sie die Verzweigung 
+(`if/else if/else`) in eine Fallunterscheidung mit `switch`
+um, sodass das Programm das gleiche Ergebnis liefert.
+
 ### 2.5 switch
 
 Erweitern Sie das Programm mit einem `switch`-Ausdruck,

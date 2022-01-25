@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Fallunterscheidungen (`switch`)
 
 <Callout>
-  **Dauer:** 20 Minuten
+  **Dauer:** 30 Minuten
 
   - `switch` als Alternative zu `if/else if/else`
 
@@ -18,7 +18,7 @@ unübersichtlich werden:
 let a = 13, b = 4;	
 let op = prompt("Welche Rechenoperation?");
 if(op === "+") {
-    console.log(a + b);
+  console.log(a + b);
 } else if(op === "-") {
   console.log(a - b);
 } else if(op === "*") {
@@ -74,10 +74,6 @@ Fallunterscheidungen mit `if/else if/else` ausdrücken.
 `switch` stellt lediglich eine Alternative dar, die in
 manchen Situationen nützlich sein kann.
 
-Ein `switch` funktioniert nur in bestimmten 
-Situationen, nämlich wenn für einen Ausdruck bzw.
-eine Variable nur die Gleichheit überprüft wird.
-
 `switch` gibt es in einigen Programmiersprachen.
 
 Mit `switch` sehen wir ein Beispiel dafür, dass es in
@@ -85,10 +81,6 @@ Programmiersprachen oftmals mehrere Möglichkeiten gibt,
 etwas in Code auszudrücken.
 </Callout>
 
-
-Allerdings funktioniert `switch` nur in bestimmten Situationen, 
-nämlich wenn für einen Ausdruck bzw. eine Variable nur die 
-Gleichheit mit verschiedenen Werten überprüft wird. 
 
 Die Syntax eines `switch`-Ausdrucks sieht im Allgemeinen so aus:
 
@@ -143,15 +135,48 @@ Ein `switch` funktioniert nur in bestimmten
 Situationen, nämlich wenn für einen Ausdruck bzw.
 eine Variable nur die Gleichheit überprüft wird.
 
-Jedes `switch` kann auch durch `if/else if/else`
-ersetzt werden — aber nicht umgekehrt.
-
-`switch` ist also sozusagen „schwächer“ oder
-spezieller als `if/else if/else`. 
-
 <Callout type="warning">
 Beispiele in replit.com zeigen, damit `switch`
 in verschiedenen Situation nachvollzogen werden 
 kann (`case` zusammenfassen, `break`, 
 „_fall-through_“, usw.).
 </Callout>
+
+## `switch` als Alternative zu `if/else if/else`
+
+Jede Verzweigung mit `if` kann im Prinzip durch
+ein `switch` ersetzt werden. Dazu kann zunächst
+ein `switch` mit dem „Auswahlausdruck“ `true`
+deklariert werden:
+
+```js
+switch(true) {
+  // case...usw.
+}
+```
+
+Nun lassen sich in den `case`-Teilen beliebige
+logische bzw. boolesche Ausdrücke verwenden:
+
+```js
+const age = prompt("Bitte Alter eingeben:");
+
+switch(true) {
+  case age > 0 && age < 18:
+    console.log("minderjährig");
+    break;
+  case age >= 18 && age < 67:
+    console.log("erwachsen");
+    break;
+  case age >= 67 && age < 120:
+    console.log("im Ruhestand");
+    break;
+  default:
+    console.log("Ungültiges Alter: " + age);
+    break;
+}
+```
+
+Hier wird sozusagen jeder `case`-Ausdruck mit `true`
+verglichen, sodass hierdurch beliebige Verzweigungen
+mit `if/else if/else` ausgedrückt werden können.
