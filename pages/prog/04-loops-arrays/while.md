@@ -1,0 +1,239 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Schleifen mit `while`
+
+<Callout>
+  **Dauer:** 35 Minuten
+
+  - `while` drückt Wiederholungen von Anweisungen aus
+
+  **Ziel:** Schleifen lösen komplexere Probleme
+</Callout>
+
+Mit Schleifen erhalten wir ein Konzept, mit dem wir im Prinzip 
+alles, was berechenbar ist, berechnen können. 
+
+## Syntax
+
+Der syntaktische Aufbau von `while` ist nicht sehr umfangreich
+(dennoch werden hierdurch komplexere Abläufe ermöglicht):
+
+```js
+while( ...ein logischer Ausdruck vom Typ boolean... ) {
+  // Anweisungen in diesem Block werden ausgeführt,
+  // solange der logische Ausdruck wahr (true) ist	
+}
+```
+
+Eine `while`-Schleife funktioniert wie folgt: 
+
+1. Der logische Ausdruck (`while`-Bedingung) wird ausgewertet.
+2. Ist der Wert des logischen Ausdrucks `true`, dann werden die Anweisungen im Block (`{…}`) ausgeführt. Danach wird wieder zu Schritt 1 gesprungen.
+3. Ist der Wert des logischen Ausdrucks `false`, dann werden die Anweisungen im Block nicht ausgeführt und die Schleife wird beendet.
+
+## Beispiel: Quersumme
+
+Wie könnte die Quersumme einer Zahl berechnet werden?
+
+Erste Idee: Die letzte Ziffer einer Zahl kann von hinten bzw. 
+von „rechts nach links“ mit Modulo berechnet werden (genauer 
+gesagt mit `% 10`):
+
+```
+// ermittle nacheinander die Ziffern einer Zahl
+// „von hinten bzw. von rechts”
+835279 % 10 // ergibt die letzte Ziffer --> 9
+83527 % 10 // ergibt die letzte Ziffer --> 7
+8352 % 10 // ergibt die letzte Ziffer --> 2
+// usw.
+```
+
+Zweite Idee: Die letzte Ziffer einer Zahl kann mit ganzzahliger 
+Division abgetrennt werden (genauer gesagt mit `/ 10`), sodass
+wir die restlichen Ziffern ohne die letzte Ziffern erhalten:
+
+```
+// entferne nacheinander die letzte Ziffer 
+// hier im „Pseudocode“ sei / die ganzzahlige Division
+835279 / 10 // ergibt die letzte Ziffer --> 9
+83527 % 10 // ergibt die letzte Ziffer --> 7
+8352 % 10 // ergibt die letzte Ziffer --> 2
+// usw.
+```
+
+&xrarr; In JavaScript erhalten wir die ganzzahlige Division
+z.B. durch Math.trunc(835279 / 10) wodurch die Ziffern nach
+dem `.` abgeschnitten werden (_truncate_):
+
+```js
+Math.trunc(835279 / 10) // entfernt die letzte Ziffer --> 83527
+Math.trunc(83527 / 10) // entfernt die letzte Ziffer --> 8352
+Math.trunc(8352 / 10) // entfernt die letzte Ziffer --> 835
+// usw.
+```
+
+(`Math.floor` zum Abrunden der Zahl könnte auch verwendet werden.)
+
+Die Ideen ergeben folgenden „Pseudocode“ als Vorüberlegung:
+
+```
+// sei num eine beliebige, ganze Zahl
+
+// Berechnung
+// Variable result für das Ergebnis, initialisiere sie mit 0
+// Variable tmp wird mit num initialisiert
+// 1 solange tmp Ziffern hat (gehe ansonsten zu 2)
+//    --> schneide letzte Ziffer ganz rechts bzw. hinten ab
+//    result = result + nächste Ziffer in tmp
+
+//    --> ermittle Ziffern ohne Ziffern ganz rechts bzw. hinten
+//    tmp = tmp ohne erste Ziffer
+
+//    --> gehe zu 1
+
+// Ausgabe: 
+// 2 result ist Quersumme von num
+```
+
+Wenn die Funktionsweise von „solange“ (d.h. einer 
+`while`-Schleife) gut bekannt ist, dann kann dies etwas
+direkter ausgedrückt werden (ohne die Sprungmarken):
+
+```
+// Berechnung
+// Variable result für das Ergebnis, initialisiere sie mit 0
+// Variable tmp wird mit num initialisiert
+// solange tmp Ziffern hat
+//    --> schneide letzte Ziffer ganz rechts bzw. hinten ab
+//    result = result + nächste Ziffer in tmp
+
+//    --> ermittle Ziffern ohne Ziffern ganz rechts bzw. hinten
+//    tmp = tmp ohne erste Ziffer
+
+
+// Ausgabe: 
+// result ist Quersumme von num
+```
+
+<Callout type="warning">
+Wir sehen hier ein Beispiel, wie Programmieren nicht nur
+das Schreiben von Code bedeutet. In vielen Situationen sind
+solche Vorüberlegungen nötig, um eine Lösung für ein Problem
+zu entwickeln. Erst danach wird die konkrete Lösung als
+Programmcode ausgedrückt, ausprobiert und angepasst.
+
+Hierbei handelt es sich um einen kreativen Vorgang, der 
+einen wesentlichen Bestandteil der Programmierung bildet.
+
+&xrarr; _Computational Thinking_ („Informatisches Denken“)
+</Callout>
+
+Berechnung der Quersumme in JavaScript:
+
+```js
+let num = parseInt(prompt("Positive ganze Zahl eingeben:"));
+
+// TODO: Fehlermeldung bei Eingabe einer ungültigen Zahl
+
+// Berechnung
+let result = 0;	
+let tmp = num;	
+while(tmp > 0) {
+    result = result + tmp % 10;	
+    tmp = Math.floor(tmp / 10);	
+}
+
+// Ausgabe	
+console.log(`Die Quersumme von ${num} ist ${result}`);
+```
+
+**Alternative Lösung für die Quersumme**
+
+Idee: Die eingegebene Zahl könnte als Zeichenkette (`string`)
+aufgefasst werden. Für Zeichenketten bzw. Strings gibt es 
+in vielen Programmiersprachen Hilfsmethoden, die einzelnen
+Zeichen (d.h. Ziffern in unserem Fall) nacheinander abzufragen.
+
+```js
+let numString = prompt("Positive ganze Zahl eingeben:");
+// TODO: Überprüfung, ob Zahl eingegeben wurde
+	
+// Berechnung	
+let result = 0;
+let i = 0;
+while(i < numString.length) { // length ergibt Länge des Strings
+    // charAt liefert für einen String das Zeichen 
+    // an einer bestimmten Stelle im String
+    result += parseInt(numString.charAt(i++));
+}
+	
+// Ausgabe
+console.log(`Die Quersumme von ${numString} ist ${result}`)
+```
+
+<Callout type="warning" emoji="👨🏻‍💻">
+Eventuell die einzelnen Hilfsmethoden und Bestandteile
+der Lösung vorführen und erläutern.
+</Callout>
+
+## Beispiele mit Fehlern
+
+Die folgenden **fehlerhaften** (!) Beispiele werden im Kurs 
+diskutiert:
+
+```js
+// (1)
+let x = 15;
+while(x > 10);	
+  x = x - 10;
+
+// (2)
+while(x > 0)
+  x = Math.sqrt(x);
+  x = x - 10;
+	
+// (3)
+while(true)	
+  x = 5;
+	
+// (4)
+while(false)
+  x = 5;
+```
+
+Was sind die Probleme mit den oben zu sehenden Beispielen?
+
+&xrarr; gemeinsame Diskussion!
+
+## Zusammenfassung
+
+Eine `while`-Schleife ist syntaktisch sehr einfach aufgebaut:
+
+```js
+while(Bedingung) { 
+  // beliebige Anweisungen ... 
+}
+```
+Mit Schleifen und insbesondere `while` kann im Prinzip alles 
+berechnet werden (siehe Turing-Vollständigkeit in der 
+theoretischen Informatik).
+
+Es gibt auch eine Variation der `while`-Schleife, die mindestens 
+einmal ausgeführt wird und dann erst die Bedingung überprüft:
+
+```js
+let x = 1;
+
+// Diese Schleife läuft genau einmal durch	
+do {
+  console.log("Wert von x: " + x);
+  x = x + 1;
+} while(x < 2)
+```
+
+Manchmal ist die oben gezeigte `do … while`-Schleife praktisch.
+Allerdings genügt es, die „normale“ `while`-Schleife zu kennen,
+denn damit lassen sich grundsätzlich alle Schleifen bzw.
+Wiederholungen ausdrücken.
+
+
