@@ -121,5 +121,6 @@ Durchschnittsnote: gut
 Erweitern Sie das Programm mit einem `switch`-Ausdruck,
 der für 100 Punkte, 50 Punkte und knapp verfehlte Noten
 (d.h. 87, 61, und 49 Punkte) eine „motivierende“ Ausgabe 
-liefert. Z.B. „Glückwunsch, volle Punktzahl“ bei 100
-Punkten.
+liefert, z.B. „Glückwunsch, volle Punktzahl“ bei 100
+Punkten oder „Schade, nur ein Punkt fehlte für sehr gut“ bei 87
+Punkten, usw.
