@@ -45,3 +45,12 @@ React Native nicht vorausgesetzt. Dennoch kann
 u.a. ein Android Emulator für die App-Entwicklung
 mit React Native nützlich sein.
 </Callout>
+
+<Callout type="warning">
+**Vertiefendes Material**
+
+- https://reactnative.dev/docs/environment-setup
+- https://docs.expo.dev/get-started/installation/
+
+Abschnitt 2 und 3 im Videokurs
+</Callout>
