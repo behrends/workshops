@@ -1,0 +1,220 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Schleifen mit `for`
+
+<Callout>
+  **Dauer:** 30 Minuten
+
+- `for` als Alternative zu `while`
+- `for` läuft von Start- bis Endwert ab
+- Für Arrays ist `for` praktisch
+
+**Ziel:** `for`-Schleifen verstehen und nutzen
+</Callout>
+
+Schleifen werden sehr oft in verschiedenen 
+Situationen eingesetzt, z.B. wenn etwas 
+mehrfach wiederholt werden soll bis eine
+bestimmte Bedingung erfüllt ist. Dies lässt
+sich grundsätzlich mit einer 
+[`while`-Schleife](/prog/04-loops-arrays/while)
+umsetzen, wie wir bereits gesehen haben.
+
+Manchmal steht vor der Ausführung der Schleife fest, 
+wie oft sie durchlaufen wird (z.B. bei Listen bzw. 
+Arrays). Auf diese Fälle ist die `for`-Schleife 
+zugeschnitten und stell somit eine praktische
+Alternative zur `while`-Schleife in manchen
+Situationen dar.
+
+## Syntax einer `for`-Schleife
+
+```
+for(Initialisierungen; logischer Ausdruck; Aktualisierungen) {
+  // Vor dem ersten Durchlauf werden Initialisierungen ausgeführt
+	
+  // Anweisungen in diesem Block werden ausgeführt,
+  // solange der logische Ausdruck true ist
+	
+  // Am Ende der Schleife werden die Aktualisierungen ausgeführt
+}
+```
+
+1. Die `Initialisierungen` werden ausgeführt.
+2. Der `logische Ausdruck` wird ausgewertet.
+3. Ist der Wert des `logischen Ausdrucks` gleich `true`, dann werden die Anweisungen im nachfolgenden Block (`{ … }`) ausgeführt. Direkt im Anschluss werden die `Aktualisierungen` ausgeführt und es wird wieder zu Schritt 2 gesprungen. 
+4. Ist der Wert des `logischen Ausdrucks` jedoch `false`, so wird die `for`-Schleife beendet, ohne dass der Block durchlaufen wird.
+
+**Beispiel: Mittelwert**
+
+Wie könnte mit einer `for`-Schleife der Mittelwert 
+mehrerer Zahlen berechnet werden, die mit der 
+Tastatur eingegeben wurden?
+
+Vorüberlegung:
+
+- Anzahl der Zahlen wird eingegeben und in einer Variablen `count` gespeichert.
+- Variable `sum` zur Zwischenspeicherung der Summe aller eingegebenen Zahlen deklarieren.
+- Von 1 bis `count` laufen und jedes Mal eine neue Zahl eingeben, die in einer Variablen `num` gespeichert wird. Zusätzlich den neuen Wert der Summe in `sum` durch Addition mit `num` (eingegebene Zahl) berechnen.
+- Am Ende den Mittelwert durch `sum/count` berechnen und ausgeben.
+
+```js
+let count = parseInt(prompt("Wieviele Zahlen willst Du eingeben?"));
+let num, sum = 0;
+for(let i = 1; i <= count; i++) {
+  num = parseInt(prompt(`Bitte Zahl Nr. ${i} eingeben`));
+  sum = sum + num;	
+}	
+console.log("Mittelwert: " + sum/count);
+```
+
+**Bemerkungen**
+
+Beachte die Strichpunkte/Semikola (`;`) nach den 
+Initialisierungen und dem logischen Ausdruck:
+
+```js
+for( ; ; ) { 
+  // hier ist der Block der for-Schleife
+  // mit den zu wiederholenden Anweisungen
+  // … 
+}
+```
+
+Initialisierungen sind Deklarationen und Zuweisungen
+einer oder mehrerer Variablen, die nur im Rumpf der
+`for`-Schleife ihren Gültigkeitsbereich haben 
+(d.h. sie sind lokale Variablen).
+
+Aktualisierungen sind im Prinzip einfache 
+JavaScript-Ausdrücke, in der Regel handelt es sich 
+aber um Inkrement- oder Dekrement-Operatoren 
+(häufig mit `++` bzw. `--`)
+
+Durch Kommata getrennt können mehrere 
+Initialisierungen und Aktualisierungen 
+verwendet werden. Dies kommt eher selten vor,
+würde aber z.B. so aussehen:
+
+```js
+for(let l = 10, m = 10; l + m > 0; l = l - 2, m--) {
+  console.log(l + m);
+}
+```
+
+Oben sehen wir ein Beispiel mit zwei 
+Initialisierungen und zwei Aktualisierungen. 
+Solch eine Schleife kann natürlich sehr 
+unübersichtlich werden &mdash; daher kommt 
+dies selten vor und wir meistens anders ausgedrückt.
+
+## Geschachtelte `for`-Schleifen
+
+Gelegentlich sind jedoch geschachtelte 
+`for`-Schleifen nützlich oder sogar notwendig:
+
+```js
+let jMax = parseInt(prompt("Obere Schranke für 1. Zahl: "));
+let kMax = parseInt(prompt("Obere Schranke für 2. Zahl: "));
+	
+console.log("Die Produkte des Einmaleins:");	
+for(let j = 1; j <= jMax; j++) {
+  for(let k = 1; k <= kMax; k++) {
+    console.log(`${j} * ${k} = ${j*k}`);
+  }	
+}
+```
+
+Dies kann zu folgender Ausgabe führen:
+
+```
+Obere Schranke für 1. Zahl: 5
+Obere Schranke für 2. Zahl: 3
+Die Produkte des Einmaleins:
+1 * 1 = 1
+1 * 2 = 2
+1 * 3 = 3
+2 * 1 = 2
+2 * 2 = 4
+2 * 3 = 6
+3 * 1 = 3
+3 * 2 = 6
+3 * 3 = 9
+4 * 1 = 4
+4 * 2 = 8
+4 * 3 = 12
+5 * 1 = 5
+5 * 2 = 10
+5 * 3 = 15
+```
+
+**Beispiele mit Fehlern**
+
+```js
+// (1)
+for(;;) {
+  console.log("Netzstecker ziehen!");
+}
+
+
+// (2) - Gültigkeitsbereich von a ist nur im Rumpf der for-Schleife
+for(let a = 0; a < 5; a++) {
+  console.log(a + " " + a*a*a);
+}
+console.log(a); // --> ReferenceError
+```
+
+## `for`-Schleife mit Array
+
+ Standard-Beispiel einer `for`-Schleife mit Array: 
+
+```js
+let list = [1,2,3,4];
+	
+// Start bei 0, da dies erster Index im Array ist
+// Schleife läuft nur solange i kleiner als die Listenlänge ist
+// Indexe von Arrays der Länge n: 0,1,2,3...n-1
+// list.length ist also n-1
+for(let i = 0; i < list.length; i++) {
+  console.log(list[i]);	
+}
+```
+
+Ausprobieren und üben: 
+
+- `for`-Schleife, die die Liste rückwärts durchläuft 
+- oder jeden zweiten Eintrag überspringt
+- oder nur durch 3 teilbare Zahlen ausgibt
+- usw. 
+
+Programm mit geschachtelter bzw. innerer 
+`for`-Schleife erstellen, sodass sich folgender
+Ablauf mit Ein- und Ausgaben ergibt:
+
+```
+// Eingabe
+Anzahl der Zahlen: 3
+1. Zahl: 9
+2. Zahl: -8
+3. Zahl: 18
+
+//Ausgabe
+Ungerade Zahlen < 9: 1,3,5,7
+-8 nicht erlaubt. Nur Zahlen > 0!
+Ungerade Zahlen < 18: 1,3,5,7,9,11,13,15,17
+```
+
+Zusatz: Mit Funktionen und `while`-Schleifen 
+soll bei jeder Eingaben sichergestellt werden,
+dass nur Zahlen > 0 eingegeben werden.
+
+## `for` und `while`
+
+`for`- und `while`-Schleifen haben dieselbe 
+Ausdruckskraft.
+
+Jede `for`-Schleife kann als `while`-Schleife 
+umgeschrieben werden und umgekehrt. 
+
+Auch hierzu sollten sich alle mit Übungsaufgaben 
+beschäftigen.
