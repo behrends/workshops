@@ -1,0 +1,212 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Arrays (Listen)
+
+<Callout>
+  **Dauer:** 35 Minuten
+
+  - Arrays werden vorgestellt
+
+  **Ziel:** Arrays („Listen“) nutzen können
+</Callout>
+
+In vielen Programmiersprachen gibt es eine
+Möglichkeit, mehrere Werte in einer Art Liste
+zu speichern und zu verwenden. In JavaScript
+heißt solch eine Datenstruktur **Array**.
+
+Angenommen wir haben folgende Situation: \
+Benutzer sollen beliebig viele ganze Zahlen 
+eingeben können. Das Programm soll nach der 
+Eingabe der Zahlen zu jeder eingegebenen Zahl 
+die Quadratzahl ausgeben: 
+
+```
+Wie viele Zahlen möchtest Du eingeben?
+4
+Zahl 1: 3
+Zahl 2: 8
+Zahl 3: 4
+Zahl 4: 10
+Dies sind die Quadratzahlen:
+3 - 9
+8 - 64
+4 - 16
+10 - 100
+```
+
+&xrarr; Mit den bisher besprochenen Konzepten 
+kann dies nur schwer umgesetzt werden.
+
+Arrays sind im Prinzip Listen, die mehrere Elemente 
+enthalten. In JavaScript werden Arrays mit eckigen 
+Klammern umgeben und die enthaltenen Elemente 
+werden mit Komma getrennt `[ , , …]`:
+
+```js
+const listOfNumbers = [1,2,3,4];
+const listOfString = ["hallo","welt"];
+```
+
+In JavaScript dürfen die Elemente eines Arrays 
+unterschiedliche Datentypen haben, d.h. wir
+dürfen Arrays willkürlich „befüllen“:
+
+```js
+let numbers = [1,2,3,4];
+let strings = ["hallo", "welt"];
+
+// null steht hier ggf. für "nicht bekannt"
+let mix = [0,"one",true,null]; 
+
+// ein Array kann andere Arrays enthalten
+let arrays = [numbers,strings];
+```
+
+Insbesondere können Arrays andere Arrays enthalten, 
+(und auch Objekte, siehe später). 
+
+<Callout type="warning">
+Arrays haben in JavaScript den Datentyp `object`
+(siehe `typeof [1,2,3]` in der Konsole), weil sie
+im Prinzip lediglich JavaScript-Objekte mit 
+Zahlen als Schlüssel sind (siehe spätere Lektion
+zu Objekten).
+</Callout>
+
+## Zugriff auf die Elemente eines Arrays
+
+Ein Array der Länge `n hat `n Einträge bzw. Elemente. 
+
+Der erste Eintrag hat den Index `0` und der letzte 
+den Index `n-1`.
+
+Zugriff auf die Elemente durch mit `[` und `]` 
+geklammerte Index-Ausdrücke.
+
+```js	
+let a = [1,2,3];
+
+// den Elementen im Array werden nun andere Werte zugewiesen:
+a[0] = 10;	
+a[1] = 200;	
+a[2] = 3000;
+
+// Ausgabe einzelner Elemente
+console.log("Die erste Zahl im Array: " + a[0]);
+console.log("Die dritte Zahl im Array: " + a[2]);
+```
+
+Ein Zugriff außerhalb der Indexgrenzen verursacht 
+keinen Laufzeitfehler! Ist kein Element an einem Index 
+vorhanden, dann ergibt der Zugriff undefined.
+
+```js
+let a = [1,2,3];
+
+console.log("Zugriff außerhalb der Grenzen ergibt " + a[5]);
+// ---> undefined !!!
+```
+
+## Zugriff auf die Länge eines Arrays
+
+Zusätzlich zu seinen Elemente besitzt ein Array 
+eine spezielle Eigenschaft (keine Funktion bzw. 
+Methode!), die jeweils die aktuelle Länge des 
+Arrays enthält. Sie heißt `length` und wird mit 
+einem `.` angesprochen.
+
+```js
+let a = [3,5,1,6,8,9];
+
+console.log("Länge des Arrays " + a.length);
+// ---> 6
+```
+
+Dies ist insbesondere für die Verwendung von 
+Arrays mit `for`-Schleifen nützlich, wie wir noch 
+sehen werden. 
+
+
+## Mehrdimensionale Arrays
+
+Arrays können auch andere Arrays enthalten. Diese 
+werden manchmal mehrdimensionale Arrays genannt.
+
+```js
+let triangle = [[1],[2,3],[4,5,6],[7,8,9,10]];
+
+console.log(triangle.length); // 4	
+console.log(triangle[2]) // [4,5,6]
+console.log(triangle[2].length) // 3
+console.log(triangle[2][1]) // 5
+```
+
+<Callout type="warning">
+Warum wurde in dem obigen Beispiel die Variable
+`triangle` („Dreieck“) genannt?
+
+&xrarr; Auf dem Whiteboard skizzieren.
+</Callout>
+
+Dies kann etwas gewöhnungsbedürftig sein. Gebraucht 
+wird dies z.B. bei Matrix-Berechnungen.
+
+## Ausblick
+ Arrays haben viele Hilfsmethoden in JavaSript, 
+ siehe [Mozilla Developer Network (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) für einen
+ Überblick.
+
+Mit `myList.push(3)` wird z.B. die Zahl `3` an das 
+Ende des Arrays in der Variablen/Konstanten `myList` 
+angehängt.
+
+```js
+const list = [1,2,3];
+
+// 4 ans Ende des Arrays in list anhängen
+list.push(4);
+```
+
+Im Beispiel oben mit `push` zeigt sich, dass die
+Länge eines Arrays beim Hinzufügen neuer Elemente
+automatisch erhöht wird. Außerdem ist im Beispiel
+zu sehen, dass einer Konstanten in JavaScript 
+lediglich kein neuer Wert zugewiesen werden darf. 
+Der Wert bzw. „Inhalt“ der Konstanten kann sich 
+allerdings schon ändern (hier ein Array).
+
+Mit `forEach` kann das Array so durchlaufen werden, 
+dass für jedes Element eine bestimmte Funktion mit 
+dem Element als Parameter aufgerufen wird:
+
+```js
+const list = [1,2,3];
+
+function showSquares(x){ console.log(x*x) };
+
+// durchlaufe Array und rufe für jedes
+// Element item im Array showSquares(item) auf
+list.forEach(showSquares); 
+// Ausgabe ---> 1  4  9  16
+```
+
+Eine Funktion, die wie oben verwendet wird, wird 
+auch _Callback_-Funktion genannt.
+
+
+Hierbei werden insbesondere Pfeilfunktionen 
+interessant, da sie den Code deutlich vereinfachen.
+
+Obiges Beispiel vereinfacht umgeschrieben mit 
+Pfeilfunktion:
+
+```js
+const list2 = [1,2,3,4];
+list2.forEach(item => console.log(item*item)); 
+// Ausgabe --->  1  4  9  16
+```
+
+Pfeilfunktionen als alternative Syntax für 
+Funktionen werden in einer späteren Lektion
+behandelt.
