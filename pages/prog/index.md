@@ -24,11 +24,15 @@ Dauer, Inhalte und Ziele beschrieben.
 </Callout>
 
 <Callout type="error" emoji="‼️">
-Jedes Jahr vor jeder Lektion checken:
+**TODO für 22/23**: Begleitetes Selbststudium 
+planen (Übungen, Videomaterial, git?)
 
-- Weblinks
+Jedes Jahr checken:
+
+- Sind die Weblinks noch gültig?
+- Mehr kleine Übungen? Mastery? p5js/kaboomjs/…?
 - Was kann sich noch ändern (auch inhaltlich)?
-- Kamen neue Themen oder Ansätze hinzu?
+- Kamen neue Themen oder Tools hinzu?
 
 Die tatsächliche Dauer jeder Lektion ermitteln und ggf. anpassen!
 </Callout>
