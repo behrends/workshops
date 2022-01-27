@@ -3,9 +3,10 @@ import Callout from 'nextra-theme-docs/callout'
 # Übung (Smiley/Sadley in p5js)
 
 <Callout>
-  **Dauer:** restliche Zeit
+  **Dauer:** 45 Zeit \
+  inklusive 5-10 Minuten Besprechung
 
-  **Ziel:** Übung hauptsächlich von Funktionen
+  **Ziel:** Übung mit Schwerpunkt auf Funktionen
 </Callout>
 
 ## Vorbemerkungen

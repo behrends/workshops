@@ -2,5 +2,6 @@
   "operators": "Operatoren",
   "functions": "Funktionen (Teil 1)",
   "if": "Verzweigungen (if/else)",
-  "smiley": "Übung (Smiley/Sadley)"
+  "smiley": "Übung (Smiley/Sadley)",
+  "switch": "Fallunterscheidungen (switch)"
 }
