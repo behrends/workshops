@@ -56,8 +56,8 @@ wir die restlichen Ziffern ohne die letzte Ziffern erhalten:
 // entferne nacheinander die letzte Ziffer 
 // hier im „Pseudocode“ sei / die ganzzahlige Division
 835279 / 10 // ergibt die letzte Ziffer --> 9
-83527 % 10 // ergibt die letzte Ziffer --> 7
-8352 % 10 // ergibt die letzte Ziffer --> 2
+83527 / 10 // ergibt die letzte Ziffer --> 7
+8352 / 10 // ergibt die letzte Ziffer --> 2
 // usw.
 ```
 
