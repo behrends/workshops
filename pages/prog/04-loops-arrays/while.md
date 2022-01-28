@@ -140,7 +140,7 @@ let result = 0;
 let tmp = num;	
 while(tmp > 0) {
     result = result + tmp % 10;	
-    tmp = Math.floor(tmp / 10);	
+    tmp = Math.trunc(tmp / 10);	
 }
 
 // Ausgabe	
