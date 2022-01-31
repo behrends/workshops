@@ -2,12 +2,18 @@ import Callout from 'nextra-theme-docs/callout'
 
 # Programmierung (TIF)
 
-Jeder Abschnitt in der linken Navigationsleiste entspricht einem 
-Block mit 4 Vorlesungsstunden. Eine Vorlesungsstunde ist 45 Minuten
-lang, sodass ein Vorlesungsblock 180 Minuten bzw. zweimal 90 Minuten dauert. Jeder Block besteht aus einzelnen Lektionen 
-mit Übungen. In der Regel ist eine Lektion einschließlich Übung 
-nicht länger als 45 Minuten. Am Anfang jeder Lektion werden ihre 
-Dauer, Inhalte und Ziele beschrieben.
+Jeder Abschnitt in der linken Navigationsleiste 
+entspricht in der Regel einem Block mit 4 
+Vorlesungsstunden. Eine Vorlesungsstunde ist 45 Minuten
+lang, sodass ein Vorlesungsblock 180 Minuten bzw. 
+zweimal 90 Minuten dauert. Jeder Block besteht aus 
+einzelnen Lektionen mit Übungen. In der Regel ist eine 
+Lektion einschließlich Übung nicht länger als 45 
+Minuten. Am Anfang jeder Lektion werden ihre 
+Dauer, Inhalte und Ziele beschrieben. Durch 
+zusätzliche Übungen und Wiederholungen kann es
+vorkommen, dass ein Abschnitt auf mehr als 4 
+Vorlesungsstunden aufgeteilt wird.
 
 <Callout>
   Die Vorlesung ist wie ein Workshop organisiert. Inhalte werden 
