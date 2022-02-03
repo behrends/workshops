@@ -15,14 +15,17 @@ Viele denken bei dem Begriff „Objekt“ an
 objektorientierte Programmierung, wie sie z.B. in 
 Java umgesetzt ist. In JavaScript gibt es zwar auch 
 objektorientierte Programmierung (siehe später), aber 
-in JavaScript stellen Objekte lediglich eine Datenstruktur dar. Mit Objektorientierung haben 
-Objekte in JavaScript zunächst einmal nichts zu tun.
+in JavaScript stellen Objekte an sich lediglich eine 
+Datenstruktur dar, in der für benannte Eigenschaften 
+unterschiedliche Werte zugeordnet werden. Mit 
+Objektorientierung haben Objekte in JavaScript 
+zunächst einmal nichts zu tun.
 
 In JavaScript gibt es den Datentyp `object`, der 
 Arrays und Objekte umfasst (und eigentlich auch 
 Funktionen, aber siehe dazu `typeof`). Es gibt in 
 JavaScript auch Klassen, mit denen (Objekt-)Instanzen 
-erzeugt werden können (siehe später).
+erzeugt werden können (siehe [später](/prog/05-structure/classes)).
 
 ## Objekte in JavaScript
 
@@ -32,7 +35,28 @@ bestehen, denen bestimmte Werte zugeordnet sind
 (Zahlen, Strings, Arrays, Objekte, Funktionen, usw.).
 
 Objekte sind also Sammlungen von sogenannten 
-Schlüssel/Wert-Paaren (_key / value pairs_).
+Schlüssel/Wert-Paaren (_key / value pairs_). Dazu
+ein erstes Beispiel in JavaScript-Syntax:
+
+```js
+let jane = {
+  firstName: "Jane",
+  lastName: "Smith",
+  age: 32
+};
+```
+
+Eine Objekt-Definition ist von geschweiften Klammern
+umgeben (`{...}`) und enthält Paare von Eigenschaften 
+(_properties_, manchmal auch Schlüssel (_keys_) 
+genannt) mit zugehörigen Werten (_values_).
+`firstName`, `lastName` und `age` sind hier die Namen 
+der Eigenschaften des Objekts. Den Eigenschaften
+sind jeweils nach dem Doppelpunkt Werte 
+zugeordnet (z.B. der Wert `"Jane"` für die 
+Eigenschaft `firstName`). Die Eigenschaft-Wert-Paare
+des Objekts werden durch Kommas voneinander
+getrennt. 
 
 Damit entsprechen Objekte in JavaScript den 
 Dictionaries in Python, Structs in C, Hashes in 
@@ -40,9 +64,26 @@ Ruby, und stückweise auch HashMaps in Java (oder
 Records ab Java 15 — die es auch in anderen 
 Sprachen gibt). 
 
-Schlüssel sind meistens Strings oder gewöhnliche 
-Bezeichner, und die Werte können von beliebigen 
-Datentypen sein. 
+Die Eigenschaften entsprechen meistens gewöhnlichen
+Bezeichnern oder Strings. Die Werte können von beliebigen Datentypen sein, so auch Arrays, 
+Funktionen und wiederum Objekte:
+
+```js
+jane = {
+  firstName: "Jane",
+  lastName: "Smith",
+  age: 32,
+  hobbies: ["Music","Programming","Cycling"],
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  },
+  address: {
+    street: "Main Street",
+    num: 123,
+    city: "New York"
+  }
+};
+```
 
 **Erinnerung: Arrays**
 
@@ -86,11 +127,6 @@ lesender Zugriff auf einen Eintrag: `l[posX]`;
 
 Zuweisung eines Eintrags: `l[posX] = newValue`;
 
-&xrarr; Bei Objekten gibt es anstatt der Position 
-benannte Eigenschaften und statt geschweifte 
-statt eckige Klammern — ansonsten bleibt vieles 
-gleich! 
-
 Beispiel Array:
 
 ```js
@@ -113,22 +149,24 @@ myObject['0']; // 0 --> 8  Achtung: String für Eigenschaftsname
 myObject['2'] = [40,50,60]; // --> {0: 8,1: "Hallo",2: [40,50,60]}
 ```
 
-&xrarr; Bei Objekten gibt es anstatt der Position 
-benannte Eigenschaften und statt geschweifte eckige 
-Klammern — ansonsten bleibt vieles gleich!
+- &xrarr; Arrays werden in eckigen Klammern deklariert und Objekte in geschweiften. 
+- &xrarr; Arrays haben numerische Indexe (Position eines Elements) und Objekte haben Eigenschaften mit Bezeichnern, die auch Strings sein können.
 
-Die Eigenschaften eines Objekts müssen also bei der 
-Deklaration ausdrücklich angegeben werden.
+Der Zugriff auf die Werte bestimmter Eigenschaften
+eines Objekts entspricht im Prinzip dem Zugriff
+auf die Elemente eines Arrays.
 
 Objekte bestehen also aus Aufzählungen von 
 Eigenschaften, gefolgt von einem Doppelpunkt und 
 dem gewünschten Wert für die Eigenschaft.
 
 Dabei werden die Eigenschaften natürlich meistens 
-nicht als Zahlen sondern als beliebige Namen angegeben.
+nicht als Zahlen sondern durch beliebige Bezeichner
+angegeben.
 
-Auflistung der Eigenschaften (properties) und Werte 
-oft auf mehreren Zeilen (Komma getrennt!): 
+Auflistung der Eigenschaften und Werte bei einer
+Objektdefinition erfolgt oft auf mehrere Zeilen 
+verteilt (jeweils durch Komma getrennt): 
 
 ```js
 let myObject = {
@@ -160,6 +198,9 @@ person.firstName; // --> 'Jean'
 person.firstName = 'Jill';
 ```
 
+`obj['name']` und `obj.name` sind gleichwertig 
+und ergeben beide jeweils denselben Wert.
+
 In der Punktnotation wird der Eigenschaftsname 
 „direkt hingeschrieben“ und nicht als String 
 angegeben. (Bei Arrays gibt es keine Punktnotation 
@@ -168,16 +209,22 @@ für den Elementzugriff).
 ### Eigenschaften hinzufügen und entfernen
 
 Das leere Objekt wird mit `{}` angegeben — 
-ähnlich wie das leere Array mit `[]`
+ähnlich wie das leere Array mit `[]`. 
 
 Objekte können zu späteren Zeitpunkten um neue 
 Eigenschaften/Werte erweitert werden (mit 
 `obj['newProp'] = ...` oder `obj.newProp = ...`).
 
-Eigenschaften aus Objekten mit `delete` entfernen: 
-`delete obj.newProp`
+Eigenschaften können aus Objekten mit `delete` 
+entfernt werden: 
 
-Zugriff auf nicht vorhandene Eigenschaften ergibt `undefined`
+```js
+delete obj.newProp;
+```
+
+Zugriff auf nicht vorhandene Eigenschaften ergibt `undefined`.
+
+Beispiele:
 
 ```js
 let obj = {}; // --> leeres Objekt
@@ -191,17 +238,29 @@ delete obj.prop2
 console.log(obj.prop2); // --> undefined
 ```
 
-Beispiel:
+```js
+let jane = {
+  firstName: "Jane",
+  lastName: "Smith",
+  age: 32,
+  hobbies: ["Music","Programming","Cycling"],
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  },
+  address: {
+    street: "Main Street",
+    num: 123,
+    city: "New York"
+  }
+};
+```
 
-```js	
-let elsa = {	
-  firstName: 'Elsa',
-  lastName: 'Frozen',	
-  age: 26,	
-  hobbies: ['Ice Skating','Programming','Travel'],	
-  address: { zip: 12345, city: 'Arendelle'},	
-  fullName: function() { return 'FULLNAME TEST AND TODO!'; }	
-}
+Zugriff auf Eigenschaften:
+
+```js
+jane['firstName']; // --> Zugriff mit []
+jane.lastName; // --> Zugriff mit Punktnotation
+jane.hobbies[0]; // --> Zugriff auf ein Element im Array
 ```
 
 Objekte können auf ganz natürliche Weise auf Arrays 
@@ -209,15 +268,10 @@ und andere Objekte als Werte enthalten — und auch
 Funktionen, da diese auch wie „gewöhnliche“ Werte 
 aufgefasst werden können.
 
-Hierbei hat die Funktion selbst keinen Namen, siehe 
-`function()` — der Funktionsname wird sozusagen durch 
-die Eigenschaft festgelegt (oben `fullName`). 
-
-```js
-elsa['firstName']; // --> Zugriff mit []
-elsa.lastName; // --> Zugriff mit Punktnotation
-elsa.hobbies[0]; // --> Zugriff ein Element im Array
-```
+Hierbei hat die Funktion selbst keinen Namen (sie ist 
+also anonym), siehe `function()` — der Funktionsname 
+wird sozusagen durch die Eigenschaft festgelegt (oben 
+im Beispiel `fullName`). 
 
 Funktionen als Werte von Objekteigenschaften können 
 „ganz normal“ mit Punktnotation, dem Namen der 
@@ -225,7 +279,7 @@ Eigenschaft als Funktionsname und runden Klammern
 aufgerufen werden.
 
 ```js
-elsa.fullName(); // --> 'FULLNAME TEST AND TODO!'
+jane.fullName(); // --> "Jane Smith"
 ```
 
 Bei „geschachtelten“ Objekten ist insbesondere die 
@@ -233,8 +287,8 @@ Punktnotation für den Zugriff auf die Eigenschaften
 viel einfacher als mit eckigen Klammen:
 
 ```js
-elsa['address']['zip']; // --> 12345, umständlicher Zugriff
-elsa.address.city; // --> Arendelle, viel einfacher mit Punktnotation
+jane['address']['city']; // --> "New York", umständlicher Zugriff
+jane.address.city; // --> "New York", viel einfacher mit Punktnotation
 ```
 
 ## `this`
@@ -245,14 +299,20 @@ anderer Eigenschaften in dem Objekt zugegriffen
 werden. 
 
 ```js
-let elsa2 = {
-  firstName: 'Elsa',
-  lastName: 'Frozen',	
-  address: { zip: 12345, city: 'Arendelle'},	
-  fullName: function() {	
-    return `${this.firstName} ${this.lastName};`	
+jane = {
+  firstName: "Jane",
+  lastName: "Smith",
+  age: 32,
+  hobbies: ["Music","Programming","Cycling"],
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  },
+  address: {
+    street: "Main Street",
+    num: 123,
+    city: "New York"
   }
-}
+};
 ```
 
 Achtung: `this` hat in JavaScript grundsätzlich eine 
@@ -261,7 +321,7 @@ Programmiersprachen!
 
 Grobe Erklärung: `this` in JavaScript bezieht sich 
 auf den Kontext, in dem eine Funktion aufgerufen 
-wird (oben ist dies das Objekt `elsa2`). 
+wird (oben ist dies das Objekt `jane`). 
 
 ## JSON
 
@@ -337,3 +397,9 @@ console.log(returnedTarget);
 Quelle des Beispiels:
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign 
 
+<Callout type="warning">
+**Vertiefendes Material**
+
+- [Objects bei javascript.info](https://javascript.info/object-basics)
+- [Objects im MDN](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Basics)
+</Callout>
