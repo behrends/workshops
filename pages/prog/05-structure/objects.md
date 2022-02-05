@@ -226,7 +226,7 @@ Zugriff auf nicht vorhandene Eigenschaften ergibt `undefined`.
 
 Beispiele:
 
-```js
+```js highlight=8-9
 let obj = {}; // --> leeres Objekt
 // Eigenschaften hinzufügen - egal ob mit [] oder .
 obj['prop1'] = 'Hello!';
@@ -298,7 +298,7 @@ kann durch Voranstellen von this auf die Werte
 anderer Eigenschaften in dem Objekt zugegriffen 
 werden. 
 
-```js
+```js highlight=7
 jane = {
   firstName: "Jane",
   lastName: "Smith",
@@ -355,7 +355,7 @@ Dies wird auf jeden Fall dann gebraucht, wenn eine
 Eigenschaft aus mehreren Wörtern besteht bzw. 
 Leerzeichen enthält: 
 
-```js
+```js highlight=3
 let anotherObject = {
   property1: 12345,
   'another property': 'whatever'
@@ -366,7 +366,7 @@ Für solche Eigenschaften mit Leerzeichen **muss**
 der Zugriff durch eckige Klammern mit der Eigenschaft 
 als String erfolgen. Punktnotation ist nicht möglich: 
 
-```js
+```js highlight=1
 anotherObject['another property']; // --> 'whatever'
 // anders geht es nicht, denn dies kann nicht funktionieren:
 // anotherObject.another property   --> SyntaxError!
