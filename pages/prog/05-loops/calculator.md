@@ -1,0 +1,17 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Übung (Taschenrechner)
+
+<Callout>
+  **Dauer:** 90 Minuten \
+  inklusive Besprechung
+</Callout>
+
+Bevor wir mit Schleifen ein weiteres mächtiges
+Konzept kennenlernen, üben wir nochmals die
+bisherigen Themen mit einem kleinen Programm,
+das eine Art Taschenrechner umsetzt.
+
+Übungen werden in Moodle bereitgestellt.
+
+Aufgaben und Lösungen siehe Repository `exercises`.

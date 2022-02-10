@@ -4,6 +4,7 @@
   "02-basics": "2 - Grundlagen",
   "03-logic-structure": "3 - Logik und Struktur",
   "04-practice": "4 - Vertiefung",
-  "05-loops-arrays": "5 - Schleifen und Arrays",
-  "06-structure": "6 - Objekte und Klassen"
+  "05-loops": "5 - Schleifen (while)",
+  "06-arrays": "6 - Arrays",
+  "07-structure": "7 - Objekte und Klassen"
 }
