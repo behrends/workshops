@@ -15,6 +15,23 @@ zusätzliche Übungen und Wiederholungen kann es
 vorkommen, dass ein Abschnitt auf mehr als 4 
 Vorlesungsstunden aufgeteilt wird.
 
+Durch Wiederholungen und Besprechungen von
+Übungen kann es passieren, dass sich der
+Zeitplan etwas verschiebt. Dies ist kein Problem,
+weil für „Programmieren“ in der TIF 96 Stunden
+zur Verfügung stehen (mit zusätzlichen 24 
+Stunden für begleitetes Selbststudium).
+
+Wenn das Projekt beginnt (spätestens nach
+der Lektions zu Modulen bzw. `require` und 
+`import/export`),
+dann werden einzelne Lektionen am Anfang
+eines Termins vorgestellt. Der Großteil der
+Zeit in den Vorlesungsterminen steht dann 
+für das Projekt zur Verfügung, mit der 
+Möglichkeit Fragen zu stellen oder Hilfe zu
+erhalten.
+
 <Callout>
   Die Vorlesung ist wie ein Workshop organisiert. Inhalte werden 
   praktisch in Form von _Live Coding_ vermittelt, bei dem die 

@@ -1,0 +1,23 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Übungen
+
+<Callout>
+  **Dauer:** bis zu 90 Minuten \
+  davon 20 Minuten Besprechung/Diskussion
+
+**Ziel:** Übungen für bisherige Konzepte
+</Callout>
+
+Zunächst können die bisher besprochenen
+Themen kurz wiederholt werden.
+
+Mit diesen folgenden Aufgaben wollen wir die 
+bisherigen Konzepte wie Variablen/Konstanten, 
+Ein- und Ausgabe, Operatoren, Funktionen, 
+`if/else if/else` und `switch` anwenden und 
+somit vertiefen.
+
+Übungen werden in Moodle bereitgestellt.
+
+Aufgaben und Lösungen siehe Repository `exercises`.
