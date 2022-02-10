@@ -12,3 +12,6 @@ TODO: Es fehlen noch praktische
 Übungen zu Arrays (und in Kombination
 mit `for`)
 </Callout>
+
+&xrarr; Eventuell diesen Block in zwei Blöcke
+aufteilen (Arrays und for-Schleifen).
