@@ -1,3 +1,4 @@
 {
-  "require": "Exports/Imports mit require"
+  "require": "require (CommonJS)",
+  "import-export": "import/export (ES6)"
 }
