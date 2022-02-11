@@ -9,3 +9,5 @@ import Callout from 'nextra-theme-docs/callout'
 </Callout>
 
 TODO
+
+siehe z.B. https://replit.com/@behrends/LocalStorageRequire
