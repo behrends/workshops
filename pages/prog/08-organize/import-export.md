@@ -1,6 +1,6 @@
 import Callout from 'nextra-theme-docs/callout'
 
-# Exports/Imports
+# exports und imports in JavaScript
 
 <Callout>
   **Dauer:** 30 Minuten

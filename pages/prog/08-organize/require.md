@@ -1,6 +1,6 @@
 import Callout from 'nextra-theme-docs/callout'
 
-# Exports/Imports mit `require` (CommonJS)
+# `exports` und `require` (CommonJS in NodeJS)
 
 <Callout>
   **Dauer:** 30 Minuten

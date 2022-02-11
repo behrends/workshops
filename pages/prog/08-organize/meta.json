@@ -1,4 +1,4 @@
 {
-  "require": "require (CommonJS)",
-  "import-export": "import/export (ES6)"
+  "require": "exports und require",
+  "import-export": "import und export"
 }
