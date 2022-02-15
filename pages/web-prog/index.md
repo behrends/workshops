@@ -28,8 +28,9 @@ Inhalte und Ziele beschrieben.
   einzelnen git-Commits und Notizen auf Papier einen „Fahrplan“
   für das Live Coding. Übungen sind in eigenen Commits enthalten.
 
-  Der Code der Beispiel-App und Lösungen zu Übungen finden
-  sich im Ordner `exercises` des [git-Repositories](https://github.com/behrends/workshops).
+  Der Code der Beispiel-App und Lösungen zu Übungen 
+  finden sich im Ordner `web-prog` des 
+  git-Repositories `exercises`.
 
   Zusätzlich könnten umfangreichere Apps mit modernen Konzepten
   als Referenzen dienen (z.B. _Lecture Notes_).

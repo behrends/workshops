@@ -24,3 +24,5 @@ Bemerkungen:
 - Denken Sie auch an die Ränder der Boxen.
 </Callout>
 
+(Lösung siehe `web-prog` im git-Repository `exercises`)
+

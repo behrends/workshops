@@ -86,5 +86,5 @@ kann [replit.com](https://replit.com) verwendet werden oder
 Studierende führen Ihre Lösung vor.
 
 <Callout type="warning">
-Musterlösung in Moodle bereitstellen.
+Musterlösung in Moodle bereitstellen (siehe `mobile/progAssess` in git-Repository `exercises`)
 </Callout>
