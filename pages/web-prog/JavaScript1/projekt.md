@@ -15,6 +15,9 @@ genutzt. Jede Gruppe spricht mit dem Dozenten, um die
 App-Idee kurz vorzustellen und bei Bedarf Fragen zur App-Idee
 und zur Präsentation zu klären.
 
-**Erinnerung: am nächsten Termin stellt jede Gruppe ihre
-App-Idee in einer kurzen Präsentation vor (Infos dazu siehe 
-Moodle)**
+**Erinnerung: am nächsten Termin stellt jede Gruppe 
+ihre App-Idee in einer kurzen Präsentation vor (Infos 
+dazu siehe Moodle)**
+
+(Dozent: Siehe auch privates git-Repository 
+`exercises`).
