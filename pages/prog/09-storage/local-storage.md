@@ -5,9 +5,191 @@ import Callout from 'nextra-theme-docs/callout'
 <Callout>
   **Dauer:** 30 Minuten
   
-  **Ziel:** TODO
+  **Ziel:** Daten in localStorage speichern
 </Callout>
 
-TODO
+NodeJS-Projekte in replit.com bieten 
+die Möglichkeit, Daten in einer Datenbank zu
+speichern. Diese Funktionalität kann im Browser
+durch das zylinderförmige Symbol auf der linken Seite 
+in replit.com eingesehen werden. Allerdings
+basiert diese Datenbank auf einer _asynchronen_ API 
+und setzt somit ein Verständnis von Promises 
+in JavaScript voraus. Promises (und `async/await`)
+haben wir (noch) nicht besprochen &mdash; außerdem
+ist dieses Thema nicht unbedingt für den Einstieg 
+in die Programmierung nötig.
 
-siehe z.B. https://replit.com/@behrends/LocalStorageRequire
+Im Gegensatz dazu steht bei der Programmierung mit 
+JavaScript im Browser ein Objekt namens 
+`localStorage` zur Verfügung, in dem Daten
+gespeichert werden können. Die Verwendung von
+`localStorage` läuft _synchron_ ab, d.h. Promises
+sind hierbei nicht nötig. Dadurch ist es im 
+Vergleich zu asynchronen Ansätzen wie der Datenbank 
+in replit.com deutlich einfacher, mit `localStorage` 
+zu arbeiten.
+
+<Callout type="warning">
+Im Live Coding wird `localStorage` in der Konsole
+der DevTools eines Browsers vorgeführt.
+</Callout>
+
+Es gibt ein Open-Source-Projekt namens
+[`node-localstorage`](https://github.com/lmaccherone/node-localstorage) auf GitHub, das die 
+Funktionalität von 
+`localStorage` für NodeJS-Projekte bereitstellt.
+Hierbei handelt es sich um eine Software-Bibliothek 
+(_library_), mit der unser Projekt erweitert werden 
+kann. Dazu kann in replit.com unter „Packages“ 
+(das Würfelsymbol auf der linken Seite) nach 
+`node-localstorage` gesucht werden und mit einem 
+Klick wird das passende Ergebnis in unserem
+Projekt als Abhängigkeit (_dependency_) installiert.
+
+<Callout type="warning">
+Dies wird zum Mitmachen vorgeführt. 
+
+Zu beachten ist, dass es nun zwei neue Dateien in
+unserem Projekt gibt: `package.json` und 
+`package-lock.json`. In der Regel werden diese 
+Dateien in replit.com-Projekten automatisch 
+erstellt.
+</Callout>
+
+Die Einbindung von `localStorage` kann so
+mit `require` erfolgen:
+
+```js
+const { LocalStorage } = require('node-localstorage');
+const localStorage = new LocalStorage('./database');
+```
+
+Hierdurch wird ein neues Verzeichnis `database`
+in unserem Projekt erstellt. In diesem werden 
+die Daten in Dateien als Strings bzw. Text 
+gespeichert. Dies erfolgt mit der Methode 
+`localStorage.setItem()`:
+
+```js
+localStorage.setItem("college", "DHBW Lörrach");
+localStorage.setItem("students", "2000");
+```
+
+`localStorage.setItem` hat zwei Parameter:
+
+- Name des Schlüssels (_key_)
+- der zu speichernde Wert (_value_)
+
+Durch das obige Beispiel entstehen zwei Dateien
+im Verzeichnis `database`:
+
+- `college`
+- `students`
+
+in denen die entsprechenden Werte zu finden sind,
+die bei dem Aufruf von `localStorage.setItem` als 
+zweites Argument angegeben wurden. 
+
+Mit `localStorage.getItem` kann unter Angabe des
+passenden Schlüssels der gespeicherte Wert aus
+der Datenbank geladen werden:
+
+```js
+const data1 = localStorage.getItem("college");
+const data2 = localStorage.getItem("students");
+```
+
+Wenn wir komplexere Datenstrukturen haben,
+dann empfiehlt es sich, die Daten mit `JSON.stringify`
+als JSON-String umzuwandeln und zu speichern:
+
+```js
+const myContacts = [
+    {
+      id: 1,
+      name: "Alice"
+    },
+    {
+      id: 2,
+      name: "Bob"
+    }
+];
+
+const jsonContacts = JSON.stringify(myContacts);
+
+localStorage.setItem("contacts", jsonContacts);
+```
+
+Die Werte aus der Datenbank sind textbasierte
+JSON-Strings und können nach dem Auslesen durch 
+`JSON.parse()` in JavaScript-Objekte umgewandelt
+werden: 
+
+```js
+const dataString = localStorage.getItem("contacts");
+
+const contacts = JSON.parse(dataString);
+```
+
+JSON und die Methoden `JSON.stringify()` bzw.
+`JSON.parse()` werden auf der [vorigen Seite](/prog/09-storage/json) beschrieben.
+
+Jedes Mal, wenn sich die Daten ändern, dann
+sollten diese im `localStorage` abgespeichert
+werden:
+
+```js
+// Neuer Kontakt dem Array hinzufügen
+contacts.push({id:3, name:"Charlie"});
+
+const jsonStr = JSON.stringify(contacts);
+localStorage.setItem("contacts", jsonStr);
+
+// oder als eine Anweisung zusammengefasst:
+// localStorage.setItem("contacts", JSON.stringify(contacts));
+```
+
+Mit `localStorage.setItem("contacts")` werden
+die bestehenden Daten überschrieben. Die eigentliche
+Verwaltung der Daten findet also in JavaScript statt
+und `localStorage` wird lediglich für die persistente
+Speicherung der Daten eingesetzt.
+
+Für unser Programm genügt meistens `localStorage`,
+weil das Programm nur von einer Person verwendet
+wird und weil die Datenmenge und -struktur eher
+überschaubar ist. Für eine anspruchsvollere 
+Datenverarbeitung sind andere Ansätze wie z.B.
+relationale Datenbanken mit SQL besser geeignet.
+
+Weitere Bemerkungen:
+
+- `localStorage` speichert lediglich String bzw. Text ab.
+- `localStorage` speichert die Daten in Dateien, die somit im Projekt auch nach einem Neustart erhalten bleiben.
+- `localStorage.setItem()` überschreibt bestehende Daten.
+- `localStorage.clear()` löscht ALLE Daten im `localStorage.
+- Browser haben ein vordefiniertes `localStorage`-Objekt, dessen API in der Bilbiothek `node-localstorage` für NodeJS nachgebildet wird.
+
+Es bietet sich an, für den Umgang mit `localStorage`
+eine eigene Datei zu erstellen, in der der 
+Datenbankzugriff durch
+passende Funktionen erfolgt. Durch 
+[`import/export`](/prog/08-organize/import-export)
+oder [`exports/require`](/prog/08-organize/require)
+können diese Funktionen in anderen Dateien/Modulen
+verwendet werden.
+
+<Callout type="warning">
+Dies wird auch vorgeführt.
+
+Hierzu gibt es ein entsprechendes Beispiel
+auf replit.com:
+https://replit.com/@behrends/LocalStorageRequire
+
+Mehr zu `localStorage`:
+
+- Die Bibliothek `node-localstorage` auf GitHub: https://github.com/lmaccherone/node-localstorage
+- `localStorage` im Browser bei javascript.info: https://javascript.info/localstorage
+ 
+</Callout>
