@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Überblick
 
 <Callout>  
-  **Ziel:** TODO
+  **Ziel:** Infos zum weiteren Ablauf während der Entwicklung des Programmierprojekts
 </Callout>
 
 Das Projekt ist nun gestartet, dazu finden sich
@@ -15,13 +15,17 @@ die Teamarbeit am Projekt genutzt, wobei die
 Möglichkeit besteht, Fragen zu stellen und bei
 Bedarf Hilfe zu bekommen. 
 
-Die folgenden Inhalte sind nicht mehr auf
-„klassische Vorlesungsblöcke“ abgestimmt sondern
-werden je nach Bedarf und Interesse vorgestellt.
+Zu Beginn eines Termins werden gelegentlich in
+höchstens 60 Minuten weiterführende Themen 
+behandelt (z.B. TypeScript oder Objektorientierung) 
+und nützliche Inhalte für die Entwicklung des
+Projekts besprochen (z.B. Debugging und 
+Hilfs-Bibliotheken).
 
-Zu Beginn eines Termins werden weiterführende
-Themen vorgestellt (in der Regel nicht 
-mehr als 30-45 Minuten).
+Die folgenden Inhalte sind nicht mehr auf
+„klassische Vorlesungsblöcke“ (d.h. 2 * 90 Minuten)
+abgestimmt, sondern werden je nach Bedarf und
+Interesse zu Beginn eines Termins vorgestellt. 
 
 Themensammlung (TODO):
 

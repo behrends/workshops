@@ -57,6 +57,16 @@ Dateien in replit.com-Projekten automatisch
 erstellt.
 </Callout>
 
+<Callout type="warning">
+In NodeJS allgemein wird `localStorage` durch
+folgenden Terminal-Befehl im Projektverzeichnis
+installiert:
+
+```
+npm install node-localstorage
+```
+</Callout>
+
 Die Einbindung von `localStorage` kann so
 mit `require` erfolgen:
 

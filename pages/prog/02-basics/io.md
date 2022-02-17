@@ -130,19 +130,38 @@ parseInt("1234XYZ"); // ---> ergibt 1234
 ```
 </Callout>
 
+## Umlaute und andere Sonderzeichen
+
+Im Februar 2022 hatte `prompt` in replit.com 
+Probleme mit der Eingabe von Umlauten, die
+bei der Eingabe falsch dargestellt werden. 
+
+Mit der Hilfsbibliothek `readline-sync` 
+tauchten diese Probleme nicht auf. `readline-sync` kann in [replit.com](https://replit.com) 
+im Bereich _Packages_ (das Würfel-Symbol in der
+linken Seitenleiste) eingebunden werden.
+
+Weitere Infos: https://github.com/anseki/readline-sync
 
 ## Eingabe in NodeJS
 
 In NodeJS funktioniert `prompt` leider nicht. 
 
-Die Eingabe lässt sich sicherlich auch mit der API von NodeJS 
-umsetzen. Bequemer lässt sich die Eingabe jedoch durch eine 
-Hilfsbibliothek wie z.B. `readline-sync` in NodeJS realisieren.
-
-`readline-sync` kann auch in [replit.com](https://replit.com) 
-eingebunden werden, damit die Eingabe außerhalb von `index.js` 
-funktioniert.
+Die Eingabe lässt sich sicherlich auch mit der 
+API von NodeJS umsetzen. Bequemer lässt sich die 
+Eingabe jedoch durch eine Hilfsbibliothek wie z.B. 
+`readline-sync` in NodeJS realisieren (siehe oben)
 
 Alle Infos zu `readline-sync`: 
 [github.com/anseki/readline-sync](https://github.com/anseki/readline-sync)
+
+In einer [späteren Lektion](/prog/10-misc/libraries) 
+finden sich Infos zu weiteren nützlichen 
+Hilfsbibliotheken.
+
+<Callout type="warning">
+Leute mit Windows-Rechnern berichten davon,
+dass die Eingabe von Umlauten in `cmd.exe`
+in NodeJS problematisch ist.
+</Callout>
 
