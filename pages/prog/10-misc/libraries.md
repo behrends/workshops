@@ -130,6 +130,8 @@ console.log(randomName);
 // --> zufälliger Name wird ausgegeben 
 ```
 
+Infos zu Lodash: https://lodash.com
+
 Es finden sich viele weitere Hilfsbibliotheken
 im Umfeld von JavaScript, z.B. für den Umgang
 mit Datumswerten:
