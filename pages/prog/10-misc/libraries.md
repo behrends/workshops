@@ -98,6 +98,10 @@ komplexer und schwerer zugänglich als
 
 Infos zur Verwendung: https://github.com/terkelg/prompts
 
+Eine Alternative zu `prompts` ist 
+`inquirer`: https://github.com/SBoudrias/Inquirer.js 
+(Verwendung ist auch asynchron).
+
 ## Weitere Möglichkeiten im Terminal  
 
 Im Terminal sind viele weitere Dinge sind möglich,
@@ -137,5 +141,6 @@ im Umfeld von JavaScript, z.B. für den Umgang
 mit Datumswerten:
 
 - https://date-fns.org/
-- https://momentjs.com/
+- https://momentjs.com/ oder https://day.js.org (gleiche API wie momentjs aber kompakter)
+- https://moment.github.io/luxon/
 
