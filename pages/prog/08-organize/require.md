@@ -74,7 +74,7 @@ durch die gleiche Art möglich, z.B. für eine
 Klasse namens „`MyClass`“:
 
 ```js
-exports.MyClass = MyClass
+exports.MyClass = MyClass;
 ```
 
  In replit.com könnte z.B. eine Datei 

@@ -178,7 +178,7 @@ Weitere Bemerkungen:
 - `localStorage` speichert lediglich String bzw. Text ab.
 - `localStorage` speichert die Daten in Dateien, die somit im Projekt auch nach einem Neustart erhalten bleiben.
 - `localStorage.setItem()` überschreibt bestehende Daten.
-- `localStorage.clear()` löscht ALLE Daten im `localStorage.
+- `localStorage.clear()` löscht ALLE Daten im `localStorage`.
 - Browser haben ein vordefiniertes `localStorage`-Objekt, dessen API in der Bilbiothek `node-localstorage` für NodeJS nachgebildet wird.
 
 Es bietet sich an, für den Umgang mit `localStorage`
