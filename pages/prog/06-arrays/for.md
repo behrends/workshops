@@ -45,6 +45,8 @@ for(Initialisierungen; logischer Ausdruck; Aktualisierungen) {
 3. Ist der Wert des `logischen Ausdrucks` gleich `true`, dann werden die Anweisungen im nachfolgenden Block (`{ … }`) ausgeführt. Direkt im Anschluss werden die `Aktualisierungen` ausgeführt und es wird wieder zu Schritt 2 gesprungen. 
 4. Ist der Wert des `logischen Ausdrucks` jedoch `false`, so wird die `for`-Schleife beendet, ohne dass der Block durchlaufen wird.
 
+![for-Schleife](/images/prog/for.png)
+
 **Beispiel: Mittelwert**
 
 Wie könnte mit einer `for`-Schleife der Mittelwert 
