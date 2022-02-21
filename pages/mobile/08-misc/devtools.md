@@ -1,6 +1,6 @@
 import Callout from 'nextra-theme-docs/callout'
 
-# Projekt
+# Dev Tools
 
 <Callout>
   **Dauer:** 30 Minuten
