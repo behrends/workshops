@@ -1,0 +1,91 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Pfeilfunktionen
+
+<Callout>
+  **Dauer:** 30 Minuten
+
+  - Funktionen mit `=>` anstatt `function`
+  
+  **Ziel:** Pfeilfunktionen als alternative Syntax
+  für Funktionen
+</Callout>
+
+**Vorbemerkung:** Für das Programmierprojekt
+sind Pfeilfunktionen optional, d.h. herkömmliche 
+Funktionen (mit `function`) sind in der Regel 
+für alle Zwecke ausreichend. 
+
+Pfeilfunktionen mit `=>` nach der Argumentliste 
+anstatt `function` stellen eine alternative Syntax 
+für Funktionen in JavaScript dar.
+
+Oftmals haben Pfeilfunktionen eine viel kompaktere 
+Syntax:
+
+```js
+// Pfeilfunktionen mit => anstatt function
+const add = (a,b) => { 
+  return a + b; 
+};
+
+const substract = (a,b) => { 
+  return a - b; 
+};
+	
+const multiply = (a,b) => { 
+  return a * b; 
+};
+	
+console.log(substract(multiply(add(6,3),2),4));
+// --> 14 ( = (6+3)*2-4 )
+```
+
+Unterschiede zwischen Pfeilfunktionen und 
+„herkömmlichen“ Funktionen gibt es u.a. in Bezug 
+auf den Umgang mit `this` im Funktionsrumpf, siehe 
+dazu z.B. [javascript.info](https://javascript.info/arrow-functions#arrow-functions-have-no-this).
+
+Besteht eine Pfeilfunktionen nur aus einer Zeile bzw. 
+aus nur einer `return`-Anweisung, dann können die 
+geschweiften Klammern des Funktionsrumpfes und das 
+`return` weggelassen werden:
+
+```js
+// Einzeilige Pfeilfunktionen brauchen 
+// kein return und keine { }	
+const add = (a,b) => a + b;
+	
+const substract = (a,b) => a - b;
+
+const multiply = (a,b) => a * b;
+	
+console.log(substract(multiply(add(6,3),2),4));
+// --> 14 ( = (6+3)*2-4 )
+```
+
+**Bemerkung:** Die geschweiften Klammern des 
+Funktionsrumpfes werden aber wieder benötigt, wenn 
+der Rückgabewert bzw. das Ergebnis der Funktion ein
+JavaScript-Objektliteral mit geschweiften Klammern 
+ist.) 
+
+Falls eine Pfeilfunktion nur ein Argument bzw. 
+einen Parameter hat, dann werden bei der 
+Argumentliste die runden Klammern nicht gebraucht 
+und können weggelassen werden: 
+
+```js
+const square = x => x * x;
+
+const plus1000 = x => x + 1000;
+```
+
+Solch kompakte Schreibweise kommt häufig in der 
+Webprogrammierung mit JavaScript oder React vor, 
+wenn z.B. einfache Callback-Funktionen für Buttons 
+o.ä. benötigt werden. 
+
+<Callout type="warning">
+Vertiefendes Material im [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+</Callout>

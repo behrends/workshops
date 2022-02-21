@@ -29,7 +29,6 @@ Interesse zu Beginn eines Termins vorgestellt.
 
 Themensammlung (TODO):
 
-- Funktionen Teil 2 (u.a. Pfeilfunktionen)
 - Exception handling mit try…catch
 - Map, Set, iterables, Array-Methoden (filter, find, map, …)
 - Statische Methoden in Klassen (z.B. für Storage)
@@ -40,6 +39,7 @@ Themensammlung (TODO):
 - Objektorientierung in TypeScript (Interfaces) ?
 - Promises, async/await
 - Nützliches in modernem JavaScript wie Destrukturierung, Object shorthand, optional chaining mit `?.`, nullish coalescing mit `??`, usw.
+- Closures
 - weitere Werkzeuge wie z.B. ESLint, Prettier, …
 - JavaScript als compile target (z.B. ClojureScript)
 - React (im Terminal? https://github.com/vadimdemedes/ink, https://github.com/Yomguithereal/react-blessed)
