@@ -45,5 +45,9 @@ Themensammlung (TODO):
 - React (im Terminal? https://github.com/vadimdemedes/ink, https://github.com/Yomguithereal/react-blessed)
 - git ?!?
 
+Link-Sammlung zu JavaScript („Awesome List“): 
+https://github.com/sorrycc/awesome-javascript
+
+
 
 

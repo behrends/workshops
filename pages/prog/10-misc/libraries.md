@@ -144,3 +144,5 @@ mit Datumswerten:
 - https://momentjs.com/ oder https://day.js.org (gleiche API wie momentjs aber kompakter)
 - https://moment.github.io/luxon/
 
+Link-Sammlung zu JavaScript („Awesome List“): 
+https://github.com/sorrycc/awesome-javascript
