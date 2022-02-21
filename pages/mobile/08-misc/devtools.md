@@ -1,0 +1,43 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Projekt
+
+<Callout>
+  **Dauer:** 30 Minuten
+
+  - Ein paar Tipps zu Dev Tools
+
+  **Ziel:** Tipps für die Arbeit am Projekt
+</Callout>
+
+Diese Tipps können am Anfang eines Termins 
+kurz vorgestellt werden.
+
+Frage an den Kurs: _Haben Sie Tipps für die anderen?_
+
+## Android
+
+Vorführen: Debugger mit Breakpoints in Android Studio und die folgenden Tipps
+
+- Debugger in Android Studio: https://developer.android.com/studio/debug/
+- Möglichkeiten zur Verbesserung oder zum „Aufräumen“ finden: `Analyze - Inspect Code…`
+- Code automatisch korrekt einrücken: `Code - Reformat File…`
+
+## React Native
+
+Vorführen: Prettier und Debugger in Chrome mit `debugger;`-Breakpoints im Code
+
+- Prettier zur automatischen Code-Formatierung: https://prettier.io (Extension in VS Code installieren)
+- Debugging: https://reactnative.dev/docs/debugging 
+- Debugging mit Expo: https://docs.expo.dev/workflow/debugging/
+- https://fbflipper.com (Debugger &mdash; auch für Android Apps)
+- https://github.com/infinitered/reactotron (App Inspector)
+- https://github.com/facebook/react/tree/main/packages/react-devtools (Chrome Extension für React und React Native Apps?)
+- TypeScript in React Native: https://reactnative.dev/docs/typescript 
+- ESLint: https://reactnative.dev/docs/testing-overview#static-analysis
+
+
+
+## Flutter
+
+- https://docs.flutter.dev/development/tools/devtools/overview

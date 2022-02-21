@@ -1,0 +1,62 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Überblick
+
+<Callout>  
+  **Ziel:** Infos zum weiteren Ablauf während der Entwicklung der App
+</Callout>
+
+Das Projekt ist nun gestartet, dazu finden sich
+alle Infos in Moodle. (Dozent: siehe Repository
+`exercises`)
+
+Die restlichen Termine werden hauptsächlich für
+die Teamarbeit am Projekt genutzt, wobei die 
+Möglichkeit besteht, Fragen zu stellen und bei
+Bedarf Hilfe zu bekommen. 
+
+Zu Beginn eines Termins werden gelegentlich in
+höchstens 60 Minuten weiterführende Themen 
+behandelt und nützliche Inhalte für die Entwicklung 
+des Projekts besprochen (z.B. DevTools).
+
+Die folgenden Inhalte sind nicht mehr auf
+„klassische Vorlesungsblöcke“ (d.h. 2 * 90 Minuten)
+abgestimmt, sondern werden je nach Bedarf und
+Interesse zu Beginn eines Termins vorgestellt. 
+
+Themensammlung (TODO):
+
+## Android
+
+- FlexBox-Layout für Android-Apps: https://github.com/google/flexbox-layout
+- Plattformübergreifende Apps mit Kotlin Multiplatform Mobile: https://kotlinlang.org/docs/multiplatform-mobile-getting-started.html (Beta is expected in spring 2022.)
+
+Awesome Android/Kotlin Lists mit vielen Links auf weitere Bibliotheken, Tools, Tutorials, usw.: 
+
+- https://github.com/JStumpp/awesome-android
+- https://github.com/wasabeef/awesome-android-ui
+- https://github.com/mcxiaoke/awesome-kotlin
+- https://kotlin.link
+
+
+## React Native
+
+- On Device Machine Learning mit PyTorchLive: https://pytorch.org/live/
+
+Awesome React Native/React/JavaScript Lists mit vielen Links auf weitere Bibliotheken, Tools, Tutorials, usw.: 
+
+- https://www.awesome-react-native.com
+- https://github.com/sorrycc/awesome-javascript
+- https://github.com/enaqx/awesome-react
+- https://github.com/glauberfc/awesome-react-hooks
+
+
+## Flutter
+
+Awesome Flutter/Dart Lists mit vielen Links auf weitere Bibliotheken, Tools, Tutorials, usw.: 
+
+- https://github.com/Solido/awesome-flutter
+- https://flutterawesome.com
+- https://awesomeflutter.com
+- https://github.com/yissachar/awesome-dart
