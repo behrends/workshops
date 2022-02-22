@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Pfeilfunktionen
 
 <Callout>
-  **Dauer:** 30 Minuten
+  **Dauer:** 15 Minuten
 
   - Funktionen mit `=>` anstatt `function`
   

@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 # Funktionen (Teil 2)
 
 <Callout>
-  **Dauer:** 30 Minuten
+  **Dauer:** 25 Minuten
 
   - Kombinierte Funktionsaufrufe
   - Default-Werte bei Parametern
