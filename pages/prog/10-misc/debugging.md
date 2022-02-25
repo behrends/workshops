@@ -8,6 +8,14 @@ import Callout from 'nextra-theme-docs/callout'
 
 Vorführung im Live Coding. 
 
-Wichtige Punkte:
+VS Code: 
 
-- TODO
+- `View - Command Palette...` öffnen, 
+- dort `Debug: Toggle Auto Attach` eintippen und auswählen, 
+- danach `Smart` aktivieren,
+- Breakpoint setzen (links neben Zeilennummer klicken),
+- Neues Terminal öffen (`Terminal - New Terminal`),
+- `node index.js` im Terminal ausführen,
+- &xrarr; Programm wird automatisch im Debug Mode ausgeführt und stoppt beim Breakpoint. Werte von Variablen können links in der Seitenleiste inspiziert werden.
+
+replit.com: Debugging mit Breakpoints möglich, ist aber noch in Beta (Februar 2022).
