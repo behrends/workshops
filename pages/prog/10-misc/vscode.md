@@ -1,0 +1,76 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Projekt in Visual Studio Code entwickeln
+
+<Callout>  
+  **Ziel:** VS Code für Projekte nutzen
+</Callout>
+
+Für die Arbeit mit NodeJS auf dem eigenen Rechner
+wird neben NodeJS auch ein Editor benötigt.
+Empfohlen wird hierfür Visual Studio Code (VS Code).
+
+## Setup
+
+Folgende Software herunterladen und installieren:
+
+- NodeJS: https://nodejs.org
+- Visual Studio Code (VS Code): https://code.visualstudio.com
+- git: https://git-scm.org
+
+Im Prinzip ist jeder Editor als Alternative 
+zu VS Code einsetzbar, wie z.B. auch 
+[WebStorm](https://www.jetbrains.com/webstorm/) 
+für das Studierende kostenlos eine einjährige
+Lizenz auf der Webseite von JetBrains 
+beantragen können.
+
+## Projekt erstellen und ausführen
+
+Projekt aus replit.com herunterladen oder
+Verzeichnis im Dateisystem mit `index.js`
+erstellen. 
+
+<Callout type="warning">
+Wer mit git arbeitet, sollte im Projektverzeichnis
+eine Datei `.gitignore` erstellen, damit z.B.
+der Ordner `node_modules` nicht in git versioniert
+wird:
+
+- Datei für NodeJS (`Node.gitignore`) herunterladen (siehe https://github.com/github/gitignore),
+- Diese Datei ins Projektverzeichnis verschieben,
+- und in `.gitignore` umbenennen.
+</Callout>
+
+Das Projekt kann im Terminal (Eingabeaufforderung)
+mit `node index.js` ausgeführt werden.
+
+In VS Code kann mit `Terminal - New Terminal` eine
+Eingabeaufforderung bzw. Konsole erstellt werden,
+um das Projekt mit `node index.js` zu starten.
+
+## Hinweise zu VS Code 
+
+Keyboard-Shortcuts („cheat sheet“ als PDF): 
+
+- Windows: https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf
+- Mac: https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf
+
+Beispiel: `Ctrl+P` (Windows) bzw. `CMD+P` um 
+schnell andere Dateien zu öffnen.
+
+Es gibt viele Erweiterungen (_extensions_) für
+VS Code. Ein Tipp ist Prettier 
+(https://prettier.io) für die automatische 
+Formatierung des Codes beim Abspeichern einer 
+Datei.
+
+<Callout type="warning" emoji="🪄">
+Die Werkzeuge mit denen wir täglich arbeiten
+(wie z.B. Code-Editoren) haben in der Regel
+viele nützliche Funktionalitäten, die wir
+noch nicht kennen oder nutzen.
+
+Es lohnt sich, diese Tools zu lernen
+&mdash; so kann viel Zeit eingespart werden
+</Callout>

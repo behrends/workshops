@@ -32,8 +32,6 @@ Themensammlung (TODO):
 - Exception handling mit try…catch
 - Map, Set, iterables, Array-Methoden (filter, find, map, …)
 - Statische Methoden in Klassen (z.B. für Storage)
-- NodeJS und VS Code
-- Debugging in replit.com und VS Code
 - Objektorientierung in JavaScript (Vererbung)
 - TypeScript
 - Objektorientierung in TypeScript (Interfaces) ?

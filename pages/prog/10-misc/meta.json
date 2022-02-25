@@ -2,5 +2,7 @@
   "index": "Überblick",
   "libraries": "Bibliotheken",
   "funktionen2": "Funktionen (Teil 2)",
-  "arrow_functions": "Pfeilfunktionen"
+  "arrow_functions": "Pfeilfunktionen",
+  "vscode": "VS Code",
+  "debugging": "Debugging"
 }
