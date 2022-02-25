@@ -32,11 +32,6 @@ Mit dieser Methode kann im Prinzip „alles“ ausgeben werden
 (Text bzw. Strings, Zahlen, Ausdrücke, Variableninhalte, 
 Rückgabewerte von Funktionen, usw.).
 
-Bemerkung: Zur console-API gibt es einen „living standard“, der 
-noch viel mehr Möglichkeiten mit console beschreibt, sodass viele 
-Browser und auch NodeJS diese implementieren können (siehe 
-[console.spec.whatwg.org](https://console.spec.whatwg.org))
-
 Beispiel:
 
 ```js
@@ -48,6 +43,33 @@ console.log(456 + 777);
 console.log("Hallo, wie geht es Dir?");	
 console.log("Gut, danke!");
 ```
+
+Bemerkung: Zur console-API gibt es einen „living standard“, der 
+noch viel mehr Möglichkeiten mit console beschreibt, sodass viele 
+Browser und auch NodeJS diese implementieren können (siehe 
+[console.spec.whatwg.org](https://console.spec.whatwg.org))
+
+Ein Beispiel ist `console.table`, womit Arrays oder
+Objekte als Tabelle angezeigt werden: 
+
+```js
+console.table([
+  { name: 'Dr. Strange', rating: 7.8 },
+  { name: 'Captain Marvel', rating: 8.2 },
+]);
+```
+
+Folgende Ausgabe erscheint:
+
+```
+┌─────────┬──────────────────┬────────┐
+│ (index) │       name       │ rating │
+├─────────┼──────────────────┼────────┤
+│    0    │  'Dr. Strange'   │  7.8   │
+│    1    │ 'Captain Marvel' │  8.2   │
+└─────────┴──────────────────┴────────┘
+```
+
 
 ###  Ausgabe formatieren
 
