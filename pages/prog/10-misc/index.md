@@ -35,7 +35,6 @@ Themensammlung (TODO):
 - Objektorientierung in JavaScript (Vererbung)
 - TypeScript
 - Objektorientierung in TypeScript (Interfaces) ?
-- Promises, async/await
 - Nützliches in modernem JavaScript wie Destrukturierung, Object shorthand, optional chaining mit `?.`, nullish coalescing mit `??`, usw.
 - Closures
 - weitere Werkzeuge wie z.B. ESLint, Prettier, …

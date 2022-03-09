@@ -1,0 +1,209 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# fetch: Daten aus dem Web
+
+<Callout>  
+  Dauer: ca. 45 Minuten
+
+  - JavaScript im Browser hat eine `fetch`-Funktion für Web-Daten
+  - `node-fetch` stellt diese in NodeJS bereit
+  - `fetch` ist asynchron und liefert Promises
+  - `async/await` vereinfacht den Umgang mit Promises
+
+  **Ziel:** Daten von Webservice-APIs einbinden
+</Callout>
+
+Am Beispiel des Wetterdienstes 
+[Open-Meteo](https://open-meteo.com/)
+wollen wir die aktuelle Temperatur für Berlin
+abfragen. 
+
+Die kostenlose und frei zugängliche API 
+(_application programming interface_) von 
+Open-Meteo kann dazu mit folgender URL (Web-Link)
+angefragt werden:
+
+```
+https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true
+```
+
+Die Koordinaten für Berlin (Breitengrad 52.51, 
+Längengrad 13.41) werden als Parameter in der
+URL übermittelt, sodass der Server die gewünschte
+Anfrage ausführen und das Ergebnis als JSON-Daten
+liefern kann.
+
+Im Browser steht JavaScript eine Funktion 
+`fetch` zur Verfügung, mit der Daten aus dem Web 
+via URL z.B. als JSON angefordert werden können.
+
+<Callout type="warning">
+&xrarr; URL im Browser laden und `fetch` mit 
+open-meteo.com in der Browser-Konsole vorführen. 
+</Callout>
+
+## `node-fetch`
+
+In NodeJS bzw. replit.com kann die Funktionalität 
+von `fetch` durch die Installation der Bibliothek 
+[`node-fetch`](https://github.com/node-fetch/node-fetch) dem Projekt hinzugefügt werden.
+
+<Callout type="error" emoji="⚡">
+In replit.com mit NodeJS Version 12 muss 
+nach der Installation von `node-fetch` in 
+`package.json` folgendes geändert werden:
+
+```
+"node-fetch": "^2.6.7",
+```
+
+Dadurch wird `node-fetch` in einer älteren
+Version installiert, die mit `require` importiert
+werden kann.
+</Callout>
+
+## `node-fetch` importieren
+
+In replit.com:
+
+```js
+const fetch = require('node-fetch');
+```
+
+Mit NodeJS Version 14 oder neuer:
+
+```js
+import fetch from 'node-fetch';
+```
+
+## `fetch` verwenden
+
+Nun kann `fetch` in replit.com bzw. NodeJS
+wie im Browser verwendet werden.
+
+Da ein Netzwerkzugriff mit `fetch` unter
+Umständen etwas länger dauern kann (z.B.
+bei langsamer Internetverbindung), läuft
+`fetch` asynchron bzw. „im Hintergrund“ ab.
+
+Das Ergebnis von `fetch` ist daher ein 
+Promise-Objekt, das mit Callback-Funktionen
+asynchron verarbeitet werden muss.
+
+<Callout type="warning">
+[Promises](https://javascript.info/promise-basics) 
+stellen ein etwas schwer zugängliches Thema in 
+JavaScript dar. Für die Verwendung von `fetch` 
+besprechen wir hier nur das Nötigste.
+</Callout>
+
+Die Verwendung von `fetch` und Promises läuft 
+folgendermaßen ab:
+
+- `fetch` mit URL aufrufen, dies liefert ein Promise-Objekt
+- das Promise-Objekt enthält eine `response`, die mit der Methode `json()` die JSON-Daten liefert
+- `response` im Promise-Objekt kann mit `then` ausgelesen werden &mdash; hierbei wird ein Callback in `then` benötigt
+- `then` liefert wieder ein Promise-Objekt, das das JavaScript-Objekt basierend auf den JSON-Daten enthält
+- dieses kann wiederum mit `then` und Callback-Funktion verarbeitet werden
+
+Der Code in der Funktion 
+`getBerlinWeatherPromiseSteps()` zeigt,
+wie dies umgesetzt wird:
+
+```js
+function getBerlinWeatherPromiseSteps() {
+  const url = 
+    `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true`;
+
+  // 1. Schritt: fetch ausführen
+  // --> Das Ergebnis ist ein Promise-Objekt
+  const fetchPromise = fetch(url);
+
+  // 2. Schritt: aus dem fetchPromise die 
+  // JSON-Daten durch response.json() mit Callback in then() auslesen
+  // --> then liefert wieder ein Promise-Objekt
+  const dataPromise = 
+    fetchPromise.then(response => response.json());
+
+  // 3. Schritt: aus dem dataPromise die relevanten Daten mit then() ausgeben
+  dataPromise.then(data => console.log(data.current_weather.temperature));
+}
+```
+
+Da die einzelnen Aufrufe von `then` wiederum
+Promises liefern, können diese direkt 
+miteinander kombiniert werden (dies wird 
+„_chaining_“ genannt):
+
+```js
+function getBerlinWeatherPromiseChained() {
+  const url = 
+    `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true`;
+  fetch(url)
+    .then(response => response.json())
+    .then(data => console.log(data.current_weather.temperature));
+}
+```
+
+Somit ist die Verwendung von `fetch` bereits
+einigermaßen kompakt und übersichtlich 
+möglich. 
+
+Promises mit `then` kann schnell zu 
+unübersichtlichem Code führen. Alternativ kann
+`async/await` zum Einsatz kommen.
+
+## `async/await` für Promises
+
+Mit `async/await`wird die Verarbeitung von 
+Promises leichter nachvollziehbarer.
+
+Der Code der obigen Funktionen kann ebenso 
+mit `async/await` ausgedrückt werden.
+Dazu ist eine Funktion mit dem Schlüsselwort 
+`async` vor `function` zu deklarieren:
+
+```js
+// Die Funktion ist nun asynchron!
+async function getBerlinWeatherAwait() {
+  const url = 
+    `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true`;
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log(data.current_weather.temperature);
+  return data.current_weather.temperature;
+}
+```
+
+`await` löst einen Promise auf und liefert
+das Ergebnis zurück. Gleichzeitig „wartet“ 
+(_await_) der Code auf die Verarbeitung, sodass
+der Code einem „normalem“ synchronen Ablauf
+syntaktisch ähnelt.
+
+<Callout type="error">
+&xrarr; `await` ist nur in Funktionen erlaubt,
+die mit `async` deklariert wurden!
+</Callout>
+
+Wenn der Rückgabewert einer `async`-Funktion
+verwendet werden soll, dann muss dieser mit 
+`await` in einer weiteren `async`-Funktion
+angefragt werden:
+
+```js
+async function berlinTemperature() {
+  const temp = await getBerlinWeatherAwait();
+  console.log("Temperatur in Berlin: " + temp);
+}
+berlinTemperature();
+```
+
+<Callout type="warning">
+**Vertiefendes Material**
+
+- [fetch bei javascript.info](https://javascript.info/fetch)
+- [node-fetch bei GitHub](https://github.com/node-fetch/node-fetch)
+- [promises bei javascript.info](https://javascript.info/promise-basics)
+- [Liste öffentlicher APIs zu verschiedenen Themen](https://github.com/public-apis/public-apis)
+</Callout>
