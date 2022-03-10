@@ -6,5 +6,6 @@
   "arrow_functions": "Pfeilfunktionen",
   "vscode": "VS Code",
   "debugging": "Debugging",
-  "fetch": "Fetch für Web-Daten"
+  "fetch": "Fetch für Web-Daten",
+  "regexp": "Reguläre Ausdrücke"
 }
