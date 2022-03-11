@@ -92,8 +92,9 @@ regulären Ausdruck.
 Erklärung von `/^[A-Za-z0-9]+$/`:
 
 - `^` &xrarr; Anfang des Strings
-- `[A-Za-z0-9]` &xrarr; kleine _oder_ große Buchstaben _oder_ Ziffern <br/> (`[ ]` beschreibt passende Zeichengruppen (_character class/set_))
-- `+` &xrarr; ein oder mehrere Zeichen des vor dem `+` angegebenen Musters
+- `[ ]` beschreibt passende Zeichengruppen (_character class/set_)
+- `[A-Za-z0-9]` &xrarr; kleine _oder_ große Buchstaben _oder_ Ziffern
+- `+` &xrarr; ein oder mehrere Zeichen des links vor dem `+` stehenden Musters (hier ein _character set_ in `[ ]`)
 - `$` &xrarr; Ende des Strings
 
 Reguläre Ausdrücke stellen ein vielseitiges
