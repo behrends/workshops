@@ -186,10 +186,12 @@ syntaktisch ähnelt.
 die mit `async` deklariert wurden!
 </Callout>
 
-Wenn der Rückgabewert einer `async`-Funktion
-verwendet werden soll, dann muss dieser mit 
-`await` in einer weiteren `async`-Funktion
-angefragt werden:
+Der Rückgabewert einer `async`-Funktion ist
+wiederum ein Promise, der automatisch von
+JavaScript erzeugt wird. Um den „eigentlichen“
+Rückgabewert im Promise einer `async`-Funktion
+zu verwenden, muss dieser mit `await` in einer 
+weiteren `async`-Funktion angefragt werden:
 
 ```js
 async function berlinTemperature() {
@@ -198,6 +200,10 @@ async function berlinTemperature() {
 }
 berlinTemperature();
 ```
+
+Ein replit-Projekt zur Veranschaulichung von
+`fetch` mit Wetterdaten ist hier zu finden:
+https://replit.com/@behrends/WeatherList
 
 <Callout type="warning">
 **Vertiefendes Material**
