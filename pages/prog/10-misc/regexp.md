@@ -104,7 +104,7 @@ und Ausprobieren sind die u.a. Links hilfreich.
 **Vertiefende Ressourcen**
 
 - [Abschnitt bei javascript.info](https://javascript.info/regular-expressions)
-- [Reguläre Ausdrücke lernen](https://regexlearn.com/)
+- [Reguläre Ausdrücke lernen: regexlearn.com](https://regexlearn.com/)
   - [Playground / Spielplatz](https://regexlearn.com/playground)
   - [Cheatsheet / Spickzettel](https://regexlearn.com/cheatsheet)
 </Callout>
