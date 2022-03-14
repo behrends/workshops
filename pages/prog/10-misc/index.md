@@ -29,14 +29,12 @@ Interesse zu Beginn eines Termins vorgestellt.
 
 Themensammlung (TODO):
 
-- Exception handling mit try…catch
 - Map, Set, iterables, Array-Methoden (filter, find, map, …)
 - Statische Methoden in Klassen (z.B. für Storage)
 - Objektorientierung in JavaScript (Vererbung)
 - TypeScript
 - Objektorientierung in TypeScript (Interfaces) ?
 - Nützliches in modernem JavaScript wie Destrukturierung, Object shorthand, optional chaining mit `?.`, nullish coalescing mit `??`, usw.
-- Closures
 - weitere Werkzeuge wie z.B. ESLint, Prettier, …
 - JavaScript als compile target (z.B. ClojureScript)
 - React (im Terminal? https://github.com/vadimdemedes/ink, https://github.com/Yomguithereal/react-blessed)

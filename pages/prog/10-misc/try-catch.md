@@ -1,0 +1,182 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# `try` … `catch` (Fehlerbehandlung)
+
+<Callout>  
+  **Dauer:** 15 Minuten
+
+  - Zur Laufzeit können Fehler auftreten, die unbehandelt zu einem Programmabsturz führen
+  - Mit `try`...`catch` können Fehler „abgefangen“ und behandelt werden
+
+  **Ziel:** Programmabstürze verhindern
+</Callout>
+
+Wenn JavaScript-Code ausgeführt wird, dann
+wird von der auch von der „Laufzeit“ gesprochen.
+Zur Laufzeit können während der Ausführung
+verschiedene Fehler auftreten, die zu einer
+sofortigen Beendung des Programms führen
+(das Programm „stürzt ab“).
+
+<Callout type="warning">
+Mit „Fehler“ ist hier ein schwerwiegendes
+Problem im Programmcode gemeint, das zum
+Programmabsturz führt. 
+
+Ein Programm kann auch in dem Sinne fehlerhaft
+sein, dass etwas falsch berechnet oder auf 
+ungewünschte Weise ausgeführt wird. Solche Fehler
+führen oft nicht zum Programmabsturz.
+
+Insbesondere gibt es in JavaScript Situationen,
+die nicht zum Programmabsturz führen während
+ein ähnlicher Vorgang in anderen Sprachen das 
+Programm beendet (z.B. das Teilen einer Zahl 
+durch 0).
+</Callout>
+
+Eine Liste  möglicher Fehler in 
+JavaScript ist [hier bei MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors)
+zu finden.
+
+## Syntaxfehler
+
+Syntaxfehler (_syntax errors_) entstehen, wenn
+der Programmcode syntaktisch inkorrekt ist, d.h.
+wenn der Code nicht richtig „formuliert“ wurde.
+Hier ein Beispiel für einen Syntaxfehler, bei
+der eine Zuweisung „vertauscht“ wurde:
+
+```js
+3.14 = const pi;
+// SyntaxError: Invalid left-hand side in assignment
+```
+
+<Callout type="error">
+Wenn es in einem Programm einen `SyntaxError` gibt,
+dann wird das Programm gar nicht erst ausgeführt,
+denn vor der Programmausführung überprüft die
+JavaScript-Umgebung den Code auf syntaktische
+Korrektheit.
+</Callout>
+
+## Fehlerbehandlung
+
+Bei anderen Fehlerarten kann durch eine 
+sogenannte Fehlerbehandlung (_error handling_)
+zur Laufzeit dafür gesorgt werden, dass der
+Fehler nicht zum Programmabsturz führt und das
+Programm ein passendes Verhalten zum Umgang
+mit dem Fehler durch Programmcode umsetzt.
+
+<Callout type="warning">
+In JavaScript wird von Fehlern gesprochen
+(_errors_ oder genauer _runtime errors_ 
+(Laufzeitfehlern )). Manche andere
+Programmiersprachen 
+verwenden hierfür den Begriff „Ausnahmen“ 
+(_exceptions_).
+</Callout>
+
+## `try`…`catch`
+
+Für die Fehlerbehandlung steht in JavaScript
+mit den Schlüsselwörtern `try` und `catch` ein 
+geeignetes Konstrukt zur Verfügung:
+
+```js
+try {
+  // JavaScript-Code mit möglichen Fehlern
+} catch(error) {
+  // Fehlerbehandlung
+}
+```
+
+Wenn in dem von `try {…}` umgebenen Block ein
+Fehler auftritt, der normalerweise zum 
+Programmabsturz führt, dann wird in diesem 
+Fall der Code im `catch`-Block fortgesetzt. 
+Das Programm wird also nicht beendet. Außerdem
+wird dem `catch`-Block das Fehlerobjekt ähnlich 
+wie bei einer Funktion als „Parameter“ übergeben 
+(hier in den Beispielen `error` genannt).
+
+Als Beispiel zur Verwendung von `try`…`catch` 
+werden wir den Fehler `TypeError` betrachten,
+der gelegentlich im JavaScript-Code auftaucht.
+
+## `TypeError` (Beispiele)
+
+Ein `TypeError` kann in unterschiedlichen 
+Situationen auftreten und führt zu einem
+Programmabsturz:
+
+```js
+const obj = {name: 'Joe'};
+obj = 1; // Type-Error --> Programmabsturz!
+// TypeError: Assignment to constant variable.
+  
+console.log(obj.getName()); // Type-Error --> Programmabsturz!
+// TypeError obj.getName is not a function
+
+console.log(obj.age.print()); // Type-Error --> Programmabsturz!
+// TypeError: Cannot read property 'print' of undefined
+```
+
+Soll vermieden werden, dass das Programm
+bei einem `TypeError` oder 
+[einem der anderen Laufzeitfehler](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors) 
+beendet wird, dann
+kann der relevante Code mit einem `try`-Block 
+umgeben und durch einen `catch`-Block ergänzt 
+werden (jeweils umgeben von geschweiften Klammern):
+
+```js
+try {
+  const obj = {name: 'Joe'};
+  obj = 1; // TypeError !
+  // --> Ausführung "springt" zum catch-Block
+  // usw.
+} catch(error) {
+  console.error(error); 
+  // TypeError: Assignment to constant variable.
+  // ggf. weitere Fehlerbehandlung
+  // Programm wird nicht beendet und kann weiter ablaufen…
+}
+console.log('Programm läuft weiter…');
+```
+
+Oftmals ist es hilfreich, das Fehlerobjekt
+auszugeben, wie oben in `catch` zu sehen
+(z.B. mit `console.error`).
+
+## `finally`
+
+Zusätzlich kann ein Block mit `finally` 
+deklariert werden, der **immer** nach der
+Ausführung des Codes in `try` auftritt &mdash;
+unabhängig davon on ein Fehler in `catch` 
+behandelt wurde oder nicht:
+
+```js
+try {
+  // JavaScript-Code mit möglichen Fehlern
+} catch(error) {
+  // Fehlerbehandlung
+} finally {
+  // Dieser Code wird abschließend ausgeführt
+  // Auch wenn der catch-Block nicht aktiv wurde!
+}
+```
+
+Das Prinzip der Ausnahmebehandlung gibt es in
+vielen anderen Programmiersprachen. Oft ähnelt
+das Konzept dem oben beschriebenen Ansatz mit
+`try` ... `catch` und `finally`.
+
+<Callout type="warning">
+**Vertiefendes Material**
+
+- [`try`…`catch` bei javascript.info](https://javascript.info/try-catch)
+- [`try`…`catch` im MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch)
+</Callout>
