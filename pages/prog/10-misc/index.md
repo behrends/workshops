@@ -30,7 +30,6 @@ Interesse zu Beginn eines Termins vorgestellt.
 Themensammlung (TODO):
 
 - Map, Set, iterables, Array-Methoden (filter, find, map, …)
-- Statische Methoden in Klassen (z.B. für Storage)
 - Objektorientierung in JavaScript (Vererbung)
 - TypeScript
 - Objektorientierung in TypeScript (Interfaces) ?
