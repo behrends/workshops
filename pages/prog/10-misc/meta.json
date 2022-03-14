@@ -8,5 +8,6 @@
   "debugging": "Debugging",
   "fetch": "Fetch für Web-Daten",
   "regexp": "Reguläre Ausdrücke",
-  "try-catch": "try…catch"
+  "try-catch": "try…catch",
+  "static": "Statische Methoden"
 }

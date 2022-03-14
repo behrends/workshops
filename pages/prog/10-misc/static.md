@@ -1,0 +1,103 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Statische Methoden
+
+<Callout>  
+  **Dauer:** 15 Minuten
+
+  - Methoden in Klassen mit `static` deklariert werden
+  - Statische Methoden werden direkt auf der Klasse ohne Objektinstanz aufgerufen
+
+  **Ziel:** Sammlung statischer Methoden in einer Klasse
+</Callout>
+
+Manchmal gibt es Situationen, in denen mehrere
+Funktionen mit ähnlichem Anwendungsbezug 
+zusammengefasst werden sollen. Denkbare
+Beispiele sind Funktionen…
+
+- …zur Formatierung der Ausgabe,
+- …für den Datenbankzugriff,
+- …die bestimmte Berechnungen ausführen,
+- usw.
+
+Angenommen, wir haben zwei Methoden zur 
+Begrüßung und Verabschiedung eines Programms:
+
+```js
+// Begrüßung
+function greeting() {
+  console.log("Hallo und herzlich willkommen!");
+  // Hinweise zur Verwendung des Programms usw. 
+}
+
+// Verabschiedung
+function goodbye() {
+  console.log("Auf Wiedersehen und bis zum nächsten Mal!");
+}
+```
+
+Wir haben die Funktionen hier bewusst einfach
+gehalten. Denkbar wäre, dass diese noch viel
+umfangreicher wären und dass es noch weitere
+ähnliche Hilfsfunktionen zur Anzeigen von
+Informationen gibt:
+
+- Anleitung des Programms
+- Liste der Tastaturbefehle
+- Impressum, Copyright, usw.
+- u.a.
+
+Es ist naheliegend, diese Funktionen in 
+einer eigenen Datei zu definieren. Zusätzlich
+können sie als statische Methoden in einer 
+Klasse zusammengefasst werden:
+
+```js
+class Info {
+  // Begrüßung
+  static greeting() {
+    console.log("Hallo und herzlich willkommen!");
+    // Hinweise zur Verwendung des Programms usw. 
+  }
+
+  // Verabschiedung
+  static goodbye() {
+    console.log("Auf Wiedersehen und bis zum nächsten Mal!");
+  }
+}
+```
+
+Hier fällt [wie bei Klassen üblich](/prog/07-structure/classes) 
+zunächst das `function`-Schlüsselwort weg,
+sodass Methoden in der Klasse definiert werden.
+Mit dem Schlüsselwort `static` werden diese
+Methoden nun ausdrücklich als „statische“ Methoden 
+deklariert. Dadurch ist es möglich, diese 
+statischen Methoden direkt via Klassenname 
+aufzurufen, ohne Objektinstanzen zu erzeugen:
+
+```js
+Info.greeting();
+
+// Programm wird ausgeführt
+
+Info.goodbye();
+```
+
+Somit können Klassen mit statischen Methoden
+dazu dienen, Funktionen zusammenzufassen
+und im Programmcode eine weitere Strukturebene
+zu erhalten. Außerdem kann hierdurch die 
+Lesbarkeit des Codes erhöht werden, denn durch 
+Voranstellen des Klassennamens wird deutlich,
+„woher“ die aufgerufen Methode bzw. Funktion 
+stammt (hier aus der Klasse `Info`). 
+
+Entsprechend sind folgende Klassen für andere
+Beispiele denkbar:
+
+- `Storage` zur Datenspeicherung
+- `Util` für Hilfsmethoden zur Berechnung
+- `Locale` als Klasse für verschiedene Sprachen 
+- usw.
