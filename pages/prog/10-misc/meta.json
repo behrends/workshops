@@ -9,5 +9,8 @@
   "fetch": "Fetch für Web-Daten",
   "regexp": "Reguläre Ausdrücke",
   "try-catch": "try…catch",
-  "static": "Statische Methoden"
+  "static": "Statische Methoden",
+  "array-methods": "Array-Methoden",
+  "oo": "Objektorientierung",
+  "kapselung": "Kapselung (private Eigenschaften)"
 }
