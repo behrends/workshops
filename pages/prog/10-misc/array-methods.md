@@ -11,6 +11,14 @@ import Callout from 'nextra-theme-docs/callout'
   **Ziel:** Möglichkeiten mit Arrays ausschöpfen
 </Callout>
 
+Arrays bieten in JavaScript 
+[zahlreichhe Methoden](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+für unterschiedliche Situationen. In einer 
+[früheren Lektion](/prog/06-arrays/arrays)
+wurden bereits die Methoden `push` zum Hinzufügen 
+eines Elements in ein Array und `forEach` zum 
+Durchlaufen eines Arrays erwähnt.
+
 <Callout type="warning">
 **Vertiefendes Material**
 
