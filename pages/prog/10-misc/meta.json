@@ -11,6 +11,7 @@
   "try-catch": "try…catch",
   "static": "Statische Methoden",
   "array-methods": "Array-Methoden",
+  "map_set": "Map und Set",
   "oo": "Objektorientierung",
   "kapselung": "Kapselung (private Eigenschaften)"
 }
