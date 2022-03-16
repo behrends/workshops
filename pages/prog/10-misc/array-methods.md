@@ -83,9 +83,80 @@ Gegensatz verändert `splice` (!) direkt das Array.
 
 ## find
 
+Mit `find` können Arrays durchsucht werden.
+`find` erhält dazu eine Testfunktion, die solange
+auf jedes Element des Arrays angewendet wird,
+bis die Testfunktion für ein Element `true` 
+als Rückgabewert liefert. Dazu ein Beispiel:
+
+```js
+const colors = ["orange", "gray", "red", "green"];
+const color = colors.find(item => item.startsWith('g'));
+console.log(color); // --> gray
+```
+
+Hier wird eine Testfunktion als Pfeilfunktion 
+an `find` übergeben. `find` hat `true` als
+Rückgabewert, wenn ein Element (also ein 
+Farbname) mit dem Buchstaben `g` beginnt.
+Hier wird also `"gray"` als Ergebnis von
+[`find`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find) 
+herauskommen.
+
+Es gibt weitere Funktionen, die ebenfalls
+mit einer Testfunktion ausführt.
+
 ## filter
 
+Bei `find` wird lediglich das erste Element
+geliefert, für das die Testfunktion den
+Wert `true` ergibt. Mit `filter` lassen sich
+hingegen alle Elemente „filtern“, die eine 
+bestimmte Bedingung erfüllen:
+
+```js
+const colors = ["orange", "gray", "red", "green"];
+const gColors = colors.filter(item => item.startsWith('g'));
+console.log(gColors); // --> [ "gray", "green" ]
+```
+
+[`filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) 
+liefert also ein neues Array, das alle 
+Elemente enthält, für die die Testfunktion
+`true` ergibt. Das Ausgangsarray wird dabei 
+nicht verändert.
+
 ## map
+
+Manchmal ist es erforderlich, alle Elemente
+eines Arrays umzuformen. Dies ist mit `map`
+möglich:
+
+```js
+const colors = ["orange", "gray", "red", "green"];
+const uColors = colors.map(item => item.toUpperCase());
+console.log(uColors); 
+// --> [ "ORANGE", "GRAY", "RED", "GREEN" ]
+```
+
+Hierbei wird keine Testfunktion an [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) 
+übergeben, sondern eine „Umwandlungsfunktion“,
+die auf jedes Element im Array angewendet wird.
+Heraus kommt ein neues Array mit den umgewandelten
+Werten und das ursprüngliche Array bleibt erhalten.
+
+<Callout type="warning">
+**Tipp:** Für viele Situationen, in denen
+ein Array z.B. mit einer `for`-Schleife
+durchlaufen wird, gibt es häufig eine
+passende Array-Methode, die zu der gewünschten 
+Situation passt und den Code vereinfachen kann.
+</Callout>
+
+Es gibt einige weitere Array-Methoden, die in
+bestimmten Situationen nützlich sein können
+(`sort`,`reverse`,`concat`,`join`, u.v.a.m)
+&mdash; siehe dazu die folgenden Weblinks.
 
 <Callout type="warning">
 **Vertiefendes Material**
