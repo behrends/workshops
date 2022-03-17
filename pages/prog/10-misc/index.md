@@ -29,11 +29,9 @@ Interesse zu Beginn eines Termins vorgestellt.
 
 Themensammlung (TODO):
 
-- Objektorientierung in JavaScript (Vererbung)
-- TypeScript
-- Objektorientierung in TypeScript (Interfaces) ?
+- TypeScript (allgemein, Interfaces und abstrakte Klassen?), https://2ality.com/2018/04/type-notation-typescript.html
 - Nützliches in modernem JavaScript wie Destrukturierung, Object shorthand, optional chaining mit `?.`, nullish coalescing mit `??`, usw.
-- weitere Werkzeuge wie z.B. ESLint, Prettier, …
+- weitere Werkzeuge wie z.B. ESLint, Babel, Yarn, Deno, rome.tools, jedes Jahr neue …
 - JavaScript als compile target (z.B. ClojureScript)
 - React (im Terminal? https://github.com/vadimdemedes/ink, https://github.com/Yomguithereal/react-blessed)
 - git ?!?

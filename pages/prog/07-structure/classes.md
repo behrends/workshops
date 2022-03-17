@@ -227,16 +227,10 @@ https://stackoverflow.com/questions/52315147/json-to-javascript-class.
 
 ### Weitere Themen bzgl. Klassen
 
-`static` für statische Instanzvariablen und -Methoden 
-&mdash; siehe [javascript.info](https://javascript.info/static-properties-methods)
 
-Objektorientierung (u.a. Vererbung) werden wir später 
-besprechen, u.a. mit folgenden Themen in Bezug auf 
-Klassen:
-
-- `private` — siehe [javascript.info](https://javascript.info/private-protected-properties-methods#private-waterlimit) (wird in Zukunft in JavaScript unterstützt)
-
-- `getter/setter` — siehe [javascript.info](https://javascript.info/class#getters-setters) (getter und setter gibt es auch bei Objekten, siehe siehe [javascript.info](https://javascript.info/property-accessors))
+- `static` für statische Instanzvariablen und -Methoden &mdash; siehe [spätere Lektion](/prog/10-misc/static)
+- Private Eigenschaften mit getter-/setter-Methoden &mdash; siehe [spätere Lektion](/prog/10-misc/private)
+- Vererbung in Klassen &mdash; siehe [spätere Lektion](/prog/10-misc/extends)
 
 
 <Callout type="warning">
