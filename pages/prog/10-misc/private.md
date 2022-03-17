@@ -100,7 +100,7 @@ Eigenschaft ohne den Zusatz `#` haben:
 
 ```js
 class ExampleClass { 
-  #prop
+  #prop;
 
   // getter für #prop
   get prop() { 
@@ -111,6 +111,7 @@ class ExampleClass {
   set prop(prop) { 
     this.#prop = prop;
   }
+}
 ```
 
 Der getter liefert also den Wert der Eigenschaft
@@ -129,7 +130,7 @@ im setter auf Gültigkeit überprüft wird:
 class Person {
   #age; // #age privat, wird durch Konstruktor und getter gesetzt
 	
-  constructor(age) {
+  constructor(age=0) {
     this.#age = age;
   }
 	
