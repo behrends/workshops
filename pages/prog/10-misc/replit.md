@@ -1,0 +1,16 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Tipps für replit.com
+
+<Callout>  
+  **Dauer:** 15 Minuten
+
+  **Ziel:** Tipps für die tägliche Arbeit mit replit.com
+</Callout>
+
+- Regelmäßig Backup des Codes durch Herunterladen der Projektdateien (z.B. jeden Tag nach dem Programmieren)
+- **Achtung:** Falls Bibliotheken verwendet werden: `package.json` ist nicht im Download der Projektdateien enthalten un muss separat heruntergeladen werden!
+- Im Team-Modus können mehrere Leute zusammenarbeiten (z.B. mit `observe` (Klick auf Avatar) können die anderen „beobachtet“ werden).
+- replit.com hat einige praktische Tastaturbefehle (z.B. zum Formatieren des Codes)
+- Vergangene Änderungen können mit der Repl-History angezeigt werden (Klick auf das Uhrensymbol).
+- Viele nützliche Tipps und Neuigkeiten zu replit.com auf dem [replit-Blog](https://blog.replit.com)

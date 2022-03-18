@@ -36,6 +36,12 @@ let myVariable;
 let variable2;
 ```
 
+<Callout type="warning">
+Bei der Vorführung in replit.com ggf. einen
+Invite-Link mit dem Kurs teilen, damit 
+Interessierte sich den Code kopieren können.
+</Callout>
+
 Werden mehrere Variablen nacheinander deklariert, so 
 lassen sich diese auf einer Zeile mit `,` getrennt
 auflisten:
