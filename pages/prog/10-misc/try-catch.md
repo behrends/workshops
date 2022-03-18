@@ -174,6 +174,33 @@ vielen anderen Programmiersprachen. Oft ähnelt
 das Konzept dem oben beschriebenen Ansatz mit
 `try` ... `catch` und `finally`.
 
+## Eigene Fehler mit `throw`
+
+Im Programmcode können auch eigene Fehler
+erzeugt werden. Dazu ist das Schlüsselwort 
+`throw` bestimmt, mit dem Fehler erzeugt werden:
+
+```js
+function divide(a,b) {
+  if(b===0) {
+    throw new Error('not allowed to divide by 0!');
+  }
+  return a/b;
+}
+
+try {
+  const result = divide(1000,0);
+  console.log(result);
+} catch(error) {
+  console.error(error);
+}
+```
+
+Mit `throw` werden Fehler also „geworfen“, um 
+diese an anderer Stelle wiederum mit `catch` 
+„aufzufangen“. Eigene Fehler werden mit passenden 
+Meldungen durch `new Error(msg)` erstellt.
+
 <Callout type="warning">
 **Vertiefendes Material**
 

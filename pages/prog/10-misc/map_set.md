@@ -128,6 +128,30 @@ Hilfreich sind u.a. diese `Set`-Methoden:
 - `set.delete(value)` &mdash; löscht einen Eintrag
 - `set.clear()` &mdash; löscht alle Einträge
 
+Soll ein `Set` im JSON-Format ausgegeben werden,
+dann kann ein `Set` zunächst in ein gewöhnliches 
+`Array` umgewandelt werden. Dazu steht eine Methode 
+`Array.from(mySet)` bereit. Mit `JSON.stringify()` 
+kann das `Array` nun wie gewohnt als JSON 
+verarbeitet werden. Umgekehrt kann mit 
+`new Set(myArray)` aus einem `Array` wieder ein 
+`Set` erzeugt werden:
+
+```js
+const citiesSet = new Set();
+citiesSet.add('Freiburg');
+citiesSet.add('Karlsruhe');
+citiesSet.add('Basel');
+
+const citiesArray = Array.from(citiesSet);
+console.log(citiesArray);
+// [ 'Freiburg', 'Karlsruhe', 'Basel' ]
+
+const newCitySet = new Set(citiesArray);
+console.log(newCitySet);
+// Set { 'Freiburg', 'Karlsruhe', 'Basel' }
+```
+
 <Callout type="warning">
 **Vertiefendes Material**
 
