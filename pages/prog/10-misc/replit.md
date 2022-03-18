@@ -1,6 +1,6 @@
 import Callout from 'nextra-theme-docs/callout'
 
-# Tipps für replit.com
+# Tipps zu replit.com
 
 <Callout>  
   **Dauer:** 15 Minuten
