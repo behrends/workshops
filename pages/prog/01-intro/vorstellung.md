@@ -18,8 +18,8 @@ Dozent stellt sich dem Kurs vor:
 - Prof. am SZI der DHBW Lörrach seit 2013
 - davor 15 Jahre in unterschiedlichen Bereichen Software entwickelt
 - Entwicklungsleiter der [DHWB Lörrach Campus App](https://dhbw-loerrach.de/campus-app)
-- Themen: Programmierung, Webentwicklung, mobile Apps, Datenbanken, …
-- weitere aktuelle Interessen: Digitale Lehre (Online/Präsenz, Didaktik, …), 3D in Webanwendungen ([ThreeJS](https://threejs.org/), [react-three-fiber](https://docs.pmnd.rs/react-three-fiber/getting-started/introduction)), [Web3](https://ethereum.org/en/developers/docs/web2-vs-web3/) (Blockchain, dApps, …)
+- Themen: Programmierung, Webentwicklung, mobile Apps, …
+- Digitale Lehre: Online/Präsenz, Didaktik, …
 
 <Callout type="warning">
 Folgende Punkte können auf dem Whiteboard oder online skizziert werden (z.B. bei [Excalidraw](https://excalidraw.com) oder [tldraw](https://tldraw.com))
