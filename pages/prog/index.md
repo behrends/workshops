@@ -40,15 +40,21 @@ erhalten.
 </Callout>
 
 <Callout type="warning" emoji="✅">
-  Dozierende bereiten sich auf die Veranstaltung vor, indem sie 
+  Dozierende bereiten sich auf die Veranstaltung vor, 
+  indem sie 
   eine Beispiel-App (Wetter, Notizen, Filme, usw.) von Anfang 
   entwickeln und die relevanten Konzepte mit den Inhalten dieser
   Seiten abgleichen.
 </Callout>
 
 <Callout type="error" emoji="‼️">
-**TODO für 22/23**: Begleitetes Selbststudium 
-planen (Übungen, Videomaterial, git?)
+**TODOs für 22/23**: 
+
+- Begleitetes Selbststudium planen (mehr Übungen, Videomaterial, git?)
+- Referenz-App `FlashCardNode` als Beispiel-App weiterentwickeln (sieh privates Repository)
+
+Aufgaben und Lösungen siehe privates 
+Repository `exercises`.
 
 Jedes Jahr checken:
 
