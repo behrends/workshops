@@ -1,0 +1,181 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Vererbung in Klassen
+
+<Callout>  
+  **Dauer:** 35 Minuten
+
+  - Subklassen mit `extends` deklarieren
+  - Eigenschaften und Methoden werden an Subklassen vererbt
+
+  **Ziel:** Klassenhierarchien und Vererbung zur Code-Strukturierung
+</Callout>
+
+Für bestehende Klassen können neue Subklassen 
+(Unterklassen) eingeführt werden. Dadurch
+ist es möglich, einerseits Unterschiede in 
+ähnlichen Klassen auszudrücken und andererseits
+die Gemeinsamkeiten (Instanzvariablen und Methoden)
+an Subklassen zur Wiederverwendung zu „vererben“.
+
+Angenommen es gibt eine Klasse `Person`:
+
+```js
+class Person {
+  #name;
+
+  constructor(name) {
+    this.#name = name;
+  }
+
+  getInfo() {
+    return 'This is ' + this.#name;
+  }
+}
+```
+
+## Subklassen mit `extends` definieren
+
+Nun wird eine neue Klasse `Student` benötigt,
+die im Prinzip eine `Person` ist aber zusätzlich 
+zum Namen auch eine Matrikelnummer haben soll.
+
+Dies kann durch eine Subklasse `Student` von
+`Person` durch das Schlüsselwort `extends`
+erreicht werden:
+
+```js
+class Student extends Person {
+  // private Instanzvariable für die Matrikelnummer
+  #matNr; 
+}
+```
+
+Die Subklasse `Student` **erbt** von der Klasse 
+`Person` und „erweitert“ (`extends`) diese mit 
+einer Instanzvariablen `matNr`. 
+
+## Konstruktoren mit `super()`
+
+Wenn eine Subklasse einen Konstruktor hat,
+dann wird dieser in der Regel den Konstruktur
+der Superklasse aufrufen &mdash; insbesondere
+wenn dadurch private Instanzvariablen 
+initialisiert werden sollen. Dies wird durch
+das Schlüsselwort `super` ermöglicht.
+
+Im Konstruktor der Subklasse muss als erste 
+Anweisung `super(…)` mit den passenden Argumenten 
+für den Konstruktor der Superklasse aufgerufen 
+werden:
+
+```js
+class Person {
+  #name;
+	
+  constructor(name) {
+    this.#name = name;
+  }
+
+  getInfo() {
+    return 'This is ' + this.#name;
+  }
+}
+	
+class Student extends Person {
+  #matNr;
+	
+  constructor(name, matNr) {
+    // Konstruktor der Superklasse aufrufen
+    // dadurch werden private Instanzvariablen
+    // im Konstruktor der Superklasse initialisiert
+    // (diese sind in der Subklasse nicht zugänglich)
+    // --> super muss die erste Anweisung im Konstruktor sein!
+    super(name); 
+	
+    // danach können die Instanzvariablen der
+    // Subklasse zugewiesen werden
+    this.#matNr = matNr;
+  }
+}
+	
+// Erstelle ein Student-Objekt:
+const alice = new Student('Alice', 1449382);
+```
+
+Bemerkungen zu Konstruktoraufrufen:
+
+- `super()` muss die erste Anweisung im Konstruktor sein. 
+- `super()` muss mit Argumenten passend zu der Deklaration in der Superklasse aufgerufen werden (bzw. `super()` wenn es keine Argumente im Konstruktor der Superklasse gibt).
+- Mit `super()` wird (im Gegensatz zu `new …`) kein neues Objekt erzeugt, sondern lediglich der Code im Rumpf des anderen Konstruktors ausgeführt.
+- Konstruktoren haben keinen `return`-Ausdruck sondern erzeugen das Objekt automatisch. 
+
+## Aufruf von Methoden der Superklasse
+
+ Mit `super.methodenName()` lassen sich Methoden 
+ der Superklasse aufrufen und somit wiederverwenden:
+
+ ```js
+class Person {
+  #name;
+	
+  constructor(name) {
+    this.#name = name;
+  }
+
+  getInfo() {	
+    return 'Name: ' + this.#name;	
+  }	
+}
+	
+class Student extends Person {	
+  #matNr;
+	
+  constructor(name, matNr) {
+    super(name); 
+    this.#matNr = matNr;
+  }
+	
+  getInfo() {	
+    return super.getInfo() + ' - matNr: ' + this.#matNr;
+  }
+}
+```
+
+Die Methode `getInfo()` ist durch Überschreiben 
+**polymorph** geworden &mdash; sie verhält sich 
+nun für Student anders als für Person.
+
+<Callout type="warning" emoji="👨🏻‍💻">
+Beispiel in replit.com: 
+https://repl.it/@behrends/ClassesInheritance 
+</Callout>
+
+## Ausblick: Abstrakte Klassen und Interfaces
+
+Oft gibt es für Superklassen keine „echten“ 
+Objekte (z.B. sind alle konkreten Personen 
+entweder Studierende oder Dozierende).
+
+&xrarr; Mit abstrakten Klassen kann verhindert 
+werden, dass Objekte durch eine allgemeine Klasse 
+instanziiert werden, aber dennoch kann Code 
+zusammengefasst und vererbt werden. 
+
+&xrarr; Person könnte eine abstrakte Klasse sein.
+
+Klassen können in JavaScript (und vielen anderen 
+Sprachen) nur von höchstens einer Superklasse erben.
+
+&xrarr; Mit Interfaces (manchmal auch Protocols 
+genannt) lassen sich weitere Datenstrukturen 
+definieren, mit denen Klassen „mehrfach erweitert“ 
+werden können, indem Klassen diese Interfaces und 
+deren Methoden implementieren. 
+
+In JavaScript gibt es diese Konzepte (noch?) nicht,
+dafür aber in TypeScript.
+
+<Callout type="warning">
+Interfaces, abstrakte Klassen und weitere Konzepte der Objektorientierung gibt es in TypeScript.
+</Callout>
