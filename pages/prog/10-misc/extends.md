@@ -162,7 +162,8 @@ werden, dass Objekte durch eine allgemeine Klasse
 instanziiert werden, aber dennoch kann Code 
 zusammengefasst und vererbt werden. 
 
-&xrarr; Person könnte eine abstrakte Klasse sein.
+&xrarr; Im Beispiel oben könnte `Person` 
+eigentlich eine abstrakte Klasse sein.
 
 Klassen können in JavaScript (und vielen anderen 
 Sprachen) nur von höchstens einer Superklasse erben.
