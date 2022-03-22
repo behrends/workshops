@@ -18,6 +18,8 @@ ist es möglich, einerseits Unterschiede in
 die Gemeinsamkeiten (Instanzvariablen und Methoden)
 an Subklassen zur Wiederverwendung zu „vererben“.
 
+![Klassenhierarchie](/images/prog/class_hierarchy.png)
+
 Angenommen es gibt eine Klasse `Person`:
 
 ```js
@@ -150,6 +152,12 @@ nun für Student anders als für Person.
 Beispiel in replit.com: 
 https://repl.it/@behrends/ClassesInheritance 
 </Callout>
+
+Neben der Klasse `Student` wären z.B. an einer 
+Hochschule wie der DHBW weitere Subklassen
+von `Person` in einer Klassenhierarchie denkbar:
+
+![Klassenhierarchie Personen](/images/prog/person_hierarchy.png)
 
 ## Ausblick: Abstrakte Klassen und Interfaces
 
