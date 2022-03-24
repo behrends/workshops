@@ -30,7 +30,6 @@ Interesse zu Beginn eines Termins vorgestellt.
 Themensammlung (TODO):
 
 - TypeScript (allgemein, Interfaces und abstrakte Klassen?), https://2ality.com/2018/04/type-notation-typescript.html
-- Object references and copying (siehe 4.2 in javascript.info)?
 - Nützliches in modernem JavaScript wie Destrukturierung, Object shorthand, optional chaining mit `?.`, nullish coalescing mit `??`, usw.
 - weitere Werkzeuge wie z.B. ESLint, Babel, Yarn, Deno, rome.tools, jedes Jahr neue …
 - JavaScript als compile target (z.B. ClojureScript)

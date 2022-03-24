@@ -1,0 +1,111 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Objektreferenzen
+
+<Callout>
+  **Dauer:** 20 Minuten
+
+  - `typeof`-Operator
+  - Werte einfacher Datentypen werden kopiert 
+  - Arrays und Objekte werden referenziert
+
+  **Ziel:** Verständnis von Objektreferenzen im Gegensatz zu einfachen Datentypen
+</Callout>
+
+Mit dem `typeof`-Operator kann der Datentyp 
+eines Wertes oder einer Variablen/Konstanten
+herausgefunden werden:
+
+```js
+const type = typeof 1234; 
+console.log(type); // --> number
+
+let x = "Hallo";
+console.log(typeof x); // --> string
+
+// Arrays haben den Typ object
+console.log(typeof [1,2,3,4]); // --> object
+console.log(typeof {name: 'Bob'}); // --> object
+```
+
+Hierbei ist besonders zu beachten, dass
+Arrays und Objekte den gleichen Datentyp haben,
+nämlich `object`. 
+
+## Werte einfacher Datentypen kopieren
+
+`number`, `string` und `boolean` werden
+als „einfache“ Datentypen bezeichnet 
+&mdash; im Gegensatz zu Werten vom Typ `object`,
+die **nicht** zu den einfachen Datentypen gehören.
+Dies lässt sich dadurch begründen, dass Arrays
+und Objekte, die beide vom Typ `object` sind,
+sich aus mehreren Werten zusammensetzen, die 
+einerseits auf einfachen Datentypen basieren
+können oder andererseits ebenfalls den Typ 
+`object` haben können (Arrays können z.B. Objekte 
+enthalten, die wiederum…).
+
+Wenn wir in einer Variablen (oder Konstanten)
+Werte einfacher Datentypen haben, dann können
+wir diese durch Zuweisung kopieren:
+
+```js
+let name1 = "Alice";
+let name2 = name1;
+console.log(name1); // --> Alice
+console.log(name2); // --> Alice
+```
+
+Hierbei handelt es sich um Kopien der
+Werte, d.h. sowohl `name1` als auch `name2`
+„enthalten“ einen eigenen `string`-Wert.
+Beide Werte haben durch die Zuweisung (Kopie)
+die gleichen Buchstaben.
+
+## Arrays und Objekte haben Referenzen
+
+Arrays und Objekte sind vom Typ `object`
+und keine einfachen Datentypen. Diese verhalten
+sich bei Zuweisungen von Variablen/Konstanten
+nicht wie einfache Datentypen:
+
+```js
+const object1 = { name: "Object1" };
+const object2 = object1;
+
+object2.name = "Object2";
+console.log(object1.name); // --> Object2
+console.log(object2.name); // --> Object2
+
+const list1 = [1,2,3];
+const list2 = list1;
+
+list2[0] = 1000
+console.log(list1); // --> [1000,2,3]
+console.log(list2); // --> [1000,2,3]
+```
+
+Objekte und Arrays werden also bei Zuweisungen
+**nicht kopiert**. Dies liegt daran, dass 
+Variablen und Konstanten bei Objekten und 
+Arrays eine **Referenz** auf einen Speicherbereich
+enthalten und nicht die Werte wie bei einfachen
+Datentypen. 
+
+Daher wirkt sich eine Änderung der Eigenschaften
+eines Objekts oder der Elemente eines Arrays
+direkt auf den Speicherbereich aus. Alle
+Variablen und Konstanten, die mit ihrer Referenz
+auf diesen Speicherbereich für das betroffene 
+Objekt oder Array verweisen, sind dann von dieser 
+Änderung betroffen bzw. enthalten über die 
+Referenz die geänderten Werte.
+
+Dies lässt sich durch eine grafische Skizze
+gut nachvollziehen, siehe z.B. bei
+https://javascript.info/object-copy. Dort
+wird auch beschrieben, wie Objekte mit 
+`Object.assign` kopiert werden können.
+
+
