@@ -72,7 +72,7 @@ function sum(a: number,b: number) {
 
 console.log(sum(8,12)); // --> 20
 
-console.log(sum(myVariable,myVariable2));
+console.log(sum(myVariable,myVariable2)); // --> 30
 ```
 
 Die Zuweisung des Strings `"Hallo"` an die
