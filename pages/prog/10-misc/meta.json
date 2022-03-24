@@ -14,5 +14,9 @@
   "array-methods": "Array-Methoden",
   "map_set": "Map und Set",
   "private": "Private Eigenschaften",
-  "extends": "Vererbung in Klassen"
+  "extends": "Vererbung in Klassen",
+  "syntax-tipps": "Syntax-Tipps",
+  "typescript": "TypeScript",
+  "tools": "Weitere Werkzeuge",
+  "languages": "Alternative Sprachen"
 }

@@ -17,27 +17,35 @@ Bedarf Hilfe zu bekommen.
 
 Zu Beginn eines Termins werden gelegentlich in
 höchstens 60 Minuten weiterführende Themen 
-behandelt (z.B. TypeScript oder Objektorientierung) 
+behandelt (z.B. `fetch` für Web-Daten) 
 und nützliche Inhalte für die Entwicklung des
-Projekts besprochen (z.B. Debugging und 
-Hilfs-Bibliotheken).
+Projekts besprochen (z.B. Hilfs-Bibliotheken).
 
-Die folgenden Inhalte sind nicht mehr auf
-„klassische Vorlesungsblöcke“ (d.h. 2 * 90 Minuten)
-abgestimmt, sondern werden je nach Bedarf und
-Interesse zu Beginn eines Termins vorgestellt. 
+Die folgenden Inhalte (siehe Seitenleiste)  
+sind nicht mehr auf „klassische Vorlesungsblöcke“ 
+(d.h. 2 * 90 Minuten) abgestimmt, sondern werden 
+je nach Bedarf und Interesse zu Beginn eines 
+Termins vorgestellt. 
 
-Themensammlung (TODO):
+<Callout type="warning">
+In JavaScript gibt es jedes Jahr neue 
+Funktionalitäten, die vom Komitee 
+[TC39](https://tc39.es) erarbeitet werden.
+Eine Übersicht neuer JavaScript-Features
+der letzten Jahre gibt es hier: 
+https://exploringjs.com/impatient-js/ch_new-javascript-features.html
 
-- TypeScript (allgemein, Interfaces und abstrakte Klassen?), https://2ality.com/2018/04/type-notation-typescript.html
-- Nützliches in modernem JavaScript wie Destrukturierung, Object shorthand, optional chaining mit `?.`, nullish coalescing mit `??`, usw.
-- weitere Werkzeuge wie z.B. ESLint, Babel, Yarn, Deno, rome.tools, jedes Jahr neue …
-- JavaScript als compile target (z.B. ClojureScript)
-- React (im Terminal? https://github.com/vadimdemedes/ink, https://github.com/Yomguithereal/react-blessed)
-- git ?!?
+&xrarr; Neue Funktionalitäten werden in NodeJS
+und den Browsern erst nach einiger Zeit unterstützt.
 
-Link-Sammlung zu JavaScript („Awesome List“): 
+Das Umfeld von JavaScript ist sehr dynamisch, 
+sodass es häufig neue Werkzeuge und Bibliotheken
+gibt. Diese Link-Sammlung zu JavaScript 
+(eine sogenannte „_awesome list_“) gibt einen
+Überblick: 
 https://github.com/sorrycc/awesome-javascript
+</Callout>
+
 
 
 

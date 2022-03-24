@@ -1,0 +1,47 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Alternative Sprachen
+
+<Callout>  
+  **Dauer:** 10 Minuten
+
+  Ein paar alternative Sprachen werden erwähnt, 
+  die JavaScript als _compile target_ haben.
+
+  **Ziel:** Alternative Sprachen als Ausblick
+</Callout>
+
+JavaScript ist im Prizip die einzige 
+Programmiersprache, die von Browsern direkt 
+ausgeführt werden kann. In Zukunft lassen sich 
+in den Browsern vielleicht durch 
+[WebAssembly (Wasm)](https://webassembly.org/)) 
+und dessen auf ByteCode basiertem Ansatz 
+weitere Sprachen für die Webentwicklung einsetzen.
+
+Bereits heute gibt es jedoch einige Sprachen,
+die in JavaScript übersetzt werden können.
+Hierbei dient JavaScript als sogenanntes
+_compile target_. Code wird also in
+einer anderen Programmiersprache geschrieben 
+und automatisiert in Form von JavaScript im
+Web an die Browser ausgeliefert.
+
+Dies ist bereits bei 
+[TypeScript](/prog/10-misc/typescript) der Fall.
+
+Ein paar Beispiele von weiteren Sprachen, die 
+JavaScript als _compile target_ haben können 
+und die relativ beliebt sind:
+
+- [ClojureScript](https://clojurescript.org)
+- [Elm](https://elm-lang.org)
+- [ReScript (früher Reason)](https://rescript-lang.org)
+- [Kotlin](https://kotlinlang.org/docs/js-overview.html)
+- [PureScript](https://www.purescript.org)
+- [Dart](https://dart.dev/tools/dart2js)
+- [CoffeeScript](https://coffeescript.org)
+
+Es gibt viele weitere Beispiele wie in
+[dieser Liste](https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS) 
+zu sehen.
