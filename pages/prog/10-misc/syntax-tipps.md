@@ -1,0 +1,204 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Syntax-Tipps in modernem JavaScript
+
+<Callout>  
+  **Dauer:** 20 Minuten
+
+  - Destrukturierung
+  - Object shorthand
+  - Spread-Operator
+  - Optional chaining 
+  - Nullish coalescing
+
+  **Ziel:** Ein paar Tipps für kompakte Syntax
+</Callout>
+
+Durch die ständige Weiterentwicklung von
+JavaScript ist die Sprache in den letzten 
+Jahren mit nützlichen syntaktischen 
+Feinheiten erweitert worden. Hier sollen 
+beispielhaft einige davon kurz vorgestellt werden.
+
+<Callout type="warning" emoji="‼️">
+Solange replit.com NodeJS 12 verwendet, kann
+es sein, dass manche dieser Funktionalitäten
+dort noch nicht verwendet werden können.
+</Callout>
+
+## Destrukturierung
+
+Gegeben sei folgendes Ausgangsbeispiel:
+
+```js
+const city = {name: 'Freiburg', code: 'FR', pop: 230000};
+
+// einzelne Zuweisung der Werte aus den Eigenschaften:
+const name = city.name;
+const code = city.code;
+const pop = city.pop;
+```
+
+Wenn wie oben zu sehen, werden die Werte 
+einzelner Eigenschaften des Objekts an 
+verschiedene Konstanten zugewiesen.
+
+Falls die Konstanten wie oben im Beispiel 
+zu sehen, die gleichen Namen haben wie die
+Eigenschaften (z.B. `const name = city.name`),
+dann können die gewünschten Zuweisungen in
+eine **destrukturierende** Zuweisung 
+zusammengefasst werden:
+
+```js
+const city = {name: 'Freiburg', code: 'FR', pop: 230000};
+
+// Zuweisung durch Destrukturierung
+const { name, code, pop } = city;
+```
+
+<Callout type="warning">
+Destrukturierung funktioniert nur dann, wenn
+die Namen der Konstanten oder Variablen den
+Namen der Eigenschaften im Objekt gleichen.
+</Callout>
+
+## Object shorthand
+
+Sozusagen „umgekehrt“ zur Destrukturierung
+kann mit dem sogenannten _object shorthand_
+aus Konstanten oder Variablen ein Objekt
+auf kompakte Weise erstellt werden:
+
+```js
+const code = "KA";
+const name = "Karlsruhe";
+const pop = 308000;
+
+const cityKA = { name, code, pop };
+// entspricht folgendem:
+// {name: name, code: code, pop: pop}
+
+console.log(cityKA.code); // --> KA
+```
+
+## Spread-Operator
+
+Die Syntax `...` wird _spread operator_ genannt.
+Hiermit lassen sich Arrays (und Strings) auf
+vielfältige Weise verarbeiten. Dazu ein Beispiel,
+das zeigt, wie alle Elemente eines Arrays in 
+ein anderes Array eingefügt werden können:
+
+```js
+const list1 = [1, 2, 3];
+const list2 = [...list1, 4, 5, 6];
+const list3 = [-3, -2, -1, 0, ...list1, 4];
+
+console.log(list2);
+// --> [ 1, 2, 3, 4, 5, 6 ]
+
+console.log(list3); 
+// --> [ -3, -2, -1, 0, 1, 2, 3, 4 ]
+```
+
+Mit `...list1` wird das Arrays sozusagen
+„ausgebreitet“ (daher _spread operator_).
+
+Weitere Möglichkeiten mit dem Spread-Operator
+sind hier beschrieben:
+
+- [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+- [javascript.info](https://javascript.info/rest-parameters-spread)
+
+## Optional chaining 
+
+Daten in Objekten können z.B. bei Zugriff
+auf APIs im Web unvollständig sein. Im
+folgenden Beispiel hat `person2` keine Daten
+zur Eigenschaft `city`:
+
+```js
+const person1 = {name: 'Bob', city: {code: 'NY'}};
+console.log(person1.city.code); // --> NY
+
+const person2 = {name: 'Jane'};
+console.log(person2.city.code); // --> TypeError!
+```
+
+Beim Zugriff auf `person2.city.code` wird
+das Programm mit einem Laufzeitfehler beendet 
+(hier ein `TypeError`). 
+
+Dies lässt sich einerseits z.B. mit passenden 
+`if/else`-Konstrukten verhindern. Andererseits
+kommen solche Situationen sehr häufig vor,
+sodass es hierfür in JavaScript eine spezielle
+Syntax gibt, die den Umgang mit „unvollständigen 
+Objekteigenschaften“ vereinfacht:
+
+```js
+const person1 = {name: 'Bob', city: {code: 'NY'}};
+console.log(person1?.city?.code); // --> NY
+
+const person2 = {name: 'Jane'};
+console.log(person2?.city?.code); // --> undefined
+```
+
+Der Operator `?.` wird „_optional chaining_“
+(„optionale Verkettung“) genannt und bewirkt,
+dass gewissermaßen auf nicht vorhandene 
+Eigenschaften eines Objekts zugegriffen werden
+kann, indem für diese `undefined` geliefert wird.
+
+Siehe dazu auch die Beschreibung zum
+_optional chaining_ bei 
+[javascript.info](https://javascript.info/optional-chaining).
+
+## Nullish coalescing
+
+In JavaScript kommt es recht häufig vor,
+dass überprüft werden muss, ob bestimmte Werte 
+`undefined` oder `null` sind. Hier ein Beispiel,
+bei dem dies mit den Parametern einer Funktion 
+geschieht:
+
+```js
+function returnFirst(x,y) {
+  if(x !== undefined && x !== null) return x;
+  if(y !== undefined && y !== null) return y;
+}
+
+console.log(returnFirst(1,2)); //--> 1
+console.log(returnFirst(undefined,2)); //--> 2
+console.log(returnFirst(null,3)); //--> 3
+```
+
+Solche Situationen können mit dem Operator
+`??` vereinfacht werden:
+
+```js
+function returnFirst(x,y) {
+  return x ?? y;
+}
+
+console.log(returnFirst(1,2)); //--> 1
+console.log(returnFirst(undefined,2)); //--> 2
+console.log(returnFirst(null,3)); //--> 3
+```
+
+`??` wird als _nullish coalescing_ bezeichnet.
+Dies ist ein zweistelliger Operator, der den
+ersten Operanden ergibt, wenn dieser nicht
+`undefined` und nicht `null` ist. Ansonsten
+bildet der zweite Operator das Ergebnis.
+
+_Nullish coalescing_ wird bei
+[javascript.info](https://javascript.info/nullish-coalescing-operator) ausführlicher
+erklärt.
+
+<Callout type="warning">
+Eine Übersicht neuer JavaScript-Features
+der letzten Jahre gibt es hier: 
+https://exploringjs.com/impatient-js/ch_new-javascript-features.html
+</Callout>
