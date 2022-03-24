@@ -1,0 +1,158 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# TypeScript
+
+<Callout>  
+  **Dauer:** 20 Minuten
+
+  - TypeScript ist eine Erweiterung für JavaScript
+  - Langfristige Projekte werden mit TypeScript wartbarer 
+
+  **Ziel:** Statische Typen mit TypeScript als Ausblick
+</Callout>
+
+Das Typsystem in JavaScript ist dynamisch.
+Dies bedeutet, dass sich die
+Typen von Variablen oder von Parametern in
+Funktionen zur Laufzeit ändern können:
+
+```js
+let myVariable = 10; // number
+myVariable = "Hallo"; // string 
+
+const myVariable2 = 20;
+
+function sum(a,b) {
+  return a+b;
+}
+
+console.log(sum(8,12)); // --> 20
+
+console.log(sum(myVariable,myVariable2));
+// --> Hallo20
+```
+
+In obigem Beispiel wird die Funktion `sum`
+zuerst mit zwei Zahlen (`number`) und dann
+mit einem String und einer Zahl aufgerufen.
+
+Einerseits sorgt das dynamische Typsystem in
+JavaScript für einen relativ einfachen Einstieg
+und für Flexibilität. Andererseits kann es
+hierdurch in komplexeren Programmen zu 
+unerwünschten oder sogar fehlerhaften Situationen
+zur Laufzeit führen. 
+
+Mit [TypeScript](https://typescriptlang.org) 
+kann JavaScript-Code mit
+**statischen** Typen ausgestattet werden.
+TypeScript überprüft ein Programm vor der
+Ausführung, sodass Fehler bereits vor
+der Laufzeit gefunden und behoben werden können.
+
+<Callout type="warning">
+TypeScript kann direkt im offiziellen
+[Playground](https://www.typescriptlang.org/play)
+interaktiv getestet werden.
+</Callout>
+
+Obiges Beispiel könnte in TypeScript so 
+geschrieben werden:
+
+```ts
+let myVariable = 10; // number
+// myVariable = "Hallo"; 
+// obige Zeile auskommentiert --> Fehler in TypeScript!
+
+const myVariable2 = 20;
+
+function sum(a: number,b: number) {
+  return a+b;
+}
+
+console.log(sum(8,12)); // --> 20
+
+console.log(sum(myVariable,myVariable2));
+```
+
+Die Zuweisung des Strings `"Hallo"` an die
+Variable `myVariable` wurde auskommentiert,
+weil dies in TypeScript zu einem Fehler
+führen würde. Die Initialisierung von `myVariable`
+mit dem Wert `10` auf der vorigen Zeile legt
+den Typen der Variable auf `number` fest. Dieser
+Typ wird automatisch durch die Zuweisung 
+ermittelt (dies wird _Typinferenz_ genannt).
+
+Durch eine erneute Zuweisung mit einem unzulässigen
+Wert (hier der String `"Hallo"`) entsteht ein
+Fehler zur Programmierzeit, der direkt im Editor
+(replit.com oder VS Code) angezeigt wird.
+
+Die Parameter der Funktion `sum` haben nun
+sogenannte Typannotationen (z.B. `a: number`)
+durch die der Typ eines Parameters festgelegt
+wird. Nun kann `sum` lediglich mit Parametern
+vom Typ `number` aufgerufen werden.
+
+Nützlich ist auch die Möglichkeit, eigene
+Typen zu erstellen. Dadurch kann z.B. verhindert
+werden, dass Eigenschaften in Objekten fehlen 
+oder unzulässige Werte erhalten. Dies kann in 
+TypeScript z.B. mit einem `interface` erreicht 
+werden:
+
+```ts
+// Typ Person deklarieren
+interface Person {
+  name: string,
+  age: number
+}
+
+// Typ Person verwenden
+const alice: Person = {
+  name: 'Alice',
+  age: 23
+}
+
+// führt zu Fehler im TypeScript-Compiler!
+const bob: Person = {
+  name: 'Bob',
+  age: "23" // <-- muss number sein
+}
+
+// führt zu Fehler im TypeScript-Compiler!
+const charlie: Person = {
+  name: 'Charlie',
+  // age fehlt hier!
+}
+```
+
+TypeScript ist eine sehr mächtige Spracherweiterung
+mit vielen weiteren Funktionalitäten wie an der 
+umfangreichen [offiziellen Dokumentation](https://www.typescriptlang.org/docs/) 
+zu sehen ist.
+
+JavaScript-Code ist bereits gültiges TypeScript.
+Dies bedeutet, dass TypeScript in bestehenden 
+JavaScript-Projekten nahtlos eingeführt werden 
+kann. Der bestehende Code wird dann schrittweise
+mit TypeScript umgestellt.
+
+replit.com hat ein TypeScript-Template für neue
+Projekte. 
+
+Informationen dazu, wie TypeScript in NodeJS
+verwendet wird, sind z.B. hier zu finden:
+
+- https://nodejs.dev/learn/nodejs-with-typescript
+- https://code.visualstudio.com/Docs/languages/typescript
+
+
+<Callout type="warning">
+**Lernmaterial für TypeScript:**
+
+- Offizielle Dokumentation: https://www.typescriptlang.org/docs/
+- Playground: https://www.typescriptlang.org/play
+- https://2ality.com/2018/04/type-notation-typescript.html
+</Callout>
