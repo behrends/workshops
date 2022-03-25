@@ -77,7 +77,7 @@ const pop = 308000;
 
 const cityKA = { name, code, pop };
 // entspricht folgendem:
-// {name: name, code: code, pop: pop}
+// const cityKA = {name: name, code: code, pop: pop};
 
 console.log(cityKA.code); // --> KA
 ```
