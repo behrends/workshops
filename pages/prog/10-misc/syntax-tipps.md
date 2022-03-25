@@ -119,8 +119,8 @@ folgenden Beispiel hat `person2` keine Daten
 zur Eigenschaft `city`:
 
 ```js
-const person1 = {name: 'Bob', city: {code: 'NY'}};
-console.log(person1.city.code); // --> NY
+const person1 = {name: 'Bob', city: {code: 'NYC'}};
+console.log(person1.city.code); // --> NYC
 
 const person2 = {name: 'Jane'};
 console.log(person2.city.code); // --> TypeError!
