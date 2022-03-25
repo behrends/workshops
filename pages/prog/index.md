@@ -51,7 +51,7 @@ erhalten.
 **TODOs für 22/23**: 
 
 - Begleitetes Selbststudium planen (mehr Übungen, Videomaterial, git?)
-- Referenz-App `FlashCardNode` als Beispiel-App weiterentwickeln (sieh privates Repository)
+- Referenz-App `FlashCardNode` als Beispiel-App weiterentwickeln (siehe privates Repository)
 
 Aufgaben und Lösungen siehe privates 
 Repository `exercises`.
