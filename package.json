@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "next": "^12.1.4",
-    "nextra": "2.0.0-beta.5",
-    "nextra-theme-docs": "2.0.0-beta.5",
+    "nextra": "2.0.0-alpha.48",
+    "nextra-theme-docs": "2.0.0-alpha.48",
     "prism-react-renderer": "^1.2.1",
     "prismjs": "^1.26.0",
     "react": "^18.0.0",
