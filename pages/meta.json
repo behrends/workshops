@@ -1,19 +1,19 @@
 {
   "prog": {
     "title": "Programmierung",
-    "type": "nav"
+    "type": "page"
   },
   "web-prog": {
     "title": "Web-Programmierung",
-    "type": "nav"
+    "type": "page"
   },
   "mobile": {
     "title": "Mobile Apps",
-    "type": "nav"
+    "type": "page"
   },
   "impressum": {
     "title": "Impressum",
-    "type": "nav",
+    "type": "page",
     "hidden": true
   }
 }
