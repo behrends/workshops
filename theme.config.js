@@ -51,6 +51,7 @@ export default {
         name="viewport"
         content="width=device-width, initial-scale=1.0"
       />
+      <meta httpEquiv="Content-Language" content="de" />
       <meta name="description" content="Workshops Notizen" />
       <meta name="og:title" content="Workshops Notizen" />
     </>
