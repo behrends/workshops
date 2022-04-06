@@ -4,7 +4,7 @@ export default {
   titleSuffix: '',
   nextLinks: true,
   prevLinks: true,
-  search: false,
+  search: true,
   unstable_stork: false,
   darkMode: true,
   defaultMenuCollapsed: false,
