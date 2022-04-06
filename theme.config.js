@@ -8,7 +8,7 @@ export default {
   search: true,
   unstable_stork: false,
   darkMode: true,
-  defaultMenuCollapsed: false,
+  defaultMenuCollapsed: true,
   feedbackLink: () => 'Fragen / Rückmeldung auf GitHub →',
   feedbackLabels: 'feedback',
   floatTOC: true,
