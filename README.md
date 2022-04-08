@@ -12,7 +12,5 @@ by using Git/GitHub as a single source of truth, and
 
 ### Content
 
-[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-
-          
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
