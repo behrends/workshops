@@ -23,7 +23,7 @@ export default {
       >
         <a
           rel="license"
-          href="https://creativecommons.org/licenses/by-sa/4.0/"
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
           target="_blank"
         >
           CC BY-NC-SA 4.0
