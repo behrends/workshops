@@ -7,7 +7,7 @@ export default function Document() {
         <link
           rel="preconnect"
           href="https://EPTBHABXXP-dsn.algolia.net"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         />
       </Head>
       <body>
