@@ -1,3 +1,5 @@
+import DocSearch from './components/DocSearch';
+
 export default {
   projectLink: 'https://github.com/behrends/workshops',
   github: 'https://github.com/behrends/workshops', // project repo
@@ -6,6 +8,7 @@ export default {
   nextLinks: true,
   prevLinks: true,
   search: true,
+  customSearch: <DocSearch />,
   unstable_stork: false,
   darkMode: true,
   defaultMenuCollapsed: true,
