@@ -19,8 +19,8 @@
     "nextra-theme-docs": "2.0.0-alpha.48",
     "prism-react-renderer": "^1.2.1",
     "prismjs": "^1.26.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.4",
