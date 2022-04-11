@@ -37,7 +37,7 @@ function generateSiteMap() {
     pages.push(...sections);
   });
 
-  return `<?xml version="1.0" encoding="UTF-8"?>
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
         <loc>${baseUrl}</loc>   
@@ -45,34 +45,17 @@ function generateSiteMap() {
       <url>
         <loc>${baseUrl}/impressum</loc>   
       </url>
-   ${pages
-     .map((page) => {
-       return `
-        <url>
-          <loc>${baseUrl}/${page}</loc>
-        </url>
-      `;
-     })
-     .join('')}
+      ${pages
+        .map((page) => {
+          return `
+      <url>
+        <loc>${baseUrl}/${page}</loc>
+      </url>`;
+        })
+        .join('')}
    </urlset>
  `;
+  fs.writeFileSync('public/sitemap.xml', sitemap);
 }
 
-function SiteMap() {
-  // getServerSideProps will do the heavy lifting
-}
-
-export async function getServerSideProps({ res }) {
-  const sitemap = generateSiteMap();
-
-  res.setHeader('Content-Type', 'text/xml');
-  // we send the XML to the browser
-  res.write(sitemap);
-  res.end();
-
-  return {
-    props: {},
-  };
-}
-
-export default SiteMap;
+generateSiteMap();
