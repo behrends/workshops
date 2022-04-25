@@ -6,7 +6,7 @@ import Callout from 'nextra-theme-docs/callout'
   Dauer: ca. 45 Minuten
 
   - JavaScript im Browser hat eine `fetch`-Funktion für Web-Daten
-  - `node-fetch` stellt diese in NodeJS bereit
+  - `node-fetch` stellt diese in NodeJS bereit (ab NodeJS 18 nativ!)
   - `fetch` ist asynchron und liefert Promises
   - `async/await` vereinfacht den Umgang mit Promises
 
@@ -43,6 +43,10 @@ open-meteo.com in der Browser-Konsole vorführen.
 </Callout>
 
 ## `node-fetch`
+
+<Callout type="warning">
+Ab Version 18 ist `fetch` in NodeJS enthalten (vorerst als experimentelles Feature).
+</Callout>
 
 In NodeJS bzw. replit.com kann die Funktionalität 
 von `fetch` durch die Installation der Bibliothek 
