@@ -139,10 +139,10 @@
     "@docsearch/css" "3.1.0"
     algoliasearch "^4.0.0"
 
-"@headlessui/react@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-1.5.0.tgz#483b44ba2c8b8d4391e1d2c863898d7dd0cc0296"
-  integrity sha512-aaRnYxBb3MU2FNJf3Ut9RMTUqqU3as0aI1lQhgo2n9Fa67wRu14iOGqx93xB+uMNVfNwZ5B3y/Ndm7qZGuFeMQ==
+"@headlessui/react@^1.6.1":
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-1.6.5.tgz#5587c537de809cf3146eb2ff263e5e940b1bf69c"
+  integrity sha512-3VkKteDxlxf3fE0KbfO9t60KC1lM7YNpZggLpwzVNg1J/zwL+h+4N7MBlFDVpInZI3rKlZGpNx0PWsG/9c2vQg==
 
 "@mdx-js/mdx@^2.1.0":
   version "2.1.1"
@@ -1687,10 +1687,10 @@ nanoid@^3.1.30, nanoid@^3.3.4:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
   integrity sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==
 
-next-themes@^0.2.0-beta.0:
-  version "0.2.0-beta.0"
-  resolved "https://registry.yarnpkg.com/next-themes/-/next-themes-0.2.0-beta.0.tgz#4894b360116020dee9f89b8b8f01896f78caab11"
-  integrity sha512-vzF6V1cWo6LVuMZkTpsP3+7roc14X8VTRgyiZT/6TWzcd7sLdE+y/6F1WiXEvKg+IqwdUb8g3KwC20Fo1yUYqw==
+next-themes@^0.2.0-beta.2:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/next-themes/-/next-themes-0.2.0.tgz#fdc507f61e95b3ae513dee8d4783bcec8c02e3a3"
+  integrity sha512-myhpDL4vadBD9YDSHiewqvzorGzB03N84e+3LxCwHRlM/hiBOaW+UsKsQojQAzC7fdcJA0l2ppveXcYaVV+hxQ==
 
 next@^12.1.4:
   version "12.1.6"
@@ -1715,12 +1715,12 @@ next@^12.1.4:
     "@next/swc-win32-ia32-msvc" "12.1.6"
     "@next/swc-win32-x64-msvc" "12.1.6"
 
-nextra-theme-docs@2.0.0-alpha.50:
-  version "2.0.0-alpha.50"
-  resolved "https://registry.yarnpkg.com/nextra-theme-docs/-/nextra-theme-docs-2.0.0-alpha.50.tgz#073be1aee9101e7c47478db664b0f238d8013c06"
-  integrity sha512-TkMvB8pCVN1LJV6NpXm/5MG2+IHFrMh7bf8E0J6QGRfYaLAhHEAbO7OZpXuE6q/MGGzaNjsXYfFVsC+0r/+/mQ==
+nextra-theme-docs@2.0.0-alpha.58:
+  version "2.0.0-alpha.58"
+  resolved "https://registry.yarnpkg.com/nextra-theme-docs/-/nextra-theme-docs-2.0.0-alpha.58.tgz#26f7fb9b89555b0d17f27855c37354c936327963"
+  integrity sha512-G295Fti63VlInA2pHJoyYN3VxWVzHUDY5KwW2pmCx118Jq90MHjj+D+n9OHHckIc5fahGyUnTlHMfb0p9WOxIw==
   dependencies:
-    "@headlessui/react" "^1.5.0"
+    "@headlessui/react" "^1.6.1"
     "@mdx-js/react" "^2.1.0"
     "@reach/skip-nav" "^0.16.0"
     classnames "^2.2.6"
@@ -1729,15 +1729,15 @@ nextra-theme-docs@2.0.0-alpha.50:
     github-slugger "^1.4.0"
     intersection-observer "^0.12.0"
     match-sorter "^4.2.0"
-    next-themes "^0.2.0-beta.0"
+    next-themes "^0.2.0-beta.2"
     parse-git-url "^1.0.1"
     scroll-into-view-if-needed "^2.2.29"
     title "^3.4.2"
 
-nextra@2.0.0-alpha.49:
-  version "2.0.0-alpha.49"
-  resolved "https://registry.yarnpkg.com/nextra/-/nextra-2.0.0-alpha.49.tgz#3a1fd77fc691036d37f533a0f8373932b97b65b8"
-  integrity sha512-dR52NUOH7amYQeRsQ0lENPjDrnx41NTmKMImAQQ9Nlx/PVBzEmdRo/bnX3GLIYeDWPt7pgzOoDhHRyMt04VdVw==
+nextra@2.0.0-alpha.56:
+  version "2.0.0-alpha.56"
+  resolved "https://registry.yarnpkg.com/nextra/-/nextra-2.0.0-alpha.56.tgz#b6a1c889d0eda9650cce53c31bdce897f5458a0b"
+  integrity sha512-U6vFoUj4Oc+Px9WyNOUJWdta6j8B+dKtjbWvE1jCoz9wdAARtWxIZknIEMK62yt94zZeUjJg5KCzj1HBZc6UpQ==
   dependencies:
     "@mdx-js/mdx" "^2.1.0"
     "@napi-rs/simple-git" "^0.1.7"
