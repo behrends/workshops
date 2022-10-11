@@ -1,62 +1,70 @@
 import DocSearch from './components/DocSearch';
 
 export default {
-  projectLink: 'https://github.com/behrends/workshops',
-  github: 'https://github.com/behrends/workshops', // project repo
-  docsRepositoryBase: 'https://github.com/behrends/workshops', // docs repo
-  titleSuffix: '',
-  nextLinks: true,
-  prevLinks: true,
-  search: true,
-  customSearch: <DocSearch />,
-  unstable_stork: false,
-  darkMode: true,
-  defaultMenuCollapsed: true,
-  feedbackLink: () => 'Fragen / Rückmeldung auf GitHub →',
-  feedbackLabels: 'feedback',
-  floatTOC: true,
-  font: true,
-  footer: true,
-  footerEditLink: 'Diese Seite bei GitHub →',
-  footerText: (
-    <span>
-      <abbr
-        title="Dieses Werk ist lizenziert unter einer Creative Commons Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz."
-        style={{ cursor: 'help', marginRight: '10px' }}
-      >
-        <a
-          rel="license"
-          href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-          target="_blank"
-        >
-          CC BY-NC-SA 4.0
-        </a>
-      </abbr>
-      <span>
-        {`© ${new Date().getFullYear()} `}
-        <a
-          rel="author"
-          href="https://www.behrends.io"
-          target="_blank"
-        >
-          Erik Behrends
-        </a>
-      </span>
-      <a href="/impressum" style={{ marginLeft: '10px' }}>
-        Impressum
-      </a>
-    </span>
-  ),
-  logo: <span className="font-extrabold">Workshops</span>,
+  docsRepositoryBase: 'https://github.com/behrends/workshops',
+  editLink: {
+    text: 'Diese Seite bei GitHub →',
+  },
+  footer: {
+    text() {
+      return (
+        <span>
+          <abbr
+            title="Dieses Werk ist lizenziert unter einer Creative Commons Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz."
+            style={{ cursor: 'help', marginRight: '10px' }}
+          >
+            <a
+              rel="license"
+              href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+              target="_blank"
+            >
+              CC BY-NC-SA 4.0
+            </a>
+          </abbr>
+          <span>
+            {`© ${new Date().getFullYear()} `}
+            <a
+              rel="author"
+              href="https://www.behrends.io"
+              target="_blank"
+            >
+              Erik Behrends
+            </a>
+          </span>
+          <a href="/impressum" style={{ marginLeft: '10px' }}>
+            Impressum
+          </a>
+        </span>
+      );
+    },
+  },
+  gitTimestamp: null,
   head: (
     <>
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-      />
+      <meta name="msapplication-TileColor" content="#fff" />
       <meta httpEquiv="Content-Language" content="de" />
       <meta name="description" content="Workshops Notizen" />
-      <meta name="og:title" content="Workshops Notizen" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@behrends" />
+      <meta property="og:title" content="Workshops Notizen" />
+      <meta property="og:description" content="Workshops Notizen" />
+      <meta name="apple-mobile-web-app-title" content="Workshops" />
     </>
   ),
+  logo() {
+    return <span className="font-extrabold">Workshops</span>;
+  },
+  project: {
+    link: 'https://github.com/behrends/workshops',
+  },
+  search: {
+    component: DocSearch,
+  },
+  sidebar: {
+    defaultMenuCollapsed: true,
+  },
+  titleSuffix: '',
+  toc: {
+    title: 'Auf dieser Seite',
+  },
 };

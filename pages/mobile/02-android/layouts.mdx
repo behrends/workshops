@@ -1,4 +1,4 @@
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # UI-Layouts
 
@@ -57,9 +57,13 @@ Veränderungen im Layout-Editor werden durch Android
 Studio automatisch in der zugehörigen XML-Datei 
 gespeichert. Dies wird durch Live-Coding vorgeführt.
 
+<Callout type="warning" emoji="‼️">
 **Hinweis:** Seit 2021 gibt es mit [Jetpack Compose](https://developer.android.com/jetpack/compose) 
 einen neuartigen Ansatz, in Android-Apps UIs ohne
 XML-Layouts zu erstellen.
+
+Im Oktober 2022 zeichnet sich ab, dass Google in Zukunft Compose als den neuen, standardmäßigen Ansatz zur UI-Entwicklung in Android empfehlen wird (z.B. Guide [„_Build your first app_“](https://developer.android.com/training/basics/firstapp) in den Android Developer Docs).
+</Callout>
 
 Wir öffnen in `activity_layout.xml` als XML-Datei im Text-Editor 
 (d.h. in der „_Code_“-Ansicht) und ersetzen das `Constraint-Layout`

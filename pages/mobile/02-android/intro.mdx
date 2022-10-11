@@ -1,4 +1,4 @@
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # Einstieg
 
@@ -40,6 +40,14 @@ Links überprüft und ggf. angepasst bzw. erweitert werden.
 Zunächst werden nützliche Bestandteile der „offiziellen“ 
 Android-Dokumentation von Google vorgestellt.
 
+<Callout type="error" emoji="‼️">
+**Vorbemerkung**
+
+Google stellt sehr viel Lernmaterial zur Android-Entwicklung bereit. Dies hat in der Regel eine hohe Qualität, ist aber sehr unübersichtlich und inkonsistent, weil sich die Android-Entwicklung in den letzten Jahr stark gewandelt hat (Kotlin vs. Java, mit oder ohne Compose, usw.) und auch in Zukunft wandeln wird… 
+
+Der Dozent kann leider nur einen Überblick geben und teilweise Ansätze zeigen &mdash; mehr ist in den jährlichen Vorbereitungen zur Vorlesung nicht zu bewerkstelligen.
+</Callout>
+
 ### Dokumentation
 
 In der offiziellen Entwickler-Dokumentation zu Android unter
@@ -80,10 +88,14 @@ Themen der Android-Entwicklung einen tieferen Einblick
 zu bekommen.
 </Callout>
 
-<Callout type="warning" emoji="‼️">
-Teilweise sind diese Beschreibungen etwas veraltet und
-enthalten nur teilweise die modernen Ansätze wie AndroidX
-bzw. Android Jetpack oder Jetpack Compose.
+<Callout type="error" emoji="‼️">
+Stand Oktober 2022: Der Guide [„_Build your first app_“](https://developer.android.com/training/basics/firstapp) verweist auf ein Codelab, in dem die App mit Jetpack Compose entwickelt wird. 
+
+Ein Großteil der Guides basiert aber noch auf den Ansätzen ohne Compose, sodass manche Beschreibungen nun inkonsistent oder veraltet sind.
+
+&xrarr; Es scheint im Oktober 2022 so, dass in Zukunft Jetpack Compose mit Kotlin der standardmäßige Ansatz sein wird, um neue native Android-Apps zu entwickeln.
+
+&xrarr; Jetpack Compose funktioniert nur mit Kotlin und **nicht** mit Java
 </Callout>
 
 ### Beispiel-Apps (Samples)
@@ -93,7 +105,7 @@ bereit. Die zugehörigen Android-Studio-Projekten können
 von GitHub heruntergeladen bzw. geklont werden.
 
 - Jedes Jahr wird für Googles Konferenz I/O eine Android-App veröffentlicht: https://github.com/google/iosched
-- Liste mit mehreren Apps in der Android-Dokumentation: https://developer.android.com/samples
+- Liste mit mehreren Apps in der Android-Dokumentation: https://developer.android.com/samples (ggf. nach _Compose_ suchen)
 - Weitere Android-Projekte auf GitHub: https://github.com/android
 - Noch mehre Projekte von Google auf GitHub: https://github.com/googlesamples (evtl. nach _Kotlin_ filtern)
 
@@ -114,7 +126,10 @@ achten.
 Google stellt auch ganze Online-Kurse und Lernpfade
 für die Android-Programmierung bereit:
 
-- Ein Einsteigerkurs: https://developer.android.com/courses/android-basics-kotlin/course
+- Einsteigerkurs mit Kotlin und Compose: https://developer.android.com/courses/android-basics-compose/course
+- Mehr zu Compose: https://developer.android.com/jetpack/compose
+- Einsteigerkurs mit Kotlin ohne Compose: https://developer.android.com/courses/android-basics-kotlin/course
+- Einsteigerkurs mit Java (leider veraltet und nicht mehr zu empfehlen): https://developer.android.com/courses/fundamentals-training/overview-v2
 - Weitere Kurse: https://developer.android.com/courses
 - Lernpfade mit weiterführendem Material: https://developers.google.com/learn/pathways (nach _Mobile_ filtern)
 
