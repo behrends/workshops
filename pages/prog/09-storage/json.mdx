@@ -125,3 +125,35 @@ myContacts
 ```
 
 ![JSON-String-Objekt](/images/prog/json_string_objekt.png)
+
+## JSON-Daten aus Dateien einlesen
+
+Wenn eine Datei JSON-Daten enthält, dann können diese 
+mit einer Zeile Code so eingelesen werden, dass die Daten
+(Array und/oder Objekte) dem Programm zur Verfügung stehen.
+
+Angenommen, eine Datei namens `data.json` enthält folgenden
+Inhalt:
+
+```
+[
+  {"id": 1, "name": "Jane"}, 
+  {"id": 2, "name": "Joe"},
+  {"id": 3, "name": "Kim"}
+]
+```
+
+Wenn eine JavaScript-Datei im gleichen Verzeichnis wie `data.json`
+liegt, dann kann diese JSON-Datei in einem JavaScript-Programm in 
+NodeJS oder replit so eingelesen werden:
+
+```js
+const data = require('./data.json');
+```
+
+Danach stehen die Daten in der Konstanten `data` zur Verfügung:
+
+```js
+console.log(data[2].name); // --> ergibt Kim
+```
+
