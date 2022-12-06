@@ -58,6 +58,9 @@ export default {
   project: {
     link: 'https://github.com/behrends/workshops',
   },
+  search: {
+    placeholder: 'Inhalte durchsuchen…',
+  },
   sidebar: {
     defaultMenuCollapseLevel: 0,
   },
