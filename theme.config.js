@@ -52,9 +52,7 @@ export default {
       <meta name="apple-mobile-web-app-title" content="Workshops" />
     </>
   ),
-  logo() {
-    return <span className="font-extrabold">Workshops</span>;
-  },
+  logo: <span className="font-bold">Workshops</span>,
   project: {
     link: 'https://github.com/behrends/workshops',
   },
