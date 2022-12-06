@@ -1,5 +1,3 @@
-import DocSearch from './components/DocSearch';
-
 export default {
   docsRepositoryBase: 'https://github.com/behrends/workshops',
   editLink: {
@@ -59,9 +57,6 @@ export default {
   },
   project: {
     link: 'https://github.com/behrends/workshops',
-  },
-  search: {
-    component: DocSearch,
   },
   sidebar: {
     defaultMenuCollapseLevel: 0,

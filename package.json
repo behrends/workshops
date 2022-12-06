@@ -14,7 +14,6 @@
     "postbuild": "node ./scripts/generate-sitemap.mjs"
   },
   "dependencies": {
-    "@docsearch/react": "3",
     "next": "^13.0.6",
     "nextra": "2.0.1",
     "nextra-theme-docs": "2.0.1",
