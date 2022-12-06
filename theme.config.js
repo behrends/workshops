@@ -5,6 +5,9 @@ export default {
   editLink: {
     text: 'Diese Seite bei GitHub →',
   },
+  feedback: {
+    content: undefined,
+  },
   footer: {
     text() {
       return (
@@ -38,7 +41,7 @@ export default {
       );
     },
   },
-  gitTimestamp: null,
+  gitTimestamp: undefined,
   head: (
     <>
       <meta name="msapplication-TileColor" content="#fff" />
@@ -61,9 +64,13 @@ export default {
     component: DocSearch,
   },
   sidebar: {
-    defaultMenuCollapsed: true,
+    defaultMenuCollapseLevel: 0,
   },
-  titleSuffix: '',
+  useNextSeoProps() {
+    return {
+      titleTemplate: '%s',
+    };
+  },
   toc: {
     title: 'Auf dieser Seite',
   },
