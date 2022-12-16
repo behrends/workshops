@@ -1,4 +1,5 @@
 import { Callout } from 'nextra-theme-docs'
+import JSEditor from '/components/JSEditor';
 
 # Ein- und Ausgabe
 
@@ -43,6 +44,12 @@ console.log(456 + 777);
 console.log("Hallo, wie geht es Dir?");	
 console.log("Gut, danke!");
 ```
+
+<JSEditor code={`console.log(123);
+// Dies ist ein Kommentar:
+// Eigene Anweisungen mit console.log hier eingeben
+// und ausprobieren`}
+/>
 
 Bemerkung: Zur console-API gibt es einen „living standard“, der 
 noch viel mehr Möglichkeiten mit console beschreibt, sodass viele 
