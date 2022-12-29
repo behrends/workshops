@@ -1,5 +1,5 @@
 export default {
-  docsRepositoryBase: 'https://github.com/behrends/workshops',
+  docsRepositoryBase: 'https://github.com/behrends/workshops/tree/main',
   editLink: {
     text: 'Diese Seite bei GitHub →',
   },
