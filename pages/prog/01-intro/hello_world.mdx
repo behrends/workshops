@@ -21,7 +21,7 @@ Hello, World!
 auf dem Bildschirm anzeigt bzw. ausgibt. Wir betrachten dies 
 kurz  in JavaScript.
 
-<Callout type="warning">
+<Callout type="info">
 Für alle, die schon Programmiererfahrungen haben:
 
 Die ersten Schritte sollen zunächst diejenigen an die
@@ -119,6 +119,24 @@ kennen. Letztere unterstützt neben JavaScript auch viele
 weitere Programmiersprachen.
 
 <Callout type="warning">
+JavaScript wird in einem sogenannten _Interpreter_ ausgeführt,
+der z.B. Teil eines Browsers (u.a. in der oben erwähnten Konsole) 
+oder in NodeJS enthalten ist. Der Interpreter führt den Code in einem
+JavaScript-Programm schrittweise aus, ohne ihn vorher zu überprüfen. 
+Einen _Compiler_ wie in Java, der den Programmcode vor der Ausführung
+auf mögliche Fehler untersucht, gibt es in gewöhnlichem JavaScript-Code
+nicht.
+
+Einerseits ist dadurch der Einstieg in JavaScript im Vergleich zu Java 
+mit weniger Aufwand möglich. Andererseits werden manche Fehler im Code erst
+zur Laufzeit des Programms im Interpreter bemerkt.
+
+Aber auch in JavaScript ermöglichen Tools wie [ESLint](https://eslint.org) und 
+insbesondere die Spracherweiterung [TypeScript](https://typescriptlang.org) 
+zuverlässige Überprüfungen des Codes vor seiner Ausführung.
+</Callout>
+
+<Callout type="info">
  Wir werden den JavaScript-Code in den ersten Vorlesungsterminen 
  und für die Übungen in kleinen Beispielen im Browser schreiben. Es 
  muss also nichts installiert werden.
