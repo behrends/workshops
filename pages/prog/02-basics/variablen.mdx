@@ -11,21 +11,18 @@ import { Callout } from 'nextra-theme-docs'
   **Ziel:** Werte mit Namen versehen und verwenden
 </Callout>
 
+<Callout type="info">
+Bei der Vorführung in replit.com ggf. einen
+Invite-Link mit dem Kurs teilen, damit 
+Interessierte sich den Code kopieren können.
+</Callout>
+
 ## Variablen
 
 Variablen helfen, in Programmen relevante „Werte“ wie z.B.
 bestimmte Zahlen oder „Zwischenergebnisse“ (z.B. von 
 Berechnungen) mit Namen bzw. Bezeichnern auszustatten, sodass
 diese leicht wiederverwendet werden können.
-
-Variablen haben einen Namen/Bezeichner, der nur einmal im 
-Gültigkeitsbereich der Variablen vergeben werden darf — begrenzt 
-durch `{ ... }`.
-
-Für lokale Variablen ist der Gültigkeitsbereich oft die umgebende 
-Funktion — könnte aber auch eine Schleife oder Verzweigung sein 
-(siehe später). Variablen dürfen in ihrem Gültigkeitsbereich nur 
-einmal deklariert werden.
 
 Variablen werden mit dem Schlüsselwort `let` gefolgt von einem 
 Name/Bezeichner **deklariert**:
@@ -36,17 +33,12 @@ let myVariable;
 let variable2;
 ```
 
-<Callout type="warning">
-Bei der Vorführung in replit.com ggf. einen
-Invite-Link mit dem Kurs teilen, damit 
-Interessierte sich den Code kopieren können.
-</Callout>
-
-Werden mehrere Variablen nacheinander deklariert, so 
+Werden mehrere Variablen direkt nacheinander deklariert, so 
 lassen sich diese auf einer Zeile mit `,` getrennt
 auflisten:
 
 ```js
+// Dies entspricht der vorigen Deklaration (s.o.)
 let myVariable, variable2;
 ```
 
@@ -55,41 +47,33 @@ Nachfolgende Zuweisungen ändern den aktuellen Wert in der
 Variablen.
 
 ```js
-// myVariable ist der Name/Bezeichner der Variablen	
-let myVariable; 
+// myVariable ist der Name/Bezeichner der Variablen
+// die Variable mit dem Namen myVariable wurde zuvor deklariert (s.o.)
 // es folgt eine erste Zuweisung
-myVariable = 1;
+myVariable = 1; // Wert der Variablen ist 1
 	
 // hier steht vielleicht eine ganz andere Berechnung...
 	
 // der Variablen wird ein neuer Wert zugewiesen
-myVariable = 24;
+myVariable = 24; // Wert der Variablen ist nun 24
+
+// Zuweisung der Variablen variable2
+variable2 = "Hi!"; // Variablenwert ist der Text/String "Hi!"
 ```
 
-<Callout type="warning">
-Wird eine Variable ohne `let` deklariert, d.h. bei der
-ersten Verwendung z.B. folgendermaßen initialisiert 
-(ohne dass es vorher eine Deklaration mit `let` gab)
-
-```js
-// --> Annahme: vorher gibt es kein let!!!
-global = "globale Variabel";
-```
-
-dann wird dadurch eine **globale** Variable erstellt,
-die überall im Programm (d.h. in allen Funktionen und
-anderen Gültigkeitsbereichen) sichtbar ist. Dies sollte
-in der Regel vermieden werden, da hierdurch durch die 
-globale Zugriffsmöglichkeit ungewollte oder schwer
-nachvollziehbar Änderungen der Variablen auftreten können.
-In wenigen Ausnahmen können globale Variablen dennoch 
-gelegentlich nützlich sein.
-</Callout>
+Variablen haben einen **Namen/Bezeichner**, der nur einmal im 
+**Gültigkeitsbereich** der Variablen durch die Deklaration 
+vergeben werden darf. Für Variablen ist der Gültigkeitsbereich oft die 
+umgebende Funktion, eine Schleife (`for` oder `while`) oder Verzweigung 
+(`if/else`) &mdash; diese werden später behandelt. Variablen dürfen nur 
+einmal in ihrem Gültigkeitsbereich deklariert werden. Der Gültigkeitsbereich 
+wird durch umgebende geschweifte Klammern mit einer „öffnenden“ Klammer 
+`{` am Anfang und einer „schließenden“ Klammer `}` am Ende festgelegt.
 
 
 **Reservierte Schlüsselwörter** sind das „Vokabular“ 
-einer Programmiersprache, die nicht für Bezeichner 
-verwendet werden dürfen (`let`, `function`, `class`, etc.).
+einer Programmiersprache, die <mark>nicht</mark> für Bezeichner 
+verwendet werden dürfen (z.B. `let`, `function`, `class`, usw.).
 
 ```js
 let class = "Schulkasse 8a"; // Fehler!
@@ -119,11 +103,26 @@ myVariable = 24;
 let myVariable = 25;
 ```
 
-Die Werte von Variablen sind ja sozusagen „zwischengespeichert“ 
-und deshalb werden sie meistens mehrmals verwendet.
+Mehrere Initialisierungen können ähnlich wie Deklarationen
+durch Komma getrennt zusammengefasst werden:
 
-Zum Beispiel kann der aktuelle Variablenwert auch in einer 
-erneuten Zuweisung an dieselbe Variable genutzt werden. 
+```js
+let myVariable = 24, variable2 = "Hi!";
+```
+
+Mit der Methode `console.log()` können wir uns den Inhalt bzw. aktuellen
+Wert eine Variable ausgeben lassen:
+
+```js
+console.log(myVariable); // ergibt 24
+myVariable = 12;
+console.log(myVariable); // ergibt 12
+```
+
+Die Werte von Variablen sind sozusagen „zwischengespeichert“ 
+und deshalb werden sie meistens mehrmals verwendet. Zum Beispiel kann 
+der aktuelle Variablenwert auch in einer erneuten Zuweisung an dieselbe 
+Variable genutzt werden. 
 
 ```js
 let luckyNumber = 108; // Initialisierung
@@ -141,7 +140,30 @@ console.log(luckyNumber);
 console.log(thisVariableDoesNotExist); // ReferenceError
 ```
 
-<Callout type="warning">
+## Konstanten
+
+ Konstanten sind vereinfacht gesagt „Variablen, die sich nicht 
+ ändern können“ &mdash; es darf also später keine neue Zuweisung 
+ erfolgen. Dadurch können wir „feste“ oder „unveränderliche“
+ Werte mit einem Namen/Bezeichner erhalten.
+
+Konstanten werden mit dem Schlüsselwort `const` deklariert.
+
+Konstanten <mark>müssen direkt bei der Deklaration mit einem Wert 
+initialisiert werden</mark>, der unveränderlich (konstant) ist. 
+
+```js
+const answer = 42;
+const unknownName = "John Doe";
+
+// Fehler: Konstanten können nicht geändert werden!
+answer = 23; --> würde Fehler ergeben
+	
+// Fehler: Konstanten ohne Wert deklarieren
+const notAllowed;
+```
+
+<Callout type="error">
 Es gibt auch die Möglichkeit, Variablen mit `var` zu deklarieren.
 Davon wird inzwischen abgeraten &mdash; auch wenn dies noch
 immer möglich ist und oftmals keine Probleme verursacht.
@@ -169,34 +191,13 @@ sind unter [javascript.info/var](https://javascript.info/var)
 zu finden.
 </Callout>
 
-## Konstanten
-
- Konstanten sind vereinfacht gesagt „Variablen, die sich nicht 
- ändern können“ &mdash; es darf also später keine neue Zuweisung 
- erfolgen.
-
-Konstanten werden mit dem Schlüsselwort `const` deklariert.
-
-Konstanten müssen direkt mit einem Wert initialisiert werden, der 
-unveränderlich (konstant) ist. 
-
-```js
-const answer = 42;
-const unknownName = "John Doe";
-
-// Fehler: Konstanten können nicht geändert werden!
-answer = 23; --> würde Fehler ergeben
-	
-// Fehler: Konstanten ohne Wert deklarieren
-const notAllowed;
-```
 
 ## Bezeichner und Namen
 
 Neben Variablen erstellen wir in JavaScript u.a. auch eigene 
 Funktionen und Klassen, denen wir passende Namen geben.
 
-Solche Namen werden auch Bezeichner genannt. Sie enthalten keine 
+Solche Namen werden auch **Bezeichner** genannt. Sie enthalten keine 
 Leerzeichen.
 
 Bezeichner können aus folgenden Elementen bestehen (d.h. mit 
@@ -265,7 +266,7 @@ Auf der „rechten Seite“ einer Zuweisung steht ein gültiger
 JavaScript-**Ausdruck** (_expression_). 
 
 Ausdrücke können einfache Werte der Variablen/Konstanten sein 
-wie z.B. Zahlen (`123`) oder Strings (`"Hello, World!"`). 
+wie z.B. Zahlen (`123`) oder Text bzw. Strings (`"Hello, World!"`). 
 Solche Werte, die direkt „hingeschrieben“ werden, werden 
 manchmal „Literale“ genannt (von engl. _literal_ &mdash; wörtlich). 
 
@@ -294,3 +295,38 @@ Dies alles wird durch die formale Grammatik einer
 Programmiersprache festgelegt. In der praktischen 
 Programmierung wird die Grammatik im Prinzip durch die
 konkrete Erfahrung und Übung erlernt.
+
+
+## Zusammenfassung und Links
+
+<Callout emoji="🗒️">
+**Zusammenfassung der wichtigsten Punkte**
+
+- Variablen
+  - werden mit `let` und einem Namen/Bezeichner deklariert
+  - können mit oder ohne Wert deklariert werden
+  - können beliebig oft neue Werte zugewiesen bekommen (sind also „variabel“)
+- Konstanten
+  - werden mit `const` und einem Namen/Bezeichner eingeführt
+  - müssen bei der Deklaration mit einem Wert initialisiert werden
+  - können nach der Initialisierung keinen neuen Wert zugewiesen bekommen (sind also „konstant“)
+- Variablen und Konstanten
+  - haben einen eindeutigen Namen/Bezeichner im Gültigkeitsbereich
+  - werden nur einmal im Gültigkeitsbereich deklariert
+  - Namen/Bezeichner beginnen mit Buchstaben
+  - Namen/Bezeichner bestehen aus Ziffern, Buchstaben, `$`, `_`
+  - Namen/Bezeichner dürfen keine Leerzeichen enthalten 
+  - Namen/Bezeichner dürfen keine Sonderzeichen außer `$` und `_` enthalten
+  - Namen/Bezeichner dürfen keine reservierte Schlüsselwörter sein
+- Variablenwerte können durch Ausdrücke festgelegt werden
+- Fast alle Konzepte, die wir noch lernen werden, lassen sich auf verschiedene Weisen zu beliebig komplexen Ausdrücken kombinieren (Operatoren, Funktionsaufrufe, usw.)
+</Callout>
+
+<Callout type="warning">
+**Links mit ausführlicheren Informationen zum Thema**
+
+- [javascript.info/variables](https://javascript.info/variables)
+- [`let` &mdash; Referenz im Mozilla Developer Network (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let)
+- [`const` &mdash; Referenz im MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const)
+</Callout>
+
