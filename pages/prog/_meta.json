@@ -1,5 +1,9 @@
 {
   "index": "Übersicht",
+  "glossar": "Glossar",
+  "---": {
+    "type": "separator"
+  },
   "01-intro": "1 - Einleitung",
   "02-basics": "2 - Grundlagen",
   "03-logic-structure": "3 - Logik und Struktur",

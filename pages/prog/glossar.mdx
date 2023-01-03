@@ -1,0 +1,25 @@
+import { Callout } from 'nextra-theme-docs'
+
+# Glossar
+
+<Callout>
+  Hier findet sich eine Sammlung wichtiger Konzepte und Begriffe 
+  mit kurzen Erläuterungen.
+</Callout>
+
+<span id="Block">**Block**</span>\
+Der Bereich zwischen geschweiften Klammern (`{...}`) wird auch Block
+genannt. Siehe auch [Gültigkeitsbereich](#Gültigkeitsbereich).
+
+<span id="Funktionsrumpf">**Funktionsrumpf**</span>\
+Durch geschweifte Klammern (`{...}`) umgebener „Code-Inhalt“ der Funktion.
+
+<span id="Gültigkeitsbereich">**Gültigkeitsbereich**</span>\
+Der Gültigkeitsbereich (engl. _scope_) definiert für eine Variable 
+oder Konstante den Bereich im Code, in dem diese Variable (Konstante) 
+bekannt ist. Er wird in JavaScript durch geschweifte
+Klammern (`{...}`) festgelegt (z.B. ein Funktionsrumpf oder der Code-Block 
+bei `if` oder `while`). Für eine bestimmte Variable oder Konstante ist
+der Gültigkeitsbereich durch die nächsten, umgebenden geschweiften
+Klammern zu finden. Variablen mit `let` und Konstanten mit `const` sind
+innerhalb ihres Gültigkeitsbereich eindeutig und außerhalb nicht bekannt.
