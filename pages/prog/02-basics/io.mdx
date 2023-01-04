@@ -15,40 +15,31 @@ import JSEditor from '/components/JSEditor';
 Am Anfang schreiben wir zunächst nur kleinere Programme. Damit 
 aber etwas Sinnvolles oder Interessantes berechnet werden kann, 
 benötigen wir Mechanismen, um vom Benutzer etwas zu erfragen 
-(Zahlen oder Texte) und die berechneten Werte auszugeben. 
+(z.B. Zahlen oder Text) und die berechneten Werte auszugeben. 
 
 ## Ausgaben
 
-Um in JavaScript etwas auszugeben (als Text auf dem Bildschirm), 
+Um in JavaScript etwas als Text auf dem Bildschirm auszugeben, 
 verwenden wir meistens eine Hilfsmethode:
 
 ```js
-console.log
+console.log()
 ```
 
-`console.log` ergänzt die Ausgabe um einen Zeilenumbruch, d.h. 
+`console.log()` ergänzt die Ausgabe um einen Zeilenumbruch, d.h. 
 die nachfolgende Ausgabe erscheint auf der nächsten Zeile.
 
-Mit dieser Methode kann im Prinzip „alles“ ausgeben werden 
-(Text bzw. Strings, Zahlen, Ausdrücke, Variableninhalte, 
-Rückgabewerte von Funktionen, usw.).
+Mit dieser Methode kann im Prinzip „alles“ ausgeben werden:
+Text bzw. Strings, Zahlen, Ausdrücke, Variableninhalte, 
+Rückgabewerte von Funktionen, usw.
 
-Beispiel:
+Folgendes Beispiel kann auch angepasst werden:
 
-```js
-let x = 123;	
-console.log(x);
-console.log(456);
+<JSEditor code={`// Eigene Anweisungen mit console.log hier eingeben und ausprobieren
 console.log(456 + 777);
-	
-console.log("Hallo, wie geht es Dir?");	
-console.log("Gut, danke!");
-```
-
-<JSEditor code={`console.log(123);
-// Dies ist ein Kommentar:
-// Eigene Anweisungen mit console.log hier eingeben
-// und ausprobieren`}
+let x = 123;
+console.log("Wert von Variable x:");
+console.log(x);`}
 />
 
 Bemerkung: Zur console-API gibt es einen „living standard“, der 
@@ -61,20 +52,22 @@ Objekte als Tabelle angezeigt werden:
 
 ```js
 console.table([
-  { name: 'Dr. Strange', rating: 7.8 },
-  { name: 'Captain Marvel', rating: 8.2 },
+  { city: 'Basel', temp: 7.8 },
+  { city: 'Berlin', temp: 3.4 },
+  { city: 'Freiburg', temp: 8.2 },
 ]);
 ```
 
-Folgende Ausgabe erscheint:
+Folgende Ausgabe wird dargestellt:
 
 ```
-┌─────────┬──────────────────┬────────┐
-│ (index) │       name       │ rating │
-├─────────┼──────────────────┼────────┤
-│    0    │  'Dr. Strange'   │  7.8   │
-│    1    │ 'Captain Marvel' │  8.2   │
-└─────────┴──────────────────┴────────┘
+┌─────────┬────────────┬────────┐
+│ (index) │    city    │  temp  │
+├─────────┼────────────┼────────┤
+│    0    │  'Basel'   │  7.8   │
+│    1    │  'Berlin'  │  3.4   │
+│    2    │ 'Freiburg' │  8.2   │
+└─────────┴────────────┴────────┘
 ```
 
 
@@ -119,8 +112,8 @@ Hilfsbibliothek für farbige Ausgabe im Terminal:
 ## Eingabe mit `prompt`
 
 Mit `prompt` steht in JavaScript im Browser und in 
-[replit.com](https://replit.com) (leider nur in `index.js`) 
-eine Methode zur Verfügung, die Text von der Tastatur einliest.
+[replit.com](https://replit.com) eine Methode zur Verfügung, 
+die Text von der Tastatur einliest.
 
 ```js
 let name = prompt("Name eingeben");
@@ -161,7 +154,7 @@ parseInt("1234XYZ"); // ---> ergibt 1234
 
 ## Umlaute und andere Sonderzeichen
 
-Im Februar 2022 hatte `prompt` in replit.com 
+Im Januar 2023 hatte `prompt` in replit.com 
 Probleme mit der Eingabe von Umlauten, die
 bei der Eingabe falsch dargestellt werden. 
 
