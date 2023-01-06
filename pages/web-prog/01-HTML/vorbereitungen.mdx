@@ -23,7 +23,9 @@ import { Callout } from 'nextra-theme-docs'
 Eine Beispiel-App dient zur Veranschaulichung des konkreten Lernziels. 
 Diese App wurde als reines Webfrontend mit HTML, CSS und JavaScript 
 ohne Frameworks entwickelt und kann hier ausprobiert werden:
-[wds20a-final.glitch.me](https://wds20a-final.glitch.me)
+[webprog-weather.vercel.app](https://webprog-weather.vercel.app/). 
+Quellcode der App: 
+[github.com/behrends/webprog-weather](https://github.com/behrends/webprog-weather)
 
 Wir werden diese App gemeinsam während der ersten Termine
 entwickeln und somit ein Teil der wesentlichen Konzepte
@@ -55,13 +57,24 @@ JavaScript und auch CSS entwickeln sich beständig weiter und haben ein großes 
 
 HTML, CSS und JavaScript stellen nur die Grundlagen und den Ausgangspunkt der clientseitigen Web-Entwicklung im Frontend dar (d.h. zur Ausführung im Browser).
 
+Später kommen häufig _Frameworks_ für CSS und JavaScript zum Einsatz. 
+Ein paar Beispiele beliebter Frameworks:
+
+- CSS: [Tailwind](https://tailwindcss.com), [Bootstrap](https://getbootstrap.com)
+- JavaScript: [React](https://reactjs.org), [Angular](https://angular.io/), [Vue](https://vuejs.org), [Svelte](https://svelte.dev)
+
+Serverseitig gibt es auf dem Backend ebenfalls Frameworks für jede 
+beliebte Programmiersprache und u.a. kommen in der Regel auch Datenbanken 
+zum Einsatz (siehe die Abbildung oben). Für diese Themen reichen die
+Vorlesungsstunden nicht aus.
+
 ## Ablauf
 
 In der gemeinsamen „Vorlesung“ wird hauptsächlich **aktives** Lernen
-durch Live Coding stattfinden. Dabei sollten die Studierenden
-mitprogrammieren und interaktiv Fragen stellen. **Daher sollten alle 
-bitte immer ihren Laptop mitbringen.** Folien wird es kaum geben, 
-da diese nur ein **passives** Lernen ermöglichen. 
+durch Live Coding stattfinden. Die Studierenden können die Konzepte
+mitprogrammieren und interaktiv Fragen stellen. **Daher sollten 
+alle bitte immer ihren Laptop mitbringen.** Folien wird es kaum 
+geben, da diese nur ein **passives** Lernen ermöglichen. 
 
 Aufgrund der knappen Zeit werden nur die wesentliche Aspekte im Unterricht 
 besprochen. Durch praktische Übungen und insbesondere das Gruppenprojekt 
@@ -72,7 +85,7 @@ im Selbststudium sind während der Webentwicklung unumgänglich und
 verstärken das aktive Lernen. 
 
 Dozierende bieten Hilfestellung und Coaching während des Projekts an. 
-Wir werden in den späteren Terminen auch Zeit für das gemeinsame
+Wir werden in den späteren Terminen auch etwas Zeit für das gemeinsame
 Programmieren haben.
 
 ## Entwicklungsumgebung
@@ -83,7 +96,7 @@ diese meistens auch Unterstützung für HTML, CSS und JavaScript bieten.
 Außerdem gibt es sehr gut funktionierende Entwicklungsumgebungen in 
 der Cloud, für die nur eine Internetverbindung und ein Browser benötigt wird.
 
-<Callout type="warning">
+<Callout type="warning" emoji="❓">
 Welche Entwicklungsumgebungen setzen Sie gerne ein (lokal/cloud)?
 </Callout>
 
@@ -132,7 +145,7 @@ VS Code im Browser: [vscode.dev](https://vscode.dev/)
 
 Zu Beginn und ggf. zwischendurch nochmals vorführen 
 (falls Fragen/Probleme auftauchen): Datei `index.html` erstellen und
-mit Text füllen, _Live Server_ starten (_Go Live_).
+mit Text füllen, _Live Server_ in VS Code starten (_Go Live_).
 
 - VS Code herunterladen und installieren
 - In VS Code die Erweiterung (bzw. _extension_) „_Live Server_“ einrichten
@@ -142,11 +155,16 @@ mit Text füllen, _Live Server_ starten (_Go Live_).
 
 ## Zusammenfassung
 
+<Callout emoji="🗒️">
+**Zusammenfassung der wichtigsten Punkte**
+
 - HTML, CSS und JavaScript sind als Frontend-Technologien, die vom Browser ausgeführt werden, Bestandteil jeder Webanwendung.
-- Im Backend kommen beliebige andere Sprachen zum Einsatz.
-- In dieser Veranstaltung beschränken wir uns aufgrund der wenigen Zeit auf HTML, CSS und JavaScript.
+- Im Backend kommen im Prinzip beliebige andere Sprachen zum Einsatz.
+- In dieser Veranstaltung beschränken wir uns aufgrund der wenigen Zeit auf die Frontend-Entwicklung mit HTML, CSS und JavaScript.
 - Mit reinem HTML, CSS und JavaScript lassen sich bereits nicht-triviale Anwendungen bauen (siehe Beispiel-App).
-- Für das Live Coding und die Arbeit im Team werden Codepen, Glitch, und VS Code empfohlen.
+- Für das Live Coding und die Arbeit im Team werden die Cloud-Tools [Codepen](https://codepen.io) und [Glitch](https://glitch.com) und der Editor 
+[VS Code](https://code.visualstudio.com) empfohlen.
+</Callout>
 
 ## Diskussion
 
@@ -165,4 +183,4 @@ sinnvoll sein, damit die Anwendungen nicht verloren gehen.
 
 Kennt jemand weitere empfehlenswerte Editoren, Cloud-Umgebungen, Tools?
 
-**Bemerkung:** NodeJS wird in der Vorlesung und im Projekt nicht benötigt.
+**Bemerkung:** [NodeJS](https://nodejs.org) wird in der Vorlesung und im Projekt nicht benötigt.
