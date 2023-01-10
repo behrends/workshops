@@ -22,7 +22,7 @@ Am Whiteboard oder online mit [Excalidraw](https://excalidraw.com)
 die Darstellung eines Ortes mit seinen Wetterdaten als eine
 Box mit runden Ecken und unterschiedlichen Schriften skizzieren.
 
-<Callout type="warning">
+<Callout type="info">
 Abstände und Layout lernen wir erst in CSS Teil 2 kennen.
 </Callout>
 
@@ -47,7 +47,7 @@ Jedes HTML-Element kann mit dem `style`-Attribut eigene
 CSS-Regeln erhalten:
 
 ```html
-<div style="border: 2px solid silver;border-radius: 4px;">
+<div style="border-width: 2px; border-style: solid; border-color: silver;border-radius: 4px;">
   Berlin 19 sonnig
 </div>
 ```
@@ -58,7 +58,7 @@ Ecken.
 <Callout type="warning">
 Inline-Styles mit `style="..."` direkt im HTML-Element sind
 nur für schnelles Ausprobieren gedacht. Empfohlen wird das
-Einbinden von separaten Stylesheet-Dateien in HTML-Dokumente.
+Einbinden von separaten Stylesheet-Dateien in HTML-Dokumente (siehe unten im folgenden Abschnitt).
 </Callout>
 
 
@@ -87,7 +87,7 @@ wir in der folgenden Lektion ein paar Selektoren
 kennengelernt haben.
 ```
 
-<Callout type="warning">
+<Callout type="info">
 Für unser kleines Projekt genügt wahrscheinlich ein
 Stylesheet. Komplexere Webanwendungen setzen häufig
 mehrere Stylesheets ein.
