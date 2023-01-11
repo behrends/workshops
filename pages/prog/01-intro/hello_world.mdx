@@ -12,7 +12,7 @@ import { Callout } from 'nextra-theme-docs'
 </Callout>
 
 Die klassische Einführung in eine Programmiersprache
-besteht darin, ein Programm zu schreiben, dass die Begrüßung
+besteht darin, ein Programm zu schreiben, das die Begrüßung
 
 ```
 Hello, World!
@@ -37,13 +37,14 @@ unbekannte Aspekte oder nützliche Tipps dabei.
 <Callout type="warning" emoji="👨🏻‍💻">
 &xrarr; Vorführung der Konsole in Chrome und/oder Firefox
 
-&xrarr; Jeder kann mitmachen (`F12` im Chrome-Browser)
+&xrarr; Jeder kann mitmachen (Taste `F12` im Chrome-Browser)
 </Callout>
 
 In fast allen Programmiersprachen wird beliebiger Text wie z.B. 
 `Hello, World!` als **String** (Zeichenkette) bezeichnet.
 
-Strings werden in fast allen Programmiersprachen mit doppelten Anführungszeichen umgeben:
+Strings werden in den meisten Programmiersprachen mit doppelten 
+Anführungszeichen umgeben:
 
 ```js
 "Hello, World!"
@@ -74,12 +75,12 @@ Klammern einsetzen. Wir verwenden also den String
 console.log("Hello, World!") 
 ```
 
-Oft sagen wir hierzu auch „der Funktion bzw. Methode beim Aufruf 
-ein Parameter oder ein Argument übergeben“.
+Oft sagen wir hierzu auch, dass „_der Funktion bzw. Methode beim Aufruf 
+ein Parameter oder ein Argument übergeben wird_“.
 
 Es gibt auch Funktionen/Methoden ohne Parameter und solche mit 
 mehreren Parametern. Ebenso können sie ein Ergebnis als 
-**Rückgabewert** liefern (hier bei `console.log()` nicht relevant).
+**Rückgabewert** liefern (dies ist hier bei `console.log()` nicht relevant).
 
 Nun haben wir eine korrekte **Anweisung** in JavaScript 
 programmiert.
@@ -97,6 +98,7 @@ Ein paar Bemerkungen dazu:
 - Jeder Browser hat eine JavaScript-Konsole, in der JavaScript-Code ausprobiert werden kann. Dort funktioniert auch die Methode  `console.log()`.
 - Im Browser kann auch etwas in einem UI-Dialog mit `alert()`  angezeigt werden.
 - In dieser Vorlesung betrachten wir JavaScript weitestgehend ohne HTML und CSS (&xrarr; dies findet evtl. in der Vorlesung „Web-Engineering“ statt).
+- Text bzw. Strings können in JavaScript entweder mit doppelten (`""`) oder einfachen (`''`) Anführungszeichen umgeben werden.
 
 ## Programmierumgebung
 
@@ -104,7 +106,7 @@ Für die Verwendung einer Programmiersprache werden zusätzliche
 Werkzeuge wie Editoren, Interpreter/Compiler oder komplette
 Entwicklungsumgebungen benötigt.
 
-JavaScript hat den Vorteil, dass jeder Browser eine sogenannte
+JavaScript ist leicht zugänglich, weil jeder Browser eine sogenannte
 Konsole hat, in der mit JavaScript experimentiert werden kann
 (außer auf dem Smartphone oder Tablet). Die Konsole
 (_console_) ist Teil der Entwicklerwerkzeuge (_developer tools_)
@@ -155,6 +157,7 @@ einheitlich abläuft. Hierzu ist dann auch die Verwendung von
 [git](https://git-scm.org) sinnvoll. 
 </Callout>
 
+<Callout type="info">
 Es gibt weitere Alternativen zu NodeJS für 
 JavaScript-Laufzeitumgebungen, die aber noch nicht ausgereift
 oder etabliert sind:
@@ -164,12 +167,15 @@ oder etabliert sind:
 - [Rome](https://rome.tools)
 - weitere?
 
+&xrarr; Eventuell könnte sich in Zukunft herausstellen, dass eine andere
+Laufzeitumgebung besser geeignet ist als NodeJS.
+</Callout>
+
 ## Inspiration 
 
 Es gibt einigende spannende Programmierungen für besondere
-Einsatzbereiche wie Grafik oder Spiele, die direkt ohne etwas
-installieren zu müssen online im Browser funktionieren.
-In folgenden Beispiele wird mit 
+Einsatzbereiche wie Grafik oder Spiele, die online im Browser funktionieren
+&mdash; ohne etwas installieren zu müssen. Ein paar Beispiele:
 
 - Grafische Programmierung mit [p5js](https://p5js.org) &mdash; basiert auf [Processing](https://processing.org/)
 - Spiele mit [MakeCode Arcade](https://arcade.makecode.com) &mdash; unterstützt Scratch, JavaScript und Python
