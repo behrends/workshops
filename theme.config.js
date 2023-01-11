@@ -1,5 +1,6 @@
 export default {
-  docsRepositoryBase: 'https://github.com/behrends/workshops/tree/main',
+  docsRepositoryBase:
+    'https://github.com/behrends/workshops/tree/main',
   editLink: {
     text: 'Diese Seite bei GitHub →',
   },
@@ -32,7 +33,7 @@ export default {
               Erik Behrends
             </a>
           </span>
-          <a href="/impressum" style={{ marginLeft: '10px' }}>
+          <a href="/impressum" className="impressum">
             Impressum
           </a>
         </span>

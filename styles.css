@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.impressum::before {
+  content: '・';
+  margin-left: '10px';
+}
