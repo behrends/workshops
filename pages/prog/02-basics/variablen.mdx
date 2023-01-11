@@ -82,7 +82,7 @@ let class = "Schulkasse 8a"; // Fehler!
 // --> Uncaught SyntaxError: unexpected token: keyword 'class'
 ```
 
-Mehr zu möglichen Bezeichnern folgt später. 
+Mehr zu möglichen Bezeichnern folgt weiter unten. 
 
 Die beiden Anweisungen zur Deklaration und der ersten Zuweisung
 eines Wertes an die Variablen lassen sich in eine Anweisung 
@@ -111,7 +111,7 @@ let myVariable = 24, variable2 = "Hi!";
 ```
 
 Mit der Methode `console.log()` können wir uns den Inhalt bzw. aktuellen
-Wert eine Variable ausgeben lassen:
+Wert einer Variablen ausgeben lassen:
 
 ```js
 console.log(myVariable); // ergibt 24
@@ -150,28 +150,27 @@ console.log(thisVariableDoesNotExist); // ReferenceError
 Konstanten werden mit dem Schlüsselwort `const` deklariert.
 
 Konstanten <mark>müssen direkt bei der Deklaration mit einem Wert 
-initialisiert werden</mark>, der unveränderlich (konstant) ist. 
+initialisiert werden</mark>, der danach im weiteren Verlauf des Programms unveränderlich (konstant) ist. 
 
 ```js
 const answer = 42;
 const unknownName = "John Doe";
 
 // Fehler: Konstanten können nicht geändert werden!
-answer = 23; --> würde Fehler ergeben
+answer = 23; // --> würde Fehler ergeben
 	
 // Fehler: Konstanten ohne Wert deklarieren
 const notAllowed;
 ```
 
 <Callout type="error">
-Es gibt auch die Möglichkeit, Variablen mit `var` zu deklarieren.
+Es gibt in JavaScript auch die Möglichkeit, Variablen mit `var` zu deklarieren.
 Davon wird inzwischen abgeraten &mdash; auch wenn dies noch
 immer möglich ist und oftmals keine Probleme verursacht.
 
-Ein Grund dafür ist, dass es mit `var` keine Unterscheidung
-zwischen Variablen und Konstant gibt. Ein anderer besteht 
-darin, dass mit `var` deklarierte Variablen in verschiedenen 
-Gültigkeitsbereichen sichtbar sein können:
+Mit `var` deklarierte Variablen haben einen Gültigkeitsbereich, 
+der sich nicht auf den umgebenden [Block](../glossar#Block)
+bezieht (sondern auf die umgebende Funktion):
 
 ```js
 if (true) {

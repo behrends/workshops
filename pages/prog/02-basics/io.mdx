@@ -33,7 +33,12 @@ Mit dieser Methode kann im Prinzip „alles“ ausgeben werden:
 Text bzw. Strings, Zahlen, Ausdrücke, Variableninhalte, 
 Rückgabewerte von Funktionen, usw.
 
-Folgendes Beispiel kann auch angepasst werden:
+<Callout type="info">
+Der Code im folgenden Beispiel kann angepasst werden und stellt die
+Ausgaben mit `console.log()` automatisch unterhalb des Codes dar:
+</Callout>
+
+<br/>
 
 <JSEditor code={`// Eigene Anweisungen mit console.log hier eingeben und ausprobieren
 console.log(456 + 777);
@@ -127,7 +132,7 @@ und nach Drücken von Enter/Return wird der Text der Variablen
 zugewiesen (im Beispiel oben `name`).
 
 Dies funktioniert leider nicht in NodeJS — aber es gibt z.B. 
-`readline-sync`, siehe unten.
+geeignete Hilfsbibliotheken wie `readline-sync` (siehe unten).
 
 Wie kann der Text in eine ganze Zahl für Berechnungen 
 umgewandelt werden?

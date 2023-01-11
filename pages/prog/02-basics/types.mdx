@@ -32,9 +32,9 @@ Wertzuweisungen ändern.
 diese [Tabelle](https://www.progcontent.com/js-from-java/intro)
 verwiesen.)
 
-Mit der überaus populären „Spracherweiterung“ 
+Die überaus populäre „Spracherweiterung“ 
 [TypeScript](https://typescriptlang.org)
-werden JavaScript statische Typen hinzugefügt.
+ergänzt JavaScript mit statischen Typen und zusätzlichen Sprachkonstrukten wie z.B. Interfaces und Generics.
 
 
 ## Übersicht
@@ -98,15 +98,18 @@ let s2 = 'String mit einfachen Anführungszeichen';
 let s3 = `String mit Backtick oder schrägem Apostroph`;
 ```
 
-In allen drei Fällen erhalten wir Strings. Die Begrenzer (Anführungszeichen) dürfen nicht vermischt werden,
+In allen drei Fällen erhalten wir Strings. Die Begrenzer (Anführungszeichen) dürfen nicht vermischt werden.
 
 Für einzelne Zeichen gibt es keinen Datentyp `char` wie in Java —
 auch `'a'` ist ein String. 
 
 ### Template-Strings
 
-Praktisch ist die Stringinterpolation mit Template-Strings.
-Durch `${...}` können innerhalb von   
+Wenn ein String mit \` \` umgeben wird, dann handelt es
+sich um einen sogenannten Template-String. Praktisch ist die 
+String-Interpolation mit Template-Strings. Durch `${...}` können 
+innerhalb von  \` \` dynamisch beliebige JavaScript-Ausdrücke 
+eingesetzt werden:
 
 ```
 `ein String mit Interpolation ${2+3}`
@@ -114,7 +117,9 @@ Durch `${...}` können innerhalb von
 // ein String mit Interpolation 5
 ```
 
-dynamisch beliebige JavaScript-Ausdrücke eingesetzt werden:
+Strings lassen sich somit im Vergleich zu kombinierten
+Strings mit `+` (sogenannte String-Konkatenation) auf 
+übersichtlichere Weise z.B. mit Variablenwerten zusammensetzen:
 
 ```js	
 let firstName = 'Jane';
