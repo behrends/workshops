@@ -32,6 +32,12 @@ gleich (`>=`), etc.
 Es gibt mehrere **einstellige** und **zweistellige** Operatoren.
 (Ein Operator ist sogar dreistellig.) 
 
+<Callout type="info">
+Der Operator `typeof`, der in der Lektion zu 
+[Datentypen](../02-basics/types#typeof) besprochen wurde,
+ist ein Beispiel für einen einstelligen Operator.
+</Callout>
+
 ## Zweistellige numerische Operatoren
 
 - ``+`` Addition
@@ -127,6 +133,14 @@ sowohl Inhalt als auch den Datentypen in den Vergleich einbezieht.
 So ergibt der Vergleich mit `===` für einen Wert vom Typ `string` 
 mit einem Wert vom Typ `number` grundsätzlich `false`, da dies
 verschiedene Datentypen sind.
+</Callout>
+
+<Callout type="info">
+In den meisten Fällen ist eine Verwendung eines schwachen 
+Vergleichsoperators (`==` und `!=`) unproblematisch. Dennoch
+sollte aus oben genannten Gründen stets ein starker Vergleichsoperator
+(`===` und `!==`) eingesetzt werden &mdash; dies ist eine bevorzugte und
+empfohlene Herangehensweise („_best practice_“) in JavaScript.
 </Callout>
 
 ## Logische Operatoren
