@@ -168,26 +168,8 @@ Es gibt in JavaScript auch die Möglichkeit, Variablen mit `var` zu deklarieren.
 Davon wird inzwischen abgeraten &mdash; auch wenn dies noch
 immer möglich ist und oftmals keine Probleme verursacht.
 
-Mit `var` deklarierte Variablen haben einen Gültigkeitsbereich, 
-der sich nicht auf den umgebenden [Block](../glossar#Block)
-bezieht (sondern auf die umgebende Funktion):
-
-```js
-if (true) {
-  var name = "Alice"; // verwende "let" anstatt "var"
-}
-
-console.log(name); // Ausgabe ist Alice, Variable hier sichtbar
-// die Variable name sollte hier nicht sichtbar sein!
-// --> d.h. mit let erhalten wir hier einen ReferenceError
-```
-
-Mit `let` und `const` tritt dieses Problem nicht auf,
-da hierbei der Gültigkeitsbereich nur im umgebenden Block liegt.
-
-Die Quelle des Beispiel-Codes und mehr Infos dazu 
-sind unter [javascript.info/var](https://javascript.info/var)
-zu finden.
+Mehr Infos dazu sind unter 
+[javascript.info/var](https://javascript.info/var) zu finden.
 </Callout>
 
 
