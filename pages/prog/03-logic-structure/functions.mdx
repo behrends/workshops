@@ -12,7 +12,7 @@ import { Callout } from 'nextra-theme-docs'
   **Ziel:** Funktionen geben Programmen Struktur
 </Callout>
 
-<Callout type="warning">
+<Callout type="info">
 Wir betrachten Funktionen hier zunächst als Möglichkeit,
 Anweisungen zusammenzufassen und somit Struktur im
 Programm zu erhalten.
@@ -30,9 +30,9 @@ komplexe Berechnungen, usw.
 
 Folgendes kann mit Funktionen erreicht werden:
 
-- Strukturierung bzw. Modularisierung des Programms
-- Reduzierung des Programmieraufwands (z.B. Wiederverwendbarkeit)
-- Leichtere Wartbarkeit von Programmen
+- Strukturierung bzw. Modularisierung des Programms, wodurch Programme leichter nachvollziehbar werden (einfachere Lesbarkeit)
+- Reduzierung des Programmieraufwands (z.B. durch Wiederverwendbarkeit bestimmter Abläufe)
+- Anpassungen von Programmen werden erleichtert (bessere Wartbarkeit)
 
 **Bisherige Verwendung bzw. Aufrufe von Funktionen**
 
@@ -55,7 +55,7 @@ Im **Aufruf** von `console.log` **übergeben** wir `input` als
 
 Eine Funktion kann keine bis beliebig viele Parameter 
 (Argumente) haben. Eine Funktion hat **immer** einen 
-Rückgabewert (Ergebnis) &mdash; auch ohne `return`.
+Rückgabewert (Ergebnis) &mdash; auch ohne `return`. Allerdings kann dieser beim Aufruf der Funktion ignoriert werden (z.B. wenn keine Zuweisung des Rückgabewerts an eine Variable erfolgt).
 
 ![Grundstruktur von Funktionen](/images/prog/funktionen.png)
 
@@ -95,8 +95,20 @@ Somit besteht die Deklaration einer Funktion aus
 
 Der **Funktionsrumpf** steht zwischen `{ … }` und enthält Anweisungen.
 
-Lokale Variablen können im Rumpf der Methode deklariert werden, sodass dies ihr Gültigkeitsbereich ist.
+Lokale Variablen können im Rumpf der Methode deklariert werden, sodass dies ihr Gültigkeitsbereich ist,
+und sie außerhalb der Funktion nicht existieren bzw. nicht bekannt sind. 
 
+<Callout type="info">
+Gibt es eine Variable/Konstante mit Namen `myName` außerhalb der Funktion,
+dann kann innerhalb der Funktion eine Variable/Konstante mit gleichem Namen `myName` deklariert werden. 
+
+<mark>Es handelt sich dann aber um zwei verschiedene Variablen mit gleichem Namen.</mark>
+</Callout>
+
+<Callout type="info">
+Funktionen können Funktionen enthalten, d.h. es ist möglich, innerhalb einer Funktion 
+sozusagen eine „lokale“ Funktion zu deklarieren, die nur in dieser Funktion existiert.
+</Callout>
 
 ### Aufruf einer Funktion
 
@@ -149,7 +161,7 @@ Auswirkung außerhalb der Funktion.
 **Änderungen an Eigenschaften von Objekt-Parametern wirken 
 sich aber aus!**
 
-<Callout type="warning">
+<Callout type="info">
 Es folgt ein Beispiel, dass evtl. erst später nachvollziehbar 
 wird nachdem wir Objekte in JavaScript besprochen haben.
 </Callout>

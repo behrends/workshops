@@ -32,6 +32,12 @@ gleich (`>=`), etc.
 Es gibt mehrere **einstellige** und **zweistellige** Operatoren.
 (Ein Operator ist sogar dreistellig.) 
 
+<Callout type="info">
+Der Operator `typeof`, der in der Lektion zu 
+[Datentypen](../02-basics/types#typeof) besprochen wurde,
+ist ein Beispiel für einen einstelligen Operator.
+</Callout>
+
 ## Zweistellige numerische Operatoren
 
 - ``+`` Addition
@@ -129,6 +135,14 @@ mit einem Wert vom Typ `number` grundsätzlich `false`, da dies
 verschiedene Datentypen sind.
 </Callout>
 
+<Callout type="info">
+In den meisten Fällen ist eine Verwendung eines schwachen 
+Vergleichsoperators (`==` und `!=`) unproblematisch. Dennoch
+sollte aus oben genannten Gründen stets ein starker Vergleichsoperator
+(`===` und `!==`) eingesetzt werden &mdash; dies ist eine bevorzugte und
+empfohlene Herangehensweise („_best practice_“) in JavaScript.
+</Callout>
+
 ## Logische Operatoren
 
 Logische Operatoren werden auf Wahrheitswerte angewendet. 
@@ -148,16 +162,15 @@ let y = (8 < 9) || (1 > 5); // --> true
 let z = !x; // --> true
 ```
 
-<Callout type="warning">
-Wir nennen das Zeichen `&` der Einfachheit halber
-**„Und-Zeichen“** und der **„senkrechte Strich“** `|` 
+<Callout type="info">
+Wir nennen das Zeichen `&` **„Und-Zeichen“** und der **„senkrechte Strich“** `|` 
 wird in der Programmierung häufig auf Englisch „_pipe_“ genannt.
 </Callout>
 
 **Beispiel**
 
 ```js
-// Mehrfachdeklaration
+// Mehrfachdeklaration von drei Variablen mit Initialisierungen
 let age = 23, age2 = 134, age3 = 17;
 
 // UND: Alter eines Erwachsenen liegt zwischen 18 und 120 
@@ -171,7 +184,7 @@ age3 >= 18 || age3 < 14; // false (beide sind false)
 ```
 
 
-Die weiteren logischen Operatoren wie z.B. `&` und `|` 
+Die übrigen logischen Operatoren wie z.B. `&` und `|` 
 behandeln wir nicht. 
 
 ## Besondere einstellige Operatoren
@@ -199,11 +212,13 @@ x++; // --> Erhöht x um 1
 Der Wert der Variablen x wird geändert! \
 (`++` und `--` führen entsprechende Zuweisungen aus)
 
-<Callout type="warning">
-Die Inkrement- und Dekrement-Operatoren dürfen nicht mit
-Konstanten verwendet werden, da diesen keine neuen Werte
-zugewiesen werden dürfen.
-</Callout>
+Sowohl der vorangestellte Präfix-Operator (`++x`) und der 
+nachfolgend notierte Postfix-Operator (`x++`) erhöhen den 
+aktuellen Wert der Variablen `x` um `1`.
+Dennoch gibt es einen subtilen Unterschied in der Auswertung (Semantik)
+der beiden Varianten von `++` und `--`,
+wie folgendes „Quiz“ veranschaulichen 
+soll (Code in der Konsole des Browsers ausprobieren).
 
 **Einstellige Operatoren: Quiz**
 
@@ -220,6 +235,27 @@ console.log(x);    // Nr. 4
 //optional: auch mit x-- und --x durchspielen
 ```
 
+<Callout type="info">
+Der Postfix-Operator (`x++`) wird erst
+auf die Variable (hier `x`) angewendet, nachdem `x` ausgewertet wurde
+, z.B. in der Ausgabe mit `console.log(x++)`. 
+
+Der Präfix-Operator (`++x`) wird 
+angewendet bevor die Variable (hier `x`) 
+ausgewertet wird, z.B. in der Ausgabe mit `console.log(++x)`.
+
+In den meisten Verwendungen hat
+dieser Unterschied keine Auswirkungen. 
+Dennoch wird manchmal empfohlen, anstatt
+`++` bzw. `--` eine „normale“ Zuweisung
+zu verwenden (`x = x + 1` bzw. `x = x - 1`).
+</Callout>
+
+<Callout type="warning">
+Die Inkrement- und Dekrement-Operatoren dürfen nicht mit
+Konstanten verwendet werden, da diesen keine neuen Werte
+zugewiesen werden dürfen.
+</Callout>
 
 ## Zusammengesetzte Zuweisungsoperatoren
 
@@ -257,7 +293,7 @@ Lesbarkeit eines Programms kann sich dadurch verschlechtern.
 
 ## Bedingungsoperator (dreistellig)
 
-In einigen Programmiersprachen gibt es auch einen dreistelligen 
+In einigen Programmiersprachen und auch in JavaScript gibt es einen dreistelligen 
 Operator. Mit diesem lassen sich einfache Fallunterscheidungen 
 in kompakten Ausdrücken formulieren (ohne `if`).
 
@@ -270,7 +306,7 @@ WAHRHEITSWERT ? ERGEBNIS_WENN_TRUE : ERGEBNIS_WENN_FALSE
 
 - Der Ausdruck in `WAHRHEITSWERT` muss vom Typ `boolean` sein.
 - Durch `WAHRHEITSWERT` wird also die Bedingung ausgedrückt.
-- Für `ERGEBNIS_WENN_TRUE` und `ERGEBNIS_WENN_FALSE` müssen die gleichen Typen verwendet werden.
+- Für `ERGEBNIS_WENN_TRUE` und `ERGEBNIS_WENN_FALSE` sollten die gleichen Typen verwendet werden (z.B. Zahlen oder Strings)
 - Das Ergebnis (`ERGEBNIS_WENN_TRUE` oder `ERGEBNIS_WENN_FALSE`) kann einer Variablen zugewiesen werden. 
 
 Beispiel:
