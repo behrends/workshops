@@ -1,20 +1,20 @@
 import { Callout } from 'nextra-theme-docs'
 
-# Layout mit FlexBox
+# Layout mit Flexbox
 
 <Callout>
   **Dauer:** 45 Minuten
 
-  **Thema:** FlexBox: Ausrichtung und Anordnung
+  **Thema:** Flexbox: Ausrichtung und Anordnung
 
-  **Ziel:** Seitenlayouts mit FlexBox gestalten
+  **Ziel:** Seitenlayouts mit Flexbox gestalten
 </Callout>
 
-Mit dem sogenannten FlexBox-Layout kann für verschiedene Display-Größen (Laptop, 
+Mit dem sogenannten Flexbox-Layout kann für verschiedene Display-Größen (Laptop, 
 Smartphone, usw.) eine automatisch passende Anordnung der HTML-Elemente erreicht 
 werden.
 
-Das FlexBox-Layout wird in einem HTML-Element mit dieser Eigenschaft aktiviert:
+Das Flexbox-Layout wird in einem HTML-Element mit dieser Eigenschaft aktiviert:
 
 ```css
 display: flex;
@@ -33,11 +33,11 @@ auf [Codepen](https://codepen.io/pen) entwickeln.
 
 ## Hauptachse mit `flex-direction` bestimmen
 
-Die Anordnung der Elemente innerhalb des FlexBox-Layouts orientiert sich 
+Die Anordnung der Elemente innerhalb des Flexbox-Layouts orientiert sich 
 an der Ausrichtung der sogenannten **Hauptachse**. Diese verläuft 
 standardmäßig horizontal von links nach rechts (`row` steht für Zeile). 
 
-Die CSS-Eigenschaft `flex-direction` legt also in einer FlexBox durch 
+Die CSS-Eigenschaft `flex-direction` legt also in einer Flexbox durch 
 den Wert `row` den Verlauf der Hauptachse von links nach rechts (zeilenartig).
 Mit dem Wert `column` (d.h. mit `flex-direction: column;` wird ein 
 vertikales Layout von oben nach unten bestimmt (`column` steht für Spalte).
@@ -76,9 +76,9 @@ die nächste Zeile bzw. Spalte erreicht werden:
 flex-wrap: wrap;
 ```
 
-## Weiteres zu FlexBox 
+## Weiteres zu Flexbox 
 
-Wir haben oben die wichtigsten Eigenschaften des FlexBox-Layouts besprochen:
+Wir haben oben die wichtigsten Eigenschaften des Flexbox-Layouts besprochen:
 
 - Aktivierung mit `display: flex;`
 - Ausrichtung der Hauptachse mit `flex-direction: …;`
@@ -86,6 +86,8 @@ Wir haben oben die wichtigsten Eigenschaften des FlexBox-Layouts besprochen:
 - Anordnung auf der Querachse mit `align-items: …;`
 - Umbrüche mit `flex-wrap: wrap;`
 
-Mehr zu FlexBox im Mozilla Developer Network (MDN) 
+Mehr zu Flexbox im Mozilla Developer Network (MDN) 
 [hier](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) und 
 [hier](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout).
+
+Empfehlenswert ist dieses [interaktive Tutorial zu Flexbox](https://www.joshwcomeau.com/css/interactive-guide-to-flexbox/).
