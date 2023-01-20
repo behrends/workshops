@@ -134,6 +134,22 @@ Danach steht das Ergebnis bzw. der Rückgabewert des
 Funktionsaufrufs in der Konstanten `result` zur weiteren
 Verwendung bereit.
 
+<Callout type="warning">
+Auch wenn eine Funktion erst später oder am Ende eines Skripts bzw.
+der Datei deklariert wird, dann kann diese schon zuvor aufgerufen werden:
+
+```js
+test(); // Aufruf einer Funktion...
+// ... die erst „später“ deklariert wird
+function test() {
+  console.log("Test!");
+}
+```
+
+Dennoch ist es in der Regel empfehlenswert, Funktionen
+am Anfang einer Datei zu deklarieren, damit der Code
+übersichtlicher, lesbarer und leichter nachvollziehbarer ist.
+</Callout>
 
 ## Ablauf des Funktionsaufrufs im Detail
 
