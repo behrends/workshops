@@ -35,32 +35,34 @@ Eine `while`-Schleife funktioniert wie folgt:
 
 Wie könnte die Quersumme einer Zahl berechnet werden?
 
-Erste Idee: Die letzte Ziffer einer Zahl kann von hinten bzw. 
+<mark>Das Vorgehen wird mit den folgenden Ideen in „Pseudocode“ beschrieben.</mark>
+
+**Erste Idee:** Die letzte Ziffer einer Zahl kann von hinten bzw. 
 von „rechts nach links“ mit Modulo berechnet werden (genauer 
 gesagt mit `% 10`):
 
 ```
 // ermittle nacheinander die Ziffern einer Zahl
 // „von hinten bzw. von rechts”
-835279 % 10 // ergibt die letzte Ziffer --> 9
-83527 % 10 // ergibt die letzte Ziffer --> 7
-8352 % 10 // ergibt die letzte Ziffer --> 2
+835279 % 10 // liefert die letzte Ziffer --> 9
+83527 % 10  // liefert die letzte Ziffer --> 7
+8352 % 10   // liefert die letzte Ziffer --> 2
 // usw.
 ```
 
-Zweite Idee: Die letzte Ziffer einer Zahl kann mit ganzzahliger 
+**Zweite Idee:** Die letzte Ziffer einer Zahl kann mit ganzzahliger 
 Division abgetrennt werden (genauer gesagt mit `/ 10`), sodass
 wir die restlichen Ziffern ohne die letzte Ziffern erhalten:
 
 ```
 // entferne nacheinander die letzte Ziffer 
 // hier im „Pseudocode“ sei / die ganzzahlige Division
-835279 / 10 // ergibt die letzte Ziffer --> 9
-83527 / 10 // ergibt die letzte Ziffer --> 7
-8352 / 10 // ergibt die letzte Ziffer --> 2
-// usw.
+835279 / 10 // liefert 83527 („schneidet 9 ab“)
+83527 / 10  // liefert 8352 („schneidet 7 ab“)
+8352 / 10   // liefert 835 („schneidet 2 ab“)
 ```
 
+<Callout type="warning">
 &xrarr; In JavaScript erhalten wir die ganzzahlige Division
 z.B. durch Math.trunc(835279 / 10) wodurch die Ziffern nach
 dem `.` abgeschnitten werden (_truncate_):
@@ -73,8 +75,9 @@ Math.trunc(8352 / 10) // entfernt die letzte Ziffer --> 835
 ```
 
 (`Math.floor` zum Abrunden der Zahl könnte auch verwendet werden.)
+</Callout>
 
-Die Ideen ergeben folgenden „Pseudocode“ als Vorüberlegung:
+Die Ideen ergeben folgenden **„Pseudocode“** als Vorüberlegung:
 
 ```
 // sei num eine beliebige, ganze Zahl
@@ -82,17 +85,17 @@ Die Ideen ergeben folgenden „Pseudocode“ als Vorüberlegung:
 // Berechnung
 // Variable result für das Ergebnis, initialisiere sie mit 0
 // Variable tmp wird mit num initialisiert
-// 1 solange tmp Ziffern hat (gehe ansonsten zu 2)
+// Schritt 1: solange tmp Ziffern hat (gehe ansonsten zu Schritt 2)
 //    --> schneide letzte Ziffer ganz rechts bzw. hinten ab
 //    result = result + nächste Ziffer in tmp
 
 //    --> ermittle Ziffern ohne Ziffern ganz rechts bzw. hinten
 //    tmp = tmp ohne erste Ziffer
 
-//    --> gehe zu 1
+//    --> gehe zu Schritt 1
 
 // Ausgabe: 
-// 2 result ist Quersumme von num
+// Schritt 2: result ist Quersumme von num
 ```
 
 Wenn die Funktionsweise von „solange“ (d.h. einer 
@@ -115,7 +118,7 @@ direkter ausgedrückt werden (ohne die Sprungmarken):
 // result ist Quersumme von num
 ```
 
-<Callout type="warning">
+<Callout type="info">
 Wir sehen hier ein Beispiel, wie Programmieren nicht nur
 das Schreiben von Code bedeutet. In vielen Situationen sind
 solche Vorüberlegungen nötig, um eine Lösung für ein Problem
@@ -171,7 +174,7 @@ while(i < numString.length) { // length ergibt Länge des Strings
 console.log(`Die Quersumme von ${numString} ist ${result}`)
 ```
 
-<Callout type="warning" emoji="👨🏻‍💻">
+<Callout type="info" emoji="👨🏻‍💻">
 Eventuell die einzelnen Hilfsmethoden und Bestandteile
 der Lösung vorführen und erläutern.
 </Callout>
