@@ -32,6 +32,12 @@ Hierbei ist besonders zu beachten, dass
 Arrays und Objekte den gleichen Datentyp haben,
 nämlich `object`. 
 
+<Callout type="info">
+**Tipp:** Mit der Methode `Array.isArray()` 
+kann herausgefunden werden, ob der Wert 
+einer Konstanten oder Variablen ein Array ist.
+</Callout>
+
 ## Werte einfacher Datentypen kopieren
 
 `number`, `string` und `boolean` werden
@@ -75,6 +81,7 @@ const object1 = { name: "Object1" };
 const object2 = object1;
 
 object2.name = "Object2";
+// Wert von name wurde in object1 UND object2 geändert!
 console.log(object1.name); // --> Object2
 console.log(object2.name); // --> Object2
 
@@ -82,6 +89,7 @@ const list1 = [1,2,3];
 const list2 = list1;
 
 list2[0] = 1000
+// Element 0 in list1 UND list2 wurde geändert!
 console.log(list1); // --> [1000,2,3]
 console.log(list2); // --> [1000,2,3]
 ```
