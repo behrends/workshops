@@ -19,32 +19,31 @@ objektorientierter Sicht betrachten.
 
 Oft werden mehrere Objekte gleicher Art benötigt 
 (z.B. mehrere Objekte für verschiedene Personen).
-Diese Objekte stets „wörtlich“ anzugeben (also 
-als konkrete Objekte bzw. Objekt-Literale zu 
-definieren), ist umständlich und könnte auch 
+Diese Objekte stets „wörtlich“ anzugeben &ndash; d.h. sie
+als konkrete Objekte bzw. Objekt-Literale zu definieren &ndash;  ist umständlich und könnte auch 
 fehleranfällig sein (wenn z.B. Eigenschaften nicht 
 angegeben werden).
 
 Klassen bieten in JavaScript die Möglichkeit, für 
 gleichartige Objekte einen „Bauplan“ („Blaupause“) 
-oder eine „Mustervorlage“ („Template“) zu definieren.
+bzw. eine „Mustervorlage“ („Template“) zu definieren.
 Mit Hilfe der Klasse können somit Objekte gleicher Art 
 mit einem bestimmten Aufbau erstellt werden.
 Eine Klasse definiert also die Struktur bzw. die 
-gewünschten Eigenschaften und Funktionene für Objekte, 
+gewünschten Eigenschaften und Funktionen für Objekte, 
 die anhand dieser Klasse erzeugt werden.
 
-Eine Klasse Person könnte vorgeben, dass durch diese 
+Eine Klasse `Person` könnte vorgeben, dass durch diese 
 Klasse erzeugte Objekte bestimmte Eigenschaften wie 
-z.B. Vornamen, Nachnamen, Wohnort, usw. haben (und 
-somit konkrete Personen repräsentieren).
+z.B. Vornamen, Nachnamen, Wohnort, usw. haben &mdash; und 
+somit konkrete Personen repräsentieren.
 
 ## Klassen deklarieren
 
-Klassen werden mit class gefolgt vom Klassennamen 
-definiert (meistens mit Großbuchstaben beginnend). 
-Hier zunächst ohne Eigenschaften in den geschweiften 
-Klammern:
+Klassen werden mit `class` gefolgt vom Klassennamen 
+definiert, der meistens mit einem Großbuchstaben beginnt. 
+Hier wird die Klasse `Person` zunächst ohne Eigenschaften definiert (die geschweiften 
+Klammern sind noch leer):
 
 ```js
 class Person {};
@@ -53,7 +52,7 @@ class Person {};
 ## Objekte anhand einer Klasse erzeugen
 
 Die Objekterzeugung (bzw. Instanziierung), welche 
-durch `new ClassName()` erfolgt, kann direkt für 
+durch `new ClassName()` erfolgt (z.B. `new Person()` für die Klasse `Person`), kann direkt für 
 Variablenzuweisungen verwendet werden:
 
 ```js
@@ -66,8 +65,8 @@ für Variablen usw. eingesetzt werden.
 
 ## Eigenschaften für eine Klasse festlegen
 
-Zunächst haben wir noch keine Eigenschaften in der 
-Klasse `Person` definiert.
+Im Beispiel zuvor haben wir noch keine Eigenschaften in der 
+Klasse `Person` definiert:
 
 ```js
 class Person { 
@@ -88,6 +87,7 @@ class Person {
 }
 let john = new Person();
 let jane = new Person();
+// -> beide Objekte haben gleiche Werte in den Eigenschaften
 ```
 
 ## Zugriff auf Eigenschaften in Objekten
@@ -98,8 +98,11 @@ dann erhalten sie Eigenschaften als
 Objekten gewohnt zugegriffen werden kann: 
 
 ```js
-john['firstName']; // --> null
-jane.lastName; // --> Anonymous
+// Wie bei Objekte kann der Zugriff auf die Werte von Eigenschaften
+// mit [] bzw. eckigen Klammern oder 
+// mit . bzw. der „Punktnotation“ erfolgen.
+john["firstName"]; // --> null entspricht john.firstName
+jane.lastName; // --> Anonymous entspricht jane["lastName"]
 ```
 
 ## Konstruktoren
@@ -109,8 +112,8 @@ unterschiedlichen Eigenschaften für verschiedene
 Person-Objekte zu setzen: 
 
 ```js
-john.firstName = 'John';
-john.lastName = 'Smith';
+john.firstName = "John";
+john.lastName = "Smith";
 ```
 
 Dies kann dadurch vereinfacht werden, dass 
@@ -141,26 +144,29 @@ Dabei sind passende Parameter für die Eigenschaften
 bei Verwendung von `new` im Konstruktoraufruf 
 anzugeben.
 
-Der Konstruktor in der Person-Klasse erwartet zwei 
-Parameter, daher wird ein Person-Objekt nun so 
+Der Konstruktor in der `Person`-Klasse erwartet zwei 
+Parameter, daher wird ein `Person`-Objekt nun so 
 erzeugt: 
 
 ```js
-let jim = new Person('Jim', 'Wilkens');
-let joan = new Person('Joan', 'Milner');
+let jim = new Person("Jim", "Wilkens");
+let joan = new Person("Joan", "Milner");
 ```
 
 Im Konstruktor werden die 
 Eigenschaften/Instanzvariablen mit
 
 ```js
-this.firstName=firstName;
+this.firstName = firstName;
 ``` 
 
-usw. erzeugt und initialisiert (diese müssen nicht 
-vorher deklariert werden). 
+usw. erzeugt und initialisiert &mdash; diese müssen nicht 
+vorher deklariert werden. 
 
 ## Funktionen / Methoden in Klassen
+
+In Klassen können Funktionen definiert werden.
+Dabei wird kein `function`-Schlüsselwort angegeben:
 
 ```js
 class Person {
@@ -179,14 +185,23 @@ class Person {
 }
 ```
 
-&xrarr; Kein `function`-Schlüsselwort, kein Komma zwischen den Funktionen. 
+&xrarr; Funktionen in Klassen werden meistens **Methoden** genannt.
+
+Der Aufruf einer Methode erfolgt mit über ein Objekt:
+
+```js
+const somePerson = new Person("John", "Doe");
+// Methodenaufruf mit Rückgabewert:
+const name = somePerson.fullName();
+console.log("Name: " + name);
+```
 
 ## Bemerkungen
 
 - JavaScript erlaubt nur einen Konstruktor pro Klasse (anders als Java u.a.).
 - Objekte, die mit einer Klasse erzeugt werden, heißen **Instanzen** dieser Klasse.
 - Die Eigenschaften eines Objektes (wie z.B. `firstName`) heißen daher auch **Instanzvariablen** — aber dies betrifft meistens nicht die Funktionen einer Klasse.
-- Funktionen in Objekteigenschaften werden oft **Methoden** genannt.
+- Funktionen in Objekteigenschaften werden meistens **Methoden** genannt.
 - Mit dem Operator `instanceof` kann in JavaScript festgestellt werden, ob ein Objekt die Instanz einer bestimmten Klasse ist: 
 
 ```js
