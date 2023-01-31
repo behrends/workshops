@@ -1,3 +1,5 @@
 {
-  "import-export": "import und export"
+  "import-export": "import und export",
+  "json": "JSON",
+  "local-storage": "localStorage"
 }
