@@ -148,7 +148,10 @@ liegt, dann kann diese JSON-Datei in einem JavaScript-Programm in
 NodeJS oder replit so eingelesen werden:
 
 ```js
-const data = require('./data.json');
+// TODO: einfacher in NodeJS ab V18?
+import { createRequire } from "module";          
+const require = createRequire(import.meta.url);  
+const data = require("./data.json");
 ```
 
 Danach stehen die Daten in der Konstanten `data` zur Verfügung:
