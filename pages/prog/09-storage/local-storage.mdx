@@ -30,7 +30,7 @@ Vergleich zu asynchronen Ansätzen wie der Datenbank
 in replit.com deutlich einfacher, mit `localStorage` 
 zu arbeiten.
 
-<Callout type="warning">
+<Callout type="info">
 Im Live Coding wird `localStorage` in der Konsole
 der DevTools eines Browsers vorgeführt.
 </Callout>
@@ -47,7 +47,7 @@ kann. Dazu kann in replit.com unter „Packages“
 Klick wird das passende Ergebnis in unserem
 Projekt als Abhängigkeit (_dependency_) installiert.
 
-<Callout type="warning">
+<Callout type="info">
 Dies wird zum Mitmachen vorgeführt. 
 
 Zu beachten ist, dass es nun zwei neue Dateien in
@@ -57,7 +57,7 @@ Dateien in replit.com-Projekten automatisch
 erstellt.
 </Callout>
 
-<Callout type="warning">
+<Callout type="info">
 In NodeJS allgemein wird `localStorage` durch
 folgenden Terminal-Befehl im Projektverzeichnis
 installiert:
@@ -71,7 +71,7 @@ Die Einbindung von `localStorage` kann so
 mit `require` erfolgen:
 
 ```js
-const { LocalStorage } = require('node-localstorage');
+import { LocalStorage } from 'node-localstorage';
 const localStorage = new LocalStorage('./database');
 ```
 
@@ -186,11 +186,10 @@ eine eigene Datei zu erstellen, in der der
 Datenbankzugriff durch
 passende Funktionen erfolgt. Durch 
 [`import/export`](/prog/08-organize/import-export)
-oder [`exports/require`](/prog/08-organize/require)
 können diese Funktionen in anderen Dateien/Modulen
 verwendet werden.
 
-<Callout type="warning">
+<Callout type="info">
 Dies wird auch vorgeführt.
 
 Hierzu gibt es ein entsprechendes Beispiel
