@@ -148,10 +148,11 @@ liegt, dann kann diese JSON-Datei in einem JavaScript-Programm in
 NodeJS oder replit so eingelesen werden:
 
 ```js
-// TODO: einfacher in NodeJS ab V18?
-import { createRequire } from "module";          
-const require = createRequire(import.meta.url);  
-const data = require("./data.json");
+// JSON-Daten aus Datei einlesen mit Methode readFileSync
+// aus dem filesystem-Modul in NodeJS (--> Name lautet fs) 
+import * as fs from 'fs'; // importiere Methoden aus 'fs'
+const file = fs.readFileSync('./data.json'); // JSON-Datei einlesen
+const data = JSON.parse(file); // JSON-Daten --> JS Array/Objekte
 ```
 
 Danach stehen die Daten in der Konstanten `data` zur Verfügung:
@@ -160,3 +161,21 @@ Danach stehen die Daten in der Konstanten `data` zur Verfügung:
 console.log(data[2].name); // --> ergibt Kim
 ```
 
+<Callout type="info">
+Ab NodeJS Version 16 gibt es eine experimentelle Funktionalität,
+um JSON direkt per `import`-Anweisung zu importieren:
+
+
+```
+// JSON direkt importieren und als JavaScript interpretieren
+import data from './data.json' assert { type: 'json' };
+console.log(data); // JavaScript Daten werden ausgegeben
+```
+
+Diese Funktionalität ist noch nicht „offiziell“ stabil und ihre 
+Syntax könnte sich in Zukunft ändern. 
+
+<mark>&xrarr; Jährlich überprüfen und bei Stabilität als Standard vorführen.</mark>
+
+Mehr dazu in der [NodeJS Dokumentation](https://nodejs.org/dist/latest/docs/api/esm.html#json-modules).
+</Callout>
