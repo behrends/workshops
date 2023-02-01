@@ -8,32 +8,65 @@ import { Callout } from 'nextra-theme-docs'
   **Ziel:** import und export für Code-Organisation
 </Callout>
 
-**Vorbemerkung:** Funktioniert (noch) nicht in
-replit.com, das im Februar 2022 noch NodeJS Version
-12 verwenden. Unterstützt wird dies erst seit NodeJS 
-Version 14.
+JavaScript hat seit ECMAScript 2015 eine offizielle 
+für import- und export-Anweisungen. Damit lassen
+sich JavaScript-Projekte auf mehrere Dateien aufteilen 
+um eine übersichtliche Code-Struktur zu erhalten
+und z.B. Funktionen in anderen Dateien im Code 
+zu verwenden. Somit können Funktionen oder Klassen
+in einer bestimmtem Datei deklariert und **exportiert**
+werden, um sie in einer anderen Datei zu **importieren**
+und dort zu verwenden.
 
-JavaScript hat seit ECMAScript 2015 eine eigene 
-Syntax für import- und export-Anweisungen, die 
-etwas leichter als CommonJS mit `require` zu verwenden 
-ist. Sie ist außerdem der offizielle in Standard in
-JavaScript wohingegen CommonJS (`require`) nur 
-in NodeJS unterstützt wird.
+<Callout type="info">
+In NodeJS gibt es mit CommonJS und `exports/require` 
+einen eigenen Ansatz für Import/Export von JavaScript-Code. 
 
-Die Syntax von import und export in JavaScript
-sieht ähnlich aus wie die von CommonJS, hat aber 
-auch Ergänzungen wie z.B. `export default`.
+Mehr Infos zum Modulsystem in NodeJS sind
+[in der Dokumentation zu Node JS beschrieben](https://nodejs.org/api/esm.html).
+</Callout>
 
-Um import/export in NodeJS verwenden zu können,
-muss in `package.json` folgendes eingetragen werden:
+
+## Vorbereitungen in replit und NodeJS
+
+Um `import`/`export` in replit oder NodeJS verwenden 
+zu können, muss diese Funktionalität folgendermaßen 
+aktiviert werden:
+
+1. Falls noch nicht vorhanden, im Projektordner die Datei `package.json` erstellen: 
+  - In replit.com sollte diese schon vorhanden sein.
+  - In NodeJS kann diese mit `npm init` erstellt werden.
+2. Die Datei `package.json` öffnen.
+3. In `package.json` folgendes eintragen (z.B. nach dem Eintrag für `version`):
+  
+  ```
+  // in package.json hinzufügen:
+  "type": "module",
+  ```
+
+Die Datei `package.json` sollte dann z.B. so aussehenn:
 
 ```
-// in package.json hinzufügen:
-"type": "module"
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+
+  // usw.
+}
 ```
 
-(Es gibt auch andere Wege, import/export in NodeJS
-einzusetzen, wie [in der NodeJS-Dokumentation beschrieben](https://nodejs.org/api/esm.html#enabling).)
+<Callout type="warning">
+Das Komma am Ende der Zeile darf nicht fehlen!
+
+```
+ "type": "module",
+```
+</Callout>
+
+### Exportieren (von Funktionen o.a.)
 
 Nun kann z.B. in einer Datei `util/computations.js`
 etwas exportiert werden:
@@ -56,8 +89,10 @@ es höchstens eine `export default`-Anweisung geben.
 Im obigen Beispiel werden drei Funktionen exportiert.
 Dies ist auch mit Klassen oder Konstanten möglich,
 wobei die Konstanten zunächst initialisiert und 
-dann exportiert werden müssen, wo oben in den
+dann exportiert werden müssen, wie oben in den
 letzten zwei Zeilen zu sehen.
+
+### Importieren (von Funktionen o.a.)
 
 Importiert werden die „normalen“ Exports durch
 Angabe der Namen in geschweiften Klammen (hier
@@ -75,10 +110,10 @@ console.log(test2());
 console.log(myConstant);
 ```
 
-<Callout type="error">
+<Callout type="warning">
 In React mit NextJS und in React Native werden 
 bei `import`-Anweisungen die Dateiendungen `.js` 
-weggelassen. In NodeJS hingegen müssen diese 
+häufig weggelassen. In NodeJS hingegen müssen diese 
 normalerweise angegeben werden.
 
 Mit dem Zusatz 
@@ -92,10 +127,6 @@ node --experimental-specifier-resolution=node index
 
 Mehr dazu [in der Dokumentation zu NodeJS](https://nodejs.org/api/esm.html#esm_customizing_esm_specifier_resolution_algorithm).
 </Callout>
-
-
-
-
 
 <Callout type="warning">
 **Vertiefendes Material**

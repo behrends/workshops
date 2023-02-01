@@ -11,7 +11,9 @@
   "05-loops": "5 - Schleifen (while)",
   "06-arrays": "6 - Arrays",
   "07-structure": "7 - Objekte und Klassen",
-  "08-organize": "8 - Code organisieren",
-  "09-storage": "9 - Daten speichern",
-  "10-misc": "10 - Weiterführendes"
+  "08-organize": "8 - Code und Daten organisieren",
+  "----": {
+    "type": "separator"
+  },
+  "09-misc": "Weiterführendes"
 }
