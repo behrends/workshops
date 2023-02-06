@@ -137,8 +137,8 @@ Die Ausführung des Programms hält an, Text kann eingegeben werden
 und nach Drücken von Enter/Return wird der Text der Variablen 
 zugewiesen (im Beispiel oben `name`).
 
-Dies funktioniert leider nicht in NodeJS — aber es gibt z.B. 
-geeignete Hilfsbibliotheken wie `readline-sync` (siehe unten).
+Dies funktioniert leider nicht in NodeJS — aber es gibt dafür
+geeignete Hilfsbibliotheken (siehe unten).
 
 Wie kann der Text in eine ganze Zahl für Berechnungen 
 umgewandelt werden?
@@ -169,24 +169,14 @@ Im Januar 2023 hatte `prompt` in replit.com
 Probleme mit der Eingabe von Umlauten, die
 bei der Eingabe falsch dargestellt werden. 
 
-Mit der Hilfsbibliothek `readline-sync` 
-tauchten diese Probleme nicht auf. `readline-sync` kann in [replit.com](https://replit.com) 
-im Bereich _Packages_ (das Würfel-Symbol in der
-linken Seitenleiste) eingebunden werden.
-
-Weitere Infos: https://github.com/anseki/readline-sync
-
 ## Eingabe in NodeJS
 
 In NodeJS funktioniert `prompt` leider nicht. 
 
 Die Eingabe lässt sich sicherlich auch mit der 
 API von NodeJS umsetzen. Bequemer lässt sich die 
-Eingabe jedoch durch eine Hilfsbibliothek wie z.B. 
-`readline-sync` in NodeJS realisieren (siehe oben)
-
-Alle Infos zu `readline-sync`: 
-[github.com/anseki/readline-sync](https://github.com/anseki/readline-sync)
+Eingabe jedoch durch eine Hilfsbibliothek in NodeJS 
+realisieren.
 
 In einer [späteren Lektion](/prog/10-misc/libraries) 
 finden sich Infos zu weiteren nützlichen 

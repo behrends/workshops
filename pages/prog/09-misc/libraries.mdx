@@ -74,8 +74,13 @@ als Abhängigkeit hinzugefügt werden.
 
 ### Synchrone prompt-Bibliotheken
 
-- https://github.com/heapwolf/prompt-sync
-- https://github.com/Vpet95/prompt-sync-plus (relativ neu (2022), basiert auf `heapwolf/prompt-sync`, siehe oben)
+Mit „synchron“ ist hier gemeint, dass der Code bei der Aufforderung
+zur Eingabe „anhält“. Diese Art der Programmierung ist deutlich
+einfacher nachzuvollziehen, als die asynchrone Vorgehensweise, die im
+nächsten Abschnitt beschrieben wird. 
+
+Früher haben wir in NodeJS bzw. replit.com die Bibliothek `readline-sync`
+verwendet, die aber leider nicht mehr weiterentwickelt wird.
 
 <Callout type="warning">
 Die Bibliothek `readline-sync` wurde leider vom Autor bei GitHub
@@ -95,9 +100,17 @@ der Eingabe von Umlauten und anderen Sonderzeichen
 umgehen als `prompt`.**
 </Callout>
 
-
+Eine Alternative zu `readline-sync` könnte `prompt-sync-plus` sein,
+siehe dazu https://github.com/Vpet95/prompt-sync-plus. Diese Bibliothek
+ist allerdings relativ neu (2022). Sie basiert auf dem Projekt
+https://github.com/heapwolf/prompt-sync, das Anfang 2023 seit mehr als 
+3 Jahren nicht mehr weiterentwickelt wurde.
 
 ### Asynchrone prompt-Bibliotheken
+
+Asynchrone Bibliotheken sind zwar performanter und flexibler als
+synchrone, aber dafür etwas schwieriger zu verwenden. Es folgen
+eine paar Beispiel-Projekte.
 
 Mit `prompts` gibt es noch mehr Möglichkeiten
 als mit `readline-sync`. Im Gegensatz zu 
