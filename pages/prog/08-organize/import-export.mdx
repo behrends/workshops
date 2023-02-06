@@ -110,6 +110,25 @@ console.log(test2());
 console.log(myConstant);
 ```
 
+Anstatt die importierenden Artefakte (Funktionen, Konstanten, usw.) 
+einzeln in geschweiften Klammern aufzulisten, ist es mit `* as Name` möglich,
+alle exportieren Artefakte unter einem qualifizierenden Namen (`Name`) 
+zu importieren:
+
+```js
+// z.B in index.js importieren:
+import test, * as Comp from './util/computations.js';
+
+console.log(test());
+console.log(Comp.test1());
+console.log(Comp.test2());
+console.log(Comp.myConstant);
+```
+
+&xrarr; Hier stehen die „normalen“ Exports (ohne `default`) alle
+unter dem Namen `Comp` zur Verfügung.
+
+
 <Callout type="warning">
 In React mit NextJS und in React Native werden 
 bei `import`-Anweisungen die Dateiendungen `.js` 
