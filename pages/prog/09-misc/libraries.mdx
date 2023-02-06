@@ -72,7 +72,19 @@ Um für die Eingabe mehr Möglichkeiten zu erhalten,
 kann dem Projekt eine zusätzliche Bibliothek 
 als Abhängigkeit hinzugefügt werden.
 
-### readline-sync
+### Synchrone prompt-Bibliotheken
+
+- https://github.com/heapwolf/prompt-sync
+- https://github.com/Vpet95/prompt-sync-plus (relativ neu (2022), basiert auf `heapwolf/prompt-sync`, siehe oben)
+
+<Callout type="warning">
+Die Bibliothek `readline-sync` wurde leider vom Autor bei GitHub
+archiviert und wird somit nicht mehr weiterentwickelt (siehe
+https://github.com/anseki/readline-sync).
+
+Es gibt aber Varianten bzw. „Forks“ dieser Bibliothek, die teilweise
+weiterentwickelt werden, siehe z.B.
+https://github.com/ThunderNetworkRaD/readline-sync
 
 Die Bibliothek `readline-sync` bietet nützliche
 Erweiterungen zur Eingabe wie z.B. die Auswahl von
@@ -81,11 +93,11 @@ Menüpunkten und Default-Werte.
 **Außerdem kann `readline-sync` besser mit
 der Eingabe von Umlauten und anderen Sonderzeichen
 umgehen als `prompt`.**
+</Callout>
 
-Infos zur Verwendung: https://github.com/anseki/readline-sync
 
 
-### prompts
+### Asynchrone prompt-Bibliotheken
 
 Mit `prompts` gibt es noch mehr Möglichkeiten
 als mit `readline-sync`. Im Gegensatz zu 
@@ -108,6 +120,7 @@ Im Terminal sind viele weitere Dinge sind möglich,
 wie diese Bibliotheken veranschaulichen:
 
 - https://github.com/SBoudrias/Inquirer.js
+- https://github.com/enquirer/enquirer
 - https://github.com/cronvel/terminal-kit
 - https://github.com/vadimdemedes/ink
 - https://github.com/Yomguithereal/react-blessed
