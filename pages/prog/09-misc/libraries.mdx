@@ -108,30 +108,20 @@ https://github.com/heapwolf/prompt-sync, das Anfang 2023 seit mehr als
 
 ### Asynchrone prompt-Bibliotheken
 
-Asynchrone Bibliotheken sind zwar performanter und flexibler als
-synchrone, aber dafür etwas schwieriger zu verwenden. Es folgen
-eine paar Beispiel-Projekte.
+Es gibt einige weitere Bibliotheken, um die Eingabe 
+in NodeJS/replit umzusetzen. Diese bieten oftmals
+zusätzliche Funktionalitäten. Jedoch erfolgt der Umgang 
+mit diesen Bibliotheken im Code auf asynchrone Weise mit 
+Promises bzw. 
+[`async/await`](/prog/09-miscfetch#asyncawait-für-promises). 
+Hierdurch ist die Verwendung dieser Bibliotheken eventuell 
+komplexer und schwerer zugänglich als der Umgang mit 
+den synchronen Bibliotheken `readline-sync` und
+`prompt-sync-plus`.
 
-Mit `prompts` gibt es noch mehr Möglichkeiten
-als mit `readline-sync`. Im Gegensatz zu 
-`readline-sync` ist der Umgang mit `prompts` 
-im Programmcode asynchron, sodass Promises bzw.
-`async/await` zum Einsatz kommen. Hierdurch
-ist die Verwendung von `prompts` eventuell 
-komplexer und schwerer zugänglich als 
-`readline-sync`.
+Es folgen eine paar Beispiel-Projekte:
 
-Infos zur Verwendung: https://github.com/terkelg/prompts
-
-
-## Weitere Möglichkeiten im Terminal  
-
-Neben `prompts` (siehe oben), gibt es andere Bibliotheken 
-für die Eingabe im Terminal, die z.T. zusätzliche Dinge 
-ermöglichen (siehe unten). Die Verwendung dieser 
-Bibliotheken erfolgt jedoch asynchron mit 
-[`async/await`](/prog/09-misc/fetch#asyncawait-für-promises).
-
+- https://github.com/terkelg/prompts
 - https://github.com/SBoudrias/Inquirer.js
 - https://github.com/enquirer/enquirer
 - https://github.com/cronvel/terminal-kit
