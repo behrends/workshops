@@ -52,29 +52,8 @@ In NodeJS bzw. replit.com kann die Funktionalität
 von `fetch` durch die Installation der Bibliothek 
 [`node-fetch`](https://github.com/node-fetch/node-fetch) dem Projekt hinzugefügt werden.
 
-<Callout type="error" emoji="⚡">
-In replit.com mit NodeJS Version 12 muss 
-nach der Installation von `node-fetch` in 
-`package.json` folgendes geändert werden:
-
-```
-"node-fetch": "^2.6.7",
-```
-
-Dadurch wird `node-fetch` in einer älteren
-Version installiert, die mit `require` importiert
-werden kann.
-</Callout>
-
-## `node-fetch` importieren
-
-In replit.com:
-
-```js
-const fetch = require('node-fetch');
-```
-
-Mit NodeJS Version 14 oder neuer:
+Danach kann `fetch` wie folgt zur Verwendung im Code 
+importiert werden:
 
 ```js
 import fetch from 'node-fetch';
@@ -115,6 +94,8 @@ Der Code in der Funktion
 wie dies umgesetzt wird:
 
 ```js
+import fetch from 'node-fetch';
+
 function getBerlinWeatherPromiseSteps() {
   const url = 
     `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true`;

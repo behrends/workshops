@@ -12,7 +12,7 @@ import { Callout } from 'nextra-theme-docs'
 Die hier vorgestellten Bibliotheken könnten für das 
 Projekt nützlich sein und dürfen verwendet werden.
 
-<Callout type="warning">
+<Callout type="info">
 In replit.com können Bibliotheken im Bereich
 _Packages_ (das Würfel-Symbol) gesucht und 
 dem Projekt hinzugefügt werden.
@@ -41,7 +41,7 @@ gesetzt werden. Dazu ein Beispiel (zuvor muss
 natürlich PicoColors installiert werden):
 
 ```js
-const pc = require('picocolors');
+import pc from 'picocolors';
 
 console.log(`${pc.red("Hallo")} und ${pc.green("Willkommen!")}`);
 ```
@@ -106,32 +106,28 @@ ist allerdings relativ neu (2022). Sie basiert auf dem Projekt
 https://github.com/heapwolf/prompt-sync, das Anfang 2023 seit mehr als 
 3 Jahren nicht mehr weiterentwickelt wurde.
 
+<Callout type="warning">
+In `readline-Sync` funktionieren Pfeiltasten bei der
+Eingabe nicht und `prompt-sync-plus` unterstützt keine
+Umlaute (geprüft im Februar 2023).
+</Callout>
+
 ### Asynchrone prompt-Bibliotheken
 
-Asynchrone Bibliotheken sind zwar performanter und flexibler als
-synchrone, aber dafür etwas schwieriger zu verwenden. Es folgen
-eine paar Beispiel-Projekte.
+Es gibt einige weitere Bibliotheken, um die Eingabe 
+in NodeJS/replit umzusetzen. Diese bieten oftmals
+zusätzliche Funktionalitäten. Jedoch erfolgt der Umgang 
+mit diesen Bibliotheken im Code auf asynchrone Weise mit 
+Promises bzw. 
+[`async/await`](/prog/09-miscfetch#asyncawait-für-promises). 
+Hierdurch ist die Verwendung dieser Bibliotheken eventuell 
+komplexer und schwerer zugänglich als der Umgang mit 
+den synchronen Bibliotheken `readline-sync` und
+`prompt-sync-plus`.
 
-Mit `prompts` gibt es noch mehr Möglichkeiten
-als mit `readline-sync`. Im Gegensatz zu 
-`readline-sync` ist der Umgang mit `prompts` 
-im Programmcode asynchron, sodass Promises bzw.
-`async/await` zum Einsatz kommen. Hierdurch
-ist die Verwendung von `prompts` eventuell 
-komplexer und schwerer zugänglich als 
-`readline-sync`.
+Es folgen eine paar Beispiel-Projekte:
 
-Infos zur Verwendung: https://github.com/terkelg/prompts
-
-Eine Alternative zu `prompts` ist 
-`inquirer`: https://github.com/SBoudrias/Inquirer.js 
-(Verwendung ist auch asynchron).
-
-## Weitere Möglichkeiten im Terminal  
-
-Im Terminal sind viele weitere Dinge sind möglich,
-wie diese Bibliotheken veranschaulichen:
-
+- https://github.com/terkelg/prompts
 - https://github.com/SBoudrias/Inquirer.js
 - https://github.com/enquirer/enquirer
 - https://github.com/cronvel/terminal-kit
@@ -149,7 +145,7 @@ bereit, z.B. `sample` um zufällige Elemente
 eines Arrays zu erhalten:
 
 ```js
-const _ = require("lodash");
+import _  from "lodash";
 
 let names = ['Alice', 'Bob', 'Charlie', 'Donna',
   'Eva', 'Frank', 'Geri', 'Harry', 'John'];
