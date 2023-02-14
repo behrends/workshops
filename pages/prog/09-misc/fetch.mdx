@@ -37,14 +37,14 @@ Im Browser steht JavaScript eine Funktion
 `fetch` zur Verfügung, mit der Daten aus dem Web 
 via URL z.B. als JSON angefordert werden können.
 
-<Callout type="warning">
+<Callout type="info">
 &xrarr; URL im Browser laden und `fetch` mit 
 open-meteo.com in der Browser-Konsole vorführen. 
 </Callout>
 
 ## `node-fetch`
 
-<Callout type="warning">
+<Callout type="info">
 Ab Version 18 ist `fetch` in NodeJS enthalten (vorerst als experimentelles Feature).
 </Callout>
 
@@ -73,7 +73,7 @@ Das Ergebnis von `fetch` ist daher ein
 Promise-Objekt, das mit Callback-Funktionen
 asynchron verarbeitet werden muss.
 
-<Callout type="warning">
+<Callout type="info">
 [Promises](https://javascript.info/promise-basics) 
 stellen ein etwas schwer zugängliches Thema in 
 JavaScript dar. Für die Verwendung von `fetch` 
@@ -167,8 +167,8 @@ der Code einem „normalem“ synchronen Ablauf
 syntaktisch ähnelt.
 
 <Callout type="error">
-&xrarr; `await` ist nur in Funktionen erlaubt,
-die mit `async` deklariert wurden!
+&xrarr; `await` ist nur dann in einer Funktion erlaubt,
+wenn diese mit `async` deklariert wurde!
 </Callout>
 
 Der Rückgabewert einer `async`-Funktion ist
@@ -190,7 +190,7 @@ Ein replit-Projekt zur Veranschaulichung von
 `fetch` mit Wetterdaten ist hier zu finden:
 https://replit.com/@behrends/WeatherList
 
-<Callout type="warning">
+<Callout type="info">
 **Vertiefendes Material**
 
 - [fetch bei javascript.info](https://javascript.info/fetch)
