@@ -18,7 +18,7 @@ verschiedene Fehler auftreten, die zu einer
 sofortigen Beendung des Programms führen
 (das Programm „stürzt ab“).
 
-<Callout type="warning">
+<Callout type="info">
 Mit „Fehler“ ist hier ein schwerwiegendes
 Problem im Programmcode gemeint, das zum
 Programmabsturz führt. 
@@ -69,10 +69,9 @@ Fehler nicht zum Programmabsturz führt und das
 Programm ein passendes Verhalten zum Umgang
 mit dem Fehler durch Programmcode umsetzt.
 
-<Callout type="warning">
-In JavaScript wird von Fehlern gesprochen
-(_errors_ oder genauer _runtime errors_ 
-(Laufzeitfehlern )). Manche andere
+<Callout type="info">
+In JavaScript wird von Fehlern gesprochen (_errors_) oder genauer 
+_runtime errors_ (Laufzeitfehler). Manche andere
 Programmiersprachen 
 verwenden hierfür den Begriff „Ausnahmen“ 
 (_exceptions_).
@@ -80,9 +79,8 @@ verwenden hierfür den Begriff „Ausnahmen“
 
 ## `try`…`catch`
 
-Für die Fehlerbehandlung steht in JavaScript
-mit den Schlüsselwörtern `try` und `catch` ein 
-geeignetes Konstrukt zur Verfügung:
+Für die Fehlerbehandlung steht in JavaScript mit den Schlüsselwörtern 
+`try` und `catch` ein geeignetes Konstrukt zur Verfügung:
 
 ```js
 try {
@@ -117,7 +115,7 @@ obj = 1; // Type-Error --> Programmabsturz!
 // TypeError: Assignment to constant variable.
   
 console.log(obj.getName()); // Type-Error --> Programmabsturz!
-// TypeError obj.getName is not a function
+// TypeError: obj.getName is not a function
 
 console.log(obj.age.print()); // Type-Error --> Programmabsturz!
 // TypeError: Cannot read property 'print' of undefined
@@ -201,7 +199,7 @@ diese an anderer Stelle wiederum mit `catch`
 „aufzufangen“. Eigene Fehler werden mit passenden 
 Meldungen durch `new Error(msg)` erstellt.
 
-<Callout type="warning">
+<Callout type="info">
 **Vertiefendes Material**
 
 - [`try`…`catch` bei javascript.info](https://javascript.info/try-catch)
