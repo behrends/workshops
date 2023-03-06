@@ -220,3 +220,27 @@ umgeschrieben werden und umgekehrt.
 
 Auch hierzu sollten sich alle mit Übungsaufgaben 
 beschäftigen.
+
+## `for…of`
+
+In JavaScript gibt es mit dem Konstrukt `for…of` eine weitere Möglichkeit,
+Arrays zu durchlaufen:
+
+```js
+let list = [1,2,3,4];
+	
+for(let x of list) {
+  console.log(x);	
+}
+// 1
+// 2
+// 3
+// 4
+```
+
+`for…of` kann nicht nur auf Arrays, sondern auch auf Strings und im 
+Allgemeinen auf sogenannte „Iterables“ angewendet werden. Mehr Infos 
+zu `for…of` und Iterables:
+
+- [im MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)
+- [bei javascript.info](https://javascript.info/iterable)

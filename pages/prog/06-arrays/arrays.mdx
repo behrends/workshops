@@ -176,9 +176,17 @@ lediglich kein neuer Wert zugewiesen werden darf.
 Der Wert bzw. „Inhalt“ der Konstanten kann sich 
 allerdings schon ändern (hier ein Array).
 
-Mit `forEach` kann das Array so durchlaufen werden, 
-dass für jedes Element eine bestimmte Funktion mit 
-dem Element als Parameter aufgerufen wird:
+### Alle Elemente eines Arrays „durchlaufen“
+
+Häufig tritt die Situation auf, dass auf alle Elemente eines Arrays
+im Code nacheinander zugegriffen werden soll („Array durchlaufen“).
+In vielen Programmiersprachen und auch in JavaScript kann dazu
+eine `for`-Schleife verwendet werden, was wir bald in einer 
+[anderen Lektion](/prog/06-arrays/for) besprechen werden.
+
+Alternativ zur `for`-Schleife kann das Array auch mit `forEach` 
+so durchlaufen werden,  dass für jedes Element eine bestimmte Funktion 
+mit dem Element als Parameter aufgerufen wird:
 
 ```js
 const list = [1,2,3];
@@ -191,15 +199,10 @@ list.forEach(showSquares);
 // Ausgabe ---> 1  4  9  16
 ```
 
-Eine Funktion, die wie oben verwendet wird, wird 
-auch _Callback_-Funktion genannt.
-
-
-Hierbei werden insbesondere Pfeilfunktionen 
-interessant, da sie den Code deutlich vereinfachen.
-
-Obiges Beispiel vereinfacht umgeschrieben mit 
-Pfeilfunktion:
+Eine Funktion, die wie oben verwendet wird, wird auch _Callback_-Funktion 
+genannt. Hierbei werden insbesondere Pfeilfunktionen interessant, da sie 
+den Code deutlich vereinfachen. Obiges Beispiel kann mit Pfeilfunktion
+umgeschrieben werden:
 
 ```js
 const list2 = [1,2,3,4];
@@ -207,6 +210,5 @@ list2.forEach(item => console.log(item*item));
 // Ausgabe --->  1  4  9  16
 ```
 
-Pfeilfunktionen als alternative Syntax für 
-Funktionen werden in einer späteren Lektion
-behandelt.
+Pfeilfunktionen als alternative Syntax für Funktionen werden in einer 
+[späteren Lektion](/prog/09-misc/arrow_functions) behandelt.
