@@ -190,6 +190,24 @@ Ein replit-Projekt zur Veranschaulichung von
 `fetch` mit Wetterdaten ist hier zu finden:
 https://replit.com/@behrends/WeatherList
 
+<Callout type="warning">
+Beim Zugriff auf APIs bzw. Webservices mit `fetch` können 
+verschiedene Fehlersituationen eintreten:
+
+- keine Internetverbindung,
+- Server ist nicht erreichbar,
+- Antwort des Servers passt nicht zum erwarteten Ergebnis,
+- u.a.
+
+Daher sollte ein Webzugriff mit `fetch` z.B. mit 
+[`try…catch`-Blöcken](/prog/09-misc/try-catch) umgeben werden, um 
+Fehlersituationen im Code zu behandeln.
+
+Dieser Artikel beschreibt ausführlich, was bei der Verwendung von `fetch` 
+zu beachten ist, und zeigt praktische Code-Beispiele:
+[www.builder.io/blog/safe-data-fetching](https://www.builder.io/blog/safe-data-fetching)
+</Callout>
+
 <Callout type="info">
 **Vertiefendes Material**
 

@@ -127,3 +127,29 @@ async function loadData() {
   console.log(`Temperatur in ${data.name}: ${data.temp}`);
 }
 ```
+
+<Callout type="warning">
+Beim Zugriff auf APIs bzw. Webservices mit `fetch` können 
+verschiedene Fehlersituationen eintreten:
+
+- keine Internetverbindung,
+- Server ist nicht erreichbar,
+- Antwort des Servers passt nicht zum erwarteten Ergebnis,
+- u.a.
+
+Daher sollte ein Webzugriff mit `fetch` z.B. mit `try…catch`-Blöcken 
+umgeben werden, um Fehlersituationen im Code zu behandeln.
+
+Dieser Artikel beschreibt ausführlich, was bei der Verwendung von `fetch` 
+zu beachten ist, und zeigt praktische Code-Beispiele:
+[www.builder.io/blog/safe-data-fetching](https://www.builder.io/blog/safe-data-fetching)
+</Callout>
+
+<Callout type="info">
+**Vertiefendes Material**
+
+- [fetch bei javascript.info](https://javascript.info/fetch)
+- [node-fetch bei GitHub](https://github.com/node-fetch/node-fetch)
+- [promises bei javascript.info](https://javascript.info/promise-basics)
+- [Liste öffentlicher APIs zu verschiedenen Themen](https://github.com/public-apis/public-apis)
+</Callout>
