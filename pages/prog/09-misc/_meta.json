@@ -12,10 +12,10 @@
   "regexp": "Reguläre Ausdrücke",
   "static": "Statische Methoden",
   "array-methods": "Array-Methoden",
+  "syntax-tipps": "Syntax-Tipps",
   "map_set": "Map und Set",
   "private": "Private Eigenschaften",
   "extends": "Vererbung in Klassen",
-  "syntax-tipps": "Syntax-Tipps",
   "typescript": "TypeScript",
   "tools": "Weitere Werkzeuge",
   "languages": "Alternative Sprachen"
