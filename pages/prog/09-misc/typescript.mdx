@@ -20,7 +20,7 @@ Funktionen zur Laufzeit ändern können:
 let myVariable = 10; // number
 myVariable = "Hallo"; // string 
 
-const myVariable2 = 20;
+let myVariable2 = 20;
 
 function sum(a,b) {
   return a+b;
@@ -33,7 +33,7 @@ console.log(sum(myVariable,myVariable2));
 ```
 
 In obigem Beispiel wird die Funktion `sum`
-zuerst mit zwei Zahlen (`number`) und dann
+zuerst mit zwei Zahlen (Datentyp `number`) und dann
 mit einem String und einer Zahl aufgerufen.
 
 Einerseits sorgt das dynamische Typsystem in
@@ -64,7 +64,7 @@ let myVariable = 10; // number
 // myVariable = "Hallo"; 
 // obige Zeile auskommentiert --> Fehler in TypeScript!
 
-const myVariable2 = 20;
+let myVariable2 = 20;
 
 function sum(a: number,b: number) {
   return a+b;
