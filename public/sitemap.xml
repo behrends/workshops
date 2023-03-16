@@ -155,6 +155,9 @@
         <loc>https://workshops.progcontent.com/prog/03-logic-structure/smiley</loc>
       </url>
       <url>
+        <loc>https://workshops.progcontent.com/prog/04-practice/live_coding</loc>
+      </url>
+      <url>
         <loc>https://workshops.progcontent.com/prog/04-practice/switch</loc>
       </url>
       <url>
@@ -203,190 +206,190 @@
         <loc>https://workshops.progcontent.com/prog/08-organize/import-export</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/08-organize/require</loc>
+        <loc>https://workshops.progcontent.com/prog/08-organize/json</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/09-storage/json</loc>
+        <loc>https://workshops.progcontent.com/prog/08-organize/local-storage</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/09-storage/local-storage</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/array-methods</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/array-methods</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/arrow_functions</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/arrow_functions</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/debugging</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/debugging</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/extends</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/extends</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/fetch</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/fetch</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/funktionen2</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/funktionen2</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/index</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/index</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/java</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/languages</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/languages</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/libraries</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/libraries</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/map_set</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/map_set</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/private</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/private</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/project_structure</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/project_structure</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/regexp</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/regexp</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/replit</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/replit</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/static</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/static</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/syntax-tipps</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/syntax-tipps</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/tools</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/tools</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/try-catch</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/try-catch</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/typescript</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/typescript</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/prog/10-misc/vscode</loc>
+        <loc>https://workshops.progcontent.com/prog/09-misc/vscode</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/Abschluss/vorstellung-apps</loc>
+        <loc>https://workshops.progcontent.com/web-prog/01-HTML/einstieg</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/CSS1/ausblick</loc>
+        <loc>https://workshops.progcontent.com/web-prog/01-HTML/elemente</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/CSS1/css_regeln</loc>
+        <loc>https://workshops.progcontent.com/web-prog/01-HTML/elemente2</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/CSS1/eigenschaften</loc>
+        <loc>https://workshops.progcontent.com/web-prog/01-HTML/intro</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/CSS1/html_css</loc>
+        <loc>https://workshops.progcontent.com/web-prog/01-HTML/vorbereitungen</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/CSS1/index</loc>
+        <loc>https://workshops.progcontent.com/web-prog/02-CSS1/ausblick</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/CSS1/selektoren</loc>
+        <loc>https://workshops.progcontent.com/web-prog/02-CSS1/css_regeln</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/CSS2/ausblick</loc>
+        <loc>https://workshops.progcontent.com/web-prog/02-CSS1/eigenschaften</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/CSS2/box_modell</loc>
+        <loc>https://workshops.progcontent.com/web-prog/02-CSS1/html_css</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/CSS2/kaskade</loc>
+        <loc>https://workshops.progcontent.com/web-prog/02-CSS1/index</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/CSS2/layout</loc>
+        <loc>https://workshops.progcontent.com/web-prog/02-CSS1/selektoren</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/CSS2/uebung</loc>
+        <loc>https://workshops.progcontent.com/web-prog/03-CSS2/ausblick</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/HTML/einstieg</loc>
+        <loc>https://workshops.progcontent.com/web-prog/03-CSS2/box_modell</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/HTML/elemente</loc>
+        <loc>https://workshops.progcontent.com/web-prog/03-CSS2/kaskade</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/HTML/elemente2</loc>
+        <loc>https://workshops.progcontent.com/web-prog/03-CSS2/layout</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/HTML/intro</loc>
+        <loc>https://workshops.progcontent.com/web-prog/03-CSS2/uebung</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/HTML/vorbereitungen</loc>
+        <loc>https://workshops.progcontent.com/web-prog/04-JavaScript1/arrays_objekte</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript1/arrays_objekte</loc>
+        <loc>https://workshops.progcontent.com/web-prog/04-JavaScript1/ausblick</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript1/ausblick</loc>
+        <loc>https://workshops.progcontent.com/web-prog/04-JavaScript1/datentypen</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript1/datentypen</loc>
+        <loc>https://workshops.progcontent.com/web-prog/04-JavaScript1/einstieg</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript1/einstieg</loc>
+        <loc>https://workshops.progcontent.com/web-prog/04-JavaScript1/funktionen</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript1/funktionen</loc>
+        <loc>https://workshops.progcontent.com/web-prog/04-JavaScript1/index</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript1/index</loc>
+        <loc>https://workshops.progcontent.com/web-prog/04-JavaScript1/kontrollstrukturen</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript1/kontrollstrukturen</loc>
+        <loc>https://workshops.progcontent.com/web-prog/04-JavaScript1/projekt</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript1/projekt</loc>
+        <loc>https://workshops.progcontent.com/web-prog/04-JavaScript1/variablen</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript1/variablen</loc>
+        <loc>https://workshops.progcontent.com/web-prog/05-JavaScript2/dom-events</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript2/dom-events</loc>
+        <loc>https://workshops.progcontent.com/web-prog/05-JavaScript2/dom-methoden</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript2/dom-methoden</loc>
+        <loc>https://workshops.progcontent.com/web-prog/05-JavaScript2/dom</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript2/dom</loc>
+        <loc>https://workshops.progcontent.com/web-prog/05-JavaScript2/js-in-html</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript2/js-in-html</loc>
+        <loc>https://workshops.progcontent.com/web-prog/05-JavaScript2/presentation</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript2/presentation</loc>
+        <loc>https://workshops.progcontent.com/web-prog/05-JavaScript2/projekt</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript2/projekt</loc>
+        <loc>https://workshops.progcontent.com/web-prog/05-JavaScript2/struktur-links</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript2/struktur-links</loc>
+        <loc>https://workshops.progcontent.com/web-prog/06-JavaScript3/daten</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript3/daten</loc>
+        <loc>https://workshops.progcontent.com/web-prog/06-JavaScript3/fetch</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript3/fetch</loc>
+        <loc>https://workshops.progcontent.com/web-prog/06-JavaScript3/gruppenarbeit</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript3/gruppenarbeit</loc>
+        <loc>https://workshops.progcontent.com/web-prog/06-JavaScript3/json</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/JavaScript3/json</loc>
+        <loc>https://workshops.progcontent.com/web-prog/07-Projekt/ausblick</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/Projekt/ausblick</loc>
+        <loc>https://workshops.progcontent.com/web-prog/07-Projekt/gruppenarbeit</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/web-prog/Projekt/gruppenarbeit</loc>
+        <loc>https://workshops.progcontent.com/web-prog/08-Abschluss/vorstellung-apps</loc>
       </url>
       <url>
         <loc>https://workshops.progcontent.com/01-intro</loc>
@@ -437,34 +440,31 @@
         <loc>https://workshops.progcontent.com/08-organize</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/09-storage</loc>
+        <loc>https://workshops.progcontent.com/09-misc</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/10-misc</loc>
+        <loc>https://workshops.progcontent.com/01-HTML</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/Abschluss</loc>
+        <loc>https://workshops.progcontent.com/02-CSS1</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/CSS1</loc>
+        <loc>https://workshops.progcontent.com/03-CSS2</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/CSS2</loc>
+        <loc>https://workshops.progcontent.com/04-JavaScript1</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/HTML</loc>
+        <loc>https://workshops.progcontent.com/05-JavaScript2</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/JavaScript1</loc>
+        <loc>https://workshops.progcontent.com/06-JavaScript3</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/JavaScript2</loc>
+        <loc>https://workshops.progcontent.com/07-Projekt</loc>
       </url>
       <url>
-        <loc>https://workshops.progcontent.com/JavaScript3</loc>
-      </url>
-      <url>
-        <loc>https://workshops.progcontent.com/Projekt</loc>
+        <loc>https://workshops.progcontent.com/08-Abschluss</loc>
       </url>
    </urlset>
  
