@@ -61,7 +61,7 @@ export default {
     placeholder: 'Inhalte durchsuchen…',
   },
   sidebar: {
-    defaultMenuCollapseLevel: 0,
+    defaultMenuCollapseLevel: 1,
   },
   useNextSeoProps() {
     return {
