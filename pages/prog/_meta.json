@@ -1,9 +1,6 @@
 {
   "index": "Übersicht",
   "glossar": "Glossar",
-  "---": {
-    "type": "separator"
-  },
   "01-intro": "1 - Einleitung",
   "02-basics": "2 - Grundlagen",
   "03-logic-structure": "3 - Logik und Struktur",
@@ -12,8 +9,5 @@
   "06-arrays": "6 - Arrays",
   "07-structure": "7 - Objekte und Klassen",
   "08-organize": "8 - Code und Daten organisieren",
-  "----": {
-    "type": "separator"
-  },
   "09-misc": "Weiterführendes"
 }
