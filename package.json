@@ -17,8 +17,8 @@
     "@codesandbox/sandpack-react": "^1.18.3",
     "@codesandbox/sandpack-themes": "^1.17.0",
     "next": "^13.2.4",
-    "nextra": "2.2.19",
-    "nextra-theme-docs": "2.2.19",
+    "nextra": "2.2.17",
+    "nextra-theme-docs": "2.2.17",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
