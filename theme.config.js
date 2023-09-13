@@ -71,5 +71,6 @@ export default {
   },
   toc: {
     title: 'Auf dieser Seite',
+    backToTop: true,
   },
 };
