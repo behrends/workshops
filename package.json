@@ -14,8 +14,8 @@
     "postbuild": "node ./scripts/generate-sitemap.mjs"
   },
   "dependencies": {
-    "@codesandbox/sandpack-react": "^1.18.3",
-    "@codesandbox/sandpack-themes": "^1.17.0",
+    "@codesandbox/sandpack-react": "^2.7.1",
+    "@codesandbox/sandpack-themes": "^2.0.21",
     "next": ">=13",
     "nextra": "^2.12.3",
     "nextra-theme-docs": "^2.12.3",

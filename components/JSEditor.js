@@ -10,9 +10,7 @@ export default function JSEditor({ code = '// Code einfügen' }) {
   return (
     <SandpackProvider
       template="vanilla"
-      files={{
-        '/src/index.js': code,
-      }}
+      files={{ 'index.js': code }}
       theme={Themes.githubLight}
     >
       <div style={{ border: '1px solid #CCC' }}>
