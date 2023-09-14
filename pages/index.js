@@ -40,6 +40,14 @@ export default function Home() {
             </h1>
           </Link>
         </div>
+
+        <div className="text-3xl font-bold flex flex-wrap items-center justify-around max-w-full mt-6 sm:w-full">
+          <Link href="/kennenlerntag">
+            <h1 className="cursor-pointer">
+              Kennenlerntag (TIF und WWI)
+            </h1>
+          </Link>
+        </div>
       </main>
 
       <footer className="flex items-center justify-center w-full h-12 border-t">
