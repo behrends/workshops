@@ -1,4 +1,4 @@
-import { Callout } from 'nextra-theme-docs'
+import { Callout } from 'nextra/components';
 
 # Grundlagen von p5.js (15 Minuten)
 
@@ -92,7 +92,7 @@ Die Canvas hat ein Koordinatensystem mit x- und y-Achse. Es beginnt **links oben
 p5.js stellt einige Funktionen bereit, um verschiedene Formen zu zeichnen. Ein Beispiel ist eine Linie:
 
 ```js
-line(x1,y1,x2,y2)
+line(x1,y1,x2,y2);
 ``` 
 
 Mit den Koordinaten `x1,y1` wird der Startpunkt der Linie festgelegt und `x2,y2` definiert den Endpunkt. Diese Linie läuft in einer Canvas (400,400) horizontal durch die Mitte:

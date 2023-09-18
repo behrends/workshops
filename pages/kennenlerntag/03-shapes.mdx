@@ -1,0 +1,165 @@
+import { Callout, Tabs } from 'nextra/components';
+
+# Formen und Farben (25 Minuten)
+
+Wir beginnen nun, mit p5.js das DHBW-Logo zu zeichnen.
+
+![p5.js-Editor](/images/kennenlerntag/dhbw-logo.png)
+
+Dabei gehen wir schrittweise vor, indem wir verschiedene p5.js-Funktionen zur Erstellung von Formen in passenden Farben benutzen. 
+
+## Quadrate (5 Minuten)
+
+Zuerst erstellen wir das rote Quadrat auf der linken Seite des Logos. Dazu können wir die Funktion `square()` benutzen, die drei Parameter hat:
+
+```js
+square(x,y,length);
+```
+
+Mit `x` und `y` legen wir die Koordination der linken oberen Ecke des Quadrats fest und `width` bestimmt die Seitenlänge des Quadrats.
+
+<Callout type="info" emoji="👨🏻‍💻">
+Quadrat mit folgenden Eigenschaften erstellen:
+
+- Position auf der x-Achse etwas links von der Mitte 
+- Position auf der y-Achse genau in der Mitte
+- Seitenlänge von `120`
+</Callout>
+
+![Quadrat](/images/kennenlerntag/square1.png)
+
+<Tabs items={['Lösung:', 'Code']}>
+  <Tabs.Tab>Siehe Code</Tabs.Tab>
+  <Tabs.Tab>
+  ```js
+  square(75, 140, 120);
+  ```
+  </Tabs.Tab>
+</Tabs>
+
+## Farben und Ränder (4 Minuten)
+
+Die Funktion `fill()` funktioniert ähnlich wie `background()`. Durch Angabe eines Farbwerts in `fill()` wird die Farbe festgelegt, mit der Formen aufgefüllt werden. Für das DHBW-Logo verwenden wir einen bestimmten Wert für die passende rote Farbe:
+
+```js
+fill("#EA1E26");
+```
+
+&xrarr; Vor dem Aufruf von `square()` einfügen.
+
+<Callout>
+Der Wert `"#EA1E26"` legt bestimmte Wert für den Anteil von rot (`EA`), blau (`1E`) und grün (`26`) fest. Mit `#` wird signalisiert, dass es sich um einen hexadezimalen Wert handelt (Basis 16). <br/> 
+&xrarr; Zahlendarstellung werden im 1. Semester behandelt.
+
+Bemerkung: In p5.pjs stehen uns alle Möglichkeiten der Farbbestimmung aus CSS zur Verfügung.
+</Callout>
+
+Nun haben wir noch einen schwarzen Rand um das Quadrat herum. Durch den Aufruf von 
+
+```js
+noStroke();
+```
+
+vor `square` deaktivieren wir die Ränder der dargestellten Formen.
+
+## Quadrate mit „runden“ Ecken (1 Minute)
+
+Ein vierter Parameter im Aufruf von `square()` legt die Abrundung der Ecken fest:
+
+```js
+square(75, 140, 120, 4);
+```
+
+Nun habe wir bereits das rote Quadrat des Logos erstellt.
+
+## Graues Quadrat (5 Minuten)
+
+Nun soll rechts vom roten Quadrat ein entsprechendes graues Quadrat dargestellt werden.
+
+<Callout type="info" emoji="👨🏻‍💻">
+Quadrat mit folgenden Eigenschaften erstellen:
+
+- Position auf der x-Achse etwas rechts von der Mitte 
+- Position auf der y-Achse genau in der Mitte
+- Seitenlänge von `120`
+- Wert des Grautons: `#73818D`
+</Callout>
+
+![Quadrat](/images/kennenlerntag/square2.png)
+
+<Tabs items={['Lösung:', 'Code']}>
+  <Tabs.Tab>Siehe Code</Tabs.Tab>
+  <Tabs.Tab>
+  ```js
+  fill("#73818D");
+  square(205, 140, 120, 4);
+  ```
+  </Tabs.Tab>
+</Tabs>
+
+## Dreiecke (5 Minuten)
+
+Als Zwischenschritt und zur Übung soll unterhalb des roten bzw.
+oberhalb des grauen Quadrats ein Dreieck gezeichnet werden.
+
+```js
+fill("#73818D");
+triangle(135, 260, 195, 260, 135, 320);
+```
+
+Dies erstellt ein graues Dreieck unterhalb des roten Quadrats. `triangle()` erwartet 6 Parameter:
+
+```js
+triangle(x1, y1, x2, y2, x3, y3);
+```
+
+`(x1,y1)`, `(x2,y2)` und `(x3,y3)` legen die Koordinaten der drei Ecken des Dreiecks fest.
+
+<Callout type="info" emoji="👨🏻‍💻">
+Dreieck mit folgenden Eigenschaften erstellen:
+
+- Farbe: `#EA1E26` (rot)
+- Position: oberhalb des grauen Quadrats
+- Größe wie das graue Dreieck unter dem roten Quadrats(s.o.)
+</Callout>
+
+
+![Quadrat](/images/kennenlerntag/square2.png)
+
+<Tabs items={['Lösung:', 'Code']}>
+  <Tabs.Tab>Siehe Code</Tabs.Tab>
+  <Tabs.Tab>
+  ```js
+  fill("#73818D");
+  square(205, 140, 120, 4);
+  ```
+  </Tabs.Tab>
+</Tabs>
+
+## Vierecke (10 Minuten)
+
+![Quadrat](/images/kennenlerntag/square2.png)
+
+<Tabs items={['Lösung:', 'Code']}>
+  <Tabs.Tab>Siehe Code</Tabs.Tab>
+  <Tabs.Tab>
+  ```js
+  fill("#73818D");
+  square(205, 140, 120, 4);
+  ```
+  </Tabs.Tab>
+</Tabs>
+
+## Dreiecke durch Vierecke ersetzen (Bonus für schnelle)
+
+![Quadrat](/images/kennenlerntag/square2.png)
+
+<Tabs items={['Lösung:', 'Code']}>
+  <Tabs.Tab>Siehe Code</Tabs.Tab>
+  <Tabs.Tab>
+  ```js
+  fill("#73818D");
+  square(205, 140, 120, 4);
+  ```
+  </Tabs.Tab>
+</Tabs>
