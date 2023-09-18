@@ -1,3 +1,6 @@
 {
-  "index": "Übersicht"
+  "index": "Übersicht",
+  "01-intro": "Einführung",
+  "02-basics": "Grundlagen von p5.js",
+  "XX-code": "Code-Beispiele für p5.js"
 }

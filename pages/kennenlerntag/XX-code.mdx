@@ -1,0 +1,49 @@
+import { Callout } from 'nextra-theme-docs'
+
+# Code-Beispiele
+
+## Malprogramm
+
+```js
+let brushSize = 5;
+let brushColor = [0, 0, 0]; // Standardfarbe ist Schwarz
+
+function setup() {
+  createCanvas(800, 600);
+  background(255); // Weißer Hintergrund
+}
+
+function draw() {
+  if (mouseIsPressed) {
+    fill(brushColor);
+    noStroke();
+    ellipse(mouseX, mouseY, brushSize, brushSize);
+  }
+}
+
+function keyPressed() {
+  // Farbänderungen mit Tasten
+  if (key == 'R' || key == 'r') {
+    brushColor = [255, 0, 0]; // Rot
+  } else if (key == 'G' || key == 'g') {
+    brushColor = [0, 255, 0]; // Grün
+  } else if (key == 'B' || key == 'b') {
+    brushColor = [0, 0, 255]; // Blau
+  }
+
+  // Pinselgröße ändern mit Pfeiltasten
+  if (keyCode === UP_ARROW) {
+    brushSize += 2;
+  } else if (keyCode === DOWN_ARROW) {
+    brushSize -= 2;
+    if (brushSize < 1) { // Verhindert, dass die Pinselgröße zu klein wird
+      brushSize = 1;
+    }
+  }
+
+  // Bildschirm löschen mit 'C'
+  if (key == 'C' || key == 'c') {
+    background(255);
+  }
+}
+```
