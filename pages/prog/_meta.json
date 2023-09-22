@@ -2,7 +2,8 @@
   "index": "Übersicht",
   "glossar": "Glossar",
   "---": {
-    "type": "separator"
+    "type": "separator",
+    "title": ""
   },
   "01-intro": "1 - Einleitung",
   "02-basics": "2 - Grundlagen",
