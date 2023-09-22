@@ -70,7 +70,7 @@ Ein vierter Parameter im Aufruf von `square()` legt die Abrundung der Ecken fest
 square(75, 140, 120, 4);
 ```
 
-Nun habe wir bereits das rote Quadrat des Logos erstellt.
+Somit wurde bereits das rote Quadrat des Logos erzeugt.
 
 ## Graues Quadrat (5 Minuten)
 
@@ -85,7 +85,7 @@ Quadrat mit folgenden Eigenschaften erstellen:
 - Wert des Grautons: `#73818D`
 </Callout>
 
-![Quadrat](/images/kennenlerntag/square2.png)
+![Zwei Quadrate nebeneinander](/images/kennenlerntag/square2.png)
 
 <Tabs items={['Lösung:', 'Code']}>
   <Tabs.Tab>Siehe Code</Tabs.Tab>
@@ -99,15 +99,16 @@ Quadrat mit folgenden Eigenschaften erstellen:
 
 ## Dreiecke (5 Minuten)
 
-Als Zwischenschritt und zur Übung soll unterhalb des roten bzw.
-oberhalb des grauen Quadrats ein Dreieck gezeichnet werden.
+Als Zwischenschritt für die Weiterenwicklung des DHBW-Logos sollen zwei kleinere Dreiecke an den Quadraten gezeichnet werden.
+
+Zunächst ein graues Dreieck unterhalb des roten Quadrats:
 
 ```js
 fill("#73818D");
 triangle(135, 260, 195, 260, 135, 320);
 ```
 
-Dies erstellt ein graues Dreieck unterhalb des roten Quadrats. `triangle()` erwartet 6 Parameter:
+`triangle()` erwartet 6 Parameter:
 
 ```js
 triangle(x1, y1, x2, y2, x3, y3);
@@ -121,45 +122,197 @@ Dreieck mit folgenden Eigenschaften erstellen:
 - Farbe: `#EA1E26` (rot)
 - Position: oberhalb des grauen Quadrats
 - Größe wie das graue Dreieck unter dem roten Quadrats(s.o.)
+- Siehe folgende Abbildung für das gewünschte Aussehen
 </Callout>
 
 
-![Quadrat](/images/kennenlerntag/square2.png)
+![Quadrate mit Dreicken](/images/kennenlerntag/square-triangles.png)
 
 <Tabs items={['Lösung:', 'Code']}>
   <Tabs.Tab>Siehe Code</Tabs.Tab>
   <Tabs.Tab>
   ```js
-  fill("#73818D");
-  square(205, 140, 120, 4);
+  fill("#EA1E26");
+  triangle(205,140, 265, 80, 265, 140);
   ```
   </Tabs.Tab>
 </Tabs>
 
 ## Vierecke (10 Minuten)
 
-![Quadrat](/images/kennenlerntag/square2.png)
+Durch ein Viereck innerhalb des roten Quadrats soll der nächste Teil des DHBW-Logos wie folgt erscheinen:
+
+![Viereck im roten Quadrat](/images/kennenlerntag/square-quad.png)
+
+Die Farbe ist ein dunkles Rot mit dem Wert `"#86171C"`.
+
+Wir zeichnen ein Viereck (engl. „_quadrangle_“) mit der p5.js-Funktion `quad()`, die vier Koordinaten und daher acht Parameter benötigt (beim Dreieck waren es drei Koordinaten bzw. sechs Parameter):
+
+```js
+fill("#86171C");
+quad(195, 145, 195, 260, 135, 260, 135, 200);
+// Die ersten Koordinaten des Vierecks stehen hier für die Ecke
+// rechts oben“ und die folgenden verlaufen im Uhrzeigersinn
+```
+
+<Callout>
+Tipp: Manchmal hilft es, die sich an den Koordinaten bereits
+vorhandener Formen zu orientieren. Bei uns ist dies das rote
+Quadrat. Dadurch wird der Programmcode leichter nachvollziehbar:
+
+```js
+// Die ersten Koordinaten des Vierecks stehen hier für die Ecke
+// rechts oben“ und die folgenden verlaufen im Uhrzeigersinn
+quad(
+    75 + 120, // x1 rotes Quadrat + Länge (Quadrat)
+    140 + 5, // y1 rotes Quadrat + kleiner Abstand
+    75 + 120, // x1 rotes Quadrat + Länge (Quadrat)
+    140 + 120, // y1 rotes Quadrat + Länge (Quadrat)
+    75 + 120 / 2, // x1 rotes Quad. + halbe Länge
+    140 + 120, // y1 rotes Quad. + Länge
+    75 + 120 / 2, // x1 rotes Quad. + halbe Länge
+    140 + 120 / 2 // y1 rotes Quad. + halbe Länge
+  );
+```
+
+Die Werte oben entsprechen dem vorigen Aufruf von `quad()`.
+
+Ausblick: Mit Variablen bzw. Konstanten können bestimmte Werte leichter 
+wiederverwendet und für ganze Bereiche des Codes angepasst werden:
+
+```js
+const canvasWidth = 600;
+const canvasHeight = 600;
+const squareSize = 180;
+const squareGap = squareSize / 30;
+const redSquareStartX = canvasWidth / 2 - squareSize - squareGap;
+const redSquareStartY = canvasHeight / 2 - squareSize / 2;
+// usw. 
+```
+</Callout>
+
+<Callout type="info" emoji="👨🏻‍💻">
+Versuchen Sie, im grauen Quadrat ein Viereck zu zeichnen, das wie in der folgenden Abbildung aussieht (gleiche Farbe wie das Viereck im roten Quadrat).
+</Callout>
+
+![Vierecke in beiden Quadraten](/images/kennenlerntag/square-quad2.png)
 
 <Tabs items={['Lösung:', 'Code']}>
   <Tabs.Tab>Siehe Code</Tabs.Tab>
   <Tabs.Tab>
   ```js
-  fill("#73818D");
-  square(205, 140, 120, 4);
+  fill("#86171C");
+  quad(
+    205,
+    140,
+    205 + 120 / 2,
+    140,
+    205 + 120 / 2,
+    140 + 120 / 2,
+    205,
+    140 + 120 - 5
+  );
   ```
   </Tabs.Tab>
 </Tabs>
 
-## Dreiecke durch Vierecke ersetzen (Bonus für schnelle)
+Nun haben wir fast das DHBW-Logo erstellt. Was fehlt noch?
 
-![Quadrat](/images/kennenlerntag/square2.png)
+<Tabs items={['Antwort:', '👇']}>
+  <Tabs.Tab>Siehe 👉 </Tabs.Tab>
+  <Tabs.Tab>
+Wir sollten das Hilfsgitter entfernen.
 
-<Tabs items={['Lösung:', 'Code']}>
-  <Tabs.Tab>Siehe Code</Tabs.Tab>
+Wenn das DHBW-Logo groß genug ist, dann ist zu erkennen, dass die Dreiecke eigentlich auch Vierecke sind…
+  </Tabs.Tab>
+</Tabs>
+
+## Dreiecke durch Vierecke ersetzen (Optional)
+
+Wer schnell ist bzw. wenn es genügend Zeit gibt, dann besteht eine gute Übung darin, den Code so anzupassen, dass die Dreiecke auch Vierecke sind, sodass unser Entwurf folgender Abbildung gleicht:
+
+![Dreiecke als Vierecke](/images/kennenlerntag/square-quad3.png)
+
+<Callout>
+Dazu muss bestehender Code verändert bzw. angepasst werden. Dies kommt im Alltag der Programmierung viel häufiger vor als das Schreiben neuen Codes.
+</Callout>
+
+<Tabs items={['Kompletter Code:', '👇']}>
+  <Tabs.Tab>👉</Tabs.Tab>
   <Tabs.Tab>
   ```js
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background("white");
+  // drawGrid();
+
+  noStroke();
+  fill("#EA1E26");
+  square(75, 140, 120, 4);
+
   fill("#73818D");
   square(205, 140, 120, 4);
+
+  fill("#73818D");
+  quad(
+    75 + 120 / 2,
+    140 + 120,
+    75 + 120,
+    140 + 120,
+    75 + 120,
+    140 + 120 + 5,
+    75 + 120 / 2,
+    140 + 120 + 120 / 2
+  );
+
+
+  fill("#EA1E26");
+  quad(
+    205,
+    140,
+    205,
+    140 - 5,
+    205 + 120 / 2,
+    140 - 120 / 2 - 5,
+    205 + 120 / 2,
+    140
+  );
+
+  fill("#86171C");
+  quad(
+    75 + 120, // x1 rotes Quadrat + Länge des Quadrats
+    140 + 5, // y1 rotes Quadrat + kleiner Abstand
+    75 + 120, // x1 rotes Quadrat + Länge des Quadrats
+    140 + 120, // y1 rotes Quadrat + Länge des Quadrats
+    75 + 120 / 2, // x1 rotes Quadrat + halbe Länge des Quadrats
+    140 + 120, // y1 rotes Quadrat + Länge des Quadrats
+    75 + 120 / 2, // x1 rotes Quadrat + halbe Länge des Quadrats
+    140 + 120 / 2 // y1 rotes Quadrat + halbe Länge des Quadrats
+  );
+
+  fill("#86171C");
+  quad(
+    205,
+    140,
+    205 + 120 / 2,
+    140,
+    205 + 120 / 2,
+    140 + 120 / 2,
+    205,
+    140 + 120 - 5
+  );
+}
+
+function drawGrid() {
+  stroke("grey");
+  for (let i = 1; i <= 4; i++) {
+    line(0, (400 / 4) * i, 400, (400 / 4) * i); // horizontal line
+    line((400 / 4) * i, 0, (400 / 4) * i, 400); // vertical line
+  }
+}
   ```
   </Tabs.Tab>
 </Tabs>
