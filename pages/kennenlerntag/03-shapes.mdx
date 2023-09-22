@@ -48,7 +48,7 @@ fill("#EA1E26");
 &xrarr; Vor dem Aufruf von `square()` einfügen.
 
 <Callout>
-Der Wert `"#EA1E26"` legt bestimmte Wert für den Anteil von rot (`EA`), blau (`1E`) und grün (`26`) fest. Mit `#` wird signalisiert, dass es sich um einen hexadezimalen Wert handelt (Basis 16). <br/> 
+Der Wert `"#EA1E26"` legt einzelne Werte für den Anteil von rot (`EA`), blau (`1E`) und grün (`26`) fest. Mit `#` wird signalisiert, dass es sich um einen hexadezimalen Wert handelt (Basis 16). <br/> 
 &xrarr; Zahlendarstellung werden im 1. Semester behandelt.
 
 Bemerkung: In p5.pjs stehen uns alle Möglichkeiten der Farbbestimmung aus CSS zur Verfügung.
@@ -152,7 +152,7 @@ Wir zeichnen ein Viereck (engl. „_quadrangle_“) mit der p5.js-Funktion `quad
 fill("#86171C");
 quad(195, 145, 195, 260, 135, 260, 135, 200);
 // Die ersten Koordinaten des Vierecks stehen hier für die Ecke
-// rechts oben“ und die folgenden verlaufen im Uhrzeigersinn
+// „rechts oben“ und die folgenden verlaufen im Uhrzeigersinn
 ```
 
 <Callout>
@@ -166,8 +166,8 @@ Quadrat. Dadurch wird der Programmcode leichter nachvollziehbar:
 quad(
     75 + 120, // x1 rotes Quadrat + Länge (Quadrat)
     140 + 5, // y1 rotes Quadrat + kleiner Abstand
-    75 + 120, // x1 rotes Quadrat + Länge (Quadrat)
-    140 + 120, // y1 rotes Quadrat + Länge (Quadrat)
+    75 + 120, // x1 rotes Quadrat + Länge
+    140 + 120, // y1 rotes Quadrat + Länge
     75 + 120 / 2, // x1 rotes Quad. + halbe Länge
     140 + 120, // y1 rotes Quad. + Länge
     75 + 120 / 2, // x1 rotes Quad. + halbe Länge
@@ -223,18 +223,18 @@ Nun haben wir fast das DHBW-Logo erstellt. Was fehlt noch?
   <Tabs.Tab>
 Wir sollten das Hilfsgitter entfernen.
 
-Wenn das DHBW-Logo groß genug ist, dann ist zu erkennen, dass die Dreiecke eigentlich auch Vierecke sind…
+Wenn das DHBW-Logo groß genug ist, dann ist zu erkennen, dass die Dreiecke eigentlich auch Vierecke sind (eine Seite ist relativ schmal)…
   </Tabs.Tab>
 </Tabs>
 
 ## Dreiecke durch Vierecke ersetzen (Optional)
 
-Wer schnell ist bzw. wenn es genügend Zeit gibt, dann besteht eine gute Übung darin, den Code so anzupassen, dass die Hilfslinien für die Koordinaten mit Kommentaren ausgeblendet werden und die Dreiecke auch Vierecke sind. Unser Entwurf sollte folgender Abbildung gleicht:
+Wer schnell ist bzw. wenn es genügend Zeit gibt, dann besteht eine gute Übung darin, den Code so anzupassen, dass die Hilfslinien für die Koordinaten mit Kommentaren ausgeblendet und die Dreiecke im Code in Vierecke umgewandelt werden. Unser Entwurf sollte entsprechend folgender Abbildung aussehen:
 
 ![Dreiecke als Vierecke](/images/kennenlerntag/square-quad3.png)
 
 <Callout>
-Dazu muss bestehender Code verändert bzw. angepasst werden. Dies kommt im Alltag der Programmierung viel häufiger vor als das Schreiben neuen Codes.
+Hier muss bestehender Code verändert bzw. angepasst werden. Dies kommt im Alltag der Programmierung viel häufiger vor als das Schreiben neuen Codes.
 </Callout>
 
 <Callout type="warning">

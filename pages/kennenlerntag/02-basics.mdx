@@ -4,6 +4,10 @@ import { Callout } from 'nextra/components';
 
 ## Die Programmierumgebung (Editor) (2 Minuten)
 
+<Callout type="info" emoji="👨🏻‍💻">
+Wir gehen im Browser zu der Webadresse [editor.p5js.org](https://editor.p5js.org) und drücken auf den Start-Button, um das Programm auszuführen.
+</Callout>
+
 ![p5.js-Editor](/images/kennenlerntag/editor-p5js.png)
 
 **1:** Menüleiste <br/> 
@@ -21,15 +25,12 @@ Anzeige von Fehlern und Kontrollausgaben mit `print`
 **5:** Vorschau (Preview) <br/>
 Darstellung des p5.js-Sketches, das durch das Programm definiert wird.
 
-<Callout type="info" emoji="👨🏻‍💻">
-Wir gehen im Browser zu der Webadresse [editor.p5js.org](https://editor.p5js.org) und drücken auf den Start-Button, um das Programm auszuführen.
-</Callout>
 
 ## Aufbau eines p5.js-Programms (3 Minuten)
 
 Vorbemerkung: In der Programmierung werden mit Funktionen mehrere Befehle bzw. Anweisungen zusammengefasst, die zusammen eine bestimmte Aktion ausführen. Somit können wir die Funktionen verwenden (aufrufen), um die Aktion beliebig oft ausführen können (zu sehen an den runden Klammern `()` im Funktionsaufruf). 
 
-**Setup und Draw**: Jedes p5.js-Programm besteht in der Regel aus zwei Funktionen: `setup()` und `draw()`. Beim Laden von p5.js im Browser sind im Editor bereits diese beiden Funktionen vordefiniert. `setup()` wird einmal am Anfang ausgeführt, und `draw()` läuft in einer Schleife und wird ständig wiederholt.
+**Setup und Draw**: Jedes p5.js-Programm besteht in der Regel aus zwei Funktionen: `setup()` und `draw()`. Beim Laden von p5.js im Browser sind im Editor bereits diese beiden Funktionen vordefiniert. `setup()` wird einmal am Anfang ausgeführt, und `draw()` wird fortlaufend automatisch bis zum Programmende wiederholt.
 
 In der Funktion `setup()` wird die Canvas („Leinwand“) für die Darstellung unseres Programm durch den Aufruf der p5.js-Funktion `createCanvas(400,400)` erstellt mit einer Breite von `400` und einer Höhe von `400`.
 
@@ -56,11 +57,11 @@ Die folgende Verwendung von `background` führt zu einem Fehler: `background(red
 </Callout>
 
 <Callout>
-Als Farben sind in p5.js alle Farbwerte erlaubt, die in CSS vorkommen können.
+In p5.js sind alle Farbwerte erlaubt, die in CSS vorkommen können.
 </Callout>
 
 <Callout type="info" emoji="👨🏻‍💻">
-Für den Workshop benötigen wir eine Canvas von mindestens der Größe 400x400 und die Hintergrundfarbe der Canvas sollte weiß sein (`"white"`).
+Für den Workshop benötigen wir eine Canvas von der Größe 400x400 und die Hintergrundfarbe der Canvas sollte weiß sein (`"white"`).
 </Callout>
 
 ## Ausgaben in der Konsole (3 Minuten)
@@ -107,7 +108,7 @@ In der Menüleiste (Nr.1 in der Abbildung oben) finden wir unter `Help-Reference
 
 ### Hilfslinien für das Koordinatensystem darstellen
 
-Zur Orientierung im Koordinatensystem für diesen Workshop und als Übung wollen wird das Koordinatensystem durch 3 vertikale und 3 horizontale Linien Quadranten bzw. 16 gleich große Quadrate aufteilen.
+Zur Orientierung im Koordinatensystem für diesen Workshop und als Übung wollen wir das Koordinatensystem durch 3 vertikale und 3 horizontale Linien in Quadranten bzw. 16 gleich große Quadrate aufteilen.
 
 <Callout type="info" emoji="👨🏻‍💻">
 Erstellen Sie die Hilfslinien wie unten im Code und der Abbildung angedeutet.
