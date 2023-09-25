@@ -1,0 +1,89 @@
+import { Callout } from 'nextra/components';
+
+# Beispiel-App: Todos
+
+<Callout>
+  **Dauer:** 45 Minuten
+
+  - App gemeinsam entwickeln
+  - Todos als Text-Komponenten erstellen
+  - Styling vornehmen
+  - Styles im Stylesheet-Objekt zusammenfassen
+
+  **Ziel:** Das erste Projekt erstellen
+</Callout>
+
+Wir werden jetzt gemeinsam eine Todo-App entwickeln. Im Videokurs ist das Vorgehen ähnlich, jedoch werden dort andere Apps entwickelt und die Erklärungen sind ausführlicher. Hier werden wir eine Art „Crash-Kurs“ in React Native im Live Coding durchführen.
+
+<Callout>
+Jederzeit können Fragen gestellt werden und bei Bedarf gibt es selbstverständlich ausführlichere Erklärungen.
+
+Ansonsten ist es individuell möglich, im eigenen Tempo das Material im Videokurs abzuarbeiten.
+</Callout>
+
+
+<Callout type="info">
+Den Code schrittweise in git versionieren und in einem GitHub-Repository veröffentlichen. 
+
+Eventuell auch zusätzlich in Expo Snack den Code bereitstellen.
+</Callout>
+
+## Todos erstellen
+
+Die Datei `App.js` ist die Einstiegsdatei des React Native Projekts, d.h. der Code in dieser Datei wird als erstes ausgeführt.
+
+Dort finden wir eine Komponenten `App`, die als JavaScript-Funktion deklariert ist. Sie liefert das UI als JSX-Code, der an HTML erinnert. 
+
+Wir ersetzen das vordefinierte `<Text>`-Element durch drei Todos:
+
+```jsx
+<Text>Einkaufen</Text>
+<Text>Sport</Text>
+<Text>React Native lernen</Text>
+```
+
+Hierdurch zeigt sich bereits die deklarative Eigenschaft von React (Native).
+
+## Styling der Todos
+
+Mit inline-Styles können wir direkt das Aussehen von Komponenten beeinflussen:
+
+```jsx
+<Text style={{ fontSize: 24 }}>Einkaufen</Text>
+<Text style={{ fontSize: 24 }}>Sport</Text>
+<Text style={{ fontSize: 24 }}>React Native lernen</Text>
+```
+
+`{fontSize: 24}` ist ein JavaScript-Objekt. 
+
+Einige Styling-Eigenschaften erinnern an CSS. In React Native schreiben wir JavaScript-Code und eine Eigenschaft `font-size` (wie sie in CSS heißt) ist in JavaScript nicht erlaubt (aufgrund des `-`). Daher gibt es einige CSS-Eigenschaften, die in React Native in „CamelCase“ ohne Bindestriche geschrieben werden:
+
+- `fontSize` anstatt `font-size`
+- `backgroundColor` anstatt `background-color`
+- `textAlign` anstatt `text-align`
+- usw.
+
+In React Native ist aber nur ein Teil der CSS-Eigenschaften verfügbar.
+
+## Styles im StyleSheet-Objekt zusammenfassen
+
+Styles können leichter wiederverwendet und angepasst werden, wenn sie im StyleSheet-Objekt zusammengefasst und in den Komponenten referenziert werden:
+
+```jsx
+<Text style={styles.todoText}>Einkaufen</Text>
+<Text style={styles.todoText}>Sport</Text>
+<Text style={styles.todoText}>React Native lernen</Text>
+
+const styles = StyleSheet.create({
+  // der Rest bleibt gleich…
+  todoText: {
+    fontSize: 24,
+  },
+});
+```
+
+<Callout type="info" emoji="👨🏻‍💻">
+Kleine Übung: eigene Styles für die Todos setzen, z.B. Schriftfarbe mit `color`. 
+
+Wenn Sie bereits Erfahrung mit CSS haben, dann versuchen Sie, mit Ihrem Hintergrundwissen Abstände zu setzen oder Rahmen um die Todos zu zeichnen, usw.
+</Callout>

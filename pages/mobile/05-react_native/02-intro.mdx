@@ -1,0 +1,103 @@
+import { Callout } from 'nextra/components';
+
+# Einstieg in React Native
+
+<Callout>
+  **Dauer:** 45 Minuten
+
+  - Expo Snack (IDE für React Native im Browser)
+  - Projekt auf dem Rechner erstellen
+  - App auf dem Handy oder Simulator laden
+
+  **Ziel:** Das erste Projekt erstellen
+</Callout>
+
+## Programmieren im Browser mit Expo Snack
+
+Zunächst wird [Expo Snack](https://snack.expo.dev)
+gezeigt. Dies ist eine ziemlich mächtige 
+Entwicklungsumgebung für React Native im Browser.
+Apps können dort programmiert und nebenbei für
+Android, iPhone und als Webanwendung simuliert
+werden.
+
+<Callout type="warning" emoji="👨🏻‍💻">
+**Live Coding**
+
+- Aufbau und Verwendung Expo Snack 
+- Kleine Änderungen: z.B. Text, Farbe
+- Code und Dateien auf Minimum reduzieren, sodass nur der Text `Hello, World!` erscheint
+</Callout>
+
+<Callout type="info">
+&xrarr; Wir werden hauptsächlich mit VS Code arbeiten. 
+
+&xrarr; In Expo Snack kann jedoch ebenso dem Live Coding gefolgt werden. 
+
+&xrarr; Der Zwischenstand des Live Codings kann für den Kurs in Expo Snack und GitHub gespeichert werden.
+</Callout>
+
+<Callout type="error">
+Die Notizen orientieren sich stark am Videokurs. 
+
+Nur die wichtigsten Aspekte werden grob erklärt, 
+da diese ebenfalls im Videokurs behandelt werden.
+
+Möglicherweise werden hier und im Live Coding andere Komponenten 
+oder Konzepte gezeigt, die nicht im Videokurs vorkommen.
+</Callout>
+
+## Projekt auf dem Rechner erstellen
+
+- VS Code starten
+- Verzeichnis für Projekte öffnen (z.B. `tmp`)
+- Terminal in VS Code anzeigen (`View-Terminal`)
+- `npx create-expo-app` im Terminal ausführen (Projekt erstellen)
+- Neues Verzeichnis des Projekts in VS Code öffnen (z.B. `TIF21-Todos`)
+- `App.js` öffnen und ggf. mit Code aus Expo Snack ersetzen (siehe „Hello, World!“ oben)
+- Terminal in VS Code anzeigen (`View-Terminal`)
+- `npx expo start` im Terminal ausführen
+
+## App auf dem Handy testen
+
+Um die App auf dem eigenen Handy zu testen, muss zunächst die App
+_Expo Go_ installiert werden (im App Store bzw. Play Store suchen).
+
+Im Terminal ist ein QR-Code zu sehen, mit dem die App auf dem Handy geladen werden kann. Dazu auf dem iPhone die Kamera-App verwenden, auf Android-Geräten kann der QR-Code-Scan aus Expo Go erfolgen.
+
+<Callout type="warning">
+Im WLAN bzw. Netzwerk der DHBW ist eine Kommunikation von Gerät zu Gerät (_client-to-client_) wegen Sicherheitseinschränkungen nicht möglich.
+
+In diesem Fall kann der Expo-Server mit der Option `--tunnel` gestartet werden:
+
+```
+npx expo start --tunnel
+```
+
+Dann wird eine indirekte, öffentliche Netzwerk-Verbindung („Tunnel“) zwischen Rechner und Handy genutzt, siehe [Tunneling in den Expo Docs](https://docs.expo.dev/more/expo-cli/#tunneling).
+
+
+In „gewöhnlichen“ WLAN in Heimnetzwerken sollte es möglich sein, die App direkt auf dem Handy zu laden, solange Handy und Rechner im gleichen WLAN bzw. Netzwerk sind. 
+</Callout>
+
+<Callout type="warning">
+Ist ein Android-Gerät direkt per USB-Kabel mit dem Handy verbunden, dann kann der Expo-Server mit `--localhost` gestartet werden:
+
+```
+npx expo start --localhost
+```
+
+Durch Drücken von `a` im Terminal wird die App dann auf dem Android-Gerät geladen
+</Callout>
+
+Projektverzeichnis, Dateien und Inhalt/Aufbau von 
+`App.js` kurz erklären.
+
+<Callout>
+**Vertiefendes Material**
+
+Abschnitt 3 im Videokurs
+
+Weitere Zielplattformen von React Native:
+https://reactnative.dev/docs/out-of-tree-platforms
+</Callout>

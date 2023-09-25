@@ -1,4 +1,5 @@
 {
-  "setup": "Setup",
-  "intro": "Einstieg"
+  "01-setup": "Setup",
+  "02-intro": "Einstieg",
+  "03-app": "Todo-App"
 }
