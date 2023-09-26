@@ -93,12 +93,18 @@ Wenn Sie bereits Erfahrung mit CSS haben, dann versuchen Sie, mit Ihrem Hintergr
 Größe und Abstände können ähnlich wie in CSS definiert werden:
 
 ```jsx
-width: '100%',
-paddingHorizontal: 10,
-marginBottom: 5,
+const styles = StyleSheet.create({
+  // der Rest bleibt gleich…
+  todoText: {
+    fontSize: 24,
+    width: '100%',
+    paddingHorizontal: 10,
+    marginBottom: 5,
+  },
+});
 ```
 
-`margin` steht für den Außenabstand zwischen den Elementen und `padding` für den Innenabstand vom Element zu seinem „äußeren Rand“. Abstände lassen sich mit Ergänzungen kombinieren, die den Abstand auf eine bestimmte Ausrichtung einschrängen:
+`margin` steht für den Außenabstand zwischen den Elementen und `padding` für den Innenabstand vom Element zu seinem „äußeren Rand“. Abstände lassen sich mit Ergänzungen kombinieren, die den Abstand auf eine bestimmte Ausrichtung einschränken:
 
 - `…Horizontal`: Abstände nur horizontal, d.h. links und rechts
 - `…Bottom`: Abstand wird nur nach unten erzeugt
