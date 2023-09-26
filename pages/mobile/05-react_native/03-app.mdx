@@ -87,3 +87,19 @@ Kleine Übung: eigene Styles für die Todos setzen, z.B. Schriftfarbe mit `color
 
 Wenn Sie bereits Erfahrung mit CSS haben, dann versuchen Sie, mit Ihrem Hintergrundwissen Abstände zu setzen oder Rahmen um die Todos zu zeichnen, usw.
 </Callout>
+
+## Ganze Breite und Abstände für die Todos   
+
+Größe und Abstände können ähnlich wie in CSS definiert werden:
+
+```jsx
+width: '100%',
+paddingHorizontal: 10,
+marginBottom: 5,
+```
+
+`margin` steht für den Außenabstand zwischen den Elementen und `padding` für den Innenabstand vom Element zu seinem „äußeren Rand“. Abstände lassen sich mit Ergänzungen kombinieren, die den Abstand auf eine bestimmte Ausrichtung einschrängen:
+
+- `…Horizontal`: Abstände nur horizontal, d.h. links und rechts
+- `…Bottom`: Abstand wird nur nach unten erzeugt
+- es gibt auch die Ergänzungen `Vertical`, `Top`, `Left`, `Right`.
