@@ -1,0 +1,64 @@
+import { Callout } from 'nextra/components';
+
+# Komponenten in React Native
+
+<Callout>
+  **Dauer:** 45 Minuten
+
+  - Todo-Komponenten als Funktion
+  - Eigenschaften (Props) von Komponenten
+  - Komponente in eigener Datei
+
+  **Ziel:** Das erste Projekt erstellen
+</Callout>
+
+In React Native schreiben wir für das UI unserer App Komponenten, welche als JavaScript-Funktionen deklariert werden. Eine Komponente hat als Rückgabewert im `return` den JSX-Code, der das UI definiert:
+
+```jsx
+function Todo() {
+  return <Text>Ein Todo als Komponente!</Text>;
+}
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.todoText}>Einkaufen</Text>
+      <Text style={styles.todoText}>Sport</Text>
+      <Text style={styles.todoText}>React Native lernen</Text>
+      <Todo />
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+```
+
+Wird eine Komponente als Funktion definiert, dann kann ergibt der Funktionsname einen neuen Element-Namen (_tag_). Wir können die Komponente dann wie in HTML mit einer Elementdeklaration einbinden (`<Name />`):
+
+![Komponente mit Tag-Namen](/images/mobile/reactnative/Komponente1.png)
+
+Die Styles kommen in der Komponente `Todo` wie zuvor zum Einsatz. Wir können die bisherigen `Text`-Elemente löschen und stattdessen `Todo`-Elemente verwenden:
+
+```jsx
+function Todo() {
+  return (
+    <Text style={styles.todoText}>Ein Todo als Komponente!</Text>
+  );
+}
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Todo />
+      <Todo />
+      <Todo />
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+```
+
+## Eigenschaften (Props) von Komponenten
+
+Mit „Props“ (Eigenschaften, Kurzform von _property_) können wir Komponenten „konfigurieren“. Dies geschieht über Attribute in den Elementdeklarationen. Zur Laufzeit wird die JavaScript-Funktion der Komponente mit einem Parameter namens `props` aufgerufen, welcher einem JavaScript-Objekt mit den entsprechenden Attributen bzw. Props entspricht:
+
+![Komponente mit props (Attribute)](/images/mobile/reactnative/Komponente2.png)
