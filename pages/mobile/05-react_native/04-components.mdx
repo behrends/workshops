@@ -62,3 +62,143 @@ export default function App() {
 Mit „Props“ (Eigenschaften, Kurzform von _property_) können wir Komponenten „konfigurieren“. Dies geschieht über Attribute in den Elementdeklarationen. Zur Laufzeit wird die JavaScript-Funktion der Komponente mit einem Parameter namens `props` aufgerufen, welcher einem JavaScript-Objekt mit den entsprechenden Attributen bzw. Props entspricht:
 
 ![Komponente mit props (Attribute)](/images/mobile/reactnative/Komponente2.png)
+
+Mit geschweiften Klammern wird innerhalb von JSX-Deklaration JavaScript-Code eingebettet, siehe z.B. den Zugriff auf die Konstante `todo`:
+
+```jsx
+const todo = props.todo; 
+return <Text style={styles.todoText}>{todo}</Text>;
+```
+
+Normalerweise werden auch die Werte der Attribute/Props in geschweiften Klammern definiert: 
+
+```jsx
+<ExampleComponent title={"Hello"} count={3} />
+```
+
+Wenn der Attribut-Wert ein String ist, wie im Todo-Beispiel, dann können die geschweiften Klammern weggelassen werden:
+
+```jsx
+<ExampleComponent title="Hello" count={3} />
+```
+
+Als Attributwerte sind alle zulässigen JavaScripte-Objekt erlaubt (Zahlen, Strings, `boolean`, Arrays, Objects, Funktionen, usw.)
+
+## props als Elementinhalt
+
+Bei unseren Todos wird der Code lesbarer, wenn die Textinhalte innerhalb der Tags definiert werden, so wie es auch in HTML mit Text innerhalb von `p`-Elementen o.ä. üblich ist: 
+
+```jsx
+// Code-Ausschnitt: Textinhalt innerhalb der Tags
+<Todo>Einkaufen</Todo>
+<Todo>Sport</Todo>
+<Todo>React Native lernen</Todo>
+```
+
+Textinhalte zwischen den Tags werden automatisch als Prop namens `children` im `props`-Parameter an die Funktion der Komponente übergeben:
+
+```jsx
+function Todo(props) {
+  const todo = props.children;
+  return <Text style={styles.todoText}>{todo}</Text>;
+}
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Todo>Einkaufen</Todo>
+      <Todo>Sport</Todo>
+      <Todo>React Native lernen</Todo>
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+```
+
+`props` entspricht also beim ersten Todo („Einkaufen“) dem JavaScript-Objekt `{children: "Einkaufen"}`.
+
+## Optional: Props destrukturieren
+
+In JavaScript und React (Native) werden JavaScript-Objekte (hier die `props`) oft direkt destrukturiert:
+
+```jsx
+function Todo(props) {
+  const { children } = props;
+  return <Text style={styles.todoText}>{children}</Text>;
+}
+```
+
+Dies lässt sich noch einen weiteren Schritt fortsetzen, indem die Destrukturierung direkt auf der Ebene der Funktionsparameter geschieht:
+
+```jsx
+function Todo({ children }) {
+  return <Text style={styles.todoText}>{children}</Text>;
+}
+```
+
+Hierdurch wird der Code kompakter.
+
+## Komponente in eigener Datei
+
+Komponenten werden oft in einer eigenen Datei im Ordner `components` deklariert. Die Datei heißt dann meist so wie die Komponente und muss exportiert werden (`Todo.jsx`): 
+
+
+```jsx
+// Komponente in eigener Datei: components/Todo.jsx
+import { StyleSheet, Text } from 'react-native';
+
+export default function Todo({ children }) {
+  return <Text style={styles.todoText}>{children}</Text>;
+}
+
+const styles = StyleSheet.create({
+  todoText: {
+    fontSize: 24,
+    width: '100%',
+    paddingHorizontal: 10,
+    marginBottom: 5,
+  },
+});
+
+```
+
+In App.js müssen wir die Komponenten dann entsprechend aus `./components/Todo` importierten (die Endung `.jsx` kann weggelassen werden):
+
+```jsx
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View } from 'react-native';
+
+import Todo from './components/Todo';
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Todo>Einkaufen</Todo>
+      <Todo>Sport</Todo>
+      <Todo>React Native lernen</Todo>
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+```
+
+In `App.js` kann einiger Code gelöscht werden (siehe oben).
+
+<Callout type="info" emoji="👨🏻‍💻">
+Übung: Erstellen Sie eine eigene Komponente namens `MyTodo`, die das Todo in einer anderen Schriftfarbe und weiteren Styles nach Ihrem Geschmack erstellt, und verwenden Sie `MyTodo` für ein paar Todos in `App.js`.
+
+Bonus: Erweitern Sie `MyTodo` mit eigenen Props, wie z.B. für wichtige Todos, die dann in roter Farbe o.ä. dargestellt werden:
+
+```jsx
+<MyTodo important={true}>Ganz wichtig!</MyTodo>
+```
+</Callout>
