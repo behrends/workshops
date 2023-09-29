@@ -1,0 +1,100 @@
+import { Callout } from 'nextra/components';
+
+# Liste mit Todos
+
+<Callout>
+  **Dauer:** 45 Minuten
+
+  - Daten in einem lokalen Array 
+  - usw.
+
+</Callout>
+
+## Daten in einem lokalen Array
+
+In fast jeder App werden Daten verwaltet, in unserem Beispiel sind dies u.a. die Todos. Je nach Umfang und Komplexität der Daten wird dafür auf längere Sicht eine Datenbank oder eine andere Form der persistenten Speicherung benötigt. 
+
+Zunächst konzentrieren wir uns auf das UI und werden noch keine Datenbank in unserer App einsetzen. Dennoch macht es Sinn, im Code die Daten vom UI zu trennen, damit eine spätere Einbindung einer Datenbank leichter umzusetzen ist. Hierzu definieren wir ein einfaches Array bestehend aus Strings und weisen dies einer Konstanten außerhalb der Funktionskomponente zu:
+
+```jsx
+const todos = ['Einkaufen', 'Sport', 'React Native lernen'];
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Todo>Einkaufen</Todo>
+      <Todo>Sport</Todo>
+      <Todo>React Native lernen</Todo>
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+```
+
+Nun können wir die Todos aus dem `todos`-Array verwenden, indem mir mit der Array-Funktion `map` zu jedem String die passende `<Todo>`-Komponente erstellen:
+
+```jsx
+const todos = ['Einkaufen', 'Sport', 'React Native lernen'];
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {todos.map((todo) => (
+        <Todo>{todo}</Todo>
+      ))}
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+```
+
+Dabei sind die geschweiften Klammern im JSX-Code zu beachten, welche die Verwendung von JavaScript-Code signalisieren.
+
+<Callout type="info">
+Bei Bedarf kann die Funktionsweise von `map` und  Pfeilfunktionen in JavaScript kurz erläutert werden (JavaScript-Code in der Browser-Konsole, Whiteboard, ChatGPT, …).
+</Callout>
+
+## Todos als JavaScript-Objekte
+
+Wir erhalten nun diese Warnung in der App:
+
+![Warnung bei fehlendem key-prop](/images/mobile/reactnative/key-prop-warning.png)
+
+Wenn React (Native) iterativ mehrere Komponenten als eine Art Liste erzeugt, dann wird erwartet, dass jede Komponente eindeutig identifizierbar ist. Dies wird zu Optimierungszwecken benötigt, wenn sich z.B. die Reihenfolge ändert. In React (Native) wird dazu in jeder Komponente ein `key`-prop mit einem eindeutigen Wert definiert, wie hier angedeutet:
+
+```jsx
+<Todo key={id}>{todo}</Todo>
+```
+
+<Callout>
+Neben `key` gibt es weitere „reservierte“ Props, die nicht für eigene Zwecke genutzt werden sollten (u.a. `ref`).
+</Callout>
+
+Um diese Anforderung in unserer App zu erfüllen könnten wir die Todos im Array als JavaScript-Objekte mit eindeutigen Werten in einer `id`-Eigenschaft deklarieren:
+
+```jsx
+const todos = [
+  { id: 1, text: 'Einkaufen' },
+  { id: 2, text: 'Sport' },
+  { id: 3, text: 'React Native lernen' },
+];
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {todos.map((todo) => (
+        <Todo key={todo.id}>{todo.text}</Todo>
+      ))}
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+```
+
+Wichtig ist, dass die `Todo`-Komponenten passend zu den JavaScript-Objekten im Array deklariert werden:
+
+```jsx
+<Todo key={todo.id}>{todo.text}</Todo>
+```
+
+Damit sollte die Warnung verschwinden.
