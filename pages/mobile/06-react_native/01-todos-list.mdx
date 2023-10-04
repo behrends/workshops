@@ -1,4 +1,4 @@
-import { Callout } from 'nextra/components';
+import { Callout, Tabs } from 'nextra/components';
 
 # Liste mit Todos
 
@@ -6,8 +6,9 @@ import { Callout } from 'nextra/components';
   **Dauer:** 45 Minuten
 
   - Daten in einem lokalen Array 
-  - usw.
-
+  - FlatList einbinden
+  - Übung: FlatList in eigener Datei
+  - Übung: FlatList stylen
 </Callout>
 
 ## Daten in einem lokalen Array
@@ -98,3 +99,144 @@ Wichtig ist, dass die `Todo`-Komponenten passend zu den JavaScript-Objekten im A
 ```
 
 Damit sollte die Warnung verschwinden.
+
+## FlatList einbinden
+
+React Native stellt mit `FlatList` eine Komponente bereit, mit der beliebig viele Elemente in einer scrollbaren Liste dargestellt werden können. Um `FlatList` zu verwenden sind folgende Schritte nötig:
+
+- `FlatList` importieren.
+- Nun kann `<FlatList/>` als Komponente im JSX-Code mit mindestens den Props `data` und `renderItem` verwendet werden.
+- Im Prop `data` ist ein Array mit Listenelementen zu definieren.
+- Dem Prop `renderItem` wird eine Funktion übergeben, die eine Komponente zur Darstellung eines Listeneintrags liefert (wird automatisch für jedes Element in `data` aufgerufen).
+- Bei Bedarf für die `FlatList` Abstand zum oberen Bildschirmrand mit `paddingTop` definieren.
+
+Wir können unsere App mit `FlatList` wie folgt umschreiben:
+
+```jsx
+import { FlatList, StyleSheet, View } from 'react-native';
+import Todo from './components/Todo';
+
+const todos = [
+  { id: 1, text: 'Einkaufen' },
+  { id: 2, text: 'Sport' },
+  { id: 3, text: 'React Native lernen' },
+];
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={todos}
+        renderItem={({ item }) => (
+          <Todo key={item.id}>{item.text}</Todo>
+        )}
+      />
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 50, // <-- Abstand zum oberen Bildschirmrand
+  },
+});
+```
+
+Zur Laufzeit wird die Funktion im Prop `renderItem` automatisch für jedes Element des Arrays aufgerufen, dass im Prop `data` übergeben wird. Die Funktion in `renderItem` erhält ein Objekt als Parameter, dessen Eigenschaft `item` das anzuzeigende Array-Element enthält. Im Code-Beispiel wird dies mit `{ item }` destrukturiert.
+
+Zu beachten ist auch der Abstand zum oberen Bildschirmrand, den wir mit `paddingTop: 50` im `style`-Objekt festlegen, damit die Liste komplett sichtbar ist.
+
+<Callout type="warning">
+Im Web sind oft Beispiele mit `FlatList` zu finden, bei denen die Komponente `SafeAreaView` zum Einsatz kommt. Hierdurch wird automatisch der Abstand zum oberen Bildschirmrand erzeugt, allerdings **nur für das iPhone und leider nicht auf Android-Geräten** (Stand 10/2023). 
+</Callout>
+
+## Übung: FlatList in eigener Datei
+
+Erstellen Sie eine eigene Komponente `TodoList` für die `FlatList` in einer neuen Datei `components/TodoList.jsx` und verwenden Sie diese in `App.js`.
+
+<Tabs items={['Lösung:', '👇']}>
+  <Tabs.Tab>👉</Tabs.Tab>
+  <Tabs.Tab>
+  ```jsx
+// components/TodoList.jsx
+import { FlatList } from 'react-native';
+import Todo from './Todo';
+
+export default function TodoList({ todos }) {
+  return (
+    <FlatList
+      data={todos}
+      renderItem={({ item }) => (
+        <Todo key={item.id}>{item.text}</Todo>
+      )}
+    />
+  );
+}
+  ```
+
+  ```jsx
+// App.jsx
+import TodoList from './components/TodoList';
+
+// const todos = ...
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <TodoList todos={todos} />
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+// styles weggelassen
+
+  ```
+  </Tabs.Tab>
+</Tabs>
+
+## Übung: FlatList stylen
+
+Ergänzen Sie die `TodoList`-Komponente mit Styles, sodass die Liste auf den ganzen Bildschirm ausgedehnt wird und linksbündig erscheint.
+
+Recherchieren Sie außerdem in der Dokumentation zu `FlatList` (https://reactnative.dev/docs/flatlist), wie Sie mit dem `FlatList`-Prop namens `ItemSeparatorComponent` einen Trennstrich zwischen zwei Todos in der Liste anzeigen können:
+
+![FlatList mit Trennstrich](/images/mobile/reactnative/FlatList-styles.png)
+
+<Tabs items={['Lösung:', '👇']}>
+  <Tabs.Tab>👉</Tabs.Tab>
+  <Tabs.Tab>
+  ```jsx
+import { FlatList, StyleSheet, View } from 'react-native';
+import Todo from './Todo';
+
+export default function TodoList({ todos }) {
+  return (
+    <FlatList
+      style={styles.list}
+      data={todos}
+      renderItem={({ item }) => (
+        <Todo key={item.id}>{item.text}</Todo>
+      )}
+      ItemSeparatorComponent={() => <View style={styles.separator} />}
+    />
+  );
+}
+
+const styles = StyleSheet.create({
+  list: {
+    width: '100%',
+  },
+  separator: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: 'darkgrey',
+  },
+});
+  ```
+  </Tabs.Tab>
+</Tabs>
