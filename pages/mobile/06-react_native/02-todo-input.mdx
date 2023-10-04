@@ -1,0 +1,218 @@
+import { Callout, Tabs } from 'nextra/components';
+
+# Eingabe mit TextInput
+
+<Callout>
+  **Dauer:** 45 Minuten
+
+  - `TextInput` für neue Todos einbinden  
+  - `TextInput` stylen
+  - `Button` zum Speichern hinzufügen
+  - Flexbox mit horizontaler Ausrichtung
+</Callout>
+
+## `TextInput` für neue Todos einbinden  
+
+Mit `TextInput` gibt es in React Native eine Komponente für die Eingabe von Text. 
+Ein `TextInput` soll oberhalb der Todo-Liste erscheinen, was wir in `App.js` 
+umsetzen werden. Mit dem Prop `placeholder` kann das Eingabefeld beschriftet werden.
+
+```jsx
+// App.js: TextInput importieren
+import { StyleSheet, TextInput, View } from 'react-native';
+
+// der restliche Code bleibt gleich
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <TextInput placeholder="Todo eingeben" />
+      <TodoList todos={todos} />
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+```
+
+## `TextInput` stylen
+
+Damit `TextInput` besser sichtbar und bedienbar ist, ergänzen wir diesen mit ein paar Styles für die Schriftgröße, Abstände und einen farbigen Rand:
+
+```jsx
+// der restliche Code bleibt gleich
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <TextInput style={styles.input} placeholder="Todo eingeben" />
+      <TodoList todos={todos} />
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  // die restlichen Styles bleiben gleich
+  input: {
+    borderWidth: 1,
+    borderColor: 'orange',
+    borderRadius: 5,
+    fontSize: 24,
+    padding: 10,
+    marginVertical: 20,
+    width: '90%',
+  },
+});
+```
+
+## `Button` zum Speichern hinzufügen
+
+Die Komponente `Button` aus React Native erstellt einen Standard-`Button` für jede Plattform. In Android erscheint dieser als blaue Fläche mit Großbuchstaben und auf dem iPhone als blauer Text:
+
+![Button auf Android und iOS](/images/mobile/reactnative/button-android-ios.png)
+
+Als Props sind `title` und `onPress` zu definieren. In `onPress` wird eine Funktion definiert, die beim Antippen des `Button`s ausgeführt wird:
+
+```jsx
+import { Button, StyleSheet, TextInput, View } from 'react-native';
+
+// der restliche Code bleibt gleich
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <TextInput style={styles.input} placeholder="Todo eingeben" />
+      <Button title="Speichern" onPress={() => alert('OK')} />
+      <TodoList todos={todos} />
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+```
+
+Die kurze Funktionsdeklaration `() => alert('OK')` ist oft hilfreich, um den `Button` zu testen.
+
+<Callout>
+Mit [Pressable](https://reactnative.dev/docs/pressable) gibt es in React Native eine flexibel konfigurierbare Komponente, mit der beliebige Komponenten zu „antippbaren“ (_pressable_) Bereichen in der App werden.
+</Callout>
+
+## Flexbox mit horizontaler Ausrichtung
+
+Das Eingabefeld und der Knopf sollen nun nebeneinander angezeigt werden:
+
+![Horizontale Ausrichtung Input Button](/images/mobile/reactnative/new-todo-flex.png)
+
+Dazu müssen wir `TextInput` und `Button` mit einer `View`-Komponente umgeben, 
+die ein horizontales Flexbox-Layout definiert:
+
+```jsx
+// der restliche Code bleibt gleich
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <View style={styles.newTodo}>
+        <TextInput style={styles.input} placeholder="Todo eingeben" />
+        <Button title="Speichern" onPress={() => alert('OK')} />
+      </View>
+      <TodoList todos={todos} />
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  // die restlichen Styles bleiben gleich
+  input: {
+    borderWidth: 1,
+    borderColor: 'orange',
+    borderRadius: 5,
+    fontSize: 24,
+    padding: 10,
+    marginLeft: 10,
+    flex: 1, // <-- hier stand vorher width: '90%'
+  },
+  newTodo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+  },
+});
+```
+
+<Callout type="info">
+Flexbox ist ein eigenes Thema, welches aus CSS stammt und in React Native übernommen wurde. Dazu gibt es einen eigenen Abschnitt im Videokurs.
+
+Bei Bedarf kann dies spontan oder später in einer kleineren Gruppe am Whiteboard und einer eigenen Beispiel-App mit einfachen, farbigen `View`-Komponenten erklärt werden.
+</Callout>
+
+## Eigene Komponente für Todo-Eingabe
+
+In der Datei `components/NewTodo.jsx` soll die Komponenten für die Eingabe von Todos
+definiert werden:
+
+```jsx
+// components/NewTodo.jsx
+import { Button, StyleSheet, TextInput, View } from 'react-native';
+
+export default function NewTodo() {
+  return (
+    <View style={styles.newTodo}>
+      <TextInput style={styles.input} placeholder="Todo eingeben" />
+      <Button title="Speichern" onPress={() => alert('OK')} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  input: {
+    borderWidth: 1,
+    borderColor: 'orange',
+    borderRadius: 5,
+    fontSize: 24,
+    padding: 10,
+    marginLeft: 10,
+    flex: 1,
+  },
+  newTodo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+  },
+});
+```
+
+Dazu sind Anpassungen in `App.js` nötig:
+
+```jsx
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View } from 'react-native';
+
+import NewTodo from './components/NewTodo';
+import TodoList from './components/TodoList';
+
+const todos = [
+  { id: 1, text: 'Einkaufen' },
+  { id: 2, text: 'Sport' },
+  { id: 3, text: 'React Native lernen' },
+];
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <NewTodo />
+      <TodoList todos={todos} />
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 50,
+  },
+});
+```

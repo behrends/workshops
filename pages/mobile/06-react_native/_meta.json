@@ -1,3 +1,6 @@
 {
-  "01-todos-list": "Liste mit Todos"
+  "01-todos-list": "Liste mit Todos",
+  "02-todo-input": "Eingabe mit TextInput",
+  "03-state-storage": "State und AsyncStorage",
+  "04-next-steps": "Nächste Schritte"
 }
