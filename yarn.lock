@@ -3104,7 +3104,7 @@ next@>=13:
     "@next/swc-win32-ia32-msvc" "13.5.3"
     "@next/swc-win32-x64-msvc" "13.5.3"
 
-nextra-theme-docs@^2.12.1:
+nextra-theme-docs@^2.13.1:
   version "2.13.1"
   resolved "https://registry.yarnpkg.com/nextra-theme-docs/-/nextra-theme-docs-2.13.1.tgz#cb6f94624d819853684306449dccf2cb393811a8"
   integrity sha512-mckNuKa0AmBbRdPCJ/OQ55KZx5MGH8moomMHYB3XVGXQqmXimOq1/2WZQiBdFx9u43KtfEvqZbQE8oGDIrfIsQ==
