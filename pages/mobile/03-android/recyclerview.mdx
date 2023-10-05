@@ -5,9 +5,31 @@ import { Callout } from 'nextra/components'
 <Callout>
   **Dauer:** bis zu 90 Minuten &mdash; ggs. aufteilen
 
-  - TODO
+  - Aufbau einer `RecyclerView`
+  - Statische Todos in einer `RecyclerView`
 
   **Ziel:** Mehrere Todos in einer Liste anzeigen
 </Callout>
 
-TODO
+In XML-Layouts von Android werden Listen mit einer `RecyclerView`
+erstellt. Der Name bezieht sich darauf, dass Listenelemente, die
+beim Scrollen aus dem sichtbaren Bereich verschwinden, am Ende
+der Liste wiederverwendet werden („_recycling_“).
+
+## Aufbau einer `RecyclerView`
+
+Die folgende Abbildung stellt den Aufbau einer `RecyclerView` dar:
+
+![RecyclerView](/images/mobile/android/recyclerview.png)
+
+(Quelle: https://developer.android.com/codelabs/basic-android-kotlin-training-recyclerview-scrollable-list#3)
+
+- `item`: Ein Datenelement der darzustellenden Liste (z.B. ein Todo)
+- `Adapter`: Wandelt Daten für die `RecyclerView` passend zur Darstellung um.
+- `ViewHolder`: Eine Sammlung von wiederverwendbaren Views zur Darstellung der Daten.
+- `RecyclerView`: Die sichtbare Liste auf dem Screen.
+
+Im XML-Layout benötigen wir also eine `RecyclerView` für die Liste. Zusätzlich wird eine `Adapter`-Klasse benötigt.
+
+## `RecyclerView` im XML-Layout 
+
