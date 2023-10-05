@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 # Verschiedenes
 
 <Callout>
-  **Dauer:** 35 Minuten
+  **Dauer:** 20 Minuten
 
   - strings.xml
   - Abhängigkeiten aktuell halten
@@ -25,12 +25,15 @@ Android Studio, das dafür eigene Werkzeuge
 bereitstellt. Dadurch verschwinden ein paar
 Warnungen im Code bzw. in den XML-Layouts.
 
+Zusätzlich könnten wir englische Texte in `res/values/strings.xml` und
+deutsche Übersetzungen in `res/values-de-rDE/strings.xml` definieren.
+
 Mehr zu String-Ressourcen: 
 https://developer.android.com/guide/topics/resources/string-resource
 
 ## Abhängigkeiten aktuell halten
 
-In der Datei `app/build.gradle` (hat den
+In der Datei `app/build.gradle.kts` (hat den
 Zusatz „_Module_“ in Android Studio) werden
 ganz unten Abhängigkeiten eines Projekts definiert.
 
@@ -50,7 +53,7 @@ können meistens ignoriert werden. Sowohl zu
 Warnungen als auch zu Fehlermeldungen gibt
 Android Studio oft Hinweise oder bietet 
 _quick fixes_ an, mit denen die Probleme 
-behoben werden können (z.B. können mit `Alt-Enter`
+behoben werden können (z.B. können mit `alt`+`enter`
 Vorschläge angezeigt und ausgeführt werden).
 
 <Callout type="warning">
