@@ -44,7 +44,7 @@ wir rufen diese Funktionen nie selbst im Code auf
 durch einen Konstruktoraufruf o.ä.).
 
 Bei `onCreate()` etc. handelt es sich um 
-_callback_-Funktionen. 
+_callback_-Funktionen. Siehe `MainActivity.kt` bei unserer App.
 
 ## Layout und Activity zusammen
 
@@ -68,7 +68,7 @@ herauskommen:
 ```
 
 Zunächst erstellen wir mit `findViewById()` in 
-der Funktion `onCreate` der `Activity` eine 
+der Funktion `onCreate` der `MainActivity` eine 
 Referenz auf den `Button`:
 
 ```kotlin
@@ -92,15 +92,18 @@ button.setOnClickListener {
 }
 ```
 
-**Achtung**: Wieder auf `imports` achten.
+**Achtung**: Wieder auf `imports` achten. <br/>
+(`alt`+`enter` ist unser Freund und Helfer)
 
-**Übung** \
-a) Erstellen Sie im UI einen zusätzlichen `Button`, der 
+**Übungen (je nach verfügbarer Zeit)** \
+a) Nutzen Sie im ClickListener des Buttons `findViewById` um das eingegebene Todo im Toast anzuzeigen.
+
+b) Erstellen Sie im UI einen zusätzlichen `Button`, der 
 den eingegebenen Text zurücksetzt (wird nicht Teil der App sein).
 
-b) Erstellen Sie im UI ein weiteres Eingabefeld (`EditText`)
+c) Um alle bisherigen Konzepte zu üben: Erstellen Sie im UI ein weiteres Eingabefeld (`EditText`)
 und einen weiteren `Button`, die sich wie die bereits
-vorhandenen verhalten (wird nicht Teil der App sein).
+vorhandenen UI-Elemente verhalten (wird nicht Teil der App sein).
 
 <Callout type="warning">
 **Vertiefendes Material**

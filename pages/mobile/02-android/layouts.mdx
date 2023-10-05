@@ -43,11 +43,23 @@ Es gibt einige verschiedene Layout-Arten.
 Das `Constraint-Layout` wird ausführlich in
 Abschnitt 3 des Videokurses zu Android beschrieben.
 
-**&xrarr; Für „echte“ Projekte lohnt es sich, das Constraint-
-Layout einzusetzen.**
+**&xrarr; Für „echte“ Projekte lohnt es sich, das 
+Constraint-Layout einzusetzen.** <br/>
 
 Weitere Ressourcen siehe ganz unten.
 </Callout>
+
+<Callout emoji="‼️">
+**Hinweis:** 
+
+Im Oktober 2023 ist bereits
+[Jetpack Compose](https://developer.android.com/jetpack/compose)
+der standardmäßige Ansatz zur UI-Entwicklung in Android (siehe z.B. [„_Get started with Android_“](https://developer.android.com/get-started/overview) in den Android Developer Docs).
+
+Mit Compose wird das UI direkt im Kotlin-Code ohne XML-Layouts deklariert.
+</Callout>
+
+## Umstellung auf `Linear Layout`
 
 Ein UI-Layout wird in Android-Projekten als XML-Datei
 definiert. Diese „gewöhnliche“ Textdatei im XML-Format
@@ -56,14 +68,6 @@ auch im Layout-Editor bearbeitet werden. Die
 Veränderungen im Layout-Editor werden durch Android
 Studio automatisch in der zugehörigen XML-Datei 
 gespeichert. Dies wird durch Live-Coding vorgeführt.
-
-<Callout type="warning" emoji="‼️">
-**Hinweis:** Seit 2021 gibt es mit [Jetpack Compose](https://developer.android.com/jetpack/compose) 
-einen neuartigen Ansatz, in Android-Apps UIs ohne
-XML-Layouts zu erstellen.
-
-Im Oktober 2022 zeichnet sich ab, dass Google in Zukunft Compose als den neuen, standardmäßigen Ansatz zur UI-Entwicklung in Android empfehlen wird (z.B. Guide [„_Build your first app_“](https://developer.android.com/training/basics/firstapp) in den Android Developer Docs).
-</Callout>
 
 Wir öffnen in `activity_layout.xml` als XML-Datei im Text-Editor 
 (d.h. in der „_Code_“-Ansicht) und ersetzen das `Constraint-Layout`
@@ -80,35 +84,38 @@ mit einem `Linear-Layout`:
 </LinearLayout>
 ```
 
+<Callout type="info">
+**Tipps**
+
+- Doppelklick auf den Editor-Reiter maximiert den Editor
+- Alles unter der ersten Zeile löschen (`<?xml … >`)
+- Dann eingeben `<Linea` und `LinearLayout` aus der Auto-Vervollständigung wählen
+- Auf dem rot unterkringeltem Text Tasten `alt`+`enter` drücken und `Add Android Prefix` wählen
+- für `layout_width` und `layout_height` den Wert `"match_parent"` eingeben
+- Element mit `</LinearLayout>` schließen
+- Die restlichen Werte mit Auto-Vervollständigung hinzufügen(`android:orientation`, `xml:tools`, `tools:context`)
+</Callout>
+
 Als nächstes kommt ein `EditText`-Element zur Eingabe eines 
 Titels für die Notiz hinzu:
 
 ```xml
 <EditText
-    android:id="@+id/editNoteTitle"
+    android:id="@+id/editTextTodo"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Titel der Notiz" />
+    android:inputType="text"
+    android:text="Todo eingeben" />
 ```
 
 <Callout type="warning">
 Wir können versuchen, im grafischen Layout-Editor (die „Design“-Ansicht),
 aus der _Palette_ in der Kategorie `Text` ein `Plain Text`-Element per
-„Drag-and-Drop“ in das `Linear-Layout` zu ziehen. Allerdings werden
-dann verschiedene Attribute automatisch gesetzt, die wir evtl. nicht 
-benötigen (wie z.B. `android:inputType="textPersonName"`).
+„Drag-and-Drop“ in das `Linear-Layout` zu ziehen. Eventuell erhalten wir zusätzliche Attribute im XML.
 
 &xrarr; Wir können in der Design- oder Code-Ansicht die gewünschten
 Anpassungen vornehmen.
 </Callout>
-
-Wenn im Layout-Editor eine Warnung erscheint, dass 
-der `input type` fehlt, dann folgendes hinzugefügt
-werden:
-
-```
-android:inputType="textAutoCorrect"
-```
 
 Außerdem können wir noch kurz darüber sprechen, dass
 Texte bzw. Stings, die im UI angezeigt werden, in die
@@ -125,7 +132,7 @@ hochgeladen werden (vorher mit `./gradlew clean` oder
 <Callout type="warning">
 **Vertiefendes Material**
 
-[Codelab zu Linear Layouts](https://codelabs.developers.google.com/codelabs/kotlin-android-training-linear-layout)
+[UI-Guide zu Linear Layouts](https://developer.android.com/develop/ui/views/layout/linear) (mit Empfehlung/Verweis auf Compose…)
 
 **Constraint Layout** (empfohlen):
 

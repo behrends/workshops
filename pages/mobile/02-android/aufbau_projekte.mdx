@@ -1,4 +1,4 @@
-import { Callout } from 'nextra-theme-docs'
+import { Callout } from 'nextra/components'
 
 # Aufbau von Android-Projekten
 
@@ -24,15 +24,35 @@ Ansätze gezeigt, die (noch) nicht im Videokurs
 behandelt werden.
 </Callout>
 
+## Projekt erstellen
+
+Wir erstellen zunächst ein neues Android-Projekt für 
+eine Beispiel-App (Todo-Liste), die wir gemeinsam im Live
+Coding erstellen wollen. 
+
+<Callout type="warning">
+**Stand Oktober 2023**
+
+Wir beginnen mit dem Ansatz, Apps mit Kotlin aber **ohne Compose** 
+zu entwickeln, weil der Videokurs sich daran orientiert und der
+Dozent nur wenig Erfahrung mit Comopose hat.
+
+Dazu erstellen wir gemeinsam ein neues Android-Projekt mit 
+dem Template _Empty Views Activity_.
+</Callout>
+
+
+## Aufbau eines Android-Projekts
+
 Es wird ein kurzer Überblick der wichtigsten 
 Dateien und Konzepte in Android Studio gegeben:
 
 - `MainActivity.kt` definiert eine `Activity`, welche einen UI-Bereich bzw. „Screen“ zur Interaktion mit der App darstellt. Die Funktion `onCreate` wird beim Start der `Activity` automatisch von Android ausgeführt. Dort wird u.a. das Layout des UIs festgelegt (siehe nächster Punkt).
-- `activity_main.xml` beschreibt ein Layout für ein UI (hier für die `MainActivity.kt`).
+- `activity_main.xml` beschreibt ein Layout für ein UI (hier für die `MainActivity.kt`). <br/> [Bemerkung: mit dem Compose-Ansatz gibt es keine XML-Layouts]
 - Das Verzeichnis `java` enthält den Kotlin-Code (und/oder Java-Code), u.a. ist `MainActivity.kt` hier zu finden.
 - Das Verzeichnis `res` (kurz für `resources`) enthält alle Ressourcen der App, die kein Code sind (z.B. die Layout-Dateien in XML-Format).
 - `AndroidManifest.xml` beschreibt die Bestandteile des Projekts, u.a. welche `Activity` den Einstiegspunkt beim Start der App darstellt (oft `MainActivity.kt`)
-- Die beiden Dateien `build.gradle` beinhalten die Konfiguration und Abhängigkeiten des Projekts.
+- Die beiden Dateien `build.gradle` beinhalten die Konfiguration und Abhängigkeiten des Projekts. <br/> [Bemerkung: inzwischen (Okt. 23) heißen diese Dateien `build.gradle.kts`]
 
 <Callout type="warning" emoji="👨🏻‍💻">
 Wir besprechen u.a. kurz den Ablauf beim Start 
@@ -43,4 +63,7 @@ der App.
 **Vertiefendes Material**
 
 Alle Videos von Abschnitt 2 im Udemy-Kurs zu Android.
+
+Wer gerne Folien liest, kann das folgendes Material von Google nutzen: https://developer.android.com/teach (Kotlin-App ohne Compose) 
+<br/> Für das ganze Material haben wir zu wenig Zeit…
 </Callout>

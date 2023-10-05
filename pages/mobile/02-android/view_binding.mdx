@@ -18,12 +18,12 @@ der Code in einer `Activity` wird etwas kompakter.
 
 ## `ViewBinding` in `build.gradle` aktivieren
 
-Diese Änderung in `app/build.gradle` am Ende des
+Diese Änderung in `app/build.gradle.kts` am Ende des
 `android`-Blocks eintragen:
 
 ```groovy
 buildFeatures {
-    viewBinding true
+    viewBinding = true
 }
 ```
 
@@ -46,13 +46,14 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.button.setOnClickListener {
-            val title = binding.editNoteTitle.text.toString()
-            Toast.makeText(this, title, Toast.LENGTH_LONG).show()
+            val todo = binding.editTextTodo.text.toString()
+            Toast.makeText(this, todo, Toast.LENGTH_LONG).show()
         }
     }
 }
 ```
 
+Hier nutzen wir das View Binding, um das eingegebene Todo im `Toast` anzuzeigen. 
 
 <Callout type="warning">
 **Vertiefendes Material**
