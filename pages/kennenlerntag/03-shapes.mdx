@@ -49,12 +49,13 @@ fill("#EA1E26");
 
 <Callout>
 Der Wert `"#EA1E26"` legt einzelne Werte für den Anteil von rot (`EA`), blau (`1E`) und grün (`26`) fest. Mit `#` wird signalisiert, dass es sich um einen hexadezimalen Wert handelt (Basis 16). <br/> 
-&xrarr; Zahlendarstellung werden im 1. Semester behandelt.
+&xrarr; Zahlendarstellung (binär, hexadezimal, …) werden im 1. Semester behandelt.
 
 Bemerkung: In p5.pjs stehen uns alle Möglichkeiten der Farbbestimmung aus CSS zur Verfügung.
 </Callout>
 
-Nun haben wir noch einen schwarzen Rand um das Quadrat herum. Durch den Aufruf von 
+Nun haben wir noch einen schwarzen Rand um das Quadrat herum, den wir nicht benötigen. 
+Durch den Aufruf von 
 
 ```js
 noStroke();
@@ -70,7 +71,7 @@ Ein vierter Parameter im Aufruf von `square()` legt die Abrundung der Ecken fest
 square(75, 140, 120, 4);
 ```
 
-Somit wurde bereits das rote Quadrat des Logos erzeugt.
+Somit haben wir bereits das rote Quadrat des Logos erzeugt.
 
 ## Graues Quadrat (5 Minuten)
 
@@ -158,7 +159,16 @@ quad(195, 145, 195, 260, 135, 260, 135, 200);
 <Callout>
 Tipp: Manchmal hilft es, die sich an den Koordinaten bereits
 vorhandener Formen zu orientieren. Bei uns ist dies das rote
-Quadrat. Dadurch wird der Programmcode leichter nachvollziehbar:
+Quadrat (`square(75, 140, 120)`) mit diesen Werten: 
+
+```
+Rotes Quadrat:
+x1: 75
+y1: 140
+Länge: 120
+```
+
+Wenn wir diese Werte verwenden, wird der Programmcode leichter nachvollziehbar:
 
 ```js
 // Die ersten Koordinaten des Vierecks stehen hier für die Ecke
@@ -175,7 +185,11 @@ quad(
   );
 ```
 
-Die Werte oben entsprechen dem vorigen Aufruf von `quad()`.
+Die Werte oben entsprechen dem vorigen Aufruf von `quad()`:
+
+```js
+quad(195, 145, 195, 260, 135, 260, 135, 200);
+```
 
 Ausblick: Mit Variablen bzw. Konstanten können bestimmte Werte leichter 
 wiederverwendet und für ganze Bereiche des Codes angepasst werden:
