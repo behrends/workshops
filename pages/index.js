@@ -25,18 +25,18 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="flex flex-wrap items-center justify-around max-w-full mt-6 sm:w-full">
-          <Link href="/web-prog">
-            <h1 className="text-3xl font-bold cursor-pointer">
-              Web-Programmierung (WWI/WDS)
-            </h1>
-          </Link>
-        </div>
-
         <div className="text-3xl font-bold flex flex-wrap items-center justify-around max-w-full mt-6 sm:w-full">
           <Link href="/mobile">
             <h1 className="cursor-pointer">
               Entwicklung mobiler Apps (TIF)
+            </h1>
+          </Link>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-around max-w-full mt-6 sm:w-full">
+          <Link href="/web-prog">
+            <h1 className="text-3xl font-bold cursor-pointer">
+              Web-Programmierung (WWI/WDS)
             </h1>
           </Link>
         </div>
