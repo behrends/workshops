@@ -1,6 +1,6 @@
 {
-  "misc": "Verschiedenes",
-  "material": "Material Design",
-  "recyclerview": "RecyclerView (Listen)",
-  "storage": "Daten speichern"
+  "01-misc": "Verschiedenes",
+  "02-material": "Material Design",
+  "03-recyclerview": "RecyclerView (Listen)",
+  "04-storage": "Daten speichern"
 }
