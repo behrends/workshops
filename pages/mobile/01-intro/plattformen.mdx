@@ -14,6 +14,12 @@ import { Callout } from 'nextra/components'
  Auf dem Whiteboard oder in [Excalidraw](https://excalidraw.com) 
  wird skizziert, welche verschiedenen Ansätze es gibt, Apps für Android und iOS zu entwickeln.
 
+<Callout type="warning">
+Vorteil Whiteboard: Medienbruch in die „Realität“, weg vom Computer
+
+Vorteil Excalidraw: Änderungen und Neuanordnungen sind leichter möglich
+</Callout>
+
 ## Plattformen
 
 Es gibt mit Android und iOS nur noch zwei relevante Plattformen,
@@ -37,7 +43,7 @@ bzw. iPhones.
 Plattform | Hersteller | Programmiersprache | Entwicklungsumgebung |
 --- | --- | --- | --- |
 Android | Google | Kotlin (Java) | Android Studio mit Windows, macOS oder Linux | 
-iOS | Apple | Swift (ObjectiveC) | XCode nur auf macOS | 
+iOS | Apple | Swift (ObjectiveC) | XCode **ausschließlich** (!) auf macOS | 
 
 Native Apps werden für Android in Googles _PlayStore_ und für
 iPhones in Apples _AppStore_ veröffentlicht.
@@ -65,9 +71,17 @@ bereitgestellt.
 Insbesondere sind PWAs natürlicherweise plattformübergreifend und
 funktionieren gleichermaßen auf Android-Geräten und iPhones.
 
+<Callout>
+Letztendlich funktionieren gut durchdachte und mit den o.ä. Techniken 
+erstellte Webanwendungen sowohl auf Desktop-Rechnern oder Laptops, als auch
+auf Smartphones. Deswegen sind PWAs im Prinzip lediglich „gewöhnliche“ 
+Webanwendungen. 
+</Callout>
+
 ## Frameworks
 
-Es gibt mehrere Frameworks mit denen plattformübergreifende Apps entwickelt werden können:
+Es gibt mehrere Frameworks, mit denen **plattformübergreifende** Apps 
+für Android und iOS entwickelt werden können:
 
 Framework | Ursprung | Programmiersprache | Entwicklungsumgebung | Webseite |
 --- | --- | --- | --- | --- |
@@ -85,10 +99,12 @@ wie Windows, macOS, u.a.).
 
 ---
 
-Möglicherweise gibt es weitere relevante Frameworks, d.h. solche, die von einigen genutzt und weiterentwickelt werden:
+Möglicherweise gibt es weitere relevante Frameworks, d.h. solche, die von einigen genutzt und weiterentwickelt werden. Folgende Frameworks sind Open Source:
 
-- NativeScript &mdash; [nativescript.org](https://nativescript.org/)
-- Kotlin Multiplatform Mobile &mdash; [kotlinlang.org/lp/mobile](https://kotlinlang.org/lp/mobile/) 
-- capacitator (cross-platform native runtime for web apps by Ionic) &mdash; [capacitorjs.com](https://capacitorjs.com)
-- Tauri (mobile coming soon) &mdash; [tauri.app](https://tauri.app)
+- NativeScript &mdash; [nativescript.org](https://nativescript.org/) (JavaScript)
+- Kotlin Multiplatform Mobile &mdash; [kotlinlang.org/lp/mobile](https://kotlinlang.org/lp/mobile/) (Kotlin)
+- Codename One &mdash; [codenameone.com](https://www.codenameone.com) (Java und Kotlin)
+- Kivy &mdash; [kivy.org](https://kivy.org) (Python)
+- capacitator (cross-platform native runtime for web apps by Ionic) &mdash; [capacitorjs.com](https://capacitorjs.com) (JavaScript)
+- Tauri (mobile coming soon) &mdash; [tauri.app](https://tauri.app) (Rust)
 - kennt der Kurs weitere Ansätze?
