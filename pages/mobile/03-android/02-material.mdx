@@ -29,27 +29,32 @@ mit einem [Eingabefeld](https://material.io/components/text-fields) aus dem Mate
 Dazu folgende Änderung im XML-Layout durchführen: 
 `TextInputLayout` und `TextInputEditText` einfügen
 und `EditText` entfernen.
-(sollte auch durch Hinzufügen von `TextInputLayout`
-im visuellen Layout-Editor klappen).
+
+Dies sollte auch durch Hinzufügen von `TextInputLayout`
+im visuellen Layout-Editor klappen, dabei auf `wrap_content in 
+`layout_height` achten, die `id` wie beim `EditText` setzen und 
+auf den passenden String im `hint` achten:
 
 ```xml
 <com.google.android.material.textfield.TextInputLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editNoteTitle"
+        android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Titel der Notiz"
-        android:minHeight="48dp"/>
+        android:hint="@string/enter_todo" />
 </com.google.android.material.textfield.TextInputLayout>
 ```
 
 Durch die Verwendung des gleichen 
 `android:id`-Attributs sollte die App immer noch 
-wie zuvor funktionieren.
+wie zuvor funktionieren und so aussehen:
 
+![Material Text Input](/images/mobile/android/material-text-input1.png)
+
+![Material Text Input Aktiv](/images/mobile/android/material-text-input2.png)
 
 ## Einfache Validierung
 
@@ -61,29 +66,31 @@ der eingegebenen Werte angezeigt werden:
 
 ```xml
 <com.google.android.material.textfield.TextInputLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editNoteTitle"
+        android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Titel der Notiz"
-        app:errorEnabled="true"
-        android:minHeight="48dp"/>
+        android:hint="@string/enter_todo" 
+        app:errorEnabled="true" />
 </com.google.android.material.textfield.TextInputLayout>
 ```
 
+**Achtung:** Dazu muss evtl. auch der Namespace `app` mit `alt`+`enter` 
+dem XML-Layout hinzugefügt werden.
+
 In der `MainActivity` wird im Click-Handler
-folgendes geändert:
+folgendes geändert (auch ggf. `toString()` hinzufügen!)):
 
 ```kotlin
 binding.button.setOnClickListener {
-    val noteTitle = binding.editNoteTitle.text.toString()
-    if(noteTitle.trim().isEmpty()) {
-        binding.editNoteTitle.error = "Titel darf nicht leer sein."
+    val todo = binding.editText.text.toString()
+    if(todo.trim().isEmpty()) {
+        binding.editText.error = "Titel darf nicht leer sein."
     } else {
-        Toast.makeText(this, noteTitle, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, todo, Toast.LENGTH_LONG).show()
     }
 }
 ```
