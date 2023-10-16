@@ -3,59 +3,229 @@ import { Callout } from 'nextra/components'
 # Daten speichern
 
 <Callout>
-  **Dauer:** 30 Minuten (bzw. restliche Zeit)
+  **Dauer:** 40 Minuten (bzw. restliche Zeit)
 
+  - Ein Todo der Liste hinzufügen
   - `SharedPreferences` kurz zeigen
+  - Ausblick auf `DataStore` und `Room`
 
   **Ziel:** Daten auf einfache Weise speichern
 </Callout>
 
-TODO: nächste Schritte nach der RecyclerView:
+## Todos der Liste hinzufügen (ohne Speicherung)
 
-- data class für Todos?
-- Todo der Liste hinzufügen
-- Daten in SharedPreferences speichern?
-- Mögliche Erweiterungen: Todo löschen, bearbeiten, sortieren, Todo-Details...
-
-Im Rahmen des „Crashkurses“ während der Vorlesung
-werden wir nicht im Detail über [Room](https://developer.android.com/training/data-storage/room)) sprechen, das eine
-umfangreichen API darstellt, um Daten via SQL auf dem
-Android-Gerät zu speichern (insbesondere mit `ViewModel` und 
-`LiveData`). Dazu gibt es einen Abschnitt im Videokurs und 
-gute Dokumentation (siehe ganz unten).
-
-Für Anwendungsfälle, bei denen wenige oder einfache Daten 
-gespeichert werden sollen, stehen die [SharedPreferences](https://developer.android.com/training/data-storage/shared-preferences)
-zur Verfügung.
-
-Bei Interesse bzw. ausreichender Zeit kann gezeigt werden,
-wie per `Button`-Druck Daten in `SharedPreferences` gespeichert
-und ausgelesen werden können. Hierzu nur Code-Fragmente zur
-Andeutung:
-
-**Daten in `SharedPreferences` speichern**
-
-Zum Beispiel in `setOnClickListener` eines weiteren Buttons:
+Wenn wir der Todo-Liste einen Eintrag hinzufügen wollen, dann müssen
+wir zunächst eine Instanzvariable in der Klasse der `MainActivity` 
+anlegen, die eine veränderbare Liste von Strings enthält:
 
 ```kotlin
-// speichere Titel in Shared Preferences
-  val sharedPref = this.getPreferences(Context.MODE_PRIVATE)
-  with (sharedPref.edit()) {
-      putString("TITLE", title)
-      apply()
-  }
+private val todos: MutableList<String> = mutableListOf("Sport", "Einkaufen", "Kotlin lernen")
 ```
 
-**Daten aus `SharedPreferences` lesen**
+Diese Liste wird dann im `onCreate`-Callback der `MainActivity` 
+an den `TodoAdapter` übergeben:
 
 ```kotlin
-// lese Titel aus den Shared Preferences
-val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
-val currentTitle = sharedPref.getString("TITLE", "")
-binding.displayTitle.text = currentTitle
+val todoAdapter = TodoAdapter(todos)
+binding.recyclerView.adapter = todoAdapter
 ```
 
-**&xrarr; Wie immer an die Imports denken!**
+Danach können wir im `setOnClickListener` des Buttons die Eingabe
+aus dem `EditText` auslesen und der Liste hinzufügen und den Adapter
+benachrichtigen, dass sich die Daten geändert haben (mit `notifyItemInserted`):
+
+```kotlin
+todos.add(todo)
+todoAdapter.notifyItemInserted(todos.size - 1)
+```
+
+Hier der komplette Code der `MainActivity` mit den oben beschriebenen Änderungen:
+
+
+```kotlin
+class MainActivity : AppCompatActivity() {
+    private val todos: MutableList<String> = mutableListOf("Sport", "Einkaufen", "Kotlin lernen")
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val todoAdapter = TodoAdapter(todos)
+        binding.recyclerView.adapter = todoAdapter
+
+        binding.button.setOnClickListener {
+            val todo = binding.editText.text.toString()
+            if(todo.trim().isEmpty()) {
+                binding.editText.error = "Titel darf nicht leer sein."
+            } else {
+                todos.add(todo)
+                binding.editText.text?.clear()
+                todoAdapter.notifyItemInserted(todos.size - 1)
+            }
+        }
+    }
+}
+```
+
+Zusätzlich wird durch diese Zeile der eingebene Text im `EditText` 
+nach dem Hinzufügen eines Eintrags gelöscht:
+
+```kotlin
+binding.editText.text?.clear()
+```
+
+Hierbei muss `?` verwendet werden, da `text` `null` sein kann. 
+
+<Callout type="info">
+In Kotlin gibt es mit `?.` den [_safe call_-Operator](https://kotlinlang.org/docs/null-safety.html#safe-calls). Mit diesem wird der Ausdruck rechts von `?.` nicht 
+ausgewertet wird (und es wird `null` zurückgegeben), wenn der Ausdruck 
+links von `?.` `null` ist.
+</Callout>
+
+Wenn die App neu gestartet wird, sind die eingegebenen Todo-Einträge verschwunden.
+
+## Daten in `SharedPreferences` speichern
+
+Für Anwendungsfälle, bei denen wenige oder einfache Daten gespeichert werden 
+sollen, stehen die 
+[SharedPreferences](https://developer.android.com/training/data-storage/shared-preferences)
+zur Verfügung. 
+
+<Callout type="info">
+Im [Developer Guide zu `SharedPreferences`](https://developer.android.com/training/data-storage/shared-preferences#write-shared_) 
+wird empfohlen, statt dessen 
+[`DataStore`](https://developer.android.com/topic/libraries/architecture/datastore) zu 
+verwenden. Dazu unten mehr.
+</Callout>
+
+<Callout type="info">
+Für komplexere Anwendungsfälle, bei denen größere Datenmengen gespeichert werden
+sollen, gibt es die Möglichkeit, eine Datenbank zu verwenden. 
+
+Im Rahmen des „Crashkurses“ während der Vorlesung werden wir nicht im 
+Detail über [Room](https://developer.android.com/training/data-storage/room)) 
+sprechen, das eine umfangreichen API darstellt, um Daten via SQL auf dem
+Android-Gerät zu speichern (insbesondere mit `ViewModel` und `LiveData`). 
+Dazu gibt es einen Abschnitt im Videokurs und gute Dokumentation (siehe ganz unten).
+</Callout>
+
+Eine sehr einfach gehaltene Lösung, um jedes Todo einzeln in 
+`SharedPreferences` zu speichern, ist folgende:
+
+```kotlin
+// package weggelassen
+
+import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+// import com.example. <package name> .databinding.ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {
+    private val todos: MutableList<String> = mutableListOf()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Lade die Todos aus SharedPreferences beim Start der App
+        loadTodos()
+
+        val todoAdapter = TodoAdapter(todos)
+        binding.recyclerView.adapter = todoAdapter
+
+        binding.button.setOnClickListener {
+            val todo = binding.editText.text.toString()
+            if(todo.trim().isEmpty()) {
+                binding.editText.error = "Titel darf nicht leer sein."
+            } else {
+                todos.add(todo)
+                binding.editText.text?.clear()
+                todoAdapter.notifyItemInserted(todos.size - 1)
+                saveTodos()  // Speichere die aktualisierte Todo-Liste
+            }
+        }
+    }
+
+    private fun saveTodos() {
+        val sharedPreferences = getSharedPreferences("todos", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        // Speichere die Anzahl der Todos
+        editor.putInt("todo_count", todos.size)
+
+        // Speichere jeden Todo-Eintrag einzeln
+        for (i in todos.indices) {
+            editor.putString("todo_$i", todos[i])
+        }
+
+        editor.apply()
+    }
+
+    private fun loadTodos() {
+        val sharedPreferences = getSharedPreferences("todos", Context.MODE_PRIVATE)
+
+        // Lade die Anzahl der gespeicherten Todos
+        val count = sharedPreferences.getInt("todo_count", 0)
+
+        // Lade jeden Todo-Eintrag einzeln
+        for (i in 0 until count) {
+            val todo = sharedPreferences.getString("todo_$i", null)
+            if (todo != null) {
+                todos.add(todo)
+            }
+        }
+    }
+}
+```
+
+Die Funktionen `loadTodos` und `saveTodos` zeigen, wie `SharedPreferences`
+verwendet werden. 
+
+Zu beachten:
+
+- `Context` muss importiert werden
+- Wir definieren keine Todos mehr in `mutableListOf`, sondern laden sie aus `SharedPreferences`
+
+<Callout type="warning">
+Wir haben bewusst den einfachsten Weg gewählt, um die Todos in SharedPreferences
+zu speichern. Dieser hat jedoch den Nachteil, dass die Daten nicht in einer
+geeigneten Datenstruktur gespeichert werden. `SharedPreferences` ist nur
+für kleine Datenmengen gedacht.
+
+Man könnte die Daten z.B. als JSON speichern oder komplexere bzw. umfangreichere
+Datenmengen mit Room in einer relationalen Datenbank mit SQL verwalten.
+</Callout>
+
+## Speicherung `DataStore`
+
+[`DataStore`](https://developer.android.com/topic/libraries/architecture/datastore)
+ist eine neue Bibliothek, die die Speicherung von Key-Value-Paaren und
+komplexen Objekten ermöglicht. Da der Zugriff auf `DataStore` asynchron erfolgt, 
+ist der benötigte Kotlin-Code zwar sehr kompakt erfordert aber zusätzliches 
+Verständnis von Kotlins Co-Routinen.
+
+<Callout type="info">
+Wenn wir Zeit haben, dann können wir uns anschauen wie ChatGPT oder eine
+andere generative KI (Android Studio Bot, GitHub Copilot, usw.) uns dabei
+helfen kann, die Todo-Liste als `DataStore` zu speichern. Dazu können wir
+die KI bzw. das LLM bitten, unseren Code, der auf `SharedPreferences`
+basiert, unter Verwendung von `DataStore` umzuschreiben.
+</Callout>
+
+## Mögliche nächste Schritte (wenn Zeit ist)
+
+- Todo als `data class` mit zusätzlichen Eigenschaften (Priorität, Fälligkeitsdatum, Beschreibung/Notizen, …)
+- Todo löschen, bearbeiten, sortieren, Todo-Details...
+
+<Callout type="info">
+Mögliche Übungsaufgabe „Todo löschen“:
+
+- Button im Layout `todo_item.xml` hinzufügen um Todo zu löschen 
+- Todo aus RecyclerView und im Speicher entfernen
+- Vor dem Löschen Nachfrage mit `AlertDialog` anzeigen
+</Callout>
 
 <Callout type="warning">
 **Vertiefendes Material**
@@ -68,7 +238,7 @@ Im Videokurs gibt es einen Abschnitt zu Room.
 Room in den Android Developer Docs:
 - [Release Notes mit Neuigkeiten](https://developer.android.com/jetpack/androidx/releases/room)
 - [Guide](https://developer.android.com/training/data-storage/room)
-- [Android Kotlin Fundamentals](https://developer.android.com/courses/kotlin-android-fundamentals/overview#lesson_6_room_database_and_coroutines) (_Lesson 6: Room databases and coroutines_ &xrarr; besteht aus mehreren aufeinanderfolgenden Codelabs)
+- In den [Android Courses](https://developer.android.com/courses/) gibt es Abschnitte zu Room
 - [Codelab](https://developer.android.com/codelabs/android-room-with-a-view-kotlin#0)
 - [Code samples](https://github.com/android/architecture-components-samples)
 </Callout>
