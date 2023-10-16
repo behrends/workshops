@@ -222,6 +222,37 @@ Wenn eine Liste als `RecyclerView` erfolgreich implementiert wurde, dann
 kann der Code für weitere Listen als Ausgangspunkt verwendet werden.
 </Callout>
 
+Hier der komplette Code der `MainActivity` (am Beste mit „Organize Imports“
+die passende Binding-Klasse importieren):
+
+```kotlin
+// package-Deklaration weggelassen
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
+// import com.example. <passendes package> .databinding.ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.button.setOnClickListener {
+            val todo = binding.editText.text.toString()
+            if(todo.trim().isEmpty()) {
+                binding.editText.error = "Titel darf nicht leer sein."
+            } else {
+                Toast.makeText(this, todo, Toast.LENGTH_LONG).show()
+            }
+        }
+
+        val todoAdapter = TodoAdapter(listOf("Sport", "Einkaufen", "Kotlin lernen"))
+        binding.recyclerView.adapter = todoAdapter
+    }
+}
+```
+
 <Callout type="warning">
 **Vertiefendes Material**
 
