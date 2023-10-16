@@ -11,4 +11,74 @@ import { Callout } from 'nextra/components'
   **Ziel:** Grundlegendes Verständnis von Compose
 </Callout>
 
-**TODO**
+<Callout type="info">
+Es gibt eine offizielle Android Sample App namens
+„_Sunflower_“, in der gezeigt wird, wie ein UI
+basierend auf XML-Layouts in Compose umgesetzt 
+überführt wird:
+
+- [Sunflower-App auf GitHub](https://github.com/android/sunflower)
+
+Im Branch `views` ist der vorige XML-basierte 
+Ansatz zu sehen.
+</Callout>
+
+## Neues Projekt erstellen
+
+Wir erstellen ein neues Projekt mit dem Template „_Empty Activity_“ (Projektname beginnend
+wie das erste Projekt mit `Compose` am Ende).
+
+Bemerkungen zum Projektaufbau in Android Studio:
+
+- es gibt keine XML-Layouts
+- Das UI wird komplett mit Kotlin-Code geschrieben (siehe `MainActivity`): 
+    - Composable-Funktionen (siehe `@Composable`) definieren die UI-Elemente
+    - Im Aufruf von `setContent` werden die Composable-Funktionen aufgerufen
+- Die `build.gradle`-Datei in `app` enthält die Abhängigkeit zu Compose 
+- Im Ordner `ui/theme` befinden sich die Definitionen für die Farben und Schriftarten in Kotlin-Code
+- Anstatt des Layout-Editors gibt es für die Composable-Funktionen mit der Annotation `@Preview` eine visuelle Vorschau
+
+## Composable-Funktionen
+
+Composable-Funktionen oder kurz _Composables_ sind Funktionen, die mit `@Composable` 
+annotiert sind. Sie sind die Bausteine für die UI-Elemente und werden von anderen 
+Composables aufgerufen. Ein Composable hat keinen Rückgabewert. Für bestimmte 
+UI-Elemente wie z.B. Text gibt es vordefinierte Composables und zusätzlich werden
+Layout-Funktionen wie z.B. `Column` oder `Row` zur Verfügung gestellt.
+
+Damit ist es möglich ein UI auf **deklarative** Weise zu erstellen:
+
+```kotlin
+@Composable
+fun Greeting(name: String) {
+  Column {
+    Text("Hello $name!")
+    Text("Hallo TIF21!")
+  }
+}
+```
+
+
+## Misc
+
+Mit `Row` können wir in der Todo-App das Eingabefeld und den Button nebeneinander
+darstellen:
+
+```kotlin
+@Composable
+fun TodoInput(onAdd: (String) -> Unit) {
+  var text by remember { mutableStateOf("") }
+  Row {
+    TextField(
+      value = text,
+      onValueChange = { text = it },
+      label = { Text("Todo") }
+    )
+    Button(
+      onClick = { onAdd(text) }
+    ) {
+      Text("Add")
+    }
+  }
+}
+```
