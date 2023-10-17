@@ -1,9 +1,9 @@
 {
-  "presentation": "Vorstellung App-Ideen",
-  "js-in-html": "JavaScript in HTML",
-  "dom": "Document Object Model",
-  "dom-methoden": "Methoden der DOM-API",
-  "dom-events": "Events im DOM",
-  "struktur-links": "Struktur und Links",
-  "projekt": "Projekt"
+  "01-presentation": "Vorstellung App-Ideen",
+  "02-js-in-html": "JavaScript in HTML",
+  "03-dom": "Document Object Model",
+  "04-dom-methoden": "Methoden der DOM-API",
+  "05-dom-events": "Events im DOM",
+  "06-struktur-links": "Struktur und Links",
+  "07-projekt": "Projekt"
 }
