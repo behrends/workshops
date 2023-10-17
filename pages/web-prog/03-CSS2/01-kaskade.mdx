@@ -3,13 +3,17 @@ import { Callout } from 'nextra-theme-docs'
 # Kaskade und Spezifizität
 
 <Callout>
-  **Dauer:** 30 Minuten
+  **Dauer:** bis zu 30 Minuten
 
   **Themen:**
   - Kaskade (Reihenfolge in der Anwendung der Regel)
   - Spezifizität (Der spezifischste Selektor „gewinnt“)
 
   **Ziel:** Grundlegendes Verständnis der Anwendung von CSS-Regeln erhalten
+</Callout>
+
+<Callout type="warning" emoji="👨🏻‍💻">
+Bei Bedarf eine kurze Wiederholung des bisher besprochenen Stoffs.
 </Callout>
 
 Oft werden mehrere Stylesheets verwendet und es kann auch sein, dass die 
@@ -50,13 +54,16 @@ Auch hier wieder ein vereinfachter Merksatz:
 > Je spezifischer der Selektor, desto größer die Priorität dieser 
 > Regel — egal wo diese Regeln in den Stylesheets deklariert wird.
 
-Die Spezifizität ist bei der Vielzahl der möglichen Selektoren ein Recht komplexes Thema, von dem wir hier nur die Grundprinzipien besprechen. Wir betrachten hier nur folgendes:
+Die Spezifizität ist bei der Vielzahl der 
+[verfügbaren Selektoren](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) 
+ein Recht komplexes Thema, von dem wir hier nur die Grundprinzipien 
+besprechen. Wir betrachten hier nur folgendes:
 
 - `id`-Selektoren sind stärker als class-Selektoren
 - `class`-Selektoren sind stärker als Elementtyp-Selektoren
 
 <Callout type="warning" emoji="👨🏻‍💻">
-Ein Beispiel mit mehreren Styles für siehe 
+Für ein Beispiel mit mehreren Styles siehe 
 [ProgContent zu Spezifizität](https://www.progcontent.com/css-kompakt/kaskade) 
 oder schrittweise zeigen mit `class` und `id`-Selektoren auf Codepen.
 </Callout>
