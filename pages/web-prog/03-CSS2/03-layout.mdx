@@ -76,6 +76,19 @@ die nächste Zeile bzw. Spalte erreicht werden:
 flex-wrap: wrap;
 ```
 
+## Abstände mit `gap`
+
+Mit der Eigenschaft `gap` kann ein Abstand zwischen den Elementen
+innerhalb des Flexbox-Layouts festgelegt werden:
+
+```css
+gap: 10px;
+```
+
+Mit `gap` werden Abstände sowohl auf der Haupt- als auch auf der 
+Querachse erstellt. `column-gap` und `row-gap` sind die entsprechenden 
+Eigenschaften, die Abstände auf die Haupt- und Querachse beschränken.
+
 ## Weiteres zu Flexbox 
 
 Wir haben oben die wichtigsten Eigenschaften des Flexbox-Layouts besprochen:
@@ -85,9 +98,20 @@ Wir haben oben die wichtigsten Eigenschaften des Flexbox-Layouts besprochen:
 - Anordnung auf der Hauptachse mit `justify-content: …;`
 - Anordnung auf der Querachse mit `align-items: …;`
 - Umbrüche mit `flex-wrap: wrap;`
+- Abstände mit `gap` (bzw. `column-gap` und `row-gap`)
 
 Mehr zu Flexbox im Mozilla Developer Network (MDN) 
 [hier](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) und 
 [hier](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout).
 
 Empfehlenswert ist dieses [interaktive Tutorial zu Flexbox](https://www.joshwcomeau.com/css/interactive-guide-to-flexbox/).
+
+## Weiterentwicklung der Beispiel-App
+
+<Callout emoji="👨🏻‍💻">
+**Live Coding** \
+Flexbox-Layout in der Web-App umsetzen:
+
+- „Wetter-Kacheln“ in horizontaler Flexbox mit Abständen und Zeilenumbruch
+- Flexbox innerhalb der Kachel um Elemente passend anzuordnen (Abstand zwischen Text und Icon, usw.)
+</Callout>

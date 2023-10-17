@@ -57,7 +57,7 @@ border: 3px dashed black;
 
 ## Abstände
 
-Bei einer Box gibt es den Außenabstand (`margin`) und den Innenabstand 
+Bei einer Box gibt es den **Außenabstand** (`margin`) und den **Innenabstand** 
 (`padding`) &mdash; siehe Abbildung am Anfang. Zu beiden Eigenschaften 
 werden meistens Werte in Pixeln angegeben. `margin` und `padding`
 betreffen gleichermaßen alle vier Seiten der Box.
@@ -85,11 +85,44 @@ Abstände wirkt sich aus.
 [Codepen](https://codepen.io/pen/) direkt nachvollzogen werden.
 </Callout>
 
+Angenommen, wir haben zwei `div`-Elemente, die jeweils ein farbiges Quadrat 
+darstellen sollen:
+
+**HTML**
+```html
+<div id="red" class="square margins"></div>
+<div id="blue" class="square margins"></div>
+```
+
+**CSS**
+```css
+#red { background-color: red; }
+#blue { background-color: blue; }
+.square{
+  width: 100px;
+  height: 100px;
+}
+```
+
+Dann bewirkt die folgende CSS-Regel für beide Quadrate einen Außenabstand 
+von 50 Pixeln nach oben und 80 Pixel nach unten. Zwischen den beiden Boxen ist 
+nur ein Abstand von 80 Pixeln zu sehen und nicht 130 Pixel, was die Summe der 
+beiden Deklarationen `margin-top` und `margin-bottom` wäre (der größere Abstand
+wirkt sich aus).
+
+```css
+.margins {
+  margin-top: 50px;
+  margin-bottom: 80px;
+}
+```
+
+
 ## DevTools im Browser
 
 Jeder Browser hat eingebaute Werkzeuge für Entwickler
-(_web developer tools_). Öffnen durch Menü im Browser
-oder Tastenbefehl (z.B. `F12` in den meisten Browsern). 
+(_web developer tools_). Diese werden durch ein Menü im Browser
+oder Tastenbefehl aktiviert (z.B. `F12` in den meisten Browsern). 
 
 Hiermit kann (neben vielen anderen Dingen) das Box-Modell
 eines HTML-Fragments visuell nachvollzogen werden. Dazu
@@ -97,12 +130,13 @@ werden einzelne Elemente inspiziert (_inspect element_),
 sodass Abstände und Ränder sichtbar werden.
 
 ```
-Kurze Vorführung der DevTools in Firefox und/oder Chrome
+➔ Kurze Vorführung der DevTools in Firefox und/oder Chrome
 ```
 
 ## Weiterentwicklung der Beispiel-App
 
-<Callout type="warning" emoji="👨🏻‍💻">
+<Callout emoji="👨🏻‍💻">
+**Live Coding** \
 Die Wettereinträge und das Formular werden mit Abständen und Rändern
 ausgestattet. 
 </Callout>
