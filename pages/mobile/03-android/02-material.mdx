@@ -82,13 +82,13 @@ der eingegebenen Werte angezeigt werden:
 dem XML-Layout hinzugefügt werden.
 
 In der `MainActivity` wird im Click-Handler
-folgendes geändert (auch ggf. `toString()` hinzufügen!):
+folgendes geändert (auch `toString().trim()` hinzufügen!):
 
 ```kotlin
 binding.button.setOnClickListener {
-    val todo = binding.editText.text.toString()
-    if(todo.trim().isEmpty()) {
-        binding.editText.error = "Titel darf nicht leer sein."
+    val todo = binding.editText.text.toString().trim()
+    if(todo.isEmpty()) {
+        binding.editText.error = "Todo darf nicht leer sein."
     } else {
         Toast.makeText(this, todo, Toast.LENGTH_LONG).show()
     }
