@@ -26,7 +26,7 @@ Die folgende Abbildung stellt den abstrakten Aufbau einer `RecyclerView` dar:
 
 - `item`: Ein Datenelement der darzustellenden Liste (z.B. ein Todo)
 - `Adapter`: Wandelt Daten für die `RecyclerView` passend zur Darstellung um.
-- `ViewHolder`: Eine Sammlung von wiederverwendbaren Views zur Darstellung der Daten.
+- `ViewHolder`: Hier werden wiederverwendbare Views zur Darstellung der Daten „gesammelt“.
 - `RecyclerView`: Die sichtbare Liste auf dem Screen.
 
 Im XML-Layout benötigen wir eine `RecyclerView` für die Liste. Zusätzlich muss eine 
@@ -34,9 +34,10 @@ Im XML-Layout benötigen wir eine `RecyclerView` für die Liste. Zusätzlich mus
 
 ## `RecyclerView` im XML-Layout 
 
-Hinzufügen im Layout-Editor (Kategorie „_Containers_“) oder direkt im XML-Layout.
-Dazu setzen wir auch ein passendes `id`-Attribut mit dem Wert `recyclerView` 
-und nutzen den `LinearLayoutManager` als Layout-Manager:
+Eine `RecyclerView` kann im Layout-Editor (Kategorie „_Containers_“) oder direkt 
+im Code des XML-Layouts hinzugefügt werden. Dazu setzen wir auch ein passendes 
+`id`-Attribut mit dem Wert `recyclerView` und nutzen den `LinearLayoutManager` 
+als Layout-Manager:
 
 ```xml
 <androidx.recyclerview.widget.RecyclerView
@@ -49,8 +50,8 @@ und nutzen den `LinearLayoutManager` als Layout-Manager:
 
 Eine `RecyclerView` benötigt immer einen Layout-Manager. Dieser bestimmt, wie die
 einzelnen Listenelemente angeordnet werden und kann nach eigenen Bedürfnissen
-definiert werden. In unserer Todo-Liste genügt es, die Elemente mit dem vom Android-SDK 
-vordefinierten `LinearLayoutManager` untereinander darzustellen.
+definiert werden. In unserer Todo-Liste genügt es momentan, die Elemente mit dem 
+vom Android-SDK vordefinierten `LinearLayoutManager` untereinander darzustellen.
 
 <Callout type="warning">
 Im der Vorschau des Layout-Editors wird die `RecyclerView` mit ein paar
@@ -93,7 +94,8 @@ Für einen Adapter müssen zwei Dinge definiert werden:
 
 In unserer Todo-App werden Listenelemente zunächst vom Typ `String` sein, um
 das Beispiel möglichst einfach zu halten. Später könnte anstatt eines `String`s
-eine eigene `Todo`-Klasse definiert werden.
+eine eigene `Todo`-Klasse definiert werden (z.B. als 
+[`data class`](https://kotlinlang.org/docs/data-classes.html) in Kotlin).
 
 ```kotlin
 class TodoAdapter(private val data: List<String>) { // Todo-Liste als Parameter
@@ -121,7 +123,7 @@ class TodoAdapter(private val data: List<String>) { // Todo-Liste als Parameter
 }
 ```
 
-Schließlich erbt `TodoAdapter von `RecyclerView.Adapter` mit dem Typ der 
+Schließlich erbt `TodoAdapter` von `RecyclerView.Adapter` mit dem Typ der 
 inneren `ViewHolder`-Klasse als Typ-Parameter:
 
 ```kotlin
@@ -178,7 +180,7 @@ override fun getItemCount(): Int {
 ```
 
 Da dies eine einzeilige Methode ist, die nur aus einem `return`-Ausdruck besteht, 
-kann sie auch wi folgt als Lambda-Ausdruck geschrieben werden:
+kann sie auch wie folgt als Lambda-Ausdruck geschrieben werden:
 
 ```kotlin
 override fun getItemCount() = data.size
