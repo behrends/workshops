@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             val todo = binding.editText.text.toString()
             if(todo.trim().isEmpty()) {
-                binding.editText.error = "Titel darf nicht leer sein."
+                binding.editText.error = "Todo darf nicht leer sein."
             } else {
                 todos.add(todo)
                 binding.editText.text?.clear()
@@ -136,46 +136,46 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = todoAdapter
 
         binding.button.setOnClickListener {
-            val todo = binding.editText.text.toString()
-            if(todo.trim().isEmpty()) {
-                binding.editText.error = "Titel darf nicht leer sein."
+            val todo = binding.editText.text.toString().trim()
+            if(todo.isEmpty()) {
+                binding.editText.error = "Todo darf nicht leer sein."
             } else {
-                todos.add(todo)
+                saveTodos(todo) // Speichern in SharedPreferences
                 binding.editText.text?.clear()
-                todoAdapter.notifyItemInserted(todos.size - 1)
-                saveTodos()  // Speichere die aktualisierte Todo-Liste
+                todoAdapter.notifyItemInserted(todos.size - 1)                
             }
         }
-    }
-
-    private fun saveTodos() {
-        val sharedPreferences = getSharedPreferences("todos", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-
-        // Speichere die Anzahl der Todos
-        editor.putInt("todo_count", todos.size)
-
-        // Speichere jeden Todo-Eintrag einzeln
-        for (i in todos.indices) {
-            editor.putString("todo_$i", todos[i])
-        }
-
-        editor.apply()
     }
 
     private fun loadTodos() {
-        val sharedPreferences = getSharedPreferences("todos", Context.MODE_PRIVATE)
+        val sharedPrefs = getSharedPreferences("todos", Context.MODE_PRIVATE)
 
-        // Lade die Anzahl der gespeicherten Todos
-        val count = sharedPreferences.getInt("todo_count", 0)
+        // Anzahl der gespeicherten Todos
+        val count = sharedPrefs.getInt("todo_count", 0)
 
-        // Lade jeden Todo-Eintrag einzeln
-        for (i in 0 until count) {
-            val todo = sharedPreferences.getString("todo_$i", null)
-            if (todo != null) {
+        // Lade jedes Todo und füge es zur Liste hinzu
+        for(i in 1..count) {
+            val todo = sharedPrefs.getString("todo_$i", null)
+            if(todo != null) {
                 todos.add(todo)
             }
         }
+    }
+
+    private fun saveTodo(todo: String) {
+        val sharedPrefs = getSharedPreferences("todos", Context.MODE_PRIVATE)
+        val editor = sharedPrefs.edit()
+
+        // Todo in lokaler Liste eintragen
+        todos.add(todo)
+
+        // Speichere Anzahl der Todos
+        editor.putInt("todo_count", todos.size)
+
+        // Speichere den Todo-Eintrag in sharedPreferences
+        editor.putString("todo_${todos.size}", todo)
+
+        editor.apply()
     }
 }
 ```
