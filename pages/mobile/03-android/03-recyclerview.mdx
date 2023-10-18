@@ -141,7 +141,7 @@ class TodoAdapter(private val data: List<String>) : RecyclerView.Adapter<TodoAda
 Der `Adapter` benötigt nun noch drei Methoden, die wir implementieren müssen:
 
 - `onCreateViewHolder`: Erzeugt eine neue `View` für ein Listenelement.
-- `onBindViewHolder`: Bindet die Daten eines Listenelements an eine `View`.
+- `onBindViewHolder`: Bindet die Daten eines Listenelements an eine `View` (auch für „Recycling“).
 - `getItemCount`: Gibt die Anzahl der Listenelemente zurück.
 
 ### `onCreateViewHolder`
@@ -191,7 +191,8 @@ override fun getItemCount() = data.size
 Die Methode `onBindViewHolder` bindet die Daten eines Listenelements an eine `View`.
 Dazu wird zunächst das Listenelement anhand des übergebenen `position`-Parameters
 aus der Liste `data` geholt. Anschließend wird die `TextView` aus dem `ViewHolder`
-mit dem Wert des Listenelements befüllt:
+mit dem Wert des Listenelements befüllt, wodurch auch das „Recycling“ eines `ViewHolder`
+ermöglicht wird:
 
 ```kotlin
 override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
