@@ -95,13 +95,22 @@ console.log(object2.address.city);
 
 Objekte sind die Grundlage für JSON (_JavaScript Object Notation_).
 
-
 <Callout type="info">
 Aus Python-Sicht entsprechen Arrays den Lists und Objekte
-den Dictionaries.
+den Dictionaries. Die Verwendung von Objekten kann wie in Python
+erfolgen &mdash; mit Strings für die Namen der Eigenschaften und 
+dem Zugriff auf Eigenschaften mit `[]` (anstatt `.`):
+
+```js
+const myObject = {'name': 'Just an Object', 'id': 123};
+const id = myObject['id'];
+```
 
 Aus Java-Sicht können Objekte mit HashMaps verglichen werden.
 
 Objekte ohne Klassen haben in JavaScript keinen Bezug 
 zur Objektorientierung.
+</Callout>
+
+<Callout type="info">
 </Callout>
