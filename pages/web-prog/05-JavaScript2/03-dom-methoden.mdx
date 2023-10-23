@@ -20,23 +20,24 @@ Die einfachste Art, um auf bestimmte Elemente im DOM
 zuzugreifen, wird durch die Methode `document.getElementById`
 ermöglicht. So weist folgender JavaScript-Code der Konstanten
 `listElement` eine Referenz auf das Element mit dem `id`-Attribut
-zu, das den Wert `list` hat (im DOM-Beispiel ist dies das `div`-Element,
-welches die `div`s mit den Orten enthält):
+zu, das den String-Wert `'list'` hat (im DOM-Beispiel ist dies das 
+`div`-Element, welches die `div`s mit den Orten enthält):
 
 ```javascript
 const listElement = document.getElementById('list');
 ```
 
-Als Parameter wird der Methode `getElementById` beim Aufruf demnach 
-der Wert des `id`-Attributs des gewünschten Elements übergeben und
-die Methode liefert eine Referenz auf das entsprechende Element zurück.
+Als Argument wird der Methode `getElementById` beim Aufruf demnach 
+der Wert des `id`-Attributs des gewünschten Elements übergeben, sodass
+die Methode eine Referenz auf das entsprechende Element zurückliefert.
 
 Weitere nützlich Methode für den Zugriff auf beliebige Elemente
 in der DOM-Struktur sind die Methoden [`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) (liefert
 das erste passende Element) und [`document.querySelectorAll`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll) 
 (liefert alle passenden Elemente), die jeweils mit flexiblen 
-Abfrageausdrücken aufgerufen werden können (siehe verlinkte Dokumentation 
-in MDN).
+Abfrageausdrücken aufgerufen werden können (siehe Dokumentation 
+in MDN für [`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) 
+und [`document.querySelectorAll`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll)).
 
 ### Elemente erstellen
 
@@ -46,7 +47,7 @@ Mit `document.createElement` können neue Elemente erstellt werden:
 const newDiv = document.createElement('div');
 ```
 
-Der Parameter für `createElement` ist der gewünschte Tag-Name und
+Das Argument für `createElement` ist der gewünschte Tag-Name und
 der Rückgabewert ist ein neues Element.
 Ein mit `createElement` erzeugtes Element ist noch nicht Teil
 des DOM bzw. noch nicht im HTML des Browsers sichtbar. Um das Element
@@ -54,7 +55,8 @@ an eine gewünschte Position in die DOM-Datenstruktur einzufügen,
 bietet sich die Verwendung der Methode `appendChild` an. 
 
 `appendChild` wird in Bezug auf ein bestimmtes Element aufgerufen, an 
-das das neue Element als Kindelement angehängt werden soll (daher nicht mit `document`):
+das das neue Element als Kindelement angehängt werden soll 
+(daher erfolgt der Aufruf hier nicht mit `document`):
 
 ```javascript
 // wir verwenden das Element in listElement (siehe oben)
@@ -73,6 +75,7 @@ function createNewLocation(name) {
   listElement.appendChild(newDiv);
 }
 
+// Aufruf der Funktion mit dem Argument 'Hamburg' zum Testen
 createNewLocation('Hamburg');
 ```
 
@@ -84,6 +87,11 @@ zunächst nur Inhalt des Funktionsparameters `name`).
 
 Somit lassen sich dynamisch neue HTML- bzw. DOM-Element erstellen.
 Die API des DOM stellt hierfür viele weitere Methoden bereit.
+
+Wichtig sind hierbei auch die Methoden `classList.add` und `innerHTML`:
+
+- `classList.add` fügt eine CSS-Klasse zu einem Element hinzu
+- `innerHTML` setzt den HTML-Inhalt eines Elements
 
 ### HTML mit Template-Strings erstellen
 
