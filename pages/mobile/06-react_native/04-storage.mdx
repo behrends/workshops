@@ -5,14 +5,300 @@ import { Callout, Tabs } from 'nextra/components';
 <Callout>
   **Dauer:** 30 Minuten
 
-  - TODO
+  - Todo-Liste im `state` von `App.js` verwalten
+  - Daten auf dem Gerät speichern
+  - Expo Secure Store als Speicher verwenden
 </Callout>
 
-Stop using AsyncStorage: https://levelup.gitconnected.com/stop-using-react-native-async-storage-fdbcc05a6de3
+## `state` für Todo-Liste in `App.js`
 
-Schritte:
+Als Vorbereitung zur Datenspeicherung wollen in einem `state` 
+in `App.js` die Todo-Liste verwalten:
 
-- Abhängigkeit installieren
-- speichern mit Button
-- Daten laden
-- größere Übung: Todo löschen?
+```jsx
+import { useState } from 'react';
+// Rest bleibt gleich…
+const todos = [
+  { id: 1, text: 'Einkaufen' },
+  { id: 2, text: 'Sport' },
+  { id: 3, text: 'React Native lernen' },
+];
+
+export default function App() {
+  const [todoList, setTodoList] = useState(todos);
+  return (
+    <View style={styles.container}>
+      <NewTodo
+        onSave={(newTodo) =>
+          setTodoList([
+            ...todoList,
+            { id: todoList.length + 1, text: newTodo },
+          ])
+        }
+      />
+      /* der Rest bleibt gleich*/
+)};
+// Styles bleiben gleich
+```
+
+Mit dem `onSave`-Prop übergeben wir eine Funktion an das `NewTodo`-Element,
+die wir dann im `NewTodo`-Element aufrufen können, wenn auf den Button geklickt
+wird. Die Funktion erhält als Parameter den Text des neuen Todos. Wir fügen
+dann ein neues Todo zur Todo-Liste hinzu und setzen den neuen `state` mit
+`setTodoList`. Hier verwenden wir den Spread-Operator, um die Todo-Liste
+zu kopieren und dann das neue Todo anzuhängen.
+
+<Callout type="info">
+In React Native kommt es häufig vor, dass wir einen `state` in 
+einem Eltern-Element verwalten und diesen dann an ein Kind-Element
+übergeben. Das Kind-Element kann dann den `state` nicht verändern,
+sondern muss den Eltern-Element mitteilen, dass sich etwas geändert hat.
+Dies geschieht über eine Funktion, die wir dem Kind-Element als Prop übergeben
+(siehe oben im `onSave`-Prop).
+</Callout>
+
+Die zugehörige Komponente `NewTodo` sieht dann so aus:
+
+```jsx
+export default function NewTodo({ onSave }) {
+  const [todo, setTodo] = useState('');
+  return (
+    <View style={styles.newTodo}>
+      <TextInput
+        style={styles.input}
+        placeholder="Todo eingeben"
+        value={todo}
+        onChangeText={setTodo}
+      />
+      <Button title="Speichern" onPress={() => onSave(todo)} />
+    </View>
+  );
+}
+```
+
+Beim Antippen des `Button`s wird die Funktion `onSave` aufgerufen, 
+die wir als Prop übergeben haben. Wir übergeben den Text des neuen
+Todos als Argument:
+
+```jsx
+<Button title="Speichern" onPress={() => onSave(todo)} />
+```
+
+## Bonus: Eingabe in `TextInput` löschen
+
+Wir wollen, dass der Text im `TextInput` gelöscht wird, wenn wir
+auf den Button klicken. Dazu setzen wir den `state` auf einen leeren
+String:
+
+```jsx
+<Button
+  title="Speichern"
+  onPress={() => {
+    onSave(todo);
+    setTodo('');
+  }}
+/>
+```
+
+<Callout type="info">
+Falls wir Zeit haben, könnten wir den Ansatz mit `useRef` ausprobieren:
+
+```jsx
+import { useRef, useState } from 'react';
+import { Button, StyleSheet, TextInput, View } from 'react-native';
+
+export default function NewTodo({ onSave }) {
+  const [todo, setTodo] = useState('');
+  const inputRef = useRef();
+  return (
+    <View style={styles.newTodo}>
+      <TextInput
+        style={styles.input}
+        placeholder="Todo eingeben"
+        value={todo}
+        onChangeText={setTodo}
+        ref={inputRef}
+      />
+      <Button
+        title="Speichern"
+        onPress={() => {
+          inputRef.current.clear();
+          onSave(todo);
+        }}
+      />
+    </View>
+  );
+}
+```
+
+`useRef` ist nützlich, wenn wir auf imperative Weise auf ein Element 
+zugreifen wollen. In diesem Fall wollen wir den Text im `TextInput`
+löschen, wenn wir auf den Button klicken. Dazu rufen wir die Methode
+`clear` auf dem `TextInput`-Element auf.
+</Callout>
+
+## Daten auf dem Gerät speichern
+
+<Callout>
+**TODO**: eigentlich wäre `MMKV` (s.u.) besser, weil es schneller ist als 
+`AsyncStorage`, synchron verwendet werden kann und die Daten verschlüsselt 
+speichert. Leider funktioniert `MMKV` (noch?) nicht mit Expo Go.
+
+Wir zeigen hier `Expo Secure Store` als Alternative zu `AsyncStorage`, 
+weil es ähnlich zu verwenden ist und die Daten verschlüsselt speichert.
+</Callout>
+
+Es gibt mehrere Möglichkeiten, Daten auf dem Gerät zu speichern:
+
+- `AsyncStorage`: https://docs.expo.dev/sdk/async-storage/ (wird im Videokurs besprochen)
+- `Expo Secure Store`: https://docs.expo.dev/sdk/securestore/
+- `MMKV`: https://github.com/mrousavy/react-native-mmkv (Alternative zu AsyncStorage, funktioniert leider nicht mit Expo Go)
+- `SQLite`: https://docs.expo.dev/sdk/sqlite/ (wird im Videokurs besprochen)
+- `Realm`: https://realm.io (Alternative zu SQLite)
+- `WatermelonDB`: https://watermelondb.dev (Alternative zu SQLite)
+- bestimmt gibt es noch mehr…
+
+Wir hier verwenden `Expo Secure Store`, weil es ähnlich wie `AsyncStorage` einfach zu verwenden ist und die Daten im Gegensatz zu `AsyncStorage` verschlüsselt speichert. Auf Android-Geräten basiert die Speicherung
+auf `SharedPreferences`.
+
+## Mit `Expo Secure Store` Daten speichern
+
+Wir installieren `Expo Secure Store` (Terminal in VS Code öffnen):
+
+```bash
+npx expo install expo-secure-store
+```
+
+Danach wieder den Server mit `npx expo` starten.
+
+Wir werden den Zugriff auf den Speicher aus Zeitgründen direkt 
+in `App.js` implementieren. Besser zur langfristigen Wartbarkeit 
+der App wäre z.B. eine eigene Hilfsklasse oder eine ähnliche getrennte
+Struktur. 
+
+Zunächst importieren wir `SecureStore` in `App.js`:
+
+```jsx
+import * as SecureStore from 'expo-secure-store';
+```
+
+Wir können die bisherigen Todos mit den Beispiel-Daten aus dem Code 
+entfernen und dem `useState`-Aufruf zunächst ein leeres Array übergeben:
+
+```jsx
+export default function App() {
+  const [todoList, setTodoList] = useState([]);
+
+  // Rest bleibt gleich…
+```
+
+Zum Speichern der Daten erstellen wir innerhalb von `App` eine Funktion
+`saveTodos`, die einen Parameter für die Liste der Todos hat und diese als 
+JSON-String speichert:
+
+```jsx
+const saveTodos = async (todos) => {
+  await SecureStore.setItemAsync('todos', JSON.stringify(todos));
+};
+```
+
+Wir verwenden `setItemAsync`, um die Daten zu speichern. Der erste
+Parameter ist der Schlüssel, unter dem die Daten gespeichert werden 
+(hier `'todos`). Der zweite Parameter ist der Wert, der gespeichert werden 
+soll (hier die Liste der Todos als JSON-String). Wir müssen den Wert als 
+String speichern, deshalb verwenden wir `JSON.stringify`.
+
+<Callout type="info">
+`setItemAsync` gibt ein Promise zurück bzw. funktioniert asynchron, 
+weshalb wir `await` verwenden.
+</Callout>
+
+Wir rufen die Funktion `saveTodos` auf, wenn wir ein neues Todo speichern,
+was im `onSave`-Prop von `NewTodo` passiert:
+
+```jsx
+  return (
+    <View style={styles.container}>
+      <NewTodo
+        onSave={(newTodo) => {
+          const newList = [
+            ...todoList,
+            { id: todoList.length + 1, text: newTodo },
+          ];
+          setTodoList(newList);
+          saveTodos(newList);
+        }}
+      />
+      <TodoList todos={todoList} />
+      <StatusBar style="auto" />
+    </View>
+  );
+```
+
+## Todos aus dem Speicher laden
+
+Wir wollen die Todos beim Start der App aus dem Speicher laden. Dazu
+erstellen wir eine Funktion `loadTodos`:
+
+```jsx
+  // innerhalb der Funktion bzw. Komponente App
+  async function loadTodos() {
+    const todosJSON = await SecureStore.getItemAsync('todos');
+    const todos = JSON.parse(todosJSON);
+    if (todos) setTodoList(todos);
+  }
+```
+
+Dazu eine Erklärung. Zunächst rufen wir `getItemAsync` auf, um die
+Daten aus dem Speicher zu laden. Der Parameter ist wieder der Schlüssel,
+unter dem die Daten gespeichert wurden. Wir verwenden `await`, weil
+die Funktion asynchron ist. Der Rückgabewert ist ein String, den wir
+mit `JSON.parse` in ein JavaScript-Objekt umwandeln. Wenn wir die App
+zum ersten Mal starten, gibt es noch keine Daten im Speicher, weshalb
+wir prüfen, ob `todos` einen Wert hat, bevor wir den `state` setzen.
+
+Wir rufen die Funktion `loadTodos` auf, wenn die App gestartet wird.
+Dazu verwenden wir `useEffect`:
+
+```jsx
+import { useEffect, useState } from 'react';
+// Restlicher Imports bleiben gleich…
+
+export default function App() {
+  const [todoList, setTodoList] = useState([]);
+
+  // Todos nur einmal beim Start der App laden
+  useEffect(() => {
+    loadTodos();
+  }, []);
+
+  async function loadTodos() {
+    const todosJSON = await SecureStore.getItemAsync('todos');
+    const todos = JSON.parse(todosJSON);
+    if (todos) setTodoList(todos);
+  }
+  
+  const saveTodos = async (todos) => {
+    await SecureStore.setItemAsync('todos', JSON.stringify(todos));
+  };
+```
+
+`useEffect` ist ein Hook, der es uns ermöglicht, Code auszuführen,
+wenn sich etwas ändert (sozusagen ein „Seiteneffekt“). Wir verwenden 
+`useEffect` mit einem leeren Array als zweiten Parameter, damit der
+Code nur einmal ausgeführt wird, wenn die App gestartet wird.
+
+Mehr zu `useEffect` im Videokurs.
+
+<Callout type="warning">
+`Expo Secure Store` ist auf 2048 Zeichen pro Schlüssel-Wert-Paar beschränkt.
+
+`AsyncStorage` und `SQLite` können mehr Daten speichern (siehe Videokurs
+und Dokumentation bei Expo bzw. GitHub).
+</Callout>
+
+## Mögliche Übung:
+
+- Todo aus dem Speicher löschen (Button in Todo-Element)
+
+Wahrscheinlich zu viel für 30 Minuten…
