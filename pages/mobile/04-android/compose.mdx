@@ -82,3 +82,24 @@ fun TodoInput(onAdd: (String) -> Unit) {
   }
 }
 ```
+
+## Notizen
+
+- kleine Änderung von Composables (Text, Modifiers) wirken sich direkt live auf die App im Emulator/Gerät aus
+
+- State Compose (z.B. ) `var todo by remember { mutableStateOf("") }` benötigt folgende Imports:
+
+```kotlin
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+```
+
+- `todo by` ist eine Delegated Property (siehe https://kotlinlang.org/docs/delegated-properties.html) und wird von Compose benötigt, um Änderungen an der Variable zu erkennen und das UI entsprechend zu aktualisieren. Dies erspart uns den Zugriff auf `todo.value` und `todo.value = ...`.
+
+## Links
+
+- https://developer.android.com/modern-android-development (Einstieg?)
+- https://developer.android.com/jetpack/compose (Guides usw.)
+- https://github.com/android/compose-samples
