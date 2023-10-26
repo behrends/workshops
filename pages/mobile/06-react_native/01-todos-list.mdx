@@ -61,7 +61,10 @@ Wir erhalten nun diese Warnung in der App:
 
 ![Warnung bei fehlendem key-prop](/images/mobile/reactnative/key-prop-warning.png)
 
-Wenn React (Native) iterativ mehrere Komponenten als eine Art Liste erzeugt, dann wird erwartet, dass jede Komponente eindeutig identifizierbar ist. Dies wird zu Optimierungszwecken benötigt, wenn sich z.B. die Reihenfolge ändert. In React (Native) wird dazu in jeder Komponente ein `key`-prop mit einem eindeutigen Wert definiert, wie hier angedeutet:
+Wenn React (Native) iterativ mehrere Komponenten als eine Art Liste erzeugt, dann wird erwartet, 
+dass jede Komponente eindeutig identifizierbar ist. Dies wird zu Optimierungszwecken benötigt, 
+wenn sich z.B. die Reihenfolge in der Liste ändert. In React (Native) wird dazu in jeder Komponente 
+ein `key`-prop mit einem eindeutigen Wert definiert, wie hier angedeutet:
 
 ```jsx
 <Todo key={id}>{todo}</Todo>
@@ -71,7 +74,8 @@ Wenn React (Native) iterativ mehrere Komponenten als eine Art Liste erzeugt, dan
 Neben `key` gibt es weitere „reservierte“ Props, die nicht für eigene Zwecke genutzt werden sollten (u.a. `ref`).
 </Callout>
 
-Um diese Anforderung in unserer App zu erfüllen könnten wir die Todos im Array als JavaScript-Objekte mit eindeutigen Werten in einer `id`-Eigenschaft deklarieren:
+Um diese Anforderung in unserer App zu erfüllen, könnten wir die Todos im Array als 
+JavaScript-Objekte mit eindeutigen Werten in einer `id`-Eigenschaft deklarieren:
 
 ```jsx
 const todos = [
@@ -92,7 +96,9 @@ export default function App() {
 }
 ```
 
-Wichtig ist, dass die `Todo`-Komponenten passend zu den JavaScript-Objekten im Array deklariert werden:
+Wichtig ist, dass die `Todo`-Komponenten nun passend zu den JavaScript-Objekten im Array 
+deklariert werden, d.h. auf den Text des Todo-Objekts muss nun mit `todo.text` zugeriffen
+werden. Zusätzlich setzen wir `key`-Prop mit der ID:
 
 ```jsx
 <Todo key={todo.id}>{todo.text}</Todo>
@@ -102,7 +108,7 @@ Damit sollte die Warnung verschwinden.
 
 ## FlatList einbinden
 
-React Native stellt mit `FlatList` eine Komponente bereit, mit der beliebig viele Elemente in einer scrollbaren Liste dargestellt werden können. Um `FlatList` zu verwenden sind folgende Schritte nötig:
+React Native stellt mit `FlatList` eine Komponente bereit, mit der beliebig viele Elemente in einer scrollbaren Liste dargestellt werden können. Um `FlatList` zu verwenden, sind folgende Schritte nötig:
 
 - `FlatList` importieren.
 - Nun kann `<FlatList/>` als Komponente im JSX-Code mit mindestens den Props `data` und `renderItem` verwendet werden.
@@ -147,7 +153,7 @@ const styles = StyleSheet.create({
 });
 ```
 
-Zur Laufzeit wird die Funktion im Prop `renderItem` automatisch für jedes Element des Arrays aufgerufen, dass im Prop `data` übergeben wird. Die Funktion in `renderItem` erhält ein Objekt als Parameter, dessen Eigenschaft `item` das anzuzeigende Array-Element enthält. Im Code-Beispiel wird dies mit `{ item }` destrukturiert.
+Zur Laufzeit wird die Funktion im Prop `renderItem` automatisch für jedes Element des Arrays aufgerufen, das im Prop `data` übergeben wird. Die Funktion in `renderItem` erhält ein Objekt als Parameter, dessen Eigenschaft `item` das anzuzeigende Array-Element enthält. Im Code-Beispiel wird dies mit `{ item }` destrukturiert.
 
 Zu beachten ist auch der Abstand zum oberen Bildschirmrand, den wir mit `paddingTop: 50` im `style`-Objekt festlegen, damit die Liste komplett sichtbar ist.
 

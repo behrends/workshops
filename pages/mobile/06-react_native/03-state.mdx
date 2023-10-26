@@ -13,9 +13,9 @@ import { Callout, Tabs } from 'nextra/components';
 
 Bisher haben wir mit `props` gesehen, wie Komponenten mit 
 Eigenschaften zur Laufzeit konfiguriert werden können. Dabei sind 
-die Eigenschaften unveränderlich.
+die Eigenschaften bzw. `props` unveränderlich.
 
-Wenn nun eine Komponente sich im Laufe der Zeit verändern soll,
+Wenn sich nun eine Komponente im Laufe der Zeit verändern soll,
 dann brauchen wir dafür eine andere Möglichkeit. Diese Möglichkeit
 ist der Zustand bzw. `state`. 
 
@@ -23,6 +23,7 @@ Bei der Verwendung von `state` gibt es zwei Dinge zu beachten:
 
 - `state` ist immer privat und gehört zu einer Komponente
 - `state` kann sich im Laufe der Zeit verändern
+- `state` wird ausschließlich mit einer zugehörigen Änderungsfunktion aktualisiert
 
 Wenn sich der `state` einer Komponente verändert, dann wird die
 Komponente neu gerendert. Dies geschieht automatisch und muss nicht
