@@ -39,6 +39,17 @@ Die Dokumentation zu diesen Methoden ist in MDN sowohl für
 [`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) 
 als auch für [`document.querySelectorAll`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll) zu finden.
 
+<Callout type="info">
+[`document.getElementById`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) ist eine performantere Alternative zu `querySelector`, wenn das Element über sein `id`-Attribut gefunden werden soll:
+
+```javascript
+// Hier wird direkt der String-Wert des id-Attributs übergeben
+// (# wird also weggelassen)
+const listElement = document.getElementById('list');
+```
+
+</Callout>
+
 ### Elemente erstellen
 
 Mit `document.createElement` können neue Elemente erstellt werden:
