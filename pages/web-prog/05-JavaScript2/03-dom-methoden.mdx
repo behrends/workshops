@@ -17,27 +17,27 @@ import { Callout } from 'nextra-theme-docs'
 ### Auf Elemente zugreifen
 
 Die einfachste Art, um auf bestimmte Elemente im DOM
-zuzugreifen, wird durch die Methode `document.getElementById`
+zuzugreifen, wird durch die Methode `document.querySelector`
 ermöglicht. So weist folgender JavaScript-Code der Konstanten
 `listElement` eine Referenz auf das Element mit dem `id`-Attribut
 zu, das den String-Wert `'list'` hat (im DOM-Beispiel ist dies das 
 `div`-Element, welches die `div`s mit den Orten enthält):
 
 ```javascript
-const listElement = document.getElementById('list');
+const listElement = document.querySelector('#list');
 ```
 
-Als Argument wird der Methode `getElementById` beim Aufruf demnach 
-der Wert des `id`-Attributs des gewünschten Elements übergeben, sodass
-die Methode eine Referenz auf das entsprechende Element zurückliefert.
+Als Argument wird der Methode `querySelector` beim Aufruf demnach 
+ein CSS-Selektor für das gewünschte Element übergeben, sodass
+die Methode eine Referenz auf das **erste** Element zurückliefert,
+das diesem Selektor entspricht. Um auf alle Elemente zuzugreifen,
+die dem Selektor entsprechen, kann die Methode `querySelectorAll`
+verwendet werden. Diese liefert ein Array mit allen passenden
+Elementen zurück.
 
-Weitere nützlich Methode für den Zugriff auf beliebige Elemente
-in der DOM-Struktur sind die Methoden [`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) (liefert
-das erste passende Element) und [`document.querySelectorAll`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll) 
-(liefert alle passenden Elemente), die jeweils mit flexiblen 
-Abfrageausdrücken aufgerufen werden können (siehe Dokumentation 
-in MDN für [`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) 
-und [`document.querySelectorAll`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll)).
+Die Dokumentation zu diesen Methoden ist in MDN sowohl für 
+[`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) 
+als auch für [`document.querySelectorAll`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll) zu finden.
 
 ### Elemente erstellen
 
@@ -118,7 +118,7 @@ Template-Strings im Code erstellt werden können.
 Im LiveCoding werden diese Methoden eingebaut, um einen neuen Eintrag
 für einen beliebigen Ort mit willkürlichen Wetterdaten einzufügen:
 
-- `getElementById` um das „Container“-Element (`div`) für die Liste der Wetter-Orte einer Konstanten zuzuweisen.
+- `querySelector` um das „Container“-Element (`div`) für die Liste der Wetter-Orte einer Konstanten zuzuweisen.
 - Funktion `addWeatherLocation` erstellen, die folgende Methoden der DOM-API verwendet:
   - `document.createElement` erzeugt neues Element für Ort
   - `element.classList.add` setzt CSS-Klasse
