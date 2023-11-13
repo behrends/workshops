@@ -3,6 +3,12 @@ import MyIntro from '@/components/my-intro.mdx';
 
 # 1. Tag: Einstieg (8 Stunden)
 
+<Callout>
+**Todo für Dozent** &mdash; Vorbereitungen:
+- NAO mit Basic Channel mitnehmen (NAO8 oder NAO9)
+- Windows-Laptop aus A335 mitnehmen
+</Callout>
+
 ## Vorstellung (bis zu 60 Minuten)
 
 ### Persönliche Vorstellung
@@ -43,22 +49,153 @@ Beispiel: Sprachdialog mit NAO (NAO9). Eventuell kurz Choregraphe zeigen.
 Achtung: Choregraphe 2.8 für NAOv6 funktioniert nicht auf MacBooks
 </Callout>
 
-In Moodle haben wir am SZI einen Kursraum mit NAO-Material:
-https://moodle.loerrach.dhbw.de/moodle/course/view.php?id=11871
+
+<Callout>
+**Todo für Dozent** &mdash; Textseite in Moodle 
+(„Aufgaben für NAO“) erstellen mit folgendem Text:
+```md
+Hier in Moodle finden Sie umfangreiche Anleitungen und Aufgabenmaterial
+zu NAO. Bitte arbeiten Sie sich durch die Anleitungen und versuchen Sie,
+ein paar Aufgaben nach Interesse zu lösen.
+
+Die Aufgaben sind kurz mit Text in Moodle beschrieben (z.T. auch mit Video) 
+und ausführlicher im PDF-Dokument „V6 aufgabenheft“ beschrieben.
+```
+</Callout>
+
 
 ### Ziele dieser Veranstaltung
 
 &xrarr; zu den Folien wechseln…
 
+<Callout>
+**Todo für Dozent** &mdash; Folien hier einbetten?
+</Callout>
+
 ## PAUSE
 
-## MakeCode Arcade (45 Minuten)
+## MakeCode Arcade (bis zu 45 Minuten)
 
-&xrarr; zu den Folien wechseln…
+Tutorial „Chase the Pizza“ parallel auf iPad oder zweitem Laptop durchklicken 
+und vorführen zum Mitmachen, siehe https://arcade.makecode.com
 
-## p5.js (45 Minuten)
+Studierende gehen zu makecode.com und starten Arcade
 
-&xrarr; zu den Folien wechseln…
+Icons aus Galerie auswählen, Hardware, Konsole Vollbild, Am Ende auf Smartphone laden (Tutorial fertig), andere Tipps/Tricks? 
+
+Aufgabe: Geschwindigkeit ändern, Countdown ändern, stay in screen, second food with higher score, eigene Anpassungen? 
+
+<Callout>
+**Todo für Dozent** &mdash; Textseite in Moodle 
+(„Aufgaben für MakeCode Arcade”) erstellen mit folgendem Text:
+
+```md
+Auf der [Webseite von Microsoft Makecode Arcade 
+(arcade.makecode.com)](https://arcade.makecode.com) finden Sie ein 
+mehrstufiges Tutorial namens „_Beginner Skillmap_“. Dieses soll 
+zuerst durchgearbeitet werden.
+
+Falls Sie danach noch Zeit haben, dann können Sie sich mit weiteren 
+Skillmaps oder Tutorials/Anleitungen beschäftigen.
+
+Zusätzlich können Sie bestehende Spiele nach eigenen Vorstellungen anpassen 
+oder damit beginnen, eine eigene Spielidee umzusetzen.
+```
+</Callout>
+
+## p5.js (bis zu 45 Minuten)
+
+- p5.js-Editor vorstellen: https://editor.p5js.org
+- Play, Stop, Auto Refresh, Edit -> Tidy Code usw.
+- setup, draw, console.log zeigen
+- Koordinationsystem beginnt links oben, Referenz zeigen 
+
+Einfaches Beispiel: 
+
+```js
+function setup() {
+  createCanvas(400, 400)
+  rectMode(CENTER) // Rechtecke ausgehend von ihrer Mitte zeichnen
+  noFill() // Rechtecke nicht farbig ausfüllen
+  noLoop() // Programm nur einmal ausführen
+}
+
+function draw() {
+  background('white')  // Farben: RGB, hexadezimale Werte, … möglich
+  
+  rect(100, 120, 50, 50) // kleines Quadrat oben links
+  rect(width/2, height/2, 200, 200) // größeres Quadrat unten rechts
+}
+```
+
+**Generatives oder Creative Coding:**
+
+![Vera Molnar](/images/praesi/vera_molnar_squares.png)
+
+Untitled 1974 (Squares) von Vera Molnár (*1924, Pionierin der Computerkunst).
+
+Bildquelle: https://musingswithcode.studio/generative-design-workshop/ 
+
+```js
+// Eine Lösung für "Untitled 1974 (Squares)" von Vera Molnar
+// maximaler Abstand zwischen den Rechtecken
+const maxOffset = 30
+  
+function setup() {
+  createCanvas(400, 400)
+  rectMode(CENTER)
+  noLoop()
+  noFill()
+}
+  
+function draw() {
+  background('white') // Farben: RGB, hexadezimale Werte, … möglich
+  
+  for(let size = 10; size < 300; size += 10) {
+    let offsetX = random(-maxOffset, maxOffset)
+    let offsetY = random(-maxOffset, maxOffset)
+  
+    rect(width/2 + offsetX, height/2 + offsetY, size, size)
+  }
+}
+```
+
+
+### Aufgaben zum Experimentieren
+
+⟶ Mit `circle()` Kreise statt Quadrate erstellen
+
+Mit `stroke()` lässt sich die Linienfarbe festlegen 
+(siehe https://p5js.org/reference/#/p5/stroke)
+
+⟶ Farbe der Linien (zufällig) ändern, siehe Code-Beispiel:
+
+```js
+let colors = ['red','white','blue','green','yellow','orange','black']
+let color = random(colors)
+```
+
+Generative Art — weitere interessante Beispiele in steigender Komplexität:
+
+https://musingswithcode.studio/generative-design-workshop
+
+
+<Callout>
+**Todo für Dozent** &mdash; Textseite in Moodle 
+(„Aufgaben für p5.js“) erstellen mit folgendem Text:
+
+```md
+Auf [dieser Webseite](https://workshops.progcontent.com/kennenlerntag/02-basics) 
+finden Sie ein Tutorial, das Sie durch die Grundlagen von p5.js führt. Dabei 
+wird das Logo der DHBW nachgezeichnet.
+
+Arbeiten Sie sich durch dieses Tutorial inklusive der Aufgaben durch und 
+versuchen Sie, die Beispiele nachzuvollziehen. 
+
+Falls Sie danach noch Zeit haben, dann können Sie versuchen ein Malprogramm
+zu erstellen, das mit der Maus bedient wird (siehe letzte Seite des Tutorials).
+```
+</Callout>
 
 ## MITTAGSPAUSE (ca. 45 Minuten)
 
@@ -67,10 +204,20 @@ https://moodle.loerrach.dhbw.de/moodle/course/view.php?id=11871
 Einteilung in 2-3 Gruppen für Aufgaben mit NAO, MakeCode, p5.js
 
 <Callout>
-Aufgaben werden in Moodle veröffentlicht
+Aufgaben werden in Moodle veröffentlicht.
+
+Je nach Geschwindigkeit und Interesse können Tutorials sowohl zu 
+MakeCode Arcade (Spiele) als auch zu p5.js (2D-Grafiken) bearbeitet werden.
 </Callout>
 
 - Gruppenwahl in Moodle (2 Gruppen, 3 Gruppen wenn mehr als 30 Leute)
+
+Gruppe A geht ins NAO-Labor (Raum A335) \
+⟶ dort wird NAO und die Aufgabe vorgestellt (siehe Moodle).
+
+Gruppe B bleibt im Kursraum und befasst sich mit Microsoft Makecode Arcade 
+(und bei Interesse mit p5.js). \
+⟶ Aufgaben siehe Moodle. 
 
 | Zeit       | Gruppe A          | Gruppe B         |
 |------------|-------------------|------------------|
@@ -79,6 +226,7 @@ Aufgaben werden in Moodle veröffentlicht
 | 60-90 Min. | MakeCode, p5.js   | NAO (A335)       |
 | 15 Min.    | ggf. gemeinsamer… | …Abschluss       |
 
+<mark>&xrarr; Ablauf am Whiteboard skizzieren</mark>
 
 Tipps für den Umgang mit NAO:
 

@@ -1,0 +1,37 @@
+import { Callout } from 'nextra/components';
+
+# Notizen zu MakeCode
+
+## Makecode Tutorials in der Programmierumgebung
+
+Infos zu Tutorials: https://makecode.com/writing-docs/tutorials
+
+Eigene Tutorials erstellen: https://makecode.com/writing-docs/user-tutorials
+
+Im Editor des Makecode Tutorial Tool die die gewünschten Blöcke hinzufügen.
+
+Im Makecode-Tutorials erscheinen die Blöcke nur dann in der Seitenleiste im Tutorial, wenn diese in den relevanten Schritten in JavaScript eingebunden werden, z.B.:
+
+````js
+```blocks
+// @highlight
+scene.setBackgroundColor(0)
+```
+````
+
+Durch `// @highlight` wird die Lösung als „Glühbirnen“-Symbol angezeigt — kann auch weggelassen werden. 
+
+Damit Blöcke im Markdown-Text in passender Farbe erscheinen, muss der Name der Kategorie erscheinen, zu der der Block in der Werkzeugleister gehört, z.B.:
+
+```js
+Ziehe den Block ``||scene:setze Hintergrundfarbe||`` auf die …
+```
+
+Markdown-Code von Beispiel-Tutorials (Dateien als RAW in GitHub anschauen): https://github.com/microsoft/pxt-arcade/tree/master/docs/tutorials
+
+Jedes dieser Tutorials lässt sich im Browser öffnen, mit
+https://arcade.makecode.com/#tutorial:https://github.com/microsoft/pxt-arcade/docs/tutorials/NAME
+funktioniert manchmal nicht …
+
+Ein Beispiel hierfür (Dateiendung `.md` wird weggelassen):
+https://arcade.makecode.com/#tutorial:https://github.com/microsoft/pxt-arcade/docs/tutorials/maze 
