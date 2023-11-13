@@ -42,6 +42,14 @@ export default function Home() {
         </div>
 
         <div className="text-3xl font-bold flex flex-wrap items-center justify-around max-w-full mt-6 sm:w-full">
+          <Link href="/praesi">
+            <h1 className="cursor-pointer">
+              Präsentationskompetenzen (WWI)
+            </h1>
+          </Link>
+        </div>
+
+        <div className="text-3xl font-bold flex flex-wrap items-center justify-around max-w-full mt-6 sm:w-full">
           <Link href="/kennenlerntag">
             <h1 className="cursor-pointer">
               Kennenlerntag (TIF und WWI)
