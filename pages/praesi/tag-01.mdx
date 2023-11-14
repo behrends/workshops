@@ -123,8 +123,8 @@ function setup() {
 function draw() {
   background('white')  // Farben: RGB, hexadezimale Werte, … möglich
   
-  rect(100, 120, 50, 50) // kleines Quadrat oben links
-  rect(width/2, height/2, 200, 200) // größeres Quadrat unten rechts
+  square(100, 120, 50) // kleines Quadrat oben links
+  square(width/2, height/2, 200) // größeres Quadrat unten rechts
 }
 ```
 
@@ -155,7 +155,7 @@ function draw() {
     let offsetX = random(-maxOffset, maxOffset)
     let offsetY = random(-maxOffset, maxOffset)
   
-    rect(width/2 + offsetX, height/2 + offsetY, size, size)
+    square(width/2 + offsetX, height/2 + offsetY, size)
   }
 }
 ```
@@ -194,6 +194,9 @@ versuchen Sie, die Beispiele nachzuvollziehen.
 
 Falls Sie danach noch Zeit haben, dann können Sie versuchen ein Malprogramm
 zu erstellen, das mit der Maus bedient wird (siehe letzte Seite des Tutorials).
+
+Beispiele zu generativer Kunst finden Sie hier: 
+[https://musingswithcode.studio/generative-design-workshop/](https://musingswithcode.studio/generative-design-workshop/)
 ```
 </Callout>
 
