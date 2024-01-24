@@ -1,12 +1,14 @@
 import { Callout } from 'nextra/components';
 import MyIntro from '@/components/my-intro.mdx';
 
-# 1. Tag: Einstieg (8 Stunden)
+# 1. Tag: Einstieg (8 Stunden) &mdash; mit NAO
 
 <Callout>
 **Todo für Dozent** &mdash; Vorbereitungen:
 - NAO mit Basic Channel mitnehmen (NAO8 oder NAO9)
 - Windows-Laptop aus A335 mitnehmen
+
+NAO und VR-Brillen für Studieninfotag einsetzen? (&xrarr; Hilfe von Laboringenieur)
 </Callout>
 
 ## Vorstellung (bis zu 60 Minuten)
@@ -205,8 +207,14 @@ wird das Logo der DHBW nachgezeichnet.
 Arbeiten Sie sich durch dieses Tutorial inklusive der Aufgaben durch und 
 versuchen Sie, die Beispiele nachzuvollziehen. 
 
-Falls Sie danach noch Zeit haben, dann können Sie versuchen ein Malprogramm
-zu erstellen, das mit der Maus bedient wird (siehe letzte Seite des Tutorials).
+Danach können Sie sich mit 
+[diesem Tutorial](https://behrends.github.io/mini-tutorials/memory/) beschäftigen, 
+das ein einfaches Memory-Spiel mit p5.js erstellt.
+
+Falls Sie danach immer noch Zeit und Interesse an p5.js haben, dann können Sie 
+versuchen ein Malprogramm zu erstellen, das mit der Maus bedient wird. Mit gedrücktem 
+Mausknopf wird ein Kreis (`circle()`) gezeichnet. Änderung der Farbe und der 
+Pinselgröße kann durch passende Tastendrücke erreicht werden.
 
 Beispiele zu generativer Kunst finden Sie hier: 
 [https://musingswithcode.studio/generative-design-workshop/](https://musingswithcode.studio/generative-design-workshop/)
@@ -219,11 +227,38 @@ Beispiele zu generativer Kunst finden Sie hier:
 
 Einteilung in 2-3 Gruppen für Aufgaben mit NAO, MakeCode, p5.js
 
-<Callout>
-Aufgaben werden in Moodle veröffentlicht.
+<Callout type="info" emoji="👨🏻‍💻">
+Eventuell kurz crisp-game-lib vorstellen:
 
-Je nach Geschwindigkeit und Interesse können Tutorials sowohl zu 
-MakeCode Arcade (Spiele) als auch zu p5.js (2D-Grafiken) bearbeitet werden.
+- Paku Paku (1D-Pacman): https://abagames.github.io/crisp-game-lib-11-games/?pakupaku
+- Quellcode besteht aus 189 (!) Zeilen JavaScript: https://github.com/abagames/crisp-game-lib-11-games/blob/main/docs/pakupaku/main.js
+- Liste der Spiele für den Browser: http://www.asahi-net.or.jp/~cs8k-cyu/browser.html
+- <mark>&xrarr; **Tutorial**: https://behrends.github.io/mini-tutorials/pin-climb/</mark>
+- API-Referenz von crisp-game-lib: https://abagames.github.io/crisp-game-lib/ref_document/modules.html
+</Callout>
+
+<Callout type="info" emoji="🤖">
+<mark>Tipps zu GitHub Copilot geben? (siehe Tag 1 ohne NAO…)</mark>
+</Callout>
+
+<Callout>
+**Todo für Dozent** &mdash; Textseite in Moodle 
+(„Aufgaben für Spiele mit crisp-game-lib“) erstellen mit folgendem Text:
+
+```md
+Falls Sie Zeit und Interesse haben, dann können Sie sich mit 
+[diesem Tutorial](https://behrends.github.io/mini-tutorials/pin-climb/) beschäftigen, 
+das ein minimalistisches „Ein-Knop-Spiel“ mit JavaScript und crisp-game-lib erstellt.
+
+Mit crisp-game-lib wurde z.B. das Spiel [1D-Pacman](https://abagames.github.io/ crisp-game-lib-11-games/?pakupaku) programmiert.
+```
+</Callout>
+
+<Callout>
+Aufgaben werden in Moodle veröffentlicht (siehe Markdown-Inhalte für MakeCode Arcade, p5.js und crisp-game-lib oben).
+
+Je nach Geschwindigkeit und Interesse können Tutorials zu MakeCode Arcade (Spiele), 
+p5.js (2D-Grafiken) und crisp-game-lib (Spiele) bearbeitet werden.
 </Callout>
 
 - Gruppenwahl in Moodle (2 Gruppen, 3 Gruppen wenn mehr als 30 Leute)
@@ -235,12 +270,12 @@ Gruppe B bleibt im Kursraum und befasst sich mit Microsoft Makecode Arcade
 (und bei Interesse mit p5.js). \
 ⟶ Aufgaben siehe Moodle. 
 
-| Zeit       | Gruppe A          | Gruppe B         |
-|------------|-------------------|------------------|
-| 60-90 Min. | NAO (A335)        | MakeCode, p5.js  |
-| 15 Min.    | PAUSE             | PAUSE            |
-| 60-90 Min. | MakeCode, p5.js   | NAO (A335)       |
-| 15 Min.    | ggf. gemeinsamer… | …Abschluss       |
+| Zeit       | Gruppe A           | Gruppe B           |
+|------------|--------------------|--------------------|
+| 60-90 Min. | NAO (A335)         | MakeCode, p5.js, … |
+| 15 Min.    | PAUSE              | PAUSE              |
+| 60-90 Min. | MakeCode, p5.js, … | NAO (A335)         |
+| 15 Min.    | ggf. gemeinsamer…  | …Abschluss         |
 
 <mark>&xrarr; Ablauf am Whiteboard skizzieren</mark>
 

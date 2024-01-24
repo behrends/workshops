@@ -1,0 +1,247 @@
+import { Callout } from 'nextra/components';
+import MyIntro from '@/components/my-intro.mdx';
+
+# 1. Tag: Einstieg (8 Stunden) &mdash; ohne NAO
+
+## Vorstellung (ca. 45 Minuten)
+
+### Persönliche Vorstellung
+
+<MyIntro/>
+
+**Anekdote**: Programmieren ist heute viel zugänglicher als zu meiner Studienzeit. Mitte der 90er Jahre gab es nur wenige Webseiten und kaum jemand besaß einen Computer…
+
+### Vorstellung des Kurses
+
+- Wie lautet Ihr Name?
+- In welchem Unternehmen sind Sie angestellt?
+- Was sind Ihre Erfahrungen mit Programmierung?
+- Was haben Sie in Informatik in der Schule behandelt?
+
+⟶ Strichliste zu den Fragen am Whiteboard
+(Vorkenntnisse, Informatik in der Schule, Programmiersprachen)
+
+
+### Ziele dieser Veranstaltung
+
+&xrarr; zu den Folien wechseln…
+
+<Callout>
+**Todo für Dozent** &mdash; Folien hier einbetten?
+</Callout>
+
+<Callout type="warning" emoji="🗓️">
+Präsentationstermine und Ablauf auf dem Whiteboard skizzieren. 
+
+Kurskalender am Projektor zeigen.
+</Callout>
+
+## MakeCode Arcade (bis zu 45 Minuten)
+
+Tutorial „Chase the Pizza“ parallel auf iPad oder zweitem Laptop durchklicken 
+und vorführen zum Mitmachen, siehe https://arcade.makecode.com
+
+Studierende gehen zu makecode.com und starten Arcade
+
+Icons aus Galerie auswählen, Hardware, Konsole Vollbild, Am Ende auf Smartphone laden (Tutorial fertig), andere Tipps/Tricks? 
+
+Aufgabe: Geschwindigkeit ändern, Countdown ändern, stay in screen, second food with higher score, eigene Anpassungen? 
+
+## PAUSE
+
+## p5.js (Teil 1: Einführung, ca. 35 Minuten)
+
+<Callout>
+**Spickzettel (cheat sheet) für p5.js:** 
+
+https://bmoren.github.io/p5js-cheat-sheet/de.html
+</Callout>
+
+
+- p5.js-Editor vorstellen: https://editor.p5js.org
+- Play, Stop, Auto Refresh, Edit -> Tidy Code usw.
+- setup, draw, console.log zeigen
+- Koordinationsystem beginnt links oben, Referenz zeigen 
+
+Einfaches Beispiel: 
+
+```js
+function setup() {
+  createCanvas(400, 400)
+  rectMode(CENTER) // Rechtecke ausgehend von ihrer Mitte zeichnen
+  noFill() // Rechtecke nicht farbig ausfüllen
+  noLoop() // Programm nur einmal ausführen
+}
+
+function draw() {
+  background('white')  // Farben: RGB, hexadezimale Werte, … möglich
+  
+  square(100, 120, 50) // kleines Quadrat oben links
+  square(width/2, height/2, 200) // größeres Quadrat unten rechts
+}
+```
+
+**Generatives oder Creative Coding:**
+
+![Vera Molnar](/images/praesi/vera_molnar_squares.png)
+
+Untitled 1974 (Squares) von Vera Molnár (*1924, Pionierin der Computerkunst).
+
+Bildquelle: https://musingswithcode.studio/generative-design-workshop/ 
+
+```js
+// Eine Lösung für "Untitled 1974 (Squares)" von Vera Molnar
+// maximaler Abstand zwischen den Rechtecken
+const maxOffset = 30
+  
+function setup() {
+  createCanvas(400, 400)
+  rectMode(CENTER)
+  noLoop()
+  noFill()
+}
+  
+function draw() {
+  background('white') // Farben: RGB, hexadezimale Werte, … möglich
+  
+  for(let size = 10; size < 300; size += 10) {
+    let offsetX = random(-maxOffset, maxOffset)
+    let offsetY = random(-maxOffset, maxOffset)
+  
+    square(width/2 + offsetX, height/2 + offsetY, size)
+  }
+}
+```
+
+
+### Aufgaben zum Experimentieren
+
+⟶ Mit `circle()` Kreise statt Quadrate erstellen
+
+Mit `stroke()` lässt sich die Linienfarbe festlegen 
+(siehe https://p5js.org/reference/#/p5/stroke)
+
+⟶ Farbe der Linien (zufällig) ändern, siehe Code-Beispiel:
+
+```js
+let colors = ['red','white','blue','green','yellow','orange','black']
+let color = random(colors)
+```
+
+Generative Art — weitere interessante Beispiele in steigender Komplexität:
+
+https://musingswithcode.studio/generative-design-workshop
+
+## p5.js (Teil 2: Memory-Spiel, ca. 55 Minuten)
+
+Gemeinsam arbeiten wir uns durch [dieses Mini-Tutorial](https://behrends.github.io/mini-tutorials/memory/),
+welches ein einfaches Memory-Spiel mit p5.js schrittweise entwickelt. 
+
+Das fertig gestellte Memory-Spiel kann kurz im p5.js-Editor gezeigt werden:
+https://editor.p5js.org/behrends/sketches/gpnqu4ATk
+
+<Callout>
+Hinweis: Das Memory-Spiel wurde mit Hilfe von GitHub Copilot (basiert auf GPT) entwickelt.
+</Callout>
+
+## MITTAGSPAUSE (ca. 45 Minuten)
+
+## GitHub Copilot (bis zu 90 Minuten)
+
+Vorstellung der Funktionsweise von GitHub Copilot in VS Code. 
+
+**Vorbereitung Studierende:**
+- VS Code installieren
+- p5.js-Extension installieren: P5-Server (https://marketplace.visualstudio.com/items?itemName=osteele.p5-server)
+- p5.js in VS Code kurz vorführen, siehe p5 in „Activity Bar“ (linke Leiste)
+- GitHub Copilot wird später beantragt (siehe unten)
+
+Nun beginnen wir, das Spiel „Vier Gewinnt“ in p5.js mit Hilfe von GitHub Copilot 
+zu entwickeln. Das fertige Spiel kann hier kurz gezeigt werden: 
+https://editor.p5js.org/behrends/sketches/a3POvmyKN
+
+**Interaktive Demo von GitHub Copilot:**
+ - Die meisten Schritte werden in Copilot Chat ausgeführt.
+ - Vorgehensweise für Spielentwicklung mit Copilot festlegen
+ - Schrittweise durch gehen.
+
+<Callout>
+Mit einer Vorgehensweise wie im Word-Dokument unter `/assets/VierGewinntCopilot.docx` 
+dokumentiert, sollte es möglich sein, in Copilot das Spiel „Vier Gewinnt“ zu entwickeln.
+</Callout>
+
+**Tipps zur Benutzung von Copilot:**
+
+- Copilot Chat kann über „Activity Bar“ (linke Leiste) geöffnet werden.
+- Fenster von Copilot Chat in Editor öffnen (mit &hellip;-Menu oben und dann „Open Chat in Editor“). Danach nach unten oder neben den Code verschieben.
+- Copilot Chat beantwortet nur Fragen zur Programmierung. Manchmal müssen die Fragen mit direktem Bezug zum Code oder zur Programmierung umformuliert werden.
+- Anhand von Kommentaren und Autovervollständigung geniert Copilot passenden Code („ghost code“).
+- Copilot reagiert auf einige Tastenkombinationen:
+  - `TAB` &rarr; Codevorschlag vervollständigen
+  - `Alt-]` &rarr; durch alternative Vorschläge blättern
+  - `Hover` &rarr; durch alternative Vorschläge blättern
+  - `CTRL-Enter` &rarr; Alternativen anzeigen (neuer Bereich rechts wird geöffnet)
+  - `CMD-I` &rarr; Copilot direkt im Code befragen (z.B. „erkläre mir dies“, **Windows?**)
+  - jedes Jahr neu checken, Studierende fragen und ggf. aktualisieren
+- Copilot bei Bedarf ausschalten durch Klick auf das Copilot-Icon unten in der Status-Bar (**wichtig für das Lernen der Programmierung im 1. Semester!**)
+
+<mark>Die Benutzung von Copilot erfordert Übung. Ständig kommen neue Features hinzu. Die offizielle Dokumentation oder YouTube-Videos zeigen weitere Möglichkeiten.</mark>
+
+<Callout type="error" emoji="‼️">
+Die Studierenden werden ausdrücklich darauf hingewiesen, dass sie Copilot nur auf 
+eigene Gefahr und Verantwortung nutzen sollen (Datenschutz, Urheberrecht, usw. 
+im Unternehmen beachten).
+</Callout>
+
+**GitHub Copilot kostenlos für Studierende beantragen:**
+- 1. Schritt: Studierenden-Zugang freischalten <br/> https://docs.github.com/en/education/explore-the-benefits-of-teaching-and-learning-with-github-education/github-global-campus-for-students/apply-to-github-global-campus-as-a-student
+- 2. Schritt Github Copilot einrichten (u.a. in VS Code) <br/> https://docs.github.com/en/copilot/using-github-copilot/getting-started-with-github-copilot
+- &xrarr; Links jedes Mal checken und in Moodle stellen
+
+**Interessant ist auch [replit.com mit AI](https://replit.com)**. Dies kann auch kurz mit p5.js gezeigt werden (AI als Chat und zur Code-Generierung).
+
+### PAUSE
+
+## Minimalistische Spiele mit crisp-game-lib (ca. 45 Minuten)
+
+[crisp-game-lib](https://github.com/abagames/crisp-game-lib) ist eine 
+JavaScript-Bibliothek für die Programmierung klassischer Arcade-Spiele, die 
+im Browser laufen. Oftmals sind diese Spiele so minimalistisch, dass sie nur 
+einen Button benötigen, d.h. nur mit einer Taste, Mausklick oder 
+Antippen des Bildschirms gespielt werden können. Beispiele: 
+
+- Paku Paku (1D-Pacman): https://abagames.github.io/crisp-game-lib-11-games/?pakupaku
+- Quellcode besteht aus 189 (!) Zeilen JavaScript: https://github.com/abagames/crisp-game-lib-11-games/blob/main/docs/pakupaku/main.js
+- Liste der Spiele für den Browser: http://www.asahi-net.or.jp/~cs8k-cyu/browser.html
+
+Gemeinsam entwickeln wir nun ein Spiel mit crisp-game-lib. Das Spiel kann hier 
+gespielt werden: https://abagames.github.io/crisp-game-lib-11-games/?pinclimb
+
+Mit dem folgenden Tutorial geht es nun los:
+https://behrends.github.io/mini-tutorials/pinclimb/
+
+<Callout>
+Alle öffnen des Codepen-Template. 
+
+Codepen kurz erklären: HTML, CSS, JavaScript. Wesentlich ist der JavaScript-Teil.
+</Callout>
+
+
+Links zu crisp-game-lib:
+
+- API-Referenz von crisp-game-lib: https://abagames.github.io/crisp-game-lib/ref_document/modules.html
+- Code einiger Spiele: https://github.com/abagames/crisp-game-lib-11-games/tree/main/docs <br/> Das kürzeste Spiel (Pillars3D) besteht aus 84 Zeilen JavaScript-Code, das längste aus 553 Zeilen (Skygolf).
+
+
+## Vorstellung eines KI-Tools (restliche Zeit nach Bedarf und Motivation…)
+
+TODO: KI-Tool ausprobieren und vorstellen, siehe auch die Liste auf der folgenden Seite
+
+Weitere Tools:
+
+- https://krea.ai 
+- https://makereal.tldraw.com
+
+<Callout>
+Liste der Themen (nächste Seite) kurz zeigen und in Moodle veröffentlichen?
+</Callout>

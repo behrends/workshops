@@ -1,6 +1,8 @@
 {
   "index": "Übersicht",
-  "tag-01": "1. Tag: Einstieg",
+  "tag-01-index": "1. Tag: Überblick",
+  "tag-01-nao": "1. Tag: Einstieg (mit NAO)",
+  "tag-01-no-nao": "1. Tag: Einstieg (ohne NAO)",
   "tag-02": "2. Tag: Themen/Gruppen",
   "tag-03": "3. Tag: Bearbeitung der Themen",
   "tag-04": "4. Tag: Präsentationen",
