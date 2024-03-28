@@ -78,6 +78,37 @@ Folgende Ausgabe wird dargestellt:
 
 ###  Ausgabe formatieren
 
+<Callout>
+In der [MDN-Dokumentation zu console.log](https://developer.mozilla.org/en-US/docs/Web/API/console#outputting_text_to_the_console) 
+wird beschrieben, wie mit `%c` Styling-Anweisungen definiert werden können:
+
+```js
+console.log(
+  "This is %cMy stylish message",
+  "color: yellow; font-style: italic; background-color: blue;padding: 2px",
+);
+```
+
+Leider wird dies von Node.js (noch?) nicht unterstützt (funktioniert aber im Browser).
+
+In Node.js gibt es eine API [`util.styleText`](https://nodejs.org/api/util.html#utilstyletextformat-text)
+mit der Ausgaben Styles erhalten können:
+
+```js
+import { styleText } from 'node:util';
+const errorMessage = styleText('red', 'Error! Error!');
+console.log(errorMessage);
+```
+
+In Zukunft soll es auch möglich sein, mehrere Styles als Array zu definieren:
+
+```js
+import { styleText } from 'node:util';
+const warnMessage = styleText(['yellow','italic'], 'Warning!');
+console.log(warnMessage);
+```
+</Callout>
+
 Mit speziellen „ANSI escape codes“ kann die Ausgabe u.a. farbig 
 gestaltet werden.
 
