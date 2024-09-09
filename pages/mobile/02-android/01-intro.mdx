@@ -10,14 +10,6 @@ import { Callout } from 'nextra/components';
   **Ziel:** Übersicht der Lernressourcen zu Android geben
 </Callout>
 
-<Callout type="error">
-Oktober 2023: Die Android-Docs richten sich zunehmend auf Compose aus. 
-
-Siehe z.B. den Verweis auf Compose hier: https://developer.android.com/develop/ui/views/layout/declaring-layout
-
-&xrarr; Macht es noch Sinn, den View-Ansatz mit XML-Layouts zu unterrichten? Solange der Videokurs noch nicht auf Compose umgestellt ist? 
-</Callout>
-
 ## Learning by doing
 
 Einerseits ist die Android-Programmierung sehr umfangreich
@@ -35,7 +27,7 @@ verwiesen.
 Im Web sind einige veraltete Informationen zur Android-
 Programmierung zu finden. Daher sollte bei eigenen 
 Recherchen z.B. auf das Erstellungsdatum der gefundenen
-Artikel geachtet werden (&xrarr; nicht älter als 2 Jahre).
+Artikel geachtet werden (&xrarr; z.B. nicht älter als 2 Jahre).
 </Callout>
 
 <Callout type="error">
@@ -54,6 +46,55 @@ Android-Dokumentation von Google vorgestellt.
 Google stellt sehr viel Lernmaterial zur Android-Entwicklung bereit. Dies hat in der Regel eine hohe Qualität, ist aber sehr unübersichtlich und inkonsistent, weil sich die Android-Entwicklung in den letzten Jahr stark gewandelt hat (Kotlin vs. Java, mit oder ohne Compose, usw.) und auch in Zukunft wandeln wird… 
 
 Der Dozent kann leider nur einen Überblick geben und teilweise Ansätze zeigen &mdash; mehr ist in den jährlichen Vorbereitungen zur Vorlesung nicht zu bewerkstelligen.
+
+--- 
+
+Veranschaulichung der Problematik im September 2024:
+
+Ein neues Android-Projekt mit dem Template „_Empty Activity_“ erstellt
+ein Projekt mit einer `MainActivity`, die folgenden Code in `onCreate` enthält:
+
+```kotlin
+enableEdgeToEdge()
+setContent {
+    MyApplicationTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            Greeting(
+                name = "Android",
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
+    }
+}
+```
+
+Im ersten Codelab der offiziellen Dokumentation 
+[_Create your first Android app_](https://developer.android.com/codelabs/basic-android-kotlin-compose-first-app) 
+(Schritt 4 _Update the text_) sieht der entsprechende jedoch Code so aus:
+
+```kotlin
+super.onCreate(savedInstanceState)
+setContent {
+    GreetingCardTheme {
+        // A surface container using the 'background' color from the theme
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            Greeting("Android")
+        }
+    }
+}
+```
+
+Nach ein paar Recherchen stellt sich heraus, dass `enableEdgeToEdge`
+und `Scaffold` für die kommende Android-Version 15 benötigt werden
+(siehe [Android-Guides](https://developer.android.com/develop/ui/compose/layouts/insets)):
+
+>>> Important: Edge-to-edge is enforced on Android 15 and higher once your app targets SDK 35. […] The Material 3 Scaffold component can reduce the work required to be compatible with the Android 15 edge-to-edge enforcement. See Create a scaffold component to hold the UI together.
+
+Diese Änderung ist also schon im Template „_Empty Activity_“ enthalten, aber nicht im ersten Codelab, dass für den Einstieg 
+in die Android-Entwicklung empfohlen wird.
 </Callout>
 
 ### Dokumentation
@@ -215,7 +256,7 @@ achten ist.
 <Callout type="error">
 Es ist scheinbar noch möglich, Android-Apps mit Java zu 
 entwickeln, denn im Dialog für neue Projekte kann Java für manche
-Templates Java als Programmiersprache gewählt werden. 
+Templates Java als Programmiersprache gewählt werden (z.B. mit dem Template „_Empty Views Activity_“). 
 
 Für die Prüfungsleistung ist Java zwar erlaubt, aber aufgrund der 
 oben genannten Gründe wird davon deutlich abgeraten.
