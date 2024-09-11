@@ -41,22 +41,24 @@ mit Kotlin gezeigt. Für die App-Projekte ist Java dennoch erlaubt.
 
 ## Projekt in Android Studio erstellen und ausführen
 
-Projekt gemeinsam mit Template _Empty Views Activity_ (2023) erstellen.
+Wir erstellen zunächst ein neues Android-Projekt für 
+eine Beispiel-App (Todo-Liste), die wir gemeinsam im Live
+Coding erstellen wollen. 
 
-Verschiedene Einstellung werden besprochen (z.B. der API-Level).
+- Android Studio öffnen und neues Projekt erstellen
+- Template „_Empty Activity_“ auswählen und `Next` klicken
+- Name der App eingeben (z.B. `TodoList` oder `TodosAndroid`) 
+- Speicherort (_Save location_) anpassen und `Finish` klicken
 
-Das Projekt basiert auf der _Empty Views Activity_ (2023), damit das neue
-Projekt nur minimal vorkonfiguriert ist.
+<Callout>
+Hinweis für Dozent (opional für den Kurs): 
 
-<Callout emoji="‼️">
-Stand Oktober 2023 erstellt das Template _Empty Activity_ ein Projekt basierend auf Compose.
+Im Terminal das Projekt `git` versionieren.
 
-Mit _Empty Views Activity_ wird ein Projekt ohne Compose erzeugt.
+Referenz-App: https://github.com/behrends/TodosAndroid
 </Callout>
 
-App auf Emulator ausführen. Tipp: Zeigen wie der Emulator
-in Android Studio eingebettet werden kann 
-(_Preferences - Tools - Emulator - Launch in a Tool Window_)
+App auf Emulator ausführen. Dazu zunächst einen Emulator im `Device Manager` erstellen (Herunterladen und Einrichten kann etwas dauern)
 
 <Callout type="warning">
 Falls es hier Fragen oder Probleme zu Android Studio gibt,
@@ -96,11 +98,10 @@ Falls Zeit übrig ist, dann können wir gemeinsam folgende
 Übung durchführen und besprechen:
 
 <Callout type="warning" emoji="👨🏻‍💻">
-App so ändern, dass anstatt `Hello World!` die Begrüßung auf deutsch erscheint, also `Hallo Welt!`.
+App so ändern, dass ein anderer Begrüßungstext erscheint. Änderungen mit Design/Preview und Emulator nachvollziehen.
 
-Fällt Ihnen nach dieser Änderung etwas im Layout Editor auf? Wie kann dies anders gelöst werden? Wie könnte die Begrüßung automatisch in der Sprache angezeigt werden, die in den Einstellungen auf dem Handy gewählt wurde?
+Einstiegs-Codelab von Google durchspielen: https://developer.android.com/get-started/overview
 
-Zusätzlich könnten auch verschiedene Schriftarten und -größen und Farben ausprobiert werden.
 </Callout>
 
 ## Hausaufgabe
@@ -108,3 +109,7 @@ Zusätzlich könnten auch verschiedene Schriftarten und -größen und Farben aus
 Falls noch nicht erfolgt, dann Android Studio installieren,
 neues Projekt erstellen und App auf Emulator oder Handy ausführen
 (siehe [Vorbereitung](/mobile/setup)).
+
+Je nach Interesse und verfügbarer Zeit (wann ist der nächste Termin?) kann der Einsteigerkurs von Google ausprobiert werden:
+
+https://developer.android.com/courses/android-basics-compose/course
