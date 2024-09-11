@@ -35,6 +35,24 @@ Jedes Jahr vor Beginn der Vorlesung sollten die folgenden
 Links überprüft und ggf. angepasst bzw. erweitert werden.
 </Callout>
 
+<Callout>
+**Google empfiehlt für neue Projekte den Einsatz von Kotlin mit Compose.**
+
+Im September 2024 wurde nur eine offizielle Ressource zum Lernen des 
+inzwischen nicht mehr empfohlenen Entwicklungsansatzes 
+mit XML-Layout und Kotlin gefunden:
+
+Der Sammlung von Präsentationsfolien auf https://developer.android.com/teach
+
+Für die Android-Entwicklung mit Java wurde keine offizielle Ressource gefunden. 
+
+Vielleicht ist es mit ChatGPT oder anderen KI-Tools möglich, die 
+Java-basierte Entwicklung von Android-Apps mit XML-Layouts zu lernen.
+
+**Empfohlen wird jedoch, sich auf Kotlin mit Compose zu konzentrieren.**
+</Callout>
+
+
 ## Lernressourcen von Google
 
 Zunächst werden nützliche Bestandteile der „offiziellen“ 
@@ -43,13 +61,11 @@ Android-Dokumentation von Google vorgestellt.
 <Callout type="error" emoji="‼️">
 **Vorbemerkung**
 
-Google stellt sehr viel Lernmaterial zur Android-Entwicklung bereit. Dies hat in der Regel eine hohe Qualität, ist aber sehr unübersichtlich und inkonsistent, weil sich die Android-Entwicklung in den letzten Jahr stark gewandelt hat (Kotlin vs. Java, mit oder ohne Compose, usw.) und auch in Zukunft wandeln wird… 
+Google stellt sehr viel Lernmaterial zur Android-Entwicklung bereit. Dies hat in der Regel eine hohe Qualität, ist aber sehr unübersichtlich und inkonsistent, weil sich die Android-Entwicklung in den letzten Jahr stark verändert hat (Kotlin vs. Java, mit oder ohne Compose, usw.) und auch in Zukunft wandeln wird (u.a. mit mehr KI-Tools)… 
 
 Der Dozent kann leider nur einen Überblick geben und teilweise Ansätze zeigen &mdash; mehr ist in den jährlichen Vorbereitungen zur Vorlesung nicht zu bewerkstelligen.
 
---- 
-
-Veranschaulichung der Problematik im September 2024:
+**Veranschaulichung der Problematik im September 2024:**
 
 Ein neues Android-Projekt mit dem Template „_Empty Activity_“ erstellt
 ein Projekt mit einer `MainActivity`, die folgenden Code in `onCreate` enthält:
@@ -68,7 +84,7 @@ setContent {
 }
 ```
 
-Im ersten Codelab der offiziellen Dokumentation 
+Im ersten Tutorial (bzw. Codelab) der offiziellen Dokumentation 
 [_Create your first Android app_](https://developer.android.com/codelabs/basic-android-kotlin-compose-first-app) 
 (Schritt 4 _Update the text_) sieht der entsprechende jedoch Code so aus:
 
@@ -93,11 +109,10 @@ und `Scaffold` für die kommende Android-Version 15 benötigt werden
 
 >>> Important: Edge-to-edge is enforced on Android 15 and higher once your app targets SDK 35. […] The Material 3 Scaffold component can reduce the work required to be compatible with the Android 15 edge-to-edge enforcement. See Create a scaffold component to hold the UI together.
 
-Diese Änderung ist also schon im Template „_Empty Activity_“ enthalten, aber nicht im ersten Codelab, dass für den Einstieg 
-in die Android-Entwicklung empfohlen wird.
+Diese Änderung ist also schon im Template „_Empty Activity_“ enthalten, 
+aber nicht im ersten Codelab, das für den Einstieg in die 
+Android-Entwicklung empfohlen wird.
 </Callout>
-
-### Dokumentation
 
 In der offiziellen Entwickler-Dokumentation zu Android unter
 [developer.android.com](https://developer.android.com) sind
@@ -107,112 +122,64 @@ Webseite auch ziemlich unübersichtlich. Es folgen ein paar
 Hinweise, die die Verwendung der Dokumentation erleichtern
 sollen.
 
-<Callout type="info">
-In der offiziellen Dokumentation werden Code-Beispiele
-in Kotlin und Java angezeigt. Google empfiehlt für neue
-Projekte den Einsatz von Kotlin. Einige neuere Features 
-(wie z.B. Compose) sind ausschließlich in Kotlin verfügbar.
-</Callout>
+### Quick Guides 
 
-<Callout type="info">
-Viele Android-APIs werden unter dem Namen „_AndroidX_“
-weiterentwickelt, was im Code durch den Bestandteil 
-`androidx` im Paketnamen der APIs erkennbar ist. Hierbei
-handelt es sich APIs, die nicht mehr fest mit dem 
-Android-Betriebssystem gekoppelt sind und somit unabhängig
-von den Android-Versionen in einer App aktualisiert werden 
-können. Es wird empfohlen, wo immer es möglich ist, diese 
-AndroidX-APIs zu verwenden.
-</Callout>
+Im September 2024 sind die „Quick Guides“ in der Android-Dokumentation noch im Beta-Stadium. Sie sollen eine schnelle Einführung in bestimmte Themen geben.
 
-### Guides
+https://developer.android.com/quick-guides
 
-Die Android-Dokumentation enthält unter 
-[developer.android.com/guide](https://developer.android.com/guide) 
-eine sehr umfangreiche und stufenweise Anleitung für
-den Einstieg in die native Android-App-Entwicklung.
+### Kurse und Tutorials (Codelabs)
 
-<Callout emoji="✅">
-Die Guides eignen sich gut dazu, um zu bestimmten
-Themen der Android-Entwicklung einen tieferen Einblick 
-zu bekommen.
-</Callout>
-
-<Callout type="error" emoji="‼️">
-Stand Oktober 2023: Der Guide [„_Build your first app_“](https://developer.android.com/training/basics/firstapp) verweist auf ein Codelab, in dem die App mit Jetpack Compose entwickelt wird. 
-
-Ein Großteil der Guides basiert aber noch auf den Ansätzen ohne Compose, sodass manche Beschreibungen nun inkonsistent bzw. unpassend oder veraltet sind.
-
-&xrarr; Es scheint im Oktober 2023 so, dass in Zukunft Jetpack Compose mit Kotlin der standardmäßige Ansatz sein wird, um neue native Android-Apps zu entwickeln.
-
-&xrarr; Jetpack Compose funktioniert nur mit Kotlin und **nicht** mit Java
-</Callout>
-
-### Beispiel-Apps (Samples)
-
-Google stellt einige Beispiel-Apps inklusive Quellcode
-bereit. Die zugehörigen Android-Studio-Projekten können
-von GitHub heruntergeladen bzw. geklont werden.
-
-- Best practices in der modernen Android-Entwicklung werden als „_real-world sample_“ offiziell von Google in der „_Now-in-Android_“-App umgesetzt. Der Code dazu ist hier zu finden: https://github.com/android/nowinandroid
-- [Platform samples mit Code](https://github.com/android/platform-samples) &mdash; Sammlung von Beispiel-Apps zu verschiedenen APIs (Camera, Location, UI, usw.)
-- Liste mit mehreren Apps in der Android-Dokumentation: https://developer.android.com/samples (mit Such- und Filterfunktion)
-- Weitere Android-Projekte auf GitHub: https://github.com/android und https://github.com/googlesamples (evtl. nach _Kotlin_ filtern)
-
-
-<Callout emoji="✅">
-Komplette Android-Studio-Projekte Beispiel-Apps zeigen 
-konkret im Code, wie bestimmte Aspekte umgesetzt werden,
-sodass diese im eigenen Projekt übernommen werden können.
-</Callout>
-
-<Callout type="warning" emoji="‼️">
-Auch bei den Samples ist natürlich auf Aktualität zu
-achten.
-</Callout>
-
-### Kurse
-
-Google stellt auch ganze Online-Kurse und Lernpfade
+Google stellt ganze Online-Kurse und Lernpfade
 für die Android-Programmierung bereit:
 
-- Einsteigerkurs mit <mark>Kotlin **und** Compose</mark>: https://developer.android.com/courses/android-basics-compose/course
-- Mehr zu Compose: https://developer.android.com/jetpack/compose
-- Einsteigerkurs mit <mark>Kotlin **ohne** Compose</mark>: https://developer.android.com/courses/android-basics-kotlin/course
+- Einsteigerkurs: https://developer.android.com/courses/android-basics-compose/course
 - Weitere Kurse: https://developer.android.com/courses
-- Lernpfade von Google mit weiterführendem Material und Spezialthemen: https://developers.google.com/learn/pathways (nach _Mobile_ filtern)
 
-<Callout type="warning">
-Stand Oktober 2023: In der offiziellen Dokumentation von Google gibt es 
-keinen umfangreichen Einstiegskurs zur Android-Programmierung mit Java
-&mdash; ausführliches und aktuelle Tutorials gibt es nur noch für Kotlin 
-(mit und ohne Compose, siehe oben).
+Codelabs sind kurze Tutorials zu bestimmten Themen: https://developer.android.com/get-started/codelabs
 
-Nur ein Java-Codelab für die ersten Schritte ist hier zu finden: 
-https://developer.android.com/codelabs/build-your-first-android-app
-Am Ende dieses Codelabs wird jedoch auf Kotlin-Ressourcen verwiesen…
-</Callout>
-
-### Codelabs
-
-Codelabs sind kurze Tutorials zu bestimmten Themen: 
-https://codelabs.developers.google.com/ (z.B. nach _Android_ filtern)
-
-<Callout emoji="✅">
+<Callout>
 Kurse benötigen natürlich mehr Zeit als die kompakten
 Codelabs. Beide bieten sowohl einführendes als auch
 weiterführendes Lernmaterial.
 </Callout>
 
+### Core Areas und Developer Centers
+
+Zu bestimmten Themenbereichen oder Schwerpunkten gibt es 
+„Core Areas“ und „Developer Centers“.
+
+- Core Areas: https://developer.android.com/develop#core-areas
+- Beispiel eines Developer Centers: https://developer.android.com/media
+
+Weitere Developer Centers und Themensammlungen finden sich im 
+Navigationsmenü der Developer Docs.
+
+
+### Beispiel-Apps (Samples)
+
+Google stellt einige Beispiel-Apps inklusive Quellcode
+bereit. Die zugehörigen Android-Studio-Projekten können
+von GitHub heruntergeladen bzw. geklont werden. Außerdem
+können Samples direkt in Android Studio mit 
+`File -> New -> Import Sample…` eingebunden werden.
+
+- Best practices in der modernen Android-Entwicklung werden als „_real-world sample_“ offiziell von Google in der „_Now-in-Android_“-App umgesetzt. Der Code dazu ist hier zu finden: https://github.com/android/nowinandroid
+- [Mehrere Beispiel-Apps zu Compose auf GitHub](https://github.com/android/compose-samples)
+- Liste mit mehreren Apps in der Android-Dokumentation: https://developer.android.com/samples (mit Such- und Filterfunktion)
+- [Platform Samples auf GitHub](https://github.com/android/platform-samples) &mdash; Sammlung von Beispiel-Apps zu verschiedenen APIs (Camera, Location, UI, usw.)
+- Weitere Android-Projekte auf GitHub: https://github.com/android und https://github.com/googlesamples (evtl. nach _Kotlin_ filtern)
+
+
+<Callout>
+Komplette Android-Studio-Projekte Beispiel-Apps zeigen 
+konkret im Code, wie bestimmte Aspekte umgesetzt werden,
+sodass diese im eigenen Projekt übernommen werden können.
+</Callout>
+
 <Callout type="warning">
-**Guides, Codelabs und Samples in Release Notes**
-
-Zu den verschiedenen Jetpack-bzw. AndroidX-Bibliotheken
-gibt es in den Release-Notes Links auf Guides, Codelabs
-und Samples. 
-
-Siehe z.B. _Room_ für den Datenbankzugriff unter
-[developer.android.com/jetpack/androidx/releases/room](https://developer.android.com/jetpack/androidx/releases/room)
+Auch bei den Samples ist natürlich auf Aktualität zu
+achten.
 </Callout>
 
 
@@ -221,17 +188,24 @@ Siehe z.B. _Room_ für den Datenbankzugriff unter
 Die technische API-Dokumentation liegt unter
 [developer.android.com/reference](https://developer.android.com/reference). Hier können Details zur konkreten 
 Verwendung bestimmter Klassen und Methoden im Code gefunden
-werden. Diese Webseite ist mehrere Bereiche unterteilt, wobei
-insbesondere die Referenzen für die Pakete `android` 
-und `androidx` relevant sind:
+werden. 
 
-- `android`: [developer.android.com/reference/packages](https://developer.android.com/reference/packages)
-- `androix`: [developer.android.com/reference/androidx/packages](https://developer.android.com/reference/androidx/packages)
-
-<Callout emoji="✅">
+<Callout>
 Die Referenzen sind hauptsächlich dann nützlich, wenn
 bei der Programmierung mit bestimmten APIs deren
 korrekte Verwendung sichergestellt werden soll.
+</Callout>
+
+### Guides
+
+Im Bereich „Guides“ der Android-Dokumentation unter 
+[developer.android.com/guide](https://developer.android.com/guide) 
+finden sich verschiedene Themen. 
+
+<Callout type="warning">
+**September 2024:** Nur Teile der Guides werden noch direkt in
+den Developer-Docs verlinkt. Es wirkt so, als würden die Guides
+schrittweise durch die [Core Areas](https://developer.android.com/develop#core-areas) ersetzt.
 </Callout>
 
 ## Weiteres Lernmaterial
@@ -244,7 +218,6 @@ Art. Ein paar weitere Empfehlungen:
 - Android Dev Blog: https://android-developers.googleblog.com
 - Es gibt viele Online-Kurse, z.B. bei [Udacity](https://www.udacity.com/)
 - Studierende der DHBW Lörrach haben Zugang zu LinkedIn Learning über Moodle (dort unter „Top-Angebote“ in der oberen Navigationsleiste zu finden) &xrarr; auf Aktualität der Kurse achten…
-- Videokurs des Dozenten in Udemy unter https://udemy.com/android-jetpack (kostenloser Zugang in Moodle, Inhalte sind leider etwas veraltet…)
 
 <Callout type="warning" emoji="‼️">
 Nochmals sei erwähnt, dass hierbei auf Aktualität zu
@@ -254,10 +227,13 @@ achten ist.
 ## ~~Java?~~ Kotlin!
 
 <Callout type="error">
-Es ist scheinbar noch möglich, Android-Apps mit Java zu 
-entwickeln, denn im Dialog für neue Projekte kann Java für manche
-Templates Java als Programmiersprache gewählt werden (z.B. mit dem Template „_Empty Views Activity_“). 
+Es ist scheinbar noch möglich, Android-Apps mit Java und 
+XML-Layouts zu entwickeln, denn in Android Studio kann 
+im Dialog für neue Projekte immer noch Java für 
+manche Templates als Programmiersprache gewählt werden 
+(z.B. mit dem Template „_Empty Views Activity_“). 
 
-Für die Prüfungsleistung ist Java zwar erlaubt, aber aufgrund der 
-oben genannten Gründe wird davon deutlich abgeraten.
+Für die Prüfungsleistung ist Java zwar erlaubt, aber 
+weil dies nicht mehr offiziell empfohlen wird und es 
+keine gute Dokumentation mehr gibt, wird davon abgeraten.
 </Callout>
