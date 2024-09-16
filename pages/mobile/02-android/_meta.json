@@ -2,7 +2,7 @@
   "01-intro": "Einstieg",
   "02-aufbau_projekte": "Aufbau Projekte",
   "03-kotlin": "Kotlin lernen",
-  "04-layouts": "UI-Layouts",
-  "05-activity_layout": "Activity und Layout",
-  "06-view_binding": "View Binding"
+  "04-compose": "Einstieg in Compose",
+  "05-layouts": "Layouts, Styling und Modifier",
+  "06-material": "Material Design und Themes"
 }

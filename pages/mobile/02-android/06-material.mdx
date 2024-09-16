@@ -1,0 +1,160 @@
+import { Callout } from 'nextra/components'
+
+# Material Design und Themes
+
+<Callout>
+  **Dauer:** 25 Minuten
+
+  - `Scaffold` für Layouts
+  - `Floating Action Button` im `Scaffold`
+  - Theme mit Dark Mode
+
+  **Ziel:** Apps mit Material Design gestalten
+</Callout>
+
+Mit dem Material Design (https://material.io) hat Google 
+eine „Designsprache“ für Apps auf verschiedenen Plattformen 
+definiert (Web, Android, usw.).
+
+Die beiden Composable `Text` und `Checkbox` in unserer
+App sind Beispiele für vordefinierte Komponenten des 
+Material Designs. 
+
+Hier betrachten wir `Scaffold` für Layouts, 
+`FloatingActionButton` als Beispiel für eine weitere 
+Komponente, die im Scaffold definiert wird und behandeln
+kurz das Thema Themes (insbesondere Dark Mode).
+
+## `Scaffold` für Layouts
+
+Die `Scaffold`-Komponente ist ein Container für das
+gesamte Layout einer App, die im Material Design 
+definiert werden soll. Scaffold kann z.B. eine App-Bar
+und den Hauptbereich der App enthalten.
+
+Wir haben Scaffold bereits nach der Erstellung unseres
+Projekts in der `MainActivity` gesehen. Für die
+schrittweise Entwicklung unserer App haben wir Scaffold
+zunächst entfernt. Nun fügen wir unserer App wieder ein 
+Scaffold hinzu, indem wir `TodoList` mit `Scaffold` in
+`setContent` umgeben:
+
+```kotlin
+enableEdgeToEdge()
+setContent {
+    Scaffold() { innerPadding ->
+        TodoList(modifier = Modifier.padding(innerPadding))
+    }
+}
+```
+
+Zusätzlich haben wir `enableEdgeToEdge()` hinzugefügt,
+um die App an den Bildschirmrand zu erweitern (dies
+war ebenfalls Teil des Templates beim Erstellen der App).
+
+Scaffold gibt einen Parameter `innerPadding` an die
+Lambda-Funktion bzw. die enthaltenen Composables weiter, 
+der für die Innenabstände des Hauptbereichs verwendet
+werden kann. Damit sich diese bei uns auswirkt, 
+müssen wir diesen Parameter in `TodoList` entgegennehmen
+und an `Column` weitergeben:
+
+```kotlin
+@Composable
+fun TodoList(modifier: Modifier = Modifier) {
+    Column(modifier) {
+        Todo("Einkaufen")
+        Todo("Android lernen")
+        Todo("Sport machen")
+    }
+}
+```
+
+`TodoList(modifier: Modifier = Modifier)` definiert einen
+optionalen Parameter `modifier` mit dem Standardwert
+`Modifier` (falls nichts übergeben wird). Dieser wird an 
+`Column` weitergegeben. 
+
+Diese Änderung führt zu einer kleinen Verschiebung der
+Todos im Emulator, da die Innenabstände des Hauptbereichs,
+die durch `innerPadding` definiert werden, jetzt
+berücksichtigt werden. 
+
+<Callout>
+Dies kann durch Auskommentieren bzw. Entfernen und Hinzufügen 
+von `modifier` in `Column(…)` im Emulator nachvollzogen werden.
+</Callout>
+
+Guide zu Scaffold: https://developer.android.com/develop/ui/compose/components/scaffold
+
+## `FloatingActionButton` im `Scaffold`
+
+Für die Erstellung eines neuen Todos wollen wir einen
+`FloatingActionButton` hinzufügen. Dafür gibt es eine Möglichkeit,
+diesen direkt als Parameter im `Scaffold` zu definieren:
+
+```kotlin
+setContent {
+    Scaffold(floatingActionButton = {
+        FloatingActionButton(
+            onClick = {},
+            content = { Icon(Icons.Filled.Add, contentDescription = "Todo erstellen") }
+        )
+    }) { innerPadding ->
+        TodoList(modifier = Modifier.padding(innerPadding))
+    }
+}
+```
+
+Wir verwenden für den `FloatingActionButton` (kurz „FAB“) ein 
+„+“-Icon aus den vordefinierten Icons von Material Design. Die
+`onClick`-Funktion ist noch leer, da wir das Verhalten des Buttons
+erst später implementieren werden.
+
+Neben `FloatingActionButton` gibt es noch weitere Parameter, die
+im `Scaffold` definiert werden können, z.B. `bottomBar` für eine
+Navigationsleiste.
+
+Nochmals der Link zum Scaffold-Guide: https://developer.android.com/develop/ui/compose/components/scaffold
+
+## Theme mit Dark Mode
+
+Android Apps haben im Material Design ein Theme, das die
+Farben und Schriftarten definiert. Das Theme wird beim 
+Erstellen der App automatisch erzeugt und wird mit 
+`<App-Name>Theme` bezeichnet. Bei uns ist dies `TodosAndroidTheme`,
+weil die App `TodosAndroid` heißt. 
+
+Wir fügen das Theme in der `MainActivity` mit `TodosAndroidTheme` 
+hinzu, indem wir die Composables damit umgeben: 
+
+```kotlin
+setContent {
+    TodosAndroidTheme {
+        Scaffold(floatingActionButton = {
+            FloatingActionButton(
+                onClick = {},
+                content = { Icon(Icons.Filled.Add, contentDescription = "Todo erstellen") }
+            )
+        }) { innerPadding ->
+            TodoList(modifier = Modifier.padding(innerPadding))
+        }
+    }
+}
+```
+
+Mit dieser Änderung wird das Theme auf die gesamte App angewendet und
+wir erhalten automatisch die Unterstützung für Dark Mode in unserer
+App. Dies kann durch Setzen von `Dark Theme` in den Display-Einstellungen
+im Emulator getestet werden (oder im Code durch Änderung von `ui/Theme.kt`).
+
+![Dark Mode in Android Emulator](/images/mobile/android/dark_light_mode.jpg)
+
+Im Ordner `ui/theme` befinden sich die Definitionen für die
+Farben und Schriftarten der Themes in Kotlin-Code. 
+
+## Links
+
+Material Components: https://developer.android.com/develop/ui/compose/components
+
+Design in Mobile: https://developer.android.com/design/ui/mobile (siehe die Guides in diesem Bereich)

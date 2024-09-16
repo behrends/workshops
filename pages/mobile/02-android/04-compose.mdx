@@ -1,0 +1,171 @@
+import { Callout } from 'nextra/components'
+
+# Einstieg in UI-Erstellung mit Compose
+
+<Callout>
+  **Dauer:** 35 Minuten 
+
+  - Einstieg in UIs mit Jetpack Compose
+  - Composables und Previews
+
+  **Ziel:** Grundlegendes Verständnis von Compose
+</Callout>
+
+<Callout type="error" emoji="‼️">
+**Disclaimer**
+Android Studio und die verschiedenen Aspekte der 
+Android-Entwicklung ändern sich manchmal mehrmals im Jahr.
+Der Dozent wird in der Vorbereitung nicht alle neuen
+oder geänderten Aspekte berücksichtigen können.
+
+&xrarr; Es kann immer wieder passieren, dass etwas im
+Live Coding nicht klappt oder hier nicht ganz korrekt ist
+😏
+</Callout>
+
+
+## `MainActivity` auf das Minimum reduzieren
+
+Wir reduzieren den Code in `MainActivity` auf das Minimum:
+
+```kotlin
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            Text("Hello World")
+        }
+    }
+}
+```
+
+Die weiteren Funktionen können gelöscht werden und wir zeigen, wie die Import-Anweisungen mit `Alt+Enter` aufgeräumt werden können.
+
+Bei Bedarf können wir die einzelnen Bestandteile besprechen:
+
+- Eine Activity ist eine Klasse, die eine Benutzeroberfläche für eine App bereitstellt.
+- `MainActivity` ist die Haupt-Activity, die beim Start der App angezeigt wird (siehe `AndroidManifest.xml`).
+- `onCreate` ist eine Funktion, die beim Start der Activity automatisch vom Android ausgeführt wird (ähnlich wie die `main`-Methode in Java-Programmen).
+- `setContent` ist eine Funktion, die das UI der Activity festlegt. Hier wird ein Composable aufgerufen.
+- mit `{ … }` wird ein Lambda-Ausdruck definiert, der das UI beschreibt, d.h. `setContent` erhält eine Funktion als Parameter. Diese Syntax wird _trailing lambda_ genannt und ist in Kotlin sehr verbreitet. 
+- `Text` ist eine Composable-Funktion, die einen Text darstellt.
+
+<Callout>
+Der Dozent kennt nicht alle Details zu Compose und hat nur 
+grundlegende Kenntnis von Kotlin. 
+
+**Tipp:** KI-Tools wie ChatGPT oder Gemini können Code erklären.
+</Callout>
+
+In der Preview- bzw. Design-Ansicht ist jetzt nichts zu sehen, aber 
+die App sollte bei Ausführung im Emulator oder Handy „Hello World“ 
+anzeigen.
+
+
+## Composable-Funktionen mit Preview
+
+Wir wollen eine einfache Todo-App erstellen. Dazu erstellen wir 
+eine Composable-Funktion `Todo`, die einen Text anzeigt:
+
+```kotlin
+@Composable
+fun Todo(text: String) {
+    Text(text)
+}
+```
+
+Dazu müssen wir auch die entsprechenden Imports hinzufügen
+(dies kann Android Studio für uns automatisch erledigen):
+
+```kotlin
+import androidx.compose.runtime.Composable
+```
+
+In `onCreate` ersetzen wir `Text` in `setContent` mit einem
+Aufruf der neuen Composable-Funktion `Todo`:
+
+```kotlin
+setContent {
+    Todo("Einkaufen")
+}
+```
+
+Composable-Funktionen (oder kurz Composables) können auch in einer 
+Vorschau angezeigt werden. Dazu erstellen wir **eine neue 
+Composable-Funktion TodoPreview** und fügen ihr die Annotation 
+`@Preview` hinzu:
+
+```kotlin
+@Preview
+@Composable
+fun TodoPreview() {
+    Todo("Sport machen")
+}
+```
+
+Dies wird als eigene Preview-Funktion definiert, die nur in der 
+Vorschau in Android Studio angezeigt wird. In der App selbst wird 
+sie nicht verwendet. 
+
+<Callout>
+Composables mit `@Preview` sind ein nützliches aber optionales
+Feature von Compose, um das UI während der Programmierung visuell
+in einer Vorschau darzustellen. Wir erstellen nicht für jede 
+Composable-Funktion eine Preview-Funktion, sondern nur für die 
+relevanten (z.B. wichtige oder komplexe Composables).
+</Callout>
+
+Composable-Funktionen oder kurz _Composables_ sind Funktionen, die mit 
+`@Composable` annotiert sind. Sie sind die Bausteine für die UI-Elemente 
+und können von anderen Composables aufgerufen werden. 
+Ein Composable hat keinen Rückgabewert und wird in _PascalCase_ benannt
+(Namensteile sind Substantive und werden groß geschrieben). 
+Für bestimmte UI-Elemente wie z.B. Text gibt es vordefinierte Composables 
+und zusätzlich werden Layout-Funktionen wie z.B. `Column` oder 
+`Row` zur Verfügung gestellt.
+
+## Argumente für Previews 
+
+Annotationen wie `@Preview` können auch Argumente enthalten,
+die in der Vorschau verwendet werden:
+
+```kotlin
+@Preview(showBackground = true,
+    showSystemUi = true,
+    name = "Todo Vorschau")
+@Composable
+fun TodoPreview() {
+    Todo("Sport machen")
+}
+```
+
+**Tipp:** Mit `Code -> Reformat Code` bzw. `Code -> Reformat File…` 
+kann bestimmter Kotlin-Code bzw. die ganze Datei formatiert werden.
+
+## Preview vs. Emulator
+
+Unterschied zwischen Preview und Emulator nochmal
+kurz erklären:
+
+- Preview: Vorschau im Android Studio, zeigt das UI in der IDE
+- Emulator: Simuliert ein echtes Gerät, zeigt das UI in einer virtuellen Umgebung
+
+<Callout>
+Meistens wird die App parallel zur Programmierung zum 
+sofortigen Testen der Änderungen im Emulator oder 
+auf einem Gerät ausgeführt. Änderungen von Composables wirken 
+sich z.T. direkt live auf die App im Emulator/Gerät aus,
+ohne dass die App neu gestartet werden muss.
+
+`@Preview`-Composables werden gelegentlich verwendet,
+wenn z.B. längere Zeit ausschließlich an einem bestimmten
+UI-Element bzw. Composable gearbeitet wird.
+</Callout>
+
+## Weiterführendes Material
+
+Tutorial, Samples und Guides zu Compose im „Core Area“ zu UIs in 
+den Android Developer Docs: https://developer.android.com/develop/ui
+
+
+## Pause nicht vergessen…
