@@ -1,0 +1,324 @@
+import { Callout } from 'nextra-theme-docs'
+
+# Navigation
+
+<Callout>
+  **Dauer:** 30 Minuten
+
+  - Composables als Screens 
+  - Abhängigkeiten für Navigation hinzufügen
+  - `BottomAppBar` der App hinzufügen
+  - `NavController` und `NavHost` in Compose
+  - Navigation in `BottomAppBar`
+
+  **Ziel:** Erste Schritte mit Navigation in Compose
+</Callout>
+
+## Composables als Screens 
+
+In Jetpack Compose werden die einzelnen Screens einer App,
+die das Ziel einer Navigation sein können, als Composables umgesetzt.
+
+Dies geschieht in der Regel in eigenen Dateien, die den Namen 
+des Screens tragen. Wir erstellen z.B. einen `HomeScreen`-Composable
+im Package `ui` für unsere TodoListe. Dazu kopieren wir `TodoList`, 
+`Todo` und den UI-Code in `setContent`  aus der `MainActivity` 
+in den neuen Composable. Die Datei `HomeScreen.kt` sieht dann so aus:
+
+```kotlin
+// die vielen imports hier weggelassen
+
+@Composable
+fun HomeScreen(todoDao: TodoDao) {
+    val todos by todoDao.getAllTodos().collectAsState(initial = emptyList())
+    var showDialog by remember { mutableStateOf(false) }
+    // wir benötigen hier nun auch ein CoroutineScope
+    val coroutineScope = rememberCoroutineScope()
+
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { showDialog = true },
+                content = {
+                    Icon(Icons.Filled.Add, contentDescription = "Todo erstellen")
+                }
+            )
+        }
+    ) { innerPadding ->
+        if (showDialog) {
+            AddTodoDialog(
+                onDismiss = { showDialog = false },
+                onAdd = { newTodo ->
+                    coroutineScope.launch {
+                        todoDao.insertTodo(TodoItem(name = newTodo))
+                    }
+                    showDialog = false
+                }
+            )
+        }
+        TodoList(
+            todos = todos,
+            todoDao = todoDao,
+            modifier = Modifier.padding(innerPadding)
+        )
+    }
+}
+
+@Composable
+fun TodoList … /* unverändert aus MainActivity hier einfügen */
+
+@Composable
+fun Todo … /* unverändert aus MainActivity hier einfügen */
+```
+
+Die `MainActivity` wird dadurch deutlich einfacher:
+
+```kotlin
+// imports weggelassen  
+class MainActivity : ComponentActivity() {
+    private lateinit var database: AppDatabase
+    private lateinit var todoDao: TodoDao
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Datenbank erstellen
+        database = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "todo-database"
+        ).build()
+        todoDao = database.todoDao()
+
+        enableEdgeToEdge()
+        setContent {
+            TodosAndroidTheme {
+                HomeScreen(todoDao = todoDao)
+            }
+        }
+    }
+}
+```
+
+## Beispiel-Screen für Einstellungen
+
+Da wir gleich zwischen zwei Screens in der BottomBar navigieren
+wollen, erstellen wir einen weiteren Screen als einfaches Beispiel 
+für die Einstellungen. Dazu die Datei `ui/SettingsScreen.kt` anlegen:
+
+```kotlin
+@Composable
+fun SettingsScreen() {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Einstellungen") }
+            )
+        }
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text("Hier kommen die Einstellungen hin")
+        }
+    }
+}
+```
+
+Wir können den `SettingsScreen` testweise in der `MainActivity` 
+anzeigen:
+
+```kotlin
+setContent {
+    TodosAndroidTheme {
+        // HomeScreen(todoDao = todoDao)
+        SettingsScreen()
+    }
+}
+```
+
+Als nächstes fügen wir die Navigation in einer BottomBar hinzu,
+um zwischen den beiden Screens zu wechseln (`Home` und `Settings`).
+
+## Abhängigkeiten für Navigation hinzufügen
+
+In `libs.versions.toml` die **neueste** Version der 
+Navigationskomponente eintragen (siehe https://developer.android.com/jetpack/androidx/releases/navigation).
+
+```toml
+[versions]
+# Rest bleibt unverändert
+navigation = "2.8.0"
+
+[libraries]
+# Rest bleibt unverändert
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+```
+
+Danach in Android Studio die Abhängigkeiten synchronisieren.
+
+## `BottomAppBar`
+
+`Scaffold` bietet die Möglichkeit, eine BottomBar zu definieren
+(auch eine `TopAppBar` wäre möglich). Dazu fügen wir in `MainActivity`
+eine `BottomAppBar` in einem `Scaffold` hinzu:
+
+```kotlin
+setContent {
+    TodosAndroidTheme {
+        Scaffold(bottomBar = {
+            BottomAppBar(actions = {
+                IconButton(onClick = {}) {
+                    Icon(Icons.Filled.Home, contentDescription = "Todos")
+                }
+                IconButton(onClick = {}) {
+                    Icon(
+                        Icons.Filled.Settings,
+                        contentDescription = "Einstellungen",
+                    )
+                }
+            })
+        }) { innerPadding ->
+            HomeScreen(todoDao = todoDao, modifier = Modifier.padding(innerPadding))
+        }
+    }
+}
+```
+
+<Callout>
+Falls es eine Warnung oder sogar einen Fehler gibt, dass
+wir `innerPadding` im `Scaffold` nicht nutzen, dann können
+wir diese ignorieren oder `innerPadding` vorübergehend an `HomeScreen` 
+übergeben.
+</Callout>
+
+
+## `NavController`
+
+Mit dem `NavController` können wir die Navigation zwischen den Screens
+steuern. Dazu erstellen wir in `MainActivity` ein `NavController`-Objekt:
+
+```kotlin
+setContent {
+    val navController = rememberNavController()
+    TodosAndroidTheme { 
+      // Der Rest bleibt unverändert
+    }
+}
+```
+
+Dies sollte auf der Wurzelebene der App geschehen, damit der 
+`NavController` die Navigation in der gesamten App steuern kann.
+
+## `NavHost`
+
+Der `NavHost` ist ein Container, der die Navigation innerhalb der App 
+verwaltet. Er verwendet einen `NavController`, um zwischen verschiedenen 
+Routen (Zielen) zu navigieren.
+
+Änderung im `Scaffold` in der `MainActivity`:
+
+```kotlin
+Scaffold(/* bottomBar bleibt gleich */) { innerPadding ->
+    NavHost(
+        navController = navController,
+        startDestination = "home",
+        modifier = Modifier.padding(innerPadding)
+    ) {
+        composable("home") {
+            HomeScreen(todoDao)
+        }
+        composable("settings") {
+            SettingsScreen()
+        }
+    }
+}
+```
+
+Die `composable`-Funktion innerhalb des `NavHost` definiert die 
+verschiedenen Ziele (Screens) der App und verknüpft sie mit den 
+entsprechenden Composable-Funktionen, die das UI für jeden Screen 
+darstellen.
+
+## Navigation in `BottomAppBar`
+
+Nun müssen wir nur noch die `onClick`-Handler der `IconButton`s
+in der `BottomAppBar` mit der Navigation verknüpfen:
+
+```kotlin
+BottomAppBar(
+    actions = {
+        IconButton(onClick = {
+            navController.navigate("home") {
+                popUpTo(navController.graph.startDestinationId) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        }) {
+            Icon(
+                imageVector = Icons.Filled.Home,
+                contentDescription = "Todos"
+            )
+        }
+        IconButton(onClick = {
+            navController.navigate("settings") {
+                popUpTo(navController.graph.startDestinationId) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        }) {
+            Icon(
+                imageVector = Icons.Filled.Settings,
+                contentDescription = "Einstellungen"
+            )
+        }
+    }
+)
+```
+
+- `saveState = true` in `popUpTo`: Speichert den Zustand der Destination, zu der wir in der App zurückkehren
+- `launchSingleTop = true`: Verhindert mehrere Instanzen derselben Destination im Back-Stack.
+- `restoreState = true`: Stellt den zuvor gespeicherten Zustand der Destination wieder her.
+
+(Vielleicht sind die Optionen zum `State` bei uns noch nicht notwendig.)
+
+## Optional: Routen in einer sealed class
+
+Dies ist nützlich für die Übersichtlichkeit und Typsicherheit 
+der Routen in der Navigation (Strings sind anfällig für Tippfehler)
+
+```kotlin
+sealed class Screen(val route: String) {
+    object Home : Screen("home")
+    object Settings : Screen("settings")
+}
+```
+
+Verwendung: `navController.navigate(Screen.Home.route)` anstatt
+`navController.navigate("home")`.
+
+## Links 
+
+- https://developer.android.com/develop/ui/compose/navigation
+- https://developer.android.com/codelabs/jetpack-compose-navigation
+- https://developer.android.com/develop/ui/compose/components/app-bars-navigate (Auch bottom bar in `Scaffold`)
+- https://developer.android.com/develop/ui/compose/navigation#nav-to-composable
+- https://developer.android.com/guide/navigation/design#compose
+
+
+<Callout type="warning">
+**Vertiefendes Material**
+
+Guides in den Android Developer Docs: https://developer.android.com/guide/navigation
+
+[Android Kotlin Fundamentals](https://developer.android.com/courses/kotlin-android-fundamentals/overview#lesson_3_navigation) 
+(_Lesson 3: Navigation_ &xrarr; besteht aus mehreren aufeinanderfolgenden Codelabs)
+
+[Weiteres Codelab zu Navigation](https://developer.android.com/codelabs/android-navigation)
+
+</Callout>

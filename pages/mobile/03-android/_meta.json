@@ -1,6 +1,7 @@
 {
-  "01-misc": "Verschiedenes",
-  "02-material": "Material Design",
-  "03-recyclerview": "RecyclerView (Listen)",
-  "04-storage": "Daten speichern"
+  "01-state": "Zustand im UI",
+  "02-lists": "Listen",
+  "03-storage": "Daten mit Room speichern",
+  "04-navigation": "Navigation",
+  "05-more": "Ausblick"
 }

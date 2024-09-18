@@ -1,0 +1,230 @@
+import { Callout } from 'nextra/components'
+
+# Listen
+
+<Callout>
+  **Dauer:** 45 Minuten
+
+  - Listen mit `listOf` in Kotlin
+  - `LazyColumn` für Listen in Compose
+
+  **Ziel:** TODO
+</Callout>
+
+## Listen mit `listOf` in Kotlin
+
+Unsere drei Beispiel-Todos im TodoList-Composable könnten wir 
+auch in einer Liste speichern. In Kotlin wird mit `listOf` eine 
+Liste erstellt und wir können die Elemente mit einer Schleife
+durchgehen:
+
+```kotlin
+@Composable
+fun TodoList(modifier: Modifier = Modifier) {
+    val todos = listOf("Einkaufen", "Android lernen", "Sport machen")
+    Column(modifier) {
+        for (todo in todos) {
+            Todo(todo)
+        }
+    }
+}
+```
+
+Kotlins Standardbibliothek beschreibt die vielseitigen Listen bzw. 
+Collections im Detail: https://kotlinlang.org/docs/collections-overview.html
+
+## `LazyColumn` für Listen in Compose
+
+`LazyColumn` ist ein Composable, das eine scrollbare Liste von 
+Elementen darstellt. 
+
+Wenn wir länger Listen von Elementen zur Darstellung haben, dann ist
+`Column` nicht scrollable und wird ineffizient, da alle Elemente
+sofort gerendert werden. 
+
+Wir erstellen eine Liste von 100 durchnummerierten Todos:
+
+```kotlin
+@Composable
+// Liste scrollt nicht
+fun TodoList(modifier: Modifier = Modifier) {
+    val todos = List(100) { "Todo Nr. $it" }
+    Column(modifier) {
+        for (todo in todos) {
+            Todo(todo)
+        }
+    }
+}
+```
+
+`LazyColumn` ist effizienter als `Column`. Außerdem wird die Liste
+durch die Verwendung von `LazyColumn` scrollbar:
+
+```kotlin
+// diesen Imports hinzufügen
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+
+@Composable
+// Liste scrollt
+fun TodoList(modifier: Modifier = Modifier) {
+    val todos = List(100) { "Todo Nr. $it" }
+    LazyColumn(modifier) {
+        items(todos) { todo ->
+            Todo(todo)
+        }
+    }
+}
+```
+
+`items` ist eine Extension-Funktion von `LazyColumn`, siehe 
+https://developer.android.com/develop/ui/compose/lists#lazylistscope
+
+Es gibt weitere Möglichkeiten, Listen in Compose zu erstellen:
+
+- `LazyRow` für horizontale Listen
+- `LazyVerticalGrid` und `LazyHorizontalGrid` für Grids (Kacheln)
+
+Siehe Guide zu Lists: https://developer.android.com/develop/ui/compose/lists
+
+## Todos der Liste hinzufügen
+
+Wenn der FAB (Floating Action Button) gedrückt wird, soll ein neues
+Todo erzeugt werden. Dazu müssen wir die Liste der Todos verändern
+und den Zustand eine Ebene in der Composable-Hierarchie „hochziehen“
+(_state hoisting_), damit der FAB Zugriff auf den Zustand hat.
+
+Hier die Änderungen in `MainActivity` und `TodoList`, markiert
+mit entsprechenden Kommentaren:
+
+```kotlin
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            // Zustand der Todos ist nun in MainActivity
+            // die Liste ist nun veränderbar (mutableStateListOf)
+            val todos = remember { mutableStateListOf<String>() }
+            TodosAndroidTheme {
+                Scaffold(floatingActionButton = {
+                    // FAB fügt neues Todo hinzu (statisches Todo)
+                    FloatingActionButton(onClick = { todos.add("Neues Todo") },
+                        content = { Icon(Icons.Filled.Add, contentDescription = "Todo erstellen") })
+                }) { innerPadding ->
+                    // Zustand (todos) wird an TodoList übergeben
+                    TodoList(todos = todos, modifier = Modifier.padding(innerPadding))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TodoList(todos: List<String>, modifier: Modifier = Modifier) {
+    // Liste der Todos wird nun als Parameter übergeben
+    LazyColumn(modifier) {
+        items(todos) { todo ->
+            Todo(todo)
+        }
+    }
+}
+```
+
+## Neue Todos eingeben
+
+<Callout>
+Der folgende Code wurde mit ChatGPT (o1-preview) generiert.
+
+Prompt:
+```plaintext
+Ich habe eine Android Compose App, bei der ich Hilfe brauche. Bisher ist 
+der relevante Code komplett in der MainActivity enthalten:
+// Code aus MainActivity
+Ich möchte mit dem FAB ein Todo hinzufügen können.
+```
+</Callout>
+
+Wir erstellen im package `ui` eine neue Datei `AddTodoDialog.kt `mit 
+dem von ChatGPT generierten Code:
+
+```kotlin
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+
+@Composable
+fun AddTodoDialog(onDismiss: () -> Unit, onAdd: (String) -> Unit) {
+    var text by remember { mutableStateOf("") }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Neues Todo hinzufügen") },
+        text = {
+            TextField(
+                value = text,
+                onValueChange = { text = it },
+                label = { Text("Todo-Text") }
+            )
+        },
+        confirmButton = {
+            TextButton(onClick = {
+                if (text.isNotBlank()) {
+                    onAdd(text)
+                }
+            }) {
+                Text("Hinzufügen")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Abbrechen")
+            }
+        }
+    )
+}
+```
+
+In `MainActivity` fügen wir den Dialog hinzu und passen den FAB an
+(Änderungen sind mit Kommentaren markiert):
+
+```kotlin
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            val todos = remember { mutableStateListOf<String>() }
+            TodosAndroidTheme {
+                // state in showDialog: Dialog sichtbar oder nicht
+                var showDialog by remember { mutableStateOf(false) }
+                Scaffold(floatingActionButton = {
+                    // Antippen des FABs zeigt Dialog an (ändert state)
+                    FloatingActionButton(onClick = { showDialog = true },
+                        content = { Icon(Icons.Filled.Add, contentDescription = "Todo erstellen") })
+                }) { innerPadding ->
+                    // Dialog wird angezeigt, wenn showDialog true ist  
+                    if (showDialog) {
+                        AddTodoDialog(
+                            onDismiss = { showDialog = false },
+                            onAdd = { newTodo ->
+                                todos.add(newTodo)
+                                showDialog = false
+                            }
+                        )
+                    }
+                    TodoList(todos = todos, modifier = Modifier.padding(innerPadding))
+                }
+            }
+        }
+    }
+}
+```
+
+Nun sind wir in der Lage, neue Todos einzugeben und der Liste hinzuzufügen.

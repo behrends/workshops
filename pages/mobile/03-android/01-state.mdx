@@ -1,0 +1,208 @@
+import { Callout } from 'nextra/components'
+
+# Zustand im UI
+
+<Callout>
+  **Dauer:** 45 Minuten
+
+  - state mit `mutableStateOf` und `remember`
+
+  **Ziel:** TODO
+</Callout>
+
+Zustand ist ein zentrales Konzept in der Entwicklung von 
+Benutzeroberflächen und findet sich in vielen modernen UI-Frameworks
+(Compose in Android, Flutter, React Native).
+
+In Compose wird der Zustand direkt in Composables oft als Wert 
+einer Variablen gespeichert. Wenn sich der Zustand bzw. der Wert der
+Variablen ändert, wird das Composable **automatisch** neu im UI 
+dargestellt.
+
+In unserer App kann jedes Todo in einem von zwei Zuständen sein: 
+
+- **Erledigt** (Checkbox ist markiert)
+- **Nicht erledigt** (Checkbox ist nicht gesetzt)
+
+Wir werden dies mit einer state-Variablen `done` für jedes Todo umsetzen.
+
+## state-Variable für Todo
+
+Es gibt zwei Funktionen, die für die Verwaltung von Zustand in Compose
+verwendet werden:
+
+- `mutableStateOf` (für den Zustand, der sich ändern kann)
+- `remember` (für den Zustand, der überleben soll, wenn das Composable
+  neu gerendert wird)
+
+In unserem Fall verwenden wir `mutableStateOf` für den Zustand, ob ein
+Todo erledigt ist oder nicht. Dazu erstellen wir eine 
+`mutableStateOf`-Variable vom Typ `Boolean` mit dem initialen Wert `false`.
+Zusätzlich verwenden wir `remember`, damit sich das Composable an den
+Zustand nach dem erneuten Darstellen „erinnert“: 
+
+```kotlin
+val done = remember { mutableStateOf(false) }
+```
+
+`done` ist nun ein `State<Boolean>`, der den Zustand des Todos speichert.
+Wir können den Wert von `done` mit `done.value` lesen und setzen. Hier
+der Code des Todo-Composables mit Zustand:
+
+```kotlin
+@Composable
+fun Todo(name: String) {
+    val done = remember { mutableStateOf(false) }
+    Row(
+        modifier = Modifier
+            .clickable(onClick = {})
+            .padding(10.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Checkbox(checked = done.value, onCheckedChange = { newVal -> done.value = newVal })
+        Text(name, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+    }
+}
+```
+
+Der Zustand des Todos wird in `done` gespeichert und in der Checkbox
+verwendet. Wenn wir die Checkbox anklicken, dann wird der Wert von
+`done` aktualisiert. Die Checkbox zeigt durch `checked = done.value` 
+den aktuellen Wert von `done` an. 
+
+<mark>**Wenn sich der Zustand bzw. state ändert, wird das Composable 
+automatisch neu dargestellt &mdash; dies wird _Recomposition_ 
+genannt.**</mark>
+
+## Bemerkungen zu Kotlin
+
+Es folgen ein paar kurze Bemerkung zu Kotlin im Umgang mit Compose.
+Oftmals gibt es in Kotlin mehrere Wege, um das gleiche Ziel zu erreichen, 
+und sogenannter „idiomatischer“ Code wird bevorzugt (speziell in Compose).
+
+Mit `val` deklarieren wir zwar eine unveränderliche 
+Variable (`val done…`), aber durch `mutableStateOf` können wir den 
+Wert bzw. „Inhalt“ der state-Variablen ändern. Die Variable `done` selbst
+ist daher unveränderlich, aber ihr Inhalt kann sich ändern.
+
+In der Lambda-Funktion zu `onCheckedChange` in der Checkbox haben wir nur
+ein Argument `newVal` und setzen den Wert von `done` auf `newVal`:
+
+```kotlin
+onCheckedChange = { newVal -> done.value = newVal }
+```
+
+Dies lässt sich in einer kürzeren Schreibweise ausdrücken:
+
+```kotlin
+onCheckedChange = { done.value = it }
+```
+
+Erklärung: `it` ist ein implizites Argument, das in Lambda-Funktionen
+verwendet wird, wenn nur ein Argument übergeben wird.
+
+Außerdem gibt es in Kotlin die Möglichkeit, mit `by` eine sogenannte
+_Delegated Property_ zu verwenden (siehe 
+https://kotlinlang.org/docs/delegated-properties.html). Diese wird in 
+Compose oft für Zustand verwendet:
+
+```kotlin
+var done by remember { mutableStateOf(false) }
+```
+
+Zu beachten ist, dass `val` nun in `var` geändert wurde, da `done`
+sich nun ändern kann.
+
+<Callout>
+Damit `by` funktioniert, müssen neben `remember` und `mutableStateOf`
+folgende Imports hinzugefügt werden:
+
+```kotlin
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+```
+</Callout>
+
+Nun können wir direkt mit `done` arbeiten, ohne auf `done.value`
+zugreifen zu müssen.
+
+Hier der komplette, idiomatische Code des Todo-Composables 
+mit `by` und `it`:
+
+```kotlin
+@Composable
+fun Todo(name: String) {
+    var done by remember { mutableStateOf(false) }
+    Row(
+        modifier = Modifier
+            .clickable(onClick = {})
+            .padding(10.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Checkbox(checked = done, onCheckedChange = { done = it })
+        Text(name, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+    }
+}
+```
+
+## Zustandsänderung durch Antippen der `Row`
+
+Durch eine kleine Änderung erreichen wir, dass wir den Zustand des Todos
+nicht nur durch Klicken auf die Checkbox, sondern auch durch Klicken auf
+die ganze Zeile ändern können. Wir müssen dazu nur die Lambda-Funktion
+in `clickable` wie folgt anpassen:
+
+```kotlin
+ Row(
+    modifier = Modifier
+        .clickable(onClick = { done = !done })
+    // Rest weggelassen…
+)
+```
+
+## Tipps und Bemerkungen
+
+<Callout>
+**Folgende Tipps helfen beim Umgang mit Kotlin.**
+
+KI-Tools wie ChatGPT oder Gemini können Kotlin-Code 
+sehr gut erklären.
+
+Im Android-Einsteigerkurs von Google gibt es einige Abschnitte
+zu den wichtigsten Kotlin-Konzepten für die Android-Entwicklung:
+https://developer.android.com/courses/android-basics-compose/course
+</Callout>
+
+<Callout type="info">
+Es ist auch möglich, in Compose folgendermaßen mit Zustand umzugehen:
+
+```kotlin
+val (done, setDone) = remember { mutableStateOf(false) }
+// Row usw. hier weggelassen…
+Checkbox(checked = done, onCheckedChange = { setDone(it) })
+```
+
+Hier wird ein `done`-Zustand mit `mutableStateOf` erstellt und in der Checkbox verwendet. `setDone` ist eine Funktion, um den Zustand zu ändern.
+
+&xrarr; Diese Schreibweise erinnert stark an den Umgang mit Zustand 
+in React (Native): 
+
+```jsx
+// State in React (Native) mit useState (JavaScript)
+const [done, setDone] = useState(false);
+```
+</Callout>
+
+
+## Weiterführendes Material
+
+State in Compose: https://developer.android.com/develop/ui/compose/state
+
+Thinking in Compose („mentales Modell“): https://developer.android.com/develop/ui/compose/mental-model
+
+Android Developer MAD skills playlist bei YouTube (Material von Google): 
+
+- Compose: https://goo.gle/compose-mad   
+- Weitere Themen: https://goo.gle/madskills 
