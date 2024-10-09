@@ -3,13 +3,119 @@ import { Callout } from 'nextra/components'
 # Mit Flutter starten
 
 <Callout>
-  **Dauer:** TODO
+  **Dauer:** 30 Minuten
 
-  TODO 
+  - Entwicklungsumgebung einrichten
+  - Erstes Flutter-Projekt erstellen und starten
+  - Bemerkungen zu Dart
 
   **Ziel:** Einstieg mit Flutter 
 </Callout>
 
-- Android Studio
-- VS Code
-- https://idx.dev
+## Was ist Flutter?
+
+[Flutter](https://flutter.dev) ist ein Open-Source-Framework von 
+Google, mit dem Apps plattformübergreifend für mobile Geräte, Web 
+und Desktop entwickelt werden können. Die Programmiersprache, die 
+für Flutter verwendet wird, ist [Dart](https://dart.dev).
+
+## Entwicklungsumgebung einrichten
+
+Wir werden im Unterricht mit der Cloud-IDE 
+[Project IDX (idx.dev)](https://idx.dev) von Google arbeiten,
+damit wir sofort loslegen können. Diese Umgebung bietet neben der 
+Unterstützung von Flutter in Zukunft wohl auch eine Version von 
+Android Studio im Browser bzw. in der Cloud.
+
+<Callout type="info">
+Dazu wird ein Google-Konto benötigt.
+
+Wer liebr mit einer lokalen Entwicklungsumgebung arbeiten möchte, 
+kann mit [Android Studio](https://developer.android.com/studio) 
+oder [VS Code](https://code.visualstudio.com) arbeiten. 
+Mehr Informationen dazu finden sich in der 
+[Flutter-Dokumentation](https://flutter.dev/docs/get-started/install).
+
+&rarr; Allerdings sind dazu ein paar Tools herunterzuladen und
+zu installieren, was etwas dauern kann.
+</Callout>
+
+
+## Erstes Flutter-Projekt erstellen und starten
+
+In der Cloud-IDE von Project IDX kann ein neues Flutter-Projekt
+mit wenigen Klicks erstellt werden. Im Prinzip ist dies 
+selbsterklärend, da die IDE eine Schritt-für-Schritt-Anleitung
+anbietet.
+
+Wir nennen das Projekt `TodosFlutterTIF24` (oder ähnlich)
+
+**Achtung:** Der Dozent hat eine Referenzversion namens 
+`TodosFlutter` auf GitHub: https://github.com/behrends/TodosFlutter
+
+<Callout type="error" emoji="‼️">
+Am Besten funktioniert Project IDX in Chrome. 
+
+In manchen Browsern kann es Warnungen zu _third-party cookies_ 
+geben, welche die Nutzung von Project IDX beeinträchtigen.
+
+In diesem Fall gibt es ein Popup mit weiteren Informationen.
+
+**&rarr; Wir benötigen die _third-party cookies_ u.a. dazu, um die 
+Vorschau der App in der IDE zu nutzen.**
+</Callout>
+
+
+<Callout type="warning">
+Bei Bedarf die Dart-Analytics im Terminal ausschalten:
+
+```
+dart --disable-analytics
+```
+</Callout>
+
+Die IDE basiert auf VS Code. Wir können direkt im Browser
+programmieren und die App auf einem virtuellen Gerät testen.
+
+Das Projekt wird mit der Datei `lib/main.dart` im Editor
+geöffnet. Diese Datei enthält den Code für die Startseite
+der App. Wir sehen die Vorschau der App auf der rechten Seite
+(Android und Web). Code-Änderungen werden automatisch übernommen 
+(_hot reload_).
+
+&rarr; Wir nutzen die Android-Vorschau für unsere Todo-App.
+
+**Wichtig: Dazu die _third-party cookies_ zulassen! (siehe oben)**
+
+## Bemerkungen zu Dart
+
+[Dart](https://dart.dev) ist die Programmiersprache, die für 
+Flutter verwendet wird. Dart ist eine objektorientierte
+Programmiersprache, die von Google entwickelt wurde. Wer bereits
+mit Java, JavaScript oder C# gearbeitet hat, wird sich in Dart
+schnell zurechtfinden. Im Vergleich zu Kotlin ist Dart deutlich 
+näher an Java.
+
+Hier ein paar Bemerkungen zu Dart im Vergleich zu Java (laut ChatGPT 😉):
+
+- **Objektorientierte Programmierung**: Dart ist eine objektorientierte, klassenbasierte und statisch typisierte Sprache, ähnlich wie Java.
+- **Optionale Typisierung**: Dart unterstützt statische Typen, kann aber auch dynamisch typisiert verwendet werden. Der Typ `var` oder `dynamic` ermöglicht es, Typen offener zu halten.
+- **Null-Safety**: Dart unterstützt Null-Safety standardmäßig. Variablen sind per Default "non-nullable". Um Nullwerte zuzulassen, muss `?` verwendet werden (z.B. `String?`).
+- **Asynchrone Programmierung**: Verwendung von `async` und `await` für asynchrone Operationen, ähnlich wie in modernen Java-Versionen und in JavaScript.
+- **Keine `new`-Schlüsselwortpflicht**: Das `new`-Schlüsselwort ist optional beim Erstellen von Objekten.
+- **Sichtbarkeit**: Private Mitglieder werden durch ein vorangestelltes `_` gekennzeichnet statt durch Zugriffsmodifikatoren wie `private` oder `protected`.
+- **Mixins statt Mehrfachvererbung**: Dart unterstützt Mixins zur Wiederverwendung von Code, da Mehrfachvererbung nicht unterstützt wird.
+- **Funktionale Programmierung**: Funktionen sind First-Class-Objekte und können wie Variablen behandelt werden.
+- **Collections**: Eingebaute Unterstützung für Listen, Maps und Sets mit Literalen und Generics ähnlich wie in Java.
+- **Operatorüberladung**: Dart unterstützt Operatorüberladung, was in Java nicht möglich ist.
+- **Einstiegspunkt**: Die `main()`-Funktion dient als Einstiegspunkt der Anwendung, wie in Java.
+
+Nützliche Links zu Dart:
+
+- [Überblick zu Dart](https://dart.dev/overview)
+- [Dartpad (Dart im Browser ausprobieren)](https://dartpad.dev)
+
+<Callout emoji="🤔">
+Warum Google in nativer Android-Entwicklung auf Kotlin setzt,
+aber in Flutter auf Dart, ist eine interessante Frage…
+</Callout>
