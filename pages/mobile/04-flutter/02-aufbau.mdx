@@ -1,0 +1,138 @@
+import { Callout } from 'nextra/components'
+
+# Aufbau einer Flutter-App
+
+<Callout>
+  **Dauer:** 20 Minuten
+
+  - Projektstruktur
+  - Einfache Flutter-App mit statischen Todos
+  - FAB hinzufügen
+
+  **Ziel:** Grundprinzipien einer Flutter-App
+</Callout>
+
+## Projektstruktur
+
+Eine Flutter-App besteht aus verschiedenen Dateien und Ordnern, die
+die Struktur und den Aufbau der App definieren. Die wichtigsten
+Bestandteile sind:
+
+- `lib/main.dart`: Die Hauptdatei der App, in der die App-Klasse
+  definiert wird.
+- `lib/`: Hier befinden sich die Dart-Dateien, deren Code die App-Logik 
+  und das UI definieren.
+- `pubspec.yaml`: Die Konfigurationsdatei der App, in der Abhängigkeiten
+  und Ressourcen definiert werden.
+- `android/`, `web/` usw.: Ordner mit spezifischen Dateien für
+  die jeweiligen Plattformen.
+
+Wir schreiben unseren eigenen Code hauptsächlich in Dart-Dateien
+im Ordner `lib/`. Zu Beginn werden wir uns auf die Datei `lib/main.dart`
+konzentrieren.
+
+## Einfache Flutter-App mit statischen Todos
+
+Wir reduzieren zunächst den Code auf das Wesentliche, um 
+die Struktur einer Flutter-App zu zeigen. `main.dart` kann
+auf folgenden Inhalt reduziert werden:
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Todos',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Todo-App'),
+      ),
+      body: const Column(
+        children: [
+          Text('Einkaufen'),
+          Text('Kochen'),
+          Text('Sport'),
+        ],
+      ),
+    );
+  }
+}
+```
+
+Dies erzeugt eine einfache Flutter-App mit einer statischen Liste 
+von Todos &mdash; ähnlich wie bei der zuvor entwickelten nativen 
+Android-App.
+
+Wir erkennen trotz syntaktischer Unterschiede zwischen Dart und
+Kotlin einige Ähnlichkeiten zur Todo-App, die wir als native 
+Android-App mit Compose entwickelt haben:
+
+- ein Theme des Material Designs
+- „geschachtelte“ UI-Bestandteile (in Flutter _Widgets_ genannt)
+- ein Scaffold mit AppBar
+- `Column`- und `Text`-Widgets für die Todo-Liste erinnern stark an die entsprechenden Composables zu Beginn der Android-App.
+
+<Callout>
+Kleinere Änderungen wie die Farbe des Themes oder die 
+Bezeichnungen der Todos sind einfach möglich.
+</Callout>
+
+## Floating Action Button hinzufügen
+
+Wir fügen unserer App einen _Floating Action Button_ (FAB) hinzu:
+
+```dart
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Todo-App'),
+      ),
+      body: const Column(
+        children: [
+          Text('Einkaufen'),
+          Text('Kochen'),
+          Text('Sport'),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => debugPrint('Todo hinzufügen'),
+        tooltip: 'Todo hinzufügen',
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+```
+
+Auch dies sieht wieder sehr ähnlich aus wie bei der nativen 
+Android-App. Um die Ausgabe mit `debugPrint` zu sehen, müssen
+wir in Project IDX mit `View -> Output` das Ausgabefenster öffnen.
+
+Wir werden das Verhalten des FAB später ändern, um tatsächlich
+Todos hinzufügen zu können.
