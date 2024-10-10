@@ -94,6 +94,11 @@ Android-App mit Compose entwickelt haben:
 - ein Scaffold mit AppBar
 - `Column`- und `Text`-Widgets für die Todo-Liste erinnern stark an die entsprechenden Composables zu Beginn der Android-App.
 
+In Flutter arbeiten wir mit Dart-Klassen für Widgets während in 
+nativer Android-Entwicklung mit Kotlin Funktionen für Composables 
+verwendet werden. Auch in React Native werden Komponenten als
+Funktionen definiert.
+
 <Callout>
 Kleinere Änderungen wie die Farbe des Themes oder die 
 Bezeichnungen der Todos sind einfach möglich.
@@ -131,7 +136,8 @@ class MyHomePage extends StatelessWidget {
 ```
 
 Auch dies sieht wieder sehr ähnlich aus wie bei der nativen 
-Android-App. Um die Ausgabe mit `debugPrint` zu sehen, müssen
+Android-App. Auch dort haben wir den FAB im `Scaffold` definiert. 
+Um die Ausgabe mit `debugPrint` zu sehen, müssen
 wir in Project IDX mit `View -> Output` das Ausgabefenster öffnen.
 
 Wir werden das Verhalten des FAB später ändern, um tatsächlich

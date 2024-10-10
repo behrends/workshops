@@ -1,0 +1,278 @@
+import { Callout } from 'nextra/components'
+
+# Widgets ohne State
+
+<Callout>
+  **Dauer:** 40 Minuten
+
+  - Widgets sind UI-Komponenten
+  - Styles verwenden
+  - Checkbox, InkWell und ListView einbauen
+
+  **Ziel:** Umgang mit stateless Widgets vertiefen
+</Callout>
+
+In Android hatten wir es mit Composables zu tun, in Flutter 
+heißen die UI-Komponenten _Widgets_. 
+
+## Stateless Widgets
+
+Ein _stateless_ Widget ist eine Klasse, die von `StatelessWidget`
+erbt und die Methode `build` implementiert. Wir sehen dies in unserem
+Code sowohl mit der Klasse `MyApp` als auch mit der Klasse 
+`MyHomePage`:
+
+```dart
+class MyApp extends StatelessWidget { 
+  
+  @override
+  Widget build(BuildContext context) {
+    // Code weggelassen
+    // return Widget
+  }
+}
+
+class MyHomePage extends StatelessWidget { 
+ 
+  @override
+  Widget build(BuildContext context) {
+    // Code weggelassen
+    // return Widget
+  }
+}
+```
+
+Ein _stateless_ Widget ist unveränderlich, d.h. es kann nicht
+während der Laufzeit geändert werden. Das bedeutet, dass die
+UI-Komponenten, die in der Methode `build` erstellt werden,
+nicht verändert werden können.
+
+## `TodoItem` als StatelessWidget
+
+Wir erstellen nun die Klasse `TodoItem` als _stateless_ Widget
+in einer **neuen Datei `lib/todo_item.dart`**:
+
+```dart
+// Achtung: neue Datei lib/todo_item.dart !
+import 'package:flutter/material.dart';
+
+class TodoItem extends StatelessWidget {
+  final String title;
+
+  const TodoItem({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(title);
+  }
+}
+```
+
+`TodoItem` wird in der Klasse `MyHomePage` verwendet, dazu
+müssen wir zunächst die Datei `todo_item.dart` importieren:
+
+```dart
+import 'package:flutter/material.dart';
+// Achtung: Import der neuen Datei lib/todo_item.dart !
+import 'package:myapp/todo_item.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+// Code weggelassen
+// In der Klasse MyHomePage:
+
+      body: const Column(
+        children: [
+          TodoItem(title: 'Einkaufen'), // anstatt Text-Widget
+          TodoItem(title: 'Kochen'),
+          TodoItem(title: 'Sport'),
+        ],
+      ),
+
+// Code weggelassen
+```
+
+## Styles in `TodoItem`
+
+In Flutter gibt es viele Möglichkeiten, Styles zu definieren.
+Hier ein paar Beispiele (Vorschlag kam von ChatGPT):
+
+```dart
+import 'package:flutter/material.dart';
+
+class TodoItem extends StatelessWidget {
+  final String title;
+
+  const TodoItem({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2.0),
+      child: Text(
+        title,
+        style: const TextStyle(fontSize: 18),
+      ),
+    );
+  }
+}
+```
+
+`TextStyle` definiert die Schriftart und -größe, `EdgeInsets`
+definiert den Abstand um das Widget herum. In unserem Beispiel
+haben wir einen vertikalen Abstand von 2 Pixeln (jeweils oben 
+und unten) sowie eine Schriftgröße von 18 Pixeln definiert.
+
+## Checkbox in `TodoItem`
+
+Wir können das `TodoItem`-Widget erweitern, um eine Checkbox
+hinzuzufügen:
+
+```dart
+class TodoItem extends StatelessWidget {
+  final String title;
+
+  const TodoItem({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2.0),
+      child: Row(
+        children: [
+          Checkbox(
+            value: false,
+            onChanged: (bool? value) { /* to be implemented */},
+          ),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 18),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+Wir implementieren die Methode `onChanged` später, wenn wir 
+`stateful` Widgets behandeln.
+
+Mit einer weiteren Anpassung wollen wir das ganze `TodoItem` 
+antippbar machen:
+
+```dart
+// Code weggelassen
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {/* to be implemented */},
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2.0),
+        child: Row(
+          children: [
+            Checkbox(
+              value: false,
+              onChanged: (bool? value) {/* to be implemented */},
+            ),
+            Text(
+              title,
+              style: const TextStyle(fontSize: 18),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+```
+
+Hierzu verwenden wir das `InkWell`-Widget, das eine Berührung
+erkennt, darauf reagiert und visuelles Feedback gibt.
+
+<Callout type="info">
+Es fällt auf, dass wir in Flutter weniger Import-Anweisungen
+benötigen als in der nativen Android-Entwicklung mit Kotlin.
+</Callout>
+
+## `TodoList`-Widget mit `ListView`
+
+Schließlich ersetzen wir `Column` für unsere drei statischen
+Todos durch ein `ListView`-Widget, um die TodoListe durch ein 
+besseres Listen-Widget für mögliche große Todolisten zu optimieren
+und u.a. scrollbar zu machen.
+
+Dazu erstellen wir zunächst eine weiteres _stateless_ Widget 
+in einer neuen Datei `lib/todo_list.dart`:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:myapp/todo_item.dart';
+
+class TodoList extends StatelessWidget {
+  const TodoList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: const [
+        TodoItem(title: 'Einkaufen'),
+        TodoItem(title: 'Kochen'),
+        TodoItem(title: 'Sport'),
+      ],
+    );
+  }
+}
+```
+
+In `lib/main.dart` ersetzen wir den Import vom `TodoItem` mit 
+`TodoList` und verwenden das neue Widget in der `MyHomePage`-Klasse:
+
+```dart
+import 'package:flutter/material.dart';
+// Achtung: folgenden Import anpassen!
+import 'package:myapp/todo_list.dart';
+
+// Code weggelassen
+
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Todo-App'),
+      ),
+      body: const TodoList(), // Column durch TodoList ersetzt
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => debugPrint('Todo hinzufügen'),
+        tooltip: 'Todo hinzufügen',
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+```
+
+## Zusammenfassung
+
+In Flutter haben wir nun _stateless_ Widgets kennengelernt, die
+als Dart-Klassen implementiert werden, von `StatelessWidget` erben 
+und die Methode `build` implementieren. Es gibt viele vordefinierte
+Widgets in Flutter für UI-Komponenten, Styles, Layout usw.. 
+Geschachtelte Widgets ergeben eine Baumstruktur, die das UI 
+repräsentiert. Auch wenn in nativer Android-Entwicklung mit 
+Kotlin und Compose die UI-Komponenten als Funktionen (_Composables_) 
+definiert werden, gibt es viele Parallelen zwischen den beiden
+Frameworks.
+
+Mehr zu Widgets in der Flutter-Dokumentation: 
+
+- [Grundlagen zu Widgets](https://docs.flutter.dev/get-started/fundamentals/widgets)
+- [Widget-Katalog](https://flutter.dev/docs/development/ui/widgets)
+
+## PAUSE
+
+spätestens hier eine Pause einlegen

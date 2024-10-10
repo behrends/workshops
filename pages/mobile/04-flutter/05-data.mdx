@@ -1,0 +1,181 @@
+import { Callout } from 'nextra/components'
+
+# Daten speichern
+
+<Callout>
+  **Dauer:** 30 Minuten
+
+  - `shared_preferences` Plugin installieren
+  - Todos werden als JSON-Daten gespeichert
+  - Daten aus `shared_preferences` speichern und laden
+
+  **Ziel:** Daten in Flutter speichern
+</Callout>
+
+In der nativen Android-Entwicklung mit Kotlin haben wir Room
+eingesetzt und Daten in einer relationalen SQLite-Datenbank 
+gespeichert. Auch in Flutter kann mit SQLite gearbeitet werden,
+siehe dazu das [Cookbook zu SQLite](https://docs.flutter.dev/cookbook/persistence/sqlite).
+
+Mit unserer Flutter-App wollen wir jedoch einfache Daten wie 
+die Todo-Liste lokal in einem _key/value_-Store speichern. 
+Dafür bietet sich das `shared_preferences`-Plugin an, welches 
+auf allen Flutter-Plattformen (iOS, Android, Web, usw.) funktioniert.
+
+<Callout type="info">
+Wir lernen somit noch einen weiteren Ansatz kennen, Daten zu
+verwalten. Auch in der nativen Android-Entwicklung gibt es
+entsprechend die `SharedPreferences`.
+</Callout>
+
+## `shared_preferences` Plugin installieren
+
+Terminal in Project IDX öffnen (`View` - `Terminal`) und 
+folgenden Befehl ausführen:
+
+```bash
+flutter pub add shared_preferences
+```
+
+Dadurch wird das Plugin mit der aktuellen Version in der Datei 
+`pubspec.yaml` hinzugefügt.
+
+## Todos als JSON-Daten speichern
+
+Daten werden in `shared_preferences` als _key/value_-Paare
+gespeichert, d.h. ein Eintrag mit dem Schlüssel `myKey` könnte
+den Wert `myValue` haben. Sowohl Schlüssel als auch Werte sind
+vom Typ `String`.
+
+Wir speichern die Todo-Liste als JSON-Daten, d.h. als Zeichenkette. 
+Dazu wird die soll die gesamte Liste in ein JSON-Objekt umgewandelt 
+und dieses als String unter dem Schlüsseleintrag `todos` gespeichert
+werden.
+
+Im Prinzip sieht die Verwendung der `shared_preferences` so aus:
+
+```dart
+final prefs = await SharedPreferences.getInstance();
+// Laden der Daten aus dem Speicher (ergibt JSON)
+final String? todosString = prefs.getString('todos');
+// Danach müssten die JSON-Daten in eine Liste umgewandelt werden
+
+// Speichern der Daten als JSON
+await prefs.setString('todos', todosString);
+```
+
+Damit die `TodoItem`s in JSON umgewandelt werden können, 
+müssen wir diese in ein Map konvertieren können und umgekehrt. 
+Wir fügen daher der Klasse `TodoItem` Hilfsmethoden zum 
+Serialisieren und Deserialisieren eines `TodoItems` hinzu:
+
+```dart
+class TodoItem extends StatefulWidget {
+  final String title;
+
+  const TodoItem({super.key, required this.title});
+
+  // TodoItem in Map umwandeln (serialisieren)
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+    };
+  }
+
+  // Map in TodoItem umwandeln (deserialisieren)
+  // Factory-Konstruktor, der ein TodoItem aus einer Map erstellt
+  factory TodoItem.fromMap(Map<String, dynamic> map) {
+    return TodoItem(
+      title: map['title'],
+    );
+  }
+
+  @override
+  State<TodoItem> createState() => _TodoItemState();
+}
+```
+
+## Daten aus `shared_preferences` speichern und laden
+
+Zunächst müssen wir die `shared_preferences` in `lib/main.dart`
+importieren. Zusätzlich wird das `dart:convert`-Paket benötigt, 
+um JSON-Daten zu verarbeiten:
+
+```dart
+// lib/main.dart
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+```
+
+Wir definieren in der State-Klasse `_MyHomePageState` die Methoden
+zum Laden und Speichern der Daten:
+
+```dart
+class _MyHomePageState extends State<MyHomePage> {
+  final List<TodoItem> _todos = [];
+
+  Future<void> _loadTodos() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? todosString = prefs.getString('todos');
+
+    if (todosString != null) {
+      final List decoded = jsonDecode(todosString);
+      setState(() {
+        _todos.clear();
+        _todos.addAll(decoded.map((item) => TodoItem.fromMap(item)).toList());
+      });
+    }
+  }
+
+  Future<void> _saveTodos() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String todosString =
+        jsonEncode(_todos.map((item) => item.toMap()).toList());
+    await prefs.setString('todos', todosString);
+  }
+  // ... restlicher Code ...
+}
+```
+
+Stateful Widgets erben eine Methode `initState()`, die beim
+Erstellen des Widgets aufgerufen wird. Hier können wir die
+Daten laden, indem wir dort die eben definierte Methode `_loadTodos()` 
+aufrufen:
+
+```dart
+class _MyHomePageState extends State<MyHomePage> {
+  final List<TodoItem> _todos = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTodos();
+  }
+```
+
+Dann müssen wir nur noch die Methode `_saveTodos()` aufrufen,
+wenn sich die Daten ändern. Dazu fügen wir die Methode `_saveTodos()`
+im `then`-Block im `onPressed`-Handler des FABs hinzu:
+
+```dart
+// im onPressed-Handler des FABs
+.then((value) {
+  if (value != null && value is String) {
+    setState(() {
+      _todos.add(TodoItem(title: value));
+    });
+    _saveTodos(); // Daten in shared_preferences speichern
+  }
+});
+```
+
+Nun werden die Daten beim Start der App geladen und beim
+Hinzufügen eines neuen Todos gespeichert.
+
+## Zusammenfassung
+
+- In Flutter können einfache Daten als Strings in einem _key/value_-Store gespeichert werden
+- Wir speichern die TODOs komplett als JSON-Daten ab
+- Das `shared_preferences`-Plugin ist plattformübergreifend, d.h. unsere Lösung funktioniert auch auf iOS und im Browser
+
+[Cookbook zu shared_preferences](https://docs.flutter.dev/cookbook/persistence/key-value)

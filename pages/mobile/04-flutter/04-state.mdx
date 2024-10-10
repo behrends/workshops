@@ -1,0 +1,418 @@
+import { Callout } from 'nextra/components'
+
+# Widgets mit State
+
+<Callout>
+  **Dauer:** 50 Minuten
+
+  - `stateful` Widgets
+  - Interaktion mit dem Zustand durch `setState`
+  - Zustände in `MyHomePage` und `TodoItem` implementieren
+
+  **Ziel:** Widgets und State in Flutter verstehen
+</Callout>
+
+In Android hatten wir es mit Composables zu tun, in Flutter 
+heißen die UI-Komponenten _Widgets_. Während in Compose einzelne
+Composable-Funktionen mehrere Zustandsobjekte haben können, sind 
+in Flutter die Widgets durch die Klassenhierarchie als Ganzes 
+_stateless_ oder _stateful_. Trotz dieses Unterschieds gibt es viele 
+Parallelen zwischen den beiden Frameworks. So führt in beiden Ansätzen 
+eine Änderung des Zustands zu einer automatischen Aktualisierung des UIs.
+
+## Stateful Widgets
+
+Ein _stateful_ Widget ist eine Klasse, die von `StatefulWidget`
+erbt und die Methode `createState` implementiert. Da ein stateful 
+Widget selbst unveränderlich ist, speichert es veränderlichen Zustand 
+in einer separaten Klasse, die eine Subklasse von `State` ist. 
+Diese `State`-Klasse wird im stateful Widget von der Methode 
+`createState` zurückgegeben. 
+
+Wir können `TodoItem` als _stateful_ Widget implementieren:
+
+**Achtung:** Wir können die `build`-Methode zunächst auskommentieren,
+denn diese wird gleich in den `State` verschoben.
+
+```dart
+class TodoItem extends StatefulWidget {
+  final String title;
+
+  const TodoItem({super.key, required this.title});
+
+  @override
+  State<TodoItem> createState() => _TodoItemState();
+
+  // Achtung: build-Methode gehört nun in den State!
+}
+```
+
+Die Methode `createState` gibt ein Objekt zurück, das den Zustand
+des Widgets verwaltet. `StatefulWidget`s haben keine `build`-Methode; 
+stattdessen wird ihre Benutzeroberfläche durch ihr `State`-Objekt 
+aufgebaut. Dazu implementieren wir die Klasse `_TodoItemState`:
+
+**Achtung:** Wir können die `build`-Methode nun in die 
+`_TodoItemState`-Klasse verschieben, müssen aber im `Text`-Widget
+auf `widget.title` zugreifen (anstatt nur `title` wie zuvor).
+
+```dart
+class _TodoItemState extends State<TodoItem> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {/* to be implemented */},
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2.0),
+        child: Row(
+          children: [
+            Checkbox(
+              value: false,
+              onChanged: (bool? value) {/* to be implemented */},
+            ),
+            Text(
+              widget.title, // Achtung: Zugriff auf widget.title!
+              style: const TextStyle(fontSize: 18),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+Es ist eine Konvention, den Zustand in einer separaten Klasse zu
+speichern, die mit einem Unterstrich beginnt und den Zusatz `State`
+im Namen trägt. In unserem Fall ist dies `_TodoItemState`. Der 
+Zustand kann dann in der `State`-Klasse verwaltet werden.
+
+## Interaktion mit dem Zustand durch `setState`
+
+Das `State`-Objekt kann den Zustand des Widgets ändern, indem es
+die Methode `setState` aufruft. Diese Methode nimmt eine Funktion
+als Argument, die den neuen Zustand berechnet. In unserem Beispiel
+wollen wir die Checkbox-Interaktion und das Antippen des Todos 
+implementieren, um den Zustand des `TodoItem` zu ändern. 
+
+Zunächst fügen wir im `_TodoItemState` eine `_done`-Instanzvariable vom 
+Typ `bool` hinzu, die den Zustand des Todos repräsentiert:
+
+```dart
+class _TodoItemState extends State<TodoItem> {
+  bool _done = false; // Instanzvariable für den Zustand
+
+  // restlicher Code bleibt unverändert
+}
+```
+
+Nun können wir die Handler für die Interaktionen implementieren,
+dies sind `onTap` im `InkWell`-Widget und `onChanged` in der 
+`Checkbox`. Beide Handler rufen die `setState`-Methode auf, um
+den Zustand des Todos zu ändern:
+
+```dart
+setState(() {
+  _done = !_done;
+});
+```
+
+`setState` wird mit einer Funktion aufgerufen, die den neuen Zustand
+berechnet. In unserem Fall wird `_done` auf den negierten Wert von
+`_done` gesetzt. Das führt dazu, dass der Zustand des Todos umgekehrt
+wird, wenn die Checkbox angeklickt oder das Todo angetippt wird. 
+
+Außerdem müssen wir den aktuellen Wert der Checkbox (`value`) 
+auf den des Zustands `_done` setzen. 
+
+Hier der vollständige Code des `_TodoItemState`:
+
+```dart
+class _TodoItemState extends State<TodoItem> {
+  bool _done = false; // Instanzvariable für den Zustand
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () { // setState beim Antippen des Todos
+        setState(() {
+          _done = !_done; // Zustand umkehren
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2.0),
+        child: Row(
+          children: [
+            Checkbox(
+              value: _done, // aktueller Zustand der Checkbox
+              onChanged: (bool? value) {
+                setState(() { // setState beim Klicken der Checkbox
+                  _done = !_done; // Zustand umkehren
+                });
+              },
+            ),
+            Text(
+              widget.title,
+              style: const TextStyle(fontSize: 18),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+```
+
+Die Änderung des Zustands bzw. der Aufruf von `setState` führt
+zu einer **automatischen** Neuzeichnung des UIs &mdash; ganz ähnlich
+wie in der nativen Android-Entwicklung mit Composables. 
+
+Wir können den Zustand auch nutzen, um das Aussehen des Todos zu
+ändern. Der Text wird durchgestrichen, wenn die Checkbox aktiviert ist:
+
+```dart
+Text(
+  widget.title,
+  style: TextStyle(
+    fontSize: 18,
+    decoration: _done ? TextDecoration.lineThrough : null,
+  ),
+),
+```
+
+<Callout type="info">
+Manche Styles in Flutter erinnern an CSS:
+
+- `fontSize` in Flutter wird in CSS als `font-size` geschrieben
+- `TextDecoration.lineThrough` entspricht `text-decoration: line-through`
+</Callout>
+
+## Checkbox-Handler optimieren
+
+Der Handler für die Checkbox kann noch folgendermaßen optimiert 
+werden, sodass er den an den Handler übergebenen Wert von 
+`value` direkt verwendet und ihn auf `null` überprüft:
+
+```dart
+Checkbox(
+  value: _done,
+  onChanged: (bool? value) {
+    setState(() {
+      _done = value ?? false;
+    });
+  },
+),
+```
+
+Diese Änderung ist nicht unbedingt nötig, aber sie wurde als 
+„idiomatische“ Lösung von ChatGPT vorgeschlagen 😉.
+
+## `MyHomePage` in stateful Widget umwandeln
+
+Wir wandeln nun `MyHomePage` in ein _stateful_ Widget um, weil 
+wir dort die TodoListe als Zustand verwalten wollen.
+
+<Callout>
+In Project IDX und VS Code gibt es einen Shortcut, um ein Widget
+in ein _stateful_ Widget umzuwandeln:
+
+Cursor auf den Klassennamen setzen und dann `Ctrl + .` (Windows/Linux) 
+oder `Cmd + . (Mac)` drücken, sodass passende Code-Aktionen angezeigt
+werden. Dort `Convert to StatefulWidget` auswählen.
+
+(Die klappt wohl auch in Android Studio mit `Alt + Enter`)
+Android Studio / IntelliJ IDEA: Platzieren Sie den Cursor auf dem 
+</Callout>
+
+Der angepasste Code von `MyHomePage` und der neuen State-Klasse 
+`_MyHomePageState` sieht dann so aus:
+
+```dart
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Todo-App'),
+      ),
+      body: const TodoList(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => debugPrint('Todo hinzufügen'),
+        tooltip: 'Todo hinzufügen',
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+```
+
+## TodoList-Zustand verwalten
+
+Wir erweitern die neue State-Klasse `_MyHomePageState` mit einer
+Instanzvariable `_todos` vom Typ `List<TodoItem>`, um die Todos
+zu speichern und der `onPressed`-Handler des `FloatingActionButton`
+fügt ein neues Todo hinzu: 
+
+```dart
+class _MyHomePageState extends State<MyHomePage> {
+  final List<TodoItem> _todos = []; // State für die Todo-Liste
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Todo-App'),
+      ),
+      body: const TodoList(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            _todos.add(const TodoItem(title: 'Neues Todo'));
+          });
+        },
+        tooltip: 'Todo hinzufügen',
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+```
+
+Zunächst wird stets das gleiche Todo hinzugefügt (`'Neues Todo'`),
+aber später verwenden wir eine Texteingabe, um den Titel des
+neuen Todos zu bestimmen.
+
+Eine Anpassung fehlt noch: Wir müssen die `TodoList`-Instanz
+mit den Todos aus `_todos` initialisieren. Dazu fügen wir dem
+Konstruktor von `TodoList` ein Argument `todos` hinzu. Es werden
+folgende Änderungen in `TodoList` vorgenommen:
+
+```dart
+class TodoList extends StatelessWidget {
+  final List<TodoItem> todos;
+
+  // der Konstruktor erhält ein Argument für die Todos
+  const TodoList({super.key, required this.todos});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: todos.length,
+      itemBuilder: (context, index) {
+        return todos[index];
+      },
+    );
+  }
+}
+```
+
+Hier verwenden wir nun die `todos`-Instanzvariable im `ListView.builder`,
+um die Todos zu rendern, was insbesondere dann benötigt wird, wenn
+die Todo-Liste dynamisch ist. Mehr zu `ListView` in der Dokumentation:
+[API-Docs zu `ListView`](https://api.flutter.dev/flutter/widgets/ListView-class.html)
+
+Nun können wir in `_MyHomePageState` die `TodoList`-Instanz mit den
+Todos initialisieren:
+
+```dart
+body: TodoList(todos: _todos),
+```
+
+Nochmals der gesamte Code von `_MyHomePageState`:
+
+```dart
+class _MyHomePageState extends State<MyHomePage> {
+  final List<TodoItem> _todos = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Todo-App'),
+      ),
+      body: TodoList(todos: _todos), // Todos an TodoList übergeben
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            _todos.add(const TodoItem(title: 'Neues Todo'));
+          });
+        },
+        tooltip: 'Todo hinzufügen',
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+```
+
+## `AlertDialog` für neue Todos
+
+Zum Hinzufügen von neuen Todos können wir ein `AlertDialog` verwenden,
+das eine Texteingabe für den Titel des neuen Todos enthält. Dazu
+müssen wir den `onPressed`-Handler des `FloatingActionButton`s anpassen:
+
+```dart
+onPressed: () {
+  showDialog(
+    context: context,
+    builder: (context) {
+      final TextEditingController controller = TextEditingController();
+      return AlertDialog(
+        title: const Text('Neues Todo'),
+        content: TextField(
+          controller: controller,
+          decoration: const InputDecoration(hintText: 'Todo eingeben'),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Abbrechen'),
+          ),
+          TextButton(
+            onPressed: () {
+              if (controller.text.trim().isNotEmpty) {
+                Navigator.of(context).pop(controller.text.trim());
+              }
+            },
+            child: const Text('Hinzufügen'),
+          ),
+        ],
+      );
+    },
+  ).then((value) { // Fügen wir das neue Todo dem State hinzu
+    if (value != null && value is String) {
+      setState(() {
+        _todos.add(TodoItem(title: value));
+      });
+    }
+  });
+},
+```
+
+Wir führen zusätzliche Validierung durch, um leere Todos zu vermeiden.
+
+Auch hier haben wir wieder eine starke Ähnlichkeit zu dem Code,
+den wir für die native Android-App in Compose geschrieben haben.
+
+
+## Zusammenfassung
+
+In Flutter sind Widgets entweder _stateless_ oder _stateful_.
+Ein _stateful_ Widget speichert seinen Zustand in einer separaten
+`State`-Klasse, die von `State` erbt. Der Zustand kann durch
+`setState` geändert werden, was zu einer automatischen
+Neuzeichnung des UIs führt.
+
+Mehr zu _stateful_ Widgets in der Flutter-Dokumentation:
+
+- [Grundlagen zu _state management_](https://docs.flutter.dev/get-started/fundamentals/state-management)
+- [API-Docs zu `StatefulWidget`](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)
+
