@@ -1,0 +1,150 @@
+import { Callout } from 'nextra/components'
+
+# Datenbank mit Room verwalten
+
+<Callout>
+  **Dauer:** 45 Minuten
+
+  - Abhängigkeiten hinzufügen
+  - Todo-Entity erstellen
+  - DAO (Data Access Object) erstellen
+
+  **Ziel:** Einstieg in die Datenpersistenz mit Room
+</Callout>
+
+
+In Android können Daten auf dem Gerät in SQLite gespeichert werden.
+Dazu gibt es die Bibliothek 
+[Room](https://developer.android.com/training/data-storage/room), die 
+eine umfangreiche API bereitstellt, um Daten via SQL auf dem 
+Android-Gerät zu speichern.
+
+<Callout>
+Parallel zu den folgenden Schritten kann die Dokumentation herangezogen werden:
+
+https://developer.android.com/training/data-storage/room
+
+Dort wird Room allgemeiner mit einem grafischen Überblick erklärt.
+
+Am Whiteboard können wir die Architektur von Room am Beispiel 
+der konkreten Klassen unserer TodoApp skizzieren (`TodoDao` usw.).
+</Callout>
+
+Die folgenden Änderungen im Code können auch durch dieses Codelab 
+nachvollzogen werden: 
+https://developer.android.com/codelabs/basic-android-kotlin-compose-persisting-data-room
+
+**Vorbemerkung:** Der Dozent hat die Schritte mit Hilfe von ChatGPT und erstellt und diese anhand **aktueller** Quellen aus der 
+Android-Dokumentation (Guides, Codelabs, Code-Samples) verfiziert und
+auf den neuesten Stand gebracht.
+
+## Room-Abhängigkeiten hinzufügen
+
+**Vorbemerkung: auf neueste Version von Room und KSP achten**
+
+In `gradle/libs.version.toml` die neueste Version von Room und KSP 
+(Kotlin Symbol Processor) eintragen (im September 2024 war dies nur
+teilweise in der Dokumentation zu finden):
+
+```toml
+[versions]
+kotlin = "2.0.20" # musste in Sept. 24 aktualisiert werden
+# Rest bleibt unverändert
+room = "2.6.1"
+ksp = "2.0.20-1.0.24"
+
+[libraries]
+# Rest bleibt unverändert
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+
+[plugins]
+# Rest bleibt unverändert
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+```
+
+Abhängigkeiten eintragen in `app/build.gradle` (Modulebene):
+
+```gradle 
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    // Kotlin Symbol Processor (KSP) Plugin hinzufügen
+    alias(libs.plugins.ksp)
+    // Compose-Compiler hinzufügen
+    alias(libs.plugins.compose.compiler)
+}
+
+android {
+    // … bleibt unverändert
+}
+
+dependencies {
+    // Rest bleibt unverändert
+
+    // Database
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+}
+```
+
+Danach Sync in Android Studio durchführen.
+
+## Todo-Entity erstellen
+
+Ein neues Package `data` erstellen und darin eine neue Kotlin-Datei 
+`TodoItem.kt` anlegen:
+
+```kotlin
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "todos")
+data class TodoItem(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val name: String,
+    val done: Boolean = false
+)
+```
+
+## DAO (Data Access Object) erstellen
+
+Wir erstellen ein Interface `db/TodoDao`, das als sogenanntes 
+_data access object_ die benötigten Datenbankoperationen definiert:
+
+```kotlin
+// imports weggelassen
+
+@Dao
+interface TodoDao {
+    @Query("SELECT * FROM todos")
+    fun getAllTodos(): Flow<List<TodoItem>>
+
+    @Insert
+    suspend fun insertTodo(todo: TodoItem)
+
+    @Update
+    suspend fun updateTodo(todo: TodoItem)
+
+    @Delete
+    suspend fun deleteTodo(todo: TodoItem)
+}
+```
+
+Neben den Standard-Methoden `insert`, `update` und `delete` gibt es hier
+eine Methode `getAllTodos`, die alle Todos aus der Datenbank abruft.
+Weitere Methoden können später bei Bedarf hinzugefügt werden, z.B. um 
+Todos nach bestimmten Kriterien zu filtern.
+
+[Kotlin Flow](https://developer.android.com/kotlin/flow) wird 
+verwendet, um die Daten asynchron zu laden.
+
+## PAUSE 
+
+Pause an passender Stelle einlegen.
+
+Es kann zwischendurch immer wieder Fragen geben und Bedarf für Hilfestellung geben.
+

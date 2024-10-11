@@ -1,7 +1,7 @@
 {
-  "01-state": "Zustand im UI",
-  "02-lists": "Listen",
-  "03-storage": "Daten mit Room speichern",
+  "01-lists": "Listen",
+  "02-storage": "Datenbanken mit Room verwalten",
+  "03-storage2": "Verwendung von Room",
   "04-navigation": "Navigation",
   "05-more": "Ausblick"
 }
