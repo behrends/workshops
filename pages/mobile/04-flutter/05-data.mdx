@@ -172,6 +172,76 @@ im `then`-Block im `onPressed`-Handler des FABs hinzu:
 Nun werden die Daten beim Start der App geladen und beim
 Hinzufügen eines neuen Todos gespeichert.
 
+## Datenklasse für Todos
+
+Beim Speichern der Todos wird momentan nur der Titel berücksichtigt. Der Status in `done` wird nicht abgespeichert, da sich dieser im State befindet. Eine Lösung hierfür besteht darin, für das eigentliche Todo eine Datenklasse (`Todo`) zu schreiben, die dann im Widget verwendet wird:
+
+```dart
+class Todo {
+  final String title;
+  bool done;
+
+  Todo({required this.title, this.done = false});
+
+  // Todo in Map umwandeln (serialisieren)
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'done': done,
+    };
+  }
+
+  // Map in Todo umwandeln (deserialisieren)
+  factory Todo.fromMap(Map<String, dynamic> map) {
+    return Todo(
+      title: map['title'],
+      done: map['done'] ?? false,
+    );
+  }
+}
+
+class TodoItem extends StatefulWidget {
+  final Todo todo;
+
+  const TodoItem({super.key, required this.todo});
+
+  @override
+  State<TodoItem> createState() => _TodoItemState();
+}
+```
+
+Im `_TodoItemState` muss der Zugriff auf `done` nun anstatt `widget.done` so aussehen:
+
+```dart
+widget.todo.done
+```
+
+In `main.dart` sind drei Zeilen zu ändern:
+
+- in `_loadTodos`: 
+
+```dart
+_todos.addAll(decoded.map((item) => TodoItem(todo: Todo.fromMap(item))).toList());
+```
+
+- in `_saveTodos`:
+
+```dart
+jsonEncode(_todos.map((item) => item.todo.toMap()).toList());
+```
+
+- im `then`-Block von `onPressed` des FABs:
+
+```dart
+_todos.add(TodoItem(todo: Todo(title: value)));
+```
+
+<Callout type="error">
+**TODO:** Im Code müsste noch umgesetzt werden, dass die Todos erneut abgespeichert werden, wenn sich der Zustand eines Todos ändert (`done`).
+</Callout>
+
+Zum Thema _state management_ ist umfangreich mit verschiedenen Ansätzen. Dazu gibt es einen Link auf der folgenden Seite im Ausblick.
+
 ## Zusammenfassung
 
 - In Flutter können einfache Daten als Strings in einem _key/value_-Store gespeichert werden
