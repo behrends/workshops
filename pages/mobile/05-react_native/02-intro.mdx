@@ -51,16 +51,16 @@ oder Konzepte gezeigt, die nicht im Videokurs vorkommen.
 
 - VS Code starten
 - Verzeichnis für Projekte öffnen (z.B. `tmp`)
-- Terminal in VS Code anzeigen (`View-Terminal`)
-- `npx create-expo-app` im Terminal ausführen (Projekt erstellen)
-- Neues Verzeichnis des Projekts in VS Code öffnen (z.B. `TIF21-Todos`)
-- `App.js` öffnen und ggf. mit Code aus Expo Snack ersetzen (siehe „Hello, World!“ oben)
-- Terminal in VS Code anzeigen (`View-Terminal`)
-- `npx expo start` im Terminal ausführen
+- Terminal in VS Code anzeigen (`View - Terminal`)
+- `npx create-expo-app --template blank` im Terminal ausführen (Projekt erstellen)
+- Das neue, durch den vorigen Schritt erstellte Verzeichnis des Projekts in VS Code öffnen (`File - Open…`)
+- `App.js` im Editor öffnen und ggf. mit Code aus Expo Snack ersetzen (siehe „Hello, World!“ oben)
+- Terminal in VS Code anzeigen (`View - Terminal`)
+- `npx expo` im Terminal ausführen
 
 ## App auf dem Handy testen
 
-Um die App auf dem eigenen Handy zu testen, muss zunächst die App
+Um die App auf dem eigenen Handy zu testen, muss dort zunächst die App
 _Expo Go_ installiert werden (im App Store bzw. Play Store suchen).
 
 Im Terminal ist ein QR-Code zu sehen, mit dem die App auf dem Handy geladen werden kann. Dazu auf dem iPhone die Kamera-App verwenden, auf Android-Geräten kann der QR-Code-Scan aus Expo Go erfolgen.
@@ -71,20 +71,22 @@ Im WLAN bzw. Netzwerk der DHBW ist eine Kommunikation von Gerät zu Gerät (_cli
 In diesem Fall kann der Expo-Server mit der Option `--tunnel` gestartet werden:
 
 ```
-npx expo start --tunnel
+npx expo --tunnel
 ```
 
 Dann wird eine indirekte, öffentliche Netzwerk-Verbindung („Tunnel“) zwischen Rechner und Handy genutzt, siehe [Tunneling in den Expo Docs](https://docs.expo.dev/more/expo-cli/#tunneling).
 
+>> Sollte es hierbei Probleme bei der Installation des benötigten Packages `ngrok` geben, dann kann die lokale Installation (`npm i` ohne `-g`) ein Workaround sein (Stand Oktober 2024).
 
-In „gewöhnlichen“ WLAN in Heimnetzwerken sollte es möglich sein, die App direkt auf dem Handy zu laden, solange Handy und Rechner im gleichen WLAN bzw. Netzwerk sind. 
+
+Im „gewöhnlichen“ WLAN in Heimnetzwerken sollte es möglich sein, die App direkt auf dem Handy zu laden, solange Handy und Rechner im gleichen WLAN bzw. Netzwerk sind. 
 </Callout>
 
 <Callout type="warning">
 Ist ein Android-Gerät direkt per USB-Kabel mit dem Handy verbunden, dann kann der Expo-Server mit `--localhost` gestartet werden:
 
 ```
-npx expo start --localhost
+npx expo --localhost
 ```
 
 Durch Drücken von `a` im Terminal wird die App dann auf dem Android-Gerät geladen
