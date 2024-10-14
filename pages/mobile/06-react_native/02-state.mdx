@@ -1,0 +1,343 @@
+import { Callout, Tabs } from 'nextra/components';
+
+# Zustand (state)
+
+<Callout>
+  **Dauer:** 45 Minuten
+
+  - Checkbox hinzufügen
+  - `state` im `Todo` verwenden
+  - Verwendung von `state` nachvollziehen
+
+</Callout>
+
+Die Prinzipien für `state` bzw. Zustand in
+React Native sind ähnlich zu denen in Android
+Compose und Flutter:
+
+- Komponenten können einen Zustand haben
+- Eine Änderung des Zustands einer Komponente bewirkt ein Neuzeichnen dieser Komponente (und ggf. der in ihr enthaltenen Komponenten)
+
+Wir lernen den Umgang mit `state` in React 
+Native schrittweise kennen.
+
+## Checkbox hinzufügen
+
+Ein Todo-Eintrag soll nun auch eine Checkbox
+enthalten. Expo hat eine große Auswahl von
+zusätzlichen Komponenten und APIs, die bei
+Bedarf unserer App hinzugefügt werden. 
+
+Siehe dazu die [Dokumentation der Expo Checkbox]
+(https://docs.expo.dev/versions/latest/sdk/checkbox/).
+
+Checkbox-Package installieren:
+
+```bash
+npx expo install expo-checkbox
+```
+
+In der Todo-Komponenten die Checkbox verwenden:
+
+```jsx
+import Checkbox from 'expo-checkbox';
+```
+
+Wir müssen nun den UI-Code der Todo-Komponenten
+etwas anpassen, damit neben dem Text des Todos
+eine Checkbox dargestellt wird:
+
+```jsx
+import { StyleSheet, Text, View } from 'react-native';
+import Checkbox from 'expo-checkbox';
+
+export default function Todo({ children }) {
+  return (
+    <View style={styles.container}>
+      <Checkbox style={styles.checkbox} />
+      <Text style={styles.todoText}>{children}</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
+  checkbox: {
+    marginLeft: 10,
+  },
+  todoText: {
+    fontSize: 24,
+    width: '100%',
+    paddingHorizontal: 10,
+    marginBottom: 5,
+  },
+});
+```
+
+Wir verwenden hier ein `View`-Element, das 
+die `Checkbox` und den `Text` umgibt. Als 
+sogenanntes _Container_-Element definiert es
+Flexbox-Styles, die die beiden Elemente 
+nebeneinander anordnet und vertikal zentriert.
+Mehr zur Flexbox bei Bedarf später bzw. im
+Videokurs.
+
+
+## Zustand in React Native
+
+Bisher haben wir mit `props` gesehen, wie Komponenten mit 
+Eigenschaften zur Laufzeit konfiguriert werden können. Dabei sind 
+die Eigenschaften bzw. `props` unveränderlich.
+
+Wenn sich nun eine Komponente im Laufe der Zeit verändern soll,
+dann brauchen wir dafür eine andere Möglichkeit. Diese Möglichkeit
+ist der Zustand bzw. `state`. 
+
+Bei der Verwendung von `state` gibt es zwei Dinge zu beachten:
+
+- `state` ist immer privat und gehört zu einer Komponente
+- `state` kann sich im Laufe der Zeit verändern
+- `state` wird ausschließlich mit einer zugehörigen Änderungsfunktion aktualisiert
+
+Wenn sich der `state` einer Komponente verändert, dann wird die
+Komponente neu gerendert. Dies geschieht automatisch und muss nicht
+von uns programmiert werden. 
+
+Standardmäßig ist eine Komponente in react zustandslos (_stateless_).
+Wenn wir `state` verwenden wollen, dann müssen wir die Komponente
+mit einem sogenannten _Hook_ ausstatten, der den `state` verwaltet.
+Für den `state` gibt es den Hook `useState`.
+
+<Callout type="info">
+Hooks sind ein Konzept in React Native (und React), das es uns erlaubt,
+Komponenten mit bestimmten Verhalten zu versehen. Hooks sind Funktionen,
+die mit `use` beginnen. 
+
+Neben `useState` gibt es noch weitere Hooks und es ist auch möglich,
+eigene Hooks zu schreiben.
+</Callout>
+
+Folgende Schritte sind nötig, um eine Komponente mit `state` 
+auszustatten:
+
+1. Importieren des Hooks `useState` aus `react` (nicht `react-native`!)
+2. Aufruf des Hooks `useState` in der Komponente, um den `state` zu
+   initialisieren und eine Funktion zum Ändern des `state` zu erhalten.
+3. Verwendung des `state` in der Komponente
+
+## Zustand im `Todo`
+
+Wir benötigen nun `state` in der Komponente `Todo`, damit wir den Zustand `done` (erledigt)
+verwalten können (`true` oder `false`).
+
+### Importieren des Hooks `useState`
+
+Zunächst importieren wir den Hooks `useState` aus `react`:
+
+```jsx
+import { useState } from 'react'; // <-- import aus react!
+import { StyleSheet, Text, View } from 'react-native';
+import Checkbox from 'expo-checkbox';
+
+// Der Rest bleibt gleich
+```
+
+Der Hook `useState` steht uns nun zur Verfügung und wir können ihn
+in der Komponente `Todo` verwenden.
+
+### Aufruf des Hooks `useState` zur Initialisierung des `state`
+
+Um den `state` zu initialisieren und eine Funktion zum Ändern des 
+`state` zu erhalten, fügen wir der Komponente `Todo` folgenden Code
+hinzu:
+
+```jsx
+import { useState } from 'react'; // <-- import aus react!
+import { StyleSheet, Text, View } from 'react-native';
+import Checkbox from 'expo-checkbox';
+
+export default function Todo({ children }) {
+  const [done, setDone] = useState(false); // <-- state mit false initialisieren
+
+  // Der Rest bleibt gleich
+}  
+```
+
+Für die Intitialisierung des `state` rufen wir `useState` auf und
+übergeben den initialen Wert des `state` als Argument. Für den initialen
+Zustand können wir jeden Wert verwenden, den wir wollen. In unserem Fall
+ist der initiale Wert `false`.
+
+`useState` gibt uns ein Array mit zwei Elementen zurück. Das erste 
+Element ist die `state`-Variable mit dem aktuellen Wert des `state` 
+(zunächst `false` aufgrund der Initialisierung) und das zweite 
+Element ist eine Funktion, mit der wir den `state` ändern können 
+(„update function“). Diese Funktion heißt in unserem Fall `setDone` 
+&mdash; wir hätten die Funktion und die `state`-Variabel auch anders 
+nennen können, aber diese Art der Benennung ist üblich. Durch eine
+Dekonstruktion des Arrays können wir die beiden Elemente direkt in
+eine Variable und eine Funktion destrukturieren:
+
+```jsx
+const [done, setDone] = useState(false);
+```
+
+<Callout type="info">
+**Live Coding:** Eventuell die Destrukturierung des Arrays erklären.
+
+Im Videokurs wird dies alles ausführlich gezeigt.
+</Callout>
+
+### Verwendung des `state`
+
+Wir haben nun den `state` initialisiert und eine Funktion zum Ändern
+des `state` erhalten. Nun können wir den `state` in der Komponente
+verwenden. Dazu definieren wir die Props `value` 
+und `onValueChange` der `Checkbox` passend zum `state`:
+
+```jsx
+export default function Todo({ children }) {
+  const [done, setDone] = useState(false); // <-- state mit false initialisieren
+
+  return (
+    <View style={styles.container}>
+      <Checkbox
+        style={styles.checkbox}
+        value={done} // <-- Verwendung des state
+        onValueChange={setDone} // <-- Verwendung der update function
+      />
+      <Text style={styles.todoText}>{children}</Text>
+    </View>
+  );
+}
+```
+
+Wir verwenden den `state` nun als Wert der `Checkbox` (erledigt oder nicht) und die
+`setDone`-Funktion als `onValueChange`-Handler. 
+Wenn wir nun die Checkbox antippen, dann ändert sich der Zustand im Todo. 
+
+<Callout type="info">
+Jede Änderung des `state` führt zu einer Neudarstellung der Komponente,
+d.h. die Komponente wird neu „gerendert“. Dies geschieht automatisch und
+muss nicht von uns programmiert werden.
+</Callout>
+
+<Callout type="error" emoji="‼️">
+**Achtung:** Die Änderung des `state` erfolgt **immer** mit der
+Änderungsfunktion (bei uns `setDone`). Wenn wir den `state` direkt 
+durch eine Zuweisung ändern (z.B. `done = 'wrong!!!'`), dann wird 
+die Komponente nicht neu gerendert und der `state` wird nicht aktualisiert.
+
+Der `state` ist immer privat und gehört zu einer Komponente.
+Wenn wir den `state` in einer anderen Komponente verwenden wollen, dann  
+müssen wir den `state` in die übergeordnete Komponente verschieben und
+von dort an die untergeordnete Komponente weitergeben. Dies geschieht
+mit `props`, die wir in der übergeordneten Komponente an die untergeordnete
+Komponente übergeben.
+</Callout>
+
+## Todo-Text antippbar mit Style passend zum Zustand
+
+Wenn wir wie bei den vorigen Beispiel-Apps das
+ ganze Todo antippbar machen wollen und das Todo 
+ im erledigten Zustand durchgestrichen darstellen
+wollen, dann könnte der Code so angepasst werden:
+
+```jsx
+import { useState } from 'react'; // <-- import aus react!
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import Checkbox from 'expo-checkbox';
+
+export default function Todo({ children }) {
+  const [done, setDone] = useState(false); // <-- state mit false initialisieren
+
+  const doneStyle = done
+    ? { textDecorationLine: 'line-through' }
+    : {}; // <-- Styling abhängig vom state
+  return (
+    <View style={styles.container}>
+      <Checkbox
+        style={styles.checkbox}
+        value={done} // <-- Verwendung des state
+        onValueChange={setDone} // <-- Verwendung der update function
+      />
+      <Pressable onPress={() => setDone(!done)}>
+        <Text style={[styles.todoText, doneStyle]}>{children}</Text>
+      </Pressable>
+    </View>
+  );
+}
+```
+
+Abhängig vom `state` in `done` definieren
+wir einen `doneStyle`, der den Text eines Todos
+im erledigten Status durchgestrichen darstellt.
+
+In den React Native Docs gibt es mehr Infos zur 
+[Pressable-Komponente](https://reactnative.dev/docs/pressable)
+
+
+
+## Übung: Zähler
+
+Wenn genügend Zeit vorhanden ist, dann könnten wir in dem 
+Standardbeispiel wir in [Expo Snack](https://snack.expo.dev)
+einen Zähler programmieren:
+
+![Zähler](/images/mobile/reactnative/counter.png)
+
+Hierzu kann direkt in `App.js` eine `Text`-Komponente mit einem
+`Button` und einem `state` programmiert werden. Der `state` ist
+eine Zahl, die bei jedem Klick auf den `Button` um eins erhöht wird.
+
+<Callout type="info">
+Eventuell den Anfang gemeinsam und dann weitere Buttons hinzufügen 
+(z.B. um 10 erhöhen, auf 0 zurücksetzen, usw.).
+</Callout>
+
+
+<Tabs items={['Lösung:', '👇']}>
+  <Tabs.Tab>👉</Tabs.Tab>
+  <Tabs.Tab>
+  ```jsx
+import {useState} from 'react';
+import { Button, Text, TextInput, SafeAreaView, StyleSheet } from 'react-native';
+
+export default function App() {
+  const [counter,setCounter] = useState(0);
+  const [increment,setIncrement] = useState(1);
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.paragraph}>
+        {counter}
+      </Text>
+      <TextInput value={increment} onChangeText={(num)=>setIncrement(+num)} keyboardType='numeric'/>
+      <Button title="Zählen" onPress={() =>setCounter(counter+increment) }/>
+      <Button title="Um 10 erhöhen" onPress={() =>setCounter(counter+10) }/>
+      <Button title="Auf 0 zurücksetzen" onPress={() =>setCounter(0) }/>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ecf0f1',
+    padding: 8,
+  },
+  paragraph: {
+    margin: 24,
+    fontSize: 128,
+    color: 'orange',
+    textAlign: 'center',
+  },
+});
+  ```
+  </Tabs.Tab>
+</Tabs>
