@@ -158,7 +158,27 @@ Zur Laufzeit wird die Funktion im Prop `renderItem` automatisch für jedes Eleme
 Zu beachten ist auch der Abstand zum oberen Bildschirmrand, den wir mit `paddingTop: 50` im `style`-Objekt festlegen, damit die Liste komplett sichtbar ist.
 
 <Callout type="warning">
-Im Web sind oft Beispiele mit `FlatList` zu finden, bei denen die Komponente `SafeAreaView` zum Einsatz kommt. Hierdurch wird automatisch der Abstand zum oberen Bildschirmrand erzeugt, allerdings **nur für das iPhone und leider nicht auf Android-Geräten** (Stand 10/2023). 
+Im Web sind oft Beispiele mit `FlatList` zu finden, bei denen die Komponente `SafeAreaView` zum Einsatz kommt. Hierdurch wird automatisch der Abstand zum oberen Bildschirmrand erzeugt, allerdings **nur für das iPhone und leider nicht auf Android-Geräten** (Stand Oktober 2024). 
+</Callout>
+
+<Callout type="info">
+Mit dem Package [expo-constants](https://docs.expo.dev/versions/latest/sdk/constants/) kann 
+plattformunabhängig ein Abstand zum oberen Bildschirmrand festgelegt werden:
+
+```bash
+npx expo install expo-constants
+```
+
+```js
+import Constants from 'expo-constants';
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: Constants.statusBarHeight,
+    // Rest bleibt unverändert
+  }
+});
+```
 </Callout>
 
 ## Übung: FlatList in eigener Datei
