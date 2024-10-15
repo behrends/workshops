@@ -90,7 +90,48 @@ function draw() {
 
 ![Vera Molnar](/images/praesi/vera_molnar_squares.png)
 
-Untitled 1974 (Squares) von Vera Molnár (*1924, Pionierin der Computerkunst).
+In Anlehnung an „Untitled 1974 (Squares)“ von Vera Molnár (*1924, Pionierin der Computerkunst).
+
+**Zwischenschritt 1 (nur `draw`, ohne `setup`):**
+
+```js
+function draw() {
+  background("white");
+
+  // 3 Quadrate mit aufsteigender Größe
+  square(width / 2, height / 2, 20);
+
+  square(width / 2, height / 2, 40);
+
+  square(width / 2, height / 2, 60);
+}
+```
+
+**Zwischenschritt 2 (nur `draw`, ohne `setup`):**
+
+```js
+function draw() {
+  background("white");
+
+  // 3 paar Quadrate (aufsteigend groß, „zufälliger“ Versatz)
+  let offsetX = 20;
+  let offsetY = -10;
+  let length = 20;
+  square(width / 2 + offsetX, height / 2 + offsetY, length);
+
+  offsetX = -12;
+  offsetY = 23;
+  length = 40;
+  square(width / 2 + offsetX, height / 2 + offsetY, length);
+
+  offsetX = 5;
+  offsetY = -19;
+  length = 60;
+  square(width / 2 + offsetX, height / 2 + offsetY, length);
+}
+```
+
+**Lösung mit `for`-Schleife und `random`-Werten für `offset`:**
 
 ```js
 // Eine Lösung für "Untitled 1974 (Squares)" von Vera Molnar
@@ -107,11 +148,11 @@ function setup() {
 function draw() {
   background('white') // Farben: RGB, hexadezimale Werte, … möglich
   
-  for(let size = 10; size < 300; size += 10) {
+  for(let length = 10; length < 300; length += 10) {
     let offsetX = random(-maxOffset, maxOffset)
     let offsetY = random(-maxOffset, maxOffset)
   
-    square(width/2 + offsetX, height/2 + offsetY, size)
+    square(width/2 + offsetX, height/2 + offsetY, length)
   }
 }
 ```
@@ -127,9 +168,34 @@ Mit `stroke()` lässt sich die Linienfarbe festlegen
 ⟶ Farbe der Linien (zufällig) ändern, siehe Code-Beispiel:
 
 ```js
-let colors = ['red','white','blue','green','yellow','orange','black']
-let color = random(colors)
+let colors = ['red','white','blue','green','yellow','orange','black'];
+
+// in der Schleife:
+stroke(random(colors));
 ```
+
+<Callout>
+Hier könnten wir auf ChatGPT als „KI-Tutor“ hinweisen:
+
+Kenntnisstand abfragen:
+
+- Wer hat alles einen Zugang zu ChatGPT?
+- Wer von Ihnen nutzt ChatGPT regelmäßig?
+
+In https://chatgpt.com ohne Login zeigen:
+
+- Erkläre mir Funktionen in p5.js 
+- Was bewirkt dieser Code in p5.js:
+  ```js
+  function setup() {
+    createCanvas(400, 400)
+    rectMode(CENTER)
+    noLoop()
+    noFill()
+  }
+  ```
+- Wie kann ich eine Ellipse in p5.js zeichnen? Erkläre mir die Details.
+</Callout>
 
 
 ## p5.js (Teil 2: Memory-Spiel, ca. 55 Minuten)
@@ -144,7 +210,38 @@ https://editor.p5js.org/behrends/sketches/gpnqu4ATk
 Hinweis: Das Memory-Spiel wurde mit Hilfe von GitHub Copilot (basiert auf GPT) entwickelt.
 </Callout>
 
+<Callout>
+Bei Bedarf weitere passende Funktionalitäten in ChatGPT (Plus) zeigen.
+</Callout>
+
 ## MITTAGSPAUSE (ca. 45 Minuten)
+
+## KI-Tools allgemein (ca. 30 Minuten?)
+
+- Perplexity: https://perplexity.ai &rarr; beantwortet Fragen in Kombination mit Websuchen und Angaben von Quellen
+- ChatGPT: https://chatgpt.com &rarr; als Lerntutor und zur Code-Generierung (am Besten in der kostenpflichtigen Version)
+- Es gibt auch gute Alternativen zu ChatGPT, z.B.:
+  - Claude: https://claude.ai
+  - Google's Gemini: https://gemini.google.com
+
+<Callout>
+Vorführung von ChatGPT Plus:
+- 4o: Fragen beantworten, Bilder erkennen und erzeugen, Daten analysieren
+  ```bash
+  Generiere eine Tabelle der 10 größten Länder mit 5 Spalten, die passende Daten enthalten (Fläche, Einwohner, Hauptstadt, usw.)
+
+  Erstelle daraus ein Balkendiagramm
+
+  Gib mir den Python-Code dazu
+  
+  (--> wir führen den Code in Replit aus)
+  ```
+-  mit o1-preview (Reasoning), Canvas
+</Callout>
+
+<Callout type="error" emoji="‼️">
+**ACHTUNG:** Die Ergebnisse von KI-Tools sollten IMMER kritisch hinterfragt werden!
+</Callout>
 
 ## GitHub Copilot (bis zu 90 Minuten)
 
@@ -191,6 +288,10 @@ dokumentiert, sollte es möglich sein, in Copilot das Spiel „Vier Gewinnt“ z
 Die Studierenden werden ausdrücklich darauf hingewiesen, dass sie Copilot nur auf 
 eigene Gefahr und Verantwortung nutzen sollen (Datenschutz, Urheberrecht, usw. 
 im Unternehmen beachten).
+
+Wer im 1. Semester Programmieren von Anfang an lernt, sollte
+Copilot deaktivieren und erst dann nutzen, wenn die Grundlagen 
+beherrscht werden (Variablen, Schleifen, Funktionen, usw.).
 </Callout>
 
 **GitHub Copilot kostenlos für Studierende beantragen:**
@@ -198,7 +299,11 @@ im Unternehmen beachten).
 - 2. Schritt Github Copilot einrichten (u.a. in VS Code) <br/> https://docs.github.com/en/copilot/using-github-copilot/getting-started-with-github-copilot
 - &xrarr; Links jedes Mal checken und in Moodle stellen
 
-**Interessant ist auch [replit.com mit AI](https://replit.com)**. Dies kann auch kurz mit p5.js oder Java/Python gezeigt werden (AI als Chat und zur Code-Generierung).
+<Callout>
+**Interessant ist auch [replit.com mit AI](https://replit.com)**. 
+
+Dies kann auch kurz mit p5.js oder Java/Python gezeigt werden (AI als Chat und zur Code-Generierung).
+</Callout>
 
 ### PAUSE
 

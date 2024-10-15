@@ -188,7 +188,7 @@ function draw() {
 
 ![Vera Molnar](/images/praesi/vera_molnar_squares.png)
 
-Untitled 1974 (Squares) von Vera Molnár (*1924, Pionierin der Computerkunst).
+In Anlehnung an „Untitled 1974 (Squares)“ von Vera Molnár (*1924, Pionierin der Computerkunst).
 
 ```js
 // Eine Lösung für "Untitled 1974 (Squares)" von Vera Molnar
@@ -205,11 +205,11 @@ function setup() {
 function draw() {
   background('white') // Farben: RGB, hexadezimale Werte, … möglich
   
-  for(let size = 10; size < 300; size += 10) {
+  for(let length = 10; length < 300; length += 10) {
     let offsetX = random(-maxOffset, maxOffset)
     let offsetY = random(-maxOffset, maxOffset)
   
-    square(width/2 + offsetX, height/2 + offsetY, size)
+    square(width/2 + offsetX, height/2 + offsetY, length)
   }
 }
 ```
