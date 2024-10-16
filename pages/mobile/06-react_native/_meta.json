@@ -1,6 +1,5 @@
 {
-  "01-todos-list": "Liste mit Todos",
-  "02-state": "Zustand (state)",
+  "01-state": "Zustand (state)",
   "02-todo-input": "Eingabe mit TextInput",
   "03-state": "Zustand (state)",
   "04-storage": "Daten speichern",
