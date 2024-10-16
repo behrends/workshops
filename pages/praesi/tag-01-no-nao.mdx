@@ -1,5 +1,7 @@
 import { Callout } from 'nextra/components';
-import MyIntro from '@/components/my-intro.mdx';
+import MyIntro from '@/components/content/my-intro.mdx';
+import MakecodeArcade from '@/components/content/makecode-arcade.mdx';
+import P5JS from '@/components/content/p5js.mdx';
 
 # 1. Tag: Einstieg (8 Stunden) &mdash; ohne NAO
 
@@ -41,138 +43,11 @@ Sollten Studierende kein Laptop oder Tablet haben, dann könnten
 sie für heute einen Laptop aus Raum A335 erhalten.
 </Callout>
 
-## MakeCode Arcade (bis zu 45 Minuten)
-
-Tutorial „Chase the Pizza“ parallel auf iPad oder zweitem Laptop durchklicken 
-und vorführen zum Mitmachen, siehe https://arcade.makecode.com
-
-Studierende gehen zu makecode.com und starten Arcade
-
-Icons aus Galerie auswählen, Hardware, Konsole Vollbild, Am Ende auf Smartphone laden (Tutorial fertig), andere Tipps/Tricks? 
-
-Aufgabe: Geschwindigkeit ändern, Countdown ändern, stay in screen, second food with higher score, eigene Anpassungen? 
+<MakecodeArcade/>
 
 ## PAUSE
 
-## p5.js (Teil 1: Einführung, ca. 35 Minuten)
-
-<Callout>
-**Spickzettel (cheat sheet) für p5.js:** 
-
-https://bmoren.github.io/p5js-cheat-sheet/de.html
-</Callout>
-
-
-- p5.js-Editor vorstellen: https://editor.p5js.org
-- Play, Stop, Auto Refresh, Edit -> Tidy Code usw.
-- setup, draw, console.log zeigen
-- Koordinationsystem beginnt links oben, Referenz zeigen 
-
-Einfaches Beispiel: 
-
-```js
-function setup() {
-  createCanvas(400, 400)
-  rectMode(CENTER) // Rechtecke ausgehend von ihrer Mitte zeichnen
-  noFill() // Rechtecke nicht farbig ausfüllen
-  noLoop() // Programm nur einmal ausführen
-}
-
-function draw() {
-  background('white')  // Farben: RGB, hexadezimale Werte, … möglich
-  
-  square(100, 120, 50) // kleines Quadrat oben links
-  square(width/2, height/2, 200) // größeres Quadrat unten rechts
-}
-```
-
-**Generatives oder Creative Coding:**
-
-![Vera Molnar](/images/praesi/vera_molnar_squares.png)
-
-In Anlehnung an „Untitled 1974 (Squares)“ von Vera Molnár (*1924, Pionierin der Computerkunst).
-
-**Zwischenschritt 1 (nur `draw`, ohne `setup`):**
-
-```js
-function draw() {
-  background("white");
-
-  // 3 Quadrate mit aufsteigender Größe
-  square(width / 2, height / 2, 20);
-
-  square(width / 2, height / 2, 40);
-
-  square(width / 2, height / 2, 60);
-}
-```
-
-**Zwischenschritt 2 (nur `draw`, ohne `setup`):**
-
-```js
-function draw() {
-  background("white");
-
-  // 3 paar Quadrate (aufsteigend groß, „zufälliger“ Versatz)
-  let offsetX = 20;
-  let offsetY = -10;
-  let length = 20;
-  square(width / 2 + offsetX, height / 2 + offsetY, length);
-
-  offsetX = -12;
-  offsetY = 23;
-  length = 40;
-  square(width / 2 + offsetX, height / 2 + offsetY, length);
-
-  offsetX = 5;
-  offsetY = -19;
-  length = 60;
-  square(width / 2 + offsetX, height / 2 + offsetY, length);
-}
-```
-
-**Lösung mit `for`-Schleife und `random`-Werten für `offset`:**
-
-```js
-// Eine Lösung für "Untitled 1974 (Squares)" von Vera Molnar
-// maximaler Abstand zwischen den Rechtecken
-const maxOffset = 30
-  
-function setup() {
-  createCanvas(400, 400)
-  rectMode(CENTER)
-  noLoop()
-  noFill()
-}
-  
-function draw() {
-  background('white') // Farben: RGB, hexadezimale Werte, … möglich
-  
-  for(let length = 10; length < 300; length += 10) {
-    let offsetX = random(-maxOffset, maxOffset)
-    let offsetY = random(-maxOffset, maxOffset)
-  
-    square(width/2 + offsetX, height/2 + offsetY, length)
-  }
-}
-```
-
-
-### Aufgaben zum Experimentieren
-
-⟶ Mit `circle()` Kreise statt Quadrate erstellen
-
-Mit `stroke()` lässt sich die Linienfarbe festlegen 
-(siehe https://p5js.org/reference/#/p5/stroke)
-
-⟶ Farbe der Linien (zufällig) ändern, siehe Code-Beispiel:
-
-```js
-let colors = ['red','white','blue','green','yellow','orange','black'];
-
-// in der Schleife:
-stroke(random(colors));
-```
+<P5JS/>
 
 <Callout>
 Hier könnten wir auf ChatGPT als „KI-Tutor“ hinweisen:
