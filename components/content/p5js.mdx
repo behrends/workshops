@@ -18,17 +18,17 @@ Einfaches Beispiel:
 
 ```js
 function setup() {
-  createCanvas(400, 400)
-  rectMode(CENTER) // Rechtecke ausgehend von ihrer Mitte zeichnen
-  noFill() // Rechtecke nicht farbig ausfüllen
-  noLoop() // Programm nur einmal ausführen
+  createCanvas(400, 400);
+  rectMode(CENTER); // Rechtecke ausgehend von ihrer Mitte zeichnen
+  noFill(); // Rechtecke nicht farbig ausfüllen
+  noLoop(); // Programm nur einmal ausführen
 }
 
 function draw() {
-  background('white')  // Farben: RGB, hexadezimale Werte, … möglich
+  background('white');  // Farben: RGB, hexadezimale Werte, … möglich
   
-  square(100, 120, 50) // kleines Quadrat oben links
-  square(width/2, height/2, 200) // größeres Quadrat unten rechts
+  square(100, 120, 50); // kleines Quadrat oben links
+  square(width/2, height/2, 200); // größeres Quadrat unten rechts
 }
 ```
 
@@ -81,24 +81,21 @@ function draw() {
 
 ```js
 // Eine Lösung für "Untitled 1974 (Squares)" von Vera Molnar
-// maximaler Abstand zwischen den Rechtecken
-const maxOffset = 30
-  
 function setup() {
-  createCanvas(400, 400)
-  rectMode(CENTER)
-  noLoop()
-  noFill()
+  createCanvas(400, 400);
+  rectMode(CENTER);
+  noLoop();
+  noFill();
 }
   
 function draw() {
-  background('white') // Farben: RGB, hexadezimale Werte, … möglich
+  background('white'); // Farben: RGB, hexadezimale Werte, … möglich
   
   for(let length = 10; length < 300; length += 10) {
-    let offsetX = random(-maxOffset, maxOffset)
-    let offsetY = random(-maxOffset, maxOffset)
+    let offsetX = random(-30, 30);
+    let offsetY = random(-30, 30);
   
-    square(width/2 + offsetX, height/2 + offsetY, length)
+    square(width/2 + offsetX, height/2 + offsetY, length);
   }
 }
 ```
