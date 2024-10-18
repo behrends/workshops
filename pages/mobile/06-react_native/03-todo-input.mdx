@@ -13,9 +13,10 @@ import { Callout, Tabs } from 'nextra/components';
 
 ## `TextInput` für neue Todos einbinden  
 
-Mit `TextInput` gibt es in React Native eine Komponente für die Eingabe von Text. 
-Ein `TextInput` soll oberhalb der Todo-Liste erscheinen, was wir in `App.js` 
-umsetzen werden. Mit dem Prop `placeholder` kann das Eingabefeld beschriftet werden.
+Mit [`TextInput`](https://reactnative.dev/docs/textinput) gibt es in 
+React Native eine Komponente für die Eingabe von Text. Ein `TextInput` 
+soll im `Alert`-Dialog dargestellt werden. Mit dem Prop `placeholder` 
+kann das Eingabefeld beschriftet werden.
 
 ```jsx
 // App.js: TextInput importieren
@@ -216,3 +217,117 @@ const styles = StyleSheet.create({
   },
 });
 ```
+
+## Zustand im `TextInput`
+
+Wir benötigen nun `state` in der Komponente `NewTodo`, damit wir uns
+die Eingabe eines neuen Todos im `TextInput` im Zustand „merken“ können.
+
+### Importieren des Hooks `useState`
+
+Zunächst importieren wir den Hooks `useState` aus `react`:
+
+```jsx
+import { useState } from 'react'; // <-- import aus react!
+import { Button, StyleSheet, TextInput, View } from 'react-native';
+
+// Der Rest bleibt gleich
+```
+
+Der Hook `useState` steht uns nun zur Verfügung und wir können ihn
+in der Komponente `NewTodo` verwenden.
+
+### Aufruf des Hooks `useState` zur Initialisierung des `state`
+
+Um den `state` zu initialisieren und eine Funktion zum Ändern des 
+`state` zu erhalten, fügen wir der Komponente `NewTodo` folgenden Code
+hinzu:
+
+```jsx
+import { useState } from 'react';
+import { Button, StyleSheet, TextInput, View } from 'react-native';
+
+export default function NewTodo() {
+  const [todo, setTodo] = useState(''); // <-- state mit '' initialisieren
+
+  // Der Rest bleibt gleich
+}  
+```
+
+Für die Intitialisierung des `state` rufen wir `useState` auf und
+übergeben den initialen Wert des `state` als Argument. Für den initialen
+Zustand können wir jeden Wert verwenden, den wir wollen. In unserem Fall
+ist der initiale Wert ein leerer String (ein „leeres“ Todo).
+
+`useState` gibt uns ein Array mit zwei Elementen zurück. Das erste 
+Element ist die `state`-Variable mit dem aktuellen Wert des `state` 
+(zunächst der leere String aufgrund der Intitialisierung) und das zweite 
+Element ist eine Funktion, mit der wir den `state` ändern können 
+(„update function“). Diese Funktion heißt in unserem Fall `setTodo` 
+&mdash; wir hätten die Funktion und die `state`-Variabel auch anders 
+nennen können, aber diese Art der Benennung ist üblich. Durch eine
+Dekonstruktion des Arrays können wir die beiden Elemente direkt in
+eine Variable und eine Funktion destrukturieren:
+
+```jsx
+const [todo, setTodo] = useState('');
+```
+
+<Callout type="info">
+**Live Coding:** Eventuell die Destrukturierung des Arrays erklären.
+
+Im Videokurs wird dies alles ausführlich gezeigt.
+</Callout>
+
+### Verwendung des `state`
+
+Wir haben nun den `state` initialisiert und eine Funktion zum Ändern
+des `state` erhalten. Nun können wir den `state` in der Komponente
+verwenden. Dazu ersetzen wir den bisherigen Wert des `TextInput` durch
+den `state`:
+
+```jsx
+export default function NewTodo() {
+  const [todo, setTodo] = useState('');
+
+  return (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Neues Todo"
+        value={todo} // <-- Verwendung des state
+        onChangeText={setTodo} // <-- Verwendung der update function
+      />
+      <Button title="Speichern" onPress={() => alert(todo)} />
+    </View>
+  );
+}
+```
+
+Wir verwenden den `state` nun als Wert des `TextInput` und die
+`setTodo`-Funktion als `onChangeText`-Handler. Wenn wir nun etwas in
+das `TextInput` eingeben, dann wird der `state` aktualisiert und das
+`TextInput` zeigt den aktuellen Wert des `state` an.
+
+Außerdem haben wir den Aufruf von `alert` beim `Button` angepasst,
+um den aktuellen Wert des `state` in der `state`-Variable anzuzeigen.
+
+<Callout type="info">
+Jede Änderung des `state` führt zu einer Neudarstellung der Komponente,
+d.h. die Komponente wird neu „gerendert“. Dies geschieht automatisch und
+muss nicht von uns programmiert werden.
+</Callout>
+
+<Callout type="error" emoji="‼️">
+**Achtung:** Die Änderung des `state` erfolgt **immer** mit der
+Änderungsfunktion (bei uns `setTodo`). Wenn wir den `state` direkt 
+durch eine Zuweisung ändern (z.B. `todo = 'wrong!!!'`), dann wird 
+die Komponente nicht neu gerendert und der `state` wird nicht aktualisiert.
+
+Der `state` ist immer privat und gehört zu einer Komponente.
+Wenn wir den `state` in einer anderen Komponente verwenden wollen, dann  
+müssen wir den `state` in die übergeordnete Komponente verschieben und
+von dort an die untergeordnete Komponente weitergeben. Dies geschieht
+mit `props`, die wir in der übergeordneten Komponente an die untergeordnete
+Komponente übergeben.
+</Callout>

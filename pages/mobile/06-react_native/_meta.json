@@ -1,7 +1,7 @@
 {
   "01-state": "Zustand (state)",
-  "02-todo-input": "Eingabe mit TextInput",
-  "03-state": "Zustand (state)",
+  "02-buttons-alert": "Buttons und Alert",
+  "03-todo-input": "Eingabe mit TextInput",
   "04-storage": "Daten speichern",
   "05-next-steps": "Nächste Schritte"
 }

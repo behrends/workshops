@@ -1,0 +1,194 @@
+import { Callout, Tabs } from 'nextra/components';
+
+# Buttons und Alert
+
+<Callout>
+  **Dauer:** 30 Minuten 
+
+  - `Button` für neues Todo hinzufügen
+  - Alert-Dialog für die Eingabe
+  - FAB (Floating Action Button) für neues Todo
+
+</Callout>
+
+## `Button` für neues Todo hinzufügen
+
+Mit der [`Button`-Komponente](https://reactnative.dev/docs/button) 
+von React Native erhalten wir eine einfache Möglichkeit, um Buttons zu
+erstellen. Im Vergleich zu `Pressable` ist `Button` weniger flexibel, 
+dafür aber einfacher zu verwenden. 
+
+Wir fügen einen Button unterhalb der Todo-Liste hinzu. Zusätzlich
+ersetzen wir `View` mit `SafeAreaView`, um den Button innerhalb des 
+sichtbaren Bereichs auf iPhones zu platzieren. Dies erzeugt etwas 
+Abstand unterhalb des Buttons und hat keine Auswirkung in Android.
+
+```jsx
+// App.js: Button und SafeAreaView importieren
+import { Button, SafeAreaView, StyleSheet } from 'react-native';
+// Rest bleibt gleich
+
+export default function App() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <TodoList todos={todos} />
+      <Button
+        title="Todo hinzufügen"
+        onPress={() => alert('Neues TODO!')}
+      />
+      <StatusBar style="auto" />
+    </SafeAreaView>
+  );
+}
+
+// Styles bleiben gleich
+```
+
+Beim Antippen des Buttons wird ein einfacher Alert-Dialog angezeigt. 
+Diesen ersetzen wir im nächsten Schritt durch einen eigenen Dialog.
+
+## Alert-Dialog für die Eingabe
+
+[`Alert`](https://reactnative.dev/docs/alert) ist eine API (keine 
+Komponente!) in React Native, mit der wir einen anpassbaren Dialog
+anzeigen können. Wir ersetzen den bisherigen `alert`-Aufruf durch 
+einen Dialog, in der ein neues Todo eingegeben werden kann.
+
+```jsx
+// App.js: Alert importieren
+import { Alert, Button, SafeAreaView, StyleSheet } from 'react-native';
+// Rest bleibt gleich
+
+export default function App() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <TodoList todos={todos} />
+      <Button
+        title="Todo hinzufügen"
+        onPress={() =>
+          Alert.alert('Neues Todo', 'Todo erstellen', [
+            {
+              text: 'Abbrechen',
+              onPress: () => console.log('Abbrechen gedrückt'),
+              style: 'cancel',
+            },
+            {
+              text: 'Speichern',
+              onPress: () => console.log('Speichern gedrückt'),
+            },
+          ])
+        }
+      />
+      <StatusBar style="auto" />
+    </SafeAreaView>
+  );
+}
+
+// Styles bleiben gleich
+```
+
+Die beiden Buttons `Abbrechen` und `Speichern` haben jeweils eine
+`onPress`-Funktion, die beim Antippen ausgeführt wird. In unserem Fall
+geben wir nur eine Meldung in der Konsole aus. Die tatsächliche Eingabe 
+des Todos werden wir auf der nächsten Seite umsetzen.
+
+Zuvor fügen wir noch einen FAB (Floating Action Button) hinzu, der
+den Button für das Öffnen des Alert-Dialogs ersetzt.
+
+## FAB (Floating Action Button) für neues Todo
+
+Wie in den beiden Apps für Flutter und Android wollen wir auch in React
+Native einen FAB hinzufügen.
+
+Es gibt zwar keine spezielle Komponente für einen FAB in React Native,
+aber wir können eine einfache FAB-Komponente selbst erstellen. Dazu
+verwenden wir Standardkomponenten wie z.B. `Pressable` aus React Native:
+
+```jsx
+// components/FAB.jsx
+import { StyleSheet, Pressable, View, Text } from 'react-native';
+
+export default function FAB({ onPress }) {
+  return (
+    <View style={styles.container}>
+      <Pressable
+        onPress={onPress}
+        style={({ pressed }) => [
+          styles.fab,
+          { backgroundColor: pressed ? '#0288D1' : '#03A9F4' },
+        ]}
+      >
+        <Text style={styles.fabText}>+</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+  },
+  fab: {
+    backgroundColor: '#03A9F4',
+    width: 56,
+    height: 56,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  fabText: {
+    color: 'white',
+    fontSize: 24,
+  },
+});
+```
+
+FAB in `App.js` einbinden:
+
+```jsx
+import { Alert, SafeAreaView, StyleSheet } from 'react-native';
+import FAB from './components/FAB';
+// Rest bleibt gleich
+
+export default function App() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <TodoList todos={todos} />
+      <FAB
+        onPress={() =>
+          Alert.alert('Neues Todo', 'Todo erstellen', [
+            {
+              text: 'Abbrechen',
+              onPress: () => console.log('Abbrechen gedrückt'),
+              style: 'cancel',
+            },
+            {
+              text: 'Speichern',
+              onPress: () => console.log('Speichern gedrückt'),
+            },
+          ])
+        }
+      />
+      <StatusBar style="auto" />
+    </SafeAreaView>
+  );
+}
+
+// Styles bleiben gleich
+```
+
+Wir verwenden ein einfaches `+` als Text im FAB. In Expo gibt es 
+eine umfangreiche Sammlung von Icons: 
+
+- Dokumentation: https://docs.expo.dev/guides/icons/
+- Liste der verfügbaren Icons: https://icons.expo.fyi/
+
+Sicherlich finden sich auch im Web komplette FAB-Komponenten als 
+Open Source Pakete, die mit npm installiert werden können. 

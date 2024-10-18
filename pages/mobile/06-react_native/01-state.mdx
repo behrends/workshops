@@ -90,8 +90,9 @@ Videokurs.
 ## Zustand in React Native
 
 Bisher haben wir mit `props` gesehen, wie Komponenten mit 
-Eigenschaften zur Laufzeit konfiguriert werden können. Dabei sind 
-die Eigenschaften bzw. `props` unveränderlich.
+Eigenschaften zur Laufzeit konfiguriert werden können. Dabei können 
+die Eigenschaften bzw. `props` nicht innerhalb einer Komponente
+verändert oder neu zugewiesen werden, d.h. sie sind „_read only_“.
 
 Wenn sich nun eine Komponente im Laufe der Zeit verändern soll,
 dann brauchen wir dafür eine andere Möglichkeit. Diese Möglichkeit
@@ -99,9 +100,9 @@ ist der Zustand bzw. `state`.
 
 Bei der Verwendung von `state` gibt es zwei Dinge zu beachten:
 
-- `state` ist immer privat und gehört zu einer Komponente
-- `state` kann sich im Laufe der Zeit verändern
-- `state` wird ausschließlich mit einer zugehörigen Änderungsfunktion aktualisiert
+- `state` gehört zu genau einer Komponente (und ist sozusagen „privat“). 
+- `state` kann sich im Laufe der Zeit verändern.
+- `state` wird ausschließlich mit einer zugehörigen Änderungsfunktion aktualisiert.
 
 Wenn sich der `state` einer Komponente verändert, dann wird die
 Komponente neu gerendert. Dies geschieht automatisch und muss nicht
@@ -114,8 +115,8 @@ Für den `state` gibt es den Hook `useState`.
 
 <Callout type="info">
 Hooks sind ein Konzept in React Native (und React), das es uns erlaubt,
-Komponenten mit bestimmten Verhalten zu versehen. Hooks sind Funktionen,
-die mit `use` beginnen. 
+Komponenten mit bestimmtem Verhalten zu versehen. Hooks sind Funktionen,
+deren Name mit `use` beginnt. 
 
 Neben `useState` gibt es noch weitere Hooks und es ist auch möglich,
 eigene Hooks zu schreiben.
@@ -177,9 +178,9 @@ Element ist die `state`-Variable mit dem aktuellen Wert des `state`
 (zunächst `false` aufgrund der Initialisierung) und das zweite 
 Element ist eine Funktion, mit der wir den `state` ändern können 
 („update function“). Diese Funktion heißt in unserem Fall `setDone` 
-&mdash; wir hätten die Funktion und die `state`-Variabel auch anders 
-nennen können, aber diese Art der Benennung ist üblich. Durch eine
-Dekonstruktion des Arrays können wir die beiden Elemente direkt in
+&mdash; wir können die Funktion und die `state`-Variable beliebig 
+bezeichnen, aber diese Art der Benennung mit `set` ist üblich. Durch 
+eine Dekonstruktion des Arrays können wir die beiden Elemente direkt in
 eine Variable und eine Funktion destrukturieren:
 
 ```jsx
@@ -233,11 +234,11 @@ durch eine Zuweisung ändern (z.B. `done = 'wrong!!!'`), dann wird
 die Komponente nicht neu gerendert und der `state` wird nicht aktualisiert.
 
 Der `state` ist immer privat und gehört zu einer Komponente.
-Wenn wir den `state` in einer anderen Komponente verwenden wollen, dann  
-müssen wir den `state` in die übergeordnete Komponente verschieben und
-von dort an die untergeordnete Komponente weitergeben. Dies geschieht
-mit `props`, die wir in der übergeordneten Komponente an die untergeordnete
-Komponente übergeben.
+Wenn wir den `state` in einer anderen Komponente verwenden wollen, 
+dann müssen wir den `state` in die übergeordnete Komponente verschieben 
+und von dort an die untergeordnete Komponente weitergeben. Dies geschieht
+mit `props`, die wir in der übergeordneten Komponente an die 
+untergeordnete Komponente übergeben.
 </Callout>
 
 ## Todo-Text antippbar mit Style passend zum Zustand
@@ -259,16 +260,16 @@ export default function Todo({ children }) {
     ? { textDecorationLine: 'line-through' }
     : {}; // <-- Styling abhängig vom state
   return (
-    <View style={styles.container}>
-      <Checkbox
-        style={styles.checkbox}
-        value={done} // <-- Verwendung des state
-        onValueChange={setDone} // <-- Verwendung der update function
-      />
-      <Pressable onPress={() => setDone(!done)}>
+    <Pressable onPress={() => setDone(!done)}>
+      <View style={styles.container}>
+        <Checkbox
+          style={styles.checkbox}
+          value={done} // <-- Verwendung des state
+          onValueChange={setDone} // <-- Verwendung der update function
+        />
         <Text style={[styles.todoText, doneStyle]}>{children}</Text>
-      </Pressable>
-    </View>
+      </View>
+    </Pressable>
   );
 }
 ```
