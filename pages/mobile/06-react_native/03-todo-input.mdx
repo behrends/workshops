@@ -3,36 +3,53 @@ import { Callout, Tabs } from 'nextra/components';
 # Eingabe mit TextInput
 
 <Callout>
-  **Dauer:** 30 Minuten (abhängig von Zeit für Flexbox)
+  **Dauer:** 45 Minuten (abhängig von Zeit für Flexbox)
 
   - `TextInput` für neue Todos einbinden  
   - `TextInput` stylen
-  - `Button` zum Speichern hinzufügen
-  - Flexbox mit horizontaler Ausrichtung
+  - Zustand im `TextInput`
 </Callout>
 
 ## `TextInput` für neue Todos einbinden  
 
 Mit [`TextInput`](https://reactnative.dev/docs/textinput) gibt es in 
 React Native eine Komponente für die Eingabe von Text. Ein `TextInput` 
-soll im `Alert`-Dialog dargestellt werden. Mit dem Prop `placeholder` 
+soll im `Modal` werden. Mit dem Prop `placeholder` 
 kann das Eingabefeld beschriftet werden.
 
 ```jsx
-// App.js: TextInput importieren
-import { StyleSheet, TextInput, View } from 'react-native';
-
+// components/TodoModal.js: TextInput importieren
+import {
+  Button,
+  Modal,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 // der restliche Code bleibt gleich
 
-export default function App() {
+export default function TodoModal({ visible, onCancel }) {
   return (
-    <View style={styles.container}>
-      <TextInput placeholder="Todo eingeben" />
-      <TodoList todos={todos} />
-      <StatusBar style="auto" />
-    </View>
+    <Modal
+      animationType="slide"
+      visible={visible}
+      onRequestClose={onCancel}
+    >
+      <View style={styles.container}>
+        <View style={styles.content}>
+          <Text style={styles.text}>Todo hinzufügen</Text>
+          <TextInput placeholder="Todo eingeben" />
+          <View style={styles.buttons}>
+            <Button title="Abbrechen" onPress={onCancel} />
+            <Button title="Speichern" onPress={() => {}} />
+          </View>
+        </View>
+      </View>
+    </Modal>
   );
 }
+
 ```
 
 ## `TextInput` stylen
@@ -41,15 +58,10 @@ Damit `TextInput` besser sichtbar und bedienbar ist, ergänzen wir diesen mit ei
 
 ```jsx
 // der restliche Code bleibt gleich
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <TextInput style={styles.input} placeholder="Todo eingeben" />
-      <TodoList todos={todos} />
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+<TextInput
+  style={styles.input}
+  placeholder="Todo eingeben"
+/>
 
 const styles = StyleSheet.create({
   // die restlichen Styles bleiben gleich
@@ -65,269 +77,111 @@ const styles = StyleSheet.create({
 });
 ```
 
-## `Button` zum Speichern hinzufügen
+## Zustand im `TextInput`
 
-Die Komponente `Button` aus React Native erstellt einen Standard-`Button` für jede Plattform. In Android erscheint dieser als blaue Fläche mit Großbuchstaben und auf dem iPhone als blauer Text:
-
-![Button auf Android und iOS](/images/mobile/reactnative/button-android-ios.png)
-
-Als Props sind `title` und `onPress` zu definieren. In `onPress` wird eine Funktion definiert, die beim Antippen des `Button`s ausgeführt wird:
+Um den eingegebenen Text im `TextInput` zu speichern, benötigen wir `state`.
 
 ```jsx
-import { Button, StyleSheet, TextInput, View } from 'react-native';
-
+// components/TodoModal.js: useState importieren
+import { useState } from 'react';
 // der restliche Code bleibt gleich
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <TextInput style={styles.input} placeholder="Todo eingeben" />
-      <Button title="Speichern" onPress={() => alert('OK')} />
-      <TodoList todos={todos} />
-      <StatusBar style="auto" />
-    </View>
-  );
+
+// state deklarieren
+export default function TodoModal({ visible, onCancel }) {
+  const [todo, setTodo] = useState('');
+
+  // der restliche Code bleibt gleich
+
+  // state im TextInput verwenden:
+  <TextInput
+    style={styles.input}
+    placeholder="Todo eingeben"
+    value={todo}
+    onChangeText={setTodo}
+  />
 }
 ```
 
-Die kurze Funktionsdeklaration `() => alert('OK')` ist oft hilfreich, um den `Button` zu testen.
+Nun wird der eingegebene Text im `TextInput` im `state` gespeichert.
 
-<Callout>
-Mit [Pressable](https://reactnative.dev/docs/pressable) gibt es in React Native eine flexibel konfigurierbare Komponente, mit der beliebige Komponenten zu „antippbaren“ (_pressable_) Bereichen in der App werden.
-</Callout>
+## Todo der Liste hinzufügen
 
-## Flexbox mit horizontaler Ausrichtung
+Nun implementieren wir das Verhalten des
+„Speichern“-Buttons im `TodoModal`.
 
-Das Eingabefeld und der Knopf sollen nun nebeneinander angezeigt werden:
-
-![Horizontale Ausrichtung Input Button](/images/mobile/reactnative/new-todo-flex.png)
-
-Dazu müssen wir `TextInput` und `Button` mit einer `View`-Komponente umgeben, 
-die ein horizontales Flexbox-Layout definiert:
+Wie erweitern `TodoModal` mit einem Prop `onSave`, der den Callback für das Speichern des Todos von der Elternkomponente erhalten wird:
 
 ```jsx
-// der restliche Code bleibt gleich
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <View style={styles.newTodo}>
-        <TextInput style={styles.input} placeholder="Todo eingeben" />
-        <Button title="Speichern" onPress={() => alert('OK')} />
-      </View>
-      <TodoList todos={todos} />
-      <StatusBar style="auto" />
-    </View>
-  );
+export default function TodoModal({ visible, onCancel, onSave }) {
+// usw.
 }
-
-const styles = StyleSheet.create({
-  // die restlichen Styles bleiben gleich
-  input: {
-    borderWidth: 1,
-    borderColor: 'orange',
-    borderRadius: 5,
-    fontSize: 24,
-    padding: 10,
-    marginLeft: 10,
-    flex: 1, // <-- hier stand vorher width: '90%'
-  },
-  newTodo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 10,
-  },
-});
 ```
 
-<Callout type="info">
-Flexbox ist ein eigenes Thema, welches aus CSS stammt und in React Native übernommen wurde. Dazu gibt es einen eigenen Abschnitt im Videokurs.
-
-Bei Bedarf kann dies spontan oder später in einer kleineren Gruppe am Whiteboard und einer eigenen Beispiel-App mit einfachen, farbigen `View`-Komponenten erklärt werden.
-</Callout>
-
-## Eigene Komponente für Todo-Eingabe
-
-In der Datei `components/NewTodo.jsx` soll die Komponente für die Eingabe von Todos
-definiert werden:
+Danach wird der `onSave`-Prop im `Button`-Element des Modals verwendet:
 
 ```jsx
-// components/NewTodo.jsx
-import { Button, StyleSheet, TextInput, View } from 'react-native';
-
-export default function NewTodo() {
-  return (
-    <View style={styles.newTodo}>
-      <TextInput style={styles.input} placeholder="Todo eingeben" />
-      <Button title="Speichern" onPress={() => alert('OK')} />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  input: {
-    borderWidth: 1,
-    borderColor: 'orange',
-    borderRadius: 5,
-    fontSize: 24,
-    padding: 10,
-    marginLeft: 10,
-    flex: 1,
-  },
-  newTodo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 10,
-  },
-});
+<Button title="Speichern" onPress={() => onSave(todo)} />
 ```
 
-Dazu sind Anpassungen in `App.js` nötig:
+`onSave` wird mit dem aktuell im `TextInput` gespeicherten Text aufgerufen, der sich im 
+Zustand bzw. `state` mit Namen `todo` befindet.
+
+In der Elternkomponente `App` müssen wir 
+drei Anpassungen vornehmen:
+
+- `todos` in `data` umbenennen, weil wir den Namen `todos` gleich an anderer Stelle benötigen:
 
 ```jsx
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-
-import NewTodo from './components/NewTodo';
-import TodoList from './components/TodoList';
-
-const todos = [
+const data = [
   { id: 1, text: 'Einkaufen' },
   { id: 2, text: 'Sport' },
   { id: 3, text: 'React Native lernen' },
 ];
+```
 
+- Am Anfang von `App` einen neuen State `todos` mit `data` initialisieren:
+
+```jsx
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <NewTodo />
-      <TodoList todos={todos} />
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 50,
-  },
-});
-```
-
-## Zustand im `TextInput`
-
-Wir benötigen nun `state` in der Komponente `NewTodo`, damit wir uns
-die Eingabe eines neuen Todos im `TextInput` im Zustand „merken“ können.
-
-### Importieren des Hooks `useState`
-
-Zunächst importieren wir den Hooks `useState` aus `react`:
-
-```jsx
-import { useState } from 'react'; // <-- import aus react!
-import { Button, StyleSheet, TextInput, View } from 'react-native';
-
-// Der Rest bleibt gleich
-```
-
-Der Hook `useState` steht uns nun zur Verfügung und wir können ihn
-in der Komponente `NewTodo` verwenden.
-
-### Aufruf des Hooks `useState` zur Initialisierung des `state`
-
-Um den `state` zu initialisieren und eine Funktion zum Ändern des 
-`state` zu erhalten, fügen wir der Komponente `NewTodo` folgenden Code
-hinzu:
-
-```jsx
-import { useState } from 'react';
-import { Button, StyleSheet, TextInput, View } from 'react-native';
-
-export default function NewTodo() {
-  const [todo, setTodo] = useState(''); // <-- state mit '' initialisieren
-
-  // Der Rest bleibt gleich
-}  
-```
-
-Für die Intitialisierung des `state` rufen wir `useState` auf und
-übergeben den initialen Wert des `state` als Argument. Für den initialen
-Zustand können wir jeden Wert verwenden, den wir wollen. In unserem Fall
-ist der initiale Wert ein leerer String (ein „leeres“ Todo).
-
-`useState` gibt uns ein Array mit zwei Elementen zurück. Das erste 
-Element ist die `state`-Variable mit dem aktuellen Wert des `state` 
-(zunächst der leere String aufgrund der Intitialisierung) und das zweite 
-Element ist eine Funktion, mit der wir den `state` ändern können 
-(„update function“). Diese Funktion heißt in unserem Fall `setTodo` 
-&mdash; wir hätten die Funktion und die `state`-Variabel auch anders 
-nennen können, aber diese Art der Benennung ist üblich. Durch eine
-Dekonstruktion des Arrays können wir die beiden Elemente direkt in
-eine Variable und eine Funktion destrukturieren:
-
-```jsx
-const [todo, setTodo] = useState('');
-```
-
-<Callout type="info">
-**Live Coding:** Eventuell die Destrukturierung des Arrays erklären.
-
-Im Videokurs wird dies alles ausführlich gezeigt.
-</Callout>
-
-### Verwendung des `state`
-
-Wir haben nun den `state` initialisiert und eine Funktion zum Ändern
-des `state` erhalten. Nun können wir den `state` in der Komponente
-verwenden. Dazu ersetzen wir den bisherigen Wert des `TextInput` durch
-den `state`:
-
-```jsx
-export default function NewTodo() {
-  const [todo, setTodo] = useState('');
-
-  return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Neues Todo"
-        value={todo} // <-- Verwendung des state
-        onChangeText={setTodo} // <-- Verwendung der update function
-      />
-      <Button title="Speichern" onPress={() => alert(todo)} />
-    </View>
-  );
+  const [modalVisible, setModalVisible] = useState(false);
+  const [todos, setTodos] = useState(data);
+  // usw.
 }
 ```
 
-Wir verwenden den `state` nun als Wert des `TextInput` und die
-`setTodo`-Funktion als `onChangeText`-Handler. Wenn wir nun etwas in
-das `TextInput` eingeben, dann wird der `state` aktualisiert und das
-`TextInput` zeigt den aktuellen Wert des `state` an.
+Der state `todos` wird an `TodoList` übergeben: 
 
-Außerdem haben wir den Aufruf von `alert` beim `Button` angepasst,
-um den aktuellen Wert des `state` in der `state`-Variable anzuzeigen.
+```jsx
+<TodoList todos={todos} />
+```
+
+- den prop `onSave` für `TodoModal` als Funktion implementieren, die ein neues Todo in den State `todos` hinzufügt:
+
+```jsx
+<TodoModal
+  visible={modalVisible}
+  onCancel={() => setModalVisible(false)}
+  onSave={(todo) => {
+    setTodos([...todos, { text: todo, id: todos.length + 1 }]);
+    setModalVisible(false);
+  }}
+/>
+```
 
 <Callout type="info">
-Jede Änderung des `state` führt zu einer Neudarstellung der Komponente,
-d.h. die Komponente wird neu „gerendert“. Dies geschieht automatisch und
-muss nicht von uns programmiert werden.
+In React Native kommt es häufig vor, dass wir einen `state` in 
+einem Eltern-Element verwalten und diesen dann an ein Kind-Element
+übergeben. Das Kind-Element kann dann den `state` nicht verändern,
+sondern muss den Eltern-Element mitteilen, dass sich etwas geändert hat.
+Dies geschieht über eine Funktion, die wir dem Kind-Element als Prop übergeben
+(siehe oben im `onSave`-Prop).
 </Callout>
 
-<Callout type="error" emoji="‼️">
-**Achtung:** Die Änderung des `state` erfolgt **immer** mit der
-Änderungsfunktion (bei uns `setTodo`). Wenn wir den `state` direkt 
-durch eine Zuweisung ändern (z.B. `todo = 'wrong!!!'`), dann wird 
-die Komponente nicht neu gerendert und der `state` wird nicht aktualisiert.
+Nun sollte ein neues Todo im Modal eingegeben und mit „Speichern“ hinzugefügt werden können.
 
-Der `state` ist immer privat und gehört zu einer Komponente.
-Wenn wir den `state` in einer anderen Komponente verwenden wollen, dann  
-müssen wir den `state` in die übergeordnete Komponente verschieben und
-von dort an die untergeordnete Komponente weitergeben. Dies geschieht
-mit `props`, die wir in der übergeordneten Komponente an die untergeordnete
-Komponente übergeben.
-</Callout>
+## Weitere Aufgaben
+
+- `TextInput`-Feld nach erfolgtem Speichern oder Abbrechen leeren
+- Validierung der Eingabe (leeren String vermeiden, Whitespace mit `trim` entfernen, …)
+- `TextInput` mit `returnKeyType` versehen, damit die Eingabe mit der „Return“-Taste abgeschlossen werden kann
+

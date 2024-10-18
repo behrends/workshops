@@ -1,7 +1,6 @@
 {
   "01-state": "Zustand (state)",
-  "02-buttons-alert": "Buttons und Alert",
+  "02-buttons-modal": "Buttons und Modal",
   "03-todo-input": "Eingabe mit TextInput",
-  "04-storage": "Daten speichern",
-  "05-next-steps": "Nächste Schritte"
+  "04-next-steps": "Nächste Schritte"
 }
