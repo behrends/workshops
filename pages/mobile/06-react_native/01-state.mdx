@@ -156,7 +156,7 @@ Um den `state` zu initialisieren und eine Funktion zum Ändern des
 `state` zu erhalten, fügen wir der Komponente `Todo` folgenden Code
 hinzu:
 
-```jsx
+```jsx /useState/
 import { useState } from 'react'; // <-- import aus react!
 import { StyleSheet, Text, View } from 'react-native';
 import Checkbox from 'expo-checkbox';
@@ -200,7 +200,7 @@ des `state` erhalten. Nun können wir den `state` in der Komponente
 verwenden. Dazu definieren wir die Props `value` 
 und `onValueChange` der `Checkbox` passend zum `state`:
 
-```jsx
+```jsx /done/ /setDone/
 export default function Todo({ children }) {
   const [done, setDone] = useState(false); // <-- state mit false initialisieren
 

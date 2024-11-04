@@ -28,7 +28,7 @@ Live Coding nicht klappt oder hier nicht ganz korrekt ist
 
 Wir reduzieren den Code in `MainActivity` auf das Minimum:
 
-```kotlin
+```kotlin filename="MainActivity.kt"
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -129,7 +129,7 @@ und zusätzlich werden Layout-Funktionen wie z.B. `Column` oder
 Annotationen wie `@Preview` können auch Argumente enthalten,
 die in der Vorschau verwendet werden:
 
-```kotlin
+```kotlin {1-3}
 @Preview(showBackground = true,
     showSystemUi = true,
     name = "Todo Vorschau")
