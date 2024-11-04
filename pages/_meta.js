@@ -15,10 +15,6 @@ export default {
     title: 'Präsentationskompetenzen',
     type: 'page',
   },
-  kennenlerntag: {
-    title: 'Kennenlerntag',
-    type: 'page',
-  },
   impressum: {
     title: 'Impressum',
     type: 'page',
