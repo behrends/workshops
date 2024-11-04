@@ -1,0 +1,8 @@
+export default {
+  index: 'Übersicht',
+  '01-intro': 'Einführung',
+  '02-basics': 'Grundlagen von p5.js',
+  '03-shapes': 'Formen und Farben',
+  '04-interaction': 'Interaktion',
+  '05-project': 'Projekt und Abschluss',
+};

@@ -2,13 +2,13 @@ export default {
   docsRepositoryBase:
     'https://github.com/behrends/workshops/tree/main',
   editLink: {
-    text: 'Diese Seite bei GitHub →',
+    content: 'Diese Seite bei GitHub →',
   },
   feedback: {
     content: undefined,
   },
   footer: {
-    text() {
+    content() {
       return (
         <span>
           <abbr
@@ -62,7 +62,6 @@ export default {
   },
   sidebar: {
     defaultMenuCollapseLevel: 1,
-    toggleButton: true,
   },
   useNextSeoProps() {
     return {

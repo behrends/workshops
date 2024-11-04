@@ -1,4 +1,4 @@
-{
+export default {
   "01-organisatorisches": "Organisatorisches",
   "02-statistiken": "Statistiken",
   "03-plattformen": "Plattformen",

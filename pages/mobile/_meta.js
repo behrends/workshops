@@ -1,4 +1,4 @@
-{
+export default {
   "index": "Übersicht",
   "setup": "Vorbereitung",
   "01-intro": "1 - Einleitung",
