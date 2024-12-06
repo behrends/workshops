@@ -8,5 +8,4 @@ export default {
   '05-react-native': '5 - React Native Teil 1',
   '06-react-native': '6 - React Native Teil 2',
   '07-frameworks': '7 - Weitere Frameworks',
-  '08-misc': '8 - Weiterführendes',
 };
