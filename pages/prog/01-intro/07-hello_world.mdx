@@ -76,12 +76,28 @@ console.log("Hello, World!")
 // @log: Hello, World!
 ```
 
+<Callout type="info">
+In der Konsole wird der Text `Hello, World!` ausgegeben, d.h.
+`Hello, World!` wird auf dem Bildschirm angezeigt.
+
+Dies wird im Beispiel oben durch den blauen „Info-Block“ angedeutet.
+</Callout>
+
 Oft sagen wir hierzu auch, dass „_der Funktion bzw. Methode beim Aufruf 
 ein Parameter oder ein Argument übergeben wird_“.
 
 Es gibt auch Funktionen/Methoden ohne Parameter und solche mit 
 mehreren Parametern. Ebenso können sie ein Ergebnis als 
 **Rückgabewert** liefern (dies ist hier bei `console.log()` nicht relevant).
+
+<Callout>
+Funktionen mit Parametern, Rückgabewerten, usw. werden später
+ausführlich behandelt.
+
+Wichtig ist hier nur, dass wir mit dem Funktionsaufruf 
+`console.log("mein Text")` einen String (z.B. "mein Text") 
+ausgeben können.
+</Callout>
 
 Nun haben wir eine korrekte **Anweisung** in JavaScript 
 programmiert.
@@ -97,6 +113,7 @@ Ein paar Bemerkungen dazu:
     ```console.log("Hello, World!");```
 - Im Unterrichtsmaterial wird meistens das Semikolon am Ende einer Anweisung angegeben.
 - Jeder Browser hat eine JavaScript-Konsole, in der JavaScript-Code ausprobiert werden kann. Dort funktioniert auch die Methode  `console.log()`.
+- Wir verwenden gerade die Konsole eines Browsers, um JavaScript-Code auszuführen. Dies ist praktisch für kleine Experimente. Bald werden wir „echte“ Programmierumgebungen kennenlernen.
 - Im Browser kann auch etwas in einem UI-Dialog mit `alert()`  angezeigt werden.
 - In dieser Vorlesung betrachten wir JavaScript weitestgehend ohne HTML und CSS (&xrarr; dies findet evtl. in der Vorlesung „Web-Engineering“ statt).
 - Text bzw. Strings können in JavaScript entweder mit doppelten (`""`) oder einfachen (`''`) Anführungszeichen umgeben werden.
@@ -114,9 +131,9 @@ Konsole hat, in der mit JavaScript experimentiert werden kann
 eines Browsers und kann meistens mit der Funktionstaste `F12`
 geöffnet werden.
 
-Später lernen wir weitere Programmierumgebungen wie z.B.
+Bald lernen wir weitere Programmierumgebungen wie z.B.
 den Editor [VS Code](https://code.visualstudio.com), die
-JavaScript-Laufzeitumgebung [NodeJS](https://nodejs.org) und
+JavaScript-Laufzeitumgebung [Node.js](https://nodejs.org) und
 die Online-Programmierumgebung [replit.com](https://replit.com)
 kennen. Letztere unterstützt neben JavaScript auch viele 
 weitere Programmiersprachen.
@@ -124,7 +141,7 @@ weitere Programmiersprachen.
 <Callout type="warning">
 JavaScript wird in einem sogenannten _Interpreter_ ausgeführt,
 der z.B. Teil eines Browsers (u.a. in der oben erwähnten Konsole) 
-oder in NodeJS enthalten ist. Der Interpreter führt den Code in einem
+oder in Node.js enthalten ist. Der Interpreter führt den Code in einem
 JavaScript-Programm schrittweise aus, ohne ihn vorher zu überprüfen. 
 Einen _Compiler_ wie in Java, der den Programmcode vor der Ausführung
 auf mögliche Fehler untersucht, gibt es in gewöhnlichem JavaScript-Code
@@ -139,37 +156,16 @@ insbesondere die Spracherweiterung [TypeScript](https://typescriptlang.org)
 zuverlässige Überprüfungen des Codes vor seiner Ausführung.
 </Callout>
 
-<Callout type="info">
- Wir werden den JavaScript-Code in den ersten Vorlesungsterminen 
- und für die Übungen in kleinen Beispielen im Browser schreiben. Es 
- muss also nichts installiert werden.
-
-Für das Programmierprojekt kann später auch [NodeJS](https://nodejs.org) zur Programmierung direkt auf dem Laptop installiert werden 
-&mdash; eventuell ist dies jedoch nicht unbedingt nötig (siehe 
-spätere Infos zum Projekt). 
-
-Für die Programmierung von JavaScript kann im Prinzip jeder 
-Texteditor eingesetzt werden (VS Code, Web-/PhpStorm, Notepad++, 
-usw.). 
-
-Beim Programmierprojekt sollten alle Mitglieder einer Gruppe die 
-gleiche Entwicklungsumgebung einsetzen, damit die Teamarbeit 
-einheitlich abläuft. Hierzu ist dann auch die Verwendung von 
-[git](https://git-scm.org) sinnvoll. 
-</Callout>
 
 <Callout type="info">
-Es gibt weitere Alternativen zu NodeJS für 
-JavaScript-Laufzeitumgebungen, die aber noch nicht ausgereift
-oder etabliert sind:
+Node.js ist die etablierte Standardumgebung für die Programmierung
+von JavaScript außerhalb des Browsers. Es gibt jedoch alternative 
+JavaScript-Laufzeitumgebungen:
 
 - [Deno](https://deno.land)
 - [Bun](https://bun.sh)
-- [Rome](https://rome.tools)
 - weitere?
 
-&xrarr; Eventuell könnte sich in Zukunft herausstellen, dass eine andere
-Laufzeitumgebung besser geeignet ist als NodeJS.
 </Callout>
 
 ## Inspiration 
@@ -189,6 +185,6 @@ Browser verwendet werden können? \
 </Callout>
 
 <Callout type="warning" emoji="👨🏻‍💻">
-Falls genügend Zeit ist, dann kann die [Übung](/prog/02-basics/uebung) vom nächsten Block vorgezogen
+Falls genügend Zeit ist, dann kann das [Setup](/prog/02-basics/01-setup) vom nächsten Block vorgezogen
 werden. 
 </Callout>

@@ -1,0 +1,98 @@
+import { Callout } from 'nextra/components'
+
+# Node.js und VS Code einrichten
+
+<Callout>
+  **Dauer:** 30 Minuten
+
+  Herunterladen und installieren
+  
+  - Node.js 
+  - VS Code
+
+  Alternative: replit.com
+
+  **Ziel:** Entwicklungsumgebung für JavaScript einrichten
+</Callout>
+
+Node.js von der offiziellen [Website (https://nodejs.org)](https://nodejs.org) herunterladen und installieren (die stabile LTS-Version (_**l**ong **t**erm **s**upport_)).
+
+VS Code von der offiziellen [Website (https://code.visualstudio.com)](https://code.visualstudio.com) herunterladen und installieren.
+
+<Callout type="info">
+Node.js wird für die Ausführung von JavaScript außerhalb des 
+Browsers benötigt. 
+
+VS Code ist ein beliebter Editor für die Programmierung in vielen
+Programmiersprachen (JavaScript, Python, Java, usw.).
+
+Es gibt viele Funktionen und Erweiterungen für VS Code. Bei Bedarf
+besprechen wir diese bei passender Gelegenheit in der Vorlesung.
+</Callout>
+
+<Callout type="error">
+Wir verwenden VS Code zu Beginn möglichst ohne KI-Tools (Copilot)
+</Callout>
+
+## Programm in VS Code erstellen und mit Node.js ausführen
+
+Wir erstellen gemeinsam ein erstes Programm („Hello, Wordl!“) 
+in VS Code und führen es mit Node.js aus.
+
+&rarr; Dies wird im gemeinsamen Live-Coding durchgeführt.
+### Datei mit Code erstellen
+
+- VS Code starten
+- Neue Datei erstellen (Menü `File` &rarr; `New File`)
+- JavaScript-Code eingeben: `console.log("Hello, World!");`
+- Datei speichern (Menü `File` &rarr; `Save As...`)
+- Dateiendung `.js` verwenden (z.B. `main.js`)
+
+(`main.js` ist der Name der JavaScript-Datei, die ausgeführt werden soll. Dieser Name kann frei gewählt werden.)
+
+### Programm ausführen:
+
+Mit `View` &rarr; `Terminal` kann in VS Code ein Terminalfenster
+geöffnet werden, in dem mit Node.js Programme ausgeführt werden:
+
+```bash
+node main.js
+```
+
+Dadurch wird das Programm mit Node.js ausgeführt und die Ausgabe
+`Hello, World!` erscheint im Terminal.
+
+<Callout type="warning">
+Sollte es Probleme bei der Installation geben, dann kann die
+Entwicklungsumgebung [replit.com](https://replit.com) als Alternative
+eingesetzt werden. Dort kann ein kostenloses Konto erstellt werden.
+
+&rarr; ggf. ist am Ende dieser Vorlesungseinheit Zeit, um
+mögliche Probleme zu lösen.
+</Callout>
+
+## Alternative: replit.com
+
+Eine weitere Möglichkeit, JavaScript-Programme zu schreiben und auszuführen, ist [replit.com](https://replit.com).
+
+Replit unterstützt neben JavaScript auch viele weitere 
+Programmiersprachen und hat einige zusätzliche Funktionen 
+(Datenbanken, Deployment, usw.). Insbesondere hat Replit einige 
+sehr leistungsfähige KI-Tools integriert.
+
+Im Prinzip ist Replit eine vollwertige Entwicklungsumgebung, die
+im Browser läuft. Auch hier können Dateien erstellt und ausgeführt
+werden. 
+
+<Callout type="info">
+ Für die Programmierung von JavaScript kann im Prinzip jeder 
+Texteditor eingesetzt werden (VS Code, Web-/PhpStorm, Notepad++, 
+usw.). 
+
+Beim Programmierprojekt sollten alle Mitglieder einer Gruppe die 
+gleiche Entwicklungsumgebung einsetzen, damit die Teamarbeit 
+einheitlich abläuft. Hierzu ist dann auch die Verwendung von 
+[git](https://git-scm.org) sinnvoll. 
+
+Auch replit kann von einem Team genutzt werden.
+</Callout>
