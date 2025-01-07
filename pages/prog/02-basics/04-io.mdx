@@ -112,15 +112,15 @@ console.log(warnMessage);
 Mit speziellen „ANSI escape codes“ kann die Ausgabe u.a. farbig 
 gestaltet werden.
 
-Mit `\033` (oder hexadezimal `\x1b`) wird eine „Escape-Sequenz“ 
+Mit `\x1b` wird eine „Escape-Sequenz“ 
 eingeleitet, auf die dann nach `[` verschiedene „Anweisungen“ zur 
 Formatierung folgen.
 
 ```js	
 const orange = "33";	
 const underline = "4";
-const format = "\033[" + orange + ";" + underline + "m";	
-console.log(format + "Hello orange underline!" + "\033[0m");
+const format = "\x1b[" + orange + ";" + underline + "m";	
+console.log(format + "Hello orange underline!" + "\x1b[0m");
  
 console.log("wieder ohne Formatierung");
 ```
@@ -153,13 +153,42 @@ Hilfsbibliothek für farbige Ausgabe im Terminal:
 
 ## Eingabe mit `prompt`
 
-Mit `prompt` steht in JavaScript im Browser und in 
-[replit.com](https://replit.com) eine Methode zur Verfügung, 
-die Text von der Tastatur einliest.
+Um die Eingabe von der Tastatur einfacher zu handhaben,  installieren wir eine Hilfsbibliothek namens 
+[`prompt-sync`](https://github.com/heapwolf/prompt-sync):
+
+```bash
+npm install prompt-sync
+```
+
+<Callout type="info">
+Mit `npm` (Node Package Manager) können Bibliotheken 
+mit fertigem Code installiert werden. Dazu wird die
+Bibliothek in einem Verzeichnis `node_modules` im
+Projekt abgelegt und kann dann im eigenen Code
+verwendet werden. In `package.json` wird die
+Bibliothek als Abhängigkeit eingetragen.
+
+JavaScript hat viele Bibliotheken, die für verschiedene
+Zwecke in Projekten mit `npm` installiert werden können.
+
+Jede Programmiersprache hat eine Möglichkeit,
+Bibliotheken zu installieren und zu verwenden.
+Hier gibt es einige Unterschiede.
+</Callout>
+
+
+Nun kann `prompt` in einem Programm verwendet werden:
 
 ```js
-let name = prompt("Name eingeben");
+import promptSync from 'prompt-sync';
+const prompt = promptSync();
+
+let name = prompt("Name eingeben: ");
 ```
+
+Mit `import` wird die Bibliothek `prompt-sync` eingebunden. 
+Dazu werden wir später noch mehr erfahren. Diese 
+Import-Anweisung sollte am Anfang des Programms stehen.
 
 `Name eingeben` erscheint und es kann etwas per Tastatur 
 eingegeben werden.
@@ -175,7 +204,7 @@ Wie kann der Text in eine ganze Zahl für Berechnungen
 umgewandelt werden?
 
 ```js
-let num = prompt("Bitte eine Zahl eingeben");
+let num = prompt("Bitte eine Zahl eingeben: ");
 num = parseInt(num); // wandelt Text in Zahl um
 ```
 
@@ -194,20 +223,11 @@ parseInt("1234XYZ"); // ---> ergibt 1234
 ```
 </Callout>
 
-## Umlaute und andere Sonderzeichen
+## Bemerkungen
 
 Im Januar 2023 hatte `prompt` in replit.com 
 Probleme mit der Eingabe von Umlauten, die
 bei der Eingabe falsch dargestellt werden. 
-
-## Eingabe in NodeJS
-
-In NodeJS funktioniert `prompt` leider nicht. 
-
-Die Eingabe lässt sich sicherlich auch mit der 
-API von NodeJS umsetzen. Bequemer lässt sich die 
-Eingabe jedoch durch eine Hilfsbibliothek in NodeJS 
-realisieren.
 
 In einer [späteren Lektion](/prog/10-misc/libraries) 
 finden sich Infos zu weiteren nützlichen 
