@@ -45,20 +45,7 @@ if( ...ein logischer Ausdruck X vom Typ boolean... ) {
 }
 ```
 
-```mermaid
-flowchart TD
-  A[Start] --> C{"Bedingung im if (boolescher Ausdruck) wahr (true)?"}
-  C -->|"Ja"| D["Anweisungen direkt unter if in {...} ausführen"]
-  D --> E[End]
-  C -->|"Nein"| F{"Bedingung im ersten else if (boolescher Ausdruck) wahr (true)?"}
-  F -->|"Ja"| G["Anweisungen direkt unter erstem else if in {...} ausführen"]
-  G --> E
-  F -->|"Nein"| P{"Bedingung im zweiten else if (boolescher Ausdruck) wahr (true)?"}
-  P -->|"Ja"| K["Anweisungen direkt unter zweitem else if in {...} ausführen"]
-  K --> E
-  K -->|"Nein"| L["Anweisungen direkt unter else (ohne if!) in {...} ausführen"]
-  L --> E
-```
+Mermaid hier
 
 **Bemerkungen**:
 
@@ -106,7 +93,7 @@ flowchart TD
   B --> C{"isNaN(i)?"}
   C -->|"Ja"| D["console.log('Bitte eine Zahl eingeben, d.h. nur Ziffern eintippen!')"]
   D --> E[End]
-  C -->|"Nein"| F{i >= 0?}
+  C -->|"Nein"| F{i \>= 0?}
   F -->|"Ja"| G["console.log(\`${i} ist nicht negativ\`)"]
   G --> E
   F -->|"Nein"| H["console.log(\`${i} ist negativ\`)"]
