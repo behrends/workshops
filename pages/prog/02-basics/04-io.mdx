@@ -47,6 +47,14 @@ console.log("Wert von Variable x:");
 console.log(x);`}
 />
 
+Manchmal ist es nützlich, `console.log` mit zwei Parametern zu
+verwenden, um in der Ausgabe zusätzliche Informationen zu haben:
+
+```ts twoslash
+console.log('Answer to everything:', 42);
+// @log: Answer to everything: 24
+```
+
 Bemerkung: Zur console-API gibt es einen „living standard“, der 
 noch viel mehr Möglichkeiten mit console beschreibt, sodass viele 
 Browser und auch NodeJS diese implementieren können (siehe 
@@ -197,8 +205,6 @@ Die Ausführung des Programms hält an, Text kann eingegeben werden
 und nach Drücken von Enter/Return wird der Text der Variablen 
 zugewiesen (im Beispiel oben `name`).
 
-Dies funktioniert leider nicht in NodeJS — aber es gibt dafür
-geeignete Hilfsbibliotheken (siehe unten).
 
 Wie kann der Text in eine ganze Zahl für Berechnungen 
 umgewandelt werden?
@@ -224,10 +230,6 @@ parseInt("1234XYZ"); // ---> ergibt 1234
 </Callout>
 
 ## Bemerkungen
-
-Im Januar 2023 hatte `prompt` in replit.com 
-Probleme mit der Eingabe von Umlauten, die
-bei der Eingabe falsch dargestellt werden. 
 
 In einer [späteren Lektion](/prog/10-misc/libraries) 
 finden sich Infos zu weiteren nützlichen 

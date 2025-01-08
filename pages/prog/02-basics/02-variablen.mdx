@@ -1,4 +1,5 @@
 import { Callout } from 'nextra/components'
+import JSEditor from '/components/JSEditor';
 
 # Variablen und Konstanten
 
@@ -113,10 +114,15 @@ let myVariable = 24, variable2 = "Hi!";
 Mit der Methode `console.log()` können wir uns den Inhalt bzw. aktuellen
 Wert einer Variablen ausgeben lassen:
 
-```js
-console.log(myVariable); // ergibt 24
+```ts twoslash
+let myVariable = 24;
+console.log('Wert von myVariable:', myVariable);
+// @log: Wert von myVariable: 24
+
+
 myVariable = 12;
-console.log(myVariable); // ergibt 12
+console.log('Wert von myVariable:', myVariable);
+// @log: Wert von myVariable: 12
 ```
 
 Die Werte von Variablen sind sozusagen „zwischengespeichert“ 
@@ -124,17 +130,22 @@ und deshalb werden sie meistens mehrmals verwendet. Zum Beispiel kann
 der aktuelle Variablenwert auch in einer erneuten Zuweisung an dieselbe 
 Variable genutzt werden. 
 
-```js
+```ts twoslash
 let luckyNumber = 108; // Initialisierung
 
 console.log(luckyNumber);
-		
+// @log: 108		
+
+
 // Variablen können sich ändern - daher ihr Name
 luckyNumber = 123; // neue Zuweisung	
 luckyNumber = luckyNumber + 7; // neue Zuweisung mit vorigem Wert
 	
 console.log(luckyNumber);
+// @log: 130
+```
 
+```js
 // Fehler zur Laufzeit, wenn nicht bekannte Variablen 
 // verwendet werden	
 console.log(thisVariableDoesNotExist); // ReferenceError
@@ -254,16 +265,16 @@ manchmal „Literale“ genannt (von engl. _literal_ &mdash; wörtlich).
 Ausdrücke können aber auch durch komplexere Operatoren oder 
 Rückgabewerte von Funktionsaufrufen hervorgehen (siehe später). 
 
-```js
-let x = 123.4;
+<JSEditor code={`let x = 123.4;
 let y = (2 + 5) * 12;
 let z = "example";
-	
+
 // Hier verwenden wir die Methode Math.random()	
 // JavaScript enthält viele Hilfsklassen und Methoden,
 // mit denen wir viele Aufgaben direkt lösen können	
 let number = Math.random();
-```
+console.log(number);`}
+/>
 
 Ausdrücken begegnen wir auch später im Zusammenhang mit 
 Bedingungen in Fallunterscheidungen und Schleifen wieder. 
