@@ -77,11 +77,12 @@ einer Programmiersprache, die <mark>nicht</mark> für Bezeichner
 verwendet werden dürfen (z.B. `let`, `function`, `class`, usw.).
 
 ```js
-let class = "Schulkasse 8a"; // Fehler!
+let class = "Schulklasse 8a"; // FEHLER!
 // SyntaxError bei der Ausführung (zur Laufzeit)
 
 // --> Uncaught SyntaxError: unexpected token: keyword 'class'
 ```
+
 
 Mehr zu möglichen Bezeichnern folgt weiter unten. 
 
@@ -89,7 +90,8 @@ Die beiden Anweisungen zur Deklaration und der ersten Zuweisung
 eines Wertes an die Variablen lassen sich in eine Anweisung 
 zusammenfassen. Dann sprechen wir von einer **Initialisierung**:
 
-```js
+```ts twoslash
+// @errors: 2451
 // Initialisierung: Deklaration und erste Zuweisung kombiniert
 let myVariable = 1; 
 	

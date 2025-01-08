@@ -45,6 +45,21 @@ if( ...ein logischer Ausdruck X vom Typ boolean... ) {
 }
 ```
 
+```mermaid
+graph TD
+    Start([Start]) --> CheckX{X wahr?}
+    CheckX -- Ja --> BlockX[Anweisungen aus Block X]
+    CheckX -- Nein --> CheckY{Y wahr?}
+    CheckY -- Ja --> BlockY[Anweisungen aus Block Y]
+    CheckY -- Nein --> CheckZ{Z wahr?}
+    CheckZ -- Ja --> BlockZ[Anweisungen aus Block Z]
+    CheckZ -- Nein --> ElseBlock[Anweisungen aus Else-Block]
+    BlockX --> End([Ende])
+    BlockY --> End
+    BlockZ --> End
+    ElseBlock --> End
+```
+
 **Bemerkungen**:
 
 - Die logischen Ausdrücke werden manchmal auch Bedingungen genannt.

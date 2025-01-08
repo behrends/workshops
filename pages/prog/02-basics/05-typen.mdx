@@ -121,15 +121,18 @@ Strings lassen sich somit im Vergleich zu kombinierten
 Strings mit `+` (sogenannte String-Konkatenation) auf 
 übersichtlichere Weise z.B. mit Variablenwerten zusammensetzen:
 
-```js	
+```ts twoslash
 let firstName = 'Jane';
 let lastName = 'Smith';
 
 // gewöhnliche String-Konkatenation:	
 console.log("Der Name lautet " + firstName + " " + lastName);
-	
+// @log: Der Name lautet Jane Smith
+
+
 // kompakter mit Template-Strings:	
 console.log(`Der Name lautet ${firstName} ${lastName}`);
+// @log: Der Name lautet Jane Smith
 ```
 
 Hinweis: In Template-Strings funktionieren maskierte Zeichen wie z.B. `\n` nicht.
