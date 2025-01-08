@@ -19,23 +19,23 @@ werden, um sie in einer anderen Datei zu **importieren**
 und dort zu verwenden.
 
 <Callout type="info">
-In NodeJS gibt es mit CommonJS und `exports/require` 
+In Node.js gibt es mit CommonJS und `exports/require` 
 einen eigenen Ansatz für Import/Export von JavaScript-Code. 
 
-Mehr Infos zum Modulsystem in NodeJS sind
+Mehr Infos zum Modulsystem in Node.js sind
 [in der Dokumentation zu Node JS beschrieben](https://nodejs.org/api/esm.html).
 </Callout>
 
 
-## Vorbereitungen in replit und NodeJS
+## Vorbereitungen in replit und Node.js
 
-Um `import`/`export` in replit oder NodeJS verwenden 
+Um `import`/`export` in replit oder Node.js verwenden 
 zu können, muss diese Funktionalität folgendermaßen 
 aktiviert werden:
 
 1. Falls noch nicht vorhanden, im Projektordner die Datei `package.json` erstellen: 
   - In replit.com sollte diese schon vorhanden sein.
-  - In NodeJS kann diese mit `npm init` erstellt werden.
+  - In Node.js kann diese mit `npm init` erstellt werden.
 2. Die Datei `package.json` öffnen.
 3. In `package.json` folgendes eintragen (z.B. nach dem Eintrag für `version`):
   
@@ -132,19 +132,19 @@ unter dem Namen `Comp` zur Verfügung.
 <Callout type="warning">
 In React mit NextJS und in React Native werden 
 bei `import`-Anweisungen die Dateiendungen `.js` 
-häufig weggelassen. In NodeJS hingegen müssen diese 
+häufig weggelassen. In Node.js hingegen müssen diese 
 normalerweise angegeben werden.
 
 Mit dem Zusatz 
 `--experimental-specifier-resolution=node` kann 
-NodeJS so gestartet werden, dass Dateiendungen bei 
+Node.js so gestartet werden, dass Dateiendungen bei 
 `import`s automatisch hinzugefügt werden:
 
 ```
 node --experimental-specifier-resolution=node index
 ```
 
-Mehr dazu [in der Dokumentation zu NodeJS](https://nodejs.org/api/esm.html#esm_customizing_esm_specifier_resolution_algorithm).
+Mehr dazu [in der Dokumentation zu Node.js](https://nodejs.org/api/esm.html#esm_customizing_esm_specifier_resolution_algorithm).
 </Callout>
 
 <Callout type="warning">

@@ -145,11 +145,11 @@ Inhalt:
 
 Wenn eine JavaScript-Datei im gleichen Verzeichnis wie `data.json`
 liegt, dann kann diese JSON-Datei in einem JavaScript-Programm in 
-NodeJS oder replit so eingelesen werden:
+Node.js oder replit so eingelesen werden:
 
 ```js
 // JSON-Daten aus Datei einlesen mit Methode readFileSync
-// aus dem filesystem-Modul in NodeJS (--> Name lautet fs) 
+// aus dem filesystem-Modul in Node.js (--> Name lautet fs) 
 import * as fs from 'fs'; // importiere Methoden aus 'fs'
 const file = fs.readFileSync('./data.json'); // JSON-Datei einlesen
 const data = JSON.parse(file); // JSON-Daten --> JS Array/Objekte
@@ -162,7 +162,7 @@ console.log(data[2].name); // --> ergibt Kim
 ```
 
 <Callout type="info">
-Ab NodeJS Version 16 gibt es eine experimentelle Funktionalität,
+Ab Node.js Version 16 gibt es eine experimentelle Funktionalität,
 um JSON direkt per `import`-Anweisung zu importieren:
 
 
@@ -177,5 +177,5 @@ Syntax könnte sich in Zukunft ändern.
 
 <mark>&xrarr; Jährlich überprüfen und bei Stabilität als Standard vorführen.</mark>
 
-Mehr dazu in der [NodeJS Dokumentation](https://nodejs.org/dist/latest/docs/api/esm.html#json-modules).
+Mehr dazu in der [Node.js Dokumentation](https://nodejs.org/dist/latest/docs/api/esm.html#json-modules).
 </Callout>
