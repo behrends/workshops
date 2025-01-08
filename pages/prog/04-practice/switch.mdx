@@ -61,20 +61,21 @@ switch(op) {
 
 ```mermaid
 flowchart TD
-    A[Start] --> B["op = prompt('Welche Rechenoperation?')"]
-    B --> C{{op}}
-    C -->|\+| D["console.log(a + b)"]
-    D --> E[End]
-    C -->|\-| F["console.log(a - b)"]
-    F --> E
-    C -->|\*| G["console.log(a * b)"]
-    G --> E
-    C -->|/| H["console.log(a / b)"]
-    H --> E
-    C -->|%| I["console.log(a % b)"]
-    I --> E
-    C -->|default| J["console.log('Operator ' + op + ' nicht unterstützt')"]
-    J --> E
+  A[Start] --> B["op = prompt('Welche Rechenoperation?')"]
+  B --> C{{op}}
+  C -->|\+| D["console.log(a + b)"]
+  D --> E[End]
+  C -->|\-| F["console.log(a - b)"]
+  F --> E
+  C -->|\*| G["console.log(a * b)"]
+  G --> E
+  C -->|/| H["console.log(a / b)"]
+  H --> E
+  C -->|%| I["console.log(a % b)"]
+  I --> E
+  C -->|default| J["console.log('Operator ' + op + ' nicht unterstützt')"]
+  J --> E
+  linkStyle default font-size:24px
 ```
 
 
