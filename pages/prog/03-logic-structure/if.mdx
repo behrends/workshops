@@ -45,7 +45,6 @@ if( ...ein logischer Ausdruck X vom Typ boolean... ) {
 }
 ```
 
-Mermaid hier
 
 **Bemerkungen**:
 
@@ -85,21 +84,6 @@ if(isNaN(i)) {
   console.log(`${i} ist negativ`);
 }
 ```
-
-
-```mermaid
-flowchart TD
-  A[Start] --> B["i = parseInt(prompt('Zahl eingeben'))"]
-  B --> C{"isNaN(i)?"}
-  C -->|"Ja"| D["console.log('Bitte eine Zahl eingeben, d.h. nur Ziffern eintippen!')"]
-  D --> E[End]
-  C -->|"Nein"| F{i \>= 0?}
-  F -->|"Ja"| G["console.log(\`${i} ist nicht negativ\`)"]
-  G --> E
-  F -->|"Nein"| H["console.log(\`${i} ist negativ\`)"]
-  H --> E
-```
-
 
 Hier haben wir einen weiteren Fall hinzugefügt, 
 sodass wir nun drei Fälle unterscheiden. Das erste 
