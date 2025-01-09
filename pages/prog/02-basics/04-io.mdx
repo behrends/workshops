@@ -162,10 +162,29 @@ Hilfsbibliothek für farbige Ausgabe im Terminal:
 ## Eingabe mit `prompt`
 
 Um die Eingabe von der Tastatur einfacher zu handhaben,  installieren wir eine Hilfsbibliothek namens 
-[`prompt-sync`](https://github.com/heapwolf/prompt-sync):
+[`prompt-sync`](https://github.com/heapwolf/prompt-sync).
+
+Dazu das Terminal in VS Code öffnen und das Projekt zuerst für npm initialisieren:
+
+```bash
+npm init
+```
+
+&rarr; Alle Fragen mit `Enter` beantworten, hierdurch wird die Datei `package.json` erzeugt.
+
+Dann `prompt-sync` installieren:
 
 ```bash
 npm install prompt-sync
+```
+
+Dadurch wird `prompt-sync` heruntergeladen und installiert (siehe `node_modules` und `package.json`).
+
+In `package.json` ggf. folgenden Eintrag hinzufügen, um
+eine lästige Warnung bei Ausführung des Programms zu unterbinden:
+
+```
+"type": "module",
 ```
 
 <Callout type="info">
