@@ -45,7 +45,7 @@ ergänzt JavaScript mit statischen Typen und zusätzlichen Sprachkonstrukten wie
 - `string` – Zeichenketten bzw. Text beliebiger Länge
 - `boolean` – die beiden Wahrheitswerte `true` und `false`
 - `object` – Arrays/Felder, Objekte/Dictionaries (nicht objektorientiert) und Funktionen
-- `null` und `undefined` für (noch) nicht vorhandene und undefinierte Werte.
+- `undefined` für (noch) nicht vorhandene und undefinierte Werte (Bemerkung: es gibt auch den Wert `null` für „nichts/leer“ oder „kein Wert“)
 
 Außerdem gibt es den Symbol-Typ, den wir nicht behandeln werden.
 
@@ -149,7 +149,43 @@ let list = [1,2,3,4];
 let person = {firstName: 'Jane', lastName: 'Smith'}; 
 ```
 
-### typeof
+### `undefined`
+
+`undefined` ist ein eigener Datentyp in JavaScript und 
+bedeutet, dass eine Variable deklariert, aber nicht initialisiert wurde.
+
+Beispiele für Situationen mit `undefined`:
+
+- Automatisch von JavaScript zugewiesen, wenn einer Variablen kein Wert zugewiesen ist.
+- Rückgabewert von Funktionen, die keinen return-Wert haben.
+- Zugriff auf nicht vorhandene Eigenschaften eines Objekts.
+
+```js
+let myVariable; // myVariable deklariert, nicht initialisiert
+console.log(myVariable); // Ausgabe: undefined
+
+function myFunction() {}
+console.log(myFunction()); // Ausgabe: undefined
+// @log: undefined
+
+let myObject = {};
+console.log(myObject.key); // Ausgabe: undefined
+```
+
+<Callout type="info">
+`undefined` ist ein Datentyp, der nur einen Wert hat: `undefined`.
+
+Es gibt auch den speziellen Wert `null`, der für „nichts/leer“ 
+oder „kein Wert“ steht. `null` wird bewusst zugewiesen, um zu zeigen, 
+dass eine Variable oder eine Objekteigenschaft keinen Wert hat
+(„leerer“ oder „nicht vorhandenen“ Zustand eines Objekts).
+
+`null` hat den Datentyp `object`, was ein historischer Fehler 
+im Design von JavaScript ist. Konsistenter wäre es z.B., wenn `null` den 
+eigenen Datentyp `null` hätte. Letztendlich ist dies aber nicht gravierend für die alltägliche Arbeit mit JavaScript.
+</Callout>
+
+### `typeof`
 
 `typeof` ist ein [Operator](../03-logic-structure/operators), 
 der den Namen des Typs für einen JavaScript-Ausdruck ergibt.
