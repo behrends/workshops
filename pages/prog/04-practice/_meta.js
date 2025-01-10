@@ -1,5 +1,5 @@
 export default {
-  switch: 'Fallunterscheidungen (switch)',
-  live_coding: 'Live Coding (Wetter-App)',
-  uebungen: 'Übungen',
+  '01-switch': 'Fallunterscheidungen (switch)',
+  '02-live_coding': 'Live Coding (Wetter-App)',
+  '03-uebungen': 'Übungen',
 };
