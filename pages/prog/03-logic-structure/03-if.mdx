@@ -56,7 +56,8 @@ graph TD
     C -->|false| D{nächste „else if“-Bedingung}
     D -->|true| DD[Code im „else if“-Block]
     DD --> F
-    D -->|false| E[Code im „else“-Block]
+    D -->|false| EE{ggf. weitere „else if“-Bedingungen mit Code…}
+    EE -->|false bei allen Bedingungen | E[Code im „else“-Block]
     E --> F
 ```
 
