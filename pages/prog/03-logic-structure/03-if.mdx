@@ -47,12 +47,15 @@ if( ...ein logischer Ausdruck X vom Typ boolean... ) {
 
 ```mermaid
 graph TD
-    A[Start] --> B{if Bedingung boolean}
-    B -->|true| F[Ende von if/ else if / … / else]
-    B -->|false| C{else if Bedingung boolean}
-    C -->|true| F
-    C -->|false| D{weitere else if …}
-    D -->|true| F
+    A[Start] --> B{if-Bedingung}
+    B -->|true| BB[Code im if-Block]
+    BB --> F[Ende von if/ else if / … / else]
+    B -->|false| C{„else if“-Bedingung}
+    C -->|true| CC[Code im „else if“-Block]
+    CC --> F
+    C -->|false| D{weitere „else if“ …}
+    D -->|true| DD[Code im „else if“-Block]
+    DD --> F
     D -->|false| E[else-Block]
     E --> F
 ```
