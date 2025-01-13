@@ -1,5 +1,4 @@
 export default {
-  index: 'Überblick',
   replit: 'Tipps zu replit.com',
   project_structure: 'Projektstruktur',
   libraries: 'Bibliotheken',
