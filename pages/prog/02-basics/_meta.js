@@ -3,6 +3,5 @@ export default {
   '02-variablen': 'Variablen und Konstanten',
   '03-basics': 'Grundbegriffe',
   '04-io': 'Ein- und Ausgabe',
-  '05-typen': 'Datentypen',
-  '06-uebung': 'Übung',
+  '05-uebung': 'Übung',
 };
