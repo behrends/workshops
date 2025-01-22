@@ -74,10 +74,17 @@ Math.trunc(8352 / 10) // entfernt die letzte Ziffer --> 835
 // usw.
 ```
 
-(`Math.floor` zum Abrunden der Zahl könnte auch verwendet werden.)
+`Math.floor` zum Abrunden der Zahl könnte auch verwendet werden. 
+
+Achtung: `Math.floor` und `Math.trunc` ergeben bei negativen
+Zahlen unterschiedliche Ergebnisse, was jedoch bei der Quersumme 
+nicht relevant ist. 
 </Callout>
 
 Die Ideen ergeben folgenden **„Pseudocode“** als Vorüberlegung:
+
+<mark>Die Überlegungen zur Vorgehensweise können heutzutage viel schneller
+durch den Einsatz von KI-Tools erfolgen.</mark>
 
 ```
 // sei num eine beliebige, ganze Zahl
@@ -129,6 +136,8 @@ Hierbei handelt es sich um einen kreativen Vorgang, der
 einen wesentlichen Bestandteil der Programmierung bildet.
 
 &xrarr; _Computational Thinking_ („Informatisches Denken“)
+
+**Offene Frage: Wie wirken sich KI-Tools auf diesen Prozess aus?**
 </Callout>
 
 Berechnung der Quersumme in JavaScript:
