@@ -1,5 +1,5 @@
 export default {
-  'import-export': 'import und export',
-  json: 'JSON',
-  'local-storage': 'localStorage',
+  '01-import-export': 'import und export',
+  '02-json': 'JSON',
+  '03-local-storage': 'localStorage',
 };

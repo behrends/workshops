@@ -163,10 +163,18 @@ kann (`case` zusammenfassen, `break`,
 </Callout>
 
 <Callout type="info" emoji="👨🏻‍💻">
-In der gemeinsam entwickelten Wetter-App bauen
-wir ein `switch` für die Anzeigen eines 
-Wetter-Emojis oder passende Strings bei 
-verschiedenen Wetterlagen ein.
+In die Wetter-App könnten wir ein Hauptmenü einbauen:
+
+- Überschrift und Menüpunkte (1: Ort eingeben, 2: Alle Orte anzeigen, 3: Beenden) mit Template-String
+- `switch` für die Auswahl der Menüpunkte
+- für Option 1 und 2 wird jeweils eine passende Funktion aufgerufen
+- Option 1 `weatherByLocation()` mit bisherigem Code
+- Option 2: `showLocations()` mit `console.log("noch nicht implementiert")`; o.ä.
+- Option 3 beendet die App mit `process.exit()`
+
+Mit `console.clear();` Bildschirm löschen. 
+
+`prompt('weiter mit Enter');` um kurz zu warten.
 </Callout>
 
 ## `switch` als Alternative zu `if/else if/else`
