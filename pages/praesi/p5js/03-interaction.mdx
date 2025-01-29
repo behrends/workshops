@@ -1,0 +1,123 @@
+import { Callout } from 'nextra/components';
+
+# Interaktion (15 Minuten)
+
+Mit p5.js ist es auch möglich, Interaktionen in grafische Darstellungen einzubauen. Wir werden uns anschauen, wie wir unseren Entwurf des DHBW-Logos mit der Maus und der Tastatur beeinflussen können.
+
+## Vorbereitung: Variablen (3 Minuten)
+
+An zwei Stellen im Code verwenden wir ein helles Rot:
+
+```js
+fill("#EA1E26");
+
+// Code hier weggelassen
+
+fill("#EA1E26");
+```
+
+Dies lässt sich durch eine Variable namens `dhbwRed` wie folgt umschreiben:
+
+```js
+let dhbwRed = "#EA1E26";
+
+fill(dhbwRed);
+
+// Code hier weggelassen
+
+fill(dhbwRed);
+```
+
+Der Vorteil hiervon ist nun, dass wir diese Farbe an einer Stelle im Code ändern können, was sich auf das gesamte Programm auswirkt.
+
+## Reaktion auf gedrückten Mausknopf: Farbe ändern (3 Minuten)
+
+Folgender Code-Ausschnitt zeigt, wie wir bei gedrücktem Mausknopf das Rot durch ein Orange ersetzen:
+
+```js
+let dhbwRed = "#EA1E26";
+
+if (mouseIsPressed) {
+  dhbwRed = "orange";
+}
+
+fill(dhbwRed);
+
+// Code hier weggelassen
+
+fill(dhbwRed);
+```
+
+In p5.js steht uns also mit `mouseIsPressed` eine Möglichkeit zur Verfügung, um Abzufragen, ob der Mausknopf aktuell gedrückt ist oder nicht. Dazu verwenden wir eine `if`-Bedingung, die bei gedrücktem Mausknopf die Farbe auf orange setzt. Ist der Mausknopf nicht gedrückt, dann erschient wieder das ursprüngliche Rot. Dies funktioniert so, weil p5.js die Funktion `draw()` wiederholt bis zum Programmstopp aufruft.
+
+## Tastendrücke abfragen („dark mode“) (3 Minuten)
+
+In der Funktion `draw()` von p5.js können wir mit `key` herausfinden, ob eine bestimmte Taste auf der Tastatur gedrückt wurde, z.B. „b“:
+
+```js
+if (key === "b") {
+  // Code, der hier steht, wird ausgeführt,
+  // wenn die Taste „b“ gedrückt wurde
+}
+```
+
+Mit der „b“-Taste soll die Hintergrundfarbe auf schwarz wechseln (ein einfacher „dark mode“). Dazu müssen wir zunächst außerhalb der Funktionen `setup()` und `draw()` eine globale Variable definieren und diese im Aufruf von `background()` in `draw()` verwenden:
+
+```js
+let bgColor = "white";
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(bgColor);
+  // der restliche Code bleibt gleich…
+}
+```
+
+Bevor die Farbe des Hintergrunds gesetzt wird, können wird ggf. die Farbe auf Schwarz ändern, wenn „b“ gedrückt wurde:
+
+```js
+function draw() {
+  if (key === "b") {
+    bgColor = "black"
+  } else if (key === "w") {
+    bgColor = "white"
+  }
+  
+  background(bgColor);
+  // der restliche Code bleibt gleich…
+}
+```
+
+Oben ist auch zusätzlich zu sehen, wie der Hintergrund nach Drücken von „w“ wieder in weiß erscheinen soll.
+
+## Verwendung der Position des Mauszeigers (5 Minuten)
+
+Im jedem Durchlauf von `draw()` können wir auf `mouseX` und `mouseY` zugreifen, um die aktuelle x- bzw. y-Koordinate des Mauszeigers zu erfahren.
+
+Das folgende Beispiel zeigt, wie die Farbe des grauen Quadrats in einen blaugrünen Ton (_cyan_) wechselt, wenn der Mauszeiger in der Fläche des grauen Quadrats ist:
+
+```js
+let dhbwGrey = "#73818D";
+
+if (mouseX >= 205 && mouseX <= 325 
+  && mouseY >= 140 && mouseY <= 260) {
+  dhbwGrey = "cyan";
+}
+fill(dhbwGrey);
+square(205, 140, 120, 4);
+```
+
+Auch hier nutzen wir eine Variable (`dhbwGrey`), die den aktuellen Wert der Farbe für das rechte (ursprünglich graue) Quadrat enthält. Mit `&&` werden in der `if`-Bedingung die vier relevanten x- und y-Koordinaten des Mauszeigers in Bezug auf das Quadrat logisch miteinander verknüpft, sodass das Quadrat nur dann türkis (_cyan_) erscheint, wenn der Mauszeiger sich im Bereich des Quadrats befindet.
+
+<Callout type="info" emoji="👨🏻‍💻">
+Experimentieren Sie mit eigenen Ideen und nutzen Sie 
+KI-Tools wie [Chatgpt](https://chat.com) für die 
+Code-Generierung! Probieren Sie z.B. folgenden Prompt:
+
+```
+Ein Smiley, den ich mit der Maus bewegen kann, in p5.js.
+```
+</Callout>

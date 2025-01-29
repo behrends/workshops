@@ -1,0 +1,134 @@
+import { Callout } from 'nextra/components';
+
+# Grundlagen von p5.js (15 Minuten)
+
+## Die Programmierumgebung (Editor) (2 Minuten)
+
+<Callout type="info" emoji="👨🏻‍💻">
+Wir gehen im Browser zu der Webadresse [editor.p5js.org](https://editor.p5js.org) und drücken auf den Start-Button, um das Programm auszuführen.
+</Callout>
+
+![p5.js-Editor](/images/kennenlerntag/editor-p5js.png)
+
+**1:** Menüleiste <br/> 
+Programme (bzw. Sketches) öffnen, speichern, usw.
+
+**2:** Kontrollleiste <br/>
+Knöpfe zum Starten und Stoppen von Programmen
+
+**3:** Editor <br/>
+In diesem Bereich wird ein p5.js-Programm geschrieben
+
+**4:** Konsole <br/>
+Hier werden Fehler und Kontrollausgaben mit `print` angezeigt.
+
+**5:** Vorschau (Preview) <br/>
+Darstellung des p5.js-Sketches, das durch das Programm definiert wird.
+
+
+## Aufbau eines p5.js-Programms (3 Minuten)
+
+Vorbemerkung: In der Programmierung werden mit Funktionen mehrere Befehle bzw. Anweisungen zusammengefasst, die zusammen eine bestimmte Aktion ausführen. Somit können wir die Funktionen verwenden (aufrufen), um die Aktion beliebig oft ausführen können (zu sehen an den runden Klammern `()` im Funktionsaufruf). 
+
+**Setup und Draw**: Jedes p5.js-Programm besteht in der Regel aus zwei Funktionen: `setup()` und `draw()`. Beim Laden von p5.js im Browser sind im Editor bereits diese beiden Funktionen vordefiniert. `setup()` wird einmal am Anfang ausgeführt, und `draw()` wird fortlaufend automatisch bis zum Programmende wiederholt.
+
+In der Funktion `setup()` wird die Canvas („Leinwand“) für die Darstellung unseres Programm durch den Aufruf der p5.js-Funktion `createCanvas(400,400)` erstellt mit einer Breite von `400` und einer Höhe von `400`.
+
+In der Funktion `draw()` wird durch den Aufruf der p5.js-Funktion `background(220)` die Canvas grau eingefärbt.
+
+<Callout>
+In p5.js wird mit JavaScript programmiert. p5.js stellt viele Funktionen bereit, die wir in unseren Programmen nutzen können.
+</Callout>
+
+## Ein Programms starten/stoppen (2 Minuten)
+
+Mit den Start- und Stopp-Knöpfen in der Kontrolleiste (Nr.2 in der Abbildung oben) wird das Programm gestartet und gestoppt. Wir erhalten die Darstellung des Programms in der Vorschau (Nr.4 in der Abbildung oben): eine quadratische graue Fläche.
+
+<Callout type="info" emoji="👨🏻‍💻">
+Verändern Sie die Größe der Canvas in Bezug auf Breite und Höhe.
+
+Setzen Sie die Hintergrundfarbe auf einen anderen Wert. Im Programm steht `220` für eine graue Farbe. Es gibt aber auch sogenannte „Aliase“ für englische Farbnamen: `"red"`, `"lightgreen"`, `"darkblue"`, usw.
+</Callout>
+
+<Callout type="warning">
+Achtung: Aliase von Farbnamen müssen im Gegensatz zu numerischen Farbwerten von Anführungszeichen umgeben werden, d.h. als sogenannte _Strings_ angegeben werden: background(`"red"`). 
+
+Die folgende Verwendung von `background` führt zu einem Fehler: `background(red)`.
+</Callout>
+
+<Callout>
+In p5.js sind alle Farbwerte erlaubt, die in CSS vorkommen können.
+</Callout>
+
+<Callout type="info" emoji="👨🏻‍💻">
+Für den Workshop benötigen wir eine Canvas von der Größe 400x400 und die Hintergrundfarbe der Canvas sollte weiß sein (`"white"`).
+</Callout>
+
+## Ausgaben in der Konsole (3 Minuten)
+
+Mit der Funktion `print()` können wir Ausgaben in der Konsole erhalten (siehe Nr. 4 in der Abbildung oben). Damit lassen sich z.B. Programmabläufe nachvollziehen.
+
+<Callout type="info" emoji="👨🏻‍💻">
+Tragen Sie in `setup()` den Befehl `print("setup");` ein und in `draw()` die Anweisung `print("draw");`. Führen Sie das Programm aus, stoppen Sie es nach einer kurzen Weile und beobachten Sie, was in der Konsole geschieht.
+</Callout>
+
+<Callout>
+Erinnerung: `setup()` wird von p5.js nur einmal zu Beginn der Programms ausgeführt und `draw()` wird automatisch wiederholt aufgerufen, bis das Programm anhält.
+</Callout>
+
+<Callout>
+`print()` ist in p5.js eine alternative Benennung der JavaScript-Funktion `console.log()`
+</Callout>
+
+<Callout type="info" emoji="👨🏻‍💻">
+Wir können die `print`-Befehle wieder entfernen oder mit `//` am Anfang der Zeile als ein Kommentar kennzeichnen, der vom Programm ignoriert und nicht ausgeführt wird.
+</Callout>
+
+## Koordinatensystem in p5.js (5 Minuten)
+
+Die Canvas hat ein Koordinatensystem mit x- und y-Achse. Es beginnt **links oben (!)** mit den Koordinaten `(0,0)`. 
+
+### Eine Linie zeichnen
+
+p5.js stellt einige Funktionen bereit, um verschiedene Formen zu zeichnen. Ein Beispiel ist eine Linie:
+
+```js
+line(x1,y1,x2,y2);
+``` 
+
+Mit den Koordinaten `x1,y1` wird der Startpunkt der Linie festgelegt und `x2,y2` definiert den Endpunkt. Diese Linie läuft in einer Canvas (400,400) horizontal durch die Mitte:
+
+```js
+line(0,200,400,200);
+```
+
+<Callout>
+In der Menüleiste (Nr.1 in der Abbildung oben) finden wir unter `Help-Reference` die Dokumentation zu allen Funktionen, die p5.js bereitstellt.
+</Callout> 
+
+### Hilfslinien für das Koordinatensystem darstellen
+
+Zur Orientierung im Koordinatensystem für diesen Workshop und als Übung wollen wir das Koordinatensystem durch 3 vertikale und 3 horizontale Linien in Quadranten bzw. 16 gleich große Quadrate aufteilen.
+
+<Callout type="info" emoji="👨🏻‍💻">
+**Aufgabe/Übung:** Erstellen Sie die Hilfslinien wie unten in der Abbildung angedeutet. 
+Im Code unten werden bereits 4 Linien gezeichnet. Ergänzen Sie den Code mit den passenden 
+Anweisungen für die restlichen Linien.
+
+&xrarr; Bei Fragen bitte melden!
+</Callout>
+
+
+```js
+// vertikale Linien
+line(100,0,100,400);
+line(200,0,200,400);
+// usw.
+
+// horizontale Linien
+line(0,100,400,100);
+line(0,200,400,200);
+// usw.
+```
+
+![Hilfslinien im Koordinatensystem](/images/kennenlerntag/grid.png)

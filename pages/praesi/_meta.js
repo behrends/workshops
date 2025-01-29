@@ -8,4 +8,5 @@ export default {
   'tag-03': '3. Tag: Bearbeitung der Themen',
   'tag-04': '4. Tag: Präsentationen',
   makecode: 'Notizen zu MakeCode',
+  p5js: 'p5.js Tutorial',
 };
