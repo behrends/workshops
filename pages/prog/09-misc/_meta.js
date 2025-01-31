@@ -1,4 +1,5 @@
 export default {
+  '00-git': 'Git',
   project_structure: 'Projektstruktur',
   libraries: 'Bibliotheken',
   funktionen2: 'Funktionen (Teil 2)',
