@@ -17,9 +17,10 @@ Folgende Schritte führen wir gemeinsam durch:
 
 ## git auf dem eigenen Rechner installieren
 
-Wer mit Linux oder macOS arbeitet, hat `git` bereits auf dem
-Rechner installiert. Unter Windows müssen wir `git`
-herunterladen und installieren: https://git-scm.com
+Wer mit macOS arbeitet, hat `git` bereits auf dem Rechner
+installiert. Meistens ist dies auch bei Linux der Fall. 
+Für Windows müssen wir `git` herunterladen und installieren: 
+https://git-scm.com
 
 Um zu prüfen, ob `git` bereits installiert ist, öffnen wir
 das Terminal z.B. in VS Code (`View > Terminal`) und geben 
@@ -33,6 +34,27 @@ Dies sollte eine Versionsnummer ausgeben (`git version …`). Sollte eine
 Fehlermeldung erscheinen, dann ist `git` noch nicht installiert. 
 
 &rarr; Zeit geben für die Installation von `git`.
+
+## Git lokal konfigurieren
+
+Zu Beginn nehmen wir ein paar Einstellungen 
+in `git` vor. Wir teilen git unseren Namen 
+und unsere E-Mail-Adresse mit, damit in Git 
+und GiHub nachvollzogen werden kann, wer die 
+Änderungen vorgenommen hat. Für die 
+E-Mail-Adresse stellt uns GitHub eine 
+
+<Callout>
+Die Angabe des Namens ist freiw
+</Callout>
+
+Dazu geben wir im Terminal folgende Befehle 
+ein:
+
+```bash
+git config --global user.name "Max Mustermann"
+git config --global user.email "USERNAME@users.noreply.github.com"
+```
 
 ## GitHub-Projekt auf dem eigenen Rechner einrichten
 
