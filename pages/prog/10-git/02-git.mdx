@@ -2,29 +2,11 @@ import { Callout } from 'nextra/components'
 
 # Git
 
-Git ist ein verteiltes Versionskontrollsystem, das von Linus 
-Torvalds für die Entwicklung des Linux-Kernels entwickelt und 
-2005 veröffentlicht wurde. 
-
-Ein **Versionskontrollsystem** (VCS) ist ein System, das es 
-ermöglicht, Änderungen an Dateien zu verfolgen und zu speichern. 
-Git ist momentan das am weitesten verbreite VCS. In folgenden 
-Situationen kann ein Versionskontrollsystem wie Git helfen:
-
-- Was habe ich in welchen Dateien geändert?
-- Wann habe ich etwas geändert?
-- Nachvollziehbarkeit der Änderungen im Laufe der Zeit
-- Wiederherstellen von Dateien aus einem früheren Stand
-- Arbeiten in geschützten Bereichen (_branch_)
-- Zusammenführen von Änderungen an mehreren Dateien, die durch andere am Projekt beteiligte Personen vorgenommen wurden
-
-Ein **verteiltes Versionskontrollsystem** wie Git speichert den 
-gesamten Projektverlauf nicht nur auf einem zentralen Server, 
-sondern alle im Team haben eine vollständige Kopie (inklusive 
-aller Versionen) lokal auf ihrem Rechner. So können wir z.B. 
-offline arbeiten und sind nicht auf eine permanente Verbindung zu 
-einem Server angewiesen. Wir werden im Projekt mit GitHub 
-arbeiten, einem Dienst, der Git-Server anbietet.
+Bisher haben wir ein Repository auf GitHub erstellt und 
+Teammitglieder hinzugefügt. Nun geht es darum, die Dateien
+auf den eigenen Rechner zu holen, Änderungen durchzuführen
+und diese wieder auf GitHub zu speichern. Dazu verwenden
+wir das Tool `git` im Terminal und VS Code.
 
 Folgende Schritte führen wir gemeinsam durch:
 
@@ -35,8 +17,27 @@ Folgende Schritte führen wir gemeinsam durch:
 
 ## git auf dem eigenen Rechner installieren
 
+Wer mit Linux oder macOS arbeitet, hat `git` bereits auf dem
+Rechner installiert. Unter Windows müssen wir `git`
+herunterladen und installieren: https://git-scm.com
+
+Um zu prüfen, ob `git` bereits installiert ist, öffnen wir
+das Terminal z.B. in VS Code (`View > Terminal`) und geben 
+folgenden Befehl ein:
+
+```bash
+git --version
+```
+
+Dies sollte eine Versionsnummer ausgeben (`git version …`). Sollte eine 
+Fehlermeldung erscheinen, dann ist `git` noch nicht installiert. 
+
+&rarr; Zeit geben für die Installation von `git`.
 
 ## GitHub-Projekt auf dem eigenen Rechner einrichten
+
+Wir wollen nun das Projekt von GitHub auf den eigenen Rechner
+holen. Dazu verwenden wir das Terminal in VS Code.
 
 In VS Code wählen wir zunächst mit `File > Open Folder...` den
 Ordner aus, in dem wir das Projekt speichern möchten. 
@@ -44,8 +45,14 @@ Anschließend können wir das Terminal öffnen (`View > Terminal`)
 und folgenden Befehl eingeben:
 
 ```bash
-git clone 
+git clone
 ```
 
 TODOs: 
 - Authentifizierung bei GitHub (SSH-Key?) --> Linux!
+- git in VS Code einrichten
+- git config --global user.name "Max Mustermann" nötig?
+
+## Änderungen an Dateien durchführen: lokal
+
+## Änderungen auf GitHub für das Team bereitstellen
