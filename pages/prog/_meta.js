@@ -14,4 +14,5 @@ export default {
   '07-structure': '7 - Objekte und Klassen',
   '08-organize': '8 - Code und Daten organisieren',
   '09-misc': 'Weiterführendes',
+  '10-git': 'Git und GitHub',
 };

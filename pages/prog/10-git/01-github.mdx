@@ -1,0 +1,65 @@
+import { Callout } from 'nextra/components'
+
+# GitHub
+
+[GitHub](https://github.com) ist ein Webdienst, der 
+Git-Repositories hostet. Ein **Repository** ist ein Speicherort 
+für Dateien und Ordner, die mit Git verwaltet werden &mdash; bei 
+uns ist das unser Projekt bzw. alle Dateien, die wir für das 
+Projekt benötigen.
+
+Bevor wir uns mit dem eigentlichen Tool `git` beschäftigen, 
+richten wir zunächst für die Teams ein Repository auf GitHub ein.
+
+<br/>
+
+<mark>Vorbemerkung: Alle haben bereits ein GitHub-Konto und 
+sind in einem Team organisiert.</mark>
+
+## Neues Repository auf GitHub erstellen
+
+Dies muss nur eine Person aus jedem Team durchführen. 
+Diese Person hat dann die Rolle des **Owners** und ist 
+für das Projekt auf GitHub verantwortlich.
+
+- In GitHub einloggen und den Button `New/Create repository` klicken (oder diese URL im Browser eingeben: https://github.com/new)
+- Passenden Namen für das Projekt finden (z.B. `learn-cards`)
+- Optional: als Beschreibung (`Description`) z.B. `Programmierprojekt in JavaScript in im ersten Semester` 
+- Projekt ggf. auf `Private` stellen, damit nur Teammitglieder darauf zugreifen können
+- Haken bei `Readme` setzen (dadurch erhalten wir eine erste Datei, die im Projektordner angezeigt wird)
+- `.gitignore`-Datei hinzufügen &rarr; `Node` auswählen (dies ist eine Konfigurationsdatei, die angibt, welche Dateien und Ordner von Git ignoriert werden sollen, bei Node.js z.B. der `node_modules`-Ordner)
+- Wenn keine Lizenz gewählt wird, dann ist das Projekt urheberrechtlich geschützt. Wer möchte, kann hier eine Open Source Lizenz wählen (z.B. `MIT License`).
+- Auf `Create repository` klicken
+
+Wir sehen nun unser Repository auf GitHub mit ein paar 
+Dateien (z.B. `README.md`, `.gitignore` und ggf. `LICENSE`).
+
+&rarr; Zeit geben für die Namensfindung und Projekteinrichtung
+
+### Teammitglieder hinzufügen
+
+<Callout type="info" emoji="👨🏻‍💻">
+Dozent: Vorführung mit `dummydhbw`-GitHub-Account.
+</Callout>
+
+Der Owner des eben erstellten GitHub-Repositories kann nun die 
+anderen Teammitglieder hinzufügen:
+
+- Im GitHub-Repository auf `Settings` klicken
+- Im Menü links auf `Collaborators` auswählen
+- Button `Add people` drücken
+- Im Dialog in der Suche den GitHub-Namen des Teammitglieds eingeben, auswählen und hinzufügen
+
+Dadurch wird das Teammitglied eingeladen, am Projekt 
+mitzuarbeiten. Es erhält eine Benachrichtigung per E-Mail und
+ggf. auch direkt in GitHub. Die Einladung muss angenommen werden, 
+damit das Teammitglied am Projekt mitarbeiten kann.
+
+&rarr; Zeit geben für die Einladung der Teammitglieder.
+
+&rarr; Auch Der Dozent wird als `Collaborator` hinzugefügt, damit er das Projekt einsehen kann.
+
+<Callout>
+Wir nehmen uns die nötige Zeit, um die Projekte auf GitHub 
+einzurichten. Bei Bedarf hilft der Dozent.
+</Callout>
