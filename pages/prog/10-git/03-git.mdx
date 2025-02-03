@@ -37,6 +37,21 @@ In unserem Repository haben wir bereits ein paar Dateien:
 
 ## Repository-Zustand mit `git status` überprüfen
 
+<Callout type="error" emoji="🚨">
+Wenn Sie die folgenden Schritte mitmachen möchten,
+dann sollte dies pro Team nur eine Person tun, um
+mögliche Konflikte in den Änderungen zunächst zu vermeiden.
+
+Vielleicht ist es sinnvoll, dass die Person im Team,
+die sich noch nicht so gut mit Git auskennt, die
+Schritte durchführt, um die Abläufe besser zu verstehen.
+
+Achten Sie auch darauf, ob die Änderungen im aktuellen
+Stand Ihres Projekts sinnvoll sind und ob Sie evtl. andere
+Dateien bzw. Änderungen vornehmen möchten. Es ist auch 
+möglich, die Änderungen später wieder rückgängig zu machen.
+</Callout>
+
 Wir erstellen in VS Code eine neue Datei `main.js` im 
 Projektordner und fügen folgenden Code ein (gerne 
 anpassen):
@@ -155,6 +170,53 @@ folgenden Befehl ein:
 git commit -m 'main.js hinzugefügt'
 ```
 
+Mit `-m` geben wir eine Nachricht an, die die Änderung
+beschreibt. Diese Nachricht ist wichtig, um später 
+nachvollziehen, was in einem `commit` geändert wurde.
+
+Nach dem Bestätigen der Änderung mit `git commit` ist
+die Änderung im lokalen Repository festgehalten. Wir
+können dies mit `git status` überprüfen und sehen, dass
+es keine Änderungen mehr gibt. Ebenso sind in VS Code
+die vorgemerkten Dateien aus dem `Source Control`-Bereich
+verschwunden.
+
+## Änderungen in VS Code bestätigen
+
+Nun wollen wir zunächst das Projekt mit `package.json`
+erweitern. Dazu führen wir im Terminal folgenden Befehl aus:
+
+```bash
+npm init 
+```
+
+Im Dialog geben wir die gewünschten Informationen ein, die
+meisten können wir mit Enter bestätigen. Am Ende wird eine
+`package.json`-Datei erstellt. 
+
+Wir spielen diese Änderung nun komplett in VS Code durch:
+
+- Status im `Source Control`-Bereich überprüfen
+- Datei `package.json` hinzufügen (mit `+`-Zeichen)
+- Datei `package.json` ist nun in `Staged Changes`
+- Commit-Nachricht eingeben (z.B. _package.json hinzugefügt_) 
+- `Commit`-Button klicken 
+
+## package.json mit prompt-sync
+
+`.gitignore` enthält bereits den Eintrag `node_modules`,
+
+## Änderungen rückgängig machen
+
+## Änderungen werden in `commits` festgehalten
+
+In Git ist ein `commit` eine Bestätigung von Änderungen 
+an beliebig vielen Dateien. Dies können neue Dateien sein,
+geänderte Dateien oder gelöschte Dateien. Ein `commit` wirkt
+sich auf die gesamte Arbeitskopie aus, d.h. alle Dateien
+werden in den Zustand des `commit` zurückgesetzt.
+
+
 ## Staging Area
 
 ```mermaid
@@ -178,20 +240,6 @@ flowchart TD
     B1 & B2 -->|git commit -m 'main.js und package.json hinzugefügt'| C
 ```
 
-## Änderungen rückgängig machen
-
-## package.json mit prompt-sync
-
-`.gitignore` enthält bereits den Eintrag `node_modules`,
-
-
-## Änderungen werden in `commits` festgehalten
-
-In Git ist ein `commit` eine Bestätigung von Änderungen 
-an beliebig vielen Dateien. Dies können neue Dateien sein,
-geänderte Dateien oder gelöschte Dateien. Ein `commit` wirkt
-sich auf die gesamte Arbeitskopie aus, d.h. alle Dateien
-werden in den Zustand des `commit` zurückgesetzt.
 
 
 
