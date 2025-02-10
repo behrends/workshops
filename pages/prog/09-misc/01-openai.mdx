@@ -2,9 +2,9 @@ import { Callout } from 'nextra/components';
 
 # OpenAI API
 
-In Moodle steht jedem Team ein API-Key für die 
-OpenAI-Plattform zur Verfügung. Dieser kann in
-der Datei `.env` hinterlegt werden:
+In Moodle steht jedem Team ein API-Key für die OpenAI-Plattform zur Verfügung. 
+Hier wird grob beschrieben, wie dieser API-Key mit der OpenAI-Hilfsbibliothek 
+in einem Node.js-Projekt verwendet werden kann. 
 
 ## API-Key in `.env` speichern
 
@@ -15,14 +15,15 @@ und fügen Sie den OpenAI-API-Key Ihrer Gruppen wie folgt ein:
 OPENAI_API_KEY=sk-...
 ```
 
-In der Datei `.env` werden in der Regel Umgebungsvariablen 
-und geheime Schlüssel in Node.js-Projekten gespeichert. 
-Diese Datei ist in der Standardkonfiguration des 
-Datei-Explorers (Windows) oder Finder (Mac) nicht sichtbar.
+In der Datei `.env` werden in der Regel Umgebungsvariablen und geheime 
+Schlüssel in Node.js-Projekten gespeichert. Zu beachten ist der Punkt 
+(&rarr; `.`) am Anfang des Dateinamens. Dadruch ist diese Datei „versteckt“ und 
+in der Standardkonfiguration des Datei-Explorers (Windows) oder Finder (Mac) 
+nicht sichtbar.
 
 Die Datei `.env` wird nicht dem Git-Repository hinzugefügt,
-da sie geheime Informationen enthält. Dies wird durch
-die Datei `.gitignore` sichergestellt.
+da sie geheime Informationen enthält. Dies wird durch einen entsprechenden
+Eintrag in der Datei `.gitignore` sichergestellt:
 
 ```
 # Folgende Zeile muss in .gitignore stehen
@@ -47,9 +48,10 @@ npm install openai
 ```
 
 Anschließend kann die API in einem Node.js-Programm
-wie folgt verwendet werden. Dazu muss die Klasse `OpenAI`
-aus der Hilfsbibliothek importiert und ein entsprechendes 
-Objekt initialisiert werden. Es folgt auch ein Beispiel
+wie folgt verwendet werden. 
+
+Zunächst muss die Klasse `OpenAI` aus der Hilfsbibliothek importiert und ein 
+entsprechendes Objekt initialisiert werden. Es folgt auch ein Beispiel
 für die Verwendung der Chat-API von OpenAI:
 
 ```javascript
@@ -61,6 +63,8 @@ const openai = new OpenAI();
 // hier könnte eine Eingabe erfolgen hier „simuliert“ mit einer Variablen
 let input = 'Hauptstadt der Schweiz';
 
+
+// Dies zeigt einen API-Aufruf der OpenAI-Chat-API
 const completion = await openai.chat.completions.create({
   messages: [
     {
@@ -72,6 +76,8 @@ const completion = await openai.chat.completions.create({
   ],
   model: 'gpt-4o-mini',
 });
+
+// Ergebnis der „KI-Suche“ ausgeben
 const searchResult = completion.choices[0].message.content;
 console.log('Ergebnis der KI-Suche:', searchResult);
 ```
@@ -81,7 +87,7 @@ console.log('Ergebnis der KI-Suche:', searchResult);
 Wir müssen nun dafür sorgen, dass die Umgebungsvariablen
 aus der Datei `.env` in unserem Programm geladen werden.
 Dazu kann in der Datei `package.json` ein `scripts`-Eintrag
-erstellte werden:
+erstellt werden:
 
 ```
 {
@@ -113,3 +119,6 @@ Mehr Infos gibt es in der Dokumentation der (umfangreichen!) API
 von OpenAI, z.B. für die Arbeit mit Text: https://platform.openai.com/docs/guides/text-generation
 
 &rarr; Bei den Code-Beispielen `javascript` auswählen.
+
+Tipp: Eine beliebte Alternative zur OpenAI-Bibliothek ist das umfangreiche
+„AI SDK“ von Vercel: https://sdk.vercel.ai
