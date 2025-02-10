@@ -1,4 +1,5 @@
 export default {
+  '01-openai': 'OpenAI-API',
   project_structure: 'Projektstruktur',
   libraries: 'Bibliotheken',
   funktionen2: 'Funktionen (Teil 2)',
