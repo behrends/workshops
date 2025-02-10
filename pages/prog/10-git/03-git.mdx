@@ -21,9 +21,9 @@ mit den Git-Tools in VS Code ausführen.
 ## Lokale Änderungen an Dateien
 
 Das lokale Repository auf dem eigenen Rechner ist eine 
-Kopie des Repository auf GitHub. Hier können wir Änderungen
-daher an Dateien lokal vornehmen, d.h. andere Teammitglieder
-sehen diese Änderungen noch nicht. Änderungen können sein:
+Kopie des Repository auf GitHub. Hier können wir lokale Änderungen
+an Dateien vornehmen, d.h. andere Teammitglieder sehen diese 
+Änderungen noch nicht. Änderungen können sein:
 
 - Hinzufügen neuer Dateien
 - Ändern bestehender Dateien
@@ -53,8 +53,8 @@ möglich, die Änderungen später wieder rückgängig zu machen.
 </Callout>
 
 Wir erstellen in VS Code eine neue Datei `main.js` im 
-Projektordner und fügen folgenden Code ein (gerne 
-anpassen):
+Projektordner und fügen folgenden Code ein (gerne nach eigenen
+Vorstellungen anpassen):
 
 ```js
 console.log("Willkommen im Programm!");
@@ -105,9 +105,10 @@ Da `main.js` eine neue Datei ist, wird der gesamte Inhalt
 der Datei angezeigt. Bei geänderten Dateien werden nur die
 geänderten Zeilen angezeigt.
 
-In VS Code können wir die Änderungen auch direkt im
-`Source Control`-Bereich sehen, indem wir dort eine 
-Datei auswählen und die Änderungen anzeigen lassen.
+In VS Code können wir die Änderungen auch direkt im `Source 
+Control`-Bereich sehen, indem wir dort eine Datei auswählen und uns 
+die Änderungen im Editor-Bereich mit visuellen Hervorhebungen 
+anzeigen lassen.
 
 ## Änderungen mit `git add` hinzufügen
 
@@ -127,13 +128,12 @@ wir folgenden Befehl für das Hinzufügen von `main.js` ein:
 git add main.js
 ```
 
-Damit wird die Datei `main.js` für die nächste bestätigte
-Änderung (`commit`) vorgemerkt. Wir können auch alle 
-geänderten Dateien hinzufügen (der Punkt `.` steht für 
-das aktuelle Verzeichnis):
+Damit wird die Datei `main.js` für die nächste bestätigte Änderung 
+(`commit`) vorgemerkt. Wir können mit der Option `-A` auch alle 
+geänderten Dateien hinzufügen:
 
 ```bash
-git add .
+git add -A
 ```
 
 Damit haben wir die Datei `main.js` für die nächste
@@ -144,7 +144,7 @@ nun geändert und wir können dies mit `git status`
 Auch in VS Code lässt sich dies im `Source Control`-Bereich 
 nachvollziehen. Dort sehen wir die vorgemerkten Dateien
 unter `Staged Changes` und können sie auch einzeln oder
-alle auf einmal hinzufügen.
+alle auf einmal mit `+` hinzufügen.
 
 <Callout>
 Auch wenn wir später vielleicht hauptsächlich die 
@@ -158,7 +158,7 @@ was im Hintergrund passiert.
 <Callout>
 Erinnerung: Bevor wir Änderungen bestätigen, sollten wir
 sicherstellen, dass wir die Änderungen mit `git status`
-und `git diff` überprüft haben und die richtigen Dateien 
+und `git diff` überprüft haben und die gewünschten Dateien 
 mit `git add` hinzugefügt haben.
 </Callout>
 
@@ -172,10 +172,10 @@ git commit -m 'main.js hinzugefügt'
 
 Mit `-m` geben wir eine Nachricht an, die die Änderung
 beschreibt. Diese Nachricht ist wichtig, um später 
-nachvollziehen, was in einem `commit` geändert wurde.
+nachvollziehen zu können, was in einem `commit` geändert wurde.
 
 Nach dem Bestätigen der Änderung mit `git commit` ist
-die Änderung im lokalen Repository festgehalten. Wir
+die Änderung im **lokalen** Repository festgehalten. Wir
 können dies mit `git status` überprüfen und sehen, dass
 es keine Änderungen mehr gibt. Ebenso sind in VS Code
 die vorgemerkten Dateien aus dem `Source Control`-Bereich
@@ -183,8 +183,9 @@ verschwunden.
 
 ## Änderungen in VS Code bestätigen
 
-Nun wollen wir zunächst das Projekt mit `package.json`
-erweitern. Dazu führen wir im Terminal folgenden Befehl aus:
+Zur Veranschaulichung der Git-Tools in VS Code erweitern wir  
+das Projekt zunächst mit `package.json`. Dazu führen wir im 
+Terminal folgenden Befehl aus:
 
 ```bash
 npm init 
@@ -202,11 +203,19 @@ Wir spielen diese Änderung nun komplett in VS Code durch:
 - Commit-Nachricht eingeben (z.B. _package.json hinzugefügt_) 
 - `Commit`-Button klicken 
 
-## package.json mit prompt-sync
+Außerdem fügen wir noch die Hilfsbibliothek `prompt-sync` hinzu:
 
-`.gitignore` enthält bereits den Eintrag `node_modules`,
+```bash
+npm install prompt-sync
+```
 
-## Änderungen rückgängig machen
+In den Git-Tools von VS Code sehen wir nun, dass `package.json`
+geändert wurde. Außerdem wurde die neue Datei `package-lock.json`
+erstellt. `.gitignore` enthält bereits den Eintrag `node_modules`, 
+daher taucht `node_modules` nicht in den Änderungen auf.
+
+Wir fügen die Dateien hinzu und bestätigen die Änderungen mit
+einer Commit-Nachricht (z.B. _prompt-sync hinzugefügt_).
 
 ## Änderungen werden in `commits` festgehalten
 
@@ -216,8 +225,20 @@ geänderte Dateien oder gelöschte Dateien. Ein `commit` wirkt
 sich auf die gesamte Arbeitskopie aus, d.h. alle Dateien
 werden in den Zustand des `commit` zurückgesetzt.
 
+### Staging Area
 
-## Staging Area
+Mit `git add` fügen wir Dateien zur `Staging Area` hinzu 
+(_stage_ = Bühne). Die `Staging Area` ist ein Zwischenspeicher
+für Änderungen, die wir bestätigen wollen. Mit `git commit`
+werden die Änderungen aus der `Staging Area` in das lokale
+Repository übernommen. Durch die `Staging Area` können wir
+Änderungen in mehreren Schritten bestätigen, indem wir für 
+eine bestimmte Änderung nur die betroffenen Dateien hinzufügen und
+dir irrelevanten Dateien auslassen. 
+
+<br/>
+
+<mark>Die `Staging Area` ist ein wichtiges Konzept in Git.</mark>
 
 ```mermaid
 flowchart TD
@@ -226,7 +247,7 @@ flowchart TD
         A2[Datei: package.json]
     end
 
-    subgraph Staging Area [Staging Area Index]
+    subgraph Staging Area
         B1[Datei: main.js]
         B2[Datei: package.json]
     end
@@ -240,26 +261,22 @@ flowchart TD
     B1 & B2 -->|git commit -m 'main.js und package.json hinzugefügt'| C
 ```
 
-`git restore`  und `-` in VS Code
-
 
 ## Änderungen auf GitHub für das Team bereitstellen
 
-## Abschließende Bemerkungen
+Sobald wir Änderungen im lokalen Repository bestätigt haben,
+können wir sie auf GitHub bereitstellen. Dazu verwenden wir
+den Befehl `git push`. Dieser lädt die Änderungen auf den
+GitHub-Server hoch, wo sie für andere Teammitglieder sichtbar
+werden.
 
-Wir haben nur die wichtigsten Befehle im Umgang mit Git 
-und GitHub kennengelernt, um gemeinsam an einem Projekt
-zu arbeiten. Es gibt viele weitere Befehle und 
-Möglichkeiten, Git und GitHub zu nutzen. Mehr Infos 
-zu Git:
+```bash
+git push
+```
 
-- Dokumentation bei GitHub: https://docs.github.com/de/get-started/start-your-journey/git-and-github-learning-resources
-- Online-Buch "Pro Git": https://git-scm.com/book/de/v2
-- Git-Tutorial (Video, 40 min): https://www.youtube.com/watch?v=uGLQF2kUwOA&t
-- ChatGPT und andere KI-Chats können Git erklären und insbesondere Fragen in bestimmten Situationen beantworten.
+Nach dem Ausführen von `git push` sind die Änderungen auf
+GitHub sichtbar. Wir können dies überprüfen, indem wir auf
+die GitHub-Webseite gehen und uns das Repository ansehen.
 
-
-<Callout>
-Es gib viele Tools für die Arbeit mit Git und GitHub, z.B.
-bietet GitHub auch einen [Desktop-Client](https://desktop.github.com/) an. Manche
-</Callout>
+Auch in VS Code gibt es die Möglichkeit, Änderungen direkt
+zu _pushen_.
