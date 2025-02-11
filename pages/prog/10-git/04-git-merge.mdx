@@ -5,6 +5,36 @@ import { Callout } from 'nextra/components';
 <Callout type="info" emoji="👨🏻‍💻">
 Infos für Dozent: 
 
+Dies wird mit zwei verschiedenen GitHub-Accounts gezeigt. 
+
+- GitHub-Projekt erstellen
+- zweiten GitHub-Account als _Collaborator_ hinzufügen
+- erster GitHub-Account klont das Projekt auf dem Rechner
+
+Für den zweiten GitHub-Account muss ein SSH-Key auf GitHub vorliegen und lokal in `~/.ssh/config` angepasst werden:
+
+```
+Host github-other
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_rsa_other
+    IdentitiesOnly yes
+```
+
+Als zweiter GitHub-User das Projekt klonen:
+
+```
+git clone git@github-other:ErsterBenutzer/Repository.git Projektordner
+```
+
+- Lokale Git-Config im Projektordner für zweiten GitHub-Account setzen:
+
+```
+cd projektordner
+git config user.name "Anderer Benutzer"
+git config user.email "andere-email@example.com"
+```
+
 - zweiter GitHub-Account
 - clone
 - config 
