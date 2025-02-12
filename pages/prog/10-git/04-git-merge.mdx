@@ -7,11 +7,11 @@ Infos für Dozent:
 
 Dies wird mit zwei verschiedenen GitHub-Accounts gezeigt. 
 
-- GitHub-Projekt erstellen
+- GitHub-Projekt erstellen (`ErsterBenutzer/Repository.git`)
 - zweiten GitHub-Account als _Collaborator_ hinzufügen
 - erster GitHub-Account klont das Projekt auf dem Rechner
 
-Für den zweiten GitHub-Account muss ein SSH-Key auf GitHub vorliegen und lokal in `~/.ssh/config` angepasst werden:
+Vorher checken: Für den zweiten GitHub-Account muss ein SSH-Key auf GitHub vorliegen und lokal in `~/.ssh/config` angepasst werden:
 
 ```
 Host github-other
@@ -21,7 +21,7 @@ Host github-other
     IdentitiesOnly yes
 ```
 
-Als zweiter GitHub-User das Projekt klonen:
+Als zweiter GitHub-User das Projekt des ersten Nutzers klonen:
 
 ```
 git clone git@github-other:ErsterBenutzer/Repository.git Projektordner
@@ -35,16 +35,83 @@ git config user.name "Anderer Benutzer"
 git config user.email "andere-email@example.com"
 ```
 
-- zweiter GitHub-Account
-- clone
-- config 
+&rarr; Nun kann der zweite GitHub-Account lokal Änderungen vornehmen und pushen.
 </Callout>
 
-- `git pull`: Merge-Strategie in config festlegen (Terminal, VS Code)
-- `git pull` mit auto merge (verschiedene Zeilen geändert)
-- `git pull` mit Konflikt (gleiche Zeilen geändert)
-- alles in Terminal und VS Code zeigen
+Wir spielen nun verschiedene Szenarios durch:
 
+- Änderungen pushen und pullen (ohne Konflikte)
+- Änderungen im GitHub-Repo, die noch nicht lokal sind:
+  - Push schlägt fehl (weil Änderungen im Repo)
+  - Merge-Strategie in config festlegen
+  - Pull mit automatischem Merge und anschließenden Push
+- Merge-Konflikte behandeln
+
+## Änderungen pushen und pullen (ohne Konflikte)
+
+Ablauf:
+
+- Erster Benutzer ändert und committed Datei1 und pusht
+- Zweiter Benutzer pullt die Änderungen
+- Zweiter Benutzer ändert und committed Datei2 und pusht
+- Erster Benutzer pullt die Änderungen
+- usw.
+
+&rarr; Keine Konflikte, alles läuft glatt, weil die Änderungen nacheinander geschehen und sich nicht überschneiden.
+
+## Änderungen im GitHub-Repo, die noch nicht lokal sind
+
+Ablauf:
+
+- Erster Benutzer ändert und committed Datei1 und pusht
+- Zweiter Benutzer ändert und committed Datei2 und versucht zu pushen
+
+&rarr; Push schlägt fehl, weil Änderungen im Repo sind, die noch nicht lokal sind.
+
+- Zweiter Benutzer muss die Änderungen zuerst pullen, bevor er pushen kann.
+
+&rarr; Sowohl im Terminal als auch in VS Code erscheint folgender Fehler:
+
+```
+hint: You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
+hint: your next pull:
+hint:
+hint:   git config pull.rebase false  # merge
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint:
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+```
+
+Der zweite Benutzer muss die Merge-Strategie festlegen, bevor er pullt.
+Wir verwenden `git config pull.rebase false` für einen Merge, weil
+dies am einfachsten zu verstehen ist. 
+
+Im Terminal ausführen: 
+
+```bash
+git config pull.rebase false
+```
+
+Danach klappt das Pullen, und die Änderungen können automatisch gemerged 
+werden, weil sie sich nicht überschneiden. Dennoch ist ein lokaler Commit
+der Änderungen nötig.
+
+&rarr; Nach dem Commit kann der zweite Benutzer pushen.
+
+&rarr; Änderungen mit `git log` anzeigen (`Merge branch 'main' of…`)
+
+<br/>
+
+<mark>Das Festlegen der Merge-Strategie muss jedes Teammitglied einmal für das Projekt durchführen.</mark>
+
+## Merge-Konflikte behandeln
+
+Wir zeigen nun, was passiert, wenn in einer Datei Änderungen vorgenommen werden, die sich überschneiden (z.B. in der Datei `README.md`).
 
 ## Abschließende Bemerkungen
 
