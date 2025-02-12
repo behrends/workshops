@@ -113,6 +113,66 @@ der Änderungen nötig.
 
 Wir zeigen nun, was passiert, wenn in einer Datei Änderungen vorgenommen werden, die sich überschneiden (z.B. in der Datei `README.md`).
 
+- Erster Benutzer ändert `README.md` in Zeile X, committed und pusht
+- Zweiter Benutzer ändert `README.md` auch in Zeile X und committed dies lokal
+- Zweiter Benutzer pusht, was fehlschlägt, und pullt die Änderungen
+
+&rarr; Es kommt zu einem Merge-Konflikt, weil die Änderungen sich überschneiden, dazu erscheint folgende Meldung im Terminal:
+
+```
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+Wir sehen mit `git status` folgenden Zustand im lokalen Repository:
+
+```
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+	both modified:   README.md
+```
+
+Nun müssen wir die Konflikte in der Datei `README.md` manuell lösen,
+dort werden die Konflikte direkt in der Datei markiert:
+
+```
+Hier steht der Rest des Readme-Textes…
+
+<<<<<<< HEAD
+Änderung des zweiten Benutzers
+=======
+Änderung von Benutzer1
+>>>>>>> 893fd404c23f6ee0f04f8693210320e8fa0845cc
+```
+
+Unsere Änderungen (Benutzer2) stehen zwischen `<<<<<<< HEAD` und 
+`=======`, die Änderungen des ersten Benutzers zwischen `=======` und 
+`>>>>>>>`. Wir müssen die Konflikte manuell auflösen, indem wir die 
+gewünschten Änderungen in der Datei behalten und den Rest löschen.
+Die Markierungen werden auch gelöscht:
+
+```
+Hier steht der Rest des Readme-Textes…
+
+Änderung von Benutzer1
+```
+
+Hier haben wir die Änderungen des ersten Benutzers behalten und die
+des zweiten Benutzers gelöscht. Nun können wir mit `git add` und 
+`git commit` die Änderungen abschließen.
+
+<br/>
+
+<mark>&rarr; Danach spielen wir das gleiche Szenario in VS Code durch.</mark>
+
+In VS Code können wir genau wie im Terminal vorgehen oder die von
+den Git-Tools bereitgestellten Funktionen nutzen. 
+
 ## Abschließende Bemerkungen
 
 Wir haben nur die wichtigsten Befehle im Umgang mit Git 
