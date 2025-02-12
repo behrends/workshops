@@ -9,33 +9,37 @@ import { Callout } from 'nextra/components'
 </Callout>
 
 JavaScript hat seit ECMAScript 2015 eine offizielle 
-für import- und export-Anweisungen. Damit lassen
-sich JavaScript-Projekte auf mehrere Dateien aufteilen 
-um eine übersichtliche Code-Struktur zu erhalten
-und z.B. Funktionen in anderen Dateien im Code 
-zu verwenden. Somit können Funktionen oder Klassen
-in einer bestimmtem Datei deklariert und **exportiert**
-werden, um sie in einer anderen Datei zu **importieren**
-und dort zu verwenden.
+Syntax für import- und export-Anweisungen. 
+Damit lassen sich JavaScript-Projekte 
+auf mehrere Dateien aufteilen, um eine übersichtliche 
+Code-Struktur zu erhalten und z.B. Funktionen in 
+anderen Dateien im Code zu verwenden. Somit können 
+Funktionen oder Klassen in einer bestimmtem Datei 
+deklariert und **exportiert** werden, um sie in einer 
+anderen Datei zu **importieren** und dort zu verwenden.
 
 <Callout type="info">
-In Node.js gibt es mit CommonJS und `exports/require` 
-einen eigenen Ansatz für Import/Export von JavaScript-Code. 
+In Node.js gibt es mit CommonJS und `require/exports` 
+einen eigenen Ansatz für die modulare Aufteilung von 
+JavaScript-Code. 
+
+Jedoch ist `import`/`export` der 
+Standard-Modulmechanismus von JavaScript, der sich 
+inzwischen weitläufig gegenüber `require` durchgesetzt hat.
 
 Mehr Infos zum Modulsystem in Node.js sind
-[in der Dokumentation zu Node JS beschrieben](https://nodejs.org/api/esm.html).
+[in der Dokumentation zu Node JS](https://nodejs.org/api/esm.html) zu finden.
 </Callout>
 
 
-## Vorbereitungen in replit und Node.js
+## Vorbereitungen in Node.js
 
-Um `import`/`export` in replit oder Node.js verwenden 
+Um `import`/`export` in Node.js verwenden 
 zu können, muss diese Funktionalität folgendermaßen 
 aktiviert werden:
 
-1. Falls noch nicht vorhanden, im Projektordner die Datei `package.json` erstellen: 
-  - In replit.com sollte diese schon vorhanden sein.
-  - In Node.js kann diese mit `npm init` erstellt werden.
+1. Falls noch nicht vorhanden, im Projektordner die 
+Datei `package.json` mit dem Terminalbefehl `npm init` erstellen.
 2. Die Datei `package.json` öffnen.
 3. In `package.json` folgendes eintragen (z.B. nach dem Eintrag für `version`):
   
@@ -77,28 +81,23 @@ export function test1() { return 'TEST1'; };
 export function test2() { return 'TEST2'; };
 export default function test() { return 'TEST'; };
 
-const myConstant = 1234;
-export { myConstant };
+export const myConstant = 1234;
 ```
 
-Bei Funktionen kann also direkt vor `function`
-mit `export` angezeigt werden, dass diese Funktion
-exportiert werden soll. Pro Datei (bzw. Modul) kann
-es höchstens eine `export default`-Anweisung geben. 
+Mit `export` wird angezeigt, dass z.B. eine Funktion
+oder Konstante exportiert werden soll. Pro Datei (bzw. 
+Modul) kann es höchstens eine `export default`-Anweisung geben. 
 
-Im obigen Beispiel werden drei Funktionen exportiert.
-Dies ist auch mit Klassen oder Konstanten möglich,
-wobei die Konstanten zunächst initialisiert und 
-dann exportiert werden müssen, wie oben in den
-letzten zwei Zeilen zu sehen.
+Im obigen Beispiel werden drei Funktionen und eine Konstante exportiert. Die Funktion `test` ist der 
+„Default-Export“.
 
 ### Importieren (von Funktionen o.a.)
 
 Importiert werden die „normalen“ Exports durch
 Angabe der Namen in geschweiften Klammen (hier
-`test2` und `test3`). Der „Default“-Export kann 
-ohne geschweifte Klammern angegeben werden 
-(hier ist dies `test`):
+`test2`, `test3` und `myConstant`). 
+Der „Default“-Export kann ohne geschweifte Klammern 
+angegeben werden (hier ist dies `test`):
 
 ```js
 // z.B in index.js importieren:
@@ -110,7 +109,7 @@ console.log(test2());
 console.log(myConstant);
 ```
 
-Anstatt die importierenden Artefakte (Funktionen, Konstanten, usw.) 
+Anstatt die zu importierenden Artefakte (Funktionen, Konstanten, usw.) 
 einzeln in geschweiften Klammern aufzulisten, ist es mit `* as Name` möglich,
 alle exportieren Artefakte unter einem qualifizierenden Namen (`Name`) 
 zu importieren:
@@ -125,7 +124,7 @@ console.log(Comp.test2());
 console.log(Comp.myConstant);
 ```
 
-&xrarr; Hier stehen die „normalen“ Exports (ohne `default`) alle
+&xrarr; Hier stehen die „normalen“ Exports (außer dem „Default-Export“!) allesamt
 unter dem Namen `Comp` zur Verfügung.
 
 
