@@ -1,4 +1,14 @@
+import { useConfig } from 'nextra-theme-docs'
+
 export default {
+  color: {
+    hue: 0,
+    saturation: 74,
+    lightness: {
+      dark: 80,
+      light: 50
+    }
+  },
   docsRepositoryBase:
     'https://github.com/behrends/workshops/tree/main',
   editLink: {
@@ -41,18 +51,21 @@ export default {
     },
   },
   gitTimestamp: undefined,
-  head: (
-    <>
-      <meta name="msapplication-TileColor" content="#fff" />
-      <meta httpEquiv="Content-Language" content="de" />
-      <meta name="description" content="Workshops Notizen" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@behrends" />
-      <meta property="og:title" content="Workshops Notizen" />
-      <meta property="og:description" content="Workshops Notizen" />
-      <meta name="apple-mobile-web-app-title" content="Workshops" />
-    </>
-  ),
+  head: function() { 
+    const { title } = useConfig()
+    return (
+      <>
+        <title>{title ? `${title} | progcontent` : 'progcontent'}</title>    
+        <meta name="msapplication-TileColor" content="#fff" />
+        <meta httpEquiv="Content-Language" content="de" />
+        <meta name="description" content="Workshops Notizen" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@behrends" />
+        <meta property="og:title" content="Workshops Notizen" />
+        <meta property="og:description" content="Workshops Notizen" />
+        <meta name="apple-mobile-web-app-title" content="Workshops" />
+      </>
+   )},
   logo: <span className="font-bold">Workshops</span>,
   project: {
     link: 'https://github.com/behrends/workshops',
