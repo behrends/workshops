@@ -161,6 +161,24 @@ console.log(data[2].name); // --> ergibt Kim
 
 Mehr dazu in der [Node.js Dokumentation](https://nodejs.org/dist/latest/docs/api/esm.html#json-modules).
 
+Wenn wir den Fall behandeln möchten, dass die Datei `data.json` nicht existiert oder
+kein gültiges JSON enthält, dann können wir einen 
+[dynamischen Import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) 
+verwenden:
+
+```js
+let data = [];
+try {
+  const jsonData = await import('./data.json', {
+    with: { type: 'json' },
+  });
+  data = jsonData.default;
+} catch (error) {}
+```
+
+Hier setzen wir `try…catch` ein, was auf der nächsten Seite erläutert wird. 
+Auch `await` wird später besprochen.
+
 ## JSON-Datei speichern:
 
 Node.js hat Funktionalitäten, um Dateien zu speichern, z.B. die Methode `writeFileSync` 
@@ -196,3 +214,5 @@ fs.writeFileSync('./mydb.json', jsonString);
 Dies erzeugt die Datei `mydb.json` im Projektordner.
 
 Wir erhalten somit eine simple Vorgehensweise erhalten, um die Daten unseres Programms zu speichern.
+
+

@@ -7,7 +7,6 @@ export default {
   vscode: 'VS Code',
   debugging: 'Debugging',
   fetch: 'Fetch für Web-Daten',
-  'try-catch': 'try…catch',
   private: 'Private Eigenschaften',
   extends: 'Vererbung in Klassen',
   static: 'Statische Methoden',
