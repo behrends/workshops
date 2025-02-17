@@ -160,3 +160,39 @@ console.log(data[2].name); // --> ergibt Kim
 ```
 
 Mehr dazu in der [Node.js Dokumentation](https://nodejs.org/dist/latest/docs/api/esm.html#json-modules).
+
+## JSON-Datei speichern:
+
+Node.js hat Funktionalitäten, um Dateien zu speichern, z.B. die Methode `writeFileSync` 
+aus dem Modul `fs`. Damit lassen sich Daten in Dateien speichern.
+
+Wir importieren zunächst `fs`:
+
+```js
+import fs from 'fs';
+```
+
+Angenommen, wir haben eine Liste von Städten, die wir als JSON in einer
+Datei speichern wollen:
+
+```js
+const myData = [
+  { name: 'Berlin', id: 5 },
+  { name: 'Hamburg', id: 4 },
+  { name: 'München', id: 3 },
+  { name: 'Köln', id: 2 },
+  { name: 'Frankfurt', id: 1 },
+];
+```
+
+Wir können nun das Array `myData` in JSON umwandeln und als Datei speichern:
+
+```js
+const jsonString = JSON.stringify(myData);
+
+fs.writeFileSync('./mydb.json', jsonString);
+```
+
+Dies erzeugt die Datei `mydb.json` im Projektordner.
+
+Wir erhalten somit eine simple Vorgehensweise erhalten, um die Daten unseres Programms zu speichern.

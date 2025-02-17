@@ -8,27 +8,10 @@ import { Callout } from 'nextra/components'
   **Ziel:** Daten in localStorage speichern
 </Callout>
 
-Node.js-Projekte in replit.com bieten 
-die Möglichkeit, Daten in einer Datenbank zu
-speichern. Diese Funktionalität kann im Browser
-durch das zylinderförmige Symbol auf der linken Seite 
-in replit.com eingesehen werden. Allerdings
-basiert diese Datenbank auf einer _asynchronen_ API 
-und setzt somit ein Verständnis von Promises 
-in JavaScript voraus. Promises (und `async/await`)
-haben wir (noch) nicht besprochen &mdash; außerdem
-ist dieses Thema nicht unbedingt für den Einstieg 
-in die Programmierung nötig.
-
-Im Gegensatz dazu steht bei der Programmierung mit 
-JavaScript im Browser ein Objekt namens 
+Bei der Programmierung mit 
+JavaScript im Browser steht ein Objekt namens 
 `localStorage` zur Verfügung, in dem Daten
-gespeichert werden können. Die Verwendung von
-`localStorage` läuft _synchron_ ab, d.h. Promises
-sind hierbei nicht nötig. Dadurch ist es im 
-Vergleich zu asynchronen Ansätzen wie der Datenbank 
-in replit.com deutlich einfacher, mit `localStorage` 
-zu arbeiten.
+gespeichert werden können. 
 
 <Callout type="info">
 Im Live Coding wird `localStorage` in der Konsole
@@ -39,26 +22,9 @@ Es gibt ein Open-Source-Projekt namens
 [`node-localstorage`](https://github.com/lmaccherone/node-localstorage) auf GitHub, das die 
 Funktionalität von 
 `localStorage` für Node.js-Projekte bereitstellt.
-Hierbei handelt es sich um eine Software-Bibliothek 
-(_library_), mit der unser Projekt erweitert werden 
-kann. Dazu kann in replit.com unter „Packages“ 
-(das Würfelsymbol auf der linken Seite) nach 
-`node-localstorage` gesucht werden und mit einem 
-Klick wird das passende Ergebnis in unserem
-Projekt als Abhängigkeit (_dependency_) installiert.
 
 <Callout type="info">
-Dies wird zum Mitmachen vorgeführt. 
-
-Zu beachten ist, dass es nun zwei neue Dateien in
-unserem Projekt gibt: `package.json` und 
-`package-lock.json`. In der Regel werden diese 
-Dateien in replit.com-Projekten automatisch 
-erstellt.
-</Callout>
-
-<Callout type="info">
-In Node.js allgemein wird `localStorage` durch
+In Node.js wird die Bibliothek `node-localstorage` durch
 folgenden Terminal-Befehl im Projektverzeichnis
 installiert:
 
