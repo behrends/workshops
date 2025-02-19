@@ -202,7 +202,7 @@ um einer Variablen einen Wert zuzuweisen, falls diese Variable
 `null` oder `undefined` ist. Dies ist nützlich, um Default-Werte 
 festzulegen, ohne vorhandene gültige Werte zu überschreiben.
 
-Dazu ein paar Beispiel:
+Dazu ein paar Beispiele:
 
 ```javascript
 let foo;
@@ -225,6 +225,8 @@ Der `??=`-Operator stellt sicher, dass eine Zuweisung nur
 vorgenommen wird, wenn der aktuelle Wert der Variablen 
 `null` oder `undefined` ist, also sozusagen ein 
 „nicht vorhandener“ Wert.
+
+&rarr; Damit lassen sich manchmal Überprüfungen von Variablen auf `null` und `undefined` mit `if`-Ausdrücken vermeiden.
 
 <Callout type="info">
 Eine Übersicht neuer JavaScript-Features
