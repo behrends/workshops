@@ -196,6 +196,36 @@ _Nullish coalescing_ wird bei
 [javascript.info](https://javascript.info/nullish-coalescing-operator) ausführlicher
 erklärt.
 
+Ein Spezialfall für _nullish coalescing_ ist der
+„_Nullish Coalescing Assignment Operator_“. Er wird verwendet, 
+um einer Variablen einen Wert zuzuweisen, falls diese Variable 
+`null` oder `undefined` ist. Dies ist nützlich, um Default-Werte 
+festzulegen, ohne vorhandene gültige Werte zu überschreiben.
+
+Dazu ein paar Beispiel:
+
+```javascript
+let foo;
+
+// foo ist undefined, daher wird der Wert 42 zugewiesen
+foo ??= 42;
+console.log(foo); // Ausgabe: 42
+
+// foo ist bereits ein gültiger Wert (42), daher bleibt es unverändert
+foo ??= 100;
+console.log(foo); // Ausgabe: 42
+
+// Wenn foo null ist, wird der Wert 100 zugewiesen
+foo = null;
+foo ??= 100;
+console.log(foo); // Ausgabe: 100
+```
+
+Der `??=`-Operator stellt sicher, dass eine Zuweisung nur 
+vorgenommen wird, wenn der aktuelle Wert der Variablen 
+`null` oder `undefined` ist, also sozusagen ein 
+„nicht vorhandener“ Wert.
+
 <Callout type="info">
 Eine Übersicht neuer JavaScript-Features
 der letzten Jahre gibt es hier: 
