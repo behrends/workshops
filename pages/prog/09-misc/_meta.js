@@ -3,7 +3,7 @@ export default {
   '02-libraries': 'Bibliotheken',
   '03-funktionen2': 'Funktionen (Teil 2)',
   '04-arrow_functions': 'Pfeilfunktionen',
-  '05-vscode': 'VS Code',
+  '05-ai-sdk': 'AI SDK',
   '06-debugging': 'Debugging',
   '07-fetch': 'Fetch für Web-Daten',
   '08-private': 'Private Eigenschaften',

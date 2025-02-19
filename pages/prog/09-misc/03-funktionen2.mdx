@@ -3,9 +3,8 @@ import { Callout } from 'nextra/components'
 # Funktionen (Teil 2)
 
 <Callout>
-  **Dauer:** 25 Minuten
-
-  - Kombinierte Funktionsaufrufe
+  **Dauer:** 20 Minuten
+  
   - Default-Werte bei Parametern
   - Flexible Argumentliste
   - Funktionen als Objekte
@@ -13,56 +12,6 @@ import { Callout } from 'nextra/components'
   **Ziel:** Weitere Aspekte von Funktionen kennen lernen
 </Callout>
 
-## Kombinierte Funktionsaufrufe
-
-Im folgenden Beispiel werden Funktionen
-nacheinander aufgerufen. Bei zwei Funktionen
-werden die Ergebnisse bzw. Rückgabewerte
-voriger Funktionsaufrufe verwendet (in `multiply` 
-und `substract`).
-
-```js
-function add(a,b) {
-  return a + b;
-};
-
-function substract(a,b) {
-  return a - b;
-};
-
-function multiply(a,b) {
-  return a * b;
-};
-
-const sum = add(6,3);
-const product = multiply(sum,2);
-const diff = substract(product,4);
-console.log(diff); // 14 ( = (6+3)*2-4 )
-```
-
-Der Rückgabewert eines Funktionsaufrufs kann 
-direkt als Argument im Aufruf einer anderen 
-Funktion eingesetzt werden. Hier wird das Ergebnis 
-einer Funktion als Parameter in nächsten 
-Funktionsaufruf verwendet &mdash; das Ergebnis ist 
-dasselbe wie oben:
-
-```js
-function add(a,b) {	
-  return a + b;	
-};
-
-function substract(a,b) {	
-  return a - b;	
-};
-
-function multiply(a,b) {	
-  return a * b;
-};
-	
-console.log(substract(multiply(add(6,3),2),4));
-// --> 14 ( = (6+3)*2-4 )
-```
 
 ## Default-Werte bei Funktionsparametern
 
