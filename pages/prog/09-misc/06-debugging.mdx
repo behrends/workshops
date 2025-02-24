@@ -8,12 +8,22 @@ import { Callout } from 'nextra/components'
 
 Vorführung im Live Coding. 
 
-VS Code: 
+Mit Debugging kann der Code Schritt für Schritt durchgegangen werden. 
+Dabei können Variablen inspiziert und der Programmfluss verfolgt werden.
+
+Das Debugging in VS Code aktivieren:
 
 - `View - Command Palette...` öffnen, 
 - dort `Debug: Toggle Auto Attach` eintippen und auswählen, 
 - danach `Smart` aktivieren,
 - Breakpoint setzen (links neben Zeilennummer klicken),
-- Terminal öffen (`View - Terminal`),
+- **Neues** Terminal öffen (`View - Terminal`),
 - `node index.js` im Terminal ausführen,
-- &xrarr; Programm wird automatisch im Debug Mode ausgeführt und stoppt beim Breakpoint. Werte von Variablen können links in der Seitenleiste inspiziert werden.
+- &rarr; Programm wird automatisch im Debug Mode ausgeführt und stoppt beim Breakpoint. Werte von Variablen können links in der Seitenleiste inspiziert werden.
+- &rarr; Terminal ggf. schließen und neu öffnen, falls es nicht funktioniert.
+
+Das Programm stoppt an der Stelle, wo der (erste) Breakpoint gesetzt wurde.
+
+Folgender Screenshot zeigt, wie das Debugging aussieht:
+![Debugging in VS Code](/images/prog/debugging.jpg)
+
