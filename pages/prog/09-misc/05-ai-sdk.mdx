@@ -3,12 +3,15 @@ import { Callout } from 'nextra/components'
 # AI SDK
 
 Unter https://sdk.vercel.ai ist ein AI SDK verfügbar, das für die Nutzung 
-eine einheitliche API bereitstellt und Funktionalitäten wie z.B. das 
-Text-Streaming unterstützt. Mit Text-Streaming kann der Text einer Antwort
-der KI wie in den bekannten Chats ausgegeben werden.
+verschiedener LLMs eine einheitliche API bereitstellt und Funktionalitäten 
+wie z.B. das Text-Streaming unterstützt. Mit Text-Streaming kann der Text einer 
+Antwort der KI wie in den bekannten Chats als schrittweise erscheinender Text 
+ausgegeben werden.
 
 Folgender Beispiel-Code zeigt den Einsatz des AI SDKs mit dem OpenAI
-und der Ausgabe der Antwort in einem Stream:
+und der Ausgabe der Antwort in einem Stream. Der Code implementiert einen
+Chat mit fortlaufendem Kontext (`messages`), wobei hier der Einfachheit
+halber kein System-Prompt zur Einschränkung auf die Ortssuche enthalten ist.
 
 ```js
 import { openai } from '@ai-sdk/openai';
@@ -48,7 +51,7 @@ export default async function aiSearch() {
 
 Damit der Code funktioniert, muss der API-Key in `.env` definiert sein,
 siehe dazu die [vorige Lektion zu OpenAI](/prog/09-misc/01-openai).
-Außerdem muss das AI-SDK installiert werden (hier mit OpenAI):
+Außerdem muss das AI-SDK installiert werden:
 
 ```bash
 npm install ai @ai-sdk/openai
