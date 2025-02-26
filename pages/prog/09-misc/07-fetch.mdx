@@ -42,23 +42,6 @@ via URL z.B. als JSON angefordert werden können.
 open-meteo.com in der Browser-Konsole vorführen. 
 </Callout>
 
-## `node-fetch`
-
-<Callout type="info">
-Ab Version 18 ist `fetch` in Node.js enthalten (vorerst als experimentelles Feature).
-</Callout>
-
-In Node.js bzw. replit.com kann die Funktionalität 
-von `fetch` durch die Installation der Bibliothek 
-[`node-fetch`](https://github.com/node-fetch/node-fetch) dem Projekt hinzugefügt werden.
-
-Danach kann `fetch` wie folgt zur Verwendung im Code 
-importiert werden:
-
-```js
-import fetch from 'node-fetch';
-```
-
 ## `fetch` verwenden
 
 Nun kann `fetch` in replit.com bzw. Node.js
@@ -94,8 +77,6 @@ Der Code in der Funktion
 wie dies umgesetzt wird:
 
 ```js
-import fetch from 'node-fetch';
-
 function getBerlinWeatherPromiseSteps() {
   const url = 
     `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true`;
