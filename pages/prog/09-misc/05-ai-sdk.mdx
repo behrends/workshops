@@ -3,3 +3,41 @@ import { Callout } from 'nextra/components'
 # AI SDK
 
 TODO: https://sdk.vercel.ai
+
+Beispiel-Code:
+
+```js
+import { openai } from '@ai-sdk/openai';
+import { streamText } from 'ai';
+import promptSync from 'prompt-sync';
+const prompt = promptSync();
+
+export default async function aiSearch() {
+  console.clear();
+
+  const messages = [];
+  while (true) {
+    let input = prompt(
+      "Beschreibe den Ort (oder 'x' zum Beenden des Chats): "
+    );
+    if (input === 'x') return;
+
+    messages.push({ role: 'user', content: input });
+
+    const result = streamText({
+      model: openai('gpt-4o'),
+      messages,
+    });
+
+    let fullResponse = '';
+    process.stdout.write('\nKI-Assistent: ');
+    for await (const delta of result.textStream) {
+      fullResponse += delta;
+      process.stdout.write(delta);
+    }
+    process.stdout.write('\n\n');
+
+    messages.push({ role: 'assistant', content: fullResponse });
+  }
+}
+```
