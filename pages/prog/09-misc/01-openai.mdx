@@ -63,9 +63,10 @@ const openai = new OpenAI();
 // hier könnte eine Eingabe erfolgen hier „simuliert“ mit einer Variablen
 let input = 'Hauptstadt der Schweiz';
 
-// Dies zeigt einen API-Aufruf der OpenAI-Chat-API
-const completion = await openai.chat.completions.create({
-  messages: [
+// Dies zeigt einen API-Aufruf der OpenAI-Responses-API
+const response = await openai.responses.create({
+  model: 'gpt-4o',
+  input: [
     {
       role: 'developer',
       content:
@@ -73,12 +74,9 @@ const completion = await openai.chat.completions.create({
     },
     { role: 'user', content: input },
   ],
-  model: 'gpt-4o-mini',
 });
 
-// Ergebnis der „KI-Suche“ ausgeben
-const searchResult = completion.choices[0].message.content;
-console.log('Ergebnis der KI-Suche:', searchResult);
+console.log('Ergebnis der KI-Suche:', response.output_text);
 ```
 
 ## Programm mit `.env`-Datei starten 
@@ -115,7 +113,7 @@ aus `.env` die Umgebungsvariablen geladen werden und
 das Programm `main.js` gestartet wird.
 
 Mehr Infos gibt es in der Dokumentation der (umfangreichen!) API 
-von OpenAI, z.B. für die Arbeit mit Text: https://platform.openai.com/docs/guides/text-generation
+von OpenAI, z.B. für die Arbeit mit Text: https://platform.openai.com/docs/guides/text?api-mode=responses
 
 &rarr; Bei den Code-Beispielen `javascript` auswählen.
 
