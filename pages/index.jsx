@@ -25,11 +25,11 @@ export default function Home() {
           fill
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-slate-900/60 flex flex-col justify-center items-center text-center px-4">
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+        <div className="absolute inset-0 bg-slate-900/40 flex flex-col justify-center items-center text-center px-4">
+          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2 text-shadow">
             Workshops zu Programmierung, Web- und App-Entwicklung
           </h1>
-          <p className="text-lg text-slate-200">
+          <p className="text-lg text-slate-200 text-shadow">
             Praxisnah, aktuell und didaktisch fundiert &ndash; Prof.
             Dr. Erik Behrends
           </p>
@@ -41,7 +41,7 @@ export default function Home() {
           <h2 className="text-3xl font-semibold mb-6 text-center">
             Modernes Lernen
           </h2>
-          <div className="text-left text-lg max-w-3xl xl:max-w-4xl mx-auto space-y-5 leading-relaxed text-gray-800 px-4">
+          <div className="text-left text-lg max-w-3xl xl:max-w-5xl mx-auto space-y-5 leading-relaxed text-gray-800 px-4">
             <p>
               Die Workshops behandeln praxisorientierte Szenarien der
               modernen Web- und App-Entwicklung. Ziel ist es,
