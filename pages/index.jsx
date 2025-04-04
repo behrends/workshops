@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Home() {
@@ -31,6 +32,13 @@ export default function Home() {
 
       <main className="flex flex-col items-center justify-start flex-1 px-4 sm:px-6 md:px-8 py-12 w-full">
         <section className="max-w-4xl w-full mb-12">
+          <Image
+            src="/images/workshops-hero.png"
+            alt="Workshops Illustration"
+            width={512}
+            height={200}
+            className="rounded-xl mx-auto mb-6"
+          />
           <h2 className="text-3xl font-semibold mb-6 text-center">
             Modernes Lernen
           </h2>
