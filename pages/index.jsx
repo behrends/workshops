@@ -26,7 +26,7 @@ export default function Home() {
           className="object-cover object-center"
         />
         <div className="absolute inset-0 bg-slate-900/40 flex flex-col justify-center items-center text-center px-4">
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2 text-shadow">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-100 mb-2 text-shadow">
             Workshops zu Programmierung, Web- und App-Entwicklung
           </h1>
           <p className="text-lg text-slate-200 text-shadow">
