@@ -18,7 +18,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className="relative h-[400px] w-full">
+      <header className="relative min-h-[240px] sm:min-h-[300px] w-full">
         <Image
           src="/images/workshops-hero.png"
           alt="Workshops Visual"
