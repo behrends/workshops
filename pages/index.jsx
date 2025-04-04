@@ -81,7 +81,7 @@ export default function Home() {
           <h2 className="text-3xl font-semibold mb-6 text-center">
             Liste der Workshops
           </h2>
-          <ul className="space-y-4">
+          <ul className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
             {[
               {
                 href: '/prog',
@@ -91,7 +91,8 @@ export default function Home() {
               },
               {
                 href: '/mobile',
-                title: 'Entwicklung mobiler Apps',
+                title:
+                  'Entwicklung mobiler Apps mit Jetpack Compose für Android und mit React Native',
                 icon: '📱',
               },
               {
@@ -102,13 +103,13 @@ export default function Home() {
               {
                 href: '/praesi',
                 title:
-                  'Präsentationskompetenzen mit modernen Technologien und Tools',
+                  'Themen für Präsentationen mit modernen Technologien und Tools',
                 icon: '🗣️',
               },
             ].map(({ href, title, icon }) => (
               <li
                 key={href}
-                className="bg-white p-6 rounded-xl shadow-sm border hover:shadow-md transition"
+                className="bg-white h-full p-6 rounded-xl shadow-sm border hover:shadow-md transition flex flex-col justify-between"
               >
                 <Link
                   href={href}
