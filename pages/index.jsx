@@ -77,7 +77,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="max-w-3xl w-full">
+        <section className="max-w-4xl w-full">
           <h2 className="text-3xl font-semibold mb-6 text-center">
             Liste der Workshops
           </h2>
@@ -86,13 +86,13 @@ export default function Home() {
               {
                 href: '/prog',
                 title:
-                  'Programmierung — Grundlagen der Programmierung mit JavaScript',
+                  'Programmieren — Grundlagen und Einstieg mit JavaScript',
                 icon: '💻',
               },
               {
                 href: '/mobile',
                 title:
-                  'Entwicklung mobiler Apps mit Jetpack Compose für Android und mit React Native',
+                  'App-Entwicklung (Jetpack Compose für Android, React Native, …)',
                 icon: '📱',
               },
               {
@@ -102,20 +102,25 @@ export default function Home() {
               },
               {
                 href: '/praesi',
-                title:
-                  'Themen für Präsentationen mit modernen Technologien und Tools',
+                title: 'Präsentation moderner Technologien und Tools',
                 icon: '🗣️',
               },
             ].map(({ href, title, icon }) => (
-              <li
-                key={href}
-                className="bg-white h-full p-6 rounded-xl shadow-sm border hover:shadow-md transition flex flex-col justify-between"
-              >
+              <li key={href}>
                 <Link
                   href={href}
-                  className="font-semibold text-lg hover:underline text-slate-900"
+                  className={`relative flex items-center justify-center text-center bg-white h-full p-6 rounded-xl shadow-sm border border-slate-200 hover:shadow-lg hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2`}
                 >
-                  {icon} {title}
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`flex items-center justify-center h-10 w-10 text-xl`}
+                    >
+                      {icon}
+                    </div>
+                    <div className="font-semibold text-base text-slate-900 text-left">
+                      {title}
+                    </div>
+                  </div>
                 </Link>
               </li>
             ))}
