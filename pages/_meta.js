@@ -1,6 +1,6 @@
 export default {
   prog: {
-    title: 'Programmierung',
+    title: 'Programmieren',
     type: 'page',
   },
   'web-prog': {
