@@ -1,64 +1,42 @@
 import { Callout } from 'nextra/components';
 
-# Android
+# Android-Projekt erstellen und ausführen
 
 <Callout>
-  **Dauer:** 30-45 Minuten \
-  Restliche Zeit steht für Fragen, Diskussion und Hilfe bei Problemen
-  mit Android Studio zur Verfügung.
+  **Dauer:** ca. 20 Minuten bzw. restliche Zeit
 
-  - Android Studio: Projekte erstellen und ausführen
+  - Android Studio: Projekte erstellen
+  - App auf dem Emulator und Handy ausführen
   
-  **Ziel:** Alle haben Android Studio eingerichtet. Neue Projekte 
-  können erstellt und auf dem Emulator ausgeführt werden.
+  **Ziel:** Neue Projekte können erstellt und ausgeführt werden.
 </Callout>
 
-## Android Studio: Installation und Konfiguration
+## Neues Android-Projekt erstellen
 
-Frage an die Studierenden: <br/>
-Gab es Probleme bei der Installation von Android Studio? <br/>
-Ist bei der Konfiguration etwas zu beachten (z.B. unter Windows)?
+Wir erstellen ein neues Projekt im zugehörigen Dialog in 
+Android Studio. Unter `Phone and Tablet` wählen wir die Vorlage 
+`Empty Activity` aus und bestätigen mit `Next`.
 
-&xrarr; Studierende können sich gegenseitig mit Tipps helfen 
-(siehe auch die nächsten Schritte weiter unten)
-
-## Native App-Entwicklung für Android
-
-Wir betrachten zunächst die native App-Entwicklung für 
-Android-Geräte. Dazu ist Android Studio als Entwicklungsumgebung
-zu installieren, was für Windows, macOS und Linux möglich ist
-und idealerweise bereits von den Studierenden durchgeführt 
-wurde (siehe [Vorbereitung](/mobile/setup)). Im Gegensatz dazu
-kann die native iOS/iPhone-App-Entwicklung ausschließlich auf macOS
-mit XCode durchgeführt werden. Android Studio stellt außerdem
-einen Emulator bereit, sodass kein Android-Handy vorhanden sein muss.
-
-Seit einigen Jahren empfiehlt Google für die native 
-Android-App-Entwicklung die Programmiersprache Kotlin &mdash;
-insbesondere dann, wenn neue App-Projekte gestartet werden.
-Obwohl Java weiterhin unterstützt wird, werden hier nur Beispiele
-mit Kotlin gezeigt. Für die App-Projekte ist Java dennoch erlaubt.
-
-## Projekt in Android Studio erstellen und ausführen
-
-Wir erstellen zunächst ein neues Android-Projekt für 
-eine Beispiel-App (Todo-Liste), die wir gemeinsam im Live
-Coding erstellen wollen. 
-
-- Android Studio öffnen und neues Projekt erstellen
-- Template „_Empty Activity_“ auswählen und `Next` klicken
-- Name der App eingeben (z.B. `TodoList` oder `TodosAndroid`) 
-- Speicherort (_Save location_) anpassen und `Finish` klicken
+Im nächsten Schritt können wir die App bei Bedarf konfigurieren (Name, Speicherort, usw.). Die meisten Einstellungen können so übernommen werden.
 
 <Callout>
-Hinweis für Dozent (opional für den Kurs): 
-
-Im Terminal das Projekt `git` versionieren.
-
-Referenz-App: https://github.com/behrends/TodosAndroid
+Kurz die Android-SDKs und API-Levels unter _„Help me choose“_ zeigen.
 </Callout>
 
-App auf Emulator ausführen. Dazu zunächst einen Emulator im `Device Manager` erstellen (Herunterladen und Einrichten kann etwas dauern)
+
+Nach Drücken auf `Finish` wird ggf. wieder einiges im Hintergrund 
+heruntergeladen. Das Projekt wird schließlich in Android Studio 
+geöffnet.
+
+## App auf dem Emulator testen 
+
+Nachdem das Projekt kompiliert wurde, können wir die App mit dem „Play-Button“ auf dem Emulator ausführen (grünes Dreieck in der oberen Werkzeugleiste). 
+
+Es kann sein, dass wir eine _Run configuration_ erstellen müssen. 
+
+Die Erzeugung eines Emulators erfolgt im Bereich „_Device Manager_“, der an der 
+rechten Seite zu finden ist. Hier kann ein Pixel-Gerät mit aktueller API-Version 
+gewählt werden (auch hierbei wird wieder einiges heruntergeladen…).
 
 <Callout type="warning">
 Falls es hier Fragen oder Probleme zu Android Studio gibt,
@@ -74,23 +52,16 @@ Ist ein Android-Handy vorhanden, so kann dies via USB-Kabel
 mit dem Laptop verbunden werden. In Android Studio kann die
 App dann auf dem Handy ausgeführt werden. Dazu einige Bemerkungen:
 
-- In den Einstellungen des Handies müssen die Entwickleroptionen freigeschaltet werden (siehe Hinweis unten).
+- In den Einstellungen des Handies müssen die Entwickleroptionen freigeschaltet werden:
+  - Einstellungen &rarr; Über das Telefon &rarr; 7× auf „Build-Nummer“ tippen
+  - Etwas anders auf jedem Gerät bzw. bei jedem Hersteller
+  - &rarr; ggf. eigene Recherchen notwendig
 - Für Windows müssen eventuell Treiber heruntergeladen werden
-- Etwas anders auf jedem Gerät bzw. bei jedem Hersteller
-- &xrarr; evtl. eigene Recherchen notwendig
 
-## Optional: Android Device Streaming und Genymotion
+## Optional: Android Device Streaming
 
-Mit [Android Device Streaming](https://developer.android.com/studio/run/android-device-streaming) lassen sich weitere „echte Smartphones“ (z.B. von Samsumg) in der Cloud für die App-Entwicklung nutzen.
+Mit [Android Device Streaming](https://developer.android.com/studio/run/android-device-streaming) lassen sich weitere „echte Smartphones“ (z.B. von Samsung) in der Cloud für die App-Entwicklung nutzen. Dies basiert auf der [Firebase Test Lab](https://firebase.google.com/docs/test-lab) Infrastruktur von Google.
 
-Genymotion ist ein alternativer Android-Emulator, mit dem sich 
-viele verschiedene Geräte unterschiedlicher Hersteller simulieren 
-lassen (u.a. von Samsung).
-
-Benötigt allerdings eine Installation von VirtualBox.
-
-Hier gibt es eine kostenlose Version für den persönlichen 
-Gebrauch: [www.genymotion.com/download/](https://www.genymotion.com/download/)
 
 ## Gemeinsame Übung
 
@@ -107,8 +78,7 @@ Einstiegs-Codelab von Google durchspielen: https://developer.android.com/get-sta
 ## Hausaufgabe
 
 Falls noch nicht erfolgt, dann Android Studio installieren,
-neues Projekt erstellen und App auf Emulator oder Handy ausführen
-(siehe [Vorbereitung](/mobile/setup)).
+neues Projekt erstellen und App auf Emulator oder Handy ausführen.
 
 Je nach Interesse und verfügbarer Zeit (wann ist der nächste Termin?) kann der Einsteigerkurs von Google ausprobiert werden:
 

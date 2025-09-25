@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 # Plattformen und Frameworks
 
 <Callout>
-  **Dauer:** höchstens 30 Minuten
+  **Dauer:** höchstens 40 Minuten bis zur Pause
 
   - Plattformen für native Apps
   - Frameworks für plattformübergreifende Apps
@@ -48,6 +48,12 @@ iOS | Apple | Swift (ObjectiveC) | XCode **ausschließlich** (!) auf macOS |
 Native Apps werden für Android in Googles _PlayStore_ und für
 iPhones in Apples _AppStore_ veröffentlicht.
 
+<Callout type="info">
+Die „echten“ nativen Entwicklungsansätze erfordern zwei getrennte Code-Repositories und oftmals auch zwei dezidierte Entwickler-Teams, um eine App für beide Plattformen zu entwickeln.
+
+Durch Ansätze wie _Kotlin Multiplatform (KMP)_ ist es auch möglich, die Geschäftslogik einer App in Kotlin zu schreiben und diese plattformübergreifend zu verwenden. Außerdem gibt es mehrere plattformübergreifende UI-Frameworks, die wir neben KMP weiter unten betrachten.
+</Callout>
+
 ### Webanwendungen
 
 Mit mobilen Webanwendungen, die im Browser ausgeführt werden,
@@ -87,10 +93,12 @@ für Android und iOS entwickelt werden können:
 
 Framework | Ursprung | Programmiersprache | Entwicklungsumgebung | Webseite |
 --- | --- | --- | --- | --- |
-React Native (mit Expo) | Meta (Facebook) | JavaScript (und TypeScript) | Texteditor, empfohlen wird VS Code | [reactnative.dev](https://reactnative.dev)
-Flutter | Google | Dart | Texteditor, empfohlen wird Android Studio oder VS Code | [flutter.dev](https://flutter.dev/) |
-.NET MAUI / Xamarin | Microsoft | C# | Visual Studio ? | [dot.net/maui](https://dot.net/maui) |
-ionic | Ionic | JavaScript | Texteditor, empfohlem wird VS Code | [ionicframework.com](https://ionicframework.com/) |
+Kotlin Multiplatform (KMP) | Jetbrains (mit Google?) | Kotlin | Android Studio oder IntelliJ | [jetbrains.com/kotlin-multiplatform](https://www.jetbrains.com/kotlin-multiplatform/) |
+Flutter | Google | Dart | Texteditor, empfohlen werden Android Studio oder VS Code | [flutter.dev](https://flutter.dev/) |
+React Native (mit Expo) | Meta (Facebook) | JavaScript bzw. TypeScript | Texteditor, empfohlen wird VS Code | [reactnative.dev](https://reactnative.dev) |
+Lynx | ByteDance (TikTok) | JavaScript bzw. TypeScript | Texteditor (z.B. VS Code) | [lynxjs.org](https://lynxjs.org) |
+.NET MAUI | Microsoft | C# | Visual Studio (nicht VS Code) | [dot.net/maui](https://dot.net/maui) |
+ionic | Ionic | JavaScript bzw. TypeScript | Texteditor, empfohlen wird VS Code | [ionicframework.com](https://ionicframework.com/) |
 
 Alle diese Frameworks sind Open Source Projekte.
 
@@ -103,9 +111,14 @@ wie Windows, macOS, u.a.).
 
 Möglicherweise gibt es weitere relevante Frameworks, d.h. solche, die von einigen genutzt und weiterentwickelt werden. Folgende Frameworks sind Open Source:
 
-- NativeScript &mdash; [nativescript.org](https://nativescript.org/) (JavaScript)
-- Kotlin Multiplatform Mobile &mdash; [kotlinlang.org/lp/mobile](https://kotlinlang.org/lp/mobile/) (Kotlin)
+- OneStack für React Native &mdash; [onestack.dev](https://onestack.dev ) (JavaScript/TypeScript)
+- NativeScript &mdash; [nativescript.org](https://nativescript.org/) (JavaScript/TypeScript)
 - Codename One &mdash; [codenameone.com](https://www.codenameone.com) (Java und Kotlin)
 - Kivy &mdash; [kivy.org](https://kivy.org) (Python)
-- Tauri (mobile coming soon) &mdash; [tauri.app](https://tauri.app) (Rust)
-- kennt der Kurs weitere Ansätze?
+- Tauri &mdash; [tauri.app](https://tauri.app) (Rust)
+- kennen die Studierenden weitere Ansätze?
+
+
+## PAUSE
+
+15 Minuten Pause

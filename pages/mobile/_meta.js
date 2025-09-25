@@ -1,6 +1,5 @@
 export default {
   index: 'Übersicht',
-  setup: 'Vorbereitung',
   '01-intro': '1 - Einleitung',
   '02-android': '2 - Android Teil 1',
   '03-android': '3 - Android Teil 2',

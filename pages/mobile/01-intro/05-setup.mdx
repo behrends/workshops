@@ -1,0 +1,135 @@
+import { Callout } from 'nextra/components'
+
+# Setup von Android Studio
+
+<Callout>
+  **Dauer:** maximal 45 Minuten 
+
+  - Android Studio herunterladen und installieren
+  
+  **Ziel:** Alle haben Android Studio eingerichtet. 
+</Callout>
+
+## Vorbemerkung
+
+Android Studio ist einerseits die Entwicklungsumgebung für die
+native Android-App-Entwicklung, andererseits bringt eine Installation
+von Android Studio auch die notwendigen Werkzeuge für die
+Ausführung von Apps auf Android-Geräten mit.
+
+Mit Android Studio können virtuelle Android-Geräte (Emulatoren)
+erstellt werden. Wer z.B. ein iPhone besitzt und mit einem
+Windows-Laptop arbeitet, kann mit dem Android-Emulator die
+App testen und ausführen &mdash; unabhängig vom App-Framework.
+iPhone-Apps können nur auf macOS ausgeführt werden, wobei React Native
+mit Expo hier eine Ausnahme bildet.
+
+Es ist daher auch dann sinnvoll, Android Studio zu installieren,
+wenn ein Projektteam später eine andere Entwicklungsplattform (z.B. 
+React Native) oder einen anderen Editor wie VS Code wählen sollte.
+
+## Android Studio einrichten
+
+_Android Studio_ wird von Google bereitgestellt, ist kostenlos und 
+kann auf allen Betriebssystemen installiert werden 
+(Windows, MacBooks, Linux).
+
+Das Herunterladen, die Installation und die Einrichtung 
+von Android Studio kann je nach Internetverbindung und 
+Rechnergeschwindigkeit durchaus etwas länger dauern (insgesamt mehrere Gigabyte). Falls es hierbei zu Problemen kommt, dann können 
+wir diese hoffentlich gemeinsam lösen (siehe unten: [Probleme und 
+Lösungen](#sammlung-von-problemen-und-lösungen)).
+
+Zwei Schritte nötig:
+
+1. Android Studio herunterladen und installieren: https://developer.android.com/studio
+1. Android Studio starten und Setup durchführen
+
+Im folgenden wird beschrieben, wie bei den einzelnen Schritten
+für die Einrichtung von Android Studio vorzugehen ist.
+
+> **Bemerkung:** 
+> Android Studio basiert auf der IntelliJ-Plattform von 
+> Jetbrains. Es ist möglich, IntelliJ mit den 
+> Funktionalitäten für die Android-Entwicklung zu erweitern, 
+> sodass eine separate Installation von Android Studio nicht 
+> benötigt wird. Wir werden hier allerdings nicht auf diesen 
+> Ansatz eingehen.
+
+<Callout type="warning" emoji="⚠️">
+Es gibt ständig Updates für Android Studio. Fast jedes Jahr läuft die Installation etwas anders ab als zuvor.
+</Callout>
+
+### Android Studio herunterladen und installieren
+Laden Sie die für Ihren Rechner passende Version von Android Studio von 
+der Webseite [developer.android.com/studio](https://developer.android.com/studio)
+herunter.
+
+Die Downloaddatei ist größer als 1 Gigabyte. Führen Sie die
+Installationsdatei von Android Studio bei sich auf 
+dem Rechner aus und installieren Sie somit die Software.
+
+### Android Studio starten und Setup durchführen
+Starten Sie nun Android Studio, nachdem Sie die Software bei 
+sich auf dem Rechner installiert haben. Klicken Sie sich durch
+die Dialoge mit der Standardkonfiguration durch, ggf. auch mit der 
+Option für ein virtuelles Android-Gerät (Emulator).
+
+Nun könnte es sein, dass Updates für Android Studio zu 
+installieren sind. Diese können Sie durch Bestätigung 
+installieren. Starten Sie bei Aufforderung Android Studio 
+erneut. Auch dies wird je nach Internetverbindung und 
+Rechnergeschwindigkeit eine gewisse Zeit beansprucht.
+
+Android Studio ist nun eingerichtet und einsatzbereit. 
+
+<Callout type="info">
+Wer früher fertig ist, kann bereits ein neues
+Projekt erstellen und die App auf einem Emulator und falls 
+vorhanden auf seinem Android-Gerät ausführen (siehe nächste
+Seite).
+</Callout>
+
+## Alternative: Android Studio in der Cloud
+
+Die Cloud-Entwicklungsumgebung „Firebase Studio“ von Google
+bietet auch eine Möglichkeit, Android Studio in der Cloud zu nutzen:
+
+https://studio.firebase.google.com/
+
+Ende September 2025 kann man sich nur in eine Warteliste eintragen. 
+
+Allgemeine Infos dazu: https://developer.android.com/studio/preview/android-studio-cloud
+
+
+## Sammlung von Problemen und Lösungen
+
+### Windows 
+
+Leider kann der Dozent die Installation von Android Studio 
+nicht jedes Jahr erneut auf einem Windows-Rechner durchführen. 
+
+Falls Probleme mit Android Studio unter Windows auftauchen,
+dann können diese hoffentlich durch die gegenseitige 
+Unterstützung der Studierenden zu Beginn der Vorlesung gelöst 
+werden.
+
+### Lizenzen akzeptieren
+
+Beim Dozenten erschien z.B. beim Starten der App auf dem Emulator 
+diese Fehlermeldung:
+
+```
+Failed to install the following Android SDK packages as some licences have not been accepted.
+...
+To build this project, accept the SDK license agreements and install the missing components using the Android Studio SDK Manager.
+```
+
+Dieses Problem konnte wie folgt gelöst werden:
+1. SDK-Manager öffnen (Icon bestehend aus Würfel und nach unten gerichtetem Pfeil in der Werkzeugleiste).
+1. Es öffnet sich ein Fenster mit dem SDK-Manager
+1. Im Reiter `SDK Tools` den Eintrag `Android SDK Command-line Tools (latest)` wählen
+1. Mit `Apply` die Änderung anwenden
+1. Ein Dialog erscheint, in dem die Lizenz akzeptiert werden kann, und das Herunterladen der `Android SDK Command-line Tools` kann beginnen.
+1. Danach sollte es möglich sein, die App auf dem Emulator zu starten.
+
