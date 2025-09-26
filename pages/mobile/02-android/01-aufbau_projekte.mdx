@@ -1,0 +1,101 @@
+import { Callout } from 'nextra/components'
+
+# Aufbau von Android-Projekten
+
+<Callout>
+  **Dauer:** 20 Minuten
+
+  - Vorbemerkungen zum Ablauf der Framework-Vorstellungen
+  - Struktur von Android-Projekten
+  - Wichtige Dateien erwähnen
+
+  **Ziel:** Orientierung in Projekten in Android Studio
+</Callout>
+
+## Vorbemerkungen
+
+Jedes Framework ist umfangreich und in ständiger Weiterentwicklung.
+Wir werden jedes Framework nur kurz kennenlernen, damit die Teams
+eine informierte Entscheidung für ihr Projekt treffen können und
+bereits die ersten Schritte in der App-Entwicklung machen können.
+Daher werden grundlegende Themen schrittweise und kompakt 
+vorgeführt, indem wir zusammen eine kleine Todo-App programmieren.
+
+<Callout type="info">
+**Vorstellung des Frameworks**
+
+- ✅ Installation und Einrichtung der Entwicklungsumgebung 
+- &rarr; Prinzipien des Frameworks (Projektstruktur, Komponenten/Widgets, …)
+- App mit einem Screen: UI-Elemente, Layout, Interaktion und State
+- Daten lokal speichern
+- Navigation zwischen mehreren Screens
+</Callout>
+
+<Callout type="error" emoji="‼️">
+Im Rahmen der Vorlesungstermine kann aufgrund der
+knappen Zeit nur ein „Crashkurs“ der wichtigsten
+Konzepte stattfinden. Ausführliche Erklärungen finden
+sich in der offiziellen Dokumentation, auf die an 
+passender Stelle verwiesen wird. 
+</Callout>
+
+## Projekt in Android Studio erstellen und ausführen
+
+Wir erstellen zunächst ein neues Android-Projekt für 
+eine Beispiel-App für Todos, die wir gemeinsam im Live
+Coding erstellen wollen. 
+
+- Android Studio öffnen und neues Projekt erstellen
+- Template „_Empty Activity_“ auswählen und `Next` klicken
+- Name der App eingeben (z.B. `TodosAndroid` passend zum Framework) 
+- Speicherort (_Save location_) anpassen und `Finish` klicken
+- Warten bis das Projekt erstellt und geladen ist
+- App im Emulator oder auf dem Gerät starten (grüner Play-Button)
+
+<Callout>
+Hinweis für Dozent (optional für den Kurs): 
+
+- Im Terminal das Projekt mit `git` versionieren.
+- Referenz-App: https://github.com/behrends/TodosAndroid
+</Callout>
+
+## Grobe Übersicht über Android Studio
+
+Wenn noch nicht geschehen, dann kurz die wichtigsten Aspekte von Android Studio zeigen:
+
+- Code-Editor maximieren
+- Code-Editor und Preview zeigen
+- App starten und Emulator zeigen
+- Unterschied Design/Preview und Emulator
+- `alt`-`enter` für nützliche Funktionen
+- KI-Funktionen mit Gemini (Google-Login nötig) <br/> Tipp: am Anfang „von Hand“ programmieren, nur Verständnisfragen mit KI klären
+- Hinweis: Android Studio hat alle 1-2 Wochen Updates 
+- Ansicht der Projektdateien (siehe nächster Abschnitt)
+
+## Aufbau eines Android-Projekts
+
+<Callout>
+Früher war Java die Hauptprogrammiersprache für Android-Apps. Seit einigen Jahren wird Kotlin empfohlen. Aktuelle Dokumentation und neue APIs werden fast ausschließlich für Kotlin bereitgestellt.
+</Callout>
+
+Es wird ein kurzer Überblick der wichtigsten 
+Dateien und Konzepte in Android Studio gegeben:
+
+- `MainActivity.kt` definiert eine `Activity`, welche einen UI-Bereich bzw. „Screen“ zur Interaktion mit der App darstellt. Die Funktion `onCreate` wird beim Start der `Activity` automatisch von Android ausgeführt. Dort wird u.a. das UI mit `setContent` festgelegt.
+- Das Verzeichnis `kotlin+java` enthält den Kotlin-Code, u.a. ist `MainActivity.kt` hier zu finden. Dieses Verzeichnis hat im Dateisystem einen anderen Namen (`app/src/main/java`), dies kann in der `Project`-Ansicht nachvollzogen werden.
+- Das Verzeichnis `res` (kurz für `resources`) enthält alle Ressourcen der App, die kein Code sind (z.B. Bilder und Übersetzungen in andere Sprachen).
+- `manifests/AndroidManifest.xml` beschreibt die Bestandteile des Projekts, u.a. welche `Activity` den Einstiegspunkt beim Start der App darstellt (oft `MainActivity.kt`)
+- Die beiden Dateien `build.gradle.kts` in `Gradle Scripts` beinhalten die Konfiguration und Abhängigkeiten des Projekts.
+
+<Callout type="warning" emoji="👨🏻‍💻">
+Wir besprechen u.a. kurz den Ablauf beim Start 
+der App.
+</Callout>
+
+<Callout type="warning">
+**Vertiefendes Material**
+
+- https://developer.android.com/studio/intro
+- https://developer.android.com/studio/projects
+
+</Callout>

@@ -61,6 +61,32 @@ zurechtkommen.
 
 Wir werden im Laufe der Vorführungen mehrere Kotlin-Beispiele sehen.
 
+Ausgewählte Besonderheiten von Kotlin für Leute mit Erfahrung in Java (thanks ChatGPT!): 
+
+* Interop mit Java nahtlos: Kotlin kann Java (und umgekehrt) nutzen
+* Semikolons optional, `new` existiert nicht
+* String-Templates: `"Hi, $name"`
+* Frühere NullPointer-Probleme werden zur Compile-Time sichtbar
+* Null-Safety: `String?` (nullable) vs. `String` (non-null) 
+* Null-Safety: Safe-Call `?.`, Elvis-Operator `?:`, Not-Null-Assert `!!`
+* `val` (immutable) vs. `var` (mutable)
+* Typinferenz: `val name = "Bob"` ohne expliziten Typ
+* `var x: Int = 0` erzeugt automatisch Getter/Setter
+* Destructuring: `val (x, y) = point`
+* Custom-Getter/Setter direkt an der Property definierbar
+* Top-Level-Funktionen (keine Utility-Klassen nötig)
+* Default-Parameter & Named Arguments (`fun f(a: Int = 0)`)
+* Single-Expression-Funktionen: `fun inc(x: Int) = x + 1`
+* Klassen sind `final` by default → `open` für Vererbung
+* `data class` generiert `equals/hashCode/toString/copy`
+* `sealed class`/`sealed interface` für erschöpfende `when`-Abfragen
+* `object` für Singletons, `companion object` statt `static`
+* `when` statt `switch`: Ausdruck (liefert Wert), pattern-artig, häufig `else` überflüssig
+* Smart Casts: Nach `is`-Check meist kein Cast nötig: `if (x is String) x.length`
+* Scoping-Funktionen: `let`, `also`, `apply`, `run`, `with` (unterscheiden: Rückgabewert & Receiver)
+* Koroutinen statt Threads: `suspend`-Funktionen, `flow` für Streams
+* u.v.m.
+
 **Tipp:** Mit KI-Tools wie ChatGPT oder Gemini (auch in Android Studio) kann Kotlin gelernt werden, insbesondere aus Sicht anderer Sprachen wie Java.
 
 <Callout type="warning">
@@ -68,9 +94,6 @@ Wir werden im Laufe der Vorführungen mehrere Kotlin-Beispiele sehen.
 
 - Überblick zu Kotlin in Android: https://developer.android.com/kotlin
 - Abschnitte zu Kotlin in Googles Einsteigerkurs: https://developer.android.com/courses/android-basics-compose/course
-- Kotlin-Kurse von Google:
-  - https://developer.android.com/courses/kotlin-bootcamp/overview
-  - https://developer.android.com/courses/pathways/kotlin-for-java
 - Kotlin für Compose: https://developer.android.com/develop/ui/compose/kotlin
 - Dokumentation und weitere Kurse zu Kotlin gibt es auf der offiziellen Webseite unter [https://kotlinlang.org](https://kotlinlang.org).
 </Callout>

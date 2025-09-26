@@ -1,9 +1,9 @@
 export default {
-  '01-intro': 'Einstieg',
-  '02-aufbau_projekte': 'Aufbau Projekte',
-  '03-kotlin': 'Kotlin lernen',
-  '04-compose': 'Einstieg in Compose',
-  '05-layouts': 'Layouts, Styling und Modifier',
-  '06-material': 'Material Design und Themes',
-  '07-state': 'Zustand im UI',
+  '01-aufbau_projekte': 'Aufbau Projekte',
+  '02-kotlin': 'Kotlin lernen',
+  '03-compose': 'Einstieg in Compose',
+  '04-layouts': 'Layouts, Styling und Modifier',
+  '05-material': 'Material Design und Themes',
+  '06-state': 'Zustand im UI',
+  '07-lists': 'Listen',
 };

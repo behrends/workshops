@@ -1,7 +1,6 @@
 export default {
-  '01-setup': 'Setup',
-  '02-intro': 'Einstieg',
-  '03-app': 'Todo-App',
-  '04-components': 'Komponenten',
-  '05-todos-list': 'Liste mit Todos',
+  '01-state': 'Zustand (state)',
+  '02-buttons-modal': 'Buttons und Modal',
+  '03-todo-input': 'Eingabe mit TextInput',
+  '04-next-steps': 'Nächste Schritte',
 };

@@ -1,11 +1,10 @@
 export default {
   index: 'Übersicht',
   '01-intro': '1 - Einleitung',
-  '02-android': '2 - Android Teil 1',
-  '03-android': '3 - Android Teil 2',
-  '04-kmp': '4 - Kotlin Multiplatform (KMP)',
-  '05-flutter': '5 - Flutter',
-  '06-react-native': '6 - React Native Teil 1',
-  '07-react-native': '7 - React Native Teil 2',
-  '08-frameworks': '8 - Weitere Frameworks',
+  '02-android': '2 - Android',
+  '03-android': '3 - Android und KMP',
+  '04-flutter': '4 - Flutter',
+  '05-react-native': '5 - React Native Teil 1',
+  '06-react-native': '6 - React Native Teil 2',
+  '07-frameworks': '7 - Weitere Frameworks',
 };

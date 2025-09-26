@@ -1,26 +1,62 @@
-import { Callout } from 'nextra/components';
+import { Callout } from 'nextra/components'
 
-# Einstieg
+# Ausblick
 
 <Callout>
-  **Dauer:** 20 Minuten
-
-  - Verschiedenes Lernmaterial vorstellen
-
-  **Ziel:** Übersicht der Lernressourcen zu Android geben
+  **Dauer:** 15 Minuten
 </Callout>
 
-## Learning by doing
+Für die native Android Todo-App hat der Dozent eine Referenzversion
+auf GitHub: https://github.com/behrends/TodosAndroid
 
-Einerseits ist die Android-Programmierung sehr umfangreich
-und befindet sich in ständiger Weiterentwicklung.
-Andererseits haben wir in der Vorlesung relativ wenig Zeit,
-um Android kennenzulernen. Daher werden grundlegende 
-Themen schrittweise und kompakt vorgeführt, indem wir 
-zusammen eine kleine Android-App programmieren werden.
+## Architektur von Android-Apps
 
-Zur Vertiefung der besprochenen Themen wird auf passende 
-in der Android-Dokumentation verwiesen.
+Bei komplexeren Apps ist es sinnvoll, über eine Architektur nachzudenken,
+die die App in verschiedene Schichten aufteilt. So können z.B. die 
+Datenbankzugriffe in ein `ViewModel` auszulagern. Dieses ViewModel kann 
+dann von der Activity oder dem Composable genutzt werden, um auf die Daten 
+zuzugreifen.
+
+Mehr zu ViewModel und LiveData: 
+[https://developer.android.com/topic/libraries/architecture/viewmodel](https://developer.android.com/topic/libraries/architecture/viewmodel)
+
+Weitere Infos zu Architektur mit Jetpack Compose:
+
+- https://developer.android.com/develop/ui/compose/architecture
+- https://developer.android.com/develop/ui/compose/layering
+
+Die offizielle Beispiel-App _Now in Android_ von Google kann als Referenz 
+für App-Architektur dienen: https://github.com/android/nowinandroid/
+
+Zum Aufbau der _Now in Android_-App gibt es im GitHub-Repository weitere Infos: 
+
+- https://github.com/android/nowinandroid/blob/main/docs/ArchitectureLearningJourney.md
+https://github.com/android/nowinandroid/blob/main/docs/ModularizationLearningJourney.md
+
+
+
+## Verschiedene Sprachen mit `strings.xml`
+
+In der Datei `res/values/string.xml` werden sogenannte „String-Ressourcen“ 
+definiert, mit denen sich z.B. die App in verschiedene Sprachen 
+Übersetzungen lässt. 
+
+Mehr zu String-Ressourcen: 
+https://developer.android.com/guide/topics/resources/string-resource
+
+## Testing in Android Studio
+
+Neu in 2025 sind diese Möglichkeiten für UI-Tests in Android Studio (teilweise noch nicht stabil entwickelt):
+
+- https://developer.android.com/studio/gemini/journeys
+- https://developer.android.com/studio/preview/compose-screenshot-testing
+
+## Lernressourcen von Google
+
+<Callout type="error">
+Jedes Jahr vor Beginn der Vorlesung sollten die folgenden 
+Links überprüft und ggf. angepasst bzw. erweitert werden.
+</Callout>
 
 <Callout type="warning" emoji="‼️">
 Im Web sind einige veraltete Informationen zur Android-
@@ -29,46 +65,18 @@ Recherchen z.B. auf das Erstellungsdatum der gefundenen
 Artikel geachtet werden (&xrarr; z.B. nicht älter als 2 Jahre).
 </Callout>
 
-<Callout type="error">
-Jedes Jahr vor Beginn der Vorlesung sollten die folgenden 
-Links überprüft und ggf. angepasst bzw. erweitert werden.
-</Callout>
-
-<Callout>
-**Google empfiehlt für neue Projekte den Einsatz von Kotlin mit Compose.**
-
-Im September 2024 wurden nur folgende offizielle Ressourcen 
-zum Lernen des inzwischen nicht mehr empfohlenen Entwicklungsansatzes 
-mit XML-Layout gefunden:
-
-- https://developer.android.com/develop/ui/views/layout/declaring-layout (z.T. noch mit Java-Beispielen)
-- Sammlung von Präsentationsfolien auf https://developer.android.com/teach
-
-Für die Android-Entwicklung mit Java wurde keine offizielle Ressource gefunden. 
-
-Vielleicht ist es mit ChatGPT oder anderen KI-Tools möglich, die 
-Java-basierte Entwicklung von Android-Apps mit XML-Layouts zu lernen.
-
-**Empfohlen wird jedoch, sich auf Kotlin mit Compose zu konzentrieren.**
-</Callout>
-
-
-## Lernressourcen von Google
-
-Zunächst werden nützliche Bestandteile der „offiziellen“ 
-Android-Dokumentation von Google vorgestellt.
-
-<Callout type="error" emoji="‼️">
+<Callout type="info">
 **Vorbemerkung**
 
-Google stellt sehr viel Lernmaterial zur Android-Entwicklung bereit. Dies hat in der Regel eine hohe Qualität, ist aber sehr unübersichtlich und inkonsistent, weil sich die Android-Entwicklung in den letzten Jahr stark verändert hat (Kotlin vs. Java, mit oder ohne Compose, usw.) und auch in Zukunft wandeln wird (u.a. mit mehr KI-Tools)… 
+Google stellt sehr viel Lernmaterial zur Android-Entwicklung bereit. Dies hat in der Regel eine hohe Qualität, ist aber sehr unübersichtlich und inkonsistent, weil sich die Android-Entwicklung in den letzten Jahr stark verändert hat (Kotlin vs. Java, UI mit Compose, usw.) und auch in Zukunft wandeln wird (u.a. mit mehr KI-Tools)… 
 
 Der Dozent kann leider nur einen Überblick geben und teilweise Ansätze zeigen &mdash; mehr ist in den jährlichen Vorbereitungen zur Vorlesung nicht zu bewerkstelligen.
+</Callout>
 
-**Veranschaulichung der Problematik im September 2024:**
+<Callout type="error" emoji="‼️">
+**Inkonsistenzen im Lernmaterial von Google (geprüft im September 2025)**
 
-Ein neues Android-Projekt mit dem Template „_Empty Activity_“ erstellt
-ein Projekt mit einer `MainActivity`, die folgenden Code in `onCreate` enthält:
+`MainActivity` in neu erstelltem Android-Projekt mit „_Empty Activity_“-Template:
 
 ```kotlin
 enableEdgeToEdge()
@@ -86,39 +94,17 @@ setContent {
 
 Im ersten Tutorial (bzw. Codelab) der offiziellen Dokumentation 
 [_Create your first Android app_](https://developer.android.com/codelabs/basic-android-kotlin-compose-first-app) 
-(Schritt 4 _Update the text_) sieht der entsprechende jedoch Code so aus:
+(Schritt 4 _Update the text_) fehlt `enableEdgeToEdge()` und anstatt `Scaffold` wird `Surface` verwendet.
 
-```kotlin
-super.onCreate(savedInstanceState)
-setContent {
-    GreetingCardTheme {
-        // A surface container using the 'background' color from the theme
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            Greeting("Android")
-        }
-    }
-}
-```
-
-Nach ein paar Recherchen stellt sich heraus, dass `enableEdgeToEdge`
-und `Scaffold` für die kommende Android-Version 15 benötigt werden
-(siehe [Android-Guides](https://developer.android.com/develop/ui/compose/layouts/insets)):
-
->>> Important: Edge-to-edge is enforced on Android 15 and higher once your app targets SDK 35. […] The Material 3 Scaffold component can reduce the work required to be compatible with the Android 15 edge-to-edge enforcement. See Create a scaffold component to hold the UI together.
-
-Diese Änderung ist also schon im Template „_Empty Activity_“ enthalten, 
-aber nicht im ersten Codelab, das für den Einstieg in die 
-Android-Entwicklung empfohlen wird.
+`enableEdgeToEdge()` wird jedoch ab Android 15 benötigt,
+siehe [Android-Guides](https://developer.android.com/develop/ui/compose/layouts/insets).
 </Callout>
 
 In der offiziellen Entwickler-Dokumentation zu Android unter
 [developer.android.com](https://developer.android.com) sind
 im Prinzip alle nützliche Informationen zur nativen Entwicklung
 von Android-Apps zu finden &mdash; allerdings ist diese
-Webseite auch ziemlich unübersichtlich. Es folgen ein paar
+Webseite auch ziemlich unübersichtlich (und z.T. inkonsistent wie oben zu sehen). Es folgen ein paar
 Hinweise, die die Verwendung der Dokumentation erleichtern
 sollen.
 
@@ -227,18 +213,4 @@ Art. Ein paar weitere Empfehlungen:
 <Callout type="warning" emoji="‼️">
 Nochmals sei erwähnt, dass hierbei auf Aktualität zu
 achten ist.
-</Callout>
-
-## ~~Java?~~ Kotlin!
-
-<Callout type="error">
-Es ist scheinbar noch möglich, Android-Apps mit Java und 
-XML-Layouts zu entwickeln, denn in Android Studio kann 
-im Dialog für neue Projekte immer noch Java für 
-manche Templates als Programmiersprache gewählt werden 
-(z.B. mit dem Template „_Empty Views Activity_“). 
-
-Für die Prüfungsleistung ist Java zwar erlaubt, aber 
-weil dies nicht mehr offiziell empfohlen wird und es 
-keine gute Dokumentation mehr gibt, wird davon abgeraten.
 </Callout>

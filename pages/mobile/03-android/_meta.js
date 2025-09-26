@@ -1,7 +1,7 @@
 export default {
-  '01-lists': 'Listen',
-  '02-storage': 'Datenbanken mit Room verwalten',
-  '03-storage2': 'Verwendung von Room',
-  '04-navigation': 'Navigation',
-  '05-more': 'Ausblick',
+  '01-storage': 'Datenbanken mit Room verwalten',
+  '02-storage2': 'Verwendung von Room',
+  '03-navigation': 'Navigation',
+  '04-links': 'Lernressourcen',
+  '05-kmp': 'Kotlin Multiplatform (KMP)',
 };
