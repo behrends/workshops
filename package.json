@@ -8,24 +8,20 @@
     "web": "https://behrends.io"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next --turbopack",
     "start": "next start",
-    "build": "next build",
-    "postbuild": "node ./scripts/generate-sitemap.mjs"
+    "build": "next build"
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.7.1",
     "@codesandbox/sandpack-themes": "^2.0.21",
-    "next": "^15.0.3",
-    "nextra": "^3.2.3",
-    "nextra-theme-docs": "^3.2.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sharp": "^0.33.5"
-  },
-  "devDependencies": {
-    "autoprefixer": "10.4.20",
-    "postcss": "8.4.47",
-    "tailwindcss": "3.4.14"
+    "@tailwindcss/postcss": "^4.1.13",
+    "next": "^15.5.3",
+    "nextra": "^4.5.0",
+    "nextra-theme-docs": "^4.5.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.13"
   }
 }
