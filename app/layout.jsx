@@ -4,7 +4,7 @@ import {
   Layout,
   Navbar,
 } from 'nextra-theme-docs';
-import { Head } from 'nextra/components';
+import { Head, Search } from 'nextra/components';
 import { getPageMap } from 'nextra/page-map';
 import './globals.css';
 
@@ -84,6 +84,14 @@ export default async function RootLayout({ children }) {
           copyPageButton={false}
           lastUpdated={
             <LastUpdated locale="de">Zuletzt geändert am</LastUpdated>
+          }
+          search={
+            <Search
+              emptyResult="Keine Ergebnisse"
+              errorText="Fehler beim Laden der Suchergebnisse"
+              loading="Lädt..."
+              placeholder="Suchen..."
+            />
           }
           sidebar={{ defaultMenuCollapseLevel: 1 }}
           toc={{

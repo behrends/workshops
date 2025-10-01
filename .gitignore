@@ -36,6 +36,7 @@ yarn-error.log*
 # chromatic / storybook
 build-storybook.log
 
-# stork search
-public/*.st
-public/*.toml
+# pagefind
+_pagefind/
+
+public/sitemap.xml
