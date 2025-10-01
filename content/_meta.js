@@ -1,4 +1,21 @@
 export default {
+  index: {
+    type: 'page',
+    display: 'hidden',
+    theme: {
+      sidebar: false,
+      toc: false,
+    },
+  },
+  impressum: {
+    title: 'Impressum',
+    type: 'page',
+    display: 'hidden',
+    theme: {
+      sidebar: false,
+      toc: false,
+    },
+  },
   prog: {
     title: 'Programmieren',
     type: 'page',
@@ -14,10 +31,5 @@ export default {
   praesi: {
     title: 'Präsentationskompetenzen',
     type: 'page',
-  },
-  impressum: {
-    title: 'Impressum',
-    type: 'page',
-    display: 'hidden',
   },
 };

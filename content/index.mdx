@@ -1,3 +1,66 @@
-import LandingPage from './index'
+import Link from 'next/link';
 
-<LandingPage />
+![Workshops Visual](/images/workshops-hero.png)
+
+Die Workshops behandeln praxisorientierte Szenarien der modernen 
+Programmierung, Web- und App-Entwicklung. Ziel ist es, theoretische Konzepte 
+anhand konkreter Implementierungsbeispiele anzuwenden, die im Rahmen von
+Live-Coding-Sessions demonstriert werden. Ergänzend kommen KI-gestützte 
+Werkzeuge zum Einsatz &mdash; sowohl zur Programmierung als auch zur 
+Unterstützung des Lernprozesses.
+
+Die bereitgestellten Notizen und Materialien verstehen sich als Ergänzung zu 
+den Workshops, die in einer Mischung aus Präsenz- und Online-Formaten angeboten
+werden. Sie ersetzen keine vollständige Dokumentation, sondern dienen der 
+Vertiefung  und Unterstützung beim Lernen. Die Inhalte werden regelmäßig 
+aktualisiert und erweitert. Sie stehen als Open Educational Resources
+(OER) unter der [Lizenz CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) zur Verfügung.
+
+
+<section className="max-w-5xl w-full">
+  <h2 className="text-2xl font-semibold my-6 text-center">
+    Workshops
+  </h2>
+  <ul className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+    {[
+      {
+        href: '/prog',
+        title:
+          'Programmieren — Grundlagen und Einstieg mit JavaScript',
+        icon: '💻',
+      },
+      {
+        href: '/mobile',
+        title:
+          'App-Entwicklung (Jetpack Compose für Android, React Native, …)',
+        icon: '📱',
+      },
+      {
+        href: '/web-prog',
+        title: 'Web-Programmierung: HTML, CSS, JavaScript',
+        icon: '🌐',
+      },
+      {
+        href: '/praesi',
+        title: 'Präsentation moderner Technologien und Tools',
+        icon: '🗣️',
+      },
+    ].map(({ href, title, icon }) => (
+      <li key={href}>
+        <Link
+          href={href}
+          className="relative flex items-center bg-white h-full p-6 rounded-xl shadow-sm border border-slate-200 hover:shadow-lg hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2"
+        >
+          <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center h-10 w-10 text-xl">
+              {icon}
+            </div>
+            <div className="font-semibold text-base text-slate-900 text-left">
+              {title}
+            </div>
+          </div>
+        </Link>
+      </li>
+    ))}
+  </ul>
+</section>

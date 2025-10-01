@@ -81,6 +81,7 @@ export default async function RootLayout({ children }) {
           editLink="Diese Seite bei GitHub →"
           feedback={{ content: null }}
           footer={footer}
+          copyPageButton={false}
           lastUpdated={
             <LastUpdated locale="de">Zuletzt geändert am</LastUpdated>
           }
