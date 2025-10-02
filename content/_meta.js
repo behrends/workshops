@@ -1,35 +1,15 @@
 export default {
-  index: {
-    type: 'page',
-    display: 'hidden',
-    theme: {
-      sidebar: false,
-      toc: false,
-    },
-  },
+  '*': { type: 'page' },
   impressum: {
-    title: 'Impressum',
-    type: 'page',
     display: 'hidden',
-    theme: {
-      sidebar: false,
-      toc: false,
-    },
+    theme: { sidebar: false, toc: false },
   },
-  prog: {
-    title: 'Programmieren',
-    type: 'page',
+  index: {
+    display: 'hidden',
+    theme: { sidebar: false, toc: false },
   },
-  'web-prog': {
-    title: 'Web-Programmierung',
-    type: 'page',
-  },
-  mobile: {
-    title: 'Mobile Apps',
-    type: 'page',
-  },
-  praesi: {
-    title: 'Präsentationskompetenzen',
-    type: 'page',
-  },
+  prog: 'Programmieren',
+  'web-prog': 'Web-Programmierung',
+  mobile: 'Mobile Apps',
+  praesi: 'Präsentationskompetenzen',
 };
