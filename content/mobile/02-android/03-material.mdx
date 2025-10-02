@@ -49,8 +49,11 @@ setContent {
 ```
 
 Zusätzlich haben wir `enableEdgeToEdge()` hinzugefügt,
-um die App an den Bildschirmrand zu erweitern (dies
-war ebenfalls Teil des Templates beim Erstellen der App).
+um die App an den Bildschirmrand zu erweitern. Dies war ebenfalls Teil des Templates beim Erstellen der App und wird ab Android 15 empfohlen.
+
+<Callout type="warning">
+Im Oktober 2025 fehlt `enableEdgeToEdge()` in dem Einstiegs-Codelab der offiziellen Android-Dokumentation: https://developer.android.com/codelabs/basic-android-kotlin-compose-first-app
+</Callout>
 
 Scaffold gibt einen Parameter `innerPadding` an die
 Lambda-Funktion bzw. die enthaltenen Composables weiter, 
