@@ -1,12 +1,16 @@
 export default {
-  '*': { type: 'page' },
+  '*': { type: 'page', theme: { timestamp: false } },
   impressum: {
     display: 'hidden',
     theme: { sidebar: false, toc: false },
   },
   index: {
     display: 'hidden',
-    theme: { sidebar: false, toc: false },
+    theme: {
+      layout: 'full',
+      toc: false,
+      typesetting: 'article',
+    },
   },
   prog: 'Programmieren',
   'web-prog': 'Web-Programmierung',

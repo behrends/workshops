@@ -82,9 +82,6 @@ export default async function RootLayout({ children }) {
           feedback={{ content: null }}
           footer={footer}
           copyPageButton={false}
-          lastUpdated={
-            <LastUpdated locale="de">Zuletzt geändert am</LastUpdated>
-          }
           search={
             <Search
               emptyResult="Keine Ergebnisse"
