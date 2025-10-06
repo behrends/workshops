@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 # Zustand im UI
 
 <Callout>
-  **Dauer:** 45 Minuten
+  **Dauer:** 35 Minuten
 
   - state mit `mutableStateOf` und `remember`
 
@@ -45,13 +45,14 @@ Zustand nach dem erneuten Darstellen „erinnert“:
 val done = remember { mutableStateOf(false) }
 ```
 
-`done` ist nun ein `State<Boolean>`, der den Zustand des Todos speichert.
+Mit `val` deklarieren wir eine unveränderliche Referenz. `done` ist nun 
+ein `MutableState<Boolean>`, der den Zustand des Todos speichert.
 Wir können den Wert von `done` mit `done.value` lesen und setzen. Hier
 der Code des Todo-Composables mit Zustand:
 
-```kotlin
+```kotlin {3,11}
 @Composable
-fun Todo(name: String) {
+fun Todo(text: String) {
     val done = remember { mutableStateOf(false) }
     Row(
         modifier = Modifier
@@ -61,7 +62,7 @@ fun Todo(name: String) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(checked = done.value, onCheckedChange = { newVal -> done.value = newVal })
-        Text(name, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+        Text(text, fontWeight = FontWeight.Bold, fontSize = 22.sp)
     }
 }
 ```
@@ -75,14 +76,36 @@ den aktuellen Wert von `done` an.
 automatisch neu dargestellt &mdash; dies wird _Recomposition_ 
 genannt.**</mark>
 
+<Callout>
+Es hat sich die Sichtweise bewährt, dass das UI eine Funktion von State ist:
+
+```
+UI = f(State)
+```
+
+Die Funktionsweise von State in Compose erinnert somit stark an das State-Konzept
+in React (Native) &mdash; und umgekehrt.
+</Callout>
+
 ## Bemerkungen zu Kotlin
 
 Es folgen ein paar kurze Bemerkung zu Kotlin im Umgang mit Compose.
 Oftmals gibt es in Kotlin mehrere Wege, um das gleiche Ziel zu erreichen, 
 und sogenannter „idiomatischer“ Code wird bevorzugt (speziell in Compose).
 
+<Callout>
+**Folgende Tipps helfen beim Umgang mit Kotlin.**
+
+KI-Tools wie ChatGPT oder Gemini können Kotlin-Code 
+sehr gut erklären.
+
+Im Android-Einsteigerkurs von Google gibt es einige Abschnitte
+zu den wichtigsten Kotlin-Konzepten für die Android-Entwicklung:
+https://developer.android.com/courses/android-basics-compose/course
+</Callout>
+
 Mit `val` deklarieren wir zwar eine unveränderliche 
-Variable (`val done…`), aber durch `mutableStateOf` können wir den 
+Referenzvariable (`val done…`), aber durch `mutableStateOf` können wir den 
 Wert bzw. „Inhalt“ der state-Variablen ändern. Die Variable `done` selbst
 ist daher unveränderlich, aber ihr Inhalt kann sich ändern.
 
@@ -130,9 +153,9 @@ zugreifen zu müssen.
 Hier der komplette, idiomatische Code des Todo-Composables 
 mit `by` und `it`:
 
-```kotlin
+```kotlin {3,11}
 @Composable
-fun Todo(name: String) {
+fun Todo(text: String) {
     var done by remember { mutableStateOf(false) }
     Row(
         modifier = Modifier
@@ -142,39 +165,11 @@ fun Todo(name: String) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(checked = done, onCheckedChange = { done = it })
-        Text(name, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+        Text(text, fontWeight = FontWeight.Bold, fontSize = 22.sp)
     }
 }
+
 ```
-
-## Zustandsänderung durch Antippen der `Row`
-
-Durch eine kleine Änderung erreichen wir, dass wir den Zustand des Todos
-nicht nur durch Klicken auf die Checkbox, sondern auch durch Klicken auf
-die ganze Zeile ändern können. Wir müssen dazu nur die Lambda-Funktion
-in `clickable` wie folgt anpassen:
-
-```kotlin
- Row(
-    modifier = Modifier
-        .clickable(onClick = { done = !done })
-    // Rest weggelassen…
-)
-```
-
-## Tipps und Bemerkungen
-
-<Callout>
-**Folgende Tipps helfen beim Umgang mit Kotlin.**
-
-KI-Tools wie ChatGPT oder Gemini können Kotlin-Code 
-sehr gut erklären.
-
-Im Android-Einsteigerkurs von Google gibt es einige Abschnitte
-zu den wichtigsten Kotlin-Konzepten für die Android-Entwicklung:
-https://developer.android.com/courses/android-basics-compose/course
-</Callout>
-
 <Callout type="info">
 Es ist auch möglich, in Compose folgendermaßen mit Zustand umzugehen:
 
@@ -196,13 +191,51 @@ const [done, setDone] = useState(false);
 </Callout>
 
 
+## Zustandsänderung durch Antippen der `Row`
+
+Durch eine kleine Änderung erreichen wir, dass wir den Zustand des Todos
+nicht nur durch Klicken auf die Checkbox, sondern auch durch Klicken auf
+die ganze Zeile ändern können. Wir müssen dazu nur die Lambda-Funktion
+in `clickable` wie folgt anpassen:
+
+```kotlin
+ Row(
+    modifier = Modifier
+        .clickable(onClick = { done = !done })
+    // Rest weggelassen…
+)
+```
+
+Durch einen Code Review mit ChatGPT wurde noch diese Änderung vorgeschlagen:
+
+```kotlin {3,8}
+Row(
+    modifier = Modifier
+        .toggleable(value = done, onValueChange = { done = it }, role = Role.Checkbox)
+        .padding(10.dp)
+        .fillMaxWidth(),
+    verticalAlignment = Alignment.CenterVertically
+) {
+    Checkbox(checked = done, onCheckedChange = null) // onCheckedChange null wegen toggleable oben
+    Text(text, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+}
+```
+
+Mit `role = Role.Checkbox` bekommt die ganze Zeile die Semantik „Checkbox“ inkl. Zustand 
+(an/aus). Dies verbessert die Zugänglichkeit (Accessibility bzw. _A11y_) der App. Die 
+Row ist nun die einzige Quelle für onValueChange. 
+
+<Callout>
+KI-Tools wie ChatGPT, GitHub Copilot oder Gemini sind hilfreich, um Code Reviews 
+durchzuführen. Dadurch verbessern wir die Code-Qualität und lernen gelegentlich neue 
+Techniken und Best Practices dazu.
+</Callout>
+
 ## Weiterführendes Material
 
-State in Compose: https://developer.android.com/develop/ui/compose/state
+Neben `remember` gibt es auch `rememberSaveable`, das den Zustand
+auch über Prozess-Neustarts bzw. Konfigurationswechsel hinweg speichert (z.B. bei Drehung des Geräts). Dazu und allgemein zu State in Compose findet sich mehr unter https://developer.android.com/develop/ui/compose/state.
 
 Thinking in Compose („mentales Modell“): https://developer.android.com/develop/ui/compose/mental-model
 
-Android Developer MAD skills playlist bei YouTube (Material von Google): 
-
-- Compose: https://goo.gle/compose-mad   
-- Weitere Themen: https://goo.gle/madskills 
+Im Android Developer YouTube Channel findet sich umfangreiches Material von Google: https://www.youtube.com/@AndroidDevelopers/videos

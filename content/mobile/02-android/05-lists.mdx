@@ -1,12 +1,13 @@
 import { Callout } from 'nextra/components'
 
-# Listen
+# Zustand und Listen
 
 <Callout>
-  **Dauer:** 35 Minuten
+  **Dauer:** 25 Minuten
 
   - Listen mit `listOf` in Kotlin
   - `LazyColumn` für Listen in Compose
+  - Todos der Liste hinzufügen
 
   **Ziel:** Einstieg in den Umgang mit Listen 
 </Callout>
@@ -18,7 +19,7 @@ auch in einer Liste speichern. In Kotlin wird mit `listOf` eine
 Liste erstellt und wir können die Elemente mit einer Schleife
 durchgehen:
 
-```kotlin
+```kotlin {3,5-7}
 @Composable
 fun TodoList(modifier: Modifier = Modifier) {
     val todos = listOf("Einkaufen", "Android lernen", "Sport machen")
@@ -33,48 +34,72 @@ fun TodoList(modifier: Modifier = Modifier) {
 Kotlins Standardbibliothek beschreibt die vielseitigen Listen bzw. 
 Collections im Detail: https://kotlinlang.org/docs/collections-overview.html
 
-## `LazyColumn` für Listen in Compose
+## Zustand der Liste
 
-`LazyColumn` ist ein Composable, das eine scrollbare Liste von 
-Elementen darstellt. 
+Wir bereiten nun die Verwaltung von Todos in einer Liste vor. Dazu verschieben
+wir die Liste der Todos in den Zustand der `MainActivity` und verwalten diese
+als Zustand, damit wir später neue Todos hinzufügen können. 
 
-Wenn wir längere Listen von Elementen zur Darstellung haben, dann ist
-`Column` nicht scrollable und wird ineffizient, da alle Elemente
-sofort gerendert werden. 
+Das „Hochziehen“ des Zustands in der Composable-Hierarchie wird _state hoisting_ 
+genannt und ist nötig, damit der FAB für das Hinzufügen neuer Todos Zugriff auf den 
+Zustand hat.
 
-Wir erstellen eine Liste von 100 durchnummerierten Todos:
+```kotlin {3,10}
+setContent {
+    // Zustand der Todos ist nun in MainActivity
+    val todos = remember { mutableStateListOf("Einkaufen", "Android lernen", "Sport machen") }
+    TodosAndroidTheme {
+        Scaffold(floatingActionButton = {
+            FloatingActionButton(onClick = {},
+                content = { Icon(Icons.Filled.Add, contentDescription = "Todo erstellen") })
+        }) { innerPadding ->
+            // Zustand (todos) wird an TodoList übergeben
+            TodoList(todos = todos, modifier = Modifier.padding(innerPadding))
+        }
+    }
+}
 
-```kotlin
 @Composable
-// Liste scrollt nicht
-fun TodoList(modifier: Modifier = Modifier) {
-    val todos = List(100) { "Todo Nr. $it" }
+fun TodoList(todos: List<String>, modifier: Modifier = Modifier) {
+    // Liste der Todos wird nun als Parameter übergeben
     Column(modifier) {
-        for (todo in todos) {
+        for (todo in todos) {           
             Todo(todo)
         }
     }
 }
 ```
 
+
+## `LazyColumn` für Listen in Compose
+
+`LazyColumn` ist ein Composable, das eine scrollbare Liste von 
+Elementen darstellt. 
+
+Wenn wir längere Listen von Elementen zur Darstellung haben, dann ist
+`Column` ineffizient, da alle Elemente sofort gerendert werden. 
+
+
 `LazyColumn` ist effizienter als `Column`. Außerdem wird die Liste
-durch die Verwendung von `LazyColumn` scrollbar:
+durch die Verwendung von `LazyColumn` automatisch scrollbar und optimiert:
 
-```kotlin
-// diesen Imports hinzufügen
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-
+```kotlin {3-7}
 @Composable
-// Liste scrollt
-fun TodoList(modifier: Modifier = Modifier) {
-    val todos = List(100) { "Todo Nr. $it" }
+fun TodoList(todos: List<String>, modifier: Modifier = Modifier) {
     LazyColumn(modifier) {
         items(todos) { todo ->
             Todo(todo)
         }
     }
 }
+```
+
+Wenn für diesen Code-Abschnitt unerwartete Compiler-Fehler auftauchen, dann lassen 
+sie sich wie fast immer durch `Alt-Enter` beheben. Hier wird neben `LazyColumn` 
+ein Import für `items` benötigt:
+
+```
+import androidx.compose.foundation.lazy.items
 ```
 
 `items` ist eine Extension-Funktion von `LazyColumn`, siehe 
@@ -90,141 +115,121 @@ Siehe Guide zu Lists: https://developer.android.com/develop/ui/compose/lists
 ## Todos der Liste hinzufügen
 
 Wenn der FAB (Floating Action Button) gedrückt wird, soll ein neues
-Todo erzeugt werden. Dazu müssen wir die Liste der Todos verändern
-und den Zustand eine Ebene in der Composable-Hierarchie „hochziehen“
-(_state hoisting_), damit der FAB Zugriff auf den Zustand hat.
+Todo erzeugt werden. 
 
-Hier die Änderungen in `MainActivity` und `TodoList`, markiert
-mit entsprechenden Kommentaren:
-
-```kotlin
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            // Zustand der Todos ist nun in MainActivity
-            // die Liste ist nun veränderbar (mutableStateListOf)
-            val todos = remember { mutableStateListOf<String>() }
-            TodosAndroidTheme {
-                Scaffold(floatingActionButton = {
-                    // FAB fügt neues Todo hinzu (statisches Todo)
-                    FloatingActionButton(onClick = { todos.add("Neues Todo") },
-                        content = { Icon(Icons.Filled.Add, contentDescription = "Todo erstellen") })
-                }) { innerPadding ->
-                    // Zustand (todos) wird an TodoList übergeben
-                    TodoList(todos = todos, modifier = Modifier.padding(innerPadding))
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun TodoList(todos: List<String>, modifier: Modifier = Modifier) {
-    // Liste der Todos wird nun als Parameter übergeben
-    LazyColumn(modifier) {
-        items(todos) { todo ->
-            Todo(todo)
-        }
-    }
-}
-```
-
-## Neue Todos eingeben
+<Callout type="important">
+Wir können hier mit ChatGPT den Code für einen Dialog generieren lassen
+und mit dem unten folgenden Beispiel vergleichen, um zu zeigen, dass
+die KI-Tools einerseits nützlich und andererseits nicht-deterministisch sind.
+</Callout>
 
 <Callout>
-Der folgende Code wurde mit ChatGPT (o1-preview) generiert.
+Der folgende Code wurde mit ChatGPT generiert.
 
 Prompt:
 ```plaintext
-Ich habe eine Android Compose App, bei der ich Hilfe brauche. Bisher ist 
-der relevante Code komplett in der MainActivity enthalten:
-// Code aus MainActivity
-Ich möchte mit dem FAB ein Todo hinzufügen können.
+Ich habe eine Android Compose App, wobei der komplette Code bisher 
+in der MainActivity enthalten (siehe unten). Ich möchte mit dem FAB 
+ein Todo hinzufügen können. Generiere mir bitte den Code für einen
+Dialog, in dem ich den Text für das neue Todo eingeben kann.
+// Code aus MainActivity einfügen…
 ```
 </Callout>
 
 Wir erstellen im package `ui` eine neue Datei `AddTodoDialog.kt `mit 
 dem von ChatGPT generierten Code:
 
-```kotlin
+```kotlin 
+// ggf. package anpassen!
+package com.example.todosandroid2025.ui
+
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 
 @Composable
-fun AddTodoDialog(onDismiss: () -> Unit, onAdd: (String) -> Unit) {
+fun AddTodoDialog(
+    onAdd: (String) -> Unit,
+    onDismiss: () -> Unit
+) {
     var text by remember { mutableStateOf("") }
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Neues Todo hinzufügen") },
+        title = { Text("Neues Todo") },
         text = {
-            TextField(
+            OutlinedTextField(
                 value = text,
                 onValueChange = { text = it },
-                label = { Text("Todo-Text") }
+                placeholder = { Text("Was möchtest du tun?") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
             )
         },
         confirmButton = {
-            TextButton(onClick = {
-                if (text.isNotBlank()) {
-                    onAdd(text)
-                }
-            }) {
-                Text("Hinzufügen")
-            }
+            TextButton(
+                onClick = { if (text.isNotBlank()) onAdd(text.trim()) },
+                enabled = text.isNotBlank()
+            ) { Text("Hinzufügen") }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Abbrechen")
-            }
+            TextButton(onClick = onDismiss) { Text("Abbrechen") }
         }
     )
 }
 ```
 
+Wir sollten nun in der Lage sein, die Funktionsweise des obigen Codes 
+grundlegend nachzuvollziehen (auch wenn dort andere Composables 
+verwendet werden).
+
 In `MainActivity` fügen wir den Dialog hinzu und passen den FAB an
 (Änderungen sind mit Kommentaren markiert):
 
-```kotlin
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            val todos = remember { mutableStateListOf<String>() }
-            TodosAndroidTheme {
-                // state in showDialog: Dialog sichtbar oder nicht
-                var showDialog by remember { mutableStateOf(false) }
-                Scaffold(floatingActionButton = {
-                    // Antippen des FABs zeigt Dialog an (ändert state)
-                    FloatingActionButton(onClick = { showDialog = true },
-                        content = { Icon(Icons.Filled.Add, contentDescription = "Todo erstellen") })
-                }) { innerPadding ->
-                    // Dialog wird angezeigt, wenn showDialog true ist  
-                    if (showDialog) {
-                        AddTodoDialog(
-                            onDismiss = { showDialog = false },
-                            onAdd = { newTodo ->
-                                todos.add(newTodo)
-                                showDialog = false
-                            }
-                        )
-                    }
-                    TodoList(todos = todos, modifier = Modifier.padding(innerPadding))
-                }
+```kotlin {3,8,16-24}
+setContent {
+    val todos = remember { mutableStateListOf("Einkaufen", "Android lernen", "Sport machen") }
+    var showDialog by remember { mutableStateOf(false) }
+
+    TodosAndroid2025Theme {
+        Scaffold(floatingActionButton = {
+            FloatingActionButton(
+                onClick = { showDialog = true},
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.add_24px),
+                    contentDescription = "Neues Todo erstellen"
+                )
             }
+        }) { innerPadding ->
+            if (showDialog) {
+                AddTodoDialog(
+                    onAdd = { text ->
+                        todos.add(text)
+                        showDialog = false
+                    },
+                    onDismiss = { showDialog = false }
+                )
+            }
+            TodoList(todos = todos, modifier = Modifier.padding(innerPadding))
         }
     }
 }
 ```
 
 Nun sind wir in der Lage, neue Todos einzugeben und der Liste hinzuzufügen.
+
+Aus der `MainActivity` übergeben wir dem Dialog eine Lambda-Funktion 
+`onAdd`, die den Text des neuen Todos entgegennimmt und das Todo der 
+Liste hinzufügt. Dadurch ändert sich der Zustand der Liste und die UI 
+wird automatisch aktualisiert (_Recomposition_).
+
+Dieses Vorgehen ähnelt dem bekannten Callback-Pattern in JavaScript.

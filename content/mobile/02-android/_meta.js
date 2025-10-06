@@ -4,4 +4,5 @@ export default {
   '03-material': 'Material Design und Themes',
   '04-state': 'Zustand im UI',
   '05-lists': 'Listen',
+  '06-viewmodel': 'State und ViewModel',
 };

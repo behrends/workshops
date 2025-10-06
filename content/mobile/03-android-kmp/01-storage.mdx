@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 # Datenbank mit Room verwalten
 
 <Callout>
-  **Dauer:** 55 Minuten
+  **Dauer:** 45 Minuten
 
   - Abhängigkeiten hinzufügen
   - Todo-Entity erstellen
@@ -12,12 +12,27 @@ import { Callout } from 'nextra/components'
   **Ziel:** Einstieg in die Datenpersistenz mit Room
 </Callout>
 
+Wir haben bereits eine einfache Todo-App erstellt, die Todos anzeigt. Dabei haben wir bereits einige Punkte in unserem Vorgehen abgehakt:
+
+<Callout type="info">
+**Vorstellung des Frameworks**
+
+- [x] Installation und Einrichtung der Entwicklungsumgebung
+- [x] Prinzipien des Frameworks (Projektstruktur, Komponenten/Widgets, …)
+- [x] App mit einem Screen: UI-Elemente, Layout, Interaktion und State
+- [ ] Daten lokal speichern
+- [ ] Navigation zwischen mehreren Screens
+
+</Callout>
 
 In Android können Daten auf dem Gerät in SQLite gespeichert werden.
 Dazu gibt es die Bibliothek 
 [Room](https://developer.android.com/training/data-storage/room), die 
 eine umfangreiche API bereitstellt, um Daten via SQL auf dem 
-Android-Gerät zu speichern.
+Android-Gerät zu speichern. Room ist ein ORM (Object-Relational Mapping)
+Framework, das die SQLite-Datenbank kapselt und den Zugriff auf die
+Datenbank vereinfacht. Room nutzt Annotationen und Code-Generierung, um 
+die Datenbank-Interaktionen zu optimieren und die Entwicklung zu erleichtern.
 
 <Callout>
 Parallel zu den folgenden Schritten kann die Dokumentation herangezogen werden:
@@ -141,10 +156,4 @@ Todos nach bestimmten Kriterien zu filtern.
 
 [Kotlin Flow](https://developer.android.com/kotlin/flow) wird 
 verwendet, um die Daten asynchron zu laden.
-
-## PAUSE 
-
-Pause an passender Stelle einlegen.
-
-Es kann zwischendurch immer wieder Fragen geben und Bedarf für Hilfestellung geben.
 

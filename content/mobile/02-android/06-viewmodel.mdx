@@ -1,0 +1,294 @@
+import { Callout } from 'nextra/components'
+
+# stateless Todo-Items und ViewModel
+
+<Callout>
+  **Dauer:** 30 Minuten
+
+* `data class Todo` als Modell
+* State-Quelle im Screen statt in `setContent`
+* Stateless `TodoItem` (state ↓ / events ↑)
+* _ViewModel_ einführen
+
+**Ziel:** State-Management und Architektur der App verbessern
+</Callout>
+
+Wir bauen die Todos-App so um, dass zunächst ein Composable den Bildschirmzustand 
+hält (Single Source of Truth). Später wird dieser Zustand in ein ViewModel ausgelagert.
+Jedes Listen-Item ist zustandslos (_stateless_): Es bekommt Status hinein und sendet 
+Ereignisse hinaus.
+
+## State in Screen-Composable halten
+
+Statt State in `setContent` zu halten, kapseln wir ihn in einem Screen-Composable `TodosApp`. Zusätzlich entfernen wir die bisherigen vorgegeben Todos und starten mit einer leeren Liste.
+
+```kotlin {6,11-39}
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            TodosApp()
+        }
+    }
+}
+
+@Composable
+fun TodosApp() {
+    val todos = remember { mutableStateListOf<String>() }
+    var showDialog by remember { mutableStateOf(false) }
+
+    TodosAndroid2025Theme {
+        Scaffold(floatingActionButton = {
+            FloatingActionButton(
+                onClick = { showDialog = true },
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.add_24px),
+                    contentDescription = "Neues Todo erstellen"
+                )
+            }
+        }) { innerPadding ->
+            if (showDialog) {
+                AddTodoDialog(
+                    onAdd = { text ->
+                        todos.add(text)
+                        showDialog = false
+                    },
+                    onDismiss = { showDialog = false }
+                )
+            }
+            TodoList(todos = todos, modifier = Modifier.padding(innerPadding))
+        }
+    }
+}
+```
+
+## Datenmodell mit `data class`
+
+Wir nutzen ein einfaches _Model_ für Todos, um die Datenstruktur klar zu 
+definieren. Dies wird uns später u.a. bei der Erstellung der Datenbank helfen. 
+
+Dazu nutzen wir `data class` aus Kotlin. Jedes Todo hat zunächst einen Text 
+und einen Erledigt-Status. Später erhält ein Todo auch eine eindeutige ID.
+Folgende neue Datei `Todo.kt` im `data`-Package erstellen (weitere Klassen kommen später dazu):
+
+```kotlin
+data class Todo(val text: String, val done: Boolean)
+```
+
+Eine `data class` erzeugt automatisch die getter sowie einige
+nützliche Methoden wie `copy`, `toString`, `equals` und `hashCode`.
+
+Durch die Einführung einer `data class` bzw. eines Models namens `Todo` 
+müssen wir die bisherigen Stellen in der `MainActivity` anpassen, die mit 
+`String`-Todos gearbeitet haben. Außerdem nennen wir die Composable für 
+ein einzelnes Todo in `TodoItem` um (statt wie bisher `Todo`).
+
+```kotlin {3,10,21-22,27,32,35}
+@Composable
+fun TodosApp() {
+    val todos = remember { mutableStateListOf<Todo>() }
+
+    // restlicher Code unverändert
+
+            if (showDialog) {
+                AddTodoDialog(
+                    onAdd = { text ->
+                        todos.add(Todo(text=text, done=false))
+                        showDialog = false
+                    },
+                    onDismiss = { showDialog = false }
+                )
+            }
+
+    // restlicher Code unverändert
+}
+
+@Composable
+fun TodoItem(todo: Todo) {
+    var done by remember { mutableStateOf(todo.done) }
+    Row(
+      // restlicher Code unverändert
+    ) {
+        // restlicher Code unverändert
+        Text(todo.text, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+    }
+}
+
+@Composable
+fun TodoList(todos: List<Todo>, modifier: Modifier = Modifier) {
+    LazyColumn(modifier) {
+        items(todos) { todo ->
+            TodoItem(todo)
+        }
+    }
+}
+```
+
+Wir haben auch das `Preview`-Composable weggelassen, um dies nicht 
+anpassen zu müssen.
+
+## `TodoItem` wird stateless
+
+In Compose sollten Composables möglichst _stateless_ sein, also keinen eigenen 
+Zustand halten. Dadurch sind sie wiederverwendbar und einfacher zu testen.
+
+Wir führen in `TodosApp` eine Funktion `toggleAt` ein, die den
+Status eines Todos ändert. Diese Funktion wird an zuerst an die `TodoList`
+übergeben und von dort an `TodoItem` weitergereicht.  
+
+```kotlin {5-7,11-15,20-38}
+fun TodosApp() {
+    val todos = remember { mutableStateListOf<Todo>() }
+    var showDialog by remember { mutableStateOf(false) }
+
+    fun toggleAt(index: Int) {
+        todos[index] = todos[index].copy(done = !todos[index].done)
+    }
+
+    // restlicher Code unverändert
+
+            TodoList(
+                todos = todos,
+                onToggleAt = ::toggleAt,
+                modifier = Modifier.padding(innerPadding)
+            )
+
+    // restlicher Code unverändert
+}
+
+@Composable
+fun TodoList(todos: List<Todo>, onToggleAt: (Int) -> Unit, modifier: Modifier = Modifier) {
+    LazyColumn(modifier) {
+        itemsIndexed(todos) { index, todo ->
+            TodoItem(todo = todo, onCheckedChange = { onToggleAt(index) })
+        }
+    }
+}
+
+@Composable
+fun TodoItem(todo: Todo, onCheckedChange: (Boolean) -> Unit) {
+    Row(
+        modifier = Modifier
+            .toggleable(value = todo.done, onValueChange = onCheckedChange, role = Role.Checkbox)
+            .padding(10.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Checkbox(checked = todo.done, onCheckedChange = null)
+        Text(todo.text, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+    }
+}
+```
+
+Wir nutzen `itemsIndexed` in der `LazyColumn`, um den Index des aktuellen
+Todos zu erhalten. Den Index eines Todos in `LazyColumn` übergeben wir an die 
+`onToggleAt`-Funktion (deklariert in `TodosApp`), die den Status des Todos ändert.
+
+Später werden wir die Index-basierte Logik durch eine ID-basierte Logik
+ersetzen, wenn wir dem `Todo`-Model eine ID hinzufügen und mit einer 
+Datenbank arbeiten.
+
+<Callout type="info">
+**Warum so?**  
+- Eine _Single Source of Truth_ für den State vereinfacht Testbarkeit & Erweiterbarkeit.  
+- Composables wie `TodoItems` sind _stateless_ und somit wiederverwendbar.  
+- Änderungen (z. B. Sortieren/Filtern) sind zentral lösbar.
+</Callout>
+
+## ViewModel einführen 
+
+Wir verlagern die Quelle der Wahrheit aus dem UI-Code von `TodosApp` in ein separates ViewModel. So übersteht der Datenzustand Konfigurationswechsel (z. B. Rotation) und die UI bleibt schlank (_separation of concerns_).
+
+Das ViewModel wird im `ui`-Package abgelegt. Dazu eine neue Datei `TodosViewModel.kt` erstellen:
+
+```kotlin
+// package und import statements weggelassen
+class TodosViewModel : ViewModel() {
+    private val _todos = mutableStateListOf<Todo>()
+    val todos: List<Todo> get() = _todos // read-only nach außen
+
+    fun add(text: String) {
+        val t = text.trim()
+        if (t.isNotEmpty()) _todos += Todo(t, false)
+    }
+
+    fun toggleAt(index: Int) {
+        _todos[index] = _todos[index].copy(done = !_todos[index].done)
+    }
+}
+```
+
+Ein ViewModel trennt die UI-Schicht von der Datenhaltung. Es ist die zentrale 
+Quelle für den Todo-Zustand; die UI liest diesen und ruft nur Funktionen zum 
+Ändern auf (Hinzufügen/Umschalten).
+
+## `TodosApp` an ViewModel binden
+
+`TodosApp` bekommt eine ViewModel-Instanz injiziert, die mit `viewModel()`
+erstellt wird. Dadurch wird das ViewModel automatisch an den Lebenszyklus der
+MainActivity gebunden.
+
+Zur Vorbereitung eine weitere Abhängigkeit für `lifecycle-viewmodel-compose` in 
+`app/build.gradle`  hinzufügen:
+
+```kotlin
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4")  
+```
+
+&rarr; Wieder mit `Alt-Enter` in den „Versionskatalog“ (siehe `libs.versions.toml`)  überführen.
+
+Danach können wir das ViewModel in `TodosApp` verwenden und den bisherigen State 
+entfernen. Außerdem müssen wir die Funktionsaufrufe an das ViewModel anpassen:
+
+```kotlin {2-3,10,18}
+@Composable
+fun TodosApp(vm: TodosViewModel = viewModel()) {
+    val todos = vm.todos
+
+    // restlicher Code unverändert
+
+            if (showDialog) {
+                AddTodoDialog(
+                    onAdd = { text ->
+                        vm.add(text)
+                        showDialog = false
+                    },
+                    onDismiss = { showDialog = false }
+                )
+            }
+            TodoList(
+                todos = todos,
+                onToggleAt = vm::toggleAt,
+                modifier = Modifier.padding(innerPadding)
+            )
+
+    // restlicher Code unverändert
+}
+```
+
+ViewModels zahlen sich in der Android-Entwicklung besonders bei komplexeren
+Apps aus, die z.B. mit einer Datenbank arbeiten (siehe nächste Abschnitte).
+
+Kurze Bemerkungen: 
+
+- ViewModel lebt außerhalb des Compose-UIs und braucht kein `remember`.
+- `remember` dient dazu, den Zustand lokal innerhalb in einer Composable-Funktion zu speichern, während das ViewModel den Zustand über die gesamte Lebensdauer der App hinweg vorhält.
+- Der State in ViewModel ist nicht automatisch „reaktiv“. Hier nutzen wir `mutableStateListOf`, damit Änderungen an der Liste von Compose erkannt werden.
+- ViewModel kann auch andere State-Container wie `LiveData` oder `StateFlow` verwenden (siehe weiterführende Links unten).
+
+<Callout type="important">
+Hier kann nur ein grober Einstieg in ViewModel gegeben werden. Das Thema
+ViewModel und Architektur-Patterns (Repository, LiveData, StateFlow, ...)
+ist sehr umfangreich und entwickelt sich ständig weiter. 
+
+Mehr dazu: 
+
+- App Architecture: https://developer.android.com/topic/architecture
+- ViewModel: https://developer.android.com/topic/libraries/architecture/viewmodel
+- State and Jetpack Compose: https://developer.android.com/develop/ui/compose/state
+
+&rarr; Bei Codelabs, Tutorials und Youtube-Videos auf das Datum achten!
+
+</Callout>
