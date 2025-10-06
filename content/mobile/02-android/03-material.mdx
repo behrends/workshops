@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 # Material Design und Themes
 
 <Callout>
-  **Dauer:** 20 Minuten
+  **Dauer:** 30 Minuten
 
   - `Scaffold` für Layouts
   - `Floating Action Button` im `Scaffold`
@@ -16,14 +16,14 @@ Mit dem Material Design (https://material.io) hat Google
 eine „Designsprache“ für Apps auf verschiedenen Plattformen 
 definiert (Web, Android, usw.).
 
-Die beiden Composable `Text` und `Checkbox` in unserer
+Die beiden Composables `Text` und `Checkbox` in unserer
 App sind Beispiele für vordefinierte Komponenten des 
 Material Designs. 
 
 Hier betrachten wir `Scaffold` für Layouts, 
 `FloatingActionButton` als Beispiel für eine weitere 
 Komponente, die im Scaffold definiert wird und behandeln
-kurz das Thema Themes (insbesondere Dark Mode).
+kurz das Thema _Themes_ (insbesondere Dark Mode).
 
 ## `Scaffold` für Layouts
 
@@ -39,17 +39,19 @@ zunächst entfernt. Nun fügen wir unserer App wieder ein
 Scaffold hinzu, indem wir `TodoList` mit `Scaffold` in
 `setContent` umgeben:
 
-```kotlin
+```kotlin {1,3-5}
 enableEdgeToEdge()
 setContent {
-    Scaffold() { innerPadding ->
+    Scaffold { innerPadding ->
         TodoList(modifier = Modifier.padding(innerPadding))
     }
 }
 ```
 
-Zusätzlich haben wir `enableEdgeToEdge()` hinzugefügt,
-um die App an den Bildschirmrand zu erweitern. Dies war ebenfalls Teil des Templates beim Erstellen der App und wird ab Android 15 empfohlen.
+Zusätzlich haben wir `enableEdgeToEdge()` hinzugefügt, um die App an den 
+Bildschirmrand zu erweitern. Dies war ebenfalls Teil des Templates beim 
+Erstellen der App und wird für ältere Android-Versionen empfohlen (Default ab Android 15 ). Durch das Hinzufügen von 
+`Scaffold`  erscheint die App-Bar oben im Emulator passend zum App-Design.
 
 <Callout type="warning">
 Im Oktober 2025 fehlt `enableEdgeToEdge()` in dem Einstiegs-Codelab der offiziellen Android-Dokumentation: https://developer.android.com/codelabs/basic-android-kotlin-compose-first-app
@@ -62,7 +64,7 @@ werden kann. Damit sich diese bei uns auswirkt,
 müssen wir diesen Parameter in `TodoList` entgegennehmen
 und an `Column` weitergeben:
 
-```kotlin
+```kotlin {2-3}
 @Composable
 fun TodoList(modifier: Modifier = Modifier) {
     Column(modifier) {
@@ -86,6 +88,9 @@ berücksichtigt werden.
 <Callout>
 Dies kann durch Auskommentieren bzw. Entfernen und Hinzufügen 
 von `modifier` in `Column(…)` im Emulator nachvollzogen werden.
+
+Das „Durchreichen“ von Modifiers ist ein häufiges Muster in Compose
+und erleichtert die Wiederverwendung und Wartbarkeit von Composables.
 </Callout>
 
 Guide zu Scaffold: https://developer.android.com/develop/ui/compose/components/scaffold
@@ -93,32 +98,91 @@ Guide zu Scaffold: https://developer.android.com/develop/ui/compose/components/s
 ## `FloatingActionButton` im `Scaffold`
 
 Für die Erstellung eines neuen Todos wollen wir einen
-`FloatingActionButton` hinzufügen. Dafür gibt es eine Möglichkeit,
+`FloatingActionButton` hinzufügen. Dafür gibt es die Möglichkeit,
 diesen direkt als Parameter im `Scaffold` zu definieren:
 
-```kotlin
+```kotlin {2-8}
 setContent {
     Scaffold(floatingActionButton = {
         FloatingActionButton(
-            onClick = {},
-            content = { Icon(Icons.Filled.Add, contentDescription = "Todo erstellen") }
-        )
+            onClick = { /* todo… */ },
+        ) {
+            Text("+")
+        }
     }) { innerPadding ->
         TodoList(modifier = Modifier.padding(innerPadding))
     }
 }
 ```
 
-Wir verwenden für den `FloatingActionButton` (kurz „FAB“) ein 
-„+“-Icon aus den vordefinierten Icons von Material Design. Die
-`onClick`-Funktion ist noch leer, da wir das Verhalten des Buttons
+Die `onClick`-Funktion ist noch leer, da wir das Verhalten des Buttons
 erst später implementieren werden.
 
-Neben `FloatingActionButton` gibt es noch weitere Parameter, die
-im `Scaffold` definiert werden können, z.B. `bottomBar` für eine
-Navigationsleiste.
+Zunächst haben wir nur ein „+“-Zeichen als Text im Button. Im Material
+Design wird die Verwendung von Icons empfohlen. 
 
-Nochmals der Link zum Scaffold-Guide: https://developer.android.com/develop/ui/compose/components/scaffold
+<Callout type="important">
+Neu im Oktober 2025: In der offiziellen Android-Dokumentation wird
+inzwischen von der Verwendung der bisherigen Icon-Bibliothek abgeraten, 
+u.a. da diese nicht mehr weiterentwickelt wird (siehe
+https://developer.android.com/develop/ui/compose/graphics/images/material).
+
+Empfohlen wird stattdessen die Verwendung von Vektor-Assets aus den Google Font Icons,
+wie im obigen Link erwähnt und in den folgenden Schritten beschrieben.
+</Callout>
+
+In den Google Font Icons suchen wir uns unter https://fonts.google.com/icons ein
+passendes Icon aus. In unserem Fall ist dies das „add“-Icon (das plus-Zeichen).
+Wir öffnen das Icon im Browser und wählen dort das „Android“-Tab aus, um die
+XML-Datei für das Vektor-Asset herunterzuladen. 
+
+In Android Studio öffnen wir den _Resource Manager_ über das `Tools`-Menü oder den Eintrag in der linken Seitenleiste. Dort fügen wir die
+heruntergeladene XML-Datei per _Drag-and-Drop_ ein. Die Schritte im
+nun erscheinenden Dialog können so übernommen und bestätigt werden.
+
+Im Code der `MainActivity` können wir den FAB nun mit dem Icon
+ausstatten:
+
+```kotlin {4-7}
+FloatingActionButton(
+    onClick = { /* todo… */},
+) {
+    Icon(
+        painter = painterResource(R.drawable.add_24px),
+        contentDescription = "Neues Todo erstellen"
+    )
+}
+```
+
+<Callout type="important">
+Stand Oktober 2025: Im XML wird ein Attribut für die Farbe definiert (``),
+welches zu einem Compile-Fehler führt.
+
+Wir beheben dies dadurch, dass wir unserem Projekt die `AppCompat`-Bibliothek hinzufügen, welche Kompatibilitätsschichten für ältere Android-Versionen bereitstellt. Dadurch können wir den Fehler beheben.
+
+**&rarr; Hoffentlich ist dies in Zukunft nicht mehr nötig**.
+
+Vorgehen:
+- In `app/build.gradle` im `dependencies`-Block folgende Zeile hinzufügen (ggf. Version mit `Alt-Enter` in Android Studio aktuell halten):
+  ```gradle
+  implementation 'androidx.appcompat:appcompat:1.7.1'
+  ``` 
+- Mit dem Tooling in Android Studio (`Alt-Enter`) können wir diese Abhängigkeit auch passend zu der bisherigen Implementierung unter 
+Verwendung der Versionsdeklaration in `lib.versions.toml` einbinden.
+- Dann oberhalb des Editors in der gelben Leiste auf `Sync Now` klicken, um die Abhängigkeiten zu aktualisieren.
+</Callout>
+
+Nun sollte der FAB im Emulator mit dem Icon angezeigt werden.
+
+<Callout type="warning">
+Hier sehen wir ein Beispiel für die Herausforderung, aktuelle Best Practices
+in der sich schnell entwickelnden Android-Welt zu verfolgen. Eigene Recherchen sind hier unerlässlich.
+</Callout>
+
+<Callout type="info">
+Es gibt im Material Design auch einen `ExtendedFloatingActionButton`, der zusätzlich 
+zum Icon oder ausschließlich einen Text enthalten kann: https://m3.material.io/components/extended-fab
+</Callout>
 
 ## Theme mit Dark Mode
 
@@ -126,12 +190,14 @@ Android Apps haben im Material Design ein Theme, das die
 Farben und Schriftarten definiert. Das Theme wird beim 
 Erstellen der App automatisch erzeugt und wird mit 
 `<App-Name>Theme` bezeichnet. Bei uns ist dies `TodosAndroidTheme`,
-weil die App `TodosAndroid` heißt. 
+weil die App `TodosAndroid` heißt.
+
+**Bitte Namen des Themes anpassen, falls die App anders heißt.**
 
 Wir fügen das Theme in der `MainActivity` mit `TodosAndroidTheme` 
 hinzu, indem wir die Composables damit umgeben: 
 
-```kotlin
+```kotlin {2,11}
 setContent {
     TodosAndroidTheme {
         Scaffold(floatingActionButton = {
@@ -161,3 +227,7 @@ Farben und Schriftarten der Themes in Kotlin-Code.
 Material Components: https://developer.android.com/develop/ui/compose/components
 
 Design in Mobile: https://developer.android.com/design/ui/mobile (siehe die Guides in diesem Bereich)
+
+## PAUSE
+
+Spätestens hier eine Pause einlegen.

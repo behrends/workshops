@@ -13,6 +13,19 @@ import { Callout } from 'nextra/components'
   **Ziel:** Erste Schritte zu Layouts und Styling in Compose
 </Callout>
 
+Nun bauen wir das UI unserer Todo-App weiter aus. Hier stehen wir:
+
+<Callout type="info">
+**Vorstellung des Frameworks**
+
+- [x] Installation und Einrichtung der Entwicklungsumgebung
+- [x] Prinzipien des Frameworks (Projektstruktur, Komponenten/Widgets, …)
+- [ ] App mit einem Screen: UI-Elemente, Layout, Interaktion und State
+- [ ] Daten lokal speichern
+- [ ] Navigation zwischen mehreren Screens
+
+</Callout>
+
 Das Layout einer Android-App wird komplett in Kotlin-Code erstellt.
 Mit Compose können wir das UI **deklarativ** beschreiben, d.h. wir 
 beschreiben, wie das UI aussieht, wenn es gerendert wird („_was wird
@@ -22,17 +35,17 @@ Layouts erstellen können.
 
 ## `Row` und `Column`
 
-Mit den in Android vordefinierten Layout-Composables `Row` 
+Mit den vordefinierten Layout-Composables `Row` 
 und `Column` können wir UI-Elemente nebeneinander oder 
 untereinander anordnen. Zunächst fügen wir einem Todo 
 eine Checkbox hinzu:
 
-```kotlin
+```kotlin {3-5}
 @Composable
-fun Todo(name: String) {
+fun Todo(text: String) {
     Row {
         Checkbox(checked = false, onCheckedChange = { })
-        Text(name)
+        Text(text)
     }
 }
 ```
@@ -44,6 +57,11 @@ Composables zu definieren. Das Lambda `{ }` in `Checkbox`
 ist zunächst leer, da wir noch kein Verhalten für die Checkbox 
 definiert haben. `Checkbox` ist eine Komponente aus dem 
 Material-Design (dazu später mehr).
+
+<Callout type="important">
+Wir werden die Checkbox und den Text später in der vertikalen 
+Mitte der Zeile einheitlich ausrichten.
+</Callout>
 
 Mehrere Todos können wir vertikal in einer `Column` anordnen:
 
@@ -62,7 +80,7 @@ Hier haben wir gleich ein neues Composable `TodoList` erstellt,
 das drei Todos enthält. Wir müssen dies noch in `setContent`
 in `MainActivity` verwenden:
 
-```kotlin
+```kotlin {2}
 setContent {
     TodoList()
 }
@@ -84,12 +102,12 @@ Für bestimmte Composables gibt es vordefinierte Parameter, um das
 Aussehen zu verändern. Zum Beispiel können wir den Text in einem Todo
 fett und größer darstellen:
 
-```kotlin
+```kotlin {5}
 @Composable
-fun Todo(name: String) {
+fun Todo(text: String) {
     Row {
         Checkbox(checked = false, onCheckedChange = { })
-        Text(name, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+        Text(text, fontWeight = FontWeight.Bold, fontSize = 22.sp)
     }
 }
 ```
@@ -111,34 +129,28 @@ Manche Composables haben auch spezifische Layout-Parameter. Wir
 können z.B. die vertikale Ausrichtung innerhalb einer `Row` bestimmen,
 damit im Todo die Checkbox und der Text vertikal zentriert sind:
 
-```kotlin
+```kotlin {3}
 @Composable
-fun Todo(name: String) {
+fun Todo(text: String) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Checkbox(checked = false, onCheckedChange = { })
-        Text(name, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+        Text(text, fontWeight = FontWeight.Bold, fontSize = 22.sp)
     }
 }
 ```
 
+<Callout type="important">
+Für `Alignment` muss `import androidx.compose.ui.Alignment` importiert werden.
+</Callout>
+
 Oben wird nochmals die _trailing lambda_ Syntax deutlich. `Row` erhält in 
 den runden Klammern einen Parameter `verticalAlignment` und in den 
-geschweiften Klammern wird letzte Parameter von `Row` als ein Lambda-Ausdruck 
-definiert. Diese Syntax ist in Kotlin und besonders in Compose sehr verbreitet.
-
-`Row` hat folgende Parameter zur Ausrichtung:
-
-- `horizontalArrangement`: Ausrichtung der Elemente in der horizontalen Richtung mit `Arrangement`-Enum
-- `verticalAlignment`: Ausrichtung der Elemente in der vertikalen Richtung mit `Alignment`-Enum
-
-Für eine `Column` gibt es entsprechend:
-
-- `verticalArrangement`: Ausrichtung der Elemente in der vertikalen Richtung mit `Arrangement`-Enum
-- `horizontalAlignment`: Ausrichtung der Elemente in der horizontalen Richtung mit `Alignment`-Enum
+geschweiften Klammern wird der letzte Parameter von `Row` als ein Lambda-Ausdruck 
+definiert. Diese „kombinierte“ Syntax von Parametern ist in Kotlin und besonders in Compose sehr verbreitet.
 
 ## Modifiers für Layout und Verhalten
 
-Mit Modifiern können wir das Layout und das Verhalten von Composables
+Mit _Modifiers_ können wir das Layout und das Verhalten von Composables
 verändern. Modifiers sind Kotlin-Objekte, die an Composables übergeben
 werden. Sie sind wiederverwendbar und allgemeiner als die eben gezeigten
 Parameter für das Styling einzelner Composables.
@@ -146,15 +158,15 @@ Parameter für das Styling einzelner Composables.
 Ein Modifier kann z.B. mit `padding` einen Abstand um ein Composable
 festlegen:
 
-```kotlin
+```kotlin {4-5}
 @Composable
-fun Todo(name: String) {
+fun Todo(text: String) {
     Row(
         modifier = Modifier.padding(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(checked = false, onCheckedChange = { })
-        Text(name, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+        Text(text, fontWeight = FontWeight.Bold, fontSize = 22.sp)
     }
 }
 ```
@@ -166,15 +178,15 @@ werden, indem sie syntaktisch verkettet werden. Außerdem sind Modifiers nicht
 nur für Layout gedacht, sondern u.a. auch für das Verhalten. Hier machen
 wir ein Todo anklickbar:
 
-```kotlin
+```kotlin {4}
 @Composable
-fun Todo(name: String) {
+fun Todo(text: String) {
     Row(
         modifier = Modifier.clickable(onClick = {}).padding(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(checked = false, onCheckedChange = { })
-        Text(name, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+        Text(text, fontWeight = FontWeight.Bold, fontSize = 22.sp)
     }
 }
 ```
@@ -190,9 +202,9 @@ Nun wollen wir vielleicht, dass eine Zeile bzw. ein Todo sich
 auf die komplette Bildschirmbreite erstreckt. Dafür gibt es den
 Modifier `fillMaxWidth`:
 
-```kotlin
+```kotlin {7}
 @Composable
-fun Todo(name: String) {
+fun Todo(text: String) {
     Row(
         modifier = Modifier
             .clickable(onClick = {})
@@ -201,7 +213,7 @@ fun Todo(name: String) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(checked = false, onCheckedChange = { })
-        Text(name, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+        Text(text, fontWeight = FontWeight.Bold, fontSize = 22.sp)
     }
 }
 ```
@@ -213,7 +225,3 @@ Dies lässt sich nun durch Anklicken eines Todos nachvollziehen.
 Layout: https://developer.android.com/develop/ui/compose/layouts/basics
 
 Modifiers: https://developer.android.com/develop/ui/compose/modifiers und die nachfolgenden Seiten 
-
-## PAUSE
-
-Spätestens hier eine Pause einlegen.

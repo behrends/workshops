@@ -3,7 +3,7 @@ import { Callout, Summary } from 'nextra/components'
 # Einstieg in UI-Erstellung mit Compose
 
 <Callout>
-  **Dauer:** 35 Minuten 
+  **Dauer:** 40 Minuten 
 
   - Einstieg in UIs mit Jetpack Compose
   - Composables und Previews
@@ -36,9 +36,10 @@ Mit den Studierenden checken, wie sie auf ihrem Rechner das Projekt mit
 `git` initialisieren können: Terminal/git-Tools in Android Studio?
 </Callout>
 
-Zur Erinnerung: Wir wollen eine schrittweise eine einfache Todo-App 
-erstellen, die Grundlagen der Android-Entwicklung mit Kotlin
-und Jetpack Compose vermittelt.
+Zur Erinnerung: Wir wollen schrittweise eine einfache Todo-App 
+erstellen, die die Grundlagen der Android-Entwicklung mit Kotlin
+und Jetpack Compose vermittelt. Dabei gehen wir wie folgt vor 
+(und werden auch bei den anderen Frameworks so vorgehen):
 
 <Callout type="info">
 **Vorstellung des Frameworks**
@@ -77,7 +78,7 @@ class MainActivity : ComponentActivity() {
 Die weiteren Funktionen können gelöscht werden und wir zeigen, wie die Import-Anweisungen mit `Alt+Enter` aufgeräumt werden können.
 
 <Callout type="important">
-Wir haben ein paar eigentlich benötigte Code-Bestandteile wie z.B. 
+Wir haben ein paar benötigte oder empfohlene Code-Bestandteile wie z.B. 
 `enableEdgeToEdge()` zur Einfachheit entfernt und werden diese später 
 wieder hinzufügen.
 </Callout>
@@ -85,14 +86,14 @@ wieder hinzufügen.
 Bei Bedarf können wir die einzelnen Bestandteile besprechen:
 
 - Eine Activity ist eine Klasse, die eine Benutzeroberfläche für eine App bereitstellt.
-- `MainActivity` ist die Haupt-Activity, die beim Start der App angezeigt wird (siehe `AndroidManifest.xml`).
-- `onCreate` ist eine Funktion, die beim Start der Activity automatisch vom Android ausgeführt wird (ähnlich wie die `main`-Methode in Java-Programmen).
+- `MainActivity` ist die _Launcher_-Activity, die beim Start der App ausgeführt und angezeigt wird, da dies so im `AndroidManifest.xml` definiert ist.
+- `onCreate` ist eine Funktion, die beim Start der Activity automatisch vom Android-System ausgeführt wird (ähnlich wie die `main`-Methode in Java-Programmen).
 - `setContent` startet eine Compose-Composition für die Activity und setzt die 
 übergebene Composable-Lambda als Wurzel des UI-Baums.
 - mit `{ … }` wird ein Lambda-Ausdruck definiert, der das UI beschreibt, d.h. `setContent` erhält eine Funktion als Parameter. Diese Syntax wird _trailing lambda_ genannt und ist in Kotlin sehr verbreitet. 
 - das _trailing lambda_ könnte auch so geschrieben werden: <br/> `setContent(content = { Text("Hello World") })` <br/> Die kürzere Schreibweise mit `{ … }` ist aber üblicher und leichter lesbar (insbesondere wenn wir mehrere Composables hierarchisch verschachteln).
-- `Text` ist eine vordefiniert Composable-Funktion im Android-SDK, die einen Text darstellt.
-- Wir werden weitere Composables des SDKs kennenlernen und auch eigene Composables erstellen.
+- `Text` ist eine vordefiniert Composable-Funktion aus der Compose-API, die einen Text darstellt.
+- Wir werden weitere vordefinierte Composables kennenlernen und auch eigene Composables erstellen.
 
 <Callout>
 Der Dozent kennt nicht alle Details zu Compose und hat nur 
@@ -198,16 +199,33 @@ testen.
 Dennoch könnte diese Funktionalität mittelfristig für Teams nützlich 
 sein, die Apps mit Compose entwickeln. Mehr zu Previews in Compose: https://developer.android.com/develop/ui/compose/tooling/previews
 
+## Optional: Abhängigkeiten für Compose aktualisieren
+
+Falls Zeit ist, können wir noch kurz die Abhängigkeiten für Compose
+aktualisieren.
+
+In `libs.versions.toml` lassen sich die Abhängigkeiten für Compose
+aktualisieren, damit wir die neuesten Features und Bugfixes nutzen können.
+Versionen, die aktualisiert werden können, sind in der Datei gelb markiert.
+Mit `Alt+Enter` können die neuen Versionen automatisch eingesetzt werden.
+
+Mit der sogenannten „_Compose-BOM_“ (_Bill of Materials_) halten wir im
+Android-Projekt alle Compose-Artefakte konsistent, ohne jede Lib einzeln zu 
+versionieren. Wir versionieren nur die BOM; die eigentlichen Artefakte bekommen 
+keine eigene Versionsangabe. 
+
+Mehr dazu: https://developer.android.com/develop/ui/compose/bom
+
 ## Zusammenfassung zu Composables
 
 Composable-Funktionen oder kurz _Composables_ sind Funktionen, die mit 
 `@Composable` annotiert sind. Sie sind die Bausteine für die UI-Elemente 
 und können von anderen Composables aufgerufen werden. 
-Ein Composable hat keinen Rückgabewert und wird in _PascalCase_ benannt
-(Namensteile sind Substantive und werden groß geschrieben). 
-Für bestimmte UI-Elemente wie z.B. Text gibt es vordefinierte Composables 
-und zusätzlich werden Layout-Funktionen wie z.B. `Column` oder 
-`Row` zur Verfügung gestellt.
+Ein Composable hat keinen Rückgabewert und wird häufig in _PascalCase_ benannt
+(Namensteile werden groß geschrieben). 
+Für bestimmte UI-Elemente wie z.B. `Text` gibt es vordefinierte Composables.
+Später werden wir auch vordefinierte Layout-Funktionen wie z.B. `Column` oder 
+`Row` verwenden.
 
 <Callout>
 Composables sind ein Beispiel für die deklarative Programmierung, die in modernen 
@@ -226,5 +244,5 @@ Wir werden mit Widgets in Flutter und mit Komponenten in React Native
 
 ## Weiterführendes Material
 
-Tutorial, Samples und Guides zu Compose im „Core Area“ zu UIs in 
+Tutorial, Sample-Apps, Docs und Quick Guides zu Compose im „Core Area“ zu UIs in 
 den Android Developer Docs: https://developer.android.com/develop/ui
