@@ -74,7 +74,7 @@ und einen Erledigt-Status. Später erhält ein Todo auch eine eindeutige ID.
 Folgende neue Datei `Todo.kt` im `data`-Package erstellen (weitere Klassen kommen später dazu):
 
 ```kotlin
-data class Todo(val text: String, val done: Boolean)
+data class Todo(val text: String, val done: Boolean = false)
 ```
 
 Eine `data class` erzeugt automatisch die getter sowie einige
@@ -95,7 +95,7 @@ fun TodosApp() {
             if (showDialog) {
                 AddTodoDialog(
                     onAdd = { text ->
-                        todos.add(Todo(text=text, done=false))
+                        todos.add(Todo(text=text))
                         showDialog = false
                     },
                     onDismiss = { showDialog = false }
@@ -138,13 +138,15 @@ Wir führen in `TodosApp` eine Funktion `toggleAt` ein, die den
 Status eines Todos ändert. Diese Funktion wird an zuerst an die `TodoList`
 übergeben und von dort an `TodoItem` weitergereicht.  
 
-```kotlin {5-7,11-15,20-38}
+```kotlin {5-9,13-17,22-40}
 fun TodosApp() {
     val todos = remember { mutableStateListOf<Todo>() }
     var showDialog by remember { mutableStateOf(false) }
 
-    fun toggleAt(index: Int) {
-        todos[index] = todos[index].copy(done = !todos[index].done)
+    fun toggleAt(index: Long) {
+        // Long macht spätere Umstellung auf ID einfacher
+        val idx = index.toInt() 
+        todos[idx] = todos[idx].copy(done = !todos[idx].done)
     }
 
     // restlicher Code unverändert
@@ -159,10 +161,10 @@ fun TodosApp() {
 }
 
 @Composable
-fun TodoList(todos: List<Todo>, onToggleAt: (Int) -> Unit, modifier: Modifier = Modifier) {
+fun TodoList(todos: List<Todo>, onToggleAt: (Long) -> Unit, modifier: Modifier = Modifier) {
     LazyColumn(modifier) {
         itemsIndexed(todos) { index, todo ->
-            TodoItem(todo = todo, onCheckedChange = { onToggleAt(index) })
+            TodoItem(todo = todo, onCheckedChange = { onToggleAt(index.toLong()) })
         }
     }
 }
@@ -188,7 +190,8 @@ Todos zu erhalten. Den Index eines Todos in `LazyColumn` übergeben wir an die
 
 Später werden wir die Index-basierte Logik durch eine ID-basierte Logik
 ersetzen, wenn wir dem `Todo`-Model eine ID hinzufügen und mit einer 
-Datenbank arbeiten.
+Datenbank arbeiten. **Daher verwenden wir als Parameter für `toggleAt`
+von Anfang an `Long` statt `Int`.**
 
 <Callout type="info">
 **Warum so?**  
@@ -214,8 +217,9 @@ class TodosViewModel : ViewModel() {
         if (t.isNotEmpty()) _todos += Todo(t, false)
     }
 
-    fun toggleAt(index: Int) {
-        _todos[index] = _todos[index].copy(done = !_todos[index].done)
+    fun toggleAt(index: Long) {
+        val idx = index.toInt() // Long macht spätere Umstellung auf ID einfacher
+        _todos[idx] = _todos[idx].copy(done = !_todos[idx].done)
     }
 }
 ```
@@ -228,23 +232,22 @@ Quelle für den Todo-Zustand; die UI liest diesen und ruft nur Funktionen zum
 
 `TodosApp` bekommt eine ViewModel-Instanz injiziert, die mit `viewModel()`
 erstellt wird. Dadurch wird das ViewModel automatisch an den Lebenszyklus der
-MainActivity gebunden.
-
-Zur Vorbereitung eine weitere Abhängigkeit für `lifecycle-viewmodel-compose` in 
-`app/build.gradle`  hinzufügen:
+MainActivity gebunden. Das ViewModel wird als private Variable in der
+`MainActivity` deklariert, damit es nur dort erstellt wird:
 
 ```kotlin
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4")  
+class MainActivity : ComponentActivity() {
+    private val vm: TodosViewModel by viewModels()
+    // restlicher Code bleibt unverändert
+}
 ```
-
-&rarr; Wieder mit `Alt-Enter` in den „Versionskatalog“ (siehe `libs.versions.toml`)  überführen.
 
 Danach können wir das ViewModel in `TodosApp` verwenden und den bisherigen State 
 entfernen. Außerdem müssen wir die Funktionsaufrufe an das ViewModel anpassen:
 
 ```kotlin {2-3,10,18}
 @Composable
-fun TodosApp(vm: TodosViewModel = viewModel()) {
+fun TodosApp(vm: TodosViewModel) {
     val todos = vm.todos
 
     // restlicher Code unverändert

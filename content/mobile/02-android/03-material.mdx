@@ -164,8 +164,8 @@ Wir beheben dies dadurch, dass wir unserem Projekt die `AppCompat`-Bibliothek hi
 
 Vorgehen:
 - In `app/build.gradle` im `dependencies`-Block folgende Zeile hinzufügen (ggf. Version mit `Alt-Enter` in Android Studio aktuell halten):
-  ```gradle
-  implementation 'androidx.appcompat:appcompat:1.7.1'
+  ```kotlin
+  implementation("androidx.appcompat:appcompat:1.7.1")
   ``` 
 - Mit dem Tooling in Android Studio (`Alt-Enter`) können wir diese Abhängigkeit auch passend zu der bisherigen Implementierung unter 
 Verwendung der Versionsdeklaration in `lib.versions.toml` einbinden.

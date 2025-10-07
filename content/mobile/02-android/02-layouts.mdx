@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 # Layouts, Styling und Modifier
 
 <Callout>
-  **Dauer:** 20 Minuten
+  **Dauer:** 25 Minuten
 
   - Layouts mit geschachtelten Composables
   - `Row` und `Column`
@@ -219,6 +219,25 @@ fun Todo(text: String) {
 ```
 
 Dies lässt sich nun durch Anklicken eines Todos nachvollziehen.
+
+<Callout>
+Debug-Ausgaben mit `Log.d` sind manchmal nützlich, um Verhalten von
+Composables zu überprüfen: 
+
+```kotlin {5}
+@Composable
+fun Todo(text: String) {
+    Row(
+        modifier = Modifier
+            .clickable(onClick = { Log.d("MAIN_ACTIVITY", "Todo geklickt") })
+            .padding(10.dp)
+            .fillMaxWidth(),
+    ) // Rest des Codes unverändert
+}
+```
+
+Die Ausgaben erscheinen in der Logcat-Ansicht in Android Studio.
+</Callout>
 
 ## Mehr zu Layout und Styling
 

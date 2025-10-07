@@ -83,7 +83,7 @@ eigene Recherchen zu den neuen Konzepten notwendig.
 
 Wir initialisieren die Room-Datenbank in der `MainActivity`:
 
-```kotlin {2-15,21,27}
+```kotlin {2-15}
 class MainActivity : ComponentActivity() {
     // eine DB-Instanz pro Prozess
     private val db by lazy {
@@ -99,26 +99,11 @@ class MainActivity : ComponentActivity() {
             initializer { TodosViewModel(db.todoDao()) }
         }
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            TodosApp(vm)
-        }
-    }
-}
-
-@Composable
-fun TodosApp(vm: TodosViewModel) {
-    // der Rest bleibt vorerst unverändert
 }
 ```
 
 **Auch hier erklären wir nicht alle neuen Konzepte.**
 
-Eine wichtige Änderung ist, dass wir nun das ViewModel manuell erstellen und
-an die `TodosApp` weiterreichen. 
 
 ## `TodoList` umstellen
 

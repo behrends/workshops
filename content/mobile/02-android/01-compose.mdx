@@ -3,7 +3,7 @@ import { Callout, Summary } from 'nextra/components'
 # Einstieg in UI-Erstellung mit Compose
 
 <Callout>
-  **Dauer:** 40 Minuten 
+  **Dauer:** 35 Minuten 
 
   - Einstieg in UIs mit Jetpack Compose
   - Composables und Previews
@@ -134,75 +134,25 @@ setContent {
 }
 ```
 
-## Composables mit Preview
-
-Composable-Funktionen (oder kurz Composables) können auch in einer 
-Vorschau angezeigt werden. Dazu erstellen wir **eine neue 
-Composable-Funktion TodoPreview** und fügen ihr die Annotation 
-`@Preview` hinzu:
-
-```kotlin
-@Preview
-@Composable
-fun TodoPreview() {
-    Todo("Sport machen")
-}
-```
-
-Dies wird als eigene Preview-Funktion definiert, die nur in der 
-Vorschau in Android Studio angezeigt wird. In der App selbst wird 
-sie nicht verwendet. 
-
-### Argumente für Previews 
-
-Annotationen wie `@Preview` können auch Argumente enthalten,
-die in der Vorschau verwendet werden:
-
-```kotlin {1-3}
-@Preview(showBackground = true,
-    showSystemUi = true,
-    name = "Todo Vorschau")
-@Composable
-fun TodoPreview() {
-    Todo("Sport machen")
-}
-```
-
 **Tipp:** Mit `Code -> Reformat Code` bzw. `Code -> Reformat File…` 
 kann bestimmter Kotlin-Code bzw. die ganze Datei formatiert werden.
 
 ## Preview vs. Emulator
 
-Unterschied zwischen Preview und Emulator nochmal
-kurz erklären:
+Unterschied zwischen Preview und Emulator kurz erklären:
 
 - Preview: Vorschau im Android Studio, zeigt das UI in der IDE
 - Emulator: Simuliert ein echtes Gerät, zeigt das UI in einer virtuellen Umgebung
 
-Meistens wird die App parallel zur Programmierung zum 
-sofortigen Testen der Änderungen im Emulator oder 
-auf einem Gerät ausgeführt. Änderungen von Composables wirken 
-sich z.T. direkt live auf die App im Emulator/Gerät aus,
-ohne dass die App neu gestartet werden muss.
-
-`@Preview`-Composables werden gelegentlich verwendet,
-wenn z.B. längere Zeit ausschließlich an einem bestimmten
-UI-Element bzw. Composable gearbeitet wird.
-
 Composables mit `@Preview` sind ein nützliches Feature von Compose, 
 um das UI während der Programmierung visuell in einer Vorschau 
-darzustellen. Previews sind jedoch optional und werden nicht zwingend
-für die Entwicklung einer App mit Compose benötigt. Wir werden hier darauf 
-meistens verzichten, da es oft einfacher ist, die App direkt im Emulator zu 
-testen.
+darzustellen. Wir testen die App immer direkt im Emulator.
 
-Dennoch könnte diese Funktionalität mittelfristig für Teams nützlich 
-sein, die Apps mit Compose entwickeln. Mehr zu Previews in Compose: https://developer.android.com/develop/ui/compose/tooling/previews
+Dennoch könnten Previews mittelfristig für Teams nützlich sein, die 
+Apps mit Compose entwickeln. Mehr zu Previews in Compose: 
+https://developer.android.com/develop/ui/compose/tooling/previews
 
-## Optional: Abhängigkeiten für Compose aktualisieren
-
-Falls Zeit ist, können wir noch kurz die Abhängigkeiten für Compose
-aktualisieren.
+## Abhängigkeiten für Compose aktualisieren
 
 In `libs.versions.toml` lassen sich die Abhängigkeiten für Compose
 aktualisieren, damit wir die neuesten Features und Bugfixes nutzen können.

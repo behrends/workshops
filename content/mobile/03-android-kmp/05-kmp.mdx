@@ -13,19 +13,22 @@ import { Callout } from 'nextra/components'
 Kotlin Multiplatform (KMP) ist ein Framework zur plattformübergreifenden
 Entwicklung von Apps mit Kotlin. Ursprünglich gedacht für die gemeinsame Nutzung von
 Geschäftslogik und anderen Teilen des Codes zwischen verschiedenen
-Plattformen wie Android und iOS, können inzwischen auch komplette Apps inklusive UI mit KMP entwickelt werden.
+Plattformen wie Android und iOS, können inzwischen auch komplette Apps inklusive UI mit KMP entwickelt werden. Somit kann KMP als vollständiges Framework zur plattformübergreifenden
+App-Entwicklung angesehen werden.
 
-Dahinter steckt Jetbrains aber auch Google unterstützt KMP.
+Dahinter steckt Jetbrains aber auch Google unterstützt offiziell KMP, wie an verschiedenen
+Stellen in der Android-Dokumentation zu sehen ist.
 
 Kotlin Multiplatform für geteilte Geschäftlogik und Compose Multiplatform UI Framework für plattformübergreifende UI.
 
-TODO: Links
+https://www.jetbrains.com/kotlin-multiplatform/
 
 ## Setup in Android Studio
 
 KMP-Projekte lassen sich ähnlich wie native Android-Projekte mit Android Studio entwickeln. Dafür muss nichts zusätzlich installiert werden. 
 
-Das KMP-Plugin ist optional, aber hilfreich (Stand 2025: nur macOS).
+Das KMP-Plugin ist optional, wird aber benötigt, um die App unter macOS auf einem 
+iPhone-Simulator auszuführen (Stand 2025: nur macOS unterstützt).
 
 Webseite des KMP-Plugins: https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform
 
@@ -49,16 +52,47 @@ Diese erklären wir an dem Code, der für uns generiert wurde. Dies ist in der R
 
 Vieles ist sehr ähnlich wie in der nativen Android-Entwicklung mit Kotlin und Jetpack Compose. 
 
-Unterschiede in der Projektstruktur und in der Template-App (MaterialTheme vs. MyAppTheme, Surface vs. Scaffold, …), usw.
+### Projektstruktur und Ausgangscode
 
-&rarr; sollen wir die zuvor gebaute Android-App auf KMP migrieren? siehe:
+In einer KMP-App liegt der plattformübergreifende Code unter `composeApp/src/commonMain`.
+
+Für plattformspezifischen Code gibt es entsprechend eigene Ordner.
+
+Die `MainActivity` in `composeApp/src/androidMain/` wird nicht angepasst, stattdessen 
+fügen wir unsere Änderungen in der `App.kt` in `composeApp/src/commonMain/` durch.
+
+In `App.kt` sehen wir u.a., dass das `MaterialTheme` und kein eigenes Theme verwendet wird.
+
+### Code der Android-App auf KMP migrieren
+
+In `commonMain` erstellen mir zwei Verzeichnisse bzw. `data` und `ui`.
+
+Dann kopieren wir den Code aus `ui` (`AddTodoDialog` und `TodosViewModel`) und `data` (`Todo`) 
+der zuvor gebauten Android-App in die entsprechenden Verzeichnisse der KMP-App.
+
+Danach müssen wir die `package`-Deklaration und die `imports` anpassen.
+
+Aus der `MainActivity` der Android-App kopieren wir die folgenden Funktionen bzw. Composables: 
+
+- `TodosApp`
+- `TodoItem`
+- `TodoList`
+
+und fügen diese in `App.kt` der KMP-App ein.
+
+Wir benennen `App` der KMP-App in `OldApp und die kopierte `TodosApp` in `App` um.  
+Außerdem stellen wir in der kopierten App das Theme auf `MaterialTheme` um.
+
+Danach die imports anpassen bzw. mit `Alt-Enter` hinzufügen.
+
+`FloatingActionButton` &rarr; `ExtendedFloatingActionButton` um das Icon loszuwerden bzw.
+durch Text zu ersetzen (`Text("Neues Todo")`).
 
 - https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-integrate-in-existing-app.html
 - https://www.jetbrains.com/help/kotlin-multiplatform-dev/faq.html#i-have-an-existing-android-application-that-uses-jetpack-compose-what-should-i-do-to-migrate-it-to-other-platforms
 
-**Wollen wir den Code der Android-App auf KMP migrieren?**
 
-&rarr; Wer mit KMP arbeiten möchte, sollte darauf achten, ob die benötigten Bibliotheken (z.B. für Datenbank, Netzwerk, usw.) KMP unterstützen. Link bzw. Beispiel dazu?
+&rarr; Wer mit KMP arbeiten möchte, sollte darauf achten, ob die benötigten Bibliotheken (z.B. für Datenbank, Netzwerk, usw.) KMP unterstützen. Dazu eine hilfreiche Sammlung: https://github.com/terrakok/kmp-awesome
 
 ## UI, Layout, Styling, State
 
@@ -89,5 +123,7 @@ Codelabs:
 Sample Apps:
 
 - https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-samples.html
+
+Auflistung von Bibliotheken, die KMP unterstützen: https://github.com/terrakok/kmp-awesome
 
 Siehe auch die Lernressourcen zu Kotlin und Android in den vorherigen Seiten.
