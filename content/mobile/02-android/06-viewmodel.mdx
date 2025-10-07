@@ -233,12 +233,21 @@ Quelle für den Todo-Zustand; die UI liest diesen und ruft nur Funktionen zum
 `TodosApp` bekommt eine ViewModel-Instanz injiziert, die mit `viewModel()`
 erstellt wird. Dadurch wird das ViewModel automatisch an den Lebenszyklus der
 MainActivity gebunden. Das ViewModel wird als private Variable in der
-`MainActivity` deklariert, damit es nur dort erstellt wird:
+`MainActivity` deklariert, damit es nur dort erstellt wird und an `TodosApp`
+weitergereicht werden kann:
 
-```kotlin
+```kotlin {2,9}
 class MainActivity : ComponentActivity() {
     private val vm: TodosViewModel by viewModels()
     // restlicher Code bleibt unverändert
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            TodosApp(vm)
+        }
+    }
 }
 ```
 
