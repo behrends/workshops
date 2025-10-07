@@ -12,6 +12,14 @@ import { Callout } from 'nextra/components'
 </Callout>
 
 
+<Callout type="error" emoji="🚨">
+Es gibt scheinbar keinen „Best Practice“-Weg, wie Room in einer
+Compose-App eingesetzt wird. In der Android-Dokumentation, in Codelabs und in Blog-Beiträgen werden unterschiedliche Ansätze vorgestellt (Repository, Factory, Application, usw.).
+
+Wir verwenden hier einen einfachen Ansatz, um möglichst schnell und mit wenigen zusätzlichen Konzepten zu arbeiten. Dabei werden sicherlich einige Best Practices vernachlässigt.
+</Callout>
+
+
 ## Room-Datenbank erstellen
 
 Wir erstellen eine abstrakte Klasse `data/AppDatabase`, die die 
@@ -21,113 +29,123 @@ Datenbank konfiguriert:
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
-@Database(entities = [TodoItem::class], version = 1)
+@Database(entities = [Todo::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun todoDao(): TodoDao
 }
 ```
 
+Diese Klasse werden wir gleich verwenden, aber zunächst
+passen wir unser ViewModel an, damit es mit der Datenbank
+arbeiten kann.
+
+## ViewModel an Room via `TodoDao` anbinden
+
+Unser ViewModel muss wie folgt angepasst werden:
+
+```kotlin
+class TodosViewModel(private val dao: TodoDao) : ViewModel() {
+    private val _todos = mutableStateListOf<Todo>()
+    val todos: List<Todo> get() = _todos 
+
+    init {
+        viewModelScope.launch {
+            dao.getAllTodos().collect { list ->
+                _todos.clear()
+                _todos.addAll(list)
+            }
+        }
+    }
+
+    fun add(text: String) = viewModelScope.launch {
+        val t = text.trim()
+        if (t.isNotEmpty()) {
+            dao.insertTodo(Todo(text = t))
+        }
+    }
+
+    fun toggleAt(id: Long) = viewModelScope.launch {
+        val current = _todos.firstOrNull { it.id == id } ?: return@launch
+        dao.updateTodo(current.copy(done = !current.done))
+    }
+}
+```
+
+<Callout type="important">
+Wir verzichten hier auf eine Beschreibung der Änderungen,
+die neue Konzepte mit sich bringen (Coroutines, `viewModelScope`, `collect`, usw.).  Hier kann ein KI-Tool helfen.
+
+Das Ziel ist, in der App ein Beispiel für die grundlegende Datenbanknutzung mit Room einzuführen. Bei Bedarf sind 
+eigene Recherchen zu den neuen Konzepten notwendig.
+</Callout>
+
 ## Datenbankinstanz initialisieren
 
 Wir initialisieren die Room-Datenbank in der `MainActivity`:
 
-```kotlin
+```kotlin {2-15,21,27}
 class MainActivity : ComponentActivity() {
-    private lateinit var database: AppDatabase
-    private lateinit var todoDao: TodoDao
+    // eine DB-Instanz pro Prozess
+    private val db by lazy {
+        Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "todo-database"
+        ).build()
+    }
+
+    private val vm: TodosViewModel by viewModels {
+        viewModelFactory {
+            initializer { TodosViewModel(db.todoDao()) }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Datenbank erstellen
-        database = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "todo-database"
-        ).build()
-
-        todoDao = database.todoDao()
-
-        // Restlicher Code bleibt unverändert...
+        enableEdgeToEdge()
+        setContent {
+            TodosApp(vm)
+        }
     }
 }
-```
 
-## Todos aus der Datenbank laden und im UI anzeigen
-
-In der `MainActivity` ersetzen wir den State `todos` durch
-die aus der Datenbank geladenen Todos:
-
-```kotlin
-setContent {
-    val todos by todoDao.getAllTodos().collectAsState(initial = emptyList())
-    // Restlicher Code bleibt unverändert...
+@Composable
+fun TodosApp(vm: TodosViewModel) {
+    // der Rest bleibt vorerst unverändert
 }
 ```
 
-Nun verwenden wir die `data class` namens `TodoItem` anstelle von
-`String` für die Todos. Dies zieht einige Änderungen im UI-Code 
-in der `MainActivity` nach sich:
+**Auch hier erklären wir nicht alle neuen Konzepte.**
 
-Speicherung des Todos im `AddTodoDialog` mit Hilfe des Todo-DAOs:
+Eine wichtige Änderung ist, dass wir nun das ViewModel manuell erstellen und
+an die `TodosApp` weiterreichen. 
 
-```kotlin
-if (showDialog) {
-    AddTodoDialog(
-        onDismiss = { showDialog = false },
-        onAdd = { newTodo ->
-            lifecycleScope.launch {
-                todoDao.insertTodo(TodoItem(name = newTodo))
-            }
-            showDialog = false
-        }
-    )
-}
-```
+## `TodoList` umstellen
 
-Die `TodoList` muss nun eine Liste von `TodoItem`s als Parameter
-annehmen:
+Schließlich müssen wir noch die `TodoList` anpassen, damit
+die Primärschlüssel-ID eines Todos in der Liste verwendet wird:
 
 ```kotlin
 @Composable
-fun TodoList(todos: List<TodoItem>, modifier: Modifier = Modifier) {
+fun TodoList(todos: List<Todo>, onToggleAt: (Long) -> Unit, modifier: Modifier = Modifier) {
     LazyColumn(modifier) {
-        items(todos) { todo ->
-            Todo(todo)
+        items(items = todos, key = { it.id }) { todo ->
+            TodoItem(
+                todo = todo,
+                onCheckedChange = { onToggleAt(todo.id) }
+            )
         }
     }
 }
 ```
 
-Das `Todo`-Composable muss ebenfalls angepasst werden (`TodoItem`
-als Parameter mit entsprechenden Zugriffen auf die Properties):
+Durch die Verwendung eines ViewModels haben wir nun alle
+wesentlichen Umstellungen vorgenommen, um mit Room zu arbeiten.
+In unserer App sollten die Todos nun in der Datenbank 
+gespeichert, aktualisiert und auch nach einem App-Neustart noch 
+vorhanden sein.
 
-```kotlin
-@Composable
-fun Todo(todo: TodoItem) {
-    var done by remember { mutableStateOf(todo.done) }
-    Row(
-        modifier = Modifier
-            .clickable(onClick = { done = !done })
-            .padding(10.dp)
-            .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Checkbox(checked = done, onCheckedChange = { done = it })
-        Text(todo.name, fontWeight = FontWeight.Bold, fontSize = 22.sp)
-    }
-}
-```
-
-Die Preview des Todo-Composables (`TodoPreview`) löschen wir,
-damit wir diese nicht anpassen müssen (Previews sind optional).
-
-Wir können jetzt Todos erstellen, die in der Datenbank gespeichert
-werden und im UI angezeigt werden.
-
-<Callout>
-Wir benötigen `lifecycleScope.launch` zum Speichern, weil ein
-Datenbank-Zugriffe asynchron sind.
-</Callout>
+## Abschließende Bemerkungen
 
 <Callout type="info">
 In Android Studio kann auf die Datenbank eines Emulators im 
@@ -135,88 +153,22 @@ In Android Studio kann auf die Datenbank eines Emulators im
 App Inspection` öffnen.
 </Callout>
 
-## Todos in der Datenbank aktualisieren
-
-Wir reichen das `todoDao` an `Todo` weiter: 
-
-```kotlin
-// in setContent von onCreate:
-TodoList(
-    todos = todos,
-    todoDao = todoDao,
-    modifier = Modifier.padding(innerPadding)
-)
-
-// in TodoList:
-@Composable
-fun TodoList(todos: List<TodoItem>, todoDao: TodoDao, modifier: Modifier = Modifier) {
-    LazyColumn(modifier) {
-        items(todos) { todo ->
-            Todo(todo = todo, todoDao = todoDao)
-        }
-    }
-}
-```
-
-Das `Todo`-Composable wird dann so angepasst:
-
-```kotlin
-@Composable
-fun Todo(todo: TodoItem, todoDao: TodoDao) {
-    val coroutineScope = rememberCoroutineScope()
-    var done by remember { mutableStateOf(todo.done) }
-    Row(
-        modifier = Modifier
-            .clickable(onClick = {
-                done = !done
-                // Status in der Datenbank aktualisieren
-                coroutineScope.launch {
-                    todoDao.updateTodo(todo.copy(done = done))
-                }
-            })
-            .padding(10.dp)
-            .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Checkbox(checked = done, onCheckedChange = {
-            done = it
-            // Status in der Datenbank aktualisieren
-            coroutineScope.launch {
-                todoDao.updateTodo(todo.copy(done = done))
-            }
-        })
-        Text(todo.name, fontWeight = FontWeight.Bold, fontSize = 22.sp)
-    }
-}
-```
-
-Nun wird der Status eines Todos (erledigt oder nicht) mit
-der Datenbank synchronisiert.
-
-<Callout type="warning">
-Die Verwendung von DAOs in Composable mit `lifecycleScope.launch` und 
-`coroutineScope.launch` entspricht nicht den _best practices_ in Android. 
-Wir haben diese hier nur aus Gründen der Einfachheit verwendet. UI-Logik
-und Datenbankzugriffe sollten in komplexeren Apps getrennt werden.
-
-Langfristig und in komplexeren Android-Apps sollten hierzu
-weitere Konzepte wie das Repository-Pattern, ViewModel und LiveData
-eingesetzt werden, um die Datenbankzugriffe vom UI zu trennen und
-den Code klarer zu strukturieren. Dazu finden sich
-Beispiele in der Android-Dokumentation, in Codelabs und in
-Sample-Apps (siehe unten).
-</Callout>
-
-## Abschließende Bemerkungen
-
 Der konzeptuelle Aufbau von Room wirkt anfangs etwas komplex
 (siehe grafische Darstellung des Aufbaus von Room in der 
-[Dokumentation](https://developer.android.com/training/data-storage/room)).
+[Dokumentation](https://developer.android.com/training/data-storage/room#components)).
 
 Sobald Room jedoch eingerichtet ist, können Datenbankoperationen
 einfach und effizient durchgeführt werden. Room bietet eine
 umfangreiche API, um Datenbankzugriffe zu verwalten und zu
 optimieren.
+
+<Callout type="important">
+In der Android-Dokumentation, in Codelabs und in Sample-Apps
+finden sich viele verschiedene Ansätze, wie Room eingesetzt wird. Auch KI-Tools liefern unterschiedliche Antworten und Varianten. 
+
+**Tipp:** Aus einer aktuellen Sample-App von Google den Code
+nachvollziehen (ggf. mit KI erklären lassen), übernehmen und an die eigenen Bedürfnisse anpassen.
+</Callout>
 
 ## Vertiefendes Material
 
@@ -229,11 +181,6 @@ Room in den Android Developer Docs:
 <Callout type="warning">
 **Achtung**
 
-Wir verwenden zusätzlich zu `app/build.gradle` die Datei 
-`gradle/lib.version.toml`, um die Versionen von Bibliotheken zu verwalten. 
-In der Dokumentation wird oft noch empfohlen, die Versionen 
-ausschließlich in `app/build.gradle` zu spezifizieren.
-
 Room entwickelt sich ständig weiter… (wie alles andere in Android…)
 
 - [Guide](https://developer.android.com/training/data-storage/room)
@@ -242,8 +189,6 @@ Room entwickelt sich ständig weiter… (wie alles andere in Android…)
 - [Codelab](https://developer.android.com/codelabs/basic-android-kotlin-compose-persisting-data-room)
 - [Ein paar der Code-Samples verwenden Room](https://github.com/android/compose-samples)
 </Callout>
-
-Ausblick auf Repository-Pattern und LiveData?
 
 ## PAUSE 
 

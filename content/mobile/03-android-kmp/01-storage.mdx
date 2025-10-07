@@ -6,7 +6,6 @@ import { Callout } from 'nextra/components'
   **Dauer:** 45 Minuten
 
   - Abhängigkeiten hinzufügen
-  - Todo-Entity erstellen
   - DAO (Data Access Object) erstellen
 
   **Ziel:** Einstieg in die Datenpersistenz mit Room
@@ -58,26 +57,29 @@ auf den neuesten Stand gebracht.
 **Vorbemerkung: auf neueste Version von Room und KSP achten**
 
 In `gradle/libs.version.toml` die neueste Version von Room und KSP 
-(Kotlin Symbol Processor) eintragen (im September 2024 war dies nur
-teilweise in der Dokumentation zu finden):
+(Kotlin Symbol Processor) eintragen. Wie in den vorigen Jahren war dies auch im Oktober 2025 nur mühsam in der Dokumentation zu finden.
+
+Infos hierzu müssen ggf. recherchiert und aktualisiert werden. Hier ein paar nützliche Links (Stand Oktober 2025):
+
+- Passende KSP Releases: https://github.com/google/ksp/releases
+- Infos zu KSP und `build.gradle`: https://developer.android.com/build/migrate-to-ksp
+- Room-Dokumentation: https://developer.android.com/training/data-storage/room
 
 ```toml
 [versions]
-kotlin = "2.0.20" # musste in Sept. 24 aktualisiert werden
+kotlin = "2.2.20" # aktuelle Version im Oktober 2025 
 # Rest bleibt unverändert
-room = "2.6.1"
-ksp = "2.0.20-1.0.24"
+room = "2.8.1" # aktuelle Version im Oktober 2025 
+ksp = "2.2.20-2.0.3" # aktuelle Version im Oktober 2025 
 
 [libraries]
 # Rest bleibt unverändert
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
-androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 
 [plugins]
 # Rest bleibt unverändert
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ```
 
 Abhängigkeiten eintragen in `app/build.gradle` (Modulebene):
@@ -85,11 +87,9 @@ Abhängigkeiten eintragen in `app/build.gradle` (Modulebene):
 ```gradle 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    // Kotlin Symbol Processor (KSP) Plugin hinzufügen
-    alias(libs.plugins.ksp)
-    // Compose-Compiler hinzufügen
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp) # KSP-Plugin hinzufügen
 }
 
 android {
@@ -101,29 +101,41 @@ dependencies {
 
     // Database
     implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 }
 ```
 
 Danach Sync in Android Studio durchführen.
 
+<Callout type="important">
+Jedes Jahr ist es mühsam die passenden Versionen und Konfigurationen zu finden. 
+Die Dokumentation und Codelabs sind teilweise inkonsistent, unvollständig oder veraltet.
+</Callout>
+
 ## Todo-Entity erstellen
 
-Ein neues Package `data` erstellen und darin eine neue Kotlin-Datei 
-`TodoItem.kt` anlegen:
+**Vorbemerkung &rarr;** In der Dokumentation gibt es eine grafische Darstellung des Aufbaus von Room: https://developer.android.com/training/data-storage/room#components
+
+Wir haben bereits eine Datenklasse `Todo`, die ein konkretes Todo beschreibt. Nun bereiten wir diese Klasse so vor, dass sie von Room als _Entity_ verwendet werden kann. Eine Instanz
+der Klasse `Todo` entspricht dann einer Zeile bzw. Datensatz in der Datenbank-Tabelle.
 
 ```kotlin
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "todos")
-data class TodoItem(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val name: String,
+data class Todo(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0L,
+    val text: String,
     val done: Boolean = false
 )
 ```
+
+Ein Todo erhält hier als Primärschlüssel eine `id`, die automatisch von der Datenbank generiert wird.
+
+Room als ORM kümmert sich darum, dass die Daten eines Todos in der Datenbank-Tabelle `todos` gespeichert wird. Auch die Erstellung der Tabelle in SQLite wird von Room übernommen.
+
+Zu den Annotationen müssen die passend Importe mit `Alt-Enter` hinzugefügt werden.
 
 ## DAO (Data Access Object) erstellen
 
@@ -136,16 +148,16 @@ _data access object_ die benötigten Datenbankoperationen definiert:
 @Dao
 interface TodoDao {
     @Query("SELECT * FROM todos")
-    fun getAllTodos(): Flow<List<TodoItem>>
+    fun getAllTodos(): Flow<List<Todo>>
 
     @Insert
-    suspend fun insertTodo(todo: TodoItem)
+    suspend fun insertTodo(todo: Todo)
 
     @Update
-    suspend fun updateTodo(todo: TodoItem)
+    suspend fun updateTodo(todo: Todo)
 
     @Delete
-    suspend fun deleteTodo(todo: TodoItem)
+    suspend fun deleteTodo(todo: Todo)
 }
 ```
 
