@@ -130,6 +130,43 @@ In unserer App sollten die Todos nun in der Datenbank
 gespeichert, aktualisiert und auch nach einem App-Neustart noch 
 vorhanden sein.
 
+## Database als Singleton
+
+Es wird empfohlen, die Datenbank als Singleton zu verwenden,
+um nur eine Instanz der Datenbank im gesamten Anwendungsprozess
+zu haben.
+
+Dazu kann die Datenbank in einer neuen `Application`-Klasse 
+initialisiert werden. Wir erstellen eine Klasse `App` auf 
+der gleichen Paketebene wie `MainActivity`:
+
+```kotlin
+class App : Application() {
+    val db: AppDatabase by lazy {
+        Room.databaseBuilder(this, AppDatabase::class.java, "todo-database").build()
+    }
+}
+```
+
+In der `AndroidManifest.xml` muss die Klasse als `application`-Name
+oben im Element `<application>` angegeben werden:
+
+```xml
+<application
+    android:name=".App"
+    ... Rest bleibt wie gehabt ...
+```
+
+Schließlich wird die Datenbank in der `MainActivity` wie folgt
+verwendet:
+
+```kotlin
+class MainActivity : ComponentActivity() {
+    private val db get() = (application as App).db
+    // Rest wie gehabt
+}
+```
+
 ## Abschließende Bemerkungen
 
 <Callout type="info">
