@@ -22,7 +22,7 @@ erbt und die Methode `build` implementiert. Wir sehen dies in unserem
 Code sowohl mit der Klasse `MyApp` als auch mit der Klasse 
 `MyHomePage`:
 
-```dart
+```dart {4,13}
 class MyApp extends StatelessWidget { 
   
   @override
@@ -42,10 +42,10 @@ class MyHomePage extends StatelessWidget {
 }
 ```
 
-Ein _stateless_ Widget ist unveränderlich, d.h. es kann nicht
-während der Laufzeit geändert werden. Das bedeutet, dass die
-UI-Komponenten, die in der Methode `build` erstellt werden,
-nicht verändert werden können.
+Ein _stateless_ Widget (`StatelessWidget`) hat keinen eigenen 
+veränderlichen State, aber seine Darstellung kann sich jederzeit 
+ändern, wenn sich seine Eingaben/Abhängigkeiten ändern — dann wird 
+build() erneut ausgeführt und ein neuer UI-Baum erzeugt.
 
 ## `TodoItem` als StatelessWidget
 
@@ -71,10 +71,10 @@ class TodoItem extends StatelessWidget {
 `TodoItem` wird in der Klasse `MyHomePage` verwendet, dazu
 müssen wir zunächst die Datei `todo_item.dart` importieren:
 
-```dart
+```dart {3,14-17}
 import 'package:flutter/material.dart';
 // Achtung: Import der neuen Datei lib/todo_item.dart !
-import 'package:myapp/todo_item.dart';
+import 'package:todosflutter2025/todo_item.dart';
 
 void main() {
   runApp(const MyApp());
@@ -99,56 +99,68 @@ void main() {
 In Flutter gibt es viele Möglichkeiten, Styles zu definieren.
 Hier ein paar Beispiele (Vorschlag kam von ChatGPT):
 
-```dart
+```dart {9-18}
 import 'package:flutter/material.dart';
 
 class TodoItem extends StatelessWidget {
   final String title;
-
   const TodoItem({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.bodyLarge;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2.0),
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Text(
         title,
-        style: const TextStyle(fontSize: 18),
+        style: textStyle,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
 }
 ```
 
-`TextStyle` definiert die Schriftart und -größe, `EdgeInsets`
-definiert den Abstand um das Widget herum. In unserem Beispiel
-haben wir einen vertikalen Abstand von 2 Pixeln (jeweils oben 
-und unten) sowie eine Schriftgröße von 18 Pixeln definiert.
+`Theme.of(context).textTheme.bodyLarge` holt den 
+Standard-Fließtext-Stil aus dem aktuellen Material-Theme. Der Text 
+übernimmt dadurch Theme-Eigenschaften (z. B. Schriftfamilie, Größe, 
+Farbe) und reagiert auf Light/Dark sowie Textskalierung. 
+Voraussetzung: ein Theme im Baum (z. B. via MaterialApp).
+`EdgeInsets.symmetric(vertical: 2.0)` gibt den Innenabstand 
+(Padding) vor: oben 2.0 und unten 2.0 logische Pixel (insgesamt 4.0 
+vertikal).
 
 ## Checkbox in `TodoItem`
 
 Wir können das `TodoItem`-Widget erweitern, um eine Checkbox
 hinzuzufügen:
 
-```dart
+```dart {12-19,26-27}
+import 'package:flutter/material.dart';
+
 class TodoItem extends StatelessWidget {
   final String title;
-
   const TodoItem({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.bodyLarge;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2.0),
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
         children: [
           Checkbox(
             value: false,
-            onChanged: (bool? value) { /* to be implemented */},
+            onChanged: (bool? value) {
+              /* to be implemented */
+            },
           ),
           Text(
             title,
-            style: const TextStyle(fontSize: 18),
+            style: textStyle,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
@@ -163,33 +175,37 @@ Wir implementieren die Methode `onChanged` später, wenn wir
 Mit einer weiteren Anpassung wollen wir das ganze `TodoItem` 
 antippbar machen:
 
-```dart
-// Code weggelassen
+```dart {10-23}
+import 'package:flutter/material.dart';
+
+class TodoItem extends StatelessWidget {
+  final String title;
+  const TodoItem({super.key, required this.title});
+
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {/* to be implemented */},
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2.0),
-        child: Row(
-          children: [
-            Checkbox(
-              value: false,
-              onChanged: (bool? value) {/* to be implemented */},
-            ),
-            Text(
-              title,
-              style: const TextStyle(fontSize: 18),
-            ),
-          ],
-        ),
+    final textStyle = Theme.of(context).textTheme.bodyLarge;
+    return CheckboxListTile(
+      value: false,
+      onChanged: (bool? value) {
+        /* to be implemented */
+      },
+      title: Text(
+        title,
+        style: textStyle,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
       ),
+      controlAffinity: ListTileControlAffinity.leading,      
     );
   }
+}
 ```
 
-Hierzu verwenden wir das `InkWell`-Widget, das eine Berührung
-erkennt, darauf reagiert und visuelles Feedback gibt.
+Hierzu verwenden wir das `CheckboxListTile`-Widget, das 
+ein Material Design-Element ist und eine Checkbox mit einem Titel 
+kombiniert. Damit haben wir unseren Code vereinfacht und die
+Antippbarkeit des gesamten Listenelements erreicht.
 
 <Callout type="info">
 Es fällt auf, dass wir in Flutter weniger Import-Anweisungen
@@ -208,7 +224,7 @@ in einer neuen Datei `lib/todo_list.dart`:
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:myapp/todo_item.dart';
+import 'package:todosflutter2025/todo_item.dart';
 
 class TodoList extends StatelessWidget {
   const TodoList({super.key});
@@ -229,10 +245,10 @@ class TodoList extends StatelessWidget {
 In `lib/main.dart` ersetzen wir den Import vom `TodoItem` mit 
 `TodoList` und verwenden das neue Widget in der `MyHomePage`-Klasse:
 
-```dart
+```dart {16}
 import 'package:flutter/material.dart';
 // Achtung: folgenden Import anpassen!
-import 'package:myapp/todo_list.dart';
+import 'package:todosflutter2025/todo_list.dart';
 
 // Code weggelassen
 
