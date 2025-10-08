@@ -19,21 +19,29 @@ App-Entwicklung angesehen werden.
 Dahinter steckt Jetbrains aber auch Google unterstützt offiziell KMP, wie an verschiedenen
 Stellen in der Android-Dokumentation zu sehen ist.
 
-Kotlin Multiplatform für geteilte Geschäftlogik und Compose Multiplatform UI Framework für plattformübergreifende UI.
+Für die UI-Entwicklung wird **Compose Multiplatform** verwendet, das auf 
+dem zuvor besprochenen Compose für Android aufbaut und es ermöglicht, 
+UI-Komponenten plattformübergreifend für Android, iOS, Web und Desktop zu 
+erstellen. Im folgenden verwenden wir die Bezeichnung **KMP** für Koltin
+Multiplatform in dem Sinne, dass Compose Multiplatform für die UI verwendet wird.
 
-https://www.jetbrains.com/kotlin-multiplatform/
+- KMP allgemein: https://www.jetbrains.com/kotlin-multiplatform/
+- Compose Multiplatform: https://www.jetbrains.com/compose-multiplatform/
 
 ## Setup in Android Studio
 
-KMP-Projekte lassen sich ähnlich wie native Android-Projekte mit Android Studio entwickeln. Dafür muss nichts zusätzlich installiert werden. 
+KMP-Projekte lassen sich ähnlich wie native Android-Projekte mit Android Studio entwickeln. 
+Das KMP-Plugin für Android Studio ermöglicht die Erstellung von Apps basierend auf KMP-Templates,
+und wird auf macOS benötigt, um die App unter macOS auf einem  iPhone-Simulator auszuführen 
 
-Das KMP-Plugin ist optional, wird aber benötigt, um die App unter macOS auf einem 
-iPhone-Simulator auszuführen (Stand 2025: nur macOS unterstützt).
+**Stand Oktober 2025: das KMP-Plugin wird nur auf macOS unterstützt. Auf Windows/Linux
+können wir trotzdem mit Android Studio KMP-Apps entwickeln.**
 
 Webseite des KMP-Plugins: https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform
 
-
 ## App erstellen 
+
+Wir erstellen eine KMP-App namens `TodosKMP`.
 
 - macOS: Neues Projekt mit Template „Kotlin Multiplatform“ erstellen.
 - Windows/Linux: KMP-Projekt im Web erstellen (https://kmp.jetbrains.com), herunterladen und in Android Studio öffnen.
@@ -46,57 +54,71 @@ Die Android-Version der App kann wie gewohnt in Android Studio auf einem Emulato
 
 Um die iOS-Version der App zu starten ist ein Mac mit Xcode erforderlich. &rarr; auf Wunsch vorführen.
 
-## Grundlegende Konzepte 
+Weitere Infos: https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-create-first-app.html#run-your-application
 
-Diese erklären wir an dem Code, der für uns generiert wurde. Dies ist in der Regel eine kleinere App. 
+Grundlegende Konzepte erklären wir an dem Code, der für uns generiert wurde. Dies ist in der Regel eine kleinere App. Vieles ist sehr ähnlich wie in der nativen Android-Entwicklung mit Kotlin und Jetpack Compose. 
 
-Vieles ist sehr ähnlich wie in der nativen Android-Entwicklung mit Kotlin und Jetpack Compose. 
-
-### Projektstruktur und Ausgangscode
+## Projektstruktur und Ausgangscode
 
 In einer KMP-App liegt der plattformübergreifende Code unter `composeApp/src/commonMain`.
 
 Für plattformspezifischen Code gibt es entsprechend eigene Ordner.
 
 Die `MainActivity` in `composeApp/src/androidMain/` wird nicht angepasst, stattdessen 
-fügen wir unsere Änderungen in der `App.kt` in `composeApp/src/commonMain/` durch.
+fügen wir unsere Änderungen in der Datei `App.kt` in `composeApp/src/commonMain/` durch.
 
-In `App.kt` sehen wir u.a., dass das `MaterialTheme` und kein eigenes Theme verwendet wird.
+In `App.kt` sehen wir u.a., dass das `MaterialTheme` anstatt eines
+eigenen Themes verwendet wird (wie es in der Android-App der Fall war).
 
-### Code der Android-App auf KMP migrieren
+<Callout type="info">
+  Wir werden nun den Code der zuvor gebauten Android-App `TodosAndroid` in die KMP-App `TodosKMP` kopieren und anpassen.
+</Callout>
 
-In `commonMain` erstellen mir zwei Verzeichnisse bzw. `data` und `ui`.
+## Android-Code in die KMP-App kopieren
 
-Dann kopieren wir den Code aus `ui` (`AddTodoDialog` und `TodosViewModel`) und `data` (`Todo`) 
-der zuvor gebauten Android-App in die entsprechenden Verzeichnisse der KMP-App.
+Wir kopieren den Code der zuvor gebauten Android-App `TodosAndroid` in 
+die KMP-App:
 
-Danach müssen wir die `package`-Deklaration und die `imports` anpassen.
+- In `commonMain` erstellen mir zwei Verzeichnisse bzw. `data` und `ui`.
+- Dann kopieren wir den Code aus `ui` von `TodosAndroid` (die Dateien `AddTodoDialog` und `TodosViewModel`) und `data` (`Todo`) 
+in die entsprechenden Verzeichnisse der KMP-App unter `commonMain`.
+- Danach müssen wir die `package`-Deklarationen und die `imports` 
+in den kopierten Dateien anpassen.
 
-Aus der `MainActivity` der Android-App kopieren wir die folgenden Funktionen bzw. Composables: 
+## UI-Code übernehmen und anpassen
+
+Aus der `MainActivity` in `TodosAndroid` kopieren wir die folgenden Funktionen bzw. Composables:
 
 - `TodosApp`
 - `TodoItem`
 - `TodoList`
 
-und fügen diese in `App.kt` der KMP-App ein.
+und fügen diese in `App.kt` der KMP-App `TodosKMP` ein.
 
-Wir benennen `App` der KMP-App in `OldApp und die kopierte `TodosApp` in `App` um.  
+Wir löschen das bestehende `App` der KMP-App und ändern die kopierte `TodosApp` in `App`.
 Außerdem stellen wir in der kopierten App das Theme auf `MaterialTheme` um.
 
-Danach die imports anpassen bzw. mit `Alt-Enter` hinzufügen.
+Danach müssen wir die imports anpassen bzw. mit `Alt-Enter` hinzufügen.
+
+Für die Verwendung des ViewModels (`TodosViewModel`) ändern wir die 
+Funktionsdeklaration von `App`:
+
+```kotlin {2}
+@Composable
+fun App(vm: TodosViewModel = viewModel { TodosViewModel() }) {
+  // Rest wie gehabt
+}
+```
+
+Ressourcen wie Vector-Drawables (Icons) müssen in KMP anders eingebunden werden.
+Stattdessen stellen wir die Icons im FAB um:
 
 `FloatingActionButton` &rarr; `ExtendedFloatingActionButton` um das Icon loszuwerden bzw.
 durch Text zu ersetzen (`Text("Neues Todo")`).
 
-- https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-integrate-in-existing-app.html
-- https://www.jetbrains.com/help/kotlin-multiplatform-dev/faq.html#i-have-an-existing-android-application-that-uses-jetpack-compose-what-should-i-do-to-migrate-it-to-other-platforms
+Infos zu Ressourcen: https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-multiplatform-resources.html
 
-
-&rarr; Wer mit KMP arbeiten möchte, sollte darauf achten, ob die benötigten Bibliotheken (z.B. für Datenbank, Netzwerk, usw.) KMP unterstützen. Dazu eine hilfreiche Sammlung: https://github.com/terrakok/kmp-awesome
-
-## UI, Layout, Styling, State
-
-Wie in Android?
+**TODO: was ist mit den Navigations-Icons? (siehe Navigation-Abschnitt unten)**
 
 ## Data
 
@@ -104,13 +126,23 @@ Room wie in Android?
 
 ## Navigation
 
-Wie in Android?
+Todo: Wie in Android, sobald Navigation 3 stabil ist?
 
 Support für Navigation 3 in KMP: https://youtrack.jetbrains.com/issue/CMP-7646/Support-Navigation-3-for-Compose-Multiplatform
 
+- https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation.html
+- https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html
+
 ## Links
 
-Sammlung:
+KMP entwickelt sich ständig weiter und durch den Support von Google
+wird KMP zum echten Konkurrenten zu anderen plattformübergreifenden
+Frameworks wie Flutter oder React Native.
+
+Die bisherigen Inhalte zu Android und Compose lassen sich direkt in KMP-Apps anwenden. 
+Daher sind auch die Lernressourcen zu Kotlin und Android in den vorherigen Seiten relevant.
+
+Einstiegsseiten zu KMP bei Jetbrains, Google und Kotlin:
 
 - Docs von Jetbrains: https://www.jetbrains.com/kotlin-multiplatform/
 - Android Developer Docs: https://developer.android.com/kotlin/multiplatform
@@ -119,11 +151,12 @@ Sammlung:
 Codelabs:
 
 - https://developer.android.com/codelabs/kmp-migrate-room
+- Todo: mehr?
 
 Sample Apps:
 
 - https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-samples.html
 
-Auflistung von Bibliotheken, die KMP unterstützen: https://github.com/terrakok/kmp-awesome
+- https://github.com/JetBrains/compose-multiplatform/ &rarr; Beispiel-Apps unter `examples/`
 
-Siehe auch die Lernressourcen zu Kotlin und Android in den vorherigen Seiten.
+Wer mit KMP arbeiten möchte, sollte darauf achten, ob die benötigten Bibliotheken (z.B. für Datenbank, Netzwerk, usw.) in KMP funktionieren. Dazu eine hilfreiche Sammlung: https://github.com/terrakok/kmp-awesome
