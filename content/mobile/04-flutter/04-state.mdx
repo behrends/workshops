@@ -294,58 +294,46 @@ class _MyHomePageState extends State<MyHomePage> {
 
 ## TodoList-Zustand verwalten
 
-Wir erweitern die neue State-Klasse `_MyHomePageState` mit einer
-Instanzvariable `_todos` vom Typ `List<TodoItem>`, um die Todos
-zu speichern und der `onPressed`-Handler des `FloatingActionButton`
-fügt ein neues Todo hinzu: 
+TODO: Bisher nur der Code, Erklärung folgt noch
 
-```dart {2,12-16}
-class _MyHomePageState extends State<MyHomePage> {
-  final List<TodoItem> _todos = []; // State für die Todo-Liste
+Neues Datenmodell für `Todo` in `lib/todo.dart`:
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Todo-App'),
-      ),
-      body: const TodoList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _todos.add(const TodoItem(title: 'Neues Todo'));
-          });
-        },
-        tooltip: 'Todo hinzufügen',
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
+```dart 
+class Todo {
+  final String title;
+  final bool done;
+  const Todo({required this.title, this.done = false});
+  Todo copyWith({String? title, bool? done}) =>
+      Todo(title: title ?? this.title, done: done ?? this.done);
 }
 ```
 
-Zunächst wird stets das gleiche Todo hinzugefügt (`'Neues Todo'`),
-aber später verwenden wir eine Texteingabe, um den Titel des
-neuen Todos zu bestimmen.
+Änderungen in `todo_list.dart`:
 
-Eine Anpassung fehlt noch: Wir müssen die `TodoList`-Instanz
-mit den Todos aus `_todos` initialisieren. Dazu fügen wir dem
-Konstruktor von `TodoList` ein Argument `todos` hinzu. Es werden
-folgende Änderungen in `TodoList` vorgenommen:
+```dart
+import 'package:flutter/material.dart';
+import 'package:todos_flutter_2025/todo.dart';
+import 'package:todos_flutter_2025/todo_item.dart';
 
-```dart {2,4-5,9-14}
 class TodoList extends StatelessWidget {
-  final List<TodoItem> todos;
+  final List<Todo> todos;
+  final void Function(int index, bool value) onChanged;
 
-  // der Konstruktor erhält ein Argument für die Todos
-  const TodoList({super.key, required this.todos});
+  // der Konstruktor Argumente für die Todos und die Callback-Funktion
+  const TodoList({super.key, required this.todos, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: todos.length,
-      itemBuilder: (context, index) {
-        return todos[index];
+      itemBuilder: (context, i) {
+        final t = todos[i];
+        return TodoItem(
+          key: ValueKey(i),
+          title: t.title,
+          initialDone: t.done,
+          onChanged: (v) => onChanged(i, v),
+        );
       },
     );
   }
@@ -357,33 +345,62 @@ um die Todos zu rendern, was insbesondere dann benötigt wird, wenn
 die Todo-Liste dynamisch ist. Mehr zu `ListView` in der Dokumentation:
 [API-Docs zu `ListView`](https://api.flutter.dev/flutter/widgets/ListView-class.html)
 
-Nun können wir in `_MyHomePageState` die `TodoList`-Instanz mit den
-Todos initialisieren:
+Schließlich muss `main.dart` angepasst werden, um den Zustand der Todo-Liste
+zu verwalten:
 
 ```dart
-body: TodoList(todos: _todos),
-```
+import 'package:flutter/material.dart';
+import 'package:todos_flutter_2025/todo.dart';
+import 'package:todos_flutter_2025/todo_list.dart';
 
-Nochmals der gesamte Code von `_MyHomePageState` mit der 
-hervorgehobenen Änderung in `body`:
+void main() {
+  runApp(const MyApp());
+}
 
-```dart {10}
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Todos',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
+      home: const MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
 class _MyHomePageState extends State<MyHomePage> {
-  final List<TodoItem> _todos = [];
+  final List<Todo> _todos = [];
+
+  void _addTodo() {
+    setState(() {
+      _todos.add(Todo(title: 'Neues Todo'));
+    });
+  }
+
+  void _toggle(int index, bool value) {
+    setState(() {
+      _todos[index] = _todos[index].copyWith(done: value);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Todo-App'),
-      ),
-      body: TodoList(todos: _todos), // Todos an TodoList übergeben
+      appBar: AppBar(title: const Text('Todo-App')),
+      body: TodoList(todos: _todos, onChanged: _toggle),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _todos.add(const TodoItem(title: 'Neues Todo'));
-          });
-        },
+        onPressed: _addTodo,
         tooltip: 'Todo hinzufügen',
         child: const Icon(Icons.add),
       ),
@@ -399,44 +416,55 @@ das eine Texteingabe für den Titel des neuen Todos enthält. Dazu
 müssen wir den `onPressed`-Handler des `FloatingActionButton`s anpassen:
 
 ```dart
-onPressed: () {
-  showDialog(
-    context: context,
-    builder: (context) {
-      final TextEditingController controller = TextEditingController();
-      return AlertDialog(
-        title: const Text('Neues Todo'),
-        content: TextField(
-          controller: controller,
-          decoration: const InputDecoration(hintText: 'Todo eingeben'),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Abbrechen'),
-          ),
-          TextButton(
-            onPressed: () {
-              if (controller.text.trim().isNotEmpty) {
-                Navigator.of(context).pop(controller.text.trim());
-              }
-            },
-            child: const Text('Hinzufügen'),
-          ),
-        ],
-      );
-    },
-  ).then((value) { // Fügen wir das neue Todo dem State hinzu
-    if (value != null && value is String) {
-      setState(() {
-        _todos.add(TodoItem(title: value));
-      });
-    }
-  });
-},
-```
+class _MyHomePageState extends State<MyHomePage> {
+  final List<Todo> _todos = [];
+  final TextEditingController _textController = TextEditingController();
 
-Wir führen zusätzliche Validierung durch, um leere Todos zu vermeiden.
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
+  void _addTodo() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Neues Todo'),
+          content: TextField(
+            controller: _textController,
+            autofocus: true,
+            decoration: const InputDecoration(hintText: 'Todo-Text eingeben'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _textController.clear();
+              },
+              child: const Text('Abbrechen'),
+            ),
+            TextButton(
+              onPressed: () {
+                if (_textController.text.isNotEmpty) {
+                  setState(() {
+                    _todos.add(Todo(title: _textController.text));
+                  });
+                  _textController.clear();
+                  Navigator.of(context).pop();
+                }
+              },
+              child: const Text('Hinzufügen'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+  // ... restlicher Code ...
+}
+```
 
 Auch hier haben wir wieder eine starke Ähnlichkeit zu dem Code,
 den wir für die native Android-App in Compose geschrieben haben.
