@@ -85,6 +85,12 @@ in die entsprechenden Verzeichnisse der KMP-App unter `commonMain`.
 - Danach müssen wir die `package`-Deklarationen und die `imports` 
 in den kopierten Dateien anpassen.
 
+<Callout type="error">
+**TODO 2026:** Sollen wir zunächst Support für Room in der KMP-App einbauen oder gehen wir in der Commit-Historie zurück, um den Code noch ohne Room zu migrieren?
+
+Orientierung an der Beispiel-App von 2025 oder neu Docs berücksichtigen? Siehe https://github.com/behrends/TodosKMP2025
+</Callout>
+
 ## UI-Code übernehmen und anpassen
 
 Aus der `MainActivity` in `TodosAndroid` kopieren wir die folgenden Funktionen bzw. Composables:
@@ -122,64 +128,16 @@ Infos zu Ressourcen: https://www.jetbrains.com/help/kotlin-multiplatform-dev/com
 
 ## Data
 
-Vorgehen wie in diesem Codelab: https://developer.android.com/codelabs/kmp-migrate-room
+Die Beispiel-App von 2025 zeigt, wie KMP mit Room in Android und iOS verwendet werden kann:
+https://github.com/behrends/TodosKMP2025
 
-**Im Oktober 2025 hat dies leider nicht geklappt…**
+Vorgehen wie in diesem Codelab: https://developer.android.com/codelabs/kmp-migrate-room
 
 Ressourcen zum Selbststudium:
 
 - Android Docs: https://developer.android.com/kotlin/multiplatform/room
 - Codelab: https://developer.android.com/codelabs/kmp-migrate-room
 - Sample App: https://github.com/android/kotlin-multiplatform-samples
-
-`libs.versions.tom` erweitern um die Abhängigkeiten für Room und SQLite:
-
-```toml {2-3,6-7}
-[versions]
-room = "2.8.1"
-sqlite = "2.6.1"
-ksp = "2.2.20-2.0.3"
-# Rest wie gehabt
-
-[libraries]
-androidx-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
-androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-# Rest wie gehabt
-
-[plugins]
- wie gehabt
-```
-
-In `build.gradle.kts` der KMP-App die Abhängigkeiten hinzufügen (im Abschnitt `commonMain`) und auch zwei Zeilen in `plugins` 
-ergänzen:
-
-```kotlin {2-3}
-plugins {
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.androidx.room)
-    // Rest wie gehabt 
-}
-
-commonMain.dependencies {
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.sqlite.bundled)
-    // Rest wie gehabt
-}
-
-dependencies {
-    add("kspAndroid", libs.androidx.room.compiler)
-    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
-    add("kspIosArm64", libs.androidx.room.compiler)
-    // Rest wie gehabt
-}
-
-room {
-    schemaDirectory("$projectDir/schemas")
-}
-```
-
-Room wie in Android?
 
 ## Navigation
 
@@ -206,7 +164,6 @@ Einstiegsseiten zu KMP bei Jetbrains, Google und Kotlin:
 
 - Docs von Jetbrains: https://www.jetbrains.com/kotlin-multiplatform/
 - Android Developer Docs: https://developer.android.com/kotlin/multiplatform
-- Kotlin Docs: https://kotlinlang.org/docs/multiplatform.html
 
 Codelabs:
 
