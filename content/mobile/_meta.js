@@ -4,7 +4,6 @@ export default {
   '02-android': '2 - Android',
   '03-android-kmp': '3 - Android und KMP',
   '04-flutter': '4 - Flutter',
-  '05-react-native': '5 - React Native Teil 1',
-  '06-react-native': '6 - React Native Teil 2',
-  '07-frameworks': '7 - Weitere Frameworks',
+  '05-react-native': '5 - React Native',
+  '06-frameworks': '6 - Weitere Frameworks',
 };

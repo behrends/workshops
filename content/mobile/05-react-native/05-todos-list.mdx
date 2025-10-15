@@ -3,12 +3,23 @@ import { Callout, Tabs } from 'nextra/components';
 # Liste mit Todos
 
 <Callout>
-  **Dauer:** 45 Minuten
+  **Dauer:** 20 Minuten
 
   - Daten in einem lokalen Array 
   - FlatList einbinden
   - Übung: FlatList in eigener Datei
   - Übung: FlatList stylen
+</Callout>
+
+<Callout type="info">
+**Vorstellung des Frameworks**
+
+- [x] Installation und Einrichtung der Entwicklungsumgebung
+- [x] Prinzipien des Frameworks (Projektstruktur, Komponenten/Widgets, …)
+- [ ] App mit einem Screen: UI-Elemente, Layout, Interaktion und State
+- [ ] Daten lokal speichern
+- [ ] Navigation zwischen mehreren Screens
+
 </Callout>
 
 ## Daten in einem lokalen Array
@@ -157,27 +168,44 @@ Zur Laufzeit wird die Funktion im Prop `renderItem` automatisch für jedes Eleme
 
 Zu beachten ist auch der Abstand zum oberen Bildschirmrand, den wir mit `paddingTop: 50` im `style`-Objekt festlegen, damit die Liste komplett sichtbar ist.
 
-<Callout type="warning">
-Im Web sind oft Beispiele mit `FlatList` zu finden, bei denen die Komponente `SafeAreaView` zum Einsatz kommt. Hierdurch wird automatisch der Abstand zum oberen Bildschirmrand erzeugt, allerdings **nur für das iPhone und leider nicht auf Android-Geräten** (Stand Oktober 2024). 
-</Callout>
+<Callout type="important">
+Unterschiedliche Displaygrößen auf iPhones und Android-Geräten mit
+verschiedenen Eigenschaften wie z.B. iPhone-Notch, Safe Area und 
+Status Bar erfordern oft eine genauere Behandlung des Abstands zum 
+oberen Bildschirmrand.
 
-<Callout type="info">
-Mit dem Package [expo-constants](https://docs.expo.dev/versions/latest/sdk/constants/) kann 
-plattformunabhängig ein Abstand zum oberen Bildschirmrand festgelegt werden:
+Ein Beispiel einer plattformübergreifenden Lösung ist das Package 
+[react-native-safe-area-context](https://docs.expo.dev/versions/latest/sdk/safe-area-context/)
+
+Infos zur Verwendung in Expo-Apps:
+https://docs.expo.dev/versions/latest/sdk/safe-area-context/
 
 ```bash
-npx expo install expo-constants
+npx expo install react-native-safe-area-context
 ```
 
-```js
-import Constants from 'expo-constants';
+Wenn wir in unserer App `SafeAreaView` als äußerste Komponente
+im UI-Baum verwenden, dann wird der Abstand zum oberen Bildschirmrand
+automatisch korrekt gesetzt:
 
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Constants.statusBarHeight,
-    // Rest bleibt unverändert
-  }
-});
+```jsxjsx
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+// restlicher Code unverändert
+
+export default function App() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={todos}
+        renderItem={({ item }) => (
+          <Todo key={item.id}>{item.text}</Todo>
+        )}
+      />
+      <StatusBar style="auto" />
+    </SafeAreaView>
+  );
+}
 ```
 </Callout>
 
@@ -213,10 +241,10 @@ import TodoList from './components/TodoList';
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TodoList todos={todos} />
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -267,7 +295,4 @@ const styles = StyleSheet.create({
   </Tabs.Tab>
 </Tabs>
 
-## Zeit für das Projekt
-
-Die restliche Zeit kann für Fragen, 
-Gruppengespräche oder Teamarbeit genutzt werden. 
+## PAUSE?

@@ -1,0 +1,249 @@
+import { Callout, Tabs } from 'nextra/components';
+
+# Eingabe mit TextInput
+
+<Callout>
+  **Dauer:** 30 Minuten
+
+  - `TextInput` für neue Todos einbinden  
+  
+</Callout>
+
+## `TextInput` für neue Todos einbinden  
+
+Mit [`TextInput`](https://reactnative.dev/docs/textinput) gibt es in 
+React Native eine Komponente für die Eingabe von Text. Wir bauen eine 
+neue Komponente `AddTodo`, die ein `TextInput` und einen Button
+enthält, um ein neues Todo hinzuzufügen. Durch das Antippen des
+Buttons wird das Eingabefeld `TextInput` angezeigt.
+
+Folgende Komponente in `components/AddTodo.jsx` erstellen:
+
+```jsx
+import { useState } from 'react';
+import { Button, StyleSheet, TextInput, View } from 'react-native';
+
+export default function AddTodo() {
+  const [inEditMode, setEditMode] = useState(false);
+  return (
+    <View style={{ marginVertical: 20, width: '80%' }}>
+      {inEditMode ? (
+        <TextInput
+          style={styles.input}
+          autoFocus
+          placeholder="Neues Todo eingeben"
+          returnKeyType="done"
+          onSubmitEditing={() => {
+            // TODO 😉: Todo hinzufügen…
+            setEditMode(false); // Eingabemodus verlassen
+          }}
+          onBlur={() => setEditMode(false)} // Abbrechen bei Fokusverlust
+        />
+      ) : (
+        <Button
+          title="Todo hinzufügen"
+          onPress={() => setEditMode(true)}
+        />
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  input: {
+    height: 40,
+    borderColor: 'lightgray',
+    borderRadius: 5,
+    borderWidth: 1,
+    padding: 10,
+  },
+});
+```
+
+Die Props `autoFocus` und `placeholder` im `TextInput` sorgen dafür, 
+dass das Eingabefeld automatisch fokussiert wird bzw. dass ein grauer 
+Hinweistext erscheint, wenn das Eingabefeld leer ist. Mit `returnKeyType="done"` 
+wird die Eingabetaste der Tastatur als „Fertig“ (ggf. als Checkbox)" 
+angezeigt.
+
+`onSubmitEditing` wird aufgerufen, wenn die Eingabetaste gedrückt 
+wird, und `onBlur`, wenn das Eingabefeld den Fokus verliert (z.B. 
+durch Antippen außerhalb des Eingabefelds).
+
+<Callout type="info">
+`TextInput` ist in der Regel eine kontrollierte Komponente, d.h. 
+der eingegebene Text wird in einem `state` gespeichert, um z.B. 
+Live-Validierungen durchzuführen oder den Text anderweitig zu 
+verwenden. Wir verwenden in unserem einfachen Beispiel `TextInput` 
+als unkontrollierte Komponente, d.h. der eingegebene Text wird nicht 
+in einem `state` gespeichert.
+
+`TextInput` hat viele weitere nützliche Props, siehe
+https://reactnative.dev/docs/textinput#props
+</Callout>
+
+DerUmgang mit dem `state` sollten an dieser Stelle gut 
+nachvollziehbar sein:
+
+- Button antippen zeigt das `TextInput` an mit `setEditMode(true)`
+- Das `TextInput` hat zwei Möglichkeiten, den Eingabemodus zu verlassen:
+  - Eingabetaste (Fertig) drücken (`onSubmitEditing` mit `setEditMode(false)`)
+  - Fokus verlieren (Antippen außerhalb des Eingabefelds mit `onBlur` und `setEditMode(false)`)
+
+Die Styles sorgen dafür, dass das Eingabefeld gut sichtbar und 
+nutzbar ist, indem es etwas größer ist und einen grauen Rand hat.
+
+Wir müssen uns noch darum kümmern, dass in `onSubmitEditing` das neue 
+Todo tatsächlich hinzugefügt wird. Dies erledigen wir im nächsten 
+Schritt.
+
+## `AddTodo` in `App` einbinden
+
+Wir stellen  `AddTodo` in `App.js` oberhalb der Todo-Liste dar,
+weil dies die einfachste Lösung ist. Sollte `AddTodo` am
+unteren Bildschirmrand dargestellt werden, dann wird die Tastatur
+möglicherweise die Eingabe verdecken (hierzu gibt es z.B. mit 
+[`KeyboardAvoidingView`](https://reactnative.dev/docs/keyboardavoidingview) 
+Lösungen, die aber den Rahmen dieses Workshops 
+sprengen).
+
+
+Folgende Änderungen sind nötig:
+
+```jsx {2,8}
+// App.js: AddTodo importieren
+import AddTodo from './components/AddTodo';
+// Rest bleibt gleich
+
+export default function App() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <AddTodo />
+      <TodoList todos={todos} />
+      <StatusBar style="auto" />
+    </SafeAreaView>
+  );
+}
+
+// Styles bleiben gleich
+```
+
+## Todo der Liste hinzufügen
+
+Die TodoListe wird nun um die Möglichkeit erweitert, ein neues Todo
+hinzuzufügen, d.h. die Todos müssen in einem `state` verwaltet werden.
+
+Wir gehen wie folgt vor in `App.jsx` vor: 
+
+- `useState` importieren
+- das Array `todos` in `data` umbenennen, weil wir den Namen `todos` gleich an anderer Stelle benötigen
+- Einen Zustand `todos` mit `data` initialisieren
+
+```jsx {1,4,11}
+import React, { useState } from 'react';
+// Rest bleibt gleich
+
+const data = [
+  { id: 1, text: 'Einkaufen' },
+  { id: 2, text: 'Sport' },
+  { id: 3, text: 'React Native lernen' },
+];
+
+export default function App() { 
+  const [todos, setTodos] = useState(data);
+ 
+  export default function App() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <AddTodo />
+      <TodoList todos={todos} />
+      <StatusBar style="auto" />
+    </SafeAreaView>
+  );
+}
+
+// Styles bleiben gleich
+}
+```
+
+Nun müssen wir `AddTodo` mitteilen, wie ein neues Todo hinzugefügt
+werden soll. Hierzu übergeben wir eine Funktion als Prop `onAddTodo` 
+an `AddTodo`, die mit dem neuen Todo-Text aufgerufen wird:
+
+```jsx {9-16}
+// Rest bleibt gleich
+export default function App() { 
+  const [todos, setTodos] = useState(data);
+ 
+  export default function App() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <AddTodo
+        onAddTodo={(text) => {
+          if (!text || !text.trim()) return; // leere ignorieren
+          const newTodo = {
+            id: todos.length + 1,
+            text: text,
+          };
+          setTodos([...todos, newTodo]);
+        }}
+      {/* usw. */}
+  )
+}} />
+```
+
+Das neue Todo wird nur hinzugefügt, wenn der Text nicht leer ist
+(ggf. nur aus Leerzeichen besteht). Ein neues Todo-Objekt wird
+erstellt mit einer neuen ID (einfach die Länge des Arrays + 1)
+und dem übergebenen Text. Mit `setTodos` wird der Zustand `todos`
+aktualisiert, indem ein neues Array mit dem neuen Todo am Ende
+erstellt wird (`...` ist der Spread-Operator in JavaScript).
+
+Nun fehlt nur noch die Verwendung des `onAddTodo`-Props in `AddTodo`:
+
+```jsx {2,12-17}
+// Rest bleibt gleich
+export default function AddTodo({ onAddTodo }) {
+  const [inEditMode, setEditMode] = useState(false);
+  return (
+    <View style={{ marginVertical: 20, width: '80%' }}>
+      {inEditMode ? (
+        <TextInput
+          style={styles.input}
+          autoFocus
+          placeholder="Neues Todo eingeben"
+          returnKeyType="done"
+          onSubmitEditing={({ nativeEvent: { text } }) => {
+            const value = text.trim();
+            if (!value) return; // leere ignorieren
+            onAddTodo(value);
+            setEditMode(false);
+          }}
+          onBlur={() => setEditMode(false)} // Abbrechen bei Fokusverlust
+        />
+      ) : (
+        <Button
+          title="Todo hinzufügen"
+          onPress={() => setEditMode(true)}
+        />
+      )}
+    </View>
+  );
+}
+
+// Styles bleiben gleich
+```
+
+In `onSubmitEditing` wird der eingegebene Text aus dem Event-Objekt
+entnommen (`nativeEvent.text`), getrimmt und geprüft, ob er leer ist. Wenn
+der Text nicht leer ist, wird die `onAddTodo`-Funktion mit dem
+Text aufgerufen, um das neue Todo hinzuzufügen.
+
+<Callout type="info">
+In React Native kommt es häufig vor, dass wir einen `state` in 
+einem Eltern-Element verwalten und diesen dann an ein Kind-Element
+übergeben. Das Kind-Element kann dann den `state` nicht verändern,
+sondern muss den Eltern-Element mitteilen, dass sich etwas geändert hat.
+Dies geschieht über eine Funktion, die wir dem Kind-Element als Prop übergeben
+(siehe oben im `onAddTodo`-Prop).
+</Callout>
