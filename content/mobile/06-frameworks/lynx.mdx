@@ -1,3 +1,86 @@
+import { Callout } from 'nextra/components'
+
 # Lynx
 
+## Allgemeines
+
 https://lynxjs.org
+
+- Von ByteDance (TikTok) entwickelt
+- Anfang März 2025 als Open Source Projekt veröffentlicht:
+  - Ankündigung: https://lynxjs.org/blog/lynx-unlock-native-for-more.html
+  - Code auf GitHub https://github.com/lynx-family
+- Apps werden in JavaScript/TypeScript geschrieben
+- Aktuell basiert Lynx mit ReactLynx auf React aber es wären auch andere Renderer möglich
+- CSS wird unterstützt
+- Ähnlich wie bei Expo gibt es mit _Lynx Go_ eine App, um Lynx-Apps zu testen
+
+> You can think of [Lynx] as an **_"alternative Web tailored for app development"_**. It aims to honor the assets of web technologies while taking an opinionated approach, supporting web-like APIs and adding constraints and extensions with clear intent. (Quelle:https://lynxjs.org/blog/lynx-unlock-native-for-more.html)
+
+<Callout type="warning">
+Im Oktober 2025 wird Lynx noch nicht als alleinstehenden Framework für die App-Entwicklung empfohlen:
+
+> Currently, Lynx is not suitable for building a new application from scratch. You need to integrate Lynx (engine) with your native mobile app or web app, and load Lynx apps through Lynx views. 
+
+Quelle: https://lynxjs.org/guide/start/integrate-with-existing-apps
+</Callout>
+
+**Wir checken jedes Jahr erneut, ob Lynx schon als eigenständiges Framework empfohlen wird.**
+
+## Installation 
+
+Siehe https://lynxjs.org/guide/start/quick-start
+
+## Minimale App
+
+Drei statische Todos in `App.tsx`: 
+
+```jsx
+import './App.css';
+
+export function App() {
+  return (
+    <view className="App">
+      <text className="Todo">Sport</text>
+      <text className="Todo">Einkaufen</text>
+      <text className="Todo">Lynx lernen</text>
+    </view>
+  );
+}
+```
+
+Styles in `App.css`:
+
+```css
+:root {
+  background-color: #000;
+  --color-text: #fff;
+}
+
+text {
+  color: var(--color-text);
+}
+
+.App {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Todo {
+  font-size: 32px;
+}
+```
+
+Es gibt ein paar vordefinierte Komponenten, die im Gegensatz zu React Native nicht importiert werden müssen, z.B.:
+
+- `<view>`
+- `<text>`
+- `<image>`
+- `<scroll-view>`
+- `<input>`
+- `<list>`
+- usw. siehe https://lynxjs.org/api/elements/built-in/view.html
