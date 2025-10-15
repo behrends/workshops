@@ -46,7 +46,7 @@ Hierdurch zeigt sich bereits die deklarative Eigenschaft von React (Native).
 
 Mit inline-Styles können wir direkt das Aussehen von Komponenten beeinflussen:
 
-```jsx
+```jsx /style={{ fontSize: 24 }}/
 <Text style={{ fontSize: 24 }}>Einkaufen</Text>
 <Text style={{ fontSize: 24 }}>Sport</Text>
 <Text style={{ fontSize: 24 }}>React Native lernen</Text>
@@ -67,7 +67,7 @@ In React Native ist aber nur ein Teil der CSS-Eigenschaften verfügbar.
 
 Styles können leichter wiederverwendet und angepasst werden, wenn sie im StyleSheet-Objekt zusammengefasst und in den Komponenten referenziert werden:
 
-```jsx
+```jsx /style={styles.todoText}/ {5-10}
 <Text style={styles.todoText}>Einkaufen</Text>
 <Text style={styles.todoText}>Sport</Text>
 <Text style={styles.todoText}>React Native lernen</Text>
@@ -90,7 +90,7 @@ Wenn Sie bereits Erfahrung mit CSS haben, dann versuchen Sie, mit Ihrem Hintergr
 
 Größe und Abstände können ähnlich wie in CSS definiert werden:
 
-```jsx
+```jsx {3-8}
 const styles = StyleSheet.create({
   // der Rest bleibt gleich…
   todoText: {

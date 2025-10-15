@@ -14,7 +14,7 @@ import { Callout } from 'nextra/components';
 
 In React Native schreiben wir für das UI unserer App Komponenten, welche als JavaScript-Funktionen deklariert werden. Eine Komponente hat als Rückgabewert im `return` den JSX-Code, der das UI definiert:
 
-```jsx
+```jsx {1-3,11}
 function Todo() {
   return <Text>Ein Todo als Komponente!</Text>;
 }
@@ -38,7 +38,7 @@ Wird eine Komponente als Funktion definiert, dann kann ergibt der Funktionsname 
 
 Die Styles kommen in der Komponente `Todo` wie zuvor zum Einsatz. Wir können die bisherigen `Text`-Elemente löschen und stattdessen `Todo`-Elemente verwenden:
 
-```jsx
+```jsx {3,10-12}
 function Todo() {
   return (
     <Text style={styles.todoText}>Ein Todo als Komponente!</Text>
@@ -97,7 +97,7 @@ Bei unseren Todos wird der Code lesbarer, wenn die Textinhalte innerhalb der Tag
 
 Textinhalte zwischen den Tags werden automatisch als Prop namens `children` im `props`-Parameter an die Funktion der Komponente übergeben:
 
-```jsx
+```jsx {2-3,9-11}
 function Todo(props) {
   const todo = props.children;
   return <Text style={styles.todoText}>{todo}</Text>;
@@ -121,7 +121,7 @@ export default function App() {
 
 In JavaScript und React (Native) werden JavaScript-Objekte (hier die `props`) oft direkt destrukturiert:
 
-```jsx
+```jsx {2-3}
 function Todo(props) {
   const { children } = props;
   return <Text style={styles.todoText}>{children}</Text>;
@@ -130,7 +130,7 @@ function Todo(props) {
 
 Dies lässt sich noch einen weiteren Schritt fortsetzen, indem die Destrukturierung direkt auf der Ebene der Funktionsparameter geschieht:
 
-```jsx
+```jsx {2} /{ children }/
 function Todo({ children }) {
   return <Text style={styles.todoText}>{children}</Text>;
 }
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
 
 In App.js müssen wir die Komponenten dann entsprechend aus `./components/Todo` importierten (die Endung `.jsx` kann weggelassen werden):
 
-```jsx
+```jsx {4}
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 

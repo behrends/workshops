@@ -28,7 +28,7 @@ In fast jeder App werden Daten verwaltet, in unserem Beispiel sind dies u.a. die
 
 Zunächst konzentrieren wir uns auf das UI und werden noch keine Datenbank in unserer App einsetzen. Dennoch macht es Sinn, im Code die Daten vom UI zu trennen, damit eine spätere Einbindung einer Datenbank leichter umzusetzen ist. Hierzu definieren wir ein einfaches Array bestehend aus Strings und weisen dies einer Konstanten außerhalb der Funktionskomponente zu:
 
-```jsx
+```jsx {1}
 const todos = ['Einkaufen', 'Sport', 'React Native lernen'];
 
 export default function App() {
@@ -45,7 +45,7 @@ export default function App() {
 
 Nun können wir die Todos aus dem `todos`-Array verwenden, indem mir mit der Array-Funktion `map` zu jedem String die passende `<Todo>`-Komponente erstellen:
 
-```jsx
+```jsx {6-8}
 const todos = ['Einkaufen', 'Sport', 'React Native lernen'];
 
 export default function App() {
@@ -88,7 +88,7 @@ Neben `key` gibt es weitere „reservierte“ Props, die nicht für eigene Zweck
 Um diese Anforderung in unserer App zu erfüllen, könnten wir die Todos im Array als 
 JavaScript-Objekte mit eindeutigen Werten in einer `id`-Eigenschaft deklarieren:
 
-```jsx
+```jsx {2-4} /key={todo.id}/
 const todos = [
   { id: 1, text: 'Einkaufen' },
   { id: 2, text: 'Sport' },
@@ -129,7 +129,7 @@ React Native stellt mit `FlatList` eine Komponente bereit, mit der beliebig viel
 
 Wir können unsere App mit `FlatList` wie folgt umschreiben:
 
-```jsx
+```jsx {1,13-18}
 import { FlatList, StyleSheet, View } from 'react-native';
 import Todo from './components/Todo';
 

@@ -1,4 +1,5 @@
 export default {
-  pwa: 'Progressive Web Apps',
+  lynx: 'Lynx',
   ionic: 'Ionic',
+  pwa: 'Progressive Web Apps',
 };

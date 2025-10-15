@@ -47,7 +47,7 @@ Wir müssen nun den UI-Code der Todo-Komponenten
 etwas anpassen, damit neben dem Text des Todos
 eine Checkbox dargestellt wird:
 
-```jsx
+```jsx {1-2,6-9,14-21}
 import { StyleSheet, Text, View } from 'react-native';
 import Checkbox from 'expo-checkbox';
 
@@ -139,7 +139,7 @@ verwalten können (`true` oder `false`).
 
 Zunächst importieren wir den Hooks `useState` aus `react`:
 
-```jsx
+```jsx {1}
 import { useState } from 'react'; // <-- import aus react!
 import { StyleSheet, Text, View } from 'react-native';
 import Checkbox from 'expo-checkbox';
@@ -156,7 +156,7 @@ Um den `state` zu initialisieren und eine Funktion zum Ändern des
 `state` zu erhalten, fügen wir der Komponente `Todo` folgenden Code
 hinzu:
 
-```jsx /useState/
+```jsx /useState/ {6}
 import { useState } from 'react'; // <-- import aus react!
 import { StyleSheet, Text, View } from 'react-native';
 import Checkbox from 'expo-checkbox';
@@ -248,7 +248,7 @@ Wenn wir wie bei den vorigen Beispiel-Apps das
  im erledigten Zustand durchgestrichen darstellen
 wollen, dann könnte der Code so angepasst werden:
 
-```jsx
+```jsx {2,8-10,12,19,21}
 import { useState } from 'react'; // <-- import aus react!
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Checkbox from 'expo-checkbox';
