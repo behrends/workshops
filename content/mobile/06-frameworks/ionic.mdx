@@ -2,4 +2,100 @@ import { Callout } from 'nextra/components'
 
 # Ionic
 
-https://ionic.io
+- Framework (Open Source): https://ionicframework.com/
+- (Unternehmen: https://ionic.io, leicht zu verwechseln!)
+- Capacitor: https://capacitorjs.com/ 
+
+Capacitor ist ein natives Laufzeit-Framework, das von Ionic entwickelt wird und die Brücke zwischen Web-Technologien und nativen APIs bildet.
+
+## Allgemeines
+
+Mit ionic lassen sich mobile Apps mit  Web-Technologien (HTML, CSS, JavaScript) entwickeln. Dabei wird auf Frameworks wie Angular, React oder Vue gesetzt.  
+
+
+<Callout>
+Wenn es zeitlich passt oder Interesse besteht, dann können wir gemeinsam 
+die Installation durchführen und eine erste App gemäß Tutorial erstellen.
+</Callout>
+
+## Installation
+
+Siehe https://ionicframework.com/docs/intro/cli
+
+Folgende Schritte werden durchgeführt (Stand Oktober 2025):
+
+- CLI-Tool mit `npm` installieren (benötigt Node.js) 
+- `npm install -g @ionic/cli`
+- Neues Projekt erstellen mit `ionic start` 
+- Wir werden gefragt, ob wir den „_app creation wizard_“ nutzen wollen. Dies ist eine Webanwendung, die leider einen Account erfordert 😕. Wir wählen daher „_n_“ für nein.
+- Wir wählen React als Framework aus (oder Angular/Vue, je nach Präferenz)
+- Anschließend werden wir nach dem Projektnamen gefragt (z.B. „_todos-ionic_“)
+- Danach wählen wir ein Template aus (z.B. „_blank_“)
+
+Die App wird erstellt und wir wechseln ins Projektverzeichnis. 
+
+## App starten
+
+- `ionic serve` startet die App im Browser
+
+<Callout type="warning">
+Wir sehen, dass ionic zunächst nur auf Webanwendungen abzielt. Für die Entwicklung nativer Apps sind weitere Schritte notwendig.
+</Callout>
+
+Android-Unterstützung und auf dem Mac auch iOS-Support installieren:
+
+- `ionic capacitor add android`
+- `ionic capacitor add ios` (nur auf Mac)
+
+Dadurch werden die nativen Projekte im Verzeichnis `android` bzw. `ios` 
+angelegt. Dies sind reguläre Android- bzw. iOS-Projekte, die mit Android Studio bzw. Xcode geöffnet werden können.
+
+Dazu gibt es eigene Anleitungen, die auf das Extra-Projekt Capacitor verweisen:
+
+- Android: https://capacitorjs.com/docs/android
+- iOS: https://capacitorjs.com/docs/ios
+
+Android:
+
+- `npm install @capacitor/android`
+- `npx cap add android`
+
+iOS:
+
+- `npm install @capacitor/ios`
+- `npx cap add ios`
+
+Dann müssen wir das Projekt bauen und die nativen Projekte synchronisieren:
+
+- `ionic build`
+- `ionic capacitor copy` oder `npx cap sync`
+
+Nun können wir die Android- oder iOS-App öffnen:
+
+- `npx cap run android`
+- `npx cap run ios`
+
+Live Reload ist auch möglich:
+
+- `npm install -g @ionic/cli native-run`
+
+und dann
+
+- `ionic capacitor run android -l --external`
+- `ionic capacitor run ios -l --external`
+
+## Bemerkungen
+
+Der Code der App liegt unter `src/` und in `src/pages` sind 
+die vordefinierten Screens zu finden.
+
+Im Wesentlichen wird der Code einer Ionic-App 
+mit React/Angular/Vue geschrieben,
+wobei Ionic UI-Komponenten zur Verfügung stellt,
+die das Look-and-Feel nativer Apps nachahmen.
+
+<Callout>
+Wenn wir Zeit und Lust haben, dann könnten wir
+mit KI-Coding-Tools schrittweise die Todo-App 
+aus den vorigen Kapiteln mit Ionic umsetzen.
+</Callout>
