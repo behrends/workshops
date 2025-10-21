@@ -74,34 +74,28 @@ final String? todosString = prefs.getString('todos');
 await prefs.setString('todos', todosString);
 ```
 
-Damit die `TodoItem`s in JSON umgewandelt werden können, 
+Damit die `Todos` in JSON umgewandelt werden können, 
 müssen wir diese in ein Map konvertieren können und umgekehrt. 
-Wir fügen daher der Klasse `TodoItem` Hilfsmethoden zum 
-Serialisieren und Deserialisieren eines `TodoItems` hinzu:
+Wir fügen daher der Klasse `Todo` Hilfsmethoden zum 
+Serialisieren und Deserialisieren eines `Todos` hinzu:
 
-```dart
-class TodoItem extends StatefulWidget {
+```dart {10-12,14-16}
+class Todo {
   final String title;
+  final bool done;
 
-  const TodoItem({super.key, required this.title});
+  const Todo({required this.title, this.done = false});
 
-  // TodoItem in Map umwandeln (serialisieren)
+  Todo copyWith({String? title, bool? done}) =>
+      Todo(title: title ?? this.title, done: done ?? this.done);
+
   Map<String, dynamic> toMap() {
-    return {
-      'title': title,
-    };
+    return {'title': title, 'done': done};
   }
 
-  // Map in TodoItem umwandeln (deserialisieren)
-  // Factory-Konstruktor, der ein TodoItem aus einer Map erstellt
-  factory TodoItem.fromMap(Map<String, dynamic> map) {
-    return TodoItem(
-      title: map['title'],
-    );
+  factory Todo.fromMap(Map<String, dynamic> map) {
+    return Todo(title: map['title'], done: map['done'] ?? false);
   }
-
-  @override
-  State<TodoItem> createState() => _TodoItemState();
 }
 ```
 
@@ -109,10 +103,12 @@ class TodoItem extends StatefulWidget {
 
 Zunächst müssen wir die `shared_preferences` in `lib/main.dart`
 importieren. Zusätzlich wird das `dart:convert`-Paket benötigt, 
-um JSON-Daten zu verarbeiten:
+um JSON-Daten zu verarbeiten und `dart:async`, um mit 
+`Future`-Objekten zu arbeiten:
 
-```dart
-// lib/main.dart
+```dart {2-4}
+// lib/main.dart: weitere imports hinzufügen
+import 'dart:async';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 ```
@@ -120,29 +116,70 @@ import 'package:shared_preferences/shared_preferences.dart';
 Wir definieren in der State-Klasse `_MyHomePageState` die Methoden
 zum Laden und Speichern der Daten:
 
-```dart
+```dart {5-9,11-54,56-62}
 class _MyHomePageState extends State<MyHomePage> {
-  final List<TodoItem> _todos = [];
+  final List<Todo> _todos = [];
+  final TextEditingController _textController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTodos();
+  }
 
   Future<void> _loadTodos() async {
     final prefs = await SharedPreferences.getInstance();
     final String? todosString = prefs.getString('todos');
+    if (todosString == null || todosString.isEmpty) {
+      return;
+    }
 
-    if (todosString != null) {
-      final List decoded = jsonDecode(todosString);
+    try {
+      final dynamic decoded = jsonDecode(todosString);
+      if (decoded is! List) {
+        return;
+      }
+
+      final restored = decoded
+          .map((item) {
+            if (item is Map<String, dynamic>) {
+              return Todo.fromMap(item);
+            }
+            if (item is Map) {
+              return Todo.fromMap(Map<String, dynamic>.from(item));
+            }
+            return null;
+          })
+          .whereType<Todo>()
+          .toList();
+
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _todos
+          ..clear()
+          ..addAll(restored);
+      });
+    } on FormatException {
+      await prefs.remove('todos');
+      if (!mounted) {
+        return;
+      }
       setState(() {
         _todos.clear();
-        _todos.addAll(decoded.map((item) => TodoItem.fromMap(item)).toList());
       });
     }
   }
 
   Future<void> _saveTodos() async {
     final prefs = await SharedPreferences.getInstance();
-    final String todosString =
-        jsonEncode(_todos.map((item) => item.toMap()).toList());
+    final String todosString = jsonEncode(
+      _todos.map((item) => item.toMap()).toList(),
+    );
     await prefs.setString('todos', todosString);
   }
+
   // ... restlicher Code ...
 }
 ```
@@ -153,9 +190,6 @@ Daten laden, indem wir dort die eben definierte Methode `_loadTodos()`
 aufrufen:
 
 ```dart
-class _MyHomePageState extends State<MyHomePage> {
-  final List<TodoItem> _todos = [];
-
   @override
   void initState() {
     super.initState();
@@ -163,94 +197,62 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 ```
 
-Dann müssen wir nur noch die Methode `_saveTodos()` aufrufen,
-wenn sich die Daten ändern. Dazu fügen wir die Methode `_saveTodos()`
-im `then`-Block im `onPressed`-Handler des FABs hinzu:
+Dann müssen wir nur noch die Methode `_addTodo()` anpassen:
 
-```dart
-// im onPressed-Handler des FABs
-.then((value) {
-  if (value != null && value is String) {
-    setState(() {
-      _todos.add(TodoItem(title: value));
-    });
-    _saveTodos(); // Daten in shared_preferences speichern
+```dart {21-31,46}
+void _addTodo() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Neues Todo'),
+          content: TextField(
+            controller: _textController,
+            autofocus: true,
+            decoration: const InputDecoration(hintText: 'Todo-Text eingeben'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _textController.clear();
+              },
+              child: const Text('Abbrechen'),
+            ),
+            TextButton(
+              onPressed: () async {
+                final text = _textController.text.trim();
+                if (text.isEmpty) return;
+
+                setState(() {
+                  _todos.add(Todo(title: text));
+                });
+                await _saveTodos();
+
+                _textController.clear();
+                if (!mounted) return;
+                Navigator.of(context).pop();
+              },
+              child: const Text('Hinzufügen'),
+            ),
+          ],
+        );
+      },
+    );
   }
-});
+
+  void _toggle(int index, bool value) {
+    setState(() {
+      _todos[index] = _todos[index].copyWith(done: value);
+    });
+    unawaited(_saveTodos());
+  }
 ```
 
 Nun werden die Daten beim Start der App geladen und beim
 Hinzufügen eines neuen Todos gespeichert.
 
-## Datenklasse für Todos
-
-Beim Speichern der Todos wird momentan nur der Titel berücksichtigt. Der Status in `done` wird nicht abgespeichert, da sich dieser im State befindet. Eine Lösung hierfür besteht darin, für das eigentliche Todo eine Datenklasse (`Todo`) zu schreiben, die dann im Widget verwendet wird:
-
-```dart
-class Todo {
-  final String title;
-  bool done;
-
-  Todo({required this.title, this.done = false});
-
-  // Todo in Map umwandeln (serialisieren)
-  Map<String, dynamic> toMap() {
-    return {
-      'title': title,
-      'done': done,
-    };
-  }
-
-  // Map in Todo umwandeln (deserialisieren)
-  factory Todo.fromMap(Map<String, dynamic> map) {
-    return Todo(
-      title: map['title'],
-      done: map['done'] ?? false,
-    );
-  }
-}
-
-class TodoItem extends StatefulWidget {
-  final Todo todo;
-
-  const TodoItem({super.key, required this.todo});
-
-  @override
-  State<TodoItem> createState() => _TodoItemState();
-}
-```
-
-Im `_TodoItemState` muss der Zugriff auf `done` nun anstatt `widget.done` so aussehen:
-
-```dart
-widget.todo.done
-```
-
-In `main.dart` sind drei Zeilen zu ändern:
-
-- in `_loadTodos`: 
-
-```dart
-_todos.addAll(decoded.map((item) => TodoItem(todo: Todo.fromMap(item))).toList());
-```
-
-- in `_saveTodos`:
-
-```dart
-jsonEncode(_todos.map((item) => item.todo.toMap()).toList());
-```
-
-- im `then`-Block von `onPressed` des FABs:
-
-```dart
-_todos.add(TodoItem(todo: Todo(title: value)));
-```
-
-<Callout type="error">
-**TODO:** Im Code müsste noch umgesetzt werden, dass die Todos erneut abgespeichert werden, wenn sich der Zustand eines Todos ändert (`done`).
-</Callout>
-
-Zum Thema _state management_ ist umfangreich mit verschiedenen Ansätzen. Dazu gibt es einen Link auf der folgenden Seite im Ausblick.
+Das Thema _state management_ ist umfangreich mit verschiedenen Ansätzen. Dazu gibt es einen Link auf der folgenden Seite im Ausblick.
 
 ## Zusammenfassung
 
