@@ -1,4 +1,4 @@
-import { Callout, Tabs } from 'nextra/components';
+import { Callout } from 'nextra/components';
 
 # Formen und Farben (25 Minuten)
 
@@ -34,14 +34,12 @@ Quadrat mit folgenden Eigenschaften erstellen:
 
 ![Quadrat](/images/kennenlerntag/square1.png)
 
-<Tabs items={['👉', 'Lösung ↓']}>
-  <Tabs.Tab></Tabs.Tab>
-  <Tabs.Tab>
+<details>
+    <summary>Lösung</summary>
   ```js
   square(75, 140, 120);
   ```
-  </Tabs.Tab>
-</Tabs>
+</details>
 
 ## Farben und Ränder (4 Minuten)
 
@@ -94,15 +92,13 @@ Quadrat mit folgenden Eigenschaften erstellen:
 
 ![Zwei Quadrate nebeneinander](/images/kennenlerntag/square2.png)
 
-<Tabs items={['👉', 'Lösung ↓']}>
-  <Tabs.Tab></Tabs.Tab>
-  <Tabs.Tab>
+<details>
+    <summary>Lösung</summary>
   ```js
   fill("#73818D");
   square(205, 140, 120, 4);
   ```
-  </Tabs.Tab>
-</Tabs>
+</details>
 
 ## Dreiecke (5 Minuten)
 
@@ -135,15 +131,13 @@ Dreieck mit folgenden Eigenschaften erstellen:
 
 ![Quadrate mit Dreicken](/images/kennenlerntag/square-triangles.png)
 
-<Tabs items={['👉', 'Lösung ↓']}>
-  <Tabs.Tab></Tabs.Tab>
-  <Tabs.Tab>
+<details>
+    <summary>Lösung</summary>
   ```js
   fill("#EA1E26");
   triangle(205,140, 265, 80, 265, 140);
   ```
-  </Tabs.Tab>
-</Tabs>
+</details>
 
 ## Vierecke (10 Minuten)
 
@@ -217,9 +211,8 @@ Versuchen Sie, im grauen Quadrat ein Viereck zu zeichnen, das wie in der folgend
 
 ![Vierecke in beiden Quadraten](/images/kennenlerntag/square-quad2.png)
 
-<Tabs items={['👉', 'Lösung ↓']}>
-  <Tabs.Tab></Tabs.Tab>
-  <Tabs.Tab>
+<details>
+    <summary>Lösung</summary>
   ```js
   fill("#86171C");
   quad(
@@ -233,19 +226,16 @@ Versuchen Sie, im grauen Quadrat ein Viereck zu zeichnen, das wie in der folgend
     140 + 120 - 5
   );
   ```
-  </Tabs.Tab>
-</Tabs>
+</details>
 
 Nun haben wir fast das DHBW-Logo erstellt. Was fehlt noch?
 
-<Tabs items={['👉', 'Antwort ↓']}>
-  <Tabs.Tab></Tabs.Tab>
-  <Tabs.Tab>
+<details>
+    <summary>Antwort</summary>
 Wir sollten das Hilfsgitter entfernen.
 
 Wenn das DHBW-Logo groß genug ist, dann ist zu erkennen, dass die Dreiecke eigentlich auch Vierecke sind (eine Seite ist relativ schmal)…
-  </Tabs.Tab>
-</Tabs>
+</details>
 
 ## Dreiecke durch Vierecke ersetzen (Optional)
 
@@ -261,9 +251,8 @@ Hier muss bestehender Code verändert bzw. angepasst werden. Dies kommt im Allta
 Im echten DHBW-Logo sind auch die Ecken der Vierecke abgerundet…
 </Callout>
 
-<Tabs items={['👉', 'Kompletter Code ↓']}>
-  <Tabs.Tab></Tabs.Tab>
-  <Tabs.Tab>
+<details>
+    <summary>Kompletter Code</summary>
   ```js
 function setup() {
   createCanvas(400, 400);
@@ -338,7 +327,6 @@ function drawGrid() {
   }
 }
   ```
-  </Tabs.Tab>
-</Tabs>
+</details>
 
 [DHBW Logo mit Konstanten](https://editor.p5js.org/behrends/sketches/RIYuNYMDk)

@@ -1,4 +1,4 @@
-import { Callout, Tabs } from 'nextra/components';
+import { Callout } from 'nextra/components';
 
 # Zustand (state)
 
@@ -301,10 +301,9 @@ Eventuell den Anfang gemeinsam und dann weitere Buttons hinzufügen
 </Callout>
 
 
-<Tabs items={['👉', 'Lösung ↓']}>
-  <Tabs.Tab></Tabs.Tab>
-  <Tabs.Tab>
-  ```jsx
+<details>
+    <summary>Lösung</summary>  
+```jsx
 import {useState} from 'react';
 import { Button, Text, TextInput, SafeAreaView, StyleSheet } from 'react-native';
 
@@ -340,5 +339,4 @@ const styles = StyleSheet.create({
   },
 });
   ```
-  </Tabs.Tab>
-</Tabs>
+</details>

@@ -1,4 +1,4 @@
-import { Callout, Tabs } from 'nextra/components';
+import { Callout } from 'nextra/components';
 
 # Liste mit Todos
 
@@ -213,10 +213,9 @@ export default function App() {
 
 Erstellen Sie eine eigene Komponente `TodoList` für die `FlatList` in einer neuen Datei `components/TodoList.jsx` und verwenden Sie diese in `App.js`.
 
-<Tabs items={['👉', 'Lösung ↓']}>
-  <Tabs.Tab></Tabs.Tab>
-  <Tabs.Tab>
-  ```jsx
+<details>
+  <summary>Lösung</summary>
+```jsx
 // components/TodoList.jsx
 import { FlatList } from 'react-native';
 import Todo from './Todo';
@@ -249,10 +248,8 @@ export default function App() {
 }
 
 // styles weggelassen
-
-  ```
-  </Tabs.Tab>
-</Tabs>
+```
+</details>
 
 ## Übung: FlatList stylen
 
@@ -262,10 +259,9 @@ Recherchieren Sie außerdem in der Dokumentation zu `FlatList` (https://reactnat
 
 ![FlatList mit Trennstrich](/images/mobile/reactnative/FlatList-styles.png)
 
-<Tabs items={['👉', 'Lösung ↓']}>
-  <Tabs.Tab></Tabs.Tab>
-  <Tabs.Tab>
-  ```jsx
+<details>
+  <summary>Lösung</summary>
+```jsx
 import { FlatList, StyleSheet, View } from 'react-native';
 import Todo from './Todo';
 
@@ -291,8 +287,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'darkgrey',
   },
 });
-  ```
-  </Tabs.Tab>
-</Tabs>
+```
+</details>
 
 ## PAUSE?
