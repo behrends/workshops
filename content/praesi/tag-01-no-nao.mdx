@@ -58,16 +58,25 @@ Icons aus Galerie auswählen, Hardware, Konsole Vollbild, Am Ende auf Smartphone
 
 Aufgabe: Geschwindigkeit ändern, Countdown ändern, stay in screen, second food with higher score, eigene Anpassungen?
 
-## PAUSE
-
-## p5.js (Teil 1: Einführung, ca. 35 Minuten)
-
 <Callout>
-**Spickzettel (cheat sheet) für p5.js:** 
+Wir können hier zeigen, wie ChatGPT Spiele für MakeCode in 
+JavaScript oder Python generieren kann.
 
-https://bmoren.github.io/p5js-cheat-sheet/de.html
+Beispiele: 
+
+- Flappy Bird 
+- Super Mario
+- Spielidee gemeinsam mit ChatGPT entwickeln?
+
+&rarr; Code im Editor-Bereich für JavaScript/Python einfügen
 </Callout>
 
+&rarr; Ein mögliches Thema wäre MakeCode, z.B. um mit Hilfe von ChatGPT
+ein komplexeres Spiel zu erstellen.
+
+## PAUSE
+
+## p5.js (ca. 45 Minuten)
 
 - p5.js-Editor vorstellen: https://editor.p5js.org
 - Play, Stop, Auto Refresh, Edit -> Tidy Code usw.
@@ -98,44 +107,27 @@ function draw() {
 
 In Anlehnung an „Untitled 1974 (Squares)“ von Vera Molnár (*1924, Pionierin der Computerkunst).
 
-**Zwischenschritt 1 (nur `draw`, ohne `setup`):**
+<Callout>
+Hier könnten wir auf ChatGPT als „KI-Tutor“ hinweisen:
 
-```js
-function draw() {
-  background("white");
+In https://chatgpt.com zeigen (ohne Login?):
 
-  // 3 Quadrate mit aufsteigender Größe
-  square(width / 2, height / 2, 20);
+- Erkläre mir Funktionen in p5.js 
+- Was bewirkt dieser Code in p5.js:
+  ```js
+  function setup() {
+    createCanvas(400, 400);
+    rectMode(CENTER);
+    noLoop();
+    noFill();
+  }
+  ```
+- Wie kann ich eine Ellipse in p5.js zeichnen? Erkläre mir die Details.
+</Callout>
 
-  square(width / 2, height / 2, 40);
+<br/>
 
-  square(width / 2, height / 2, 60);
-}
-```
-
-**Zwischenschritt 2 (nur `draw`, ohne `setup`):**
-
-```js
-function draw() {
-  background("white");
-
-  // 3 paar Quadrate (aufsteigend groß, „zufälliger“ Versatz)
-  let offsetX = 20;
-  let offsetY = -10;
-  let length = 20;
-  square(width / 2 + offsetX, height / 2 + offsetY, length);
-
-  offsetX = -12;
-  offsetY = 23;
-  length = 40;
-  square(width / 2 + offsetX, height / 2 + offsetY, length);
-
-  offsetX = 5;
-  offsetY = -19;
-  length = 60;
-  square(width / 2 + offsetX, height / 2 + offsetY, length);
-}
-```
+<mark>&rarr; Vorführung des Lernmodus in ChatGPT, um gemeinsam die Lösung zu entwickeln?</mark>
 
 **Lösung mit `for`-Schleife und `random`-Werten für `offset`:**
 
@@ -160,84 +152,63 @@ function draw() {
 }
 ```
 
+<Callout>
+Auch für p5.js können wir mit Hilfe von ChatGPT Spiele entwickeln. 
 
-### Aufgaben zum Experimentieren
+Vielleicht zeigen wir hier die Möglichkeiten des besten Modells in ChatGPT Plus?
 
-⟶ Mit `circle()` Kreise statt Quadrate erstellen
+Ideen: 
 
-Mit `stroke()` lässt sich die Linienfarbe festlegen 
-(siehe https://p5js.org/reference/#/p5/stroke)
+- Flappy Bird
+- Super Mario
+- usw.
+</Callout>
 
-⟶ Farbe der Linien (zufällig) ändern, siehe Code-Beispiel:
+## TODO: App mit Replit (o.a. Coding Agent) (ca. 45 Minuten)
 
-```js
-let colors = ['red','white','blue','green','yellow','orange','black'];
+Die Prüfungsleistung App-Entwicklung des 5. Semesters TIF in maximal 45 Minuten 
+abliefern.
 
-// in der Schleife:
-stroke(random(colors));
+```
+Folgende mobile Lern-App soll mit Expo (React Native) umgesetzt werden. Ich gebe dir eine Liste von Anforderungen. Falls dir etwas unklar ist oder du mehr Infos von mir benötigst, dann kläre diese mit mit bevor du anfängst zu programmieren.
+
+- **Allgemeines**
+  - Die Daten werden lokal auf dem Gerät gespeichert.
+  - Es gibt eine Liste von Kategorien (oder Themen bzw. Kurse) — diese stehen für beliebige Themen oder Vorlesungsinhalte, die jemand lernen möchte (Beispiele: Englisch, Geographie, Marketing, Kotlin, Algorithmen, etc.). Kategorien enthalten beliebig viele Fragen.
+- **Verwaltungsmodus:** 
+  - Kategorien haben einen Namen und können erstellt, bearbeitet und gelöscht werden.
+  - Fragen bestehen aus Frage und Antwort(en) und gehören zu einer Kategorie. Sie können erstellt, bearbeitet und gelöscht werden.
+  - Es soll mindestens drei unterschiedliche Fragetypen geben, z.B. 
+      - „Multiple Choice für die Auswahl einer Antwort aus 3-4 Möglichkeiten, 
+      - Frei formulierbare Antwort in einer Texteingabe,
+      - Vorgegebene Antwort mit Fehlern muss in einer Texteingabe korrigiert werden (z.B. bei Code),
+      - Lückentext,
+      - oder weitere Fragetypen passend zur Kategorie.
+- **Anwendungsmodus (hier Lernmodus)**
+  - Die Auswahl einer Kategorie führt zu einer Liste von Fragen zu dieser Kategorie.
+  - Die Fragen können als Quiz zum Lernen durchgearbeitet werden:
+       - Es wird gefragt, wie viele Fragen zu dem Thema  beantwortet werden sollen.
+       - Für diese Anzahl werden aus dem Thema zufällige Fragen gewählt.
+       - Hierbei werden nacheinander die einzelnen Fragen gestellt und dazu können Antworten eingegeben werden. Zu den Antworten gibt es passende Rückmeldungen (richtig/falsch o.ä.).
+   - Lernfortschritt anzeigen (z.B. „X Fragen von Y Kategorien richtig beantwortet“).
+
+Weitere Ideen: 
+- Zählen der Lernversuche für bestimmte Kategorien
+- Erinnerungen zum Lernen
+- Lernstatistiken
 ```
 
-<Callout>
-Hier könnten wir auf ChatGPT als „KI-Tutor“ hinweisen:
+Wir führen dies in zwei Schritten durch:
 
-Kenntnisstand abfragen:
+- Designs bzw. UI-Mockups erstellen
+- App mit Coding Agent umsetzen
 
-- Wer hat alles einen Zugang zu ChatGPT?
-- Wer von Ihnen nutzt ChatGPT regelmäßig?
+Vorgehen:
 
-In https://chatgpt.com ohne Login zeigen:
-
-- Erkläre mir Funktionen in p5.js 
-- Was bewirkt dieser Code in p5.js:
-  ```js
-  function setup() {
-    createCanvas(400, 400);
-    rectMode(CENTER);
-    noLoop();
-    noFill();
-  }
-  ```
-- Wie kann ich eine Ellipse in p5.js zeichnen? Erkläre mir die Details.
-</Callout>
+- https://stitch.withgoogle.com mit Prompt: Erstelle mir Designs zu folgender App (Aufgabentext von oben)
+- https://replit.com oder Codex CLI? mit Prompt mit Plan-Modus: Lass uns folgende App bauen (Aufgabentext von oben) und dann in Build-Modus
 
 
-## p5.js (Teil 2: Memory-Spiel, ca. 55 Minuten)
-
-Gemeinsam arbeiten wir uns durch [dieses Mini-Tutorial](https://behrends.github.io/mini-tutorials/memory/),
-welches ein einfaches Memory-Spiel mit p5.js schrittweise entwickelt. 
-
-Das fertig gestellte Memory-Spiel kann kurz im p5.js-Editor gezeigt werden:
-https://editor.p5js.org/behrends/sketches/gpnqu4ATk
-
-<Callout type="warning" emoji="👨‍💻">
-Je nach Situation oder Stimmung kann das 
-Tutorial auch von den Studies selbstständig
-mit abschließender Beschprechung 
-durchgearbeitet werden. 
-</Callout>
-
-<Callout>
-Hinweis: Das Memory-Spiel wurde mit Hilfe von GitHub Copilot (basiert auf GPT) entwickelt.
-</Callout>
-
-<Callout>
-Bei Bedarf weitere passende Funktionalitäten in ChatGPT (Plus) zeigen.
-
-Anwendungsfälle bzw. Situationen:
-
-**Konzepte für Leute mit wenig Erfahrung erklären lassen**
-
-- Erkläre mir dieses Konzept in JavaScript: …
-- Erkläre mir diesen Code in p5.js: …
-
-**Code für Leute mit wenig Erfahrung erklären lassen**
-
-Ich habe noch keine Programmiererfahrungen. Erkläre mir diesen Code:…
-
-**Code aus Sicht anderer Sprachen verstehen**
-
-Ich habe ein wenig Erfahrung mit Java aber nicht in JavaScript. Erkläre mir diesen Code:…
-</Callout>
 
 ## MITTAGSPAUSE (ca. 45 Minuten)
 
@@ -334,7 +305,60 @@ Dies kann auch kurz mit p5.js oder Java/Python gezeigt werden (AI als Chat und z
 
 ### PAUSE
 
-## Minimalistische Spiele mit crisp-game-lib (ca. 45 Minuten)
+## Teamarbeit (restliche Zeit)
+
+- Gruppen bilden
+- Brainstorming
+- ein paar Themen kurz vorstellen
+- erste Gespräche mit Gruppen
+- usw. 
+
+---
+
+## Left over : p5.js (Memory-Spiel)
+
+**TODO:** können wir dies in Prog (TIF,WWI) verwenden?
+
+Gemeinsam arbeiten wir uns durch [dieses Mini-Tutorial](https://behrends.github.io/mini-tutorials/memory/),
+welches ein einfaches Memory-Spiel mit p5.js schrittweise entwickelt. 
+
+Das fertig gestellte Memory-Spiel kann kurz im p5.js-Editor gezeigt werden:
+https://editor.p5js.org/behrends/sketches/gpnqu4ATk
+
+<Callout type="warning" emoji="👨‍💻">
+Je nach Situation oder Stimmung kann das 
+Tutorial auch von den Studies selbstständig
+mit abschließender Beschprechung 
+durchgearbeitet werden. 
+</Callout>
+
+<Callout>
+Hinweis: Das Memory-Spiel wurde mit Hilfe von GitHub Copilot (basiert auf GPT) entwickelt.
+</Callout>
+
+<Callout>
+Bei Bedarf weitere passende Funktionalitäten in ChatGPT (Plus) zeigen.
+
+Anwendungsfälle bzw. Situationen:
+
+**Konzepte für Leute mit wenig Erfahrung erklären lassen**
+
+- Erkläre mir dieses Konzept in JavaScript: …
+- Erkläre mir diesen Code in p5.js: …
+
+**Code für Leute mit wenig Erfahrung erklären lassen**
+
+Ich habe noch keine Programmiererfahrungen. Erkläre mir diesen Code:…
+
+**Code aus Sicht anderer Sprachen verstehen**
+
+Ich habe ein wenig Erfahrung mit Java aber nicht in JavaScript. Erkläre mir diesen Code:…
+</Callout>
+
+
+## Left over: crisp-game-lib
+
+**TODO:** können wir dies in Prog (TIF,WWI) verwenden?
 
 [crisp-game-lib](https://github.com/abagames/crisp-game-lib) ist eine 
 JavaScript-Bibliothek für die Programmierung klassischer Arcade-Spiele, die 
