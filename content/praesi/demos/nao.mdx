@@ -1,0 +1,157 @@
+import { Callout } from 'nextra/components';
+
+# NAO
+
+<Callout>
+**Todo für Dozent** &mdash; Vorbereitungen:
+- NAO mit Basic Channel mitnehmen (NAO8 oder NAO9)
+- Windows-Laptop aus A335 mitnehmen
+
+</Callout>
+
+## NAO stellt sich vor
+
+Wir steigen mit der Vorstellung von NAO in die Vorlesung ein…
+
+![NAO](/images/praesi/nao.png)
+
+Beispiel: Sprachdialog mit NAO (NAO9). Eventuell kurz Choregraphe zeigen.
+
+⟶ Funktioniert Basic Channel ohne WLAN?
+
+⟶ Nur NAO8 und NAO9 haben den Basic Channel installiert
+
+⟶ Im NAO-Labor (A335) haben wir ein WLAN für die NAOs.
+
+⟶ NAO-Programmierung später in A335 in einer kleineren Gruppe (ca. 12 Leute).
+
+⟶  Choregraphe mit NAO auf MacBook testen (v.2.8.8 funktioniert, ggf. Windows-Laptop aus A335 mitnehmen)
+
+<br/>
+
+<mark>Ausprobieren: auf dem Mac das Programm `VittaCompanion` installieren und dann mit dem [Webinterface von VittaScience](https://en.vittascience.com/nao/?mode=mixed&console=bottom&toolbox=vittascience) arbeiten.</mark>
+
+<Callout>
+**Todo für Dozent** &mdash; 
+- PDFs für NAO in Moodle (Aufgaben, Handbuch)
+
+Textseite in Moodle 
+(„Aufgaben für NAO“) erstellen mit folgendem Text:
+
+  <details>
+    <summary>Text für Moodle</summary>
+```md
+Mit diesen Aufgaben lernen Sie den Umgang mit NAO und der Software Choregraphe kennen.
+
+Vorbemerkungen:
+
+- Auf den Laptops in Raum A335 ist die Software Choregraphe Version mit der Nummer > 2.8.… zu verwenden.
+- Anstatt Choregraphe können Sie auf den Laptops das Programm `VittaCompanion` starten und dann mit dem [Webinterface von VittaScience](https://en.vittascience.com/nao/?mode=mixed&console=bottom&toolbox=vittascience) arbeiten.
+- Sie können NAO nach seiner IP-Adresse fragen, indem Sie den Knopf vorne auf seinem Oberkörper drücken
+- Zur Verbindung zu NAO in Choregraphe trennen Sie zunächst bestehende Verbindungen mit dem roten Netzwerksymbol (sieht aus wie ein WLAN-Zeichen) und stellen Sie mit dem grünen Netzwerksymbol die Verbindung her, indem Sie dort die IP-Adresse eintragen  (`Used fixed IP/hostname` markieren) und mit `Select` bestätigen.
+- Ein Programm besteht aus Boxen, die Sie aus der `Box library` auf die große Fläche in der Mitte ziehen. Boxen werden miteinander verbunden. 
+- Bevor Sie ein Programm ausführen, stellen Sie sicher, dass der „Herz“-Knopf deaktiviert ist (Autonomer Modus des NAO muss ausgeschaltet sein)
+
+**Tipps**
+
+- In der Box Library sind die Boxen für NAO relevant (nicht Pepper)
+- Testen Sie „Staubsauger“ (_vacuum cleaner_) oder Saxophone und suchen Sie weitere interessante Boxen
+- Es gibt eine Ordnung von Boxen, z.B. finden sich positive Gemütsgesten in „Moods/Positive/NAO“
+- In der Box Library kann nach Boxen gesucht werden (Lupe)
+
+### Aufgaben
+
+Beschäftigen Sie sich mit folgenden Aufgaben in dem PDF-Dokument `V6 aufgabenheft einsteiger`, das im Moodle-Raum zu finden ist:
+
+- 1 Einstiegsaufgabe: Boxprinzip (S.3)
+- 5 NAO bewegt seine Hände (S. 8)
+- 6 NAO hat Hunger (S. 9)
+
+**Sie können aus den Aufgaben frei wählen**
+
+**Sie können auch gerne eigene Ideen umsetzen oder Experimente mit verschiedenen Boxen durchführen**
+
+Falls Sie mehr zu NAO oder bestimmten Boxen in Choregraphe wissen möchten, 
+dann steht Ihnen dazu das PDF mit Folien des „NAO-Workshop“ und das  
+NAO-Handbuch zur Verfügung (`handbuch V6`).
+
+### Restliche Zeit
+
+Falls Sie noch Zeit haben, dann können Sie sich mit weiteren Aufgaben aus dem PDF-Dokument 
+`V6 aufgabenheft einsteiger` beschäftigen. 
+Hinweis: Manche im PDF erwähnte Boxen haben evtl. andere Bezeichnungen in Choregraphe.
+```
+  </details>
+</Callout>
+
+<Callout>
+Sollten Studierende kein Laptop oder Tablet haben, dann könnten
+sie für heute einen Laptop aus Raum A335 erhalten.
+</Callout>
+
+
+## Bearbeitung von Aufgaben (4 Stunden bzw. restliche Zeit)
+
+
+Einteilung in 2-3 Gruppen für Aufgaben mit NAO, MakeCode, p5.js
+
+<Callout type="info" emoji="👨🏻‍💻">
+Eventuell kurz crisp-game-lib vorstellen:
+
+- Paku Paku (1D-Pacman): https://abagames.github.io/crisp-game-lib-11-games/?pakupaku
+- Quellcode besteht aus 189 (!) Zeilen JavaScript: https://github.com/abagames/crisp-game-lib-11-games/blob/main/docs/pakupaku/main.js
+- Liste der Spiele für den Browser: http://www.asahi-net.or.jp/~cs8k-cyu/browser.html
+- <mark>&xrarr; **Tutorial**: https://behrends.github.io/mini-tutorials/pin-climb/</mark>
+- API-Referenz von crisp-game-lib: https://abagames.github.io/crisp-game-lib/ref_document/modules.html
+</Callout>
+
+<Callout type="info" emoji="🤖">
+<mark>Tipps zu GitHub Copilot geben? (siehe Tag 1 ohne NAO…)</mark>
+</Callout>
+
+<Callout>
+**Todo für Dozent** &mdash; Textseite in Moodle 
+(„Aufgaben für Spiele mit crisp-game-lib“) erstellen mit folgendem Text:
+
+```md
+Falls Sie Zeit und Interesse haben, dann können Sie sich mit 
+[diesem Tutorial](https://behrends.github.io/mini-tutorials/pin-climb/) beschäftigen, 
+das ein minimalistisches „Ein-Knop-Spiel“ mit JavaScript und crisp-game-lib erstellt.
+
+Mit crisp-game-lib wurde z.B. das Spiel [1D-Pacman](https://abagames.github.io/ crisp-game-lib-11-games/?pakupaku) programmiert.
+```
+</Callout>
+
+<Callout>
+Aufgaben werden in Moodle veröffentlicht (siehe Markdown-Inhalte für MakeCode Arcade, p5.js und crisp-game-lib oben).
+
+Je nach Geschwindigkeit und Interesse können Tutorials zu MakeCode Arcade (Spiele), 
+p5.js (2D-Grafiken) und crisp-game-lib (Spiele) bearbeitet werden.
+</Callout>
+
+- Gruppenwahl in Moodle (2 Gruppen, 3 Gruppen wenn mehr als 30 Leute)
+
+Gruppe A geht ins NAO-Labor (Raum A335) \
+⟶ dort wird NAO und die Aufgabe vorgestellt (siehe Moodle).
+
+Gruppe B bleibt im Kursraum und befasst sich mit Microsoft Makecode Arcade 
+(und bei Interesse mit p5.js). \
+⟶ Aufgaben siehe Moodle. 
+
+| Zeit       | Gruppe A           | Gruppe B           |
+|------------|--------------------|--------------------|
+| 60-90 Min. | NAO (A335)         | MakeCode, p5.js, … |
+| 15 Min.    | PAUSE              | PAUSE              |
+| 60-90 Min. | MakeCode, p5.js, … | NAO (A335)         |
+| 15 Min.    | ggf. gemeinsamer…  | …Abschluss         |
+
+<mark>&xrarr; Ablauf am Whiteboard skizzieren</mark>
+
+Tipps für den Umgang mit NAO:
+
+- Programm startet nicht? --> Autonomen Modus ausschalten
+- Roboprax hat Vorführ-App mit Cheat Sheet (siehe NAO-Ordner auf OneDrive)
+
+<Callout>
+Liste der Themen (nächste Seite) kurz zeigen und in Moodle veröffentlichen?
+</Callout>

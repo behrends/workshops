@@ -1,0 +1,173 @@
+import { Callout } from 'nextra/components';
+
+# p5.js
+
+<Callout>
+**Todo für Dozent** &mdash; Vorbereitungen:
+- ggf. Tutorial durchspielen
+</Callout>
+
+- p5.js-Editor vorstellen: https://editor.p5js.org
+- Play, Stop, Auto Refresh, Edit -> Tidy Code usw.
+- setup, draw, console.log zeigen
+- Koordinationsystem beginnt links oben, Referenz zeigen 
+
+Einfaches Beispiel: 
+
+```js
+function setup() {
+  createCanvas(400, 400);
+  rectMode(CENTER); // Rechtecke ausgehend von ihrer Mitte zeichnen
+  noFill(); // Rechtecke nicht farbig ausfüllen
+  noLoop(); // Programm nur einmal ausführen
+}
+
+function draw() {
+  background('white');  // Farben: RGB, hexadezimale Werte, … möglich
+  
+  square(100, 120, 50); // kleines Quadrat oben links
+  square(width/2, height/2, 200); // größeres Quadrat unten rechts
+}
+```
+
+**Generatives oder Creative Coding:**
+
+![Vera Molnar](/images/praesi/vera_molnar_squares.png)
+
+In Anlehnung an „Untitled 1974 (Squares)“ von Vera Molnár (*1924, Pionierin der Computerkunst).
+
+<Callout>
+Hier könnten wir auf ChatGPT als „KI-Tutor“ hinweisen:
+
+In https://chatgpt.com zeigen (ohne Login?):
+
+- Erkläre mir Funktionen in p5.js 
+- Was bewirkt dieser Code in p5.js:
+  ```js
+  function setup() {
+    createCanvas(400, 400);
+    rectMode(CENTER);
+    noLoop();
+    noFill();
+  }
+  ```
+- Wie kann ich eine Ellipse in p5.js zeichnen? Erkläre mir die Details.
+</Callout>
+
+<br/>
+
+<mark>&rarr; Vorführung des Lernmodus in ChatGPT, um gemeinsam die Lösung zu entwickeln?</mark>
+
+**Lösung mit `for`-Schleife und `random`-Werten für `offset`:**
+
+```js
+// Eine Lösung für "Untitled 1974 (Squares)" von Vera Molnar
+function setup() {
+  createCanvas(400, 400);
+  rectMode(CENTER);
+  noLoop();
+  noFill();
+}
+  
+function draw() {
+  background('white'); // Farben: RGB, hexadezimale Werte, … möglich
+  
+  for(let length = 10; length < 300; length += 10) {
+    let offsetX = random(-30, 30);
+    let offsetY = random(-30, 30);
+  
+    square(width/2 + offsetX, height/2 + offsetY, length);
+  }
+}
+```
+
+
+## Mögliche Aufgaben
+
+⟶ Mit `circle()` Kreise statt Quadrate erstellen
+
+Mit `stroke()` lässt sich die Linienfarbe festlegen 
+(siehe https://p5js.org/reference/#/p5/stroke)
+
+⟶ Farbe der Linien (zufällig) ändern, siehe Code-Beispiel:
+
+```js
+let colors = ['red','white','blue','green','yellow','orange','black'];
+
+// in der Schleife:
+stroke(random(colors));
+```
+
+<Callout>
+**Todo für Dozent** &mdash; Textseite in Moodle 
+(„Aufgaben für p5.js“) erstellen mit folgendem Text:
+
+  <details>
+    <summary>Text für Moodle</summary>
+```md
+Auf [dieser Webseite (&rarr; hier klicken)](https://workshops.progcontent.com/praesi/p5js/01-basics) 
+finden Sie ein Tutorial, das Sie durch die Grundlagen von p5.js führt. Dabei 
+wird das Logo der DHBW nachgezeichnet.
+
+Arbeiten Sie sich durch dieses Tutorial inklusive der Aufgaben durch und 
+versuchen Sie, die Beispiele nachzuvollziehen. 
+
+Danach können Sie sich mit 
+[diesem Tutorial](https://behrends.github.io/mini-tutorials/memory/) beschäftigen, 
+das ein einfaches Memory-Spiel mit p5.js erstellt.
+
+Mit Hilfe von KI-Tools (z.B. [ChatGPT](https://chat.com)) können Sie Code
+für p5.js generieren oder sich Erklärungen dazu geben. Probieren Sie z.B. 
+folgenden Prompt:
+
+`Ein Smiley, den ich mit der Maus bewegen kann, in p5.js.`
+
+&rarr; Mit ChatGPT o.a. KI-Tools lassen sich relativ schnell komplette Spiele in p5.js entwickeln (z.B. „4 gewinnt“). 
+
+Falls Sie danach immer noch Zeit und Interesse an p5.js haben, dann können Sie 
+versuchen ein Malprogramm zu erstellen, das mit der Maus bedient wird. Mit gedrücktem 
+Mausknopf wird ein Kreis (`circle()`) gezeichnet. Änderung der Farbe und der 
+Pinselgröße kann durch passende Tastendrücke erreicht werden.
+```
+  </details>
+</Callout>
+
+## Mehr zu p5.js (Memory-Spiel)
+
+**TODO:** können wir dies in Prog (TIF,WWI) verwenden?
+
+Gemeinsam arbeiten wir uns durch [dieses Mini-Tutorial](https://behrends.github.io/mini-tutorials/memory/),
+welches ein einfaches Memory-Spiel mit p5.js schrittweise entwickelt. 
+
+Das fertig gestellte Memory-Spiel kann kurz im p5.js-Editor gezeigt werden:
+https://editor.p5js.org/behrends/sketches/gpnqu4ATk
+
+<Callout type="warning" emoji="👨‍💻">
+Je nach Situation oder Stimmung kann das 
+Tutorial auch von den Studies selbstständig
+mit abschließender Beschprechung 
+durchgearbeitet werden. 
+</Callout>
+
+<Callout>
+Hinweis: Das Memory-Spiel wurde mit Hilfe von GitHub Copilot (basiert auf GPT) entwickelt.
+</Callout>
+
+<Callout>
+Bei Bedarf weitere passende Funktionalitäten in ChatGPT (Plus) zeigen.
+
+Anwendungsfälle bzw. Situationen:
+
+**Konzepte für Leute mit wenig Erfahrung erklären lassen**
+
+- Erkläre mir dieses Konzept in JavaScript: …
+- Erkläre mir diesen Code in p5.js: …
+
+**Code für Leute mit wenig Erfahrung erklären lassen**
+
+Ich habe noch keine Programmiererfahrungen. Erkläre mir diesen Code:…
+
+**Code aus Sicht anderer Sprachen verstehen**
+
+Ich habe ein wenig Erfahrung mit Java aber nicht in JavaScript. Erkläre mir diesen Code:…
+</Callout>
