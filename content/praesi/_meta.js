@@ -25,5 +25,9 @@ export default {
     title: '',
   },
   '06-praesi': 'Präsentationen (6 Std.)',
+  section5: {
+    type: 'separator',
+    title: '',
+  },
   rest: 'Sonstiges',
 };
