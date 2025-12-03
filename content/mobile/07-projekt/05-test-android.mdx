@@ -1,0 +1,38 @@
+import { Callout } from 'nextra/components'
+
+# Testen nativer Android Apps
+
+## Statische Code-Analyse
+
+In Android Studio gibt es eingebaute Tools für die statische Code-Analyse,
+z.B. Lint-Checks, die potenzielle Probleme im Code erkennen können. Diese 
+können mit _Code &rarr; Inspect Code..._ ausgeführt werden.
+
+Zusätzlich gibt es Tools für die statische Analyse von Android/Kotlin-Code,
+z.B. [Detekt](https://detekt.dev/) oder [Ktlint](https://pinterest.github.io/ktlint/).
+
+## Unit-Tests für Funktionen
+
+In Kotlin werden Unit-Tests in der Regel mit JUnit geschrieben:
+
+- https://developer.android.com/training/testing/local-tests
+- https://junit.org
+
+Es gibt auch moderne Test-Frameworks wie [Kotest](https://kotest.io/), die zusätzliche
+Funktionalitäten bieten.
+
+## Tests für UI-Komponenten
+
+Ähnlich wie bei React Native können auch in nativen Android-Apps UI-Komponententests
+geschrieben werden, siehe z.B. UI-Testing für Compose in den Android-Docs: 
+https://developer.android.com/develop/ui/compose/testing
+
+## End-to-End-Tests 
+
+Todo…
+
+
+## Nützliche Links zu Lernressourcen
+
+- Überblick zu Testarten in der Android-Dokumentation: 
+  https://developer.android.com/training/testing
