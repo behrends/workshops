@@ -1,19 +1,233 @@
 import { Callout } from 'nextra/components'
 
-# Test-Bibliotheken für mobile Apps
+# Test-Bibliotheken für mobile Apps mit React Native
 
-## Unit Tests für Funktionen mit Jest 
+Wir betrachten hier verschiedene Arten von Tests:
 
-Anleitung für Unit Tests mit Jest und React Native Testing Library 
-in Expo: https://docs.expo.dev/develop/unit-testing/
+- Statische Analyse des Codes mit ESLint
+- Unit-Test für einzelne JavaScript-/TypeScript-Funktionen 
+- Tests für React Native UI-Komponenten
+- End-to-End-Tests für komplette App-Flows
 
-Jest ist ein Test-Runner, der auch andere Testframeworks wie z.B.
-React Native Testing Library unterstützt, um UI-Komponenten zu testen.
+## Statische Code-Analyse mit ESLint
 
-## Unit Tests für UI-Komponenten mit React Native Testing Library
+ESLint ist ein weit verbreitetes Tool zur statischen Code-Analyse in
+JavaScript- und TypeScript-Projekten. Es hilft, potenzielle Fehler,
+Stilprobleme und Best Practices im Code zu identifizieren.
+
+Expo-Projekte enthalten bereits eine ESLint-Konfiguration, womit 
+bereits viele Probleme im Code erkannt werden können:
+
+- ungenutzte Variablen und Funktionen
+- nicht erreichte Codeabschnitte
+- potenzielle Fehlerquellen (z.B. falsche Vergleiche) 
+- Korrekte Nutzung von Hooks
+- Allgemeine React/JSX-Regeln
+- usw.
+
+ESLint im Projekt ausführen:
+
+```bash
+npx expo lint
+```
+
+## Unit-Tests für Funktionen mit Jest
+
+Zunächst betrachten wir Unit-Tests für einzelne Funktionen 
+in JavaScript oder TypeScript.
+
+### Jest installieren
+
+Anleitung für die Einrichtung Unit Tests mit Jest, siehe Abschnitt 
+**Installation and configuration** mit den Schritten 1-3:
+
+- https://docs.expo.dev/develop/unit-testing/
+
+### Test erstellen
+
+Angenommen wir haben eine (viel zu einfache!) Funktion für das Validieren 
+von Passwörtern (nur als Beispiel):
+
+```typescript
+export function isValidPassword(input: string): boolean {
+  // Require at least 8 characters and one digit
+  return input.length >= 8 && /\d/.test(input);
+}
+```
+
+Wenn diese Funktion in einer Datei `utils/password.ts` liegt, dann 
+erstellen wir eine Test-Datei `utils/password.test.ts` mit folgendem Inhalt:
+
+```typescript
+import { isValidPassword } from './password';
+
+test('valid password', () => {
+  expect(isValidPassword('Password1')).toBe(true);
+});
+
+test('invalid password', () => {
+  expect(isValidPassword('Passwd1')).toBe(false);
+});
+```
+
+Die Test-Datei kann in einem beliebigen Unterordner liegen, wobei oft ein
+Ordner names `__tests__` verwendet wird. Solange die Dateien mit den Tests 
+auf `.test.ts` enden, werden sie von Jest durch das `jest-expo`-Preset gefunden
+(siehe `package.json` nach der Installation). Die import-Pfade der zu testenden 
+Funktion müssen entsprechend angepasst werden.
+
+Mit `describe` können auch mehrere Tests gruppiert werden:
+
+```typescript
+import { isValidPassword } from './password';
+
+test('valid password', () => {
+  expect(isValidPassword('Password1')).toBe(true);
+});
+
+describe('invalid password', () => {
+  test('invalid password - too short', () => {
+    expect(isValidPassword('Pass1')).toBe(false);
+  });
+
+  test('invalid password - no digit', () => {
+    expect(isValidPassword('Password')).toBe(false);
+  });
+});
+```
+
+### Test ausführen
+
+Wir haben bei der Installation von Jest (siehe oben) in der `package.json`
+unter `scripts` einen Eintrag für den Test-Befehl hinzugefügt. Mit folgendem
+Kommando können die Tests ausgeführt werden:
+
+```bash
+npm test
+```
+
+Jest startet damit im Watch-Modus und führt die Tests einmal direkt aus
+und jedes Mal, wenn eine Datei geändert wird.
+
+<Callout type="info">
+Tipp: Mit KI-Tools lassen sich im Code zu testende Funktionen finden
+und passende Tests generieren. Hierbei ist natürlich kritisch zu prüfen,
+ob die generierten Tests auch wirklich sinnvoll sind.
+
+Noch ein Tipp: KI-Agenten wollen die Test zur Überprüfung des generierten
+Codes oft selbst ausführen. Dazu bietet es sich an, den Watch-Modus von
+Jest im Test-Skript-Eintrag von `package.json` zu deaktivieren, denn 
+sonst blockiert der Watch-Modus den weiteren Ablauf:
+
+```json
+"scripts": {
+  // ...
+  "test": "jest",
+  "test:watch": "jest --watchAll"
+  // ...
+}
+```
+
+Mit `npm run test:watch` kann der Watch-Modus weiterhin manuell gestartet werden.
+</Callout>
+
+## Tests für UI-Komponenten mit React Native Testing Library
+
+Mit Jest als Testrunner und der React Native Testing Library (RNTL)
+lassen sich React Native UI-Komponenten testen.
+
+### React Native Testing Library installieren
+
+Siehe https://docs.expo.dev/develop/unit-testing/#install-react-native-testing-library
+
+<Callout type="warning">
+Im Dezember 2025 mussten wir für Expo 54 anders als im Link beschrieben RNTL 
+so installieren:
+
+```bash
+npm install --save-dev react-test-renderer@19.1.0 @testing-library/react-native
+```
+</Callout>
+
+Webseite von RNTL: https://callstack.github.io/react-native-testing-library/
+
+### Beispiel für einen Komponententest
+
+Wenn wir folgende Komponente in `components/home.tsx` haben:
+
+```jsx
+import { StyleSheet, Text, View } from 'react-native';
+
+export const CustomText = ({ children }) => <Text>{children}</Text>;
+
+export default function Home() {
+  return (
+    <View style={styles.container}>
+      <CustomText>Welcome!</CustomText>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+```
+
+Dann können wir einen UI-Komponententest z.B. in `__tests__/components/home.test.tsx`
+erstellen:
+
+```typescript
+import { render } from '@testing-library/react-native';
+
+import Home, { CustomText } from '@/components/home';
+
+describe('<Home />', () => {
+  test('Text renders correctly on HomeScreen', () => {
+    const { getByText } = render(<Home />);
+
+    getByText('Welcome!');
+  });
+});
+```
+
+### Test ausführen
+
+Da die UI-Komponententests mit Jest ausgeführt werden, können wir
+den gleichen Befehl wie bei den Unit-Tests verwenden: 
+
+```bash
+npm test
+```
+
+Mit RNTL lassen sich auch Interaktionen wie Button-Klicks und Eingaben
+testen. Siehe die Dokumentation für weitere Beispiele: 
+https://callstack.github.io/react-native-testing-library/
+
+
+## End-to-End-Tests mit ???
+
+Todo…
+
+## Weitere Testarten
+
+- Integrationstests für mehrere Komponenten/Funktionen
+- Tests für Expo Router (Navigation)
+- API-/Service-Tests (Backend)
+- Performance-Tests
+- Accessibility-Tests
 
 ## Nützliche Links zu Lernressourcen
 
 - Allgemeine Infos zu Testing in React Native: https://reactnative.dev/docs/testing-overview
 - https://expo.dev/blog/how-to-build-a-solid-test-harness-for-expo-apps
 - https://docs.expo.dev/eas/workflows/examples/e2e-tests/
+
+<Callout type="info">
+Im Quellcode der DHBW Lörrach Campus App finden sich Beispiele für 
+verschiedene Testarten: https://github.com/DHBWLoerrach/campusapp
+</Callout>
