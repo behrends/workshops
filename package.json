@@ -16,11 +16,11 @@
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.7.1",
     "@codesandbox/sandpack-themes": "^2.0.21",
-    "next": "^16.0.1",
+    "next": "^16.0.7",
     "nextra": "^4.6.0",
     "nextra-theme-docs": "^4.6.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
