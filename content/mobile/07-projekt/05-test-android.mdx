@@ -27,9 +27,39 @@ Funktionalitäten bieten.
 geschrieben werden, siehe z.B. UI-Testing für Compose in den Android-Docs: 
 https://developer.android.com/develop/ui/compose/testing
 
-## End-to-End-Tests 
+## End-to-End-Tests mit Maestro
 
-Todo…
+Allgemeine Informationen und Installation siehe [Tests mit React Native](04-test-react-native).
+
+### Maestro nutzen
+
+Test-Skript z.B. in `app/src/androidTest/assets/maestro/first-flow.yaml`:
+
+```yaml
+appId: com.example.todosandroid2025
+---
+- launchApp:
+    clearState: true
+- tapOn: "Neues Todo erstellen"
+- assertVisible: "Neues Todo"
+- inputText: "Check out Maestro!"
+- tapOn: "Hinzufügen"
+- assertVisible: "Check out Maestro!"
+```
+
+`appId` ist die `applicationId` der Android-App, die im Gradle-Skript 
+in `app` definiert wird.
+
+Ausführen mit `maestro test app/src/androidTest/assets/maestro/first-flow.yaml`.
+Im Emulator kann beobachtet werden, wie der UI-Test durchgeführt wird.
+
+### Alternativen zu Maestro
+
+Appium (https://appium.io) ist ebenfalls ein etabliertes und umfangreiches
+Open Source Testframework für End-to-End-Tests.
+
+Android hat verschiedene eigene Ansätze (Espresso, UI-Automator, u.a.), 
+siehe https://developer.android.com/training/testing.
 
 
 ## Nützliche Links zu Lernressourcen

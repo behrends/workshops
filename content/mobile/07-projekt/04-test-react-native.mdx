@@ -209,9 +209,84 @@ testen. Siehe die Dokumentation für weitere Beispiele:
 https://callstack.github.io/react-native-testing-library/
 
 
-## End-to-End-Tests mit ???
+## End-to-End-Tests mit Maestro
 
-Todo…
+Maestro ist ein Open Source Testframework, mit dem komplette UI-Flows 
+bzw. End-to-End-Tests via Skripts automatisiert werden können. Es ist 
+plattformübergreifend und funktioniert mit nativen Android- und iOS-Apps, 
+Flutter, React Native und Webanwendungen: https://maestro.dev
+
+### Maestro installieren
+
+Siehe https://docs.maestro.dev/getting-started/installing-maestro/macos
+
+Bei Bedarf Analytics deaktivieren:
+
+```bash
+export MAESTRO_CLI_NO_ANALYTICS=1
+```
+
+### Maestro nutzen
+
+Die zu testende App sollte auf einem Android-Gerät, im Android Emulator 
+oder iOS Simulator geöffnet sein.
+
+<Callout> 
+Hinweis: App nur auf genau einem Gerät, Emulator oder Simulator starten, da 
+Maestro scheinbar willkürlich das „erstbeste“ Gerät nimmt.
+</Callout>
+
+Für eine Todo-App, die in Expo Go läuft, könnte z.B. folgendes Skript 
+in einer Datei `__tests__/maestro/first-flow.yaml` erstellt werden:
+
+```yaml
+appId: host.exp.Exponent # iOS Expo Go
+---
+- assertVisible: 'Todo hinzufügen'
+- tapOn: 'Todo hinzufügen'
+- inputText: 'Check out Maestro!'
+- pressKey: Enter
+- assertVisible: 'Check out Maestro!'
+```
+
+Mit `appId` wird die App Expo Go angesteuert. Damit dieses Skript funktioniert,
+sollte die zu testende App bereits in Expo Go gestartet sein.
+
+Es ist auch möglich, mit folgendem Skript Expo Go zu starten und die passende
+App in Expo Go zu laden:
+
+```yaml
+appId: host.exp.Exponent # iOS Expo Go
+---
+- openLink: 'exp://127.0.0.1:8081' # Replace with your Expo Go URL
+- assertVisible: 'Todo hinzufügen'
+- tapOn: 'Todo hinzufügen'
+- inputText: 'Check out Maestro!'
+- pressKey: Enter
+- assertVisible: 'Check out Maestro!'
+```
+
+Die passende URL für `openLink` ist in der Ausgabe von `npx expo` zu sehen.
+
+Ausführung dieses Testskripts mit `maestro test __tests__/maestro/first-flow.yaml`.
+Im Emulator/Simulator kann beobachtet werden, wie der UI-Test durchgeführt wird.
+
+Sollten mehrere Skripte im Ordner `__tests__/maestro` liegen, dann können alle mit
+diesem Befehl ausgeführt werden: `maestro test __tests__/maestro`
+
+Maestro lässt sich in einem „continuous flow“ ausführen, sodass Änderungen
+an Test- oder Code-Dateien schneller und wiederholt überprüft werden können:
+
+```
+maestro test -c __tests__/maestro/first-flow.yaml
+```
+
+### Alternativen zu Maestro
+
+Appium (https://appium.io) ist ebenfalls ein etabliertes und umfangreiches
+Open Source Testframework für End-to-End-Tests.
+
+Für React Native gibt es mit Detox ein weiteres beliebtes Testframework: https://wix.github.io/Detox/
 
 ## Weitere Testarten
 
@@ -226,7 +301,7 @@ Todo…
 - Allgemeine Infos zu Testing in React Native: https://reactnative.dev/docs/testing-overview
 - Integrationstests mit Expo Router: https://docs.expo.dev/router/reference/testing/
 - https://expo.dev/blog/how-to-build-a-solid-test-harness-for-expo-apps
-- https://docs.expo.dev/eas/workflows/examples/e2e-tests/
+- Maestro-Tests in der EAS-Cloud: https://docs.expo.dev/eas/workflows/examples/e2e-tests/
 
 <Callout type="info">
 Im Quellcode der DHBW Lörrach Campus App finden sich Beispiele für 
