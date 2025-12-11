@@ -1,3 +1,48 @@
 import { Callout } from 'nextra/components'
 
-# Erstellung von APKs für Android-Apps
+# Erstellung von APKs für Android-Geräte
+
+## Android (nativ)
+
+In Android Studio über das Menü _Build_ &rarr; _Generate App Bundles or APK_ 
+&rarr; _Generate APKs_ ausführen. 
+
+Die erzeugte Datei `app-debug.apk` liegt im Projektverzeichnis 
+unter `app/build/outputs/apk/debug/app-debug.apk`.
+
+## React Native mit Expo
+
+Mit Expo kann eine APK mit den Command-Line-Tools der Expo Application
+Services (EAS) erstellt werden. Vorgehen:
+
+- EAS CLI installieren: `npm install -g eas-cli`
+- Bei Expo einen Account anlegen: https://expo.dev
+- Mit `eas login` im Terminal bei Expo anmelden
+- Im Projektverzeichnis mit `eas build:configure` die EAS-Konfiguration
+  erzeugen (nur einmalig notwendig). 
+  - Bestätigen, dass ein EAS-Projekt erstellt werden soll und Android als Plattform ausgewählen. 
+  - Dadurch wird eine Datei `eas.json` im Projektverzeichnis angelegt, die in git versioniert werden kann.
+- In `eas.json` folgendes unter `build` hinzufügen, um eine Debug-APK zu erstellen:
+  ```json
+  "preview-apk": {
+    "android": {
+      "buildType": "apk"
+    }
+  },
+  ```
+- Im Projektverzeichnis die APK-Datei in der EAS-Cloud bauen: `eas build --platform android --profile preview-apk` (die Vorschläge bestätigen)
+  - Hinweis: In der Regel muss eine Weile gewartet werden, bis der Cloud-Build abgeschlossen ist.
+  - Nach Abschluss wird ein Link zur fertigen APK-Datei angezeigt, die heruntergeladen werden kann.
+- Alternativ kann die APK-Datei lokal erstellt werden: `eas build --platform android --profile preview-apk --local` 
+  (dafür muss Android Studio mit den SDKs installiert sein)
+
+Mehr Infos: 
+
+- https://docs.expo.dev/build/setup/
+- https://docs.expo.dev/build-reference/apk/
+
+## Flutter
+
+Flutter hat ein Terminal-Kommando `flutter build apk --release`, 
+um eine APK zu erstellen. Die erzeugt Datei `app-debug.apk` liegt 
+im Projektverzeichnis unter `build/app/outputs/flutter-apk/app-release.apk`.
