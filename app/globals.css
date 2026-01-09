@@ -1,9 +1,10 @@
 @import 'tailwindcss';
 @import 'nextra-theme-docs/style.css';
+@custom-variant dark (&:where(.dark *));
 
 .impressum::before {
   content: '・';
-  margin-left: '10px';
+  margin-left: 10px;
 }
 
 .text-shadow {
