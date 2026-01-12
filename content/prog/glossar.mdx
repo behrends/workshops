@@ -98,6 +98,11 @@ ESLint ist ein weit verbreitetes Werkzeug zur statischen Code-Analyse
 für JavaScript und TypeScript. Es erkennt potenzielle Fehler und 
 Stilprobleme im Code und hilft, einheitliche Code-Konventionen einzuhalten.
 
+<span id="export">**export**</span>\
+Mit `export` werden Funktionen, Klassen oder Variablen aus einem 
+[Modul](#Modul) für andere Dateien verfügbar gemacht. 
+Siehe [Modul](#Modul).
+
 <span id="fetch">**fetch**</span>\
 `fetch` ist eine Funktion zum Laden von Daten aus dem Web. Sie gibt ein 
 [Promise](#Promise) zurück und wird häufig mit [async/await](#async-await) 
@@ -153,6 +158,11 @@ mit `new` erzeugt wurde. Jede Instanz hat eigene Werte für die
 Instanzvariablen sind Eigenschaften, die zu einer [Instanz](#Instanz) 
 einer [Klasse](#Klasse) gehören. Jedes Objekt hat eigene Werte für 
 seine Instanzvariablen, z.B. `person.name` oder `person.age`.
+
+<span id="import">**import**</span>\
+Mit `import` werden Funktionen, Klassen oder Variablen aus einem 
+anderen [Modul](#Modul) in die aktuelle Datei eingebunden. 
+Siehe [Modul](#Modul).
 
 <span id="Iteration">**Iteration**</span>\
 Ein einzelner Durchlauf einer [Schleife](#Schleife). Bei einer `for`- 
@@ -212,6 +222,13 @@ Beispiel: `const m = new Map(); m.set('key', 'value');`.
 <span id="Methode">**Methode**</span>\
 Eine Methode ist eine Funktion, die zu einem Objekt gehört und über 
 dieses aufgerufen wird, z.B. `console.log()` oder `myArray.push(5)`.
+
+<span id="Modul">**Modul**</span>\
+Ein Modul ist eine eigenständige JavaScript-Datei, die Code kapselt und 
+wiederverwendbar macht. Mit [export](#export) werden Funktionen, Klassen 
+oder Variablen nach außen verfügbar gemacht, mit [import](#import) können 
+diese in anderen Dateien verwendet werden. Beispiel: 
+`export function add(a, b) { return a + b; }` und `import { add } from './math.js';`.
 
 <span id="Node.js">**Node.js**</span>\
 Node.js ist eine Laufzeitumgebung, die es ermöglicht, JavaScript außerhalb 
