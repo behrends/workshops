@@ -1,6 +1,6 @@
 export default {
   '01-vorstellung': 'Vorstellung',
-  '02-motivation': 'Motivation',
+  '02-motivation': 'Programmieren im KI-Zeitalter',
   '03-organisatorisches': 'Organisatorisches',
   '04-ablauf': 'Ablauf',
   '05-intro': 'Einführung',
