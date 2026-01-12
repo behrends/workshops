@@ -7,15 +7,12 @@ import { Callout } from 'nextra/components'
   mit kurzen Erläuterungen.
 </Callout>
 
+## Grundbegriffe
+
 <span id="Anweisung">**Anweisung**</span>\
 Eine Anweisung (engl. _statement_) ist eine einzelne ausführbare Einheit 
 im Programmcode, z.B. eine Variablendeklaration, eine Zuweisung, ein 
 Funktionsaufruf oder eine Kontrollstruktur wie `if` oder `while`.
-
-<span id="API">**API**</span>\
-Eine API (Application Programming Interface) ist eine Schnittstelle, über die 
-Programme miteinander kommunizieren können. Web-APIs ermöglichen den Zugriff 
-auf Daten und Funktionen über das Internet, z.B. Wetterdaten oder Kartendienste.
 
 <span id="Argument">**Argument**</span>\
 Siehe [Parameter](#Parameter).
@@ -26,31 +23,21 @@ mehrere Werte in einer geordneten Reihenfolge speichert. In JavaScript
 werden Arrays mit eckigen Klammern erstellt: `let zahlen = [1, 2, 3];`. 
 Die Elemente werden über einen Index angesprochen, der bei 0 beginnt.
 
-<span id="Arrow-Function">**Arrow Function**</span>\
-Arrow Functions (Pfeilfunktionen) sind eine kompakte Syntax für Funktionen 
-mit `=>` anstatt `function`. Beispiel: `const add = (a, b) => a + b;`. 
-Bei nur einem Parameter können die Klammern weggelassen werden.
-
-<span id="async-await">**async/await**</span>\
-`async` und `await` vereinfachen die Arbeit mit [Promises](#Promise). 
-Eine mit `async` deklarierte Funktion kann `await` verwenden, um auf 
-das Ergebnis eines Promise zu warten, ohne Callbacks zu benötigen.
-
 <span id="Ausdruck">**Ausdruck**</span>\
 Ein Ausdruck (engl. _expression_) ist ein Teil des Codes, der zu einem 
 Wert ausgewertet wird. Beispiele: `5`, `2 + 3`, `myVariable`, 
 `Math.random()`. Ausdrücke können miteinander kombiniert werden.
+
+<span id="Bedingung">**Bedingung**</span>\
+Eine Bedingung ist ein [Ausdruck](#Ausdruck), der zu einem [Boolean](#Boolean) 
+ausgewertet wird (`true` oder `false`). Bedingungen steuern den Ablauf bei 
+[Verzweigungen](#Verzweigung) (`if`) und [Schleifen](#Schleife) (`while`, `for`).
 
 <span id="Bezeichner">**Bezeichner**</span>\
 Ein Bezeichner (engl. _identifier_) ist ein selbstgewählter Name für 
 Variablen, Konstanten, Funktionen oder Klassen. Bezeichner dürfen aus 
 Buchstaben, Ziffern, `_` und `$` bestehen, aber nicht mit einer Ziffer 
 beginnen und keine [Schlüsselwörter](#Schlüsselwort) sein.
-
-<span id="Bedingung">**Bedingung**</span>\
-Eine Bedingung ist ein [Ausdruck](#Ausdruck), der zu einem [Boolean](#Boolean) 
-ausgewertet wird (`true` oder `false`). Bedingungen steuern den Ablauf bei 
-[Verzweigungen](#Verzweigung) (`if`) und [Schleifen](#Schleife) (`while`, `for`).
 
 <span id="Block">**Block**</span>\
 Der Bereich zwischen geschweiften Klammern (`{...}`) wird auch Block
@@ -75,17 +62,6 @@ Für Klassen wird PascalCase verwendet, bei dem auch das erste Wort
 großgeschrieben wird (z.B. `MyClass`). In anderen Sprachen wie Python 
 ist snake_case üblich (z.B. `my_variable`).
 
-<span id="Callback">**Callback**</span>\
-Ein Callback ist eine Funktion, die als Argument an eine andere Funktion 
-übergeben wird und später aufgerufen wird. Callbacks werden häufig für 
-asynchrone Operationen oder Event-Handler verwendet.
-
-<span id="Compiler">**Compiler**</span>\
-Ein Compiler übersetzt Quellcode einer Programmiersprache vollständig in 
-eine andere Sprache (z.B. Maschinencode), bevor das Programm ausgeführt wird. 
-Der TypeScript-Compiler übersetzt TypeScript-Code in JavaScript-Code. 
-Siehe auch [Interpreter](#Interpreter).
-
 <span id="Datentyp">**Datentyp**</span>\
 Datentypen legen fest, welche Art von Werten eine Variable speichern 
 kann. In JavaScript gibt es u.a. `number`, `string`, `boolean`, `object`, 
@@ -97,6 +73,203 @@ JavaScript ist dynamisch typisiert, d.h. der Typ wird zur Laufzeit ermittelt.
 Die Deklaration führt eine Variable oder Konstante mit einem Namen ein, 
 ohne ihr zwingend einen Wert zuzuweisen. Variablen werden mit `let` 
 und Konstanten mit `const` deklariert, z.B. `let myVariable;`.
+
+<span id="Funktion">**Funktion**</span>\
+Eine Funktion ist ein benannter Codeblock, der Anweisungen zusammenfasst 
+und bei Bedarf aufgerufen werden kann. Funktionen können [Parameter](#Parameter) 
+entgegennehmen und einen [Rückgabewert](#Rückgabewert) zurückliefern. 
+Sie werden mit dem Schlüsselwort `function` deklariert. Alternativ gibt es 
+auch Arrow Functions (`() => {}`) und Funktionsausdrücke.
+
+<span id="Funktionsaufruf">**Funktionsaufruf**</span>\
+Ein Funktionsaufruf führt den Code einer zuvor deklarierten Funktion aus. 
+Er besteht aus dem Funktionsnamen gefolgt von runden Klammern mit 
+optionalen Argumenten, z.B. `console.log("Hallo");` oder `myFunction(5, 10);`.
+
+<span id="Funktionsrumpf">**Funktionsrumpf**</span>\
+Durch geschweifte Klammern (`{...}`) umgebener „Code-Inhalt" der Funktion.
+
+<span id="Gültigkeitsbereich">**Gültigkeitsbereich**</span>\
+Der Gültigkeitsbereich (engl. _scope_) definiert für eine Variable 
+oder Konstante den Bereich im Code, in dem diese Variable (Konstante) 
+bekannt ist. Er wird in JavaScript durch geschweifte
+Klammern (`{...}`) festgelegt (z.B. ein Funktionsrumpf oder der Code-Block 
+bei `if` oder `while`). Für eine bestimmte Variable oder Konstante ist
+der Gültigkeitsbereich durch die nächsten, umgebenden geschweiften
+Klammern zu finden. Variablen mit `let` und Konstanten mit `const` sind
+innerhalb ihres Gültigkeitsbereich eindeutig und außerhalb nicht bekannt.
+
+<span id="Initialisierung">**Initialisierung**</span>\
+Die Initialisierung ist die Kombination aus [Deklaration](#Deklaration) 
+und erster [Zuweisung](#Zuweisung) eines Wertes, z.B. `let x = 5;`. 
+Konstanten müssen bei der Deklaration initialisiert werden.
+
+<span id="Iteration">**Iteration**</span>\
+Ein einzelner Durchlauf einer [Schleife](#Schleife). Bei einer `for`- 
+oder `while`-Schleife wird der Schleifenrumpf in jeder Iteration einmal 
+ausgeführt.
+
+<span id="Klasse">**Klasse**</span>\
+Eine Klasse ist ein „Bauplan" für [Objekte](#Objekt) mit gleicher Struktur. 
+Sie definiert [Instanzvariablen](#Instanzvariable) und [Methoden](#Methode). 
+Mit `new ClassName()` werden [Instanzen](#Instanz) erzeugt. Beispiel: 
+`class Person { constructor(name) { this.name = name; } }`.
+
+<span id="Kommentar">**Kommentar**</span>\
+Kommentare sind Anmerkungen im Code, die nicht ausgeführt werden. 
+Einzeilige Kommentare beginnen mit `//`, mehrzeilige stehen zwischen 
+`/*` und `*/`. Kommentare dienen der Dokumentation und Erklärung.
+
+<span id="Konkatenation">**Konkatenation**</span>\
+Das Aneinanderfügen von Strings mit dem `+`-Operator, 
+z.B. `"Hallo " + "Welt"` ergibt `"Hallo Welt"`.
+
+<span id="Konstante">**Konstante**</span>\
+Eine Konstante ist ähnlich wie eine Variable ein benannter Speicherplatz, 
+der aber nach der Initialisierung nicht mehr geändert werden kann. 
+Konstanten werden mit `const` deklariert und müssen direkt einen Wert erhalten.
+Achtung: Bei Objekten und Arrays ist nur die Referenz unveränderlich – 
+die Inhalte können weiterhin geändert werden (z.B. `arr.push(1)` funktioniert).
+
+<span id="Konstruktor">**Konstruktor**</span>\
+Ein Konstruktor ist eine spezielle Methode einer [Klasse](#Klasse), die 
+beim Erzeugen einer [Instanz](#Instanz) mit `new` aufgerufen wird. 
+In JavaScript wird der Konstruktor mit `constructor(...)` definiert und 
+initialisiert die [Instanzvariablen](#Instanzvariable).
+
+<span id="Kontrollstruktur">**Kontrollstruktur**</span>\
+Kontrollstrukturen steuern den Ablauf eines Programms. Dazu gehören 
+[Verzweigungen](#Verzweigung) (`if`, `else`, `switch`) und 
+[Schleifen](#Schleife) (`for`, `while`).
+
+<span id="Laufzeit">**Laufzeit**</span>\
+Die Laufzeit (engl. _runtime_) ist der Zeitraum, in dem ein Programm ausgeführt 
+wird. Laufzeitfehler treten während der Ausführung auf (z.B. Division durch 0), 
+im Gegensatz zu [Syntaxfehlern](#Syntax), die vor der Ausführung erkannt werden. 
+JavaScript ist dynamisch typisiert, d.h. Typen werden zur Laufzeit ermittelt.
+
+<span id="Literal">**Literal**</span>\
+Ein Literal ist ein direkt im Code angegebener Wert, z.B. die Zahl `42`, 
+der String `"Hello"` oder der Boolean `true`. Literale repräsentieren 
+feste Werte ohne Berechnung.
+
+<span id="Methode">**Methode**</span>\
+Eine Methode ist eine Funktion, die zu einem Objekt gehört und über 
+dieses aufgerufen wird, z.B. `console.log()` oder `myArray.push(5)`.
+
+<span id="null">**null**</span>\
+`null` ist ein spezieller Wert, der bewusst „kein Wert" oder „leer" bedeutet. 
+Im Gegensatz zu [undefined](#undefined) (nicht initialisiert) wird `null` 
+absichtlich zugewiesen, um anzuzeigen, dass eine Variable keinen Wert hat.
+
+<span id="Objekt">**Objekt**</span>\
+Ein Objekt ist eine Datenstruktur, die Eigenschaften (key-value-Paare) 
+zusammenfasst, z.B. `let person = {name: "Anna", age: 25};`. Auf 
+Eigenschaften wird mit Punktnotation zugegriffen: `person.name`.
+
+<span id="Operator">**Operator**</span>\
+Operatoren führen Operationen auf Werten durch. Es gibt arithmetische 
+Operatoren (`+`, `-`, `*`, `/`), Vergleichsoperatoren (`===`, `!==`, `<`, `>`), 
+logische Operatoren (`&&`, `||`, `!`) und den Zuweisungsoperator (`=`).
+
+<span id="Parameter">**Parameter**</span>\
+Parameter (auch Argumente genannt) sind Werte, die an eine Funktion 
+übergeben werden. Sie werden in den Klammern bei der Funktionsdeklaration 
+definiert und beim Aufruf mit konkreten Werten befüllt.
+
+<span id="Rückgabewert">**Rückgabewert**</span>\
+Der Rückgabewert (engl. _return value_) ist das Ergebnis, das eine 
+Funktion mit `return` zurückliefert. Ohne explizites `return` gibt 
+eine Funktion in JavaScript `undefined` zurück.
+
+<span id="Schleife">**Schleife**</span>\
+Schleifen (engl. _loops_) wiederholen einen Codeblock, solange eine 
+Bedingung erfüllt ist. In JavaScript gibt es `for`-, `while`- und 
+`do-while`-Schleifen. Siehe auch [Iteration](#Iteration).
+
+<span id="Schlüsselwort">**Schlüsselwort**</span>\
+Schlüsselwörter (engl. _keywords_) sind reservierte Wörter mit 
+vordefinierter Bedeutung in JavaScript, z.B. `let`, `const`, `function`, 
+`if`, `else`, `for`, `while`, `return`. Sie dürfen nicht als 
+[Bezeichner](#Bezeichner) verwendet werden.
+
+<span id="String">**String**</span>\
+Ein String ist eine Zeichenkette bzw. Text. In JavaScript können 
+Strings mit einfachen (`'...'`), doppelten (`"..."`) Anführungszeichen 
+oder Backticks (`` `...` ``) erstellt werden. Letztere ermöglichen 
+[Template-Strings](#Template-String).
+
+<span id="Syntax">**Syntax**</span>\
+Die Syntax sind die Regeln für den Aufbau gültiger [Anweisungen](#Anweisung) 
+in einer Programmiersprache. Syntaxfehler (z.B. fehlende Klammern) werden 
+vor der Ausführung erkannt und führen zu einem `SyntaxError`. 
+Siehe auch [Semantik](#Semantik).
+
+<span id="Template-String">**Template-String**</span>\
+Template-Strings werden mit Backticks (`` `...` ``) umschlossen und 
+ermöglichen String-Interpolation: Mit `${...}` können JavaScript-Ausdrücke 
+direkt eingebettet werden, z.B. `` `Hallo ${name}!` ``.
+
+<span id="this">**this**</span>\
+`this` ist ein Schlüsselwort, das innerhalb einer [Klasse](#Klasse) oder 
+[Methode](#Methode) auf das aktuelle Objekt verweist. Im [Konstruktor](#Konstruktor) 
+wird `this` verwendet, um [Instanzvariablen](#Instanzvariable) zu setzen: 
+`this.name = name;`.
+
+<span id="typeof">**typeof**</span>\
+Der `typeof`-Operator ermittelt den Datentyp eines Ausdrucks und gibt 
+diesen als String zurück, z.B. `typeof 42` ergibt `"number"` und 
+`typeof "Hi"` ergibt `"string"`.
+
+<span id="undefined">**undefined**</span>\
+`undefined` ist ein spezieller Wert in JavaScript, der anzeigt, dass 
+eine Variable deklariert, aber noch nicht initialisiert wurde, oder 
+dass eine Funktion keinen Rückgabewert hat.
+
+<span id="Variable">**Variable**</span>\
+Eine Variable ist ein benannter Speicherplatz für Werte. Sie wird mit 
+`let` deklariert und kann im Laufe des Programms unterschiedliche 
+Werte annehmen. Siehe auch [Konstante](#Konstante).
+
+<span id="Verzweigung">**Verzweigung**</span>\
+Eine Verzweigung (auch Fallunterscheidung) ermöglicht es, Code nur unter 
+bestimmten Bedingungen auszuführen. In JavaScript gibt es `if`, `else if`, 
+`else` und `switch` für Verzweigungen.
+
+<span id="Zuweisung">**Zuweisung**</span>\
+Eine Zuweisung weist einer Variablen einen Wert zu. Der Zuweisungsoperator 
+ist `=`, z.B. `x = 10;`. Der Wert auf der rechten Seite wird der 
+Variablen auf der linken Seite zugewiesen.
+
+---
+
+## Weiterführende Begriffe
+
+<span id="API">**API**</span>\
+Eine API (Application Programming Interface) ist eine Schnittstelle, über die 
+Programme miteinander kommunizieren können. Web-APIs ermöglichen den Zugriff 
+auf Daten und Funktionen über das Internet, z.B. Wetterdaten oder Kartendienste.
+
+<span id="Arrow-Function">**Arrow Function**</span>\
+Arrow Functions (Pfeilfunktionen) sind eine kompakte Syntax für Funktionen 
+mit `=>` anstatt `function`. Beispiel: `const add = (a, b) => a + b;`. 
+Bei nur einem Parameter können die Klammern weggelassen werden.
+
+<span id="async-await">**async/await**</span>\
+`async` und `await` vereinfachen die Arbeit mit [Promises](#Promise). 
+Eine mit `async` deklarierte Funktion kann `await` verwenden, um auf 
+das Ergebnis eines Promise zu warten, ohne Callbacks zu benötigen.
+
+<span id="Callback">**Callback**</span>\
+Ein Callback ist eine Funktion, die als Argument an eine andere Funktion 
+übergeben wird und später aufgerufen wird. Callbacks werden häufig für 
+asynchrone Operationen oder Event-Handler verwendet.
+
+<span id="Compiler">**Compiler**</span>\
+Ein Compiler übersetzt Quellcode einer Programmiersprache vollständig in 
+eine andere Sprache (z.B. Maschinencode), bevor das Programm ausgeführt wird. 
+Der TypeScript-Compiler übersetzt TypeScript-Code in JavaScript-Code. 
+Siehe auch [Interpreter](#Interpreter).
 
 <span id="Debugging">**Debugging**</span>\
 Debugging ist der Prozess, Fehler im Code zu finden und zu beheben. 
@@ -125,30 +298,10 @@ Siehe [Modul](#Modul).
 [Promise](#Promise) zurück und wird häufig mit [async/await](#async-await) 
 verwendet: `const response = await fetch(url);`.
 
-<span id="Funktion">**Funktion**</span>\
-Eine Funktion ist ein benannter Codeblock, der Anweisungen zusammenfasst 
-und bei Bedarf aufgerufen werden kann. Funktionen können [Parameter](#Parameter) 
-entgegennehmen und einen [Rückgabewert](#Rückgabewert) zurückliefern. 
-Sie werden mit dem Schlüsselwort `function` deklariert. Alternativ gibt es 
-auch Arrow Functions (`() => {}`) und Funktionsausdrücke.
-
-<span id="Funktionsaufruf">**Funktionsaufruf**</span>\
-Ein Funktionsaufruf führt den Code einer zuvor deklarierten Funktion aus. 
-Er besteht aus dem Funktionsnamen gefolgt von runden Klammern mit 
-optionalen Argumenten, z.B. `console.log("Hallo");` oder `myFunction(5, 10);`.
-
-<span id="Funktionsrumpf">**Funktionsrumpf**</span>\
-Durch geschweifte Klammern (`{...}`) umgebener „Code-Inhalt" der Funktion.
-
-<span id="Gültigkeitsbereich">**Gültigkeitsbereich**</span>\
-Der Gültigkeitsbereich (engl. _scope_) definiert für eine Variable 
-oder Konstante den Bereich im Code, in dem diese Variable (Konstante) 
-bekannt ist. Er wird in JavaScript durch geschweifte
-Klammern (`{...}`) festgelegt (z.B. ein Funktionsrumpf oder der Code-Block 
-bei `if` oder `while`). Für eine bestimmte Variable oder Konstante ist
-der Gültigkeitsbereich durch die nächsten, umgebenden geschweiften
-Klammern zu finden. Variablen mit `let` und Konstanten mit `const` sind
-innerhalb ihres Gültigkeitsbereich eindeutig und außerhalb nicht bekannt.
+<span id="Git">**Git**</span>\
+[Git](https://git-scm.com/) ist ein Versionsverwaltungssystem, das Änderungen an Dateien verfolgt 
+und die Zusammenarbeit im Team ermöglicht. Mit Git können verschiedene 
+Versionen eines Projekts gespeichert und bei Bedarf wiederhergestellt werden.
 
 <span id="IDE">**IDE / Editor**</span>\
 Eine IDE (Integrated Development Environment) ist eine Entwicklungsumgebung 
@@ -156,21 +309,10 @@ mit Editor, [Debugging](#Debugging)-Tools und weiteren Funktionen.
 [VS Code](#VS-Code) ist ein populärer Code-Editor mit IDE-ähnlichen Features 
 für JavaScript-Entwicklung.
 
-<span id="Git">**Git**</span>\
-[Git](https://git-scm.com/) ist ein Versionsverwaltungssystem, das Änderungen an Dateien verfolgt 
-und die Zusammenarbeit im Team ermöglicht. Mit Git können verschiedene 
-Versionen eines Projekts gespeichert und bei Bedarf wiederhergestellt werden.
-
-<span id="Initialisierung">**Initialisierung**</span>\
-Die Initialisierung ist die Kombination aus [Deklaration](#Deklaration) 
-und erster [Zuweisung](#Zuweisung) eines Wertes, z.B. `let x = 5;`. 
-Konstanten müssen bei der Deklaration initialisiert werden.
-
-<span id="Interpreter">**Interpreter**</span>\
-Ein Interpreter führt Quellcode Zeile für Zeile aus, ohne ihn vorher 
-vollständig zu übersetzen. JavaScript wird von einem Interpreter 
-ausgeführt, der im Browser oder in [Node.js](#Node.js) integriert ist. 
-Siehe auch [Compiler](#Compiler).
+<span id="import">**import**</span>\
+Mit `import` werden Funktionen, Klassen oder Variablen aus einem 
+anderen [Modul](#Modul) in die aktuelle Datei eingebunden. 
+Siehe [Modul](#Modul).
 
 <span id="Instanz">**Instanz**</span>\
 Eine Instanz ist ein konkretes Objekt, das anhand einer [Klasse](#Klasse) 
@@ -182,15 +324,11 @@ Instanzvariablen sind Eigenschaften, die zu einer [Instanz](#Instanz)
 einer [Klasse](#Klasse) gehören. Jedes Objekt hat eigene Werte für 
 seine Instanzvariablen, z.B. `person.name` oder `person.age`.
 
-<span id="import">**import**</span>\
-Mit `import` werden Funktionen, Klassen oder Variablen aus einem 
-anderen [Modul](#Modul) in die aktuelle Datei eingebunden. 
-Siehe [Modul](#Modul).
-
-<span id="Iteration">**Iteration**</span>\
-Ein einzelner Durchlauf einer [Schleife](#Schleife). Bei einer `for`- 
-oder `while`-Schleife wird der Schleifenrumpf in jeder Iteration einmal 
-ausgeführt.
+<span id="Interpreter">**Interpreter**</span>\
+Ein Interpreter führt Quellcode Zeile für Zeile aus, ohne ihn vorher 
+vollständig zu übersetzen. JavaScript wird von einem Interpreter 
+ausgeführt, der im Browser oder in [Node.js](#Node.js) integriert ist. 
+Siehe auch [Compiler](#Compiler).
 
 <span id="JSON">**JSON**</span>\
 [JSON](https://www.json.org/) (JavaScript Object Notation) ist ein textbasiertes Datenformat zum 
@@ -198,59 +336,11 @@ Austausch von Daten. Es ähnelt der JavaScript-Objektsyntax und wird häufig
 für [APIs](#API) verwendet. Mit `JSON.parse()` und `JSON.stringify()` 
 kann zwischen JSON-Text und JavaScript-Objekten konvertiert werden.
 
-<span id="Klasse">**Klasse**</span>\
-Eine Klasse ist ein „Bauplan" für [Objekte](#Objekt) mit gleicher Struktur. 
-Sie definiert [Instanzvariablen](#Instanzvariable) und [Methoden](#Methode). 
-Mit `new ClassName()` werden [Instanzen](#Instanz) erzeugt. Beispiel: 
-`class Person { constructor(name) { this.name = name; } }`.
-
-<span id="Kommentar">**Kommentar**</span>\
-Kommentare sind Anmerkungen im Code, die nicht ausgeführt werden. 
-Einzeilige Kommentare beginnen mit `//`, mehrzeilige stehen zwischen 
-`/*` und `*/`. Kommentare dienen der Dokumentation und Erklärung.
-
-<span id="Konkatenation">**Konkatenation**</span>\
-Das Aneinanderfügen von Strings mit dem `+`-Operator, 
-z.B. `"Hallo " + "Welt"` ergibt `"Hallo Welt"`.
-
-<span id="Konstruktor">**Konstruktor**</span>\
-Ein Konstruktor ist eine spezielle Methode einer [Klasse](#Klasse), die 
-beim Erzeugen einer [Instanz](#Instanz) mit `new` aufgerufen wird. 
-In JavaScript wird der Konstruktor mit `constructor(...)` definiert und 
-initialisiert die [Instanzvariablen](#Instanzvariable).
-
-<span id="Laufzeit">**Laufzeit**</span>\
-Die Laufzeit (engl. _runtime_) ist der Zeitraum, in dem ein Programm ausgeführt 
-wird. Laufzeitfehler treten während der Ausführung auf (z.B. Division durch 0), 
-im Gegensatz zu [Syntaxfehlern](#Syntax), die vor der Ausführung erkannt werden. 
-JavaScript ist dynamisch typisiert, d.h. Typen werden zur Laufzeit ermittelt.
-
-<span id="Konstante">**Konstante**</span>\
-Eine Konstante ist ähnlich wie eine Variable ein benannter Speicherplatz, 
-der aber nach der Initialisierung nicht mehr geändert werden kann. 
-Konstanten werden mit `const` deklariert und müssen direkt einen Wert erhalten.
-Achtung: Bei Objekten und Arrays ist nur die Referenz unveränderlich – 
-die Inhalte können weiterhin geändert werden (z.B. `arr.push(1)` funktioniert).
-
-<span id="Kontrollstruktur">**Kontrollstruktur**</span>\
-Kontrollstrukturen steuern den Ablauf eines Programms. Dazu gehören 
-[Verzweigungen](#Verzweigung) (`if`, `else`, `switch`) und 
-[Schleifen](#Schleife) (`for`, `while`).
-
-<span id="Literal">**Literal**</span>\
-Ein Literal ist ein direkt im Code angegebener Wert, z.B. die Zahl `42`, 
-der String `"Hello"` oder der Boolean `true`. Literale repräsentieren 
-feste Werte ohne Berechnung.
-
 <span id="Map">**Map**</span>\
 Eine Map ist eine Datenstruktur für Schlüssel-Wert-Paare, ähnlich wie 
 [Objekte](#Objekt), aber mit optimierter Performance und hilfreichen 
 Methoden wie `get()`, `set()`, `has()` und `delete()`. 
 Beispiel: `const m = new Map(); m.set('key', 'value');`.
-
-<span id="Methode">**Methode**</span>\
-Eine Methode ist eine Funktion, die zu einem Objekt gehört und über 
-dieses aufgerufen wird, z.B. `console.log()` oder `myArray.push(5)`.
 
 <span id="Modul">**Modul**</span>\
 Ein Modul ist eine eigenständige JavaScript-Datei, die Code kapselt und 
@@ -276,40 +366,15 @@ Mit `npm install paketname` werden Pakete (Bibliotheken) installiert, die in
 der [package.json](#package.json) verwaltet werden. Das Verzeichnis `node_modules` 
 enthält die installierten Pakete.
 
-<span id="null">**null**</span>\
-`null` ist ein spezieller Wert, der bewusst „kein Wert" oder „leer" bedeutet. 
-Im Gegensatz zu [undefined](#undefined) (nicht initialisiert) wird `null` 
-absichtlich zugewiesen, um anzuzeigen, dass eine Variable keinen Wert hat.
-
-<span id="Objekt">**Objekt**</span>\
-Ein Objekt ist eine Datenstruktur, die Eigenschaften (key-value-Paare) 
-zusammenfasst, z.B. `let person = {name: "Anna", age: 25};`. Auf 
-Eigenschaften wird mit Punktnotation zugegriffen: `person.name`.
-
-<span id="Operator">**Operator**</span>\
-Operatoren führen Operationen auf Werten durch. Es gibt arithmetische 
-Operatoren (`+`, `-`, `*`, `/`), Vergleichsoperatoren (`===`, `!==`, `<`, `>`), 
-logische Operatoren (`&&`, `||`, `!`) und den Zuweisungsoperator (`=`).
-
 <span id="package.json">**package.json**</span>\
 Die `package.json` ist die zentrale Konfigurationsdatei eines [Node.js](#Node.js)-Projekts. 
 Sie enthält Metadaten (Name, Version), Abhängigkeiten zu anderen Paketen und 
 Skripte für häufige Aufgaben. Mit `npm init` wird eine neue `package.json` erstellt.
 
-<span id="Parameter">**Parameter**</span>\
-Parameter (auch Argumente genannt) sind Werte, die an eine Funktion 
-übergeben werden. Sie werden in den Klammern bei der Funktionsdeklaration 
-definiert und beim Aufruf mit konkreten Werten befüllt.
-
 <span id="Promise">**Promise**</span>\
 Ein [Promise](https://javascript.info/promise-basics) repräsentiert das Ergebnis einer asynchronen Operation, das 
 erst in der Zukunft verfügbar sein wird. Mit `.then()` kann auf das 
 Ergebnis reagiert werden, oder einfacher mit [async/await](#async-await).
-
-<span id="Rückgabewert">**Rückgabewert**</span>\
-Der Rückgabewert (engl. _return value_) ist das Ergebnis, das eine 
-Funktion mit `return` zurückliefert. Ohne explizites `return` gibt 
-eine Funktion in JavaScript `undefined` zurück.
 
 <span id="Regulärer-Ausdruck">**Regulärer Ausdruck**</span>\
 Reguläre Ausdrücke (engl. _regular expressions_, kurz RegExp) beschreiben 
@@ -317,32 +382,15 @@ Textmuster zur Überprüfung von Strings. In JavaScript werden sie zwischen
 Schrägstrichen definiert: `/[A-Za-z]+/`. Mit `test()` wird geprüft, ob 
 ein String zum Muster passt. Siehe [regexlearn.com](https://regexlearn.com/).
 
-<span id="Schleife">**Schleife**</span>\
-Schleifen (engl. _loops_) wiederholen einen Codeblock, solange eine 
-Bedingung erfüllt ist. In JavaScript gibt es `for`-, `while`- und 
-`do-while`-Schleifen. Siehe auch [Iteration](#Iteration).
-
 <span id="Semantik">**Semantik**</span>\
 Semantik bezeichnet die Bedeutung von Code – was der Code tatsächlich bewirkt. 
 Ein Programm kann syntaktisch korrekt sein, aber semantisch falsch (z.B. 
 `if (x = 5)` statt `if (x === 5)`). Siehe auch [Syntax](#Syntax).
 
-<span id="Schlüsselwort">**Schlüsselwort**</span>\
-Schlüsselwörter (engl. _keywords_) sind reservierte Wörter mit 
-vordefinierter Bedeutung in JavaScript, z.B. `let`, `const`, `function`, 
-`if`, `else`, `for`, `while`, `return`. Sie dürfen nicht als 
-[Bezeichner](#Bezeichner) verwendet werden.
-
 <span id="Set">**Set**</span>\
 Ein Set ist eine Datenstruktur, die Werte ohne Duplikate speichert – 
 wie eine mathematische Menge. Elemente werden mit `add()` hinzugefügt 
 und mit `has()` geprüft. Beispiel: `const s = new Set(); s.add('a');`.
-
-<span id="String">**String**</span>\
-Ein String ist eine Zeichenkette bzw. Text. In JavaScript können 
-Strings mit einfachen (`'...'`), doppelten (`"..."`) Anführungszeichen 
-oder Backticks (`` `...` ``) erstellt werden. Letztere ermöglichen 
-[Template-Strings](#Template-String).
 
 <span id="Spread-Operator">**Spread-Operator**</span>\
 Der Spread-Operator `...` „entpackt" Elemente aus [Arrays](#Array) oder 
@@ -350,28 +398,11 @@ Der Spread-Operator `...` „entpackt" Elemente aus [Arrays](#Array) oder
 `{...obj, name: "neu"}` kopiert ein Objekt mit Änderung. 
 Siehe auch [Destrukturierung](#Destrukturierung).
 
-<span id="Syntax">**Syntax**</span>\
-Die Syntax sind die Regeln für den Aufbau gültiger [Anweisungen](#Anweisung) 
-in einer Programmiersprache. Syntaxfehler (z.B. fehlende Klammern) werden 
-vor der Ausführung erkannt und führen zu einem `SyntaxError`. 
-Siehe auch [Semantik](#Semantik).
-
-<span id="Template-String">**Template-String**</span>\
-Template-Strings werden mit Backticks (`` `...` ``) umschlossen und 
-ermöglichen String-Interpolation: Mit `${...}` können JavaScript-Ausdrücke 
-direkt eingebettet werden, z.B. `` `Hallo ${name}!` ``.
-
 <span id="Terminal">**Terminal**</span>\
 Das Terminal (auch Kommandozeile oder Konsole) ist eine textbasierte 
 Schnittstelle zur Ausführung von Befehlen. In [VS Code](#VS-Code) ist ein 
 Terminal integriert, über das z.B. [Node.js](#Node.js)-Programme mit 
 `node datei.js` oder [npm](#npm)-Befehle ausgeführt werden.
-
-<span id="this">**this**</span>\
-`this` ist ein Schlüsselwort, das innerhalb einer [Klasse](#Klasse) oder 
-[Methode](#Methode) auf das aktuelle Objekt verweist. Im [Konstruktor](#Konstruktor) 
-wird `this` verwendet, um [Instanzvariablen](#Instanzvariable) zu setzen: 
-`this.name = name;`.
 
 <span id="TypeScript">**TypeScript**</span>\
 [TypeScript](https://www.typescriptlang.org/) ist eine von Microsoft entwickelte Erweiterung von JavaScript, 
@@ -379,39 +410,14 @@ die statische Typisierung hinzufügt. TypeScript-Code wird durch einen
 [Compiler](#Compiler) in JavaScript übersetzt und kann dann im Browser 
 oder in [Node.js](#Node.js) ausgeführt werden.
 
-<span id="typeof">**typeof**</span>\
-Der `typeof`-Operator ermittelt den Datentyp eines Ausdrucks und gibt 
-diesen als String zurück, z.B. `typeof 42` ergibt `"number"` und 
-`typeof "Hi"` ergibt `"string"`.
-
-<span id="undefined">**undefined**</span>\
-`undefined` ist ein spezieller Wert in JavaScript, der anzeigt, dass 
-eine Variable deklariert, aber noch nicht initialisiert wurde, oder 
-dass eine Funktion keinen Rückgabewert hat.
-
-<span id="Variable">**Variable**</span>\
-Eine Variable ist ein benannter Speicherplatz für Werte. Sie wird mit 
-`let` deklariert und kann im Laufe des Programms unterschiedliche 
-Werte annehmen. Siehe auch [Konstante](#Konstante).
-
 <span id="Vererbung">**Vererbung**</span>\
 Vererbung ermöglicht es, eine neue [Klasse](#Klasse) (Subklasse) von einer 
 bestehenden Klasse abzuleiten. Die Subklasse erbt alle Eigenschaften und 
 [Methoden](#Methode) und kann diese erweitern. In JavaScript wird Vererbung 
 mit `extends` definiert: `class Student extends Person { }`.
 
-<span id="Verzweigung">**Verzweigung**</span>\
-Eine Verzweigung (auch Fallunterscheidung) ermöglicht es, Code nur unter 
-bestimmten Bedingungen auszuführen. In JavaScript gibt es `if`, `else if`, 
-`else` und `switch` für Verzweigungen.
-
 <span id="VS-Code">**VS Code**</span>\
 [Visual Studio Code](https://code.visualstudio.com/) (VS Code) ist ein kostenloser, 
 weit verbreiteter Code-Editor von Microsoft. Er bietet Syntax-Highlighting, 
 [Debugging](#Debugging), integriertes [Terminal](#Terminal), [Git](#Git)-Integration 
 und zahlreiche Erweiterungen für JavaScript und [TypeScript](#TypeScript).
-
-<span id="Zuweisung">**Zuweisung**</span>\
-Eine Zuweisung weist einer Variablen einen Wert zu. Der Zuweisungsoperator 
-ist `=`, z.B. `x = 10;`. Der Wert auf der rechten Seite wird der 
-Variablen auf der linken Seite zugewiesen.
