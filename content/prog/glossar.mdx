@@ -12,6 +12,11 @@ Eine Anweisung (engl. _statement_) ist eine einzelne ausführbare Einheit
 im Programmcode, z.B. eine Variablendeklaration, eine Zuweisung, ein 
 Funktionsaufruf oder eine Kontrollstruktur wie `if` oder `while`.
 
+<span id="API">**API**</span>\
+Eine API (Application Programming Interface) ist eine Schnittstelle, über die 
+Programme miteinander kommunizieren können. Web-APIs ermöglichen den Zugriff 
+auf Daten und Funktionen über das Internet, z.B. Wetterdaten oder Kartendienste.
+
 <span id="Argument">**Argument**</span>\
 Siehe [Parameter](#Parameter).
 
@@ -20,6 +25,16 @@ Ein Array (auch Liste oder Feld genannt) ist eine Datenstruktur, die
 mehrere Werte in einer geordneten Reihenfolge speichert. In JavaScript 
 werden Arrays mit eckigen Klammern erstellt: `let zahlen = [1, 2, 3];`. 
 Die Elemente werden über einen Index angesprochen, der bei 0 beginnt.
+
+<span id="Arrow-Function">**Arrow Function**</span>\
+Arrow Functions (Pfeilfunktionen) sind eine kompakte Syntax für Funktionen 
+mit `=>` anstatt `function`. Beispiel: `const add = (a, b) => a + b;`. 
+Bei nur einem Parameter können die Klammern weggelassen werden.
+
+<span id="async-await">**async/await**</span>\
+`async` und `await` vereinfachen die Arbeit mit [Promises](#Promise). 
+Eine mit `async` deklarierte Funktion kann `await` verwenden, um auf 
+das Ergebnis eines Promise zu warten, ohne Callbacks zu benötigen.
 
 <span id="Ausdruck">**Ausdruck**</span>\
 Ein Ausdruck (engl. _expression_) ist ein Teil des Codes, der zu einem 
@@ -49,6 +64,11 @@ Für Klassen wird PascalCase verwendet, bei dem auch das erste Wort
 großgeschrieben wird (z.B. `MyClass`). In anderen Sprachen wie Python 
 ist snake_case üblich (z.B. `my_variable`).
 
+<span id="Callback">**Callback**</span>\
+Ein Callback ist eine Funktion, die als Argument an eine andere Funktion 
+übergeben wird und später aufgerufen wird. Callbacks werden häufig für 
+asynchrone Operationen oder Event-Handler verwendet.
+
 <span id="Compiler">**Compiler**</span>\
 Ein Compiler übersetzt Quellcode einer Programmiersprache vollständig in 
 eine andere Sprache (z.B. Maschinencode), bevor das Programm ausgeführt wird. 
@@ -67,10 +87,21 @@ Die Deklaration führt eine Variable oder Konstante mit einem Namen ein,
 ohne ihr zwingend einen Wert zuzuweisen. Variablen werden mit `let` 
 und Konstanten mit `const` deklariert, z.B. `let myVariable;`.
 
+<span id="Debugging">**Debugging**</span>\
+Debugging ist der Prozess, Fehler im Code zu finden und zu beheben. 
+Mit Debugging-Tools wie in VS Code kann Code schrittweise ausgeführt 
+und der Zustand von Variablen inspiziert werden. Breakpoints markieren 
+Stellen, an denen die Ausführung pausieren soll.
+
 <span id="ESLint">**ESLint**</span>\
 ESLint ist ein weit verbreitetes Werkzeug zur statischen Code-Analyse 
 für JavaScript und TypeScript. Es erkennt potenzielle Fehler und 
 Stilprobleme im Code und hilft, einheitliche Code-Konventionen einzuhalten.
+
+<span id="fetch">**fetch**</span>\
+`fetch` ist eine Funktion zum Laden von Daten aus dem Web. Sie gibt ein 
+[Promise](#Promise) zurück und wird häufig mit [async/await](#async-await) 
+verwendet: `const response = await fetch(url);`.
 
 <span id="Funktion">**Funktion**</span>\
 Eine Funktion ist ein benannter Codeblock, der Anweisungen zusammenfasst 
@@ -97,6 +128,11 @@ der Gültigkeitsbereich durch die nächsten, umgebenden geschweiften
 Klammern zu finden. Variablen mit `let` und Konstanten mit `const` sind
 innerhalb ihres Gültigkeitsbereich eindeutig und außerhalb nicht bekannt.
 
+<span id="Git">**Git**</span>\
+Git ist ein Versionsverwaltungssystem, das Änderungen an Dateien verfolgt 
+und die Zusammenarbeit im Team ermöglicht. Mit Git können verschiedene 
+Versionen eines Projekts gespeichert und bei Bedarf wiederhergestellt werden.
+
 <span id="Initialisierung">**Initialisierung**</span>\
 Die Initialisierung ist die Kombination aus [Deklaration](#Deklaration) 
 und erster [Zuweisung](#Zuweisung) eines Wertes, z.B. `let x = 5;`. 
@@ -108,10 +144,32 @@ vollständig zu übersetzen. JavaScript wird von einem Interpreter
 ausgeführt, der im Browser oder in [Node.js](#Node.js) integriert ist. 
 Siehe auch [Compiler](#Compiler).
 
+<span id="Instanz">**Instanz**</span>\
+Eine Instanz ist ein konkretes Objekt, das anhand einer [Klasse](#Klasse) 
+mit `new` erzeugt wurde. Jede Instanz hat eigene Werte für die 
+[Instanzvariablen](#Instanzvariable) der Klasse.
+
+<span id="Instanzvariable">**Instanzvariable**</span>\
+Instanzvariablen sind Eigenschaften, die zu einer [Instanz](#Instanz) 
+einer [Klasse](#Klasse) gehören. Jedes Objekt hat eigene Werte für 
+seine Instanzvariablen, z.B. `person.name` oder `person.age`.
+
 <span id="Iteration">**Iteration**</span>\
 Ein einzelner Durchlauf einer [Schleife](#Schleife). Bei einer `for`- 
 oder `while`-Schleife wird der Schleifenrumpf in jeder Iteration einmal 
 ausgeführt.
+
+<span id="JSON">**JSON**</span>\
+JSON (JavaScript Object Notation) ist ein textbasiertes Datenformat zum 
+Austausch von Daten. Es ähnelt der JavaScript-Objektsyntax und wird häufig 
+für [APIs](#API) verwendet. Mit `JSON.parse()` und `JSON.stringify()` 
+kann zwischen JSON-Text und JavaScript-Objekten konvertiert werden.
+
+<span id="Klasse">**Klasse**</span>\
+Eine Klasse ist ein „Bauplan" für [Objekte](#Objekt) mit gleicher Struktur. 
+Sie definiert [Instanzvariablen](#Instanzvariable) und [Methoden](#Methode). 
+Mit `new ClassName()` werden [Instanzen](#Instanz) erzeugt. Beispiel: 
+`class Person { constructor(name) { this.name = name; } }`.
 
 <span id="Kommentar">**Kommentar**</span>\
 Kommentare sind Anmerkungen im Code, die nicht ausgeführt werden. 
@@ -121,6 +179,12 @@ Einzeilige Kommentare beginnen mit `//`, mehrzeilige stehen zwischen
 <span id="Konkatenation">**Konkatenation**</span>\
 Das Aneinanderfügen von Strings mit dem `+`-Operator, 
 z.B. `"Hallo " + "Welt"` ergibt `"Hallo Welt"`.
+
+<span id="Konstruktor">**Konstruktor**</span>\
+Ein Konstruktor ist eine spezielle Methode einer [Klasse](#Klasse), die 
+beim Erzeugen einer [Instanz](#Instanz) mit `new` aufgerufen wird. 
+In JavaScript wird der Konstruktor mit `constructor(...)` definiert und 
+initialisiert die [Instanzvariablen](#Instanzvariable).
 
 <span id="Konstante">**Konstante**</span>\
 Eine Konstante ist ähnlich wie eine Variable ein benannter Speicherplatz, 
@@ -138,6 +202,12 @@ Kontrollstrukturen steuern den Ablauf eines Programms. Dazu gehören
 Ein Literal ist ein direkt im Code angegebener Wert, z.B. die Zahl `42`, 
 der String `"Hello"` oder der Boolean `true`. Literale repräsentieren 
 feste Werte ohne Berechnung.
+
+<span id="Map">**Map**</span>\
+Eine Map ist eine Datenstruktur für Schlüssel-Wert-Paare, ähnlich wie 
+[Objekte](#Objekt), aber mit optimierter Performance und hilfreichen 
+Methoden wie `get()`, `set()`, `has()` und `delete()`. 
+Beispiel: `const m = new Map(); m.set('key', 'value');`.
 
 <span id="Methode">**Methode**</span>\
 Eine Methode ist eine Funktion, die zu einem Objekt gehört und über 
@@ -164,10 +234,21 @@ Parameter (auch Argumente genannt) sind Werte, die an eine Funktion
 übergeben werden. Sie werden in den Klammern bei der Funktionsdeklaration 
 definiert und beim Aufruf mit konkreten Werten befüllt.
 
+<span id="Promise">**Promise**</span>\
+Ein Promise repräsentiert das Ergebnis einer asynchronen Operation, das 
+erst in der Zukunft verfügbar sein wird. Mit `.then()` kann auf das 
+Ergebnis reagiert werden, oder einfacher mit [async/await](#async-await).
+
 <span id="Rückgabewert">**Rückgabewert**</span>\
 Der Rückgabewert (engl. _return value_) ist das Ergebnis, das eine 
 Funktion mit `return` zurückliefert. Ohne explizites `return` gibt 
 eine Funktion in JavaScript `undefined` zurück.
+
+<span id="Regulärer-Ausdruck">**Regulärer Ausdruck**</span>\
+Reguläre Ausdrücke (engl. _regular expressions_, kurz RegExp) beschreiben 
+Textmuster zur Überprüfung von Strings. In JavaScript werden sie zwischen 
+Schrägstrichen definiert: `/[A-Za-z]+/`. Mit `test()` wird geprüft, ob 
+ein String zum Muster passt.
 
 <span id="Schleife">**Schleife**</span>\
 Schleifen (engl. _loops_) wiederholen einen Codeblock, solange eine 
@@ -180,6 +261,11 @@ vordefinierter Bedeutung in JavaScript, z.B. `let`, `const`, `function`,
 `if`, `else`, `for`, `while`, `return`. Sie dürfen nicht als 
 [Bezeichner](#Bezeichner) verwendet werden.
 
+<span id="Set">**Set**</span>\
+Ein Set ist eine Datenstruktur, die Werte ohne Duplikate speichert – 
+wie eine mathematische Menge. Elemente werden mit `add()` hinzugefügt 
+und mit `has()` geprüft. Beispiel: `const s = new Set(); s.add('a');`.
+
 <span id="String">**String**</span>\
 Ein String ist eine Zeichenkette bzw. Text. In JavaScript können 
 Strings mit einfachen (`'...'`), doppelten (`"..."`) Anführungszeichen 
@@ -190,6 +276,12 @@ oder Backticks (`` `...` ``) erstellt werden. Letztere ermöglichen
 Template-Strings werden mit Backticks (`` `...` ``) umschlossen und 
 ermöglichen String-Interpolation: Mit `${...}` können JavaScript-Ausdrücke 
 direkt eingebettet werden, z.B. `` `Hallo ${name}!` ``.
+
+<span id="this">**this**</span>\
+`this` ist ein Schlüsselwort, das innerhalb einer [Klasse](#Klasse) oder 
+[Methode](#Methode) auf das aktuelle Objekt verweist. Im [Konstruktor](#Konstruktor) 
+wird `this` verwendet, um [Instanzvariablen](#Instanzvariable) zu setzen: 
+`this.name = name;`.
 
 <span id="TypeScript">**TypeScript**</span>\
 TypeScript ist eine von Microsoft entwickelte Erweiterung von JavaScript, 
@@ -211,6 +303,12 @@ dass eine Funktion keinen Rückgabewert hat.
 Eine Variable ist ein benannter Speicherplatz für Werte. Sie wird mit 
 `let` deklariert und kann im Laufe des Programms unterschiedliche 
 Werte annehmen. Siehe auch [Konstante](#Konstante).
+
+<span id="Vererbung">**Vererbung**</span>\
+Vererbung ermöglicht es, eine neue [Klasse](#Klasse) (Subklasse) von einer 
+bestehenden Klasse abzuleiten. Die Subklasse erbt alle Eigenschaften und 
+[Methoden](#Methode) und kann diese erweitern. In JavaScript wird Vererbung 
+mit `extends` definiert: `class Student extends Person { }`.
 
 <span id="Verzweigung">**Verzweigung**</span>\
 Eine Verzweigung (auch Fallunterscheidung) ermöglicht es, Code nur unter 
