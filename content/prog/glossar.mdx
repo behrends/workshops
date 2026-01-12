@@ -47,6 +47,11 @@ Variablen, Konstanten, Funktionen oder Klassen. Bezeichner dürfen aus
 Buchstaben, Ziffern, `_` und `$` bestehen, aber nicht mit einer Ziffer 
 beginnen und keine [Schlüsselwörter](#Schlüsselwort) sein.
 
+<span id="Bedingung">**Bedingung**</span>\
+Eine Bedingung ist ein [Ausdruck](#Ausdruck), der zu einem [Boolean](#Boolean) 
+ausgewertet wird (`true` oder `false`). Bedingungen steuern den Ablauf bei 
+[Verzweigungen](#Verzweigung) (`if`) und [Schleifen](#Schleife) (`while`, `for`).
+
 <span id="Block">**Block**</span>\
 Der Bereich zwischen geschweiften Klammern (`{...}`) wird auch Block
 genannt. Siehe auch [Gültigkeitsbereich](#Gültigkeitsbereich).
@@ -55,6 +60,12 @@ genannt. Siehe auch [Gültigkeitsbereich](#Gültigkeitsbereich).
 Ein Datentyp für Wahrheitswerte mit genau zwei möglichen Werten: 
 `true` (wahr) und `false` (falsch). Booleans werden häufig in 
 Bedingungen für Verzweigungen und Schleifen verwendet.
+
+<span id="Bug">**Bug**</span>\
+Ein Bug ist ein Fehler im Programm, der zu unerwartetem Verhalten führt. 
+Bugs können [Syntaxfehler](#Syntax) sein (Code lässt sich nicht ausführen) 
+oder [Laufzeitfehler](#Laufzeit) (Fehler während der Ausführung). 
+Das Finden und Beheben von Bugs heißt [Debugging](#Debugging).
 
 <span id="CamelCase">**CamelCase**</span>\
 Eine Namenskonvention, bei der zusammengesetzte Bezeichner ohne 
@@ -92,6 +103,12 @@ Debugging ist der Prozess, Fehler im Code zu finden und zu beheben.
 Mit Debugging-Tools wie in VS Code kann Code schrittweise ausgeführt 
 und der Zustand von Variablen inspiziert werden. Breakpoints markieren 
 Stellen, an denen die Ausführung pausieren soll.
+
+<span id="Destrukturierung">**Destrukturierung**</span>\
+Destrukturierung ermöglicht es, Werte aus [Arrays](#Array) oder [Objekten](#Objekt) 
+in einzelne [Variablen](#Variable) zu entpacken. Beispiele: 
+`const [a, b] = [1, 2];` oder `const {name, age} = person;`. 
+Siehe auch [Spread-Operator](#Spread-Operator).
 
 <span id="ESLint">**ESLint**</span>\
 [ESLint](https://eslint.org/) ist ein weit verbreitetes Werkzeug zur statischen Code-Analyse 
@@ -132,6 +149,12 @@ bei `if` oder `while`). Für eine bestimmte Variable oder Konstante ist
 der Gültigkeitsbereich durch die nächsten, umgebenden geschweiften
 Klammern zu finden. Variablen mit `let` und Konstanten mit `const` sind
 innerhalb ihres Gültigkeitsbereich eindeutig und außerhalb nicht bekannt.
+
+<span id="IDE">**IDE / Editor**</span>\
+Eine IDE (Integrated Development Environment) ist eine Entwicklungsumgebung 
+mit Editor, [Debugging](#Debugging)-Tools und weiteren Funktionen. 
+[VS Code](#VS-Code) ist ein populärer Code-Editor mit IDE-ähnlichen Features 
+für JavaScript-Entwicklung.
 
 <span id="Git">**Git**</span>\
 [Git](https://git-scm.com/) ist ein Versionsverwaltungssystem, das Änderungen an Dateien verfolgt 
@@ -196,6 +219,12 @@ beim Erzeugen einer [Instanz](#Instanz) mit `new` aufgerufen wird.
 In JavaScript wird der Konstruktor mit `constructor(...)` definiert und 
 initialisiert die [Instanzvariablen](#Instanzvariable).
 
+<span id="Laufzeit">**Laufzeit**</span>\
+Die Laufzeit (engl. _runtime_) ist der Zeitraum, in dem ein Programm ausgeführt 
+wird. Laufzeitfehler treten während der Ausführung auf (z.B. Division durch 0), 
+im Gegensatz zu [Syntaxfehlern](#Syntax), die vor der Ausführung erkannt werden. 
+JavaScript ist dynamisch typisiert, d.h. Typen werden zur Laufzeit ermittelt.
+
 <span id="Konstante">**Konstante**</span>\
 Eine Konstante ist ähnlich wie eine Variable ein benannter Speicherplatz, 
 der aber nach der Initialisierung nicht mehr geändert werden kann. 
@@ -230,6 +259,11 @@ oder Variablen nach außen verfügbar gemacht, mit [import](#import) können
 diese in anderen Dateien verwendet werden. Beispiel: 
 `export function add(a, b) { return a + b; }` und `import { add } from './math.js';`.
 
+<span id="NaN">**NaN**</span>\
+`NaN` (Not a Number) ist ein spezieller Wert vom [Datentyp](#Datentyp) `number`, 
+der ein ungültiges Rechenergebnis darstellt, z.B. `0 / 0` oder `parseInt("abc")`. 
+Mit `isNaN(wert)` kann geprüft werden, ob ein Wert `NaN` ist.
+
 <span id="Node.js">**Node.js**</span>\
 [Node.js](https://nodejs.org/) ist eine Laufzeitumgebung, die es ermöglicht, JavaScript außerhalb 
 des Browsers auszuführen, z.B. auf Servern oder als Kommandozeilenprogramme. 
@@ -241,6 +275,11 @@ Zugriff auf Dateisystem, Netzwerk und andere Systemressourcen.
 Mit `npm install paketname` werden Pakete (Bibliotheken) installiert, die in 
 der [package.json](#package.json) verwaltet werden. Das Verzeichnis `node_modules` 
 enthält die installierten Pakete.
+
+<span id="null">**null**</span>\
+`null` ist ein spezieller Wert, der bewusst „kein Wert" oder „leer" bedeutet. 
+Im Gegensatz zu [undefined](#undefined) (nicht initialisiert) wird `null` 
+absichtlich zugewiesen, um anzuzeigen, dass eine Variable keinen Wert hat.
 
 <span id="Objekt">**Objekt**</span>\
 Ein Objekt ist eine Datenstruktur, die Eigenschaften (key-value-Paare) 
@@ -283,6 +322,11 @@ Schleifen (engl. _loops_) wiederholen einen Codeblock, solange eine
 Bedingung erfüllt ist. In JavaScript gibt es `for`-, `while`- und 
 `do-while`-Schleifen. Siehe auch [Iteration](#Iteration).
 
+<span id="Semantik">**Semantik**</span>\
+Semantik bezeichnet die Bedeutung von Code – was der Code tatsächlich bewirkt. 
+Ein Programm kann syntaktisch korrekt sein, aber semantisch falsch (z.B. 
+`if (x = 5)` statt `if (x === 5)`). Siehe auch [Syntax](#Syntax).
+
 <span id="Schlüsselwort">**Schlüsselwort**</span>\
 Schlüsselwörter (engl. _keywords_) sind reservierte Wörter mit 
 vordefinierter Bedeutung in JavaScript, z.B. `let`, `const`, `function`, 
@@ -300,10 +344,28 @@ Strings mit einfachen (`'...'`), doppelten (`"..."`) Anführungszeichen
 oder Backticks (`` `...` ``) erstellt werden. Letztere ermöglichen 
 [Template-Strings](#Template-String).
 
+<span id="Spread-Operator">**Spread-Operator**</span>\
+Der Spread-Operator `...` „entpackt" Elemente aus [Arrays](#Array) oder 
+[Objekten](#Objekt). Beispiele: `[...arr1, ...arr2]` kombiniert Arrays, 
+`{...obj, name: "neu"}` kopiert ein Objekt mit Änderung. 
+Siehe auch [Destrukturierung](#Destrukturierung).
+
+<span id="Syntax">**Syntax**</span>\
+Die Syntax sind die Regeln für den Aufbau gültiger [Anweisungen](#Anweisung) 
+in einer Programmiersprache. Syntaxfehler (z.B. fehlende Klammern) werden 
+vor der Ausführung erkannt und führen zu einem `SyntaxError`. 
+Siehe auch [Semantik](#Semantik).
+
 <span id="Template-String">**Template-String**</span>\
 Template-Strings werden mit Backticks (`` `...` ``) umschlossen und 
 ermöglichen String-Interpolation: Mit `${...}` können JavaScript-Ausdrücke 
 direkt eingebettet werden, z.B. `` `Hallo ${name}!` ``.
+
+<span id="Terminal">**Terminal**</span>\
+Das Terminal (auch Kommandozeile oder Konsole) ist eine textbasierte 
+Schnittstelle zur Ausführung von Befehlen. In [VS Code](#VS-Code) ist ein 
+Terminal integriert, über das z.B. [Node.js](#Node.js)-Programme mit 
+`node datei.js` oder [npm](#npm)-Befehle ausgeführt werden.
 
 <span id="this">**this**</span>\
 `this` ist ein Schlüsselwort, das innerhalb einer [Klasse](#Klasse) oder 
@@ -342,6 +404,12 @@ mit `extends` definiert: `class Student extends Person { }`.
 Eine Verzweigung (auch Fallunterscheidung) ermöglicht es, Code nur unter 
 bestimmten Bedingungen auszuführen. In JavaScript gibt es `if`, `else if`, 
 `else` und `switch` für Verzweigungen.
+
+<span id="VS-Code">**VS Code**</span>\
+[Visual Studio Code](https://code.visualstudio.com/) (VS Code) ist ein kostenloser, 
+weit verbreiteter Code-Editor von Microsoft. Er bietet Syntax-Highlighting, 
+[Debugging](#Debugging), integriertes [Terminal](#Terminal), [Git](#Git)-Integration 
+und zahlreiche Erweiterungen für JavaScript und [TypeScript](#TypeScript).
 
 <span id="Zuweisung">**Zuweisung**</span>\
 Eine Zuweisung weist einer Variablen einen Wert zu. Der Zuweisungsoperator 
