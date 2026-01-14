@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 # Node.js und VS Code einrichten
 
 <Callout>
-  **Dauer:** 45 Minuten
+  **Dauer:** bis zu 45 Minuten
 
   Herunterladen und installieren
   
@@ -29,10 +29,21 @@ besprechen wir diese bei passender Gelegenheit in der Vorlesung.
 </Callout>
 
 <Callout type="error">
-Wir verwenden VS Code zu Beginn möglichst ohne KI-Tools (Copilot).
+Wir verwenden VS Code zu Beginn möglichst ohne KI-Tools (Copilot),
+um die ausreichenden Grundlagen der Programmierung in JavaScript zu erlernen.
+Diese sind notwendig, um später mit KI-Tools effektiv arbeiten zu können.
 
 Später werden wir den Einsatz von KI-Tools besprechen.
 </Callout>
+
+Die erfolgreiche Installation von Node.js kann im Terminal mit folgendem Befehl 
+überprüft werden:
+
+```bash
+node --version
+```
+
+Sollte eine Versionsnummer ausgegeben werden, dann ist Node.js erfolgreich installiert.
 
 ## Programm in VS Code erstellen und mit Node.js ausführen
 
@@ -77,38 +88,24 @@ Dadurch wird das Programm mit Node.js ausgeführt und die Ausgabe
 
 <Callout type="warning">
 Sollte es Probleme bei der Installation geben, dann kann die
-Entwicklungsumgebung [replit.com](https://replit.com) als Alternative
-eingesetzt werden. Dort kann ein kostenloses Konto erstellt werden.
+eine Online-Entwicklungsumgebung genutzt werden (siehe unten).
 
 &rarr; ggf. ist am Ende dieser Vorlesungseinheit Zeit, um
 mögliche Probleme zu lösen.
 </Callout>
 
-## Alternative: replit.com
+## Alternativen
 
-Eine weitere Möglichkeit, JavaScript-Programme zu schreiben und auszuführen, ist [replit.com](https://replit.com).
+Es gibt einige Online-Editoren, die JavaScript-Programme direkt im Browser ausführen. 
+Von sehr einfachen Texteditoren bis zu vollwertigen Entwicklungsumgebungen gibt es eine Vielzahl 
+von Möglichkeiten. Wir nennen hier nur zwei Beispiele:
 
-Replit unterstützt neben JavaScript auch viele weitere 
-Programmiersprachen und hat einige zusätzliche Funktionen 
-(Datenbanken, Deployment, usw.). Insbesondere hat Replit einige 
-sehr leistungsfähige KI-Tools integriert.
+Eine vollwertige Entwicklungsumgebung ist [stackblitz.com](https://stackblitz.com). 
+Mit dem Link [node.new](https://node.new) kann ein neues Node.js-Projekt in StackBlitz 
+erstellt werden.
 
-Allerdings sind die vollen KI-Tools nur in der kostenpflichtigen
-Variante verfügbar und in der kostenlosen Variante können nur
-drei Projekte erstellt werden.
-
-Im Prinzip ist Replit eine vollwertige Entwicklungsumgebung, die
-im Browser läuft. Auch hier können Dateien erstellt und ausgeführt
-werden. 
-
-<Callout>
-Zu Beginn sollten in Replit die Vorschläge der KI-Tools deaktiviert
-werden, um die Grundlagen der Programmierung zu erlernen. 
-
-Dazu in den _User Settings_ die Option _AI Code Completion_ ausschalten.
-
-&rarr; Dies wird direkt in Replit gezeigt.
-</Callout>
+Für einzelne Skripte oder Übungen ist [playcode.io](https://playcode.io) eine 
+einfache Möglichkeit, diese einzugeben und auszuführen. Manchmal ist dies völlig ausreichend.
 
 <Callout type="info">
 Für die Programmierung von JavaScript kann im Prinzip jeder 
@@ -119,6 +116,4 @@ Beim Programmierprojekt sollten alle Mitglieder einer Gruppe die
 gleiche Entwicklungsumgebung einsetzen, damit die Teamarbeit 
 einheitlich abläuft. Hierzu ist dann auch die Verwendung von 
 [git](https://git-scm.com) sinnvoll. 
-
-Auch replit kann von einem Team genutzt werden.
 </Callout>

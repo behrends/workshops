@@ -89,7 +89,7 @@ console.log(
 
 Leider wird dies von Node.js (noch?) nicht unterstützt (funktioniert aber im Browser).
 
-In Node.js gibt es eine API [`util.styleText`](https://nodejs.org/api/util.html#utilstyletextformat-text)
+In Node.js gibt es eine API [`util.styleText`](https://nodejs.org/api/util.html#utilstyletextformat-text-options)
 mit der Ausgaben Styles erhalten können:
 
 ```js
@@ -98,7 +98,7 @@ const errorMessage = styleText('red', 'Error! Error!');
 console.log(errorMessage);
 ```
 
-In Zukunft soll es auch möglich sein, mehrere Styles als Array zu definieren:
+Es ist auch möglich, mehrere Styles als Array zu definieren:
 
 ```js
 import { styleText } from 'node:util';
@@ -149,26 +149,30 @@ Liste der escape codes: \
 Hilfsbibliothek für farbige Ausgabe im Terminal:
 [github.com/alexeyraspopov/picocolors](https://github.com/alexeyraspopov/picocolors)
 
-## Eingabe mit `prompt`
+## Eingabe mit `readline-sync`
 
 Um die Eingabe von der Tastatur einfacher zu handhaben,  installieren wir eine Hilfsbibliothek namens 
-[`prompt-sync`](https://github.com/heapwolf/prompt-sync).
+[`readline-sync`](https://github.com/anseki/readline-sync).
 
-Dazu das Terminal in VS Code öffnen und das Projekt zuerst für npm initialisieren:
+**Vorbemerkung:** Die Bibliothek `readline-sync` ist ein öffentliches Archiv auf GitHub und wird 
+nicht mehr weiterentwickelt. Dennoch verwenden wir sie hier zu Beginn, da sie stabil und relativ
+weit verbreitet ist. Wir nutzen sie hier, um die Eingabe von der Tastatur zu vereinfachen.
+
+Zur Installation Dazu das Terminal in VS Code öffnen und das Projekt zuerst für npm initialisieren:
 
 ```bash
-npm init
+npm init -y
 ```
 
 &rarr; Alle Fragen mit `Enter` beantworten, hierdurch wird die Datei `package.json` erzeugt.
 
-Dann `prompt-sync` installieren:
+Dann `readline-sync` installieren:
 
 ```bash
-npm install prompt-sync
+npm install readline-sync
 ```
 
-Dadurch wird `prompt-sync` heruntergeladen und installiert (siehe `node_modules` und `package.json`).
+Dadurch wird `readline-sync` heruntergeladen und installiert (siehe `node_modules` und `package.json`).
 
 In `package.json` ggf. folgenden Eintrag hinzufügen, um
 eine lästige Warnung bei Ausführung des Programms zu unterbinden:
@@ -194,17 +198,17 @@ Hier gibt es einige Unterschiede.
 </Callout>
 
 
-Nun kann `prompt` in einem Programm verwendet werden:
+Nun kann `readline-sync` in einem Programm verwendet werden:
 
 ```js
-import promptSync from 'prompt-sync';
-const prompt = promptSync();
+import { question } from 'readline-sync';
 
-let name = prompt("Name eingeben: ");
+let name = question("Name eingeben: ");
 ```
 
-Mit `import` wird die Bibliothek `prompt-sync` eingebunden. 
-Dazu werden wir später noch mehr erfahren. Diese 
+Mit `import` können wir aus der Bibliothek oder Modulen (anderen Dateien)
+Funktionen laden. In diesem Fall laden wir die Funktion `question` aus der 
+Bibliothek `readline-sync`. Dazu werden wir später noch mehr erfahren. Diese 
 Import-Anweisung sollte am Anfang des Programms stehen.
 
 `Name eingeben` erscheint und es kann etwas per Tastatur 
@@ -214,31 +218,19 @@ Die Ausführung des Programms hält an, Text kann eingegeben werden
 und nach Drücken von Enter/Return wird der Text der Variablen 
 zugewiesen (im Beispiel oben `name`).
 
+Wie kann eine Eingabe einer ganzen Zahl für Berechnungen erfolgen?
 
-Wie kann der Text in eine ganze Zahl für Berechnungen 
-umgewandelt werden?
 
 ```js
-let num = prompt("Bitte eine Zahl eingeben: ");
-num = parseInt(num); // wandelt Text in Zahl um
+import { questionInt } from 'readline-sync';
+let num = questionInt("Bitte eine Zahl eingeben: ");
+console.log(`Die eingegebene Zahl ist: ${num}`);
 ```
-
-Achtung: wird keine Zahl eingegeben, dann muss dies evtl. mit 
-`if`  oder `try...catch` abgefangen werden (später), sonst 
-ergibt `parseInt` den Wert `NaN`. Es gibt auch `parseFloat` 
-für Gleitkommazahlen. Auch könnte `Number(num)` verwendet 
-werden &mdash; zum Unterschied zwischen `parseInt/Float` und
-`Number` (und `+num`) gibt es eine interessante 
-[Diskussion bei Stack Overflow](https://stackoverflow.com/questions/12227594/what-is-the-difference-between-unary-plus-numberx-and-parsefloatx).
 
 <Callout type="warning">
-Wenn `parseInt` mit einem String aufgerufen wird, der mit 
-Ziffern beginnt, dann werden die Ziffern bis zum ersten
-Buchstaben als Zahl interpretiert, z.B.
-
-```js
-parseInt("1234XYZ"); // ---> ergibt 1234
-```
+Wenn `questionInt` mit einem String aufgerufen wird, der nicht aus 
+Ziffern besteht, dann wird eine Fehlermeldung ausgegeben und es 
+wird erneut nach einer Zahl gefragt.
 </Callout>
 
 <Callout type="info" emoji="👨🏻‍💻">
@@ -262,7 +254,8 @@ Temperatur in Basel um 16:37:16: 2 Grad
 Wir könnten die Temperatur in blauer Textfarbe anzeigen 
 und den Umgang mit `Date` kurz besprechen.
 
-**Auf den folgenden Seiten wird gemeinsames Live Coding an der Wetter-App durch blaue Textboxen mit diesem Emoji dargestellt: 👨🏻‍💻**
+**In den folgenden Lektionen wird gemeinsames Live Coding an der Wetter-App 
+durch blaue Textboxen mit diesem Emoji beschrieben: 👨🏻‍💻**
 </Callout>
 
 ## Bemerkungen
