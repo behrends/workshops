@@ -18,7 +18,7 @@ Hello, World!
 ```
 
 auf dem Bildschirm anzeigt bzw. ausgibt. Wir betrachten dies 
-kurz  in JavaScript.
+kurz in JavaScript.
 
 <Callout type="info">
 Für alle, die schon Programmiererfahrungen haben:
@@ -50,23 +50,22 @@ Anführungszeichen umgeben:
 ```
 
 Für das Hello-World-Programm benötigen wir also den String `"Hello, 
-World!"` und einen „Befehl“, um einen String auf dem Bildschirm 
+World!"` und einen „Befehl", um einen String auf dem Bildschirm 
 anzuzeigen bzw. auszugeben. 
 
 ## Ausgabe auf Bildschirm 
 
 Um etwas auf dem Bildschirm auszugeben, hat JavaScript z.B. die 
-folgende **Funktion** (manchmal auch **Methode** genannt):
+folgende **Funktion**:
 
 ```js
 console.log()
 ```
 
-Die runden Klammern deuten bei Funktionen (und Methoden) an, dass diese verwendet bzw. **aufgerufen** werden.
+Die runden Klammern deuten an, dass die Funktion verwendet bzw. **aufgerufen** wird.
 
 Um mit dieser Funktion etwas bestimmtes auszugeben, müssen wir 
-hier beim **Funktionsaufruf** (oder **Methodenaufruf**) einen 
-**Parameter** (manchmal auch **Argument** genannt) in den runden 
+beim **Funktionsaufruf** einen **Parameter** in den runden 
 Klammern einsetzen. Wir verwenden also den String 
 `"Hello, World!"`:
 
@@ -79,15 +78,12 @@ console.log("Hello, World!")
 In der Konsole wird der Text `Hello, World!` ausgegeben, d.h.
 `Hello, World!` wird auf dem Bildschirm angezeigt.
 
-Dies wird im Beispiel oben durch den blauen „Info-Block“ angedeutet.
+Dies wird im Beispiel oben durch den blauen „Info-Block" angedeutet.
 </Callout>
 
-Oft sagen wir hierzu auch, dass „_der Funktion bzw. Methode beim Aufruf 
-ein Parameter oder ein Argument übergeben wird_“.
-
-Es gibt auch Funktionen/Methoden ohne Parameter und solche mit 
-mehreren Parametern. Ebenso können sie ein Ergebnis als 
-**Rückgabewert** liefern (dies ist hier bei `console.log()` nicht relevant).
+Es gibt auch Funktionen ohne Parameter und solche mit mehreren Parametern.
+Ebenso können sie ein Ergebnis als **Rückgabewert** liefern 
+(dies ist hier bei `console.log()` nicht relevant).
 
 <Callout>
 Funktionen mit Parametern, Rückgabewerten, usw. werden später
@@ -98,6 +94,25 @@ Wichtig ist hier nur, dass wir mit dem Funktionsaufruf
 ausgeben können.
 </Callout>
 
+<Callout type="info">
+**Für Fortgeschrittene:** In der Programmierung werden oft verschiedene 
+Begriffe synonym verwendet:
+
+- **Funktion** und **Methode** &mdash; Eine Methode ist technisch eine Funktion, 
+  die zu einem Objekt gehört (wie `console.log()` zum `console`-Objekt).
+- **Parameter** und **Argument** &mdash; Parameter sind die Platzhalter in der 
+  Funktionsdefinition, Argumente die konkreten Werte beim Aufruf.
+
+Im Alltag werden diese Begriffe oft austauschbar verwendet.
+</Callout>
+
+<Callout type="warning" emoji="✏️">
+**Kleine Übung:** Geben Sie in der Konsole Ihren Namen aus, z.B.:
+`console.log("Max Mustermann")`
+
+Versuchen Sie auch, zwei Zeilen nacheinander auszugeben.
+</Callout>
+
 Nun haben wir eine korrekte **Anweisung** in JavaScript 
 programmiert.
 
@@ -105,17 +120,20 @@ Grundlegend und stark vereinfacht gesagt besteht die Programmierung
 in vielen Sprachen daraus, aufeinanderfolgende Anweisungen zu 
 schreiben, die dann ausgeführt werden. 
 
-Ein paar Bemerkungen dazu:
+### Syntax-Hinweise
 
 - In JavaScript können mehrere Anweisungen durch Zeilenumbruch oder Semikolon voneinander getrennt werden.
 - Oft ist daher JavaScript-Code mit Semikolon am Ende einer Anweisung zu sehen: <br/> 
     ```console.log("Hello, World!");```
 - Im Unterrichtsmaterial wird meistens das Semikolon am Ende einer Anweisung angegeben.
-- Jeder Browser hat eine JavaScript-Konsole, in der JavaScript-Code ausprobiert werden kann. Dort funktioniert auch die Methode  `console.log()`.
-- Wir verwenden gerade die Konsole eines Browsers, um JavaScript-Code auszuführen. Dies ist praktisch für kleine Experimente. Bald werden wir „echte“ Programmierumgebungen kennenlernen.
-- Im Browser kann auch etwas in einem UI-Dialog mit `alert()`  angezeigt werden.
-- In dieser Vorlesung betrachten wir JavaScript weitestgehend ohne HTML und CSS (&xrarr; dies findet evtl. in der Vorlesung „Web-Engineering“ statt).
 - Text bzw. Strings können in JavaScript entweder mit doppelten (`""`) oder einfachen (`''`) Anführungszeichen umgeben werden.
+
+### Praktische Hinweise
+
+- Jeder Browser hat eine JavaScript-Konsole, in der JavaScript-Code ausprobiert werden kann. Dort funktioniert auch die Methode `console.log()`.
+- Wir verwenden gerade die Konsole eines Browsers, um JavaScript-Code auszuführen. Dies ist praktisch für kleine Experimente. Bald werden wir „echte" Programmierumgebungen kennenlernen.
+- Im Browser kann auch etwas in einem UI-Dialog mit `alert()` angezeigt werden.
+- In dieser Vorlesung betrachten wir JavaScript weitestgehend ohne HTML und CSS (&xrarr; dies findet evtl. in der Vorlesung „Web-Engineering" statt).
 
 ## Programmierumgebung
 
@@ -137,7 +155,40 @@ die Online-Programmierumgebung [replit.com](https://replit.com)
 kennen. Letztere unterstützt neben JavaScript auch viele 
 weitere Programmiersprachen.
 
-<Callout type="warning">
+<Callout type="info">
+Node.js ist die etablierte Standardumgebung für die Programmierung
+von JavaScript außerhalb des Browsers. Es gibt jedoch alternative 
+JavaScript-Laufzeitumgebungen:
+
+- [Deno](https://deno.land)
+- [Bun](https://bun.sh)
+- weitere?
+
+</Callout>
+
+## Inspiration 
+
+Es gibt einige spannende Programmierumgebungen für besondere
+Einsatzbereiche wie Grafik oder Spiele, die online im Browser funktionieren
+&mdash; ohne etwas installieren zu müssen. Ein paar Beispiele:
+
+- Grafische Programmierung mit [p5js](https://p5js.org) &mdash; basiert auf [Processing](https://processing.org/)
+- Spiele mit [MakeCode Arcade](https://arcade.makecode.com) &mdash; unterstützt Scratch, JavaScript und Python
+- Spiele mit [Kaplay](https://kaplayjs.com)
+
+<Callout type="warning" emoji="🙋🏻‍♂️❓">
+Kennen Sie weitere Programmierumgebungen, die direkt im 
+Browser verwendet werden können? \
+(Muss nicht unbedingt auf JavaScript ausgelegt sein.)
+</Callout>
+
+<Callout type="warning" emoji="👨🏻‍💻">
+Falls genügend Zeit ist, dann kann das [Setup](/prog/02-basics/01-setup) vom nächsten Block vorgezogen
+werden. 
+</Callout>
+
+## Interpreter vs. Compiler
+
 JavaScript wird in einem sogenannten _Interpreter_ ausgeführt,
 der z.B. Teil eines Browsers (u.a. in der oben erwähnten Konsole) 
 oder in Node.js enthalten ist. Der Interpreter führt den Code in einem
@@ -153,37 +204,3 @@ zur Laufzeit des Programms im Interpreter bemerkt.
 Aber auch in JavaScript ermöglichen Tools wie [ESLint](https://eslint.org) und 
 insbesondere die Spracherweiterung [TypeScript](https://typescriptlang.org) 
 zuverlässige Überprüfungen des Codes vor seiner Ausführung.
-</Callout>
-
-
-<Callout type="info">
-Node.js ist die etablierte Standardumgebung für die Programmierung
-von JavaScript außerhalb des Browsers. Es gibt jedoch alternative 
-JavaScript-Laufzeitumgebungen:
-
-- [Deno](https://deno.land)
-- [Bun](https://bun.sh)
-- weitere?
-
-</Callout>
-
-## Inspiration 
-
-Es gibt einigende spannende Programmierungen für besondere
-Einsatzbereiche wie Grafik oder Spiele, die online im Browser funktionieren
-&mdash; ohne etwas installieren zu müssen. Ein paar Beispiele:
-
-- Grafische Programmierung mit [p5js](https://p5js.org) &mdash; basiert auf [Processing](https://processing.org/)
-- Spiele mit [MakeCode Arcade](https://arcade.makecode.com) &mdash; unterstützt Scratch, JavaScript und Python
-- Spiele mit [Kaboom](https://kaboomjs.com) von [replit.com](https://blog.replit.com/kaboom)
-
-<Callout type="warning" emoji="🙋🏻‍♂️❓">
-Kennen Sie weitere Programmierumgebungen, die direkt im 
-Browser verwendet werden können? \
-(Muss nicht unbedingt auf JavaScript ausgelegt sein.)
-</Callout>
-
-<Callout type="warning" emoji="👨🏻‍💻">
-Falls genügend Zeit ist, dann kann das [Setup](/prog/02-basics/01-setup) vom nächsten Block vorgezogen
-werden. 
-</Callout>
