@@ -16,15 +16,14 @@ halber kein System-Prompt zur Einschränkung auf die Ortssuche enthalten ist.
 ```js
 import { openai } from '@ai-sdk/openai';
 import { streamText } from 'ai';
-import promptSync from 'prompt-sync';
-const prompt = promptSync();
+import { question } from 'readline-sync';
 
 export default async function aiSearch() {
   console.clear();
 
   const messages = [];
   while (true) {
-    let input = prompt(
+    let input = question(
       "Beschreibe den Ort (oder 'x' zum Beenden des Chats): "
     );
     if (input === 'x') return;
