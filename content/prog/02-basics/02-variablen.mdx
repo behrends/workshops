@@ -71,7 +71,8 @@ verwendet werden dürfen (z.B. `let`, `function`, `class`, usw.).
 
 ```js
 let class = "Schulklasse 8a"; // FEHLER!
-// SyntaxError bei der Ausführung (zur Laufzeit)
+// SyntaxError: wird durch Parsing erkannt und 
+// verhindert die Ausführung des Programms
 
 // --> Uncaught SyntaxError: unexpected token: keyword 'class'
 ```
@@ -148,10 +149,10 @@ console.log(thisVariableDoesNotExist); // ReferenceError
 
 ## Konstanten
 
- Konstanten sind vereinfacht gesagt „Variablen, die sich nicht 
- ändern können“ &mdash; es darf also später keine neue Zuweisung 
- erfolgen. Dadurch können wir „feste“ oder „unveränderliche“
- Werte mit einem Namen/Bezeichner erhalten.
+Konstanten sind vereinfacht gesagt „Variablen, die sich nicht 
+ändern können“ &mdash; es darf also später keine neue Zuweisung 
+erfolgen. Dadurch können wir „feste“ oder „unveränderliche“
+Werte mit einem Namen/Bezeichner erhalten.
 
 Konstanten werden mit dem Schlüsselwort `const` deklariert.
 
@@ -260,12 +261,13 @@ manchmal „Literale“ genannt (von engl. _literal_ &mdash; wörtlich).
 Ausdrücke können aber auch durch komplexere Operatoren oder 
 Rückgabewerte von Funktionsaufrufen hervorgehen (siehe später). 
 
+```js
 // Hier verwenden wir die Methode Math.random()	
 // JavaScript enthält viele Hilfsklassen und Methoden,
 // mit denen wir viele Aufgaben direkt lösen können	
 let number = Math.random();
-console.log(number);`}
-/>
+console.log(number);`
+```
 
 Ausdrücken begegnen wir auch später im Zusammenhang mit 
 Bedingungen in Fallunterscheidungen und Schleifen wieder. 
@@ -296,7 +298,7 @@ konkrete Erfahrung und Übung erlernt.
 - Variablen und Konstanten
   - haben einen eindeutigen Namen/Bezeichner im Gültigkeitsbereich
   - werden nur einmal im Gültigkeitsbereich deklariert
-  - Namen/Bezeichner beginnen mit Buchstaben
+  - Namen/Bezeichner beginnen mit Buchstaben, `$` oder `_`
   - Namen/Bezeichner bestehen aus Ziffern, Buchstaben, `$`, `_`
   - Namen/Bezeichner dürfen keine Leerzeichen enthalten 
   - Namen/Bezeichner dürfen keine Sonderzeichen außer `$` und `_` enthalten
