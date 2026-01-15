@@ -22,9 +22,18 @@ Variablen werden mit dem Schlüsselwort `let` gefolgt von einem
 Name/Bezeichner **deklariert**:
 
 ```js
-// Deklaration von Variablen (noch ohne Wert/„Inhalt“)
+// Deklaration von Variablen (noch ohne Wert/„Inhalt")
 let myVariable;
 let variable2;
+```
+
+Eine Variable, die ohne Wert deklariert wurde, hat automatisch
+den speziellen Wert `undefined`:
+
+```ts twoslash
+let myVariable;
+console.log(myVariable);
+// @log: undefined
 ```
 
 Werden mehrere Variablen direkt nacheinander deklariert, so 
@@ -165,20 +174,50 @@ const unknownName = "John Doe";
 
 // Fehler: Konstanten können nicht geändert werden!
 answer = 23; // --> würde Fehler ergeben
-	
+
 // Fehler: Konstanten ohne Wert deklarieren
 const notAllowed;
 ```
+
+<Callout type="warning">
+**Achtung bei Objekten und Arrays:**
+
+Bei Konstanten, die ein Objekt oder Array enthalten, ist nur die
+Referenz (der „Verweis") unveränderlich &mdash; der Inhalt kann
+weiterhin geändert werden:
+
+```js
+const list = [1, 2, 3];
+list.push(4);      // funktioniert! list ist nun [1, 2, 3, 4]
+list[0] = 99;      // funktioniert! list ist nun [99, 2, 3, 4]
+
+list = [5, 6, 7];  // Fehler! Neue Zuweisung nicht erlaubt
+```
+
+Dies wird verständlicher, wenn wir später
+[Objektreferenzen](/prog/07-structure/02-object-references) behandeln.
+</Callout>
 
 <Callout type="error">
 Es gibt in JavaScript auch die Möglichkeit, Variablen mit `var` zu deklarieren.
 Davon wird inzwischen abgeraten &mdash; auch wenn dies noch
 immer möglich ist und oftmals keine Probleme verursacht.
 
-Mehr Infos dazu sind unter 
+Mehr Infos dazu sind unter
 [javascript.info/var](https://javascript.info/var) zu finden.
 </Callout>
 
+<Callout type="info">
+**Empfehlung: `const` als Standard verwenden**
+
+In der Praxis hat sich folgende Vorgehensweise bewährt:
+
+- `const` als Standard verwenden &mdash; für alle Werte, die sich nicht ändern sollen
+- `let` nur dann einsetzen, wenn der Wert später tatsächlich geändert werden muss
+
+Dadurch wird der Code lesbarer und es werden versehentliche
+Änderungen an Werten verhindert, die eigentlich konstant bleiben sollten.
+</Callout>
 
 ## Bezeichner und Namen
 
