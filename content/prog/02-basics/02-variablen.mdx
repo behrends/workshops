@@ -289,36 +289,18 @@ Wir lernen deren Bedeutung zum Teil später kennen.
 
 ## Ausdrücke
 
-Auf der „rechten Seite“ einer Zuweisung steht ein gültiger
-JavaScript-**Ausdruck** (_expression_). 
-
-Ausdrücke können einfache Werte der Variablen/Konstanten sein 
-wie z.B. Zahlen (`123`) oder Text bzw. Strings (`"Hello, World!"`). 
-Solche Werte, die direkt „hingeschrieben“ werden, werden 
-manchmal „Literale“ genannt (von engl. _literal_ &mdash; wörtlich). 
-
-Ausdrücke können aber auch durch komplexere Operatoren oder 
-Rückgabewerte von Funktionsaufrufen hervorgehen (siehe später). 
+Auf der „rechten Seite" einer Zuweisung steht ein **Ausdruck**
+(_expression_). Das kann ein einfacher Wert sein (z.B. `42` oder
+`"Hallo"`), eine Berechnung (z.B. `10 + 5`) oder ein Funktionsaufruf
+(z.B. `Math.random()`).
 
 ```js
-// Hier verwenden wir die Methode Math.random()	
-// JavaScript enthält viele Hilfsklassen und Methoden,
-// mit denen wir viele Aufgaben direkt lösen können	
-let number = Math.random();
-console.log(number);`
+let a = 42;              // Wert
+let b = 10 + 5;          // Berechnung
+let c = Math.random();   // Funktionsaufruf
 ```
 
-Ausdrücken begegnen wir auch später im Zusammenhang mit 
-Bedingungen in Fallunterscheidungen und Schleifen wieder. 
-
-Einerseits ist ein Ausdruck z.B. etwas „kleines“ oder 
-atomares wie die Zahl `8` und andererseits können mehrere
-Ausdrücke miteinander kombiniert komplexere Ausdrücke 
-ergeben wie z.B. `8 + 9` oder `(Math.random() + 8 - 4)` usw.
-Dies alles wird durch die formale Grammatik einer
-Programmiersprache festgelegt. In der praktischen 
-Programmierung wird die Grammatik im Prinzip durch die
-konkrete Erfahrung und Übung erlernt.
+Mehr zu Ausdrücken erfahren wir bei [Operatoren](/prog/03-type-op-func/02-operators).
 
 
 ## Zusammenfassung und Links
