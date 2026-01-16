@@ -16,7 +16,7 @@ unübersichtlich werden:
 
 ```js
 let a = 13, b = 4;	
-let op = prompt("Welche Rechenoperation?");
+let op = question("Welche Rechenoperation?");
 if(op === "+") {
   console.log(a + b);
 } else if(op === "-") {
@@ -32,12 +32,12 @@ if(op === "+") {
 }
 ```
 
-In solchen Situation stellt `switch` gelegentlich eine besser 
+In solchen Situationen stellt `switch` gelegentlich eine besser 
 lesbare Alternative dar:
 
 ```javascript
 let a = 13, b = 4;	
-let op = prompt("Welche Rechenoperation?");
+let op = question("Welche Rechenoperation?");
 switch(op) {
   case "+":
     console.log(a + b);
@@ -61,7 +61,7 @@ switch(op) {
 
 ```mermaid
 flowchart TD
-  A[Start] --> B["op = prompt('Welche Rechenoperation?')"]
+  A[Start] --> B["op = question('Welche Rechenoperation?')"]
   B --> C{{op}}
   C -->|\+| D["console.log(a + b)"]
   D --> E[End]
@@ -174,7 +174,7 @@ In die Wetter-App könnten wir ein Hauptmenü einbauen:
 
 Mit `console.clear();` Bildschirm löschen. 
 
-`prompt('weiter mit Enter');` um kurz zu warten.
+`question('weiter mit Enter');` um kurz zu warten.
 </Callout>
 
 ## `switch` als Alternative zu `if/else if/else`
@@ -194,7 +194,7 @@ Nun lassen sich in den `case`-Teilen beliebige
 logische bzw. boolesche Ausdrücke verwenden:
 
 ```js
-const age = prompt("Bitte Alter eingeben:");
+const age = questionInt("Bitte Alter eingeben:");
 
 switch(true) {
   case age > 0 && age < 18:

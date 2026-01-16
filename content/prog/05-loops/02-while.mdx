@@ -19,7 +19,7 @@ Der syntaktische Aufbau von `while` ist nicht sehr umfangreich
 (dennoch werden hierdurch komplexere Abläufe ermöglicht):
 
 ```js
-while( ...ein logischer Ausdruck vom Typ boolean... ) {
+while( ...ein Ausdruck, der zu true/false ausgewertet wird (truthy/falsy)... ) {
   // Anweisungen in diesem Block werden ausgeführt,
   // solange der logische Ausdruck wahr (true) ist	
 }
@@ -113,7 +113,7 @@ direkter ausgedrückt werden (ohne die Sprungmarken):
 // Berechnung
 // Variable result für das Ergebnis, initialisiere sie mit 0
 // Variable tmp wird mit num initialisiert
-// solange tmp Ziffern hat
+// solange tmp Ziffern hat (tmp > 0)
 //    --> schneide letzte Ziffer ganz rechts bzw. hinten ab
 //    result = result + nächste Ziffer in tmp
 
@@ -143,10 +143,7 @@ einen wesentlichen Bestandteil der Programmierung bildet.
 Berechnung der Quersumme in JavaScript:
 
 ```js
-const input = prompt("Positive ganze Zahl eingeben:");
-let num = parseInt(input);
-
-// TODO: Fehlermeldung bei Eingabe einer ungültigen Zahl
+const num = questionInt("Positive ganze Zahl eingeben:");
 
 // Berechnung
 let result = 0;	
@@ -168,8 +165,7 @@ in vielen Programmiersprachen Hilfsmethoden, die einzelnen
 Zeichen (d.h. Ziffern in unserem Fall) nacheinander abzufragen.
 
 ```js
-let numString = prompt("Positive ganze Zahl eingeben:");
-// TODO: Überprüfung, ob Zahl eingegeben wurde
+let numString = questionInt("Positive ganze Zahl eingeben:");
 	
 // Berechnung	
 let result = 0;

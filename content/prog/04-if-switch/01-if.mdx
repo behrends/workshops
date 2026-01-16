@@ -72,7 +72,7 @@ graph TD
 Ein Beispiel dazu:
 
 ```js
-const i = prompt("Bitte Zahl eingeben");
+const i = questionInt("Bitte Zahl eingeben");
 
 if(i >= 0) {	
   console.log(`${i} ist nicht negativ`);
@@ -89,7 +89,7 @@ unterschieden. Dies ist also sozusagen ein
 Ein weiteres Beispiel:
 
 ```js
-const i = parseInt(prompt("Bitte Zahl eingeben"));
+const i = questionInt("Bitte Zahl eingeben");
 	
 if(isNaN(i)) {	
   console.log("Bitte eine Zahl eingeben, d.h. nur Ziffern eintippen!");	
@@ -121,7 +121,7 @@ können die geschweiften Klammern weggelassen
 werden:
 
 ```js
-const i = parseInt(prompt("Bitte Zahl eingeben"));
+const i = questionInt("Bitte Zahl eingeben");
 	
 if(isNaN(i))
   console.log("Bitte eine Zahl eingeben, d.h. nur Ziffern eintippen!");	
