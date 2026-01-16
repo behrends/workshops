@@ -28,7 +28,7 @@ description: Lektoriere Workshop-Lektionen in `content/` (MDX) nach Korrektheit,
 ## Prüfe die Inhalte
 
 - Prüfe Korrektheit: Fakten, Begriffe, Code-Behauptungen, Versionsangaben, Syntax der Code-Beispiele, Rechtschreibung, Markdown/MDX-Fehler, interne Links und externe URLs.
-- Prüfe Vollständigkeit: Fehlen zentrale Schritte, Definitionen, Konzepte, Beispiele?
+- Prüfe Vollständigkeit: Fehlen zentrale Schritte, Definitionen, Konzepte, Beispiele? Decken die Lektionen alles Wesentliche zum Thema ab?
 - Prüfe Nachvollziehbarkeit: Sprünge, unklare Anweisungen, fehlende Übergänge. Das vorausgesetzte Vorwissen aus den vorigen Abschnitten beachten.
 - Prüfe Didaktik: Lernfluss, steigende Komplexität, passende Aufgaben/Beispiele.
 
