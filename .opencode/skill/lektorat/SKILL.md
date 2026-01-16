@@ -35,6 +35,7 @@ description: Lektoriere Workshop-Lektionen in `content/` (MDX) nach Korrektheit,
 
 - Schreibe auf Deutsch.
 - Nutze eine kurze Liste; priorisiere Korrektheit, dann Vollständigkeit, Nachvollziehbarkeit, Didaktik.
+- Vergebe für jeden Befund eine eindeutige Nummer.
 - Formatiere jeden Befund mit Kategorie und Dateipfad.
 - Formuliere Unsicherheiten als Frage.
 - Antworte mit "Keine Auffälligkeiten gefunden.", falls keine Befunde für eine Lektion oder einen Abschnittvorliegen.
@@ -46,8 +47,8 @@ Nutze dieses Format:
 
 *Korrektheit*
 
-- Kurzer Befund. (`Abschnitt/Zeile`)
-- Kurzer Befund. (`Abschnitt/Zeile`)
+- [K01] Kurzer Befund. (`Abschnitt/Zeile`)
+- [K02]Kurzer Befund. (`Abschnitt/Zeile`)
 
 *Vollständigkeit*
 
@@ -55,11 +56,11 @@ Keine Auffälligkeiten gefunden.
 
 *Nachvollziehbarkeit*
 
-- Kurzer Befund. (`Abschnitt/Zeile`)
-- Kurzer Befund. (`Abschnitt/Zeile`)
+- [N01] Kurzer Befund. (`Abschnitt/Zeile`)
+- [N02] Kurzer Befund. (`Abschnitt/Zeile`)
 
 *Didaktik*
 
-- Kurzer Befund. (`Abschnitt/Zeile`)
-- Kurzer Befund. (`Abschnitt/Zeile`)
+- [D01] Kurzer Befund. (`Abschnitt/Zeile`)
+- [D02] Kurzer Befund. (`Abschnitt/Zeile`)
 ```
