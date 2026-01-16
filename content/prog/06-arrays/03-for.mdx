@@ -23,7 +23,7 @@ umsetzen, wie wir bereits gesehen haben.
 Manchmal steht vor der Ausführung der Schleife fest, 
 wie oft sie durchlaufen wird (z. B. bei Listen bzw. 
 Arrays). Auf diese Fälle ist die `for`-Schleife 
-zugeschnitten und stell somit eine praktische
+zugeschnitten und stellt somit eine praktische
 Alternative zur `while`-Schleife in manchen
 Situationen dar.
 
@@ -72,6 +72,10 @@ for(let i = 1; i <= count; i++) {
 console.log("Mittelwert: " + sum/count);
 ```
 
+> **Hinweis:** Was passiert, wenn `count` gleich 0 ist? 
+> Dann wird durch 0 geteilt und das Ergebnis ist 
+> `NaN` (Not a Number). Wie könnte man das verhindern?
+
 **Bemerkungen**
 
 Beachte die Strichpunkte/Semikola (`;`) nach den 
@@ -110,7 +114,7 @@ Oben sehen wir ein Beispiel mit zwei
 Initialisierungen und zwei Aktualisierungen. 
 Solch eine Schleife kann natürlich sehr 
 unübersichtlich werden &mdash; daher kommt 
-dies selten vor und wir meistens anders ausgedrückt.
+dies selten vor und wird meistens anders ausgedrückt.
 
 ## Geschachtelte `for`-Schleifen
 
@@ -180,7 +184,7 @@ let list = [1,2,3,4];
 // Start bei 0, da dies erster Index im Array ist
 // Schleife läuft nur solange i kleiner als die Listenlänge ist
 // Indexe von Arrays der Länge n: 0,1,2,3...n-1
-// list.length ist also n-1
+// list.length ist also n
 for(let i = 0; i < list.length; i++) {
   console.log(list[i]);	
 }
@@ -211,7 +215,7 @@ Ungerade Zahlen < 18: 1,3,5,7,9,11,13,15,17
 ```
 
 Zusatz: Mit Funktionen und `while`-Schleifen 
-soll bei jeder Eingaben sichergestellt werden,
+soll bei jeder Eingabe sichergestellt werden,
 dass nur Zahlen > 0 eingegeben werden.
 
 ## `for` und `while`

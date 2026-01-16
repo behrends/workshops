@@ -81,7 +81,7 @@ Ein Array der Länge `n` hat n Einträge bzw. Elemente.
 Der erste Eintrag hat den Index `0` und der letzte 
 den Index `n-1`.
 
-Zugriff auf die Elemente durch mit `[` und `]` 
+Zugriff auf die Elemente erfolgt durch `[` und `]` 
 geklammerte Index-Ausdrücke.
 
 ```js	
@@ -160,7 +160,7 @@ Dies kann etwas gewöhnungsbedürftig sein. Gebraucht
 wird dies z. B. bei Matrix-Berechnungen.
 
 ## Ausblick
- Arrays haben viele Hilfsmethoden in JavaSript, 
+ Arrays haben viele Hilfsmethoden in JavaScript, 
  siehe [Mozilla Developer Network (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) für einen
  Überblick.
 
@@ -198,12 +198,12 @@ mit dem Element als Parameter aufgerufen wird:
 ```js
 const list = [1,2,3];
 
-function showSquares(x){ console.log(x*x) };
+function showSquares(x){ console.log(x * x) };
 
 // durchlaufe Array und rufe für jedes
 // Element item im Array showSquares(item) auf
 list.forEach(showSquares); 
-// Ausgabe ---> 1  4  9  16
+// Ausgabe ---> 1  4  9
 ```
 
 Eine Funktion, die wie oben verwendet wird, wird auch _Callback_-Funktion 
