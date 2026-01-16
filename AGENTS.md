@@ -32,7 +32,7 @@ Use the existing style: 2-space indentation, semicolons, and ESM imports. Compon
 There is no automated test runner configured in `package.json`. If you add tests, prefer `__tests__/` or `*.test.jsx` naming and introduce a script such as `npm test` so contributors have a single entry point.
 
 ## Commit & Pull Request Guidelines
-Commit messages typically follow `Area: short summary` (e.g., `Prog: Glossar erweitert`, `Präsi: Add z.ai and minimax.io`). Keep commits focused on one content area. Commit messages should be concise and descriptive but not too verbose.
+Commit messages typically follow `Area: short summary` (e.g., `Prog: Glossar erweitert`, `Präsi: Add z.ai and minimax.io`). Keep commits focused on one content area. Commit messages should be in German, concise and descriptive but not too verbose.
 
 ## Content & Assets
 Place MDX content under `content/` and reference images from `public/images` with absolute paths (e.g., `/images/example.png`). Use `components/` or `mdx-components.js` for reusable MDX blocks instead of duplicating markup.
