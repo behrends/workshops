@@ -61,10 +61,12 @@ Vorüberlegung:
 - Am Ende den Mittelwert durch `sum/count` berechnen und ausgeben.
 
 ```js
-let count = parseInt(prompt("Wieviele Zahlen willst Du eingeben?"));
+import { questionInt } from "readline-sync";
+
+let count = questionInt("Wieviele Zahlen willst Du eingeben?");
 let num, sum = 0;
 for(let i = 1; i <= count; i++) {
-  num = parseInt(prompt(`Bitte Zahl Nr. ${i} eingeben`));
+  num = questionInt(`Bitte Zahl Nr. ${i} eingeben`);
   sum = sum + num;	
 }	
 console.log("Mittelwert: " + sum/count);
@@ -116,8 +118,10 @@ Gelegentlich sind jedoch geschachtelte
 `for`-Schleifen nützlich oder sogar notwendig:
 
 ```js
-let jMax = parseInt(prompt("Obere Schranke für 1. Zahl: "));
-let kMax = parseInt(prompt("Obere Schranke für 2. Zahl: "));
+import { questionInt } from "readline-sync";
+
+let jMax = questionInt("Obere Schranke für 1. Zahl: ");
+let kMax = questionInt("Obere Schranke für 2. Zahl: ");
 	
 console.log("Die Produkte des Einmaleins:");	
 for(let j = 1; j <= jMax; j++) {

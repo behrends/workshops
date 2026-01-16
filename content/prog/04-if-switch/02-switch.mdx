@@ -15,6 +15,8 @@ müssen. Mit `if … else if … else …` kann dies recht
 unübersichtlich werden:
 
 ```js
+import { question } from "readline-sync";
+
 let a = 13, b = 4;	
 let op = question("Welche Rechenoperation?");
 if(op === "+") {
@@ -36,6 +38,8 @@ In solchen Situationen stellt `switch` gelegentlich eine besser
 lesbare Alternative dar:
 
 ```javascript
+import { question } from "readline-sync";
+
 let a = 13, b = 4;	
 let op = question("Welche Rechenoperation?");
 switch(op) {
@@ -194,6 +198,8 @@ Nun lassen sich in den `case`-Teilen beliebige
 logische bzw. boolesche Ausdrücke verwenden:
 
 ```js
+import { questionInt } from "readline-sync";
+
 const age = questionInt("Bitte Alter eingeben:");
 
 switch(true) {

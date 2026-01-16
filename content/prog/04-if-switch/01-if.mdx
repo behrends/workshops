@@ -72,6 +72,8 @@ graph TD
 Ein Beispiel dazu:
 
 ```js
+import { questionInt } from "readline-sync";
+
 const i = questionInt("Bitte Zahl eingeben");
 
 if(i >= 0) {	
@@ -89,6 +91,8 @@ unterschieden. Dies ist also sozusagen ein
 Ein weiteres Beispiel:
 
 ```js
+import { questionInt } from "readline-sync";
+
 const i = questionInt("Bitte Zahl eingeben");
 	
 if(isNaN(i)) {	
@@ -121,6 +125,8 @@ können die geschweiften Klammern weggelassen
 werden:
 
 ```js
+import { questionInt } from "readline-sync";
+
 const i = questionInt("Bitte Zahl eingeben");
 	
 if(isNaN(i))
