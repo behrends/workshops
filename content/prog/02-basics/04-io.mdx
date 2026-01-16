@@ -154,11 +154,17 @@ Hilfsbibliothek für farbige Ausgabe im Terminal:
 Um die Eingabe von der Tastatur einfacher zu handhaben,  installieren wir eine Hilfsbibliothek namens 
 [`readline-sync`](https://github.com/anseki/readline-sync).
 
+<Callout type="info">
 **Vorbemerkung:** Die Bibliothek `readline-sync` ist ein öffentliches Archiv auf GitHub und wird 
-nicht mehr weiterentwickelt. Dennoch verwenden wir sie hier zu Beginn, da sie stabil und relativ
+nicht mehr weiterentwickelt. Dennoch verwenden wir sie hier zu Beginn, da sie einfach, stabil und relativ
 weit verbreitet ist. Wir nutzen sie hier, um die Eingabe von der Tastatur zu vereinfachen.
 
-Dazu das Terminal in VS Code öffnen und das Projekt zuerst für npm initialisieren:
+Leider ist die Dokumentation von `readline-sync` veraltet (z. B. `require` statt `import`). Für die Verwendung von `readline-sync` 
+im eigenen Code kann es hilfreich sein, KI bzw. GitHub Copilot zu
+fragen &mdash; vermeiden Sie jedoch die Generierung von Lösungen!
+</Callout>
+
+Um `readline-sync` zu installieren, müssen wir zunächst das Projekt initialisieren. Dazu das Terminal in VS Code öffnen und folgenden Befehl ausführen:
 
 ```bash
 npm init -y
