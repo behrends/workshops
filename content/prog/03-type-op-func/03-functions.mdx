@@ -39,11 +39,13 @@ Folgendes kann mit Funktionen erreicht werden:
 Im folgenden Beispiel sind zwei Funktionsaufrufe zu sehen:
 
 ```js
-let input = prompt("Bitte Namen eingeben");
+import { question } from 'readline-sync';
+
+let input = question("Bitte Namen eingeben");
 console.log(input);
 ```
 
-Die Funktion `prompt` wird mit einem Text-**Parameter/-Argument**
+Die Funktion `question` (aus `readline-sync`) wird mit einem Text-**Parameter/-Argument**
 aufgerufen und wir weisen das Ergebnis bzw. den **Rückgabewert**
 der Funktion einer Variablen `input` zu.
 
@@ -175,7 +177,7 @@ Was bedeutet dies für die Parameter?
 
 - Die Funktion arbeitet mit Kopien der aktuellen Parameter.
 - Wenn also Variablen als Parameter im Aufruf einer Funktion verwendet werden, dann ändern sich diese Variablen nicht durch die Anweisungen in der Funktion.
-- Dies wird „_call-by-value_“ genannt, weil nur die Werte und nicht Referenzen an Funktionen übergeben werden.
+- Dies wird „_call-by-value_“ genannt, weil nur die Werte (bei Objekten: Referenzwerte) und nicht die Variablen selbst übergeben werden.
 
 
 **Bemerkung zu Parametern**

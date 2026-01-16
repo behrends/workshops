@@ -70,17 +70,21 @@ Mit `+` können zwei Strings zu einem neuen String
 zusammengesetzt werden. Dies wird als **Stringkonkatenation**
 bezeichnet.
 
-``js
-let name = prompt("Wie heißt Du?");
+```js
+import { question } from 'readline-sync';
+
+let name = question("Wie heißt Du?");
 console.log("Hallo, " + name + ". Wie geht es Dir?");
-``
+```
 
 Mit Template-Strings ist es evtl. einfacher, Text 
 zusammenzusetzen:
 
 ```js
-let name = prompt("Wie heißt Du?");
-console.log(`Hallo, ${name}. Wie geht es Dir?`)
+import { question } from 'readline-sync';
+
+let name = question("Wie heißt Du?");
+console.log(`Hallo, ${name}. Wie geht es Dir?`);
 ```
 
 Template-Strings wurden bereits im Abschnitt über 
@@ -114,8 +118,8 @@ führen:
 ```
 
 Hier wird beim **schwachen** Vergleich mit == eine automatische 
-Typumwandlungen durchgeführt, sodass hier zwei Strings 
-miteinander verglichen werden.
+Typumwandlung durchgeführt, sodass hier die Zahl `4` 
+mit der Zahl `4` verglichen wird.
 
 Daher sollte eigentlich immer der **starke** Vergleich mit 
 `===` verwendet werden:
