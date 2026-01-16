@@ -20,7 +20,8 @@ description: Lektoriere Workshop-Lektionen in `content/` (MDX) nach Korrektheit,
 
 ## Sammle die Dateien
 
-- Erfasse alle MDX-Dateien im Abschnittsordner.
+- Erfasse alle MDX-Dateien im Abschnittsordner. 
+- `index.mdx` kann ignoriert werden.
 - Halte die Reihenfolge gemäß `_meta.js`, falls mehrere Lektionen vorhanden sind.
 - Notiere Dateipfade für Referenzen in den Befunden.
 
