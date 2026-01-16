@@ -137,8 +137,8 @@ Funktionsaufrufs in der Konstanten `result` zur weiteren
 Verwendung bereit.
 
 <Callout type="warning">
-Auch wenn eine Funktion erst später oder am Ende eines Skripts bzw.
-der Datei deklariert wird, dann kann diese schon zuvor aufgerufen werden:
+Auch wenn eine Funktionsdeklaration erst später oder am Ende eines Skripts bzw.
+der Datei steht, kann sie (Hoisting) schon zuvor aufgerufen werden:
 
 ```js
 test(); // Aufruf einer Funktion...
@@ -148,9 +148,9 @@ function test() {
 }
 ```
 
-Dennoch ist es in der Regel empfehlenswert, Funktionen
-am Anfang einer Datei zu deklarieren, damit der Code
-übersichtlicher, lesbarer und leichter nachzuvollziehen ist.
+Das gilt nicht für Funktionsausdrücke oder Arrow-Funktionen; dennoch ist es
+in der Regel empfehlenswert, Funktionen am Anfang einer Datei zu deklarieren,
+damit der Code übersichtlicher, lesbarer und leichter nachzuvollziehen ist.
 </Callout>
 
 <Callout type="info" emoji="👨🏻‍💻">
