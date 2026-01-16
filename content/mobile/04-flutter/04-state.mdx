@@ -75,7 +75,7 @@ in den UI-Baum aufgerufen und liefert eine Instanz von `State<MyWidget>`,
 die den veränderlichen Zustand verwaltet. `StatefulWidget` selbst hat 
 keine `build()`-Methode; die UI wird in der `State`-Klasse über `build()`
 aufgebaut. Auf die aktuelle Widget-Konfiguration greifen wir in `State` über 
-`widget` zu (z.B. bei uns `widget.title`). Dazu implementieren wir unterhalb 
+`widget` zu (z. B. bei uns `widget.title`). Dazu implementieren wir unterhalb 
 von `TodoItem` die Klasse `_TodoItemState`, die von `State<TodoItem>` erbt:
 
 **Achtung:** Wir können die `build`-Methode nun in die 

@@ -12,7 +12,7 @@ JavaScript hat seit ECMAScript 2015 eine offizielle
 Syntax für import- und export-Anweisungen. 
 Damit lassen sich JavaScript-Projekte 
 auf mehrere Dateien aufteilen, um eine übersichtliche 
-Code-Struktur zu erhalten und z.B. Funktionen in 
+Code-Struktur zu erhalten und z. B. Funktionen in 
 anderen Dateien im Code zu verwenden. Somit können 
 Funktionen oder Klassen in einer bestimmtem Datei 
 deklariert und **exportiert** werden, um sie in einer 
@@ -41,14 +41,14 @@ aktiviert werden:
 1. Falls noch nicht vorhanden, im Projektordner die 
 Datei `package.json` mit dem Terminalbefehl `npm init` erstellen.
 2. Die Datei `package.json` öffnen.
-3. In `package.json` folgendes eintragen (z.B. nach dem Eintrag für `version`):
+3. In `package.json` folgendes eintragen (z. B. nach dem Eintrag für `version`):
   
   ```
   // in package.json hinzufügen:
   "type": "module",
   ```
 
-Die Datei `package.json` sollte dann z.B. so aussehenn:
+Die Datei `package.json` sollte dann z. B. so aussehenn:
 
 ```
 {
@@ -72,7 +72,7 @@ Das Komma am Ende der Zeile darf nicht fehlen!
 
 ### Exportieren (von Funktionen o.a.)
 
-Nun kann z.B. in einer Datei `util/computations.js`
+Nun kann z. B. in einer Datei `util/computations.js`
 etwas exportiert werden:
 
 ```js
@@ -84,7 +84,7 @@ export default function test() { return 'TEST'; };
 export const myConstant = 1234;
 ```
 
-Mit `export` wird angezeigt, dass z.B. eine Funktion
+Mit `export` wird angezeigt, dass z. B. eine Funktion
 oder Konstante exportiert werden soll. Pro Datei (bzw. 
 Modul) kann es höchstens eine `export default`-Anweisung geben. 
 
