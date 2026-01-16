@@ -4,7 +4,7 @@
 This repository hosts **workshop materials** for teaching programming concepts, web development, and mobile app development. The content is written in German and targets students learning these topics.
 
 **Workshop areas:**
-- `prog/`: General programming fundamentals and a glossary of key terms.
+- `prog/`: General programming fundamentals and a glossary of key terms. JavaScript in the terminal without browser, HTML and CSS.
 - `web-prog/`: Web development with HTML, CSS, and JavaScript.
 - `mobile/`: Mobile app development covering Android (Kotlin/Compose), Flutter, React Native, and cross-platform frameworks.
 - `praesi/`: Presentation topics including AI tools and creative coding (p5.js).
