@@ -83,7 +83,7 @@ function testFunction(firstParam, secondParam) {
   // Anweisungen und Berechnungen im Funktionsrumpf	
   x = 123 + firstParam + secondParam;
 	
-  // Rückgabewert - meist am Ende der Methode
+  // Rückgabewert - meist am Ende der Funktion
   return x;
 }
 ```
@@ -97,7 +97,7 @@ Somit besteht die Deklaration einer Funktion aus
 
 Der **Funktionsrumpf** steht zwischen `{ … }` und enthält Anweisungen.
 
-Lokale Variablen können im Rumpf der Methode deklariert werden, sodass dies ihr Gültigkeitsbereich ist,
+Lokale Variablen können im Rumpf der Funktion deklariert werden, sodass dies ihr Gültigkeitsbereich ist,
 und sie außerhalb der Funktion nicht existieren bzw. nicht bekannt sind. 
 
 <Callout type="info">
@@ -124,7 +124,7 @@ testFunction(15, 26);
 **Achtung:** es dürfen auch mehr oder weniger Parameter 
 angegeben werden (also aufpassen!).
 
-Beim Aufruf sollte (!) die vorgesehende Paramateranzahl mit passenden Datentypen angegeben werden.
+Beim Aufruf sollte (!) die vorgesehene Parameteranzahl mit passenden Datentypen angegeben werden.
 
 Das Ergebnis der Funktion kann z. B. einer Variablen zugewiesen werden: 
 
@@ -183,14 +183,14 @@ Was bedeutet dies für die Parameter?
 **Bemerkung zu Parametern**
 
 Funktionen erhalten Parameter als Kopien der Werte 
-(_call-by-value_), d.h. Zuweisungen an Parameter habe keine 
+(_call-by-value_), d.h. Zuweisungen an Parameter haben keine 
 Auswirkung außerhalb der Funktion.
 
 **Änderungen an Eigenschaften von Objekt-Parametern wirken 
 sich aber aus!**
 
 <Callout type="info">
-Es folgt ein Beispiel, dass evtl. erst später nachvollziehbar 
+Es folgt ein Beispiel, das evtl. erst später nachvollziehbar 
 wird nachdem wir Objekte in JavaScript besprochen haben.
 </Callout>
 
