@@ -8,7 +8,8 @@ import { Callout } from 'nextra/components'
   - Arithmetische Operatoren anwenden
   - Vergleichs- und logische Operatoren nutzen
   - Bedingungsoperator einsetzen
-  - Ein- und Ausgabe mit `readline-sync`
+  - Eingabe mit `readline-sync`
+  - Ausgabe mit `console.log` und Template-Strings
 
   **Ziel:** Bisherige Konzepte in einem kleinen Projekt anwenden
 </Callout>
@@ -28,6 +29,10 @@ Konzepte eingesetzt werden:
 
 Insbesondere verwenden wir hier **noch kein `if`** &mdash;
 für einfache Fallunterscheidungen nutzen wir den Bedingungsoperator (`? :`).
+
+Zur Festigung der bisher besprochenen Konzepte sollte noch kein
+Coding-Agent eingesetzt werden. Ein KI-Chat kann bei Bedarf für
+gezielte Fragen genutzt werden — aber nicht für komplette Lösungen.
 </Callout>
 
 <Callout type="info">
@@ -47,14 +52,14 @@ Schreibe ein Programm, das:
 **Beispielausgabe:**
 
 ```
-Rechnungsbetrag eingeben: 50
+Rechnungsbetrag: 50
 Trinkgeld (10%): 5
 Gesamtbetrag: 55
 ```
 
 <Callout type="warning">
 **Hinweis:** Für die Eingabe von Zahlen mit Nachkommastellen
-können wir `questionFloat` 
+können wir `questionFloat` aus `readline-sync` einsetzen:
 
 ```js
 import { questionFloat } from 'readline-sync';
@@ -75,19 +80,32 @@ Trinkgeld-Optionen berechnet und ausgibt:
 **Beispielausgabe:**
 
 ```
-Rechnungsbetrag eingeben: 80
+Rechnungsbetrag: 80
 --- Trinkgeld-Optionen ---
-Sparsam  (5%): 4.00  → Gesamt: 84.00
-Normal   (10%): 8.00 → Gesamt: 88.00
-Großzügig (15%): 12.00 → Gesamt: 92.00
+Sparsam  (5%): 4.00  -> Gesamt: 84.00
+Normal   (10%): 8.00 -> Gesamt: 88.00
+Großzügig (15%): 12.00 -> Gesamt: 92.00
 ```
 
 <Callout type="info">
 **Tipp:** Template-Strings eignen sich für eine übersichtliche Ausgabe:
 
 ```js
-console.log(`Normal (10%): ${tip10} → Gesamt: ${total10}`);
+console.log(`Normal (10%): ${tip10} -> Gesamt: ${total10}`);
 ```
+</Callout>
+
+<Callout type="info">
+**Bonus:** Die Ausgabe der Zahlen lässt sich auf zwei
+Nachkommastellen formatieren. Dazu kann die
+Methode `toFixed(2)` verwendet werden:
+
+```js
+let number = 17.1919;
+console.log(number.toFixed(2)); // Ausgabe: "17.19"
+```
+
+`toFixed` gibt einen Text (String) zurück und rundet dabei.
 </Callout>
 
 ## Aufgabe 3: Aufteilung auf Personen (Übung)
@@ -102,7 +120,7 @@ auf mehrere Personen aufzuteilen:
 **Beispielausgabe:**
 
 ```
-Rechnungsbetrag eingeben: 120
+Rechnungsbetrag: 120
 Anzahl Personen: 4
 --- Aufteilung ---
 Gesamtbetrag (inkl. 15% Trinkgeld): 138.00
@@ -121,7 +139,7 @@ gewählten Trinkgeld-Prozentsatz eine Bewertung auszugeben:
 **Beispielausgabe:**
 
 ```
-Rechnungsbetrag eingeben: 50
+Rechnungsbetrag: 50
 Trinkgeld-Prozentsatz: 18
 Trinkgeld: 9.00
 Bewertung: Großzügig!
@@ -147,7 +165,7 @@ Eingaben überprüft und entsprechende Meldungen ausgegeben:
 **Beispiel für gültige Eingabe:**
 
 ```
-Rechnungsbetrag eingeben: 75
+Rechnungsbetrag: 75
 Trinkgeld-Prozentsatz: 15
 Eingaben gültig: true
 Trinkgeld: 11.25
@@ -157,7 +175,7 @@ Gesamtbetrag: 86.25
 **Beispiel für ungültige Eingabe:**
 
 ```
-Rechnungsbetrag eingeben: -10
+Rechnungsbetrag: -10
 Trinkgeld-Prozentsatz: 15
 Eingaben gültig: false
 Warnung: Ungültige Eingaben!
@@ -185,6 +203,11 @@ Trinkgeldrechner kombiniert mit folgenden Features:
 4. Bewertung des Trinkgelds (sparsam/normal/großzügig)
 5. Übersichtliche, formatierte Ausgabe
 
+Regeln zur Bewertung des Trinkgelds:
+- Unter 10%: "Sparsam"
+- 10% bis unter 15%: "Normal"
+- Ab 15%: "Großzügig"
+
 **Beispielausgabe:**
 
 ```
@@ -201,16 +224,115 @@ Pro Person:       37.56
 Bewertung:        Großzügig!
 ```
 
+## Optionale Aufgaben (Bonus)
+
+Falls noch Zeit zur Verfügung steht, kann die letzte Aufgabe
+mit folgenden Ideen erweitert werden. Die Reihenfolge der
+Aufgaben ist hierbei egal.
+
+### Ausgabe in Spalten ausrichten
+
+Formatiere die Ausgabe so, dass **Beschriftungen** und **Zahlen**
+sauber **untereinander in Spalten** stehen (wie in einer Tabelle):
+
+* Nutze `padEnd(...)` für die Texte (links)
+* Nutze `padStart(...)` für die Zahlen (rechts)
+* Zahlen weiterhin mit `toFixed(2)` formatieren
+
+**Beispielausgabe:**
+
+```
+--- Ergebnis ---
+Rechnungsbetrag:    95.50
+Trinkgeld (18%):    17.19
+Gesamtbetrag:      112.69
+Pro Person:         37.56
+```
+
+### Aufrunden auf „schöne“ Beträge
+
+Erweitere das Programm so, dass der **Gesamtbetrag** (inkl. Trinkgeld)
+auf einen „schönen“ Betrag aufgerundet wird:
+
+* Auf den **nächsten vollen Euro** (z.B. 112.69 → 113.00)
+* Gib zusätzlich aus, wie viel **extra Trinkgeld** dadurch entsteht
+
+**Beispielausgabe:**
+
+```
+Gesamtbetrag (inkl. Trinkgeld): 112.69
+Aufgerundet auf: 113.00
+Extra Trinkgeld durch Aufrunden: 0.31
+```
+
+---
+
+### Mindest-Trinkgeld
+
+Erweitere das Programm so, dass ein **Mindest-Trinkgeld** gilt:
+
+* Wenn das berechnete Trinkgeld **unter 1.00** liegt, setze es auf **1.00**
+* Nutze dafür den **Bedingungsoperator** (`? :`)
+
+**Beispielausgabe:**
+
+```
+Rechnungsbetrag: 5
+Trinkgeld (%): 10
+Trinkgeld: 1.00
+Gesamtbetrag: 6.00
+```
+
+---
+
+### Komma als Dezimaltrenner
+
+Erweitere die Eingabe so, dass Beträge auch mit **Komma** eingegeben
+werden können (z.B. `12,50`):
+
+* Betrag als **String** einlesen
+* `,` durch `.` ersetzen
+* Danach in eine Zahl umwandeln
+
+**Beispielausgabe:**
+
+```
+Rechnungsbetrag eingeben: 12,50
+Rechnungsbetrag (Zahl): 12.50
+```
+
+### Farbige Ausgabe mit `util.styleText`
+
+Erweitere den Trinkgeldrechner so, dass bestimmte Ausgaben **farbig** und/oder **formatiert** (z.B. fett, unterstrichen) erscheinen:
+
+1. Importiere `styleText` aus `node:util`
+2. Gib die Überschrift `=== Trinkgeldrechner ===` z.B. **blau + fett** aus
+3. Gib die Warnung bei ungültigen Eingaben **rot + fett** aus
+4. Färbe die Bewertung abhängig vom Prozentsatz (nur mit Bedingungsoperator):
+
+   * **Sparsam** (< 10) → rot
+   * **Normal** (< 15) → gelb
+   * **Großzügig!** (>= 15) → grün
+
+**Beispielausgabe (Farben im Terminal sichtbar):**
+
+```
+=== Trinkgeldrechner ===   (blau, fett)
+
+--- Ergebnis ---
+Warnung: Ungültige Eingaben!   (rot, fett)
+Bewertung: Großzügig!          (grün)
+```
+
 <Callout type="info">
-**Bonus:** Die Ausgabe der Zahlen lässt sich auf zwei
-Nachkommastellen formatieren. Dazu kann die
-Methode `toFixed(2)` verwendet werden:
+**Tipp:** `styleText` kann ein Format oder ein Array aus Formaten bekommen:
 
 ```js
-let number = 17.1919;
-console.log(number.toFixed(2)); // Ausgabe: "17.19"
+import { styleText } from 'node:util';
+
+console.log(styleText(['underline', 'italic'], 'My italic underlined message'));
 ```
-</Callout>
+</Callout> 
 
 ## Zusammenfassung
 
