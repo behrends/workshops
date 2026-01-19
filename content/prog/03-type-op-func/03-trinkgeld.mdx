@@ -54,17 +54,13 @@ Gesamtbetrag: 55
 
 <Callout type="warning">
 **Hinweis:** Für die Eingabe von Zahlen mit Nachkommastellen
-können wir `question` verwenden und den String mit `parseFloat()`
-in eine Zahl umwandeln:
+können wir `questionFloat` 
 
 ```js
-import { question } from 'readline-sync';
+import { questionFloat } from 'readline-sync';
 
-let input = question("Betrag: ");
-let amount = parseFloat(input);
+let input = questionFloat("Betrag: ");
 ```
-
-Alternativ funktioniert `questionFloat` aus `readline-sync`.
 </Callout>
 
 ## Aufgabe 2: Verschiedene Prozentsätze (leicht)
@@ -72,25 +68,25 @@ Alternativ funktioniert `questionFloat` aus `readline-sync`.
 Das Programm wird so erweitert, dass es drei verschiedene
 Trinkgeld-Optionen berechnet und ausgibt:
 
-- 10% (sparsam)
-- 15% (normal)
-- 20% (großzügig)
+- 5% (sparsam)
+- 10% (normal)
+- 15% (großzügig)
 
 **Beispielausgabe:**
 
 ```
 Rechnungsbetrag eingeben: 80
 --- Trinkgeld-Optionen ---
-Sparsam  (10%): 8.00  → Gesamt: 88.00
-Normal   (15%): 12.00 → Gesamt: 92.00
-Großzügig (20%): 16.00 → Gesamt: 96.00
+Sparsam  (5%): 4.00  → Gesamt: 84.00
+Normal   (10%): 8.00 → Gesamt: 88.00
+Großzügig (15%): 12.00 → Gesamt: 92.00
 ```
 
 <Callout type="info">
 **Tipp:** Template-Strings eignen sich für eine übersichtliche Ausgabe:
 
 ```js
-console.log(`Sparsam (10%): ${tip10} → Gesamt: ${total10}`);
+console.log(`Normal (10%): ${tip10} → Gesamt: ${total10}`);
 ```
 </Callout>
 
@@ -139,7 +135,7 @@ let result = condition ? valueIfTrue : valueIfFalse;
 ```
 </Callout>
 
-## Aufgabe 5: Eingabevalidierung (anspruchsvoll)
+## Aufgabe 5: Eingabevalidierung
 
 Mit **Vergleichs-** und **logischen Operatoren** werden die
 Eingaben überprüft und entsprechende Meldungen ausgegeben:
@@ -178,7 +174,7 @@ let isValid = amount > 0 && percent >= 0 && percent <= 100;
 Die Ausgabe der Warnung lässt sich mit dem Bedingungsoperator lösen.
 </Callout>
 
-## Aufgabe 6: Komplettlösung (anspruchsvoll)
+## Aufgabe 6: Komplettlösung
 
 Alle bisherigen Elemente werden zu einem vollständigen
 Trinkgeldrechner kombiniert mit folgenden Features:
