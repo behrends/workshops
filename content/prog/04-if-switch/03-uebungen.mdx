@@ -3,24 +3,156 @@ import { Callout } from 'nextra/components'
 # Übungen
 
 <Callout>
-  **Dauer:** bis zu 90 Minuten \
-  davon 20 Minuten Besprechung/Diskussion
+  **Dauer:** 45-60 Minuten \
+  (ggf. Besprechung beim nächsten Termin)
 
-**Ziel:** Übungen für bisherige Konzepte
+  **Ziel:** `if/else` und `switch` anwenden
 </Callout>
 
-Zunächst können die bisher besprochenen
-Themen kurz wiederholt werden.
+In diesen Übungen erweitern wir den Trinkgeldrechner
+aus den vorherigen Lektionen um Verzweigungen mit
+`if/else` und `switch`.
 
-Mit diesen folgenden Aufgaben wollen wir die 
-bisherigen Konzepte wie Variablen/Konstanten, 
-Ein- und Ausgabe, Operatoren, Funktionen, 
-`if/else if/else` und `switch` anwenden und 
-somit vertiefen.
+## Aufgabe 1: Service-Bewertung mit Auswahl (Einstieg)
 
-Übungen werden in Moodle bereitgestellt.
+Erweitere den Trinkgeldrechner um eine Funktion `suggestTip`,
+die basierend auf einem "Service-Level" einen Prozentsatz vorschlägt:
 
+- **Parameter:** `serviceLevel` (1 = schlecht, 2 = okay, 3 = gut)
+- **Rückgabewert:** Vorgeschlagener Prozentsatz (5%, 10%, 15%)
+
+```js
+function suggestTip(serviceLevel) {
+  if (serviceLevel === 3) {
+    return 15;
+  } else if (serviceLevel === 2) {
+    return 10;
+  } else {
+    return 5;
+  }
+}
+```
+
+Integriere diese Funktion in den Trinkgeldrechner, sodass
+der Benutzer zwischen manuellem Prozentsatz und Service-Bewertung
+wählen kann:
+
+```js
+import { questionInt } from 'readline-sync';
+
+let choice = questionInt("1 = Prozentsatz eingeben, 2 = Service bewerten: ");
+
+if (choice === 1) {
+  // Prozentsatz direkt abfragen
+} else {
+  // Service-Level abfragen und suggestTip aufrufen
+}
+```
+
+## Aufgabe 2: Eingabevalidierung mit Fehlermeldung (Einstieg)
+
+Erweitere die Validierungsfunktion, sodass sie nicht nur `true`/`false`
+zurückgibt, sondern bei ungültigen Eingaben eine passende Fehlermeldung
+ausgibt:
+
+```js
+function validateAndReport(bill, percent, persons) {
+  if (bill <= 0) {
+    console.log("Fehler: Rechnungsbetrag muss größer als 0 sein.");
+    return false;
+  }
+  if (percent < 0 || percent > 100) {
+    console.log("Fehler: Prozentsatz muss zwischen 0 und 100 liegen.");
+    return false;
+  }
+  if (persons <= 0) {
+    console.log("Fehler: Personenanzahl muss größer als 0 sein.");
+    return false;
+  }
+  return true;
+}
+```
+
+Verwende diese Funktion im Hauptprogramm und führe die Berechnung
+nur aus, wenn die Validierung erfolgreich war.
+
+## Aufgabe 3: Erweiterte Bewertung (Übung)
+
+Ersetze die Funktion `getRating` durch eine Version mit `if/else`,
+die mehr Kategorien unterstützt:
+
+| Prozentsatz | Bewertung |
+|-------------|-----------|
+| 0-4% | "Sehr sparsam" |
+| 5-9% | "Sparsam" |
+| 10-14% | "Normal" |
+| 15-19% | "Großzügig" |
+| ab 20% | "Sehr großzügig" |
+
+```js
+function getRating(percent) {
+  // Mit if/else if/else implementieren
+}
+
+// Tests:
+console.log(getRating(3));   // "Sehr sparsam"
+console.log(getRating(7));   // "Sparsam"
+console.log(getRating(12));  // "Normal"
+console.log(getRating(17));  // "Großzügig"
+console.log(getRating(25));  // "Sehr großzügig"
+```
+
+## Aufgabe 4: Bewertung mit switch (Übung)
+
+Implementiere die Funktion `suggestTip` alternativ mit `switch`:
+
+```js
+function suggestTip(serviceLevel) {
+  switch (serviceLevel) {
+    // Fälle hier ergänzen
+  }
+}
+```
+
+<Callout type="info">
+**Vergleich:** Wann ist `if/else` besser geeignet, wann `switch`?
+
+- `switch` eignet sich für diskrete Werte (1, 2, 3, ...)
+- `if/else` eignet sich für Bereiche (< 10, >= 15, ...)
+</Callout>
+
+## Aufgabe 5: Trinkgeldrechner komplett (Vertiefung)
+
+Kombiniere alle Verbesserungen zu einem vollständigen Trinkgeldrechner:
+
+1. Auswahl: manueller Prozentsatz oder Service-Bewertung
+2. Eingabevalidierung mit Fehlermeldungen
+3. Erweiterte Bewertung (5 Kategorien)
+4. Formatierte Ausgabe
+
+**Beispielablauf:**
+
+```
+=== Trinkgeldrechner ===
+1 = Prozentsatz eingeben
+2 = Service bewerten
+Auswahl: 2
+
+Service-Level (1=schlecht, 2=okay, 3=gut): 3
+Rechnungsbetrag: 85.50
+Anzahl Personen: 3
+
+--- Ergebnis ---
+Rechnungsbetrag:  85.50
+Trinkgeld (15%):  12.83
+Gesamtbetrag:     98.33
+Pro Person:       32.78
+Bewertung:        Großzügig
+```
+
+<Callout type="warning">
 Aufgaben und Lösungen siehe `04-if-switch` im Repository `exercises`.
+</Callout>
 
 ## Zusatzaufgabe: Smiley/Sadly in p5js.org
 

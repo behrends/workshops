@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 # Übungen zu Funktionen
 
 <Callout>
-  **Dauer:** 45-60 Minuten \
+  **Dauer:** 45 Minuten (Aufgaben 1-6) \
   (ggf. Besprechung beim nächsten Termin)
 
   **Ziel:** Funktionen anwenden und den Trinkgeldrechner refaktorieren
@@ -195,29 +195,6 @@ displayResult(bill, tip, total, perPerson, rating);
 - Funktionen können einzeln getestet werden
 - Änderungen sind einfacher (z.B. andere Bewertungsgrenzen)
 </Callout>
-
-## Aufgabe 7: Erweiterung (Vertiefung)
-
-Erweitere den Trinkgeldrechner um eine neue Funktion `suggestTip`,
-die basierend auf einem "Service-Level" einen Prozentsatz vorschlägt:
-
-- **Parameter:** `serviceLevel` (1 = schlecht, 2 = okay, 3 = gut)
-- **Rückgabewert:** Vorgeschlagener Prozentsatz (5%, 10%, 15%)
-
-```js
-function suggestTip(serviceLevel) {
-  // Vorschlag hier ergänzen
-}
-
-// Tests:
-console.log(suggestTip(1)); // 5
-console.log(suggestTip(2)); // 10
-console.log(suggestTip(3)); // 15
-```
-
-Integriere diese Funktion in den Trinkgeldrechner, sodass
-der Benutzer zwischen manuellem Prozentsatz und Service-Bewertung
-wählen kann.
 
 ## Zusammenfassung
 
