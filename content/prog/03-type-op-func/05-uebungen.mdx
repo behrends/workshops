@@ -1,23 +1,212 @@
 import { Callout } from 'nextra/components'
 
-# Übungen
+# Übungen zu Funktionen
 
 <Callout>
-  **Dauer:** restliche Zeit \
-  (bis zu 45 Minuten inklusive Besprechung) \
+  **Dauer:** 45-60 Minuten \
   (ggf. Besprechung beim nächsten Termin)
 
-**Ziel:** Übungen für bisherige Konzepte
+  **Ziel:** Funktionen anwenden und den Trinkgeldrechner refaktorieren
 </Callout>
 
-Zunächst können die bisher besprochenen
-Themen kurz wiederholt werden.
+In diesen Übungen wenden wir das Konzept der Funktionen an.
+Dabei bauen wir auf dem Trinkgeldrechner aus der vorherigen
+Übung auf und verbessern die Struktur durch Funktionen.
 
-Mit diesen folgenden Aufgaben wollen wir die 
-bisherigen Konzepte wie Variablen/Konstanten, 
-Ein- und Ausgabe, Operatoren und Funktionen 
-anwenden und somit vertiefen.
+## Aufgabe 1: Einfache Funktion (Einstieg)
 
-Übungen werden in Moodle bereitgestellt.
+Schreibe eine Funktion `calculateTip`, die den Trinkgeldbetrag berechnet:
 
+- **Parameter:** `bill` (Rechnungsbetrag), `percent` (Trinkgeld-Prozentsatz)
+- **Rückgabewert:** Der berechnete Trinkgeldbetrag
+
+```js
+function calculateTip(bill, percent) {
+  // Berechnung hier ergänzen
+}
+
+// Test:
+let tip = calculateTip(100, 15);
+console.log(tip); // Ausgabe: 15
+```
+
+## Aufgabe 2: Funktion mit Ausgabe (Einstieg)
+
+Schreibe eine Funktion `displayResult`, die das Ergebnis formatiert ausgibt:
+
+- **Parameter:** `bill`, `tip`, `total`
+- **Rückgabewert:** keiner (nur Ausgabe)
+
+```js
+function displayResult(bill, tip, total) {
+  // Ausgabe hier ergänzen
+}
+
+// Test:
+displayResult(80, 12, 92);
+// Erwartete Ausgabe:
+// Rechnungsbetrag: 80.00
+// Trinkgeld:       12.00
+// Gesamtbetrag:    92.00
+```
+
+<Callout type="info">
+**Tipp:** Für die Formatierung auf zwei Nachkommastellen
+kann `toFixed(2)` verwendet werden.
+</Callout>
+
+## Aufgabe 3: Validierungsfunktion (Übung)
+
+Schreibe eine Funktion `isValidInput`, die prüft, ob die Eingaben gültig sind:
+
+- **Parameter:** `bill`, `percent`
+- **Rückgabewert:** `true` wenn gültig, `false` wenn ungültig
+
+Regeln:
+- `bill` muss größer als 0 sein
+- `percent` muss zwischen 0 und 100 liegen
+
+```js
+function isValidInput(bill, percent) {
+  // Validierung hier ergänzen
+}
+
+// Tests:
+console.log(isValidInput(50, 15));   // true
+console.log(isValidInput(-10, 15));  // false
+console.log(isValidInput(50, 150));  // false
+```
+
+## Aufgabe 4: Bewertungsfunktion (Übung)
+
+Schreibe eine Funktion `getRating`, die basierend auf dem
+Prozentsatz eine Bewertung zurückgibt:
+
+- **Parameter:** `percent`
+- **Rückgabewert:** `"Sparsam"`, `"Normal"` oder `"Großzügig"`
+
+Regeln:
+- Unter 10%: "Sparsam"
+- 10% bis unter 15%: "Normal"
+- Ab 15%: "Großzügig"
+
+```js
+function getRating(percent) {
+  // Bewertung hier ergänzen (mit Bedingungsoperator)
+}
+
+// Tests:
+console.log(getRating(5));   // "Sparsam"
+console.log(getRating(12));  // "Normal"
+console.log(getRating(20));  // "Großzügig"
+```
+
+## Aufgabe 5: Aufteilungsfunktion (Übung)
+
+Schreibe eine Funktion `calculatePerPerson`, die den Betrag
+pro Person berechnet:
+
+- **Parameter:** `total`, `persons`
+- **Rückgabewert:** Betrag pro Person
+
+```js
+function calculatePerPerson(total, persons) {
+  // Berechnung hier ergänzen
+}
+
+// Test:
+let perPerson = calculatePerPerson(120, 4);
+console.log(perPerson); // Ausgabe: 30
+```
+
+## Aufgabe 6: Trinkgeldrechner refaktorieren (Vertiefung)
+
+Kombiniere alle Funktionen aus den vorherigen Aufgaben zu
+einem vollständigen Trinkgeldrechner. Das Hauptprogramm
+sollte übersichtlich und gut lesbar sein.
+
+**Struktur:**
+
+```js
+import { questionFloat, questionInt } from 'readline-sync';
+
+// === Funktionen ===
+
+function calculateTip(bill, percent) {
+  // ...
+}
+
+function calculatePerPerson(total, persons) {
+  // ...
+}
+
+function isValidInput(bill, percent, persons) {
+  // ...
+}
+
+function getRating(percent) {
+  // ...
+}
+
+function displayResult(bill, tip, total, perPerson, rating) {
+  // ...
+}
+
+// === Hauptprogramm ===
+
+console.log("=== Trinkgeldrechner ===");
+
+let bill = questionFloat("Rechnungsbetrag: ");
+let percent = questionFloat("Trinkgeld (%): ");
+let persons = questionInt("Anzahl Personen: ");
+
+// Hier die Funktionen aufrufen und Ergebnisse ausgeben
+```
+
+<Callout type="info">
+**Vorteile dieser Struktur:**
+
+- Jede Funktion hat eine klar definierte Aufgabe
+- Das Hauptprogramm ist kurz und übersichtlich
+- Funktionen können einzeln getestet werden
+- Änderungen sind einfacher (z.B. andere Bewertungsgrenzen)
+</Callout>
+
+## Aufgabe 7: Erweiterung (Vertiefung)
+
+Erweitere den Trinkgeldrechner um eine neue Funktion `suggestTip`,
+die basierend auf einem "Service-Level" einen Prozentsatz vorschlägt:
+
+- **Parameter:** `serviceLevel` (1 = schlecht, 2 = okay, 3 = gut)
+- **Rückgabewert:** Vorgeschlagener Prozentsatz (5%, 10%, 15%)
+
+```js
+function suggestTip(serviceLevel) {
+  // Vorschlag hier ergänzen
+}
+
+// Tests:
+console.log(suggestTip(1)); // 5
+console.log(suggestTip(2)); // 10
+console.log(suggestTip(3)); // 15
+```
+
+Integriere diese Funktion in den Trinkgeldrechner, sodass
+der Benutzer zwischen manuellem Prozentsatz und Service-Bewertung
+wählen kann.
+
+## Zusammenfassung
+
+<Callout emoji="🗒️">
+In diesen Übungen haben wir gelernt:
+
+- **Funktionen deklarieren** mit `function name(params) { ... }`
+- **Parameter** für Eingabewerte verwenden
+- **Rückgabewerte** mit `return` zurückgeben
+- **Code strukturieren** durch Aufteilung in kleine Funktionen
+- **Wiederverwendbarkeit** durch allgemeine Funktionen erreichen
+</Callout>
+
+<Callout type="warning">
 Aufgaben und Lösungen siehe `03-Funktionen` im Repository `exercises`.
+</Callout>
