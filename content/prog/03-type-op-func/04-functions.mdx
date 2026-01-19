@@ -18,7 +18,8 @@ Anweisungen zusammenzufassen und somit Struktur im
 Programm zu erhalten.
 
 Funktionen sind ein mächtiges Werkzeug und wir werden
-später noch weitere Aspekte kennenlernen.
+später noch weitere Aspekte kennenlernen (z. B. Arrow-Funktionen,
+Funktionen als Parameter, usw.).
 </Callout>
 
 Mit Funktionen lassen sich Teile des ausführbaren 
@@ -61,9 +62,9 @@ Rückgabewert (Ergebnis) &mdash; auch ohne `return`. Allerdings kann dieser beim
 
 ![Grundstruktur von Funktionen](/images/prog/funktionen.png)
 
-Die Parameter werden durch unterschiedliche Namen in den runden Klammern angegeben (`param1, param2, usw`). Rückgabewerte werden 
-durch `return` meistens als letzte Zeile am Ende des 
-Funktionsrumpf angegeben.
+Die Parameter werden durch unterschiedliche Namen in den runden Klammern angegeben (`param1, param2, usw.`). Rückgabewerte werden
+durch `return` meistens als letzte Zeile am Ende des
+Funktionsrumpfs angegeben.
 
 Endet die Ausführung einer Funktion ohne `return`-Anweisung, dann 
 wird `undefined` als Ergebnis der Funktion zurückgeliefert.
@@ -177,37 +178,11 @@ Was bedeutet dies für die Parameter?
 
 - Die Funktion arbeitet mit Kopien der aktuellen Parameter.
 - Wenn also Variablen als Parameter im Aufruf einer Funktion verwendet werden, dann ändern sich diese Variablen nicht durch die Anweisungen in der Funktion.
-- Dies wird „_call-by-value_“ genannt, weil nur die Werte (bei Objekten: Referenzwerte) und nicht die Variablen selbst übergeben werden.
-
-
-**Bemerkung zu Parametern**
-
-Funktionen erhalten Parameter als Kopien der Werte 
-(_call-by-value_), d.h. Zuweisungen an Parameter haben keine 
-Auswirkung außerhalb der Funktion.
-
-**Änderungen an Eigenschaften von Objekt-Parametern wirken 
-sich aber aus!**
+- Dies wird „_call-by-value_" genannt, weil nur die Werte (bei Objekten: Referenzwerte) und nicht die Variablen selbst übergeben werden.
 
 <Callout type="info">
-Es folgt ein Beispiel, das evtl. erst später nachvollziehbar 
-wird nachdem wir Objekte in JavaScript besprochen haben.
+Bei Objekten als Parameter gilt eine Besonderheit: Änderungen an
+Eigenschaften eines Objekt-Parameters wirken sich auch außerhalb
+der Funktion aus. Dies wird verständlicher, wenn wir später
+[Objektreferenzen](/prog/07-structure/02-object-references) behandeln.
 </Callout>
-
-```js
-function changeStuff(a, b, c) {	
-  a = a * 10;
-  b.item = "changed";
-  c = {item: "changed"};
-}
-	
-let num=10, obj1={item: "unchanged"}, obj2={item: "unchanged"};
-	
-changeStuff(num, obj1, obj2);
-console.log(num);  // 10  (also unverändert)
-console.log(obj1.item); // "changed"
-console.log(obj2.item); // "unchanged"
-```
-
-Quelle dazu bei [stackoverflow](https://stackoverflow.com/questions/518000/is-javascript-a-pass-by-reference-or-pass-by-value-language
-)

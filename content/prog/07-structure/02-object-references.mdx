@@ -113,7 +113,44 @@ Referenz die geänderten Werte.
 Dies lässt sich durch eine grafische Skizze
 gut nachvollziehen, siehe z. B. bei
 https://javascript.info/object-copy. Dort
-wird auch beschrieben, wie Objekte mit 
+wird auch beschrieben, wie Objekte mit
 `Object.assign` kopiert werden können.
 
+## Referenzen bei Funktionsparametern
 
+Das Verhalten von Referenzen ist auch bei Funktionsparametern
+relevant. Funktionen erhalten Parameter als Kopien der Werte
+(_call-by-value_). Bei Objekten wird jedoch die **Referenz kopiert**,
+nicht das Objekt selbst.
+
+Das bedeutet:
+- Zuweisungen an den Parameter selbst haben keine Auswirkung außerhalb der Funktion
+- Änderungen an **Eigenschaften** eines Objekt-Parameters wirken sich aber aus
+
+```js
+function changeStuff(a, b, c) {
+  a = a * 10;           // Zuweisung an Parameter (keine Auswirkung)
+  b.item = "changed";   // Änderung einer Eigenschaft (wirkt sich aus!)
+  c = {item: "changed"}; // Zuweisung an Parameter (keine Auswirkung)
+}
+
+let num = 10;
+let obj1 = {item: "unchanged"};
+let obj2 = {item: "unchanged"};
+
+changeStuff(num, obj1, obj2);
+
+console.log(num);        // 10 (unverändert)
+console.log(obj1.item);  // "changed" (geändert!)
+console.log(obj2.item);  // "unchanged" (unverändert)
+```
+
+<Callout type="warning">
+**Erklärung:**
+
+- `a = a * 10` ändert nur die lokale Kopie von `num`
+- `b.item = "changed"` ändert eine Eigenschaft des Objekts, auf das `b` verweist &mdash; das ist dasselbe Objekt wie `obj1`
+- `c = {item: "changed"}` weist `c` ein neues Objekt zu, aber `obj2` zeigt weiterhin auf das ursprüngliche Objekt
+</Callout>
+
+Quelle: [stackoverflow.com](https://stackoverflow.com/questions/518000/is-javascript-a-pass-by-reference-or-pass-by-value-language)

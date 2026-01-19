@@ -74,22 +74,24 @@ kann `toFixed(2)` verwendet werden.
 
 Schreibe eine Funktion `isValidInput`, die prüft, ob die Eingaben gültig sind:
 
-- **Parameter:** `bill`, `percent`
+- **Parameter:** `bill`, `percent`, `persons`
 - **Rückgabewert:** `true` wenn gültig, `false` wenn ungültig
 
 Regeln:
 - `bill` muss größer als 0 sein
 - `percent` muss zwischen 0 und 100 liegen
+- `persons` muss größer als 0 sein
 
 ```js
-function isValidInput(bill, percent) {
+function isValidInput(bill, percent, persons) {
   // Validierung hier ergänzen
 }
 
 // Tests:
-console.log(isValidInput(50, 15));   // true
-console.log(isValidInput(-10, 15));  // false
-console.log(isValidInput(50, 150));  // false
+console.log(isValidInput(50, 15, 2));   // true
+console.log(isValidInput(-10, 15, 2));  // false
+console.log(isValidInput(50, 150, 2));  // false
+console.log(isValidInput(50, 15, 0));   // false
 ```
 
 ## Aufgabe 4: Bewertungsfunktion (Übung)
@@ -175,7 +177,14 @@ let bill = questionFloat("Rechnungsbetrag: ");
 let percent = questionFloat("Trinkgeld (%): ");
 let persons = questionInt("Anzahl Personen: ");
 
-// Hier die Funktionen aufrufen und Ergebnisse ausgeben
+// Validierung, Berechnung und Ausgabe:
+let valid = isValidInput(bill, percent, persons);
+let tip = calculateTip(bill, percent);
+let total = bill + tip;
+let perPerson = calculatePerPerson(total, persons);
+let rating = getRating(percent);
+
+displayResult(bill, tip, total, perPerson, rating);
 ```
 
 <Callout type="info">
