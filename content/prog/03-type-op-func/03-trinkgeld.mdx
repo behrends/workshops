@@ -1,0 +1,231 @@
+import { Callout } from 'nextra/components'
+
+# Mini-Projekt: Trinkgeldrechner
+
+<Callout>
+  **Dauer:** 45-60 Minuten
+
+  - Arithmetische Operatoren anwenden
+  - Vergleichs- und logische Operatoren nutzen
+  - Bedingungsoperator einsetzen
+  - Ein- und Ausgabe mit `readline-sync`
+
+  **Ziel:** Bisherige Konzepte in einem kleinen Projekt anwenden
+</Callout>
+
+In diesem Mini-Projekt entwickeln wir schrittweise einen
+Trinkgeldrechner. Die Aufgaben bauen aufeinander auf und
+werden zunehmend anspruchsvoller.
+
+<Callout type="warning">
+**Wichtig:** Bei diesen Übungen sollen nur die bisher besprochenen
+Konzepte eingesetzt werden:
+
+- Variablen und Konstanten (`let`, `const`)
+- Ein- und Ausgabe (`console.log`, `readline-sync`)
+- Datentypen (`number`, `string`, `boolean`)
+- Operatoren (arithmetische, Vergleichs-, logische, Bedingungsoperator)
+
+Insbesondere verwenden wir hier **noch kein `if`** &mdash;
+für einfache Fallunterscheidungen nutzen wir den Bedingungsoperator (`? :`).
+</Callout>
+
+<Callout type="info">
+Wir erstellen eine neue Datei `trinkgeld.js` im Projektordner.
+Nicht vergessen, `readline-sync` zu importieren, wenn wir
+Benutzereingaben verwenden möchten.
+</Callout>
+
+## Aufgabe 1: Grundberechnung (leicht)
+
+Schreibe ein Programm, das:
+
+1. Einen Rechnungsbetrag vom Benutzer einliest
+2. Ein Trinkgeld von 10% berechnet
+3. Den Trinkgeldbetrag und den Gesamtbetrag ausgibt
+
+**Beispielausgabe:**
+
+```
+Rechnungsbetrag eingeben: 50
+Trinkgeld (10%): 5
+Gesamtbetrag: 55
+```
+
+<Callout type="warning">
+**Hinweis:** Für die Eingabe von Zahlen mit Nachkommastellen
+können wir `question` verwenden und den String mit `parseFloat()`
+in eine Zahl umwandeln:
+
+```js
+import { question } from 'readline-sync';
+
+let input = question("Betrag: ");
+let amount = parseFloat(input);
+```
+
+Alternativ funktioniert `questionFloat` aus `readline-sync`.
+</Callout>
+
+## Aufgabe 2: Verschiedene Prozentsätze (leicht)
+
+Das Programm wird so erweitert, dass es drei verschiedene
+Trinkgeld-Optionen berechnet und ausgibt:
+
+- 10% (sparsam)
+- 15% (normal)
+- 20% (großzügig)
+
+**Beispielausgabe:**
+
+```
+Rechnungsbetrag eingeben: 80
+--- Trinkgeld-Optionen ---
+Sparsam  (10%): 8.00  → Gesamt: 88.00
+Normal   (15%): 12.00 → Gesamt: 92.00
+Großzügig (20%): 16.00 → Gesamt: 96.00
+```
+
+<Callout type="info">
+**Tipp:** Template-Strings eignen sich für eine übersichtliche Ausgabe:
+
+```js
+console.log(`Sparsam (10%): ${tip10} → Gesamt: ${total10}`);
+```
+</Callout>
+
+## Aufgabe 3: Aufteilung auf Personen (mittel)
+
+Das Programm wird um die Möglichkeit erweitert, den Gesamtbetrag
+auf mehrere Personen aufzuteilen:
+
+1. Zusätzlich nach der Anzahl der Personen fragen
+2. Betrag pro Person berechnen (bei 15% Trinkgeld)
+3. Betrag pro Person ausgeben
+
+**Beispielausgabe:**
+
+```
+Rechnungsbetrag eingeben: 120
+Anzahl Personen: 4
+--- Aufteilung ---
+Gesamtbetrag (inkl. 15% Trinkgeld): 138.00
+Betrag pro Person: 34.50
+```
+
+## Aufgabe 4: Service-Bewertung (mittel)
+
+Wir nutzen den **Bedingungsoperator**, um basierend auf dem
+gewählten Trinkgeld-Prozentsatz eine Bewertung auszugeben:
+
+1. Den Benutzer nach dem gewünschten Trinkgeld-Prozentsatz fragen
+2. "Großzügig!" ausgeben, wenn der Prozentsatz >= 15 ist
+3. "Standard" ausgeben, wenn der Prozentsatz < 15 ist
+
+**Beispielausgabe:**
+
+```
+Rechnungsbetrag eingeben: 50
+Trinkgeld-Prozentsatz: 18
+Trinkgeld: 9.00
+Bewertung: Großzügig!
+```
+
+<Callout type="info">
+**Erinnerung:** Der Bedingungsoperator hat folgende Struktur:
+
+```js
+let result = condition ? valueIfTrue : valueIfFalse;
+```
+</Callout>
+
+## Aufgabe 5: Eingabevalidierung (anspruchsvoll)
+
+Mit **Vergleichs-** und **logischen Operatoren** werden die
+Eingaben überprüft und entsprechende Meldungen ausgegeben:
+
+1. Der Rechnungsbetrag muss größer als 0 sein
+2. Der Trinkgeld-Prozentsatz muss zwischen 0 und 100 liegen
+3. Eine Warnung ausgeben, wenn eine Eingabe ungültig ist
+
+**Beispiel für gültige Eingabe:**
+
+```
+Rechnungsbetrag eingeben: 75
+Trinkgeld-Prozentsatz: 15
+Eingaben gültig: true
+Trinkgeld: 11.25
+Gesamtbetrag: 86.25
+```
+
+**Beispiel für ungültige Eingabe:**
+
+```
+Rechnungsbetrag eingeben: -10
+Trinkgeld-Prozentsatz: 15
+Eingaben gültig: false
+Warnung: Ungültige Eingaben!
+```
+
+<Callout type="warning">
+**Hinweis:** Logische Operatoren eignen sich, um mehrere Bedingungen
+zu verknüpfen:
+
+```js
+let isValid = amount > 0 && percent >= 0 && percent <= 100;
+```
+
+Die Ausgabe der Warnung lässt sich mit dem Bedingungsoperator lösen.
+</Callout>
+
+## Aufgabe 6: Komplettlösung (anspruchsvoll)
+
+Alle bisherigen Elemente werden zu einem vollständigen
+Trinkgeldrechner kombiniert mit folgenden Features:
+
+1. Eingabe von Rechnungsbetrag, Prozentsatz und Personenanzahl
+2. Validierung aller Eingaben
+3. Berechnung von Trinkgeld, Gesamtbetrag und Betrag pro Person
+4. Bewertung des Trinkgelds (sparsam/normal/großzügig)
+5. Übersichtliche, formatierte Ausgabe
+
+**Beispielausgabe:**
+
+```
+=== Trinkgeldrechner ===
+Rechnungsbetrag: 95.50
+Trinkgeld (%): 18
+Anzahl Personen: 3
+
+--- Ergebnis ---
+Rechnungsbetrag:  95.50
+Trinkgeld (18%):  17.19
+Gesamtbetrag:     112.69
+Pro Person:       37.56
+Bewertung:        Großzügig!
+```
+
+<Callout type="info">
+**Bonus:** Die Ausgabe der Zahlen lässt sich auf zwei
+Nachkommastellen formatieren. Dazu kann die
+Methode `toFixed(2)` verwendet werden:
+
+```js
+let number = 17.1919;
+console.log(number.toFixed(2)); // Ausgabe: "17.19"
+```
+</Callout>
+
+## Zusammenfassung
+
+<Callout emoji="🗒️">
+In diesem Mini-Projekt haben wir folgende Konzepte angewendet:
+
+- **Variablen und Konstanten** für Zwischenergebnisse
+- **Arithmetische Operatoren** (`*`, `/`) für Berechnungen
+- **Vergleichsoperatoren** (`>`, `>=`, `<=`) für Validierungen
+- **Logische Operatoren** (`&&`) zum Verknüpfen von Bedingungen
+- **Bedingungsoperator** (`? :`) für einfache Fallunterscheidungen
+- **Template-Strings** für formatierte Ausgaben
+- **Ein- und Ausgabe** mit `readline-sync` und `console.log`
+</Callout>

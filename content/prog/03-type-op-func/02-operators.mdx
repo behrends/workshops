@@ -119,7 +119,8 @@ führen:
 
 Hier wird beim **schwachen** Vergleich mit == eine automatische 
 Typumwandlung durchgeführt, sodass hier die Zahl `4` 
-mit der Zahl `4` verglichen wird.
+mit der Zahl `4` verglichen wird. Die automatische bzw. implizite
+Typumwandlung wird im Englischen _type coercion_ genannt.
 
 Daher sollte eigentlich immer der **starke** Vergleich mit 
 `===` verwendet werden:
@@ -183,7 +184,7 @@ age >= 18 && age < 120; // true  (beide sind true)
 age2 >= 18 && age2 < 120; // false (eine ist false)
 
 // ODER: Alter darf nicht zwischen 14 und 18 liegen
-// Situation: Jugendliche dürfen nicht auf den Spielplatz
+// fiktive Situation: Jugendliche dürfen nicht auf den Spielplatz
 age >= 18 || age < 14; // true (eine ist true)
 age3 >= 18 || age3 < 14; // false (beide sind false)
 ```
