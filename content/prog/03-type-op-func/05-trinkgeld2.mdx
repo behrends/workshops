@@ -197,15 +197,15 @@ function displayResult(bill, tip, total, perPerson, rating, percent) {
 
 console.log("=== Trinkgeldrechner ===");
 
-let bill = questionFloat("Rechnungsbetrag: ");
-let percent = questionFloat("Trinkgeld (%): ");
-let persons = questionInt("Anzahl Personen: ");
+const bill = questionFloat("Rechnungsbetrag: ");
+const percent = questionFloat("Trinkgeld (%): ");
+const persons = questionInt("Anzahl Personen: ");
 
 // Berechnung und Ausgabe:
-let tip = calculateTip(bill, percent);
-let total = bill + tip;
-let perPerson = calculatePerPerson(total, persons);
-let rating = getRating(percent);
+const tip = calculateTip(bill, percent);
+const total = bill + tip;
+const perPerson = calculatePerPerson(total, persons);
+const rating = getRating(percent);
 
 displayResult(bill, tip, total, perPerson, rating, percent);
 ```
