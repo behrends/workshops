@@ -45,7 +45,7 @@ function calculateTip(bill, percent) {
 }
 
 // Test:
-let tip = calculateTip(100, 15);
+const tip = calculateTip(100, 15);
 console.log(tip); // Ausgabe: 15
 ```
 
@@ -104,12 +104,12 @@ Schreibe eine Funktion `getRating`, die basierend auf dem
 Prozentsatz eine Bewertung zurückgibt:
 
 - **Parameter:** `percent`
-- **Rückgabewert:** `"Sparsam"`, `"Normal"` oder `"Großzügig"`
+- **Rückgabewert:** `"Sparsam"`, `"Normal"` oder `"Großzügig!"`
 
 Regeln:
 - Unter 10%: "Sparsam"
 - 10% bis unter 15%: "Normal"
-- Ab 15%: "Großzügig"
+- Ab 15%: "Großzügig!"
 
 ```js
 function getRating(percent) {
@@ -119,7 +119,7 @@ function getRating(percent) {
 // Tests:
 console.log(getRating(5));   // "Sparsam"
 console.log(getRating(12));  // "Normal"
-console.log(getRating(20));  // "Großzügig"
+console.log(getRating(20));  // "Großzügig!"
 ```
 
 ## Aufgabe 5: Aufteilungsfunktion (Übung)
@@ -136,7 +136,7 @@ function calculatePerPerson(total, persons) {
 }
 
 // Test:
-let perPerson = calculatePerPerson(120, 4);
+const perPerson = calculatePerPerson(120, 4);
 console.log(perPerson); // Ausgabe: 30
 ```
 
@@ -180,6 +180,8 @@ import { questionFloat, questionInt } from 'readline-sync';
 
 <Callout type="info">
 **Warum bleibt die Eingabe im Hauptprogramm?**
+
+Wir haben für die Eingabe keine eigene Funktion erstellt.
 
 Eine Funktion kann nur einen Wert zurückgeben. Um `bill`, `percent` und
 `persons` gemeinsam zurückzugeben, bräuchten wir ein Objekt – das lernen
