@@ -43,16 +43,31 @@ der Benutzer zwischen manuellem Prozentsatz und Service-Bewertung
 wählen kann:
 
 ```js
-import { questionInt } from 'readline-sync';
+import { keyInSelect } from 'readline-sync';
 
-let choice = questionInt("1 = Prozentsatz eingeben, 2 = Service bewerten: ");
+const options = ['Prozentsatz eingeben', 'Service bewerten'];
+const choice = keyInSelect(options, 'Auswahl');
 
-if (choice === 1) {
+if (choice === 0) {
   // Prozentsatz direkt abfragen
-} else {
+} else if (choice === 1) {
   // Service-Level abfragen und suggestTip aufrufen
 }
 ```
+
+<Callout type="info">
+**Tipp:** `keyInSelect` zeigt ein Auswahlmenü mit nummerierten Optionen an.
+Der Rückgabewert ist der Index der gewählten Option (beginnend bei 0)
+oder -1 bei Abbruch. Im Terminal sieht das so aus:
+
+```
+[1] Prozentsatz eingeben
+[2] Service bewerten
+[0] CANCEL
+
+Auswahl [1, 2, 0]:
+```
+</Callout>
 
 ## Aufgabe 2: Eingabevalidierung mit Fehlermeldung (Einstieg)
 
