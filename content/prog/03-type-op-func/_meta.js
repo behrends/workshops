@@ -3,5 +3,5 @@ export default {
   '02-operators': 'Operatoren',
   '03-trinkgeld': 'Mini-Projekt: Trinkgeldrechner',
   '04-functions': 'Funktionen (Teil 1)',
-  '05-uebungen': 'Übungen',
+  '05-trinkgeld2': 'Mini-Projekt (Fortsetzung): Trinkgeldrechner',
 };
