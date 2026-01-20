@@ -245,6 +245,21 @@ sauber **untereinander in Spalten** stehen (wie in einer Tabelle):
 * Nutze `padStart(...)` für die Zahlen (rechts)
 * Zahlen weiterhin mit `toFixed(2)` formatieren
 
+<Callout type="info">
+**Tipp:** `padEnd` füllt einen String rechts auf, `padStart` links:
+
+```js
+"Hallo".padEnd(10);   // "Hallo     " (10 Zeichen, rechts aufgefüllt)
+"17.19".padStart(8);  // "   17.19"   (8 Zeichen, links aufgefüllt)
+
+// Kombiniert für tabellarische Ausgabe:
+let label = "Trinkgeld:";
+let value = 17.19;
+console.log(label.padEnd(18) + value.toFixed(2).padStart(8));
+// "Trinkgeld:           17.19"
+```
+</Callout>
+
 **Beispielausgabe:**
 
 ```
