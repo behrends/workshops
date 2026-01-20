@@ -163,7 +163,7 @@ sollte übersichtlich und gut lesbar sein.
 
 <Callout type="info">
 **Hinweis:** Die Funktion `displayResult` aus Aufgabe 2 muss für die
-Komplettlösung um zwei Parameter erweitert werden (`perPerson` und `rating`).
+Komplettlösung um drei Parameter erweitert werden (`perPerson`, `rating` und `percent`).
 </Callout>
 
 **Struktur:**
@@ -189,7 +189,7 @@ function getRating(percent) {
   // ...
 }
 
-function displayResult(bill, tip, total, perPerson, rating) {
+function displayResult(bill, tip, total, perPerson, rating, percent) {
   // ...
 }
 
@@ -207,7 +207,7 @@ let total = bill + tip;
 let perPerson = calculatePerPerson(total, persons);
 let rating = getRating(percent);
 
-displayResult(bill, tip, total, perPerson, rating);
+displayResult(bill, tip, total, perPerson, rating, percent);
 ```
 
 <Callout type="info">
