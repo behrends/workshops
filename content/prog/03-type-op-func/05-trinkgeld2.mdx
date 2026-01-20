@@ -211,6 +211,14 @@ displayResult(bill, tip, total, perPerson, rating, percent);
 ```
 
 <Callout type="info">
+**Warum bleibt die Eingabe im Hauptprogramm?**
+
+Eine Funktion kann nur einen Wert zurückgeben. Um `bill`, `percent` und
+`persons` gemeinsam zurückzugeben, bräuchten wir ein Objekt – das lernen
+wir später. Deshalb bleibt die Eingabe vorerst im Hauptprogramm.
+</Callout>
+
+<Callout type="info">
 **Hinweis zur Validierung:** Die Funktion `isValidInput` gibt
 `true` oder `false` zurück. Um die Berechnung bei ungültigen
 Eingaben zu verhindern, wird eine Verzweigung mit `if` benötigt —
