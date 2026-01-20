@@ -17,8 +17,8 @@ unübersichtlich werden:
 ```js
 import { question } from "readline-sync";
 
-let a = 13, b = 4;	
-let op = question("Welche Rechenoperation?");
+const a = 13, b = 4;
+const op = question("Welche Rechenoperation?");
 if(op === "+") {
   console.log(a + b);
 } else if(op === "-") {
@@ -40,8 +40,8 @@ lesbare Alternative dar:
 ```javascript
 import { question } from "readline-sync";
 
-let a = 13, b = 4;	
-let op = question("Welche Rechenoperation?");
+const a = 13, b = 4;
+const op = question("Welche Rechenoperation?");
 switch(op) {
   case "+":
     console.log(a + b);
