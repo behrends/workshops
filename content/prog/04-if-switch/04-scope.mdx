@@ -1,0 +1,177 @@
+import { Callout } from 'nextra/components'
+
+# Übungen zum Gültigkeitsbereich (Scope)
+
+<Callout>
+  **Dauer:** 15-20 Minuten
+
+  **Ziel:** Verstehen, wo Variablen und Konstanten gültig sind
+</Callout>
+
+Der **Gültigkeitsbereich** (englisch: _Scope_) bestimmt, wo im Code
+eine Variable oder Konstante sichtbar und verwendbar ist.
+
+<Callout type="info">
+**Wichtige Regeln:**
+
+- `let` und `const` haben **Block-Scope**: Sie sind nur innerhalb
+  des Blocks `{ ... }` gültig, in dem sie deklariert wurden.
+- Innere Blöcke können auf Variablen äußerer Blöcke zugreifen.
+- Variablen mit gleichem Namen in verschiedenen Blöcken sind
+  unterschiedliche Variablen (**Shadowing**).
+</Callout>
+
+Bei diesen Übungen gilt: **Erst überlegen, dann ausführen!**
+
+## Aufgabe 1: Block-Scope mit Modifikation (Einstieg)
+
+Was gibt dieser Code aus?
+
+```js
+let x = 10;
+
+if (true) {
+  let x = 20;
+  x = x + 5;
+  console.log("Innerhalb:", x);
+}
+
+x = x + 1;
+console.log("Außerhalb:", x);
+```
+
+> **Ausgabe:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## Aufgabe 2: Zugriff auf äußere Variablen (Einstieg)
+
+Was gibt dieser Code aus?
+
+```js
+let name = "Anna";
+
+function greet() {
+  name = "Bernd";
+  console.log("Hallo " + name);
+}
+
+greet();
+console.log("Name ist jetzt:", name);
+```
+
+> **Ausgabe:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## Aufgabe 3: Fehler finden (Übung)
+
+Dieser Code erzeugt einen Fehler. Welchen und warum?
+
+```js
+let counter = 0;
+
+function increment() {
+  counter = counter + 1;
+  let counter = 10;
+  console.log("In Funktion:", counter);
+}
+
+increment();
+```
+
+*↑ Markiere den Fehler im Code.*
+
+> **Ausgabe/Fehler:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+>
+> **Korrektur:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+<Callout type="info">
+**Tipp:** JavaScript kennt die lokale Variable `counter` bereits,
+bevor sie mit `let` deklariert wird (Temporal Dead Zone).
+</Callout>
+
+## Aufgabe 4: Funktionen in Funktionen (Übung)
+
+Was gibt dieser Code aus?
+
+```js
+const x = "global";
+
+function outer() {
+  const x = "outer";
+
+  function inner() {
+    const x = "inner";
+    console.log(x);
+  }
+
+  inner();
+  console.log(x);
+}
+
+outer();
+console.log(x);
+```
+
+> **Ausgabe:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## Aufgabe 5: Praktisches Beispiel korrigieren (Vertiefung)
+
+Finde den Fehler und korrigiere ihn:
+
+```js
+function isAdult(age) {
+  if (age >= 18) {
+    const status = "erwachsen";
+  } else {
+    const status = "minderjährig";
+  }
+  return status;
+}
+
+console.log(isAdult(25));
+```
+
+*↑ Markiere den Fehler im Code.*
+
+> **Ausgabe/Fehler:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+>
+> **Korrektur:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+## Aufgabe 6: Closure (Vertiefung)
+
+Was gibt dieser Code aus?
+
+```js
+function createCounter() {
+  let count = 0;
+
+  function increment() {
+    count = count + 1;
+    return count;
+  }
+
+  return increment;
+}
+
+const counter = createCounter();
+console.log(counter());
+console.log(counter());
+console.log(counter());
+```
+
+> **Ausgabe:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+<Callout type="info">
+**Closure:** Die innere Funktion `increment` "merkt" sich die Variable
+`count` aus dem äußeren Scope, auch nachdem `createCounter` beendet ist.
+</Callout>
+
+## Zusammenfassung
+
+<Callout emoji="🗒️">
+In diesen Übungen haben wir gelernt:
+
+- **Block-Scope:** `let` und `const` sind nur im eigenen Block `{ ... }` gültig
+- **Shadowing:** Gleichnamige Variablen in verschiedenen Blöcken sind unabhängig
+- **Zugriff nach außen:** Innere Blöcke können auf äußere Variablen zugreifen
+- **Temporal Dead Zone:** Variablen können nicht vor ihrer Deklaration verwendet werden
+- **Closures:** Funktionen können sich Variablen aus ihrem Entstehungs-Scope merken
+</Callout>
