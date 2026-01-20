@@ -13,6 +13,12 @@ In diesen Übungen erweitern wir den Trinkgeldrechner
 aus den vorherigen Lektionen um Verzweigungen mit
 `if/else` und `switch`.
 
+<Callout type="info">
+**Tipp:** Als Ausgangspunkt kann die Datei aus der vorherigen Übung
+verwendet werden (z.B. `trinkgeld-funktionen.js`).
+Die Ausgangsdatei ist auch als Beispiellösung in Moodle verfügbar.
+</Callout>
+
 ## Aufgabe 1: Service-Bewertung mit Auswahl (Einstieg)
 
 Erweitere den Trinkgeldrechner um eine Funktion `suggestTip`,
@@ -23,14 +29,13 @@ die basierend auf einem "Service-Level" einen Prozentsatz vorschlägt:
 
 ```js
 function suggestTip(serviceLevel) {
-  if (serviceLevel === 3) {
-    return 15;
-  } else if (serviceLevel === 2) {
-    return 10;
-  } else {
-    return 5;
-  }
+  // Mit if/else if/else implementieren
 }
+
+// Tests:
+console.log(suggestTip(1)); // 5
+console.log(suggestTip(2)); // 10
+console.log(suggestTip(3)); // 15
 ```
 
 Integriere diese Funktion in den Trinkgeldrechner, sodass
@@ -57,19 +62,9 @@ ausgibt:
 
 ```js
 function validateAndReport(bill, percent, persons) {
-  if (bill <= 0) {
-    console.log("Fehler: Rechnungsbetrag muss größer als 0 sein.");
-    return false;
-  }
-  if (percent < 0 || percent > 100) {
-    console.log("Fehler: Prozentsatz muss zwischen 0 und 100 liegen.");
-    return false;
-  }
-  if (persons <= 0) {
-    console.log("Fehler: Personenanzahl muss größer als 0 sein.");
-    return false;
-  }
-  return true;
+  // Prüfe bill, percent, persons mit if-Anweisungen
+  // Bei Fehler: Meldung ausgeben und false zurückgeben
+  // Am Ende: true zurückgeben
 }
 ```
 
@@ -86,7 +81,7 @@ die mehr Kategorien unterstützt:
 | 0-4% | "Sehr sparsam" |
 | 5-9% | "Sparsam" |
 | 10-14% | "Normal" |
-| 15-19% | "Großzügig" |
+| 15-19% | "Großzügig!" |
 | ab 20% | "Sehr großzügig" |
 
 ```js
@@ -147,7 +142,7 @@ Rechnungsbetrag:  85.50
 Trinkgeld (15%):  12.83
 Gesamtbetrag:     98.33
 Pro Person:       32.78
-Bewertung:        Großzügig
+Bewertung:        Großzügig!
 ```
 
 <Callout type="warning">
@@ -187,8 +182,9 @@ zum Nachschlagen von Konzepten:
 [p5js Referenz](https://p5js.org/reference/)
 </Callout>
 
-## Aufgabe
-Bauen Sie in editor.p5js.org einen interaktiven Smiley bzw. Sadly.
+### Aufgabe
+
+Baue in editor.p5js.org einen interaktiven Smiley bzw. Sadly.
 
 Der Smiley soll aus verschiedenen Kreisen (`circle`) 
 für den Kopf, die Augen und den lächelnden Mund 
@@ -199,15 +195,14 @@ Hälfte, dann wird der Smiley zu einem Sadly, d.h. die
 Mundwinkel zeigen nach unten. Die Mausposition kann 
 jederzeit mit `mouseX` und `mouseY` abgefragt werden.
 
-Versuchen Sie mindestens den Smiley in p5js zu
-bauen:
+Versuche mindestens den Smiley in p5js zu bauen:
 
 ![Smiley](/images/prog/smiley.png)
 
 **Hinweise zum Vorgehen:** \
-Erstellen Sie für die Zeichnung der einzelnen Bestandteile 
-des Smileys jeweils passende Funktionen, die Sie dann in
-der `draw`-Funktion aufrufen, z. B.
+Erstelle für die Zeichnung der einzelnen Bestandteile
+des Smileys jeweils passende Funktionen, die du dann in
+der `draw`-Funktion aufrufst, z. B.
 
 ```js
 function draw() {
@@ -227,10 +222,10 @@ bewegt wird:
 
 **Mögliche Zusatzaufgaben:**
 
-Gestalten Sie den Smiley nach eigenen Ideen: 
-Pupillen, Augenbrauen, Brille, Hut, Zähne, usw. 
-oder bauen Sie mehrere unterschiedliche Smileys ein.
+Gestalte den Smiley nach eigenen Ideen:
+Pupillen, Augenbrauen, Brille, Hut, Zähne, usw.
+oder baue mehrere unterschiedliche Smileys ein.
 
-**Hier können Sie gerne kreativ werden und KI-Tools einsetzen!**
+**Hier kannst du gerne kreativ werden und KI-Tools einsetzen!**
 
 &rarr; Durch KI-Tools gelingt die Verwendung von p5js schneller und einfacher.
