@@ -133,6 +133,17 @@ Gesamtbetrag (inkl. 15% Trinkgeld): 138.00
 Betrag pro Person: 34.50
 ```
 
+<Callout type="info">
+**Tipp:** Für die Eingabe von ganzen Zahlen (ohne Nachkommastellen)
+kann `questionInt` verwendet werden:
+
+```js
+import { questionFloat, questionInt } from 'readline-sync';
+
+let persons = questionInt("Anzahl Personen: ");
+```
+</Callout>
+
 ## Aufgabe 4: Service-Bewertung (Übung)
 
 Wir nutzen den **Bedingungsoperator**, um basierend auf dem
@@ -140,7 +151,7 @@ gewählten Trinkgeld-Prozentsatz eine Bewertung auszugeben:
 
 1. Den Benutzer nach dem gewünschten Trinkgeld-Prozentsatz fragen
 2. "Großzügig!" ausgeben, wenn der Prozentsatz >= 15 ist
-3. "Standard" ausgeben, wenn der Prozentsatz < 15 ist
+3. "Normal" ausgeben, wenn der Prozentsatz < 15 ist
 
 **Beispielausgabe:**
 
@@ -213,6 +224,18 @@ Regeln zur Bewertung des Trinkgelds:
 - Unter 10%: "Sparsam"
 - 10% bis unter 15%: "Normal"
 - Ab 15%: "Großzügig"
+
+<Callout type="info">
+**Tipp:** Für drei Fälle können Bedingungsoperatoren verschachtelt werden:
+
+```js
+let rating = percent >= 15 ? "Großzügig"
+           : percent >= 10 ? "Normal"
+           : "Sparsam";
+```
+
+Lies das so: „Wenn >= 15, dann Großzügig, sonst (wenn >= 10, dann Normal, sonst Sparsam)."
+</Callout>
 
 **Beispielausgabe:**
 

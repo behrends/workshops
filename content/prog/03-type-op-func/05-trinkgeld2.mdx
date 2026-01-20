@@ -20,18 +20,10 @@ Die Ausgangsdatei ist auch als Beispiellösung in Moodle verfügbar.
 </Callout>
 
 <Callout type="info">
-**Was bedeutet „refaktorieren"?**
-
-Refaktorieren (englisch: _refactoring_) bedeutet, bestehenden Code
-umzustrukturieren und zu verbessern, **ohne sein Verhalten zu ändern**.
-
-Das Programm macht danach also genau das Gleiche wie vorher &mdash;
-aber der Code ist besser organisiert, lesbarer und einfacher zu warten.
-
-Typische Refaktorierungen sind:
-- Code in Funktionen auslagern
-- Variablen besser benennen
-- Doppelten Code zusammenfassen
+**Vorgehensweise:** Erstelle eine neue Datei (z.B. `trinkgeld-funktionen.js`).
+Schreibe dort zunächst die Funktionen mit den Testausgaben aus Aufgaben 1-5.
+In Aufgabe 6 ersetzt du dann die Testausgaben durch das vollständige Hauptprogramm
+mit Benutzereingaben.
 </Callout>
 
 <Callout type="warning">
@@ -150,9 +142,29 @@ console.log(perPerson); // Ausgabe: 30
 
 ## Aufgabe 6: Trinkgeldrechner refaktorieren (Vertiefung)
 
+<Callout type="info">
+**Was bedeutet „refaktorieren"?**
+
+Refaktorieren (englisch: _refactoring_) bedeutet, bestehenden Code
+umzustrukturieren und zu verbessern, **ohne sein Verhalten zu ändern**.
+
+Das Programm macht danach also genau das Gleiche wie vorher &mdash;
+aber der Code ist besser organisiert, lesbarer und einfacher zu warten.
+
+Typische Refaktorierungen sind:
+- Code in Funktionen auslagern
+- Variablen besser benennen
+- Doppelten Code zusammenfassen
+</Callout>
+
 Kombiniere alle Funktionen aus den vorherigen Aufgaben zu
 einem vollständigen Trinkgeldrechner. Das Hauptprogramm
 sollte übersichtlich und gut lesbar sein.
+
+<Callout type="info">
+**Hinweis:** Die Funktion `displayResult` aus Aufgabe 2 muss für die
+Komplettlösung um zwei Parameter erweitert werden (`perPerson` und `rating`).
+</Callout>
 
 **Struktur:**
 
