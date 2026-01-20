@@ -108,7 +108,7 @@ function getRating(percent) {
 console.log(getRating(3));   // "Sehr sparsam"
 console.log(getRating(7));   // "Sparsam"
 console.log(getRating(12));  // "Normal"
-console.log(getRating(17));  // "Großzügig"
+console.log(getRating(17));  // "Großzügig!"
 console.log(getRating(25));  // "Sehr großzügig"
 ```
 
@@ -144,9 +144,11 @@ Kombiniere alle Verbesserungen zu einem vollständigen Trinkgeldrechner:
 
 ```
 === Trinkgeldrechner ===
-1 = Prozentsatz eingeben
-2 = Service bewerten
-Auswahl: 2
+[1] Prozentsatz eingeben
+[2] Service bewerten
+[0] CANCEL
+
+Auswahl [1, 2, 0]: 2
 
 Service-Level (1=schlecht, 2=okay, 3=gut): 3
 Rechnungsbetrag: 85.50
