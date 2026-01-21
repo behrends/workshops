@@ -67,7 +67,8 @@ git commit -m "Projekt-Setup"
 Dabei sollten `package.json`, `package-lock.json` und `.gitignore` im Commit enthalten sein.
 
 **Hinweis:** `git add -A` nimmt alle Änderungen auf, **inklusive Löschungen**.  
-`git add .` kann Löschungen übersehen und hängt vom aktuellen Ordner ab.
+`git add .` bezieht sich auf den **aktuellen Ordner** und kann Änderungen außerhalb
+dieses Ordners übersehen.
 
 **Checkpoint:** Das Projekt ist lokal git-initialisiert.
 
@@ -126,6 +127,7 @@ git commit -m "CLI Begrüßer"
 **Kurz erklärt:**  
 - `git status` zeigt, was neu/geändert ist und was staged ist.  
 - `git diff` zeigt die Änderungen, die **noch nicht** staged sind.  
+- `git diff --staged` zeigt, was **im nächsten Commit** landen würde.  
 - `git add` verschiebt Änderungen in den Staging-Bereich.  
 - `git commit` speichert einen Snapshot im lokalen Verlauf.
 
@@ -238,19 +240,26 @@ console.log(`Buchstaben: ${name.length}`);
 
 Commit wieder **nur** in der VS-Code-Git-Ansicht.
 
-## Optional: Reset/Restore üben
+## Optional: Unstage/Discard üben
 
 1. Ändere `app.js` absichtlich (z. B. Tippfehler).
 2. Stage die Datei.
-3. Unstage im Terminal:
+3. Unstage (eine Variante wählen):
+
+**In VS Code:** Datei in `Source Control` → Rechtsklick → **Unstage Changes**.
+
+**Im Terminal:**
 
 ```bash
 git reset app.js
 ```
 
-**Kurz erklärt:** `git reset <datei>` entfernt die Datei aus der Stage, **lässt die Änderung aber im Working Tree**.
+**Kurz erklärt:** `git reset <datei>` entfernt die Datei aus der Stage, **lässt die Änderung aber im Working Tree**.  
+Nur diese Form verwenden (kein `--hard`).
 
 4. Änderung verwerfen (eine Variante wählen):
+
+**In VS Code:** Datei in `Source Control` → Rechtsklick → **Discard Changes**.
 
 ```bash
 git restore app.js
