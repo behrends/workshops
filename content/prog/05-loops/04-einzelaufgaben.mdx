@@ -1,0 +1,148 @@
+import { Callout } from 'nextra/components'
+
+# Einzelaufgaben: Grundlagen bis `while`
+
+<Callout>
+  **Hinweis:** Diese Aufgaben sind bewusst ohne Code formuliert. Nutze das
+  Lernmaterial zum Nachschlagen und formuliere deine Lösung in Worten.
+
+  **Priorität:** hoch = zentral, mittel = wichtig aber nicht kritisch.
+
+  **Zeiten:** pro Mikroaufgabe ca. 5–10 Minuten (Schätzung).
+</Callout>
+
+<Callout type="warning">
+**Wichtig:** KI-Tools dürfen für Verständnisfragen genutzt werden,
+aber nicht für komplette Lösungen. Erst selbst überlegen.
+</Callout>
+
+## 1) Ein-/Ausgabe & Typumwandlung (Priorität: hoch)
+
+- (5–7 Min) Erkläre, warum die Eingabe "12" bei einer Addition zu
+  "123" führen kann. Wie würdest du das erkennen und vermeiden?
+- (6–8 Min) Beschreibe, worin der Unterschied zwischen `question` und
+  `questionInt` liegt und wann du welche Funktion wählst.
+- (5–7 Min) Skizziere einen Ablauf, wie du eine Zahl eingibst,
+  prüfst und bei ungültiger Eingabe erneut fragst (ohne Code).
+
+## 2) Template-Strings (Priorität: hoch)
+
+- (5–7 Min) Erkläre den Vorteil von Template-Strings gegenüber
+  String-Verkettung mit `+`.
+- (5–7 Min) Formuliere einen Beispielsatz, der zwei Variablen
+  in einem Template-String verwendet (nur als Textbeschreibung).
+- (6–8 Min) Nenne zwei typische Fehler beim Einsatz von Template-Strings
+  und wie du sie erkennst.
+
+## 3) Datentypen & Spezialwerte (Priorität: mittel)
+
+- (5–7 Min) Ordne den Werten 42, "42", true, undefined die passenden
+  Datentypen zu und erkläre kurz den Unterschied.
+- (6–8 Min) Was bedeutet `NaN`, wie entsteht es und warum ist es
+  problematisch in Berechnungen?
+- (5–7 Min) Erkläre den Unterschied zwischen `undefined` und `null`.
+
+## 4) Operatoren & Priorität (Priorität: hoch)
+
+- (5–7 Min) Bestimme die Reihenfolge der Auswertung bei
+  „2 + 3 * 4“ und begründe das Ergebnis.
+- (5–8 Min) Erkläre, wozu der Modulo-Operator `%` genutzt wird,
+  und nenne eine konkrete Anwendungsidee.
+- (6–8 Min) Gib ein Beispiel, wo fehlende Klammern zu einem
+  falschen Ergebnis führen können (nur Beschreibung).
+
+## 5) Vergleichsoperatoren (Priorität: hoch)
+
+- (5–7 Min) Erkläre den Unterschied zwischen `==` und `===` und
+  warum `===` empfohlen wird.
+- (6–8 Min) Formuliere eine Bedingung für „Alter zwischen 18 und 120“
+  in Worten.
+- (5–7 Min) Entscheide, welche Vergleiche bei gemischten Typen
+  problematisch sein können und warum.
+
+## 6) Logische Operatoren (Priorität: hoch)
+
+- (5–7 Min) Erkläre den Unterschied zwischen `&&` und `||` mit
+  einem Alltagsbeispiel.
+- (6–8 Min) Formuliere eine Bedingung für „Zutritt ab 18 oder mit
+  Begleitung“.
+- (6–8 Min) Erkläre, was `!` (Negation) in einer Bedingung bewirkt.
+
+## 7) Verzweigungen mit `if/else` (Priorität: hoch)
+
+- (6–8 Min) Gib an, warum die Reihenfolge von `else if`-Bedingungen
+  wichtig ist (Beispiel: Noten oder Altersgruppen).
+- (5–7 Min) Erkläre, wann ein `else`-Block sinnvoll ist und wann
+  er weggelassen werden kann.
+- (6–8 Min) Beschreibe einen Fehler, der entsteht, wenn man bei
+  mehrzeiligen Blöcken die geschweiften Klammern weglässt.
+
+## 8) `switch` & `break` (Priorität: mittel)
+
+- (5–7 Min) Erkläre, wann `switch` eine gute Alternative zu vielen
+  `else if`-Zweigen ist.
+- (6–8 Min) Beschreibe, was passiert, wenn ein `break` in einem
+  `case` fehlt.
+- (5–7 Min) Erkläre die Rolle von `default` in einem `switch`.
+
+## 9) Variablen & Scope (Priorität: hoch)
+
+- (6–8 Min) Erkläre den Unterschied zwischen `let` und `const`
+  in eigenen Worten.
+- (6–8 Min) Was bedeutet „Block-Scope“? Beschreibe eine Situation,
+  in der eine Variable außerhalb eines Blocks nicht mehr sichtbar ist.
+- (6–8 Min) Erkläre „Shadowing“ und warum es verwirrend sein kann.
+
+## 10) Funktionen: Grundstruktur (Priorität: hoch)
+
+- (6–8 Min) Benenne die Bestandteile einer Funktion
+  (Name, Parameter, Rumpf, Rückgabewert) und ihre Aufgabe.
+- (5–7 Min) Erkläre den Unterschied zwischen Parameter und Argument.
+- (6–8 Min) Wann ist eine Funktion hilfreich, statt Code zu duplizieren?
+
+## 11) Funktionen: Aufruf & Rückgabewert nutzen (Priorität: hoch)
+
+- (6–8 Min) Beschreibe, wie du einen Rückgabewert einer Funktion
+  in einer weiteren Berechnung verwendest.
+- (5–7 Min) Erkläre den Unterschied zwischen „Ergebnis speichern“
+  und „Ergebnis direkt verwenden“.
+- (6–8 Min) Was kann passieren, wenn beim Aufruf zu viele oder zu wenige
+  Argumente übergeben werden?
+
+## 12) Fehlendes `return` (Priorität: hoch)
+
+- (5–7 Min) Erkläre, was eine Funktion ohne `return` zurückgibt
+  und warum das zu Fehlern führt.
+- (6–8 Min) Nenne ein Beispiel, wann `console.log` in einer Funktion
+  nicht ausreicht, weil ein Rückgabewert benötigt wird.
+- (5–7 Min) Formuliere eine kurze Regel, wann du `return` brauchst.
+
+## 13) `while`: Bedingung & Update (Priorität: hoch)
+
+- (6–8 Min) Erkläre, warum eine `while`-Schleife ohne Änderung
+  der Bedingung problematisch ist.
+- (5–7 Min) Formuliere in Worten eine `while`-Bedingung für
+  „so lange raten, bis die Zahl stimmt“.
+- (6–8 Min) Beschreibe den Unterschied zwischen „vor der Schleife“
+  und „in der Schleife“ verändern.
+
+## 14) Off-by-one & Zählerlogik (Priorität: hoch)
+
+- (6–8 Min) Erkläre den Unterschied zwischen „5 Durchläufe“ und
+  „bis inklusive 5 zählen“.
+- (5–7 Min) Warum ist „Jahr 0“ in einer Übersicht manchmal sinnvoll?
+- (6–8 Min) Beschreibe, wie du erkennst, ob eine Zählung um 1
+  zu früh oder zu spät endet.
+
+## 15) Endlosschleifen & Abbruchbedingungen (Priorität: hoch)
+
+- (6–8 Min) Beschreibe eine sinnvolle Abbruchbedingung für ein
+  Eingabe-Menü.
+- (5–7 Min) Warum ist ein „Notausgang“ (max. Versuche) oft sinnvoll?
+- (6–8 Min) Erkläre, wann ein Programm bewusst beendet werden sollte,
+  statt ewig weiterzufragen.
+
+<Callout type="info">
+**Hinweis:** Wenn du nach dem eigenen Versuch Lösungen prüfen möchtest,
+frag im KI-Chat nach einer Erklärung oder einer Musterlösung.
+</Callout>
