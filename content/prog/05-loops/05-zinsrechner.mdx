@@ -1,0 +1,255 @@
+import { Callout } from 'nextra/components'
+
+# Mini-Projekt: Zinsrechner
+
+<Callout>
+  **Dauer:** 45-60 Minuten
+
+  - `while`-Schleifen für Jahr-für-Jahr-Berechnungen
+  - Arithmetische Operatoren für Zinsberechnungen
+  - Funktionen zur Strukturierung
+  - Formatierte Ausgabe mit `toFixed()`
+
+  **Ziel:** Praktische Anwendung von Schleifen für Finanzberechnungen
+</Callout>
+
+In diesem Mini-Projekt entwickeln wir einen Zinsrechner,
+der zeigt, wie sich Ersparnisse über die Jahre entwickeln.
+
+<Callout type="warning">
+**Wichtig:** Zur Festigung der Konzepte sollte noch kein
+Coding-Agent eingesetzt werden. Ein KI-Chat kann bei Bedarf für
+gezielte Fragen genutzt werden — aber nicht für komplette Lösungen.
+</Callout>
+
+<Callout type="info">
+Wir arbeiten in einer Datei (`zinsrechner.js`) und erweitern
+diese schrittweise. Wer mit Git arbeitet, kann nach jeder
+Aufgabe einen Commit erstellen.
+</Callout>
+
+## Aufgabe 1: Einfache Zinsberechnung (Einstieg)
+
+Schreibe ein Programm, das die Zinsen für ein Jahr berechnet:
+
+1. Startkapital vom Benutzer einlesen
+2. Zinssatz vom Benutzer einlesen (z.B. 3 für 3%)
+3. Zinsen und neues Kapital berechnen und ausgeben
+
+**Beispielausgabe:**
+
+```
+Startkapital: 1000
+Zinssatz (%): 3
+---
+Zinsen: 30.00
+Neues Kapital: 1030.00
+```
+
+## Aufgabe 2: Mehrere Jahre (Einstieg)
+
+Erweitere das Programm um die Anzahl der Jahre:
+
+1. Zusätzlich die Anzahl der Jahre einlesen
+2. Das Endkapital nach allen Jahren berechnen (mit Zinseszins)
+3. Das Endkapital ausgeben
+
+**Beispielausgabe:**
+
+```
+Startkapital: 1000
+Zinssatz (%): 5
+Laufzeit (Jahre): 10
+---
+Endkapital nach 10 Jahren: 1628.89
+```
+
+## Aufgabe 3: Jahr-für-Jahr-Übersicht (Übung)
+
+Erweitere das Programm so, dass für jedes Jahr der
+aktuelle Kontostand angezeigt wird:
+
+**Beispielausgabe:**
+
+```
+Startkapital: 1000
+Zinssatz (%): 5
+Laufzeit (Jahre): 5
+---
+Jahr 0: 1000.00
+Jahr 1: 1050.00
+Jahr 2: 1102.50
+Jahr 3: 1157.63
+Jahr 4: 1215.51
+Jahr 5: 1276.28
+---
+Endkapital: 1276.28
+Gesamte Zinsen: 276.28
+```
+
+## Aufgabe 4: Monatliche Einzahlung (Übung)
+
+Erweitere den Sparplan um eine monatliche Einzahlung:
+
+1. Zusätzlich die monatliche Sparrate einlesen
+2. Am Ende jedes Jahres werden 12 Monatsraten hinzugefügt
+3. Dann werden die Zinsen auf das neue Kapital berechnet
+
+**Beispielausgabe:**
+
+```
+Startkapital: 1000
+Monatliche Sparrate: 100
+Zinssatz (%): 3
+Laufzeit (Jahre): 5
+---
+Jahr 0:  1000.00
+Jahr 1:  2266.00
+Jahr 2:  3569.98
+Jahr 3:  4913.08
+Jahr 4:  6296.47
+Jahr 5:  7721.36
+---
+Endkapital: 7721.36
+Eingezahlt: 7000.00 (1000 + 5 x 1200)
+Zinsen gesamt: 721.36
+```
+
+<Callout type="info">
+**Hinweis:** Die Berechnung pro Jahr (vereinfacht, Zinsen am Jahresende):
+
+```js
+capital = capital + monthlyRate * 12;  // Sparraten addieren
+capital = capital + capital * (rate / 100);  // Zinsen berechnen
+```
+</Callout>
+
+## Aufgabe 5: Eingabevalidierung (Übung)
+
+Füge eine Validierung der Eingaben hinzu:
+
+- Startkapital muss >= 0 sein
+- Zinssatz muss zwischen 0 und 100 liegen
+- Jahre müssen > 0 sein
+- Monatliche Rate muss >= 0 sein
+
+Bei ungültigen Eingaben: Warnmeldung und Programm beenden.
+
+**Beispielausgabe bei Fehler:**
+
+```
+Startkapital: -500
+Fehler: Startkapital muss mindestens 0 sein.
+```
+
+<Callout type="info">
+**Tipp:** Mit `if` prüfen und bei Fehler `process.exit()` aufrufen:
+
+```js
+if (startCapital < 0) {
+  console.log("Fehler: Startkapital muss mindestens 0 sein.");
+  process.exit();
+}
+```
+</Callout>
+
+## Aufgabe 6: Mit Funktionen strukturieren (Vertiefung)
+
+Refaktoriere den Zinsrechner mit folgenden Funktionen:
+
+- `calculateYear(capital, monthlyRate, rate)` – berechnet das Kapital nach einem Jahr
+- `displayYear(year, capital)` – gibt eine Zeile der Übersicht aus
+- `isValidInput(startCapital, rate, years, monthlyRate)` – prüft die Eingaben
+
+**Struktur:**
+
+```js
+import { questionFloat, questionInt } from 'readline-sync';
+
+// === Funktionen ===
+
+function calculateYear(capital, monthlyRate, rate) {
+  // Sparraten addieren, dann Zinsen berechnen
+  // Neues Kapital zurückgeben
+}
+
+function displayYear(year, capital) {
+  // Formatierte Ausgabe einer Zeile
+}
+
+function isValidInput(startCapital, rate, years, monthlyRate) {
+  // true wenn alles gültig, false sonst
+}
+
+// === Hauptprogramm ===
+
+// Eingaben...
+// Validierung...
+// Berechnung mit while-Schleife und Funktionsaufrufen...
+// Zusammenfassung ausgeben...
+```
+
+## Aufgabe 7: Sparziel erreichen (Vertiefung)
+
+Schreibe eine Variation in einer neuen Datei (`sparziel.js`):
+Statt einer festen Laufzeit gibt der Benutzer ein Sparziel ein.
+Das Programm berechnet, wie viele Jahre benötigt werden.
+
+**Beispielausgabe:**
+
+```
+Startkapital: 1000
+Monatliche Sparrate: 200
+Zinssatz (%): 4
+Sparziel: 10000
+---
+Jahr 1:  3536.00
+Jahr 2:  6173.44
+Jahr 3:  8916.38
+Jahr 4: 11769.04
+---
+Sparziel von 10000.00 nach 4 Jahren erreicht!
+Endkapital: 11769.04
+```
+
+## Optionale Aufgaben (Bonus)
+
+### Inflationsbereinigung
+
+Berechne zusätzlich den "realen" Wert des Endkapitals
+unter Berücksichtigung einer Inflationsrate (z.B. 2%).
+
+### Vergleich verschiedener Szenarien
+
+Berechne drei Szenarien parallel:
+- Pessimistisch (Zinssatz - 1%)
+- Normal (eingegebener Zinssatz)
+- Optimistisch (Zinssatz + 1%)
+
+### Tabellarische Ausgabe
+
+Formatiere die Ausgabe als Tabelle mit `padStart`/`padEnd`:
+
+```
+Jahr | Einzahlung |    Zinsen |    Kapital
+-----+------------+-----------+-----------
+   0 |       0.00 |      0.00 |   1000.00
+   1 |    1200.00 |     66.00 |   2266.00
+```
+
+## Zusammenfassung
+
+<Callout emoji="🗒️">
+In diesem Mini-Projekt haben wir folgende Konzepte angewendet:
+
+- **`while`-Schleifen** für Jahr-für-Jahr-Berechnungen
+- **Arithmetische Operatoren** für Zinsberechnungen
+- **`if`-Verzweigungen** für Eingabevalidierung
+- **Funktionen** zur Strukturierung des Codes
+- **Formatierte Ausgabe** mit `toFixed(2)` und `padStart`
+- **Praktische Anwendung:** Finanzplanung und Zinseszins
+</Callout>
+
+<Callout type="warning">
+Info für Dozent: Lösung siehe `zinsrechner.js` im Repository `exercises`.
+</Callout>

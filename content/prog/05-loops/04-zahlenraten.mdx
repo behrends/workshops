@@ -1,0 +1,226 @@
+import { Callout } from 'nextra/components'
+
+# Mini-Projekt: Zahlenraten
+
+<Callout>
+  **Dauer:** 45-60 Minuten
+
+  - `while`-Schleifen für wiederholte Abläufe
+  - `if/else` für Verzweigungen
+  - `Math.random()` für Zufallszahlen
+  - Funktionen zur Strukturierung
+
+  **Ziel:** Ein interaktives Spiel mit Schleifen und Verzweigungen
+</Callout>
+
+In diesem Mini-Projekt entwickeln wir ein Zahlenraten-Spiel.
+Der Computer "denkt" sich eine Zufallszahl und der Spieler
+versucht, diese zu erraten.
+
+<Callout type="warning">
+**Wichtig:** Zur Festigung der Konzepte sollte noch kein
+Coding-Agent eingesetzt werden. Ein KI-Chat kann bei Bedarf für
+gezielte Fragen genutzt werden — aber nicht für komplette Lösungen.
+</Callout>
+
+<Callout type="info">
+Wir arbeiten in einer Datei (`zahlenraten.js`) und erweitern
+diese schrittweise. Wer mit Git arbeitet, kann nach jeder
+Aufgabe einen Commit erstellen.
+</Callout>
+
+## Aufgabe 1: Zufallszahl erzeugen (Einstieg)
+
+Schreibe ein Programm, das eine zufällige ganze Zahl
+zwischen 1 und 100 erzeugt und ausgibt.
+
+**Beispielausgabe:**
+
+```
+Die Zufallszahl ist: 42
+```
+
+<Callout type="info">
+**Tipp:** `Math.random()` erzeugt eine Zufallszahl zwischen 0 und 1
+(exklusive 1). Um eine ganze Zahl zwischen 1 und 100 zu erhalten:
+
+```js
+const secret = Math.floor(Math.random() * 100) + 1;
+```
+
+- `Math.random() * 100` ergibt 0 bis 99.999...
+- `Math.floor()` rundet ab auf eine ganze Zahl (0 bis 99)
+- `+ 1` verschiebt den Bereich auf 1 bis 100
+</Callout>
+
+## Aufgabe 2: Einmal raten (Einstieg)
+
+Erweitere das Programm:
+
+1. Der Computer erzeugt eine Zufallszahl (1-100)
+2. Der Spieler gibt einen Tipp ab
+3. Das Programm sagt, ob der Tipp richtig, zu hoch oder zu niedrig war
+
+**Beispielausgabe:**
+
+```
+Ich denke an eine Zahl zwischen 1 und 100.
+Dein Tipp: 50
+Zu niedrig!
+Die gesuchte Zahl war: 73
+```
+
+
+## Aufgabe 3: Mehrfach raten mit while (Übung)
+
+Erweitere das Programm so, dass der Spieler mehrfach raten kann,
+bis die Zahl erraten wurde (die Zeile "Die gesuchte Zahl war: ..."
+entfällt nun):
+
+1. Solange der Tipp falsch ist, kann weiter geraten werden
+2. Bei jedem Versuch erscheint ein Hinweis (zu hoch/zu niedrig)
+3. Bei richtigem Tipp endet das Spiel mit einer Gratulation
+
+**Beispielausgabe:**
+
+```
+Ich denke an eine Zahl zwischen 1 und 100.
+Dein Tipp: 50
+Zu niedrig!
+Dein Tipp: 75
+Zu hoch!
+Dein Tipp: 62
+Zu niedrig!
+Dein Tipp: 68
+Richtig! Die Zahl war 68.
+```
+
+## Aufgabe 4: Versuche zählen (Übung)
+
+Erweitere das Programm um einen Versuchszähler:
+
+1. Zähle die Anzahl der Versuche
+2. Gib am Ende aus, wie viele Versuche benötigt wurden
+
+**Beispielausgabe:**
+
+```
+Ich denke an eine Zahl zwischen 1 und 100.
+Dein Tipp: 50
+Zu niedrig!
+Dein Tipp: 75
+Zu hoch!
+Dein Tipp: 63
+Richtig! Die Zahl war 63.
+Du hast 3 Versuche gebraucht.
+```
+
+## Aufgabe 5: Bewertung der Leistung (Übung)
+
+Gib am Ende eine Bewertung basierend auf der Anzahl der Versuche:
+
+- 1-3 Versuche: "Unglaublich! Bist du ein Gedankenleser?"
+- 4-6 Versuche: "Sehr gut!"
+- 7-10 Versuche: "Gut gemacht!"
+- Mehr als 10: "Übung macht den Meister!"
+
+**Beispielausgabe:**
+
+```
+Du hast 5 Versuche gebraucht.
+Sehr gut!
+```
+
+## Aufgabe 6: Nochmal spielen (Vertiefung)
+
+Erweitere das Spiel so, dass nach einer Runde gefragt wird,
+ob der Spieler nochmal spielen möchte:
+
+1. Nach dem Erraten fragen: "Nochmal spielen? (j/n)"
+2. Bei "j" startet eine neue Runde mit neuer Zufallszahl
+3. Bei "n" endet das Programm
+
+**Beispielausgabe:**
+
+```
+Richtig! Die Zahl war 42.
+Du hast 4 Versuche gebraucht.
+Sehr gut!
+
+Nochmal spielen? (j/n): j
+
+Ich denke an eine Zahl zwischen 1 und 100.
+Dein Tipp: ...
+```
+
+## Aufgabe 7: Mit Funktionen strukturieren (Vertiefung)
+
+Refaktoriere das Spiel mit folgenden Funktionen:
+
+- `generateSecret()` – erzeugt und gibt eine Zufallszahl zurück
+- `evaluateGuess(guess, secret)` – gibt -1, 0 oder 1 zurück (zu niedrig, richtig, zu hoch)
+- `getRating(attempts)` – gibt die Bewertung als String zurück
+- `playRound()` – führt eine Spielrunde durch
+
+**Struktur:**
+
+```js
+import { questionInt, question } from 'readline-sync';
+
+// === Funktionen ===
+
+function generateSecret() {
+  // Zufallszahl erzeugen und zurückgeben
+}
+
+function evaluateGuess(guess, secret) {
+  // -1 wenn zu niedrig, 0 wenn richtig, 1 wenn zu hoch
+}
+
+function getRating(attempts) {
+  // Bewertungstext zurückgeben
+}
+
+function playRound() {
+  // Eine Spielrunde durchführen
+}
+
+// === Hauptprogramm ===
+// Äußere while-Schleife für "Nochmal spielen?"
+```
+
+## Optionale Aufgaben (Bonus)
+
+### Schwierigkeitsgrade
+
+Lass den Spieler zu Beginn einen Schwierigkeitsgrad wählen:
+
+- Leicht: Zahlen 1-50
+- Normal: Zahlen 1-100
+- Schwer: Zahlen 1-200
+
+### Maximale Versuche
+
+Begrenze die Anzahl der Versuche (z.B. 7 bei 1-100).
+Wenn die Versuche aufgebraucht sind, verliert der Spieler.
+
+### Highscore
+
+Speichere den besten Versuch der Session (ohne Datei).
+Zeige am Ende jeder Runde, ob ein neuer Rekord aufgestellt wurde.
+
+## Zusammenfassung
+
+<Callout emoji="🗒️">
+In diesem Mini-Projekt haben wir folgende Konzepte angewendet:
+
+- **`while`-Schleifen** für wiederholte Abläufe
+- **`if/else`-Verzweigungen** für Hinweise und Bewertungen
+- **`Math.random()`** für Zufallszahlen
+- **Funktionen** zur Strukturierung des Codes
+- **Variablen als Zähler** für die Versuchsanzahl
+</Callout>
+
+<Callout type="warning">
+Info für Dozent: Lösung siehe `zahlenraten.js` im Repository `exercises`.
+</Callout>
