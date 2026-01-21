@@ -71,6 +71,8 @@ aktuelle Kontostand angezeigt wird:
 
 **Beispielausgabe:**
 
+**Hinweis:** „Jahr 0“ zeigt das Startkapital vor dem ersten Zinsjahr.
+
 ```
 Startkapital: 1000
 Zinssatz (%): 5
@@ -211,6 +213,12 @@ Jahr 4: 11769.04
 Sparziel von 10000.00 nach 4 Jahren erreicht!
 Endkapital: 11769.04
 ```
+
+<Callout type="info">
+**Tipp:** Abbruchfälle:
+- `sparziel <= startCapital` → sofort beenden.
+- `monthlyRate === 0` und `rate === 0`, aber Ziel höher → warnen und abbrechen.
+</Callout>
 
 ## Optionale Aufgaben (Bonus)
 

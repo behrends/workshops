@@ -70,6 +70,18 @@ Zu niedrig!
 Die gesuchte Zahl war: 73
 ```
 
+<Callout type="info">
+**Tipp:** Eingabe prüfen (1–100) und bei Bedarf erneut fragen.
+
+```js
+let guess = questionInt("Dein Tipp: ");
+while (guess < 1 || guess > 100) {
+  console.log("Bitte eine Zahl zwischen 1 und 100.");
+  guess = questionInt("Dein Tipp: ");
+}
+```
+</Callout>
+
 
 ## Aufgabe 3: Mehrfach raten mit while (Übung)
 
