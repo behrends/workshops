@@ -3,4 +3,5 @@ export default {
   '02-zahlenraten': 'Mini-Projekt: Zahlenraten',
   '03-zinsrechner': 'Mini-Projekt: Zinsrechner',
   '04-einzelaufgaben': 'Einzelaufgaben',
+  '05-programmieraufgaben': 'Programmieraufgaben',
 };
