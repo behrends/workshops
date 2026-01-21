@@ -72,6 +72,23 @@ Dabei sollten `package.json`, `package-lock.json` und `.gitignore` im Commit ent
 **Checkpoint:** Das Projekt ist lokal git-initialisiert.
 
 <Callout type="info">
+**Falls Git nach Name/E-Mail fragt:**
+
+```bash
+git config user.name "Dein Name"
+git config user.email "deine@email.de"
+```
+
+Diese Angaben erscheinen in jedem Commit. Möglichkeiten:
+- **Name:** Klarname, Nickname oder fiktiv
+- **E-Mail:** fiktive Mail, DHBW-Mailadresse oder GitHub `noreply`-Adresse (unter _Settings → Emails_)
+
+Für rein lokales Arbeiten reicht auch eine fiktive Adresse (z.B. `name@localhost`). 
+Vor dem Veröffentlichen auf GitHub sollte sie angepasst werden. Die Angaben lassen sich 
+jederzeit mit denselben Befehlen ändern.
+</Callout>
+
+<Callout type="info">
 **Drei Zustände in Git:**  
 **Working Tree** = Änderungen, die noch nicht vorgemerkt sind  
 **Staged** = Änderungen für den nächsten Commit vorgemerkt  
