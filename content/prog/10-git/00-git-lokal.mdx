@@ -1,0 +1,251 @@
+import { Callout } from 'nextra/components'
+
+# Mini-Projekt: Git lokal (Terminal + VS Code)
+
+<Callout>
+  **Dauer:** 30-45 Minuten (optional bis 60)  
+  **Ziel:** Lokalen Git-Workflow verstehen und anwenden
+
+  - Git nur lokal (keine Remotes, keine Branches)
+  - Erstes Durchlaufen mit Terminal-Befehlen
+  - Zweites Durchlaufen mit der Git-Ansicht in VS Code
+</Callout>
+
+In dieser Übung arbeiten wir an einem kleinen CLI-Programm.  
+Die Dateiänderungen sind bewusst einfach, damit der Fokus auf Git liegt.
+
+<Callout type="warning">
+Wir arbeiten **nur lokal**: kein GitHub, kein `git push`, keine Branches.
+</Callout>
+
+## Setup (einmalig)
+
+1. Neuen Ordner erstellen und in VS Code öffnen.
+2. Im VS-Code-Terminal:
+
+```bash
+npm init -y
+```
+
+3. In `package.json` die Zeile `"type": "module"` ergänzen.
+4. Abhängigkeit installieren:
+
+```bash
+npm install readline-sync
+```
+
+5. Git initialisieren und `.gitignore` erstellen:
+
+```bash
+git init
+```
+
+`.gitignore` ist eine **normale Textdatei**, die du in VS Code erstellst und bearbeitest:
+
+```
+node_modules/
+.env
+```
+
+**Warum?**  
+`node_modules/` enthält installierte Abhängigkeiten und wird nicht versioniert.  
+`.env` enthält oft sensible Daten (API-Keys, Passwörter) und gehört nie ins Repo.
+
+6. Status prüfen:
+
+```bash
+git status
+```
+
+7. Setup committen:
+
+```bash
+git add -A
+git commit -m "Projekt-Setup"
+```
+
+Dabei sollten `package.json`, `package-lock.json` und `.gitignore` im Commit enthalten sein.
+
+**Hinweis:** `git add -A` nimmt alle Änderungen auf, **inklusive Löschungen**.  
+`git add .` kann Löschungen übersehen und hängt vom aktuellen Ordner ab.
+
+**Checkpoint:** Das Projekt ist lokal git-initialisiert.
+
+<Callout type="info">
+**Drei Zustände in Git:**  
+**Working Tree** = Änderungen, die noch nicht vorgemerkt sind  
+**Staged** = Änderungen für den nächsten Commit vorgemerkt  
+**Commit** = gespeicherter Snapshot im lokalen Verlauf
+</Callout>
+
+<Callout type="info">
+**Warum gibt es Staging?**  
+Du kannst gezielt auswählen, **was** in einen Commit kommt.  
+Das macht Commits klein, sauber und nachvollziehbar.
+</Callout>
+
+## Durchlauf A: Terminal-Git
+
+### Schritt A1: Erste Datei
+
+Lege `app.js` an:
+
+```js
+import { question } from 'readline-sync';
+
+const name = question('Dein Name: ');
+console.log(`Hallo, ${name}!`);
+```
+
+Git im Terminal:
+
+```bash
+git status
+git diff
+git add app.js
+git commit -m "CLI Begrüßer"
+```
+
+**Kurz erklärt:**  
+- `git status` zeigt, was neu/geändert ist und was staged ist.  
+- `git diff` zeigt die Änderungen, die **noch nicht** staged sind.  
+- `git add` verschiebt Änderungen in den Staging-Bereich.  
+- `git commit` speichert einen Snapshot im lokalen Verlauf.
+
+**Wann committen?**  
+- nach einer **kleinen, abgeschlossenen** Änderung  
+- wenn das Programm **wieder lauffähig** ist  
+- nach einem sinnvollen **Zwischenziel**
+
+### Schritt A2: Logik auslagern
+
+Lege `greetings.js` an und passe `app.js` an.
+
+`greetings.js`:
+
+```js
+const greetings = ['Hallo', 'Hi', 'Moin', 'Servus'];
+
+export function pickGreeting() {
+  const index = Math.floor(Math.random() * greetings.length);
+  return greetings[index];
+}
+```
+
+`app.js`:
+
+```js
+import { question } from 'readline-sync';
+import { pickGreeting } from './greetings.js';
+
+const name = question('Dein Name: ');
+console.log(`${pickGreeting()}, ${name}!`);
+```
+
+Git im Terminal:
+
+```bash
+git diff
+git add -A
+git commit -m "Greetings ausgelagert"
+```
+
+**Tipp:** `git add -A` nimmt alle Änderungen (neue, geänderte, gelöschte Dateien) in die Stage auf.
+
+### Schritt A3: README anlegen
+
+Lege `README.md` an:
+
+```
+# CLI Begrüßer
+
+Start:
+node app.js
+```
+
+Git im Terminal:
+
+```bash
+git status
+git add README.md
+git commit -m "README hinzugefügt"
+git log --oneline
+```
+
+**Kurz erklärt:**  
+- `git log --oneline` zeigt die Commit-Historie kompakt.  
+- Nutze `git diff --staged`, wenn du sehen willst, **was genau** im nächsten Commit landet.
+
+## Durchlauf B: Git in VS Code
+
+Ab jetzt: Änderungen **stagen und committen** nur über die Git-Ansicht
+(`Source Control`) in VS Code. Im Terminal darfst du weiterhin `git status`
+oder `git log` ausführen.
+
+### Schritt B1: Utility-Datei
+
+Lege `utils.js` an und passe `app.js` an.
+
+`utils.js`:
+
+```js
+export function normalizeName(name) {
+  return name.trim();
+}
+```
+
+`app.js`:
+
+```js
+import { question } from 'readline-sync';
+import { pickGreeting } from './greetings.js';
+import { normalizeName } from './utils.js';
+
+const name = normalizeName(question('Dein Name: '));
+console.log(`${pickGreeting()}, ${name}!`);
+```
+
+Jetzt in VS Code:
+1. `Source Control` öffnen
+2. Diff ansehen
+3. Dateien stagen
+4. Commit erstellen (z. B. "Utilities hinzugefügt")
+
+### Schritt B2: Kleine Änderung
+
+Erweitere `app.js` um eine kleine Zusatz-Ausgabe:
+
+```js
+console.log(`Buchstaben: ${name.length}`);
+```
+
+Commit wieder **nur** in der VS-Code-Git-Ansicht.
+
+## Optional: Reset/Restore üben
+
+1. Ändere `app.js` absichtlich (z. B. Tippfehler).
+2. Stage die Datei.
+3. Unstage im Terminal:
+
+```bash
+git reset app.js
+```
+
+**Kurz erklärt:** `git reset <datei>` entfernt die Datei aus der Stage, **lässt die Änderung aber im Working Tree**.
+
+4. Änderung verwerfen (eine Variante wählen):
+
+```bash
+git restore app.js
+```
+
+**Kurz erklärt:** `git restore` verwirft lokale Änderungen und stellt den letzten Commit wieder her.
+
+5. Ergebnis mit `git status` prüfen.
+
+---
+
+**Ziel erreicht, wenn:**  
+- du mehrmals staged/committed hast (Terminal + VS Code)  
+- du `git status`, `git diff`, `git log` und `git reset` praktisch genutzt hast  
+- du verstehst, was in den drei Zuständen passiert (working tree, staged, commit)

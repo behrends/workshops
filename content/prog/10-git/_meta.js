@@ -1,4 +1,5 @@
 export default {
+  '00-git-lokal': 'Mini-Projekt: Git lokal',
   '01-github-repo': 'Repository in GitHub',
   '02-git-clone': 'Git-Repository klonen',
   '03-git': 'Mit Git arbeiten',
