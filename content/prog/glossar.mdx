@@ -50,6 +50,11 @@ Ein Datentyp für Wahrheitswerte mit genau zwei möglichen Werten:
 `true` (wahr) und `false` (falsch). Booleans werden häufig in 
 Bedingungen für Verzweigungen und Schleifen verwendet.
 
+<span id="Truthy-Falsy">**Truthy / Falsy**</span>\
+In JavaScript können auch Nicht-Boolean-Werte in Bedingungen stehen.
+„Falsy“ sind z. B. `false`, `0`, `""`, `null`, `undefined` und `NaN`.
+Fast alles andere wird als „truthy“ behandelt.
+
 <span id="Bug">**Bug**</span>\
 Ein Bug ist ein Fehler im Programm, der zu unerwartetem Verhalten führt. 
 Bugs können [Syntaxfehler](#Syntax) sein (Code lässt sich nicht ausführen) 
@@ -164,6 +169,10 @@ feste Werte ohne Berechnung.
 Eine Methode ist eine Funktion, die zu einem Objekt gehört und über 
 dieses aufgerufen wird, z. B. `console.log()` oder `myArray.push(5)`.
 
+<span id="Mockup">**Mockup**</span>\
+Ein Mockup ist eine visuelle Entwurfsversion (z. B. einer Oberfläche),
+die zeigt, wie etwas aussehen soll, ohne schon vollständig zu funktionieren.
+
 <span id="null">**null**</span>\
 `null` ist ein spezieller Wert, der bewusst „kein Wert" oder „leer" bedeutet. 
 Im Gegensatz zu [undefined](#undefined) (nicht initialisiert) wird `null` 
@@ -178,6 +187,11 @@ Eigenschaften wird mit Punktnotation zugegriffen: `person.name`.
 Operatoren führen Operationen auf Werten durch. Es gibt arithmetische 
 Operatoren (`+`, `-`, `*`, `/`), Vergleichsoperatoren (`===`, `!==`, `<`, `>`), 
 logische Operatoren (`&&`, `||`, `!`) und den Zuweisungsoperator (`=`).
+
+<span id="Ternärer-Operator">**Ternärer Operator (`? :`)**</span>\
+Der ternäre Operator ist eine kurze Form für einfache Bedingungen:
+`bedingung ? wertWennTrue : wertWennFalse`. Er ist ein Ausdruck und
+liefert direkt einen Wert zurück.
 
 <span id="Parameter">**Parameter**</span>\
 Parameter (auch Argumente genannt) sind Werte, die an eine Funktion 
@@ -227,6 +241,11 @@ wird `this` verwendet, um [Instanzvariablen](#Instanzvariable) zu setzen:
 Der `typeof`-Operator ermittelt den Datentyp eines Ausdrucks und gibt 
 diesen als String zurück, z. B. `typeof 42` ergibt `"number"` und 
 `typeof "Hi"` ergibt `"string"`.
+
+<span id="Typumwandlung">**Typumwandlung / Type Coercion**</span>\
+Typumwandlung bedeutet, dass Werte in einen anderen Datentyp konvertiert
+werden. Das kann explizit passieren (z. B. `Number("42")`) oder implizit
+durch JavaScript selbst (Type Coercion), z. B. bei `"5" * 2`.
 
 <span id="undefined">**undefined**</span>\
 `undefined` ist ein spezieller Wert in JavaScript, der anzeigt, dass 
@@ -278,6 +297,10 @@ eine andere Sprache (z. B. Maschinencode), bevor das Programm ausgeführt wird.
 Der TypeScript-Compiler übersetzt TypeScript-Code in JavaScript-Code. 
 Siehe auch [Interpreter](#Interpreter).
 
+<span id="Code-Review">**Code Review**</span>\
+Ein Code Review ist das gemeinsame Prüfen von Code (meist durch andere),
+um Fehler zu finden, die Lesbarkeit zu verbessern und Wissen zu teilen.
+
 <span id="Debugging">**Debugging**</span>\
 Debugging ist der Prozess, Fehler im Code zu finden und zu beheben. 
 Mit Debugging-Tools wie in VS Code kann Code schrittweise ausgeführt 
@@ -294,6 +317,11 @@ Siehe auch [Spread-Operator](#Spread-Operator).
 [ESLint](https://eslint.org/) ist ein weit verbreitetes Werkzeug zur statischen Code-Analyse 
 für JavaScript und TypeScript. Es erkennt potenzielle Fehler und 
 Stilprobleme im Code und hilft, einheitliche Code-Konventionen einzuhalten.
+
+<span id="Exception">**Exception (Ausnahme)**</span>\
+Eine Exception ist ein Fehler, der während der Programmausführung auftritt
+und den normalen Ablauf unterbricht. In JavaScript werden Exceptions
+als Fehlerobjekte (z. B. `Error`) „geworfen“ und können abgefangen werden.
 
 <span id="export">**export**</span>\
 Mit `export` werden Funktionen, Klassen oder Variablen aus einem 
@@ -400,6 +428,10 @@ Textmuster zur Überprüfung von Strings. In JavaScript werden sie zwischen
 Schrägstrichen definiert: `/[A-Za-z]+/`. Mit `test()` wird geprüft, ob 
 ein String zum Muster passt. Siehe [regexlearn.com](https://regexlearn.com/).
 
+<span id="SDK">**SDK**</span>\
+Ein SDK (Software Development Kit) ist ein Paket aus Bibliotheken, Tools
+und Doku, das die Entwicklung für eine Plattform oder API erleichtert.
+
 <span id="Semantik">**Semantik**</span>\
 Semantik bezeichnet die Bedeutung von Code – was der Code tatsächlich bewirkt. 
 Ein Programm kann syntaktisch korrekt sein, aber semantisch falsch (z. B. 
@@ -415,6 +447,10 @@ Der Spread-Operator `...` „entpackt" Elemente aus [Arrays](#Array) oder
 [Objekten](#Objekt). Beispiele: `[...arr1, ...arr2]` kombiniert Arrays, 
 `{...obj, name: "neu"}` kopiert ein Objekt mit Änderung. 
 Siehe auch [Destrukturierung](#Destrukturierung).
+
+<span id="try-catch-finally">**try / catch / finally**</span>\
+Mit `try`…`catch` können [Exceptions](#Exception) abgefangen und behandelt
+werden. `finally` wird immer ausgeführt, egal ob ein Fehler auftrat oder nicht.
 
 <span id="Terminal">**Terminal**</span>\
 Das Terminal (auch Kommandozeile oder Konsole) ist eine textbasierte 
