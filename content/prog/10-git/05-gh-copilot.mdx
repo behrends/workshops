@@ -35,5 +35,22 @@ Im Unterricht zeigen wir vor allem diese Szenarien:
 - Copilot Agent: komplexe Vorgänge im Projekt (inkl. Terminal)
 - Education Pack: Zugriff auf zusätzliche/leistungsstärkere Modelle
 
+### Commit-Messages steuern (Custom Instructions)
+
+Copilot kann Commit-Messages generieren. Über eine VS-Code-Einstellung
+kann man dabei den gewünschten Stil vorgeben:
+
+```json
+{
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    {
+      "text": "Schreibe kurze deutsche Commit-Messages im Stil: 'Prog: ...'."
+    }
+  ]
+}
+```
+
+Die Einstellung kann in der Workspace- oder User-`settings.json` gesetzt werden.
+
 Tipp: GitHub-Video als Einstieg:  
 [Einführung in GitHub Copilot (GitHub Video)](https://www.youtube.com/watch?v=SJqGYwRq0uc)
