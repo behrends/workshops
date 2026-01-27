@@ -110,7 +110,7 @@ console.log("Zugriff außerhalb der Grenzen ergibt " + a[5]);
 
 ## Zugriff auf die Länge eines Arrays
 
-Zusätzlich zu seinen Elemente besitzt ein Array 
+Zusätzlich zu seinen Elementen besitzt ein Array 
 eine spezielle Eigenschaft (keine Funktion bzw. 
 Methode!), die jeweils die aktuelle Länge des 
 Arrays enthält. Sie heißt `length` und wird mit 
@@ -203,7 +203,10 @@ function showSquares(x){ console.log(x * x) };
 // durchlaufe Array und rufe für jedes
 // Element item im Array showSquares(item) auf
 list.forEach(showSquares); 
-// Ausgabe ---> 1  4  9
+// Ausgabe:
+// 1
+// 4
+// 9
 ```
 
 Eine Funktion, die wie oben verwendet wird, wird auch _Callback_-Funktion 
@@ -212,9 +215,12 @@ den Code deutlich vereinfachen. Obiges Beispiel kann mit Pfeilfunktion
 umgeschrieben werden:
 
 ```js
-const list2 = [1,2,3,4];
+const list2 = [5,6,7];
 list2.forEach(item => console.log(item*item)); 
-// Ausgabe --->  1  4  9  16
+// Ausgabe:
+// 25
+// 36
+// 49
 ```
 
 Pfeilfunktionen als alternative Syntax für Funktionen werden in einer 
