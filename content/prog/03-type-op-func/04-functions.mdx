@@ -69,6 +69,25 @@ Funktionsrumpfs angegeben.
 Endet die Ausführung einer Funktion ohne `return`-Anweisung, dann 
 wird `undefined` als Ergebnis der Funktion zurückgeliefert.
 
+## Vorzeitiger `return` (Guard Clauses)
+
+Ein `return` muss nicht nur am Ende einer Funktion stehen. Mit einem
+**vorzeitigen `return`** kann eine Funktion sofort beendet werden,
+z. B. wenn Eingaben ungültig sind oder ein Sonderfall vorliegt.
+
+```js
+function divide(a, b) {
+  if (b === 0) {
+    return undefined; // vorzeitiger Abbruch
+  }
+
+  return a / b;
+}
+```
+
+Das macht Funktionen oft **einfacher lesbar**, weil Sonderfälle früh
+behandelt werden und der „normale“ Ablauf danach klarer ist.
+
 Parameter und Rückgabewerte werden in JavaScript nicht mit 
 Datentypen angegeben — dies kann nahtlos durch die Erweiterung 
 mit TypeScript erfolgen. 
