@@ -114,10 +114,10 @@ Eigenschaften“ aufgefasst werden:
 let myList = [8, "Hallo", [4,5,6]];
 // myList hat an der Position 0 den Wert 8:
 // oder myList hat an der "Eigenschaft" 0 den Wert 8:
-myList[0]; // 0 --> 8
+myList[0]; // --> 8
 
 // myList hat an der "Eigenschaft" 1 den Wert "Hallo":
-myList[1]; // 1 --> "Hallo"
+myList[1]; // --> "Hallo"
 
 // myList soll an der "Eigenschaft" 3 das Array [40,50,60] erhalten:
 myList[2] = [40,50,60]; // --> [8,"Hallo",[40,50,60]]
@@ -150,7 +150,7 @@ let myList = [8, "Hallo", [4,5,6]];
 // myList hat an der "Eigenschaft" 0 den Wert 8:
 myList[0]; // 0 --> 8
 
-// myList soll an der "Eigenschaft" 3 das Array [40,50,60] erhalten:
+// myList soll an der "Eigenschaft" 2 das Array [40,50,60] erhalten:
 myList[2] = [40,50,60]; // --> [8,"Hallo",[40,50,60]]
 ```
 
@@ -161,7 +161,7 @@ let myObject = {0: 8, 1: "Hallo", 2: [4,5,6]};
 // myObject hat an der "Eigenschaft" 0 den Wert 8:
 myObject['0']; // 0 --> 8  Achtung: String für Eigenschaftsname
 	
-// myObject soll an "Eigenschaft" 3 das Array [40,50,60] erhalten:
+// myObject soll an "Eigenschaft" '2' das Array [40,50,60] erhalten:
 myObject['2'] = [40,50,60]; // --> {0: 8,1: "Hallo",2: [40,50,60]}
 ```
 
@@ -300,7 +300,7 @@ jane.fullName(); // --> "Jane Smith"
 
 Bei „geschachtelten“ Objekten ist insbesondere die 
 Punktnotation für den Zugriff auf die Eigenschaften 
-viel einfacher als mit eckigen Klammen:
+viel einfacher als mit eckigen Klammern:
 
 ```js
 jane['address']['city']; // --> "New York", umständlicher Zugriff
@@ -355,7 +355,8 @@ Das im Web sehr wichtige Datenaustauschformat JSON
 (**J**ava**S**cript**O**bject**N**otation) hat 
 starke Ähnlichkeit zu JavaScript-Objekten.
 
-Für die Arbeit mit JSON verfügt JavaScript über eine eigene, fest integrierte JSON-API (application programming interface), Programmierschnittstelle).
+Für die Arbeit mit JSON verfügt JavaScript über eine eigene, fest 
+integrierte JSON-API (_application programming interface_, Programmierschnittstelle).
 
 Dies lässt sich leicht mit `JSON.stringify` zur 
 Erstellung von JSON-Strings und umgekehrt durch 
