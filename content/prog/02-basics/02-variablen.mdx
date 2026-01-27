@@ -199,6 +199,10 @@ Es gibt in JavaScript auch die Möglichkeit, Variablen mit `var` zu deklarieren.
 Davon wird inzwischen abgeraten &mdash; auch wenn dies noch
 immer möglich ist und oftmals keine Probleme verursacht.
 
+Ein Grund: `var` hat **Function-Scope** (und nicht Block-Scope wie `let`/`const`).
+Das führt in `if`-Blöcken oder Schleifen schnell zu überraschendem Verhalten.
+Mehr dazu in den [Scope-Übungen](/prog/04-if-switch/04-scope).
+
 Mehr Infos dazu sind unter
 [javascript.info/var](https://javascript.info/var) zu finden.
 </Callout>
@@ -335,4 +339,3 @@ Mehr zu Ausdrücken erfahren wir bei [Operatoren](/prog/03-type-op-func/02-opera
 - [`let` &mdash; Referenz im Mozilla Developer Network (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let)
 - [`const` &mdash; Referenz im MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const)
 </Callout>
-
