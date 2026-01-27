@@ -130,6 +130,26 @@ dann kann innerhalb der Funktion eine Variable/Konstante mit gleichem Namen `myN
 <Callout type="info">
 Funktionen können Funktionen enthalten, d.h. es ist möglich, innerhalb einer Funktion 
 sozusagen eine „lokale“ Funktion zu deklarieren, die nur in dieser Funktion existiert.
+
+Außerdem können Funktionen **verschachtelt aufgerufen** werden
+(Funktionskomposition), z. B. `f(g(h(x)))`:
+
+```js
+function h(x) {
+  return x + 1;
+}
+
+function g(x) {
+  return x * 2;
+}
+
+function f(x) {
+  return x - 3;
+}
+
+const result = f(g(h(5)));
+console.log(result);
+```
 </Callout>
 
 ### Aufruf einer Funktion
