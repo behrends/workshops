@@ -65,6 +65,15 @@ graph TD
 - Es können beliebig viele `else if`-Blöcke angegeben werden (oder auch keine).
 - Es kann höchstens einen `else`-Block geben (oder auch keinen). 
 
+<Callout type="info">
+In JavaScript werden Bedingungen auch mit sogenannten **truthy/falsy**
+Werten ausgewertet. „Falsy“ sind z. B. `false`, `0`, `""`, `null`,
+`undefined` und `NaN`. Fast alles andere ist „truthy“.
+
+Für den Einstieg ist es oft besser, Bedingungen **explizit** zu formulieren,
+z. B. `if (name !== "")` statt nur `if (name)`.
+</Callout>
+
 Ein Beispiel dazu:
 
 ```js
