@@ -6,36 +6,28 @@ import { Callout } from 'nextra/components';
 Infos für Dozent: 
 
 Dies wird mit zwei verschiedenen GitHub-Accounts gezeigt. 
+Für Authentifizierung via SSH-Keys müssen in `~/.ssh/config` zwei Einträge existieren,
+einer für `gihub.com` (Standard GitHub-Account) und z. B. `github-dummy` für den zweiten GitHub-Account.
 
-- GitHub-Projekt erstellen (`ErsterBenutzer/Repository.git`)
-- zweiten GitHub-Account als _Collaborator_ hinzufügen
+- GitHub-Projekt erstellen (`behrends/repo.git`)
+- zweiten GitHub-Account (`dummydhbw`) als _Collaborator_ hinzufügen
 - erster GitHub-Account klont das Projekt auf dem Rechner
 
-Vorher checken: Für den zweiten GitHub-Account muss ein SSH-Key auf GitHub vorliegen und lokal in `~/.ssh/config` angepasst werden:
+Als zweiter GitHub-User (`dummydhbw`) das Projekt des ersten Nutzers klonen:
 
 ```
-Host github-other
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/id_rsa_other
-    IdentitiesOnly yes
-```
-
-Als zweiter GitHub-User das Projekt des ersten Nutzers klonen:
-
-```
-git clone git@github-other:ErsterBenutzer/Repository.git Projektordner
+git clone git@github-dummy:behrends/repo.git repo-dummy
 ```
 
 - Lokale Git-Config im Projektordner für zweiten GitHub-Account setzen:
 
 ```
-cd projektordner
-git config user.name "Anderer Benutzer"
-git config user.email "andere-email@example.com"
+cd Projektordner
+git config user.name "dummydhbw"
+git config user.email "dummydhbw@users.noreply.github.com"
 ```
 
-&rarr; Nun kann der zweite GitHub-Account lokal Änderungen vornehmen und pushen.
+&rarr; Nun kann der zweite GitHub-Account (`dummydhbw`) lokal Änderungen vornehmen und pushen.
 </Callout>
 
 Wir spielen nun verschiedene Szenarios durch:
@@ -87,21 +79,24 @@ hint: or --ff-only on the command line to override the configured default per
 hint: invocation.
 ```
 
-Der zweite Benutzer muss die Merge-Strategie festlegen, bevor er pullt.
-Wir verwenden `git config pull.rebase false` für einen Merge, weil
-dies am einfachsten zu verstehen ist. 
+„Merge“ ist wohl am gängigsten und am Einfachsten zu verstehen. Dies erzeugt einen neuen Commit
+mit den „gemergten“ Änderungen (lokal und remote).
 
+Für einmaliges Pullen mit `merge` kann die passende Option gesetzt werden: 
+
+```bash
+git pull --no-rebase
+```
+
+Der zweite Benutzer sollte die Merge-Strategie für dieses Projekt festlegen, bevor er pullt.
 Im Terminal ausführen: 
 
 ```bash
 git config pull.rebase false
 ```
 
-Danach klappt das Pullen, und die Änderungen können automatisch gemerged 
-werden, weil sie sich nicht überschneiden. Dennoch ist ein lokaler Commit
-der Änderungen nötig.
-
-&rarr; Nach dem Commit kann der zweite Benutzer pushen.
+Danach klappt `git pull` und die Änderungen können automatisch gemerged 
+werden, weil sie sich nicht überschneiden. 
 
 &rarr; Änderungen mit `git log` anzeigen (`Merge branch 'main' of…`)
 
