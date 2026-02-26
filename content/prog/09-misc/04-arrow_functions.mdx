@@ -29,15 +29,15 @@ const add = (a,b) => {
   return a + b; 
 };
 
-const substract = (a,b) => { 
+const subtract = (a,b) => { 
   return a - b; 
 };
-	
-const multiply = (a,b) => { 
-  return a * b; 
+
+const multiply = (a,b) => {
+  return a * b;
 };
-	
-console.log(substract(multiply(add(6,3),2),4));
+
+console.log(subtract(multiply(add(6,3),2),4));
 // --> 14 ( = (6+3)*2-4 )
 ```
 
@@ -46,29 +46,32 @@ Unterschiede zwischen Pfeilfunktionen und
 auf den Umgang mit `this` im Funktionsrumpf, siehe 
 dazu z. B. [javascript.info](https://javascript.info/arrow-functions#arrow-functions-have-no-this).
 
-Besteht eine Pfeilfunktionen nur aus einer Zeile bzw. 
+Besteht eine Pfeilfunktion nur aus einer Zeile bzw. 
 aus nur einer `return`-Anweisung, dann können die 
 geschweiften Klammern des Funktionsrumpfes und das 
 `return` weggelassen werden:
 
 ```js
 // Einzeilige Pfeilfunktionen brauchen 
-// kein return und keine { }	
+// kein return und keine { }
 const add = (a,b) => a + b;
-	
-const substract = (a,b) => a - b;
+
+const subtract = (a,b) => a - b;
 
 const multiply = (a,b) => a * b;
-	
-console.log(substract(multiply(add(6,3),2),4));
+
+console.log(subtract(multiply(add(6,3),2),4));
 // --> 14 ( = (6+3)*2-4 )
 ```
 
-**Bemerkung:** Die geschweiften Klammern des 
-Funktionsrumpfes werden aber wieder benötigt, wenn 
-der Rückgabewert bzw. das Ergebnis der Funktion ein
-JavaScript-Objektliteral mit geschweiften Klammern 
-ist.) 
+**Bemerkung:** Wenn der Rückgabewert bzw. das Ergebnis der einzeiligen
+Funktion ein JavaScript-Objektliteral mit geschweiften Klammern ist,
+dann müssen wir dies mit runden Klammern umgeben:
+
+```js
+// ohne die runden Klammern beim Ergebnis gäbe es einen SyntaxError
+const objFun = (name, age) => ({name: name, age: age})
+```
 
 Falls eine Pfeilfunktion nur ein Argument bzw. 
 einen Parameter hat, dann werden bei der 

@@ -34,8 +34,8 @@ const code = city.code;
 const pop = city.pop;
 ```
 
-Wenn wie oben zu sehen, werden die Werte 
-einzelner Eigenschaften des Objekts an 
+Wie oben zu sehen, werden die Werte
+einzelner Eigenschaften des Objekts an
 verschiedene Konstanten zugewiesen.
 
 Falls die Konstanten wie oben im Beispiel 
@@ -101,7 +101,7 @@ console.log(list3);
 // --> [ -3, -2, -1, 0, 1, 2, 3, 4 ]
 ```
 
-Mit `...list1` wird das Arrays sozusagen
+Mit `...list1` wird das Array sozusagen
 „ausgebreitet“ (daher _spread operator_).
 
 Weitere Möglichkeiten mit dem Spread-Operator
@@ -137,8 +137,8 @@ Syntax gibt, die den Umgang mit „unvollständigen
 Objekteigenschaften“ vereinfacht:
 
 ```js
-const person1 = {name: 'Bob', city: {code: 'NY'}};
-console.log(person1?.city?.code); // --> NY
+const person1 = {name: 'Bob', city: {code: 'NYC'}};
+console.log(person1?.city?.code); // --> NYC
 
 const person2 = {name: 'Jane'};
 console.log(person2?.city?.code); // --> undefined
@@ -168,9 +168,9 @@ function returnFirst(x,y) {
   if(y !== undefined && y !== null) return y;
 }
 
-console.log(returnFirst(1,2)); //--> 1
-console.log(returnFirst(undefined,2)); //--> 2
-console.log(returnFirst(null,3)); //--> 3
+console.log(returnFirst(1,2)); // --> 1
+console.log(returnFirst(undefined,2)); // --> 2
+console.log(returnFirst(null,3)); // --> 3
 ```
 
 Solche Situationen können mit dem Operator
@@ -181,16 +181,16 @@ function returnFirst(x,y) {
   return x ?? y;
 }
 
-console.log(returnFirst(1,2)); //--> 1
-console.log(returnFirst(undefined,2)); //--> 2
-console.log(returnFirst(null,3)); //--> 3
+console.log(returnFirst(1,2)); // --> 1
+console.log(returnFirst(undefined,2)); // --> 2
+console.log(returnFirst(null,3)); // --> 3
 ```
 
 `??` wird als _nullish coalescing_ bezeichnet.
 Dies ist ein zweistelliger Operator, der den
 ersten Operanden ergibt, wenn dieser nicht
 `undefined` und nicht `null` ist. Ansonsten
-bildet der zweite Operator das Ergebnis.
+bildet der zweite Operand das Ergebnis.
 
 _Nullish coalescing_ wird bei
 [javascript.info](https://javascript.info/nullish-coalescing-operator) ausführlicher

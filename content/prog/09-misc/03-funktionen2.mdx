@@ -25,15 +25,15 @@ Funktionsparameter einen Wert erhalten, wenn diese
 beim Aufruf der Funktion nicht angegeben werden:
 
 ```js
-// Parameter b hat einen Default-Wert von 1000	
+// Parameter b hat einen Default-Wert von 1000
 function myFunction(a, b = 1000) {
-  console.log(a + b)
+  return a + b;
 }
-	
+
 // b erhält in der Funktion den Default-Wert 1000
 console.log(myFunction(1)); // --> 1001
- 
-// b erhält in der Funktion den Wert 12	
+
+// b erhält in der Funktion den Wert 12
 console.log(myFunction(1, 12)); // --> 13
 ```
 
@@ -45,8 +45,9 @@ automatisch) ein Parameter namens `arguments` zur
 Verfügung. `arguments` muss also nicht explizit 
 (d.h. ausdrücklich) angegeben werden.
 
-`arguments` ist ein Array-artiges Objekt, das alle beim 
-Aufruf übergebenen Parameter enthält.
+`arguments` ist ein Array-artiges Objekt (kein echtes Array,
+d.h. Methoden wie `map` oder `filter` stehen nicht zur
+Verfügung), das alle beim Aufruf übergebenen Parameter enthält.
 
 Funktionen können somit mit beliebig vielen 
 Parametern umgehen: 
@@ -65,9 +66,9 @@ console.log(sum(3)); // 3
 console.log(sum(5,8,1,2)); // 16
 ```
 
-In diesem Zusammenhang ist manchmal die 
-sogenannte „Spread“-Syntax nützlich (_spread_ 
-bedeutet „ausbreiten“):
+Die modernere Alternative ist die sogenannte
+„Rest”-Syntax (`...`). Damit werden die restlichen
+Argumente in einem echten Array gesammelt:
 
 ```js
 function plusRest(a,...args) {	
@@ -93,10 +94,11 @@ Zu beachten ist, dass hinter `function` kein Name
 angegeben wird &mdash; es sind also eigentlich 
 anonyme Funktionen.
 
-Der Aufruf erfolgt über den Namen der 
+Der Aufruf erfolgt über den Namen der
 Konstanten/Variablen und sieht aus wie zuvor &mdash;
-das Ergebnis ist dasselbe wie auf im Beispiel zu
-kombinierten Funktionsaufrufen oben:
+das Ergebnis ist dasselbe wie im Beispiel zu
+verschachtelten Funktionsaufrufen in
+[Teil 1](/prog/03-type-op-func/04-functions):
 
 ```js
 // aus Platzgründen stehen die Funktionen 
@@ -105,7 +107,7 @@ const add = function(a,b) {
   return a + b; 
 };
 	
-const substract = function(a,b) { 
+const subtract = function(a,b) { 
   return a - b; 
 };
 		
@@ -113,14 +115,17 @@ const multiply = function(a,b) {
   return a * b; 
 };
 	
-console.log(substract(multiply(add(6,3),2),4));
+console.log(subtract(multiply(add(6,3),2),4));
 // --> 14 ( = (6+3)*2-4 )
 ```
 
-Die Tatsache, dass Funktionen auch Objekte 
+Die Tatsache, dass Funktionen auch Objekte
 sind und insbesondere als anonyme Funktionen
 verwendet werden können, ist hilfreich für
 das Verständnis von Pfeilfunktionen (nächste Seite).
+Pfeilfunktionen haben übrigens kein eigenes
+`arguments`-Objekt — ein weiterer Grund, die
+Rest-Syntax (`...args`) zu bevorzugen.
 
 <Callout type="info">
 Es gibt weitere Aspekte zu Funktionen, siehe
