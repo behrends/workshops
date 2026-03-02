@@ -103,11 +103,6 @@ Vor Commits ausführen:
 - [`npm run lint`](/prog/09-quality/03-eslint) (`ESLint`)
 - [`npm run test`](/prog/09-quality/04-unit-testing-vitest) (`Unit-Tests`)
 
-Ergänzend:
-
-- kritische Schnittstellen mindestens einmal mit Integrations- oder Contract-Checks prüfen
-- manuelle Schnellprüfung der wichtigsten User-Flows durchführen
-
 <Callout type="info">
   Diese Schritte lassen sich für KI-Coding-Agents über verbindliche Regeln
   in `AGENTS.md` sowie über Command- oder Hook-Automatisierung
@@ -115,3 +110,9 @@ Ergänzend:
   in Claude oder anderen Agent-Workflows) erzwingen.
   Dadurch können KI-Agents ihre Änderungen vor Commit oder Push selbst prüfen.
 </Callout>
+
+Ergänzend:
+
+- mindestens einen kritischen Ablauf als einfachen Integrationscheck prüfen
+  (z. B. Eingabe -> Validierung -> Speicherung; je 1 Erfolgs- und 1 Fehlerfall)
+- manuelle Schnellprüfung der wichtigsten User-Flows durchführen
