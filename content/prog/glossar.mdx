@@ -281,6 +281,11 @@ Arrow Functions (Pfeilfunktionen) sind eine kompakte Syntax für Funktionen
 mit `=>` anstatt `function`. Beispiel: `const add = (a, b) => a + b;`. 
 Bei nur einem Parameter können die Klammern weggelassen werden.
 
+<span id="Assertion">**Assertion**</span>\
+Eine Assertion ist eine konkrete Überprüfung in einem Test, z. B. 
+`assert.strictEqual(...)` oder `expect(...).toBe(...)`. Sie prüft, ob ein 
+erwartetes Ergebnis tatsächlich eingetreten ist.
+
 <span id="async-await">**async/await**</span>\
 `async` und `await` vereinfachen die Arbeit mit [Promises](#Promise). 
 Eine mit `async` deklarierte Funktion kann `await` verwenden, um auf 
@@ -297,6 +302,11 @@ eine andere Sprache (z. B. Maschinencode), bevor das Programm ausgeführt wird.
 Der TypeScript-Compiler übersetzt TypeScript-Code in JavaScript-Code. 
 Siehe auch [Interpreter](#Interpreter).
 
+<span id="Codequalität">**Codequalität**</span>\
+Codequalität beschreibt, wie korrekt, lesbar, wartbar und verlässlich Code ist. 
+Typische Maßnahmen sind Formatierung, [Type Checking / Typprüfung](#Type-Checking), 
+[Linting](#Linting) und Tests.
+
 <span id="Code-Review">**Code Review**</span>\
 Ein Code Review ist das gemeinsame Prüfen von Code (meist durch andere),
 um Fehler zu finden, die Lesbarkeit zu verbessern und Wissen zu teilen.
@@ -312,6 +322,11 @@ Destrukturierung ermöglicht es, Werte aus [Arrays](#Array) oder [Objekten](#Obj
 in einzelne [Variablen](#Variable) zu entpacken. Beispiele: 
 `const [a, b] = [1, 2];` oder `const {name, age} = person;`. 
 Siehe auch [Spread-Operator](#Spread-Operator).
+
+<span id="E2E-Test">**End-to-End-Test (E2E-Test)**</span>\
+Ein End-to-End-Test prüft einen kompletten Nutzerablauf von Anfang bis Ende 
+unter möglichst realistischen Bedingungen. E2E-Tests sind meist langsamer und 
+aufwändiger als [Unit-Tests](#Unit-Test).
 
 <span id="ESLint">**ESLint**</span>\
 [ESLint](https://eslint.org/) ist ein weit verbreitetes Werkzeug zur statischen Code-Analyse 
@@ -355,6 +370,11 @@ Mit `import` werden Funktionen, Klassen oder Variablen aus einem
 anderen [Modul](#Modul) in die aktuelle Datei eingebunden. 
 Siehe [Modul](#Modul).
 
+<span id="Integrationstest">**Integrationstest**</span>\
+Ein Integrationstest prüft das Zusammenspiel mehrerer Module oder Komponenten, 
+z. B. API-Aufruf, Validierung und Speicherung. Er liegt in der Testpyramide 
+zwischen [Unit-Tests](#Unit-Test) und E2E-Tests.
+
 <span id="Instanz">**Instanz**</span>\
 Eine Instanz ist ein konkretes Objekt, das anhand einer [Klasse](#Klasse) 
 mit `new` erzeugt wurde. Jede Instanz hat eigene Werte für die 
@@ -376,6 +396,19 @@ Siehe auch [Compiler](#Compiler).
 Austausch von Daten. Es ähnelt der JavaScript-Objektsyntax und wird häufig 
 für [APIs](#API) verwendet. Mit `JSON.parse()` und `JSON.stringify()` 
 kann zwischen JSON-Text und JavaScript-Objekten konvertiert werden.
+
+<span id="Linting">**Linting**</span>\
+Linting ist die statische Analyse von Code anhand vordefinierter Regeln, um 
+Fehlerquellen und problematische Muster früh zu erkennen. Ein häufiges 
+Werkzeug dafür ist [ESLint](#ESLint).
+
+<span id="Linter">**Linter**</span>\
+Ein Linter ist ein Tool, das [Linting](#Linting) ausführt.
+
+<span id="Manuelles-Testen">**Manuelles Testen**</span>\
+Manuelles Testen bedeutet, dass Menschen ein Programm gezielt ausprobieren, 
+z. B. wichtige Abläufe, Randfälle und Benutzerfreundlichkeit. Es ergänzt 
+automatisierte Tests.
 
 <span id="Map">**Map**</span>\
 Eine Map ist eine Datenstruktur für Schlüssel-Wert-Paare, ähnlich wie 
@@ -417,6 +450,10 @@ Ein [Promise](https://javascript.info/promise-basics) repräsentiert das Ergebni
 erst in der Zukunft verfügbar sein wird. Mit `.then()` kann auf das 
 Ergebnis reagiert werden, oder einfacher mit [async/await](#async-await).
 
+<span id="Pure-Funktion">**Pure Funktion**</span>\
+Eine pure Funktion liefert für gleiche Eingaben immer das gleiche Ergebnis und 
+hat keine [Seiteneffekte](#Seiteneffekt). Dadurch ist sie besonders gut testbar.
+
 <span id="Refactoring">**Refactoring**</span>\
 Refactoring ist das Überarbeiten von Code, ohne das äußere Verhalten zu ändern, 
 um Lesbarkeit, Struktur oder Wartbarkeit zu verbessern. Beispiele sind das 
@@ -437,6 +474,10 @@ Semantik bezeichnet die Bedeutung von Code – was der Code tatsächlich bewirkt
 Ein Programm kann syntaktisch korrekt sein, aber semantisch falsch (z. B. 
 `if (x = 5)` statt `if (x === 5)`). Siehe auch [Syntax](#Syntax).
 
+<span id="Seiteneffekt">**Seiteneffekt**</span>\
+Ein Seiteneffekt ist eine beobachtbare Änderung außerhalb des Funktionsrückgabewerts, 
+z. B. Schreiben in Dateien, Netzwerkzugriffe oder Änderungen globaler Variablen.
+
 <span id="Set">**Set**</span>\
 Ein Set ist eine Datenstruktur, die Werte ohne Duplikate speichert – 
 wie eine mathematische Menge. Elemente werden mit `add()` hinzugefügt 
@@ -452,17 +493,32 @@ Siehe auch [Destrukturierung](#Destrukturierung).
 Mit `try`…`catch` können [Exceptions](#Exception) abgefangen und behandelt
 werden. `finally` wird immer ausgeführt, egal ob ein Fehler auftrat oder nicht.
 
+<span id="Testpyramide">**Testpyramide**</span>\
+Die Testpyramide ist ein Modell für die Verteilung von Tests: viele schnelle 
+[Unit-Tests](#Unit-Test), weniger Integrationstests und wenige E2E-Tests. 
+Ziel ist ein gutes Verhältnis aus Geschwindigkeit, Stabilität und Abdeckung.
+
 <span id="Terminal">**Terminal**</span>\
 Das Terminal (auch Kommandozeile oder Konsole) ist eine textbasierte 
 Schnittstelle zur Ausführung von Befehlen. In [VS Code](#VS-Code) ist ein 
 Terminal integriert, über das z. B. [Node.js](#Node.js)-Programme mit 
 `node datei.js` oder [npm](#npm)-Befehle ausgeführt werden.
 
+<span id="Type-Checking">**Type Checking / Typprüfung**</span>\
+Type Checking (Typprüfung) prüft, ob verwendete Datentypen zueinander passen, 
+meist schon vor der Ausführung. In JavaScript-Projekten wird dafür oft 
+[TypeScript](#TypeScript) genutzt.
+
 <span id="TypeScript">**TypeScript**</span>\
 [TypeScript](https://www.typescriptlang.org/) ist eine von Microsoft entwickelte Erweiterung von JavaScript, 
 die statische Typisierung hinzufügt. TypeScript-Code wird durch einen 
 [Compiler](#Compiler) in JavaScript übersetzt und kann dann im Browser 
 oder in [Node.js](#Node.js) ausgeführt werden.
+
+<span id="Unit-Test">**Unit-Test**</span>\
+Ein Unit-Test prüft eine kleine, isolierte Einheit des Codes (z. B. eine 
+Funktion) automatisiert. Unit-Tests laufen meist schnell und bilden die 
+Basis der [Testpyramide](#Testpyramide).
 
 <span id="Vererbung">**Vererbung**</span>\
 Vererbung ermöglicht es, eine neue [Klasse](#Klasse) (Subklasse) von einer 
