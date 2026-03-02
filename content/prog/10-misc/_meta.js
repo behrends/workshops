@@ -9,10 +9,9 @@ export default {
   private: 'Private Eigenschaften',
   extends: 'Vererbung in Klassen',
   static: 'Statische Methoden',
-  'regexp': 'Reguläre Ausdrücke',
+  regexp: 'Reguläre Ausdrücke',
   'array-methods': 'Array-Methoden',
   'syntax-tipps': 'Syntax-Tipps',
-  'map_set': 'Map und Set',
-  tools: 'Weitere Werkzeuge',
+  map_set: 'Map und Set',
   languages: 'Alternative Sprachen',
 };
