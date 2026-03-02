@@ -97,8 +97,16 @@ Integration/Contracts werden punktuell behandelt, E2E als Ausblick später verti
 
 Praktischer Mindeststandard für das Projekt:
 
-- `npm run typecheck` vor Commits ausführen
-- `npm run lint` vor Commits ausführen
-- `npm run test` für zentrale Funktionen ausführen
+- [`npm run typecheck`](/prog/09-quality/02-typescript) vor Commits ausführen
+- [`npm run lint`](/prog/09-quality/03-eslint) vor Commits ausführen
+- [`npm run test`](/prog/09-quality/04-unit-testing-vitest) für zentrale Funktionen ausführen
 - kritische Schnittstellen mindestens einmal mit Integrations- oder Contract-Checks prüfen
 - manuelle Schnellprüfung der wichtigsten User-Flows durchführen
+
+<Callout type="info">
+  Diese Schritte lassen sich für KI-Coding-Agents über verbindliche Regeln
+  in `AGENTS.md` sowie über Command- oder Hook-Automatisierung
+  (z. B. Git-Hooks wie `pre-commit`/`pre-push`, npm-Skripte und Agent-Hooks
+  in Claude oder anderen Agent-Workflows) erzwingen.
+  Dadurch können KI-Agents ihre Änderungen vor Commit oder Push selbst prüfen.
+</Callout>
