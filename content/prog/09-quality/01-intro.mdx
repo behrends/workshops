@@ -74,6 +74,12 @@ Es sollte Anforderungen und Risiken geprüft werden, nicht nur die aktuelle Impl
   im Code. Das ist keine „Teststufe“, verbessert aber Lesbarkeit,
   Reviews und Team-Konsistenz deutlich.
 
+  Installieren:
+
+  ```bash
+  npm install --save-dev prettier
+  ```
+
   Kurzkonfiguration über `.prettierrc`:
 
   ```json
@@ -83,6 +89,26 @@ Es sollte Anforderungen und Risiken geprüft werden, nicht nur die aktuelle Impl
     "trailingComma": "all"
   }
   ```
+
+  Die Datei `.prettierrc` sollte im Git-Repository versioniert werden,
+  damit im Team überall dieselben Formatierungsregeln gelten.
+
+  npm-Skripte:
+
+  ```json
+  {
+    "scripts": {
+      "format": "prettier --write .",
+      "format:check": "prettier --check ."
+    }
+  }
+  ```
+
+  Für VS Code: Prettier-Extension installieren und optional
+  `formatOnSave` aktivieren.
+
+  Für Hooks/Agents: vor Commit oder Push mindestens
+  `npm run format:check` ausführen (bei Bedarf automatisiert).
 </Callout>
 
 Für unsere aktuelle TUI-App liegt der Fokus auf den unteren Ebenen:
