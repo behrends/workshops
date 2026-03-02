@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 # Einführung und Motivation: Codequalität und Testpyramide
 
 <Callout>
-  **Dauer:** 30 Minuten
+  **Dauer:** 20 Minuten
 
   **Ziel:** Verstehen, welche Qualitätssicherungsstufen für unser Projekt
   jetzt sinnvoll und praktikabel sind
@@ -11,7 +11,7 @@ import { Callout } from 'nextra/components'
 
 Wenn Coding Agents mehr Code in kurzer Zeit erzeugen, steigt das Risiko,
 dass Fehler unbemerkt in den Projektstand gelangen. Genau deshalb wird
-Qualitätsmanagement wichtiger: Wir brauchen klare, wiederholbare Checks.
+Codequalität wichtiger: Wir brauchen klare, wiederholbare Checks.
 
 Codequalität umfasst dabei mehrere Dimensionen:
 
@@ -68,45 +68,44 @@ Eine praxisnahe Gewichtung:
 Wichtiger als die reine Anzahl von Tests ist die Qualität der Test-Orakel:
 Es sollte Anforderungen und Risiken geprüft werden, nicht nur die aktuelle Implementierung.
 
-<Callout type="info">
-  **Formatierung als Fundament:** Werkzeuge wie
-  [Prettier](https://prettier.io) reduzieren unnötige Unterschiede
-  im Code. Das ist keine „Teststufe“, verbessert aber Lesbarkeit,
-  Reviews und Team-Konsistenz deutlich.
+## Prettier als Fundament
 
-  Installieren:
+Werkzeuge wie [Prettier](https://prettier.io) reduzieren unnötige Unterschiede
+im Code. Das ist keine „Teststufe“, verbessert aber Lesbarkeit,
+Reviews und Team-Konsistenz deutlich.
 
-  ```bash
-  npm install --save-dev prettier
-  ```
+Installieren:
 
-  Kurzkonfiguration über `.prettierrc`:
+```bash
+npm install --save-dev prettier
+```
 
-  ```json
-  {
-    "singleQuote": true,
-    "semi": true,
-    "trailingComma": "all"
+Kurzkonfiguration über `.prettierrc`:
+
+```json
+{
+  "singleQuote": true,
+  "semi": true,
+  "trailingComma": "all"
+}
+```
+
+Die Datei `.prettierrc` sollte im Git-Repository versioniert werden,
+damit im Team überall dieselben Formatierungsregeln gelten.
+
+npm-Skripte:
+
+```json
+{
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   }
-  ```
+}
+```
 
-  Die Datei `.prettierrc` sollte im Git-Repository versioniert werden,
-  damit im Team überall dieselben Formatierungsregeln gelten.
-
-  npm-Skripte:
-
-  ```json
-  {
-    "scripts": {
-      "format": "prettier --write .",
-      "format:check": "prettier --check ."
-    }
-  }
-  ```
-
-  Für VS Code: Prettier-Extension installieren und optional
-  `formatOnSave` aktivieren.
-</Callout>
+Für VS Code: Prettier-Extension installieren und optional
+`formatOnSave` aktivieren.
 
 Für unsere aktuelle TUI-App liegt der Fokus auf den unteren Ebenen:
 
