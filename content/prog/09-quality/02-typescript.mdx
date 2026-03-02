@@ -3,10 +3,14 @@ import { Callout } from 'nextra/components'
 # TypeScript
 
 <Callout>
-  **Dauer:** 45 Minuten
+  **Dauer:** 30 Minuten
 
   **Ziel:** TypeScript als praktischen Qualitätscheck im Node.js-Projekt einrichten
 </Callout>
+
+Diese Lektion beschreibt nur den praktischen Einstieg mit TypeScript im
+Projekt. Eine vollständige Einführung in die umfangreiche Sprache
+TypeScript ist nicht Teil dieser Lektion.
 
 JavaScript ist dynamisch typisiert. Das ist flexibel, kann aber in
 größeren Projekten zu Laufzeitfehlern führen, die erst spät auffallen.
@@ -14,61 +18,86 @@ größeren Projekten zu Laufzeitfehlern führen, die erst spät auffallen.
 Mit [TypeScript](https://www.typescriptlang.org/) können viele dieser
 Probleme bereits vor dem Start des Programms gefunden werden.
 
+TypeScript ist eine Spracherweiterung für JavaScript:
+JavaScript-Code bleibt gültig, wird aber um statische Typinformationen ergänzt.
+Der Einsatz ist optional, in JavaScript-Projekten jedoch sehr nützlich
+und in der Praxis weit verbreitet.
+
+## Motivation: typischer JavaScript-Effekt
+
+```js
+let myVariable = 10; // number
+myVariable = "Hallo"; // string
+
+let myVariable2 = 20;
+
+function sum(a, b) {
+  return a + b;
+}
+
+console.log(sum(8, 12)); // 20
+console.log(sum(myVariable, myVariable2)); // Hallo20
+```
+
+Dieses Verhalten ist in JavaScript erlaubt, führt in größeren Projekten
+aber oft zu schwer auffindbaren Fehlern.
+
 ## Minimal-Setup für ein bestehendes Projekt
 
 ```bash
-npm install --save-dev typescript @types/node
+npm install -D typescript @types/node tsx
 npx tsc --init
 ```
 
-In `tsconfig.json` sollten mindestens diese Optionen geprüft werden:
+`tsc` ist der TypeScript-Compiler. Mit `npx tsc --init` wird eine `tsconfig.json`-Datei erstellt. In dieser sollten mindestens diese Optionen geprüft werden:
 
-```json
+```jsonc
 {
   "compilerOptions": {
-    "strict": true,
-    "noEmit": true,
-    "module": "nodenext",
-    "target": "es2022"
-  }
+    "module": "nodenext", // Import-System: Node.js mit ES-Modules
+    "target": "esnext", // Welche JS-Features als bekannt gelten (neuester Stand)
+    "strict": true, // Strenge Typprüfung – fängt mehr Fehler ab
+    "skipLibCheck": true, // Typen aus node_modules nicht prüfen (schneller)
+    "esModuleInterop": true, // Ältere npm-Pakete (CJS) normal importierbar machen
+    "allowJs": true, // Auch .js-Dateien im Projekt erlauben (nicht nur .ts)
+    "allowImportingTsExtensions": true, // Imports mit .ts-Endung erlauben
+    "noEmit": true // Keine Dateien erzeugen – nur Fehler anzeigen
+  },
+  "include": ["src"] // Nur Dateien im src/-Ordner prüfen
 }
 ```
 
-Mit `noEmit` wird TypeScript zunächst nur als Qualitätscheck verwendet, ohne
-neue Build-Pipeline einzuführen.
+<Callout type="info">
+  Mit dieser `tsconfig`-Konfiguration sollte der Quellcode des Projekts
+  im Ordner `src` liegen, damit `tsc` alle relevanten Dateien prüft.
+</Callout>
 
-Type-Check ausführen:
-
-```bash
-npx tsc --noEmit
-```
-
-Optional als npm-Script:
+npm-Script-Einträge für das Projekt in `package.json`:
 
 ```json
 {
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "start": "tsx --env-file=.env src/main",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc"
   }
 }
 ```
 
-## Kleines Beispiel (TUI-nah)
+Kurz erklärt:
 
-```ts
-type Contact = {
-  id: number;
-  name: string;
-  email?: string;
-};
+- `npm run start`: startet das TUI-Projekt lokal direkt mit `tsx` aus dem TypeScript-Code.
+- `npm run typecheck`: führt `tsc` als Typprüfung aus; mit `noEmit: true` werden dabei keine JS-Dateien erzeugt.
 
-function findContactById(contacts: Contact[], id: number): Contact | undefined {
-  return contacts.find((c) => c.id === id);
-}
-```
+<Callout type="info">
+  Für dieses TUI-Projekt wird lokal kein separater JavaScript-Build erzeugt.
+  Der Code wird mit `tsx` direkt als TypeScript ausgeführt.
 
-Wenn `id` oder `contacts` falsch verwendet werden, zeigt TypeScript den
-Fehler frühzeitig im Editor oder beim `typecheck`.
+  Bei Web-Projekten ist das anders: Browser führen JavaScript aus, daher
+  wird TypeScript dort in der Regel vor dem Deployment in JavaScript
+  übersetzt (oft inklusive Bundling).
+</Callout>
 
 ## Typfehler früh erkennen
 
@@ -81,17 +110,49 @@ sum(4, 5);      // ok
 // sum("4", 5); // Fehler: string ist kein number
 ```
 
-## Übung
+## Kleines Beispiel
 
-Eine bestehende Funktion aus dem Projekt auswählen und:
+```ts
+interface Contact {
+  id: number;
+  name: string;
+  email?: string;
+}
 
-1. Typannotationen für Parameter und Rückgabewert ergänzen,
-2. mindestens einen eigenen Typ (`type` oder `interface`) definieren,
-3. `npm run typecheck` (oder `npx tsc --noEmit`) ausführen,
-4. mindestens einen angezeigten Typfehler beheben.
+function findContactById(contacts: Contact[], id: number): Contact | undefined {
+  return contacts.find((c) => c.id === id);
+}
+
+const alice: Contact = {
+  id: 1,
+  name: 'Alice',
+};
+
+// TypeScript-Fehler, weil id number sein muss:
+const bob: Contact = {
+  id: "2",
+  name: 'Bob',
+};
+```
+
+Wenn `id` oder `contacts` falsch verwendet werden, zeigt TypeScript den
+Fehler frühzeitig im Editor oder beim `typecheck`.
 
 <Callout type="info">
-  Weitere Informationen:
-  [TypeScript-Dokumentation](https://www.typescriptlang.org/docs/)
-  und [TypeScript Playground](https://www.typescriptlang.org/play).
+  VS Code unterstützt TypeScript direkt und zeigt Typfehler
+  bereits im Editor an (z. B. mit roten Wellenlinien und Einträgen
+  in der Problems-Ansicht).
 </Callout>
+
+<Callout type="info">
+  TypeScript kann im Projekt schrittweise eingeführt werden.
+  Einzelne Dateien können als `.ts` ergänzt werden, parallel
+  zum bestehenden JavaScript-Code.
+</Callout>
+
+## Lernmaterial
+
+- Offizielle Dokumentation: https://www.typescriptlang.org/docs/
+- Playground: https://www.typescriptlang.org/play
+- Ein kostenloses Online-Buch (open source): https://gibbok.github.io/typescript-book/
+- Ein weiteres kostenloses Online-Buch: https://exploringjs.com/ts/index.html
