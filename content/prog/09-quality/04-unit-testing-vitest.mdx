@@ -14,6 +14,17 @@ sind sie die wichtigste Teststufe nach Type Checking und Linting.
 Wir verwenden [Vitest](https://vitest.dev/), weil das Setup schlank ist
 und die Ausführung schnell bleibt.
 
+<Callout type="info">
+  Warum hier Vitest statt `node:test`?
+
+  Der eingebaute Node.js Test Runner ist eine gute Alternative für sehr
+  kleine Setups ohne Zusatzpakete. In diesem Kurs wird Vitest verwendet,
+  weil die API (`describe`/`it`/`expect`) in vielen Projekten verbreitet ist
+  und gut mit TypeScript-Workflows zusammenspielt. Vitest orientiert sich
+  stark an der API von [Jest](https://jestjs.io/) und wird auch häufig
+  in Webapps eingesetzt.
+</Callout>
+
 ## Setup
 
 ```bash
@@ -81,16 +92,5 @@ describe('calculateTip', () => {
 - Vor allem **pure Funktionen** testen (ohne I/O, ohne globale Seiteneffekte)
 - Verhalten und Anforderungen testen, nicht nur Implementierungsdetails
 - KI-generierte Tests kritisch prüfen (decken sie echte Risiken oder nur den Happy Path ab?)
-
-## Übung
-
-Für eine eigene Projektfunktion 3 bis 5 Unit-Tests erstellen:
-
-1. Normalfall
-2. Randfall
-3. Fehlerfall
-
-Danach `npm run test` ausführen und kurz dokumentieren,
-welche Fehler durch die Tests gefunden wurden.
 
 Die nächsten Qualitätsstufen (Integration, E2E, CI/CD) folgen in der nächsten Lektion: [Ausblick](/prog/09-quality/05-ausblick).
