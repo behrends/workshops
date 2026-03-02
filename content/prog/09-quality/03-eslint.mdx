@@ -24,96 +24,80 @@ problematische Muster und Wartbarkeitsrisiken. Im Unterschied zu einem
 Formatter wie Prettier geht es beim Linting nicht primär um Einrückung
 oder Zeilenumbrüche, sondern um inhaltliche Codequalität.
 
+Linter gibt es für viele Programmiersprachen und Frameworks. 
+Bei uns verwenden wir ESLint für JavaScript und TypeScript (es gibt aber auch Alternativen).
+
 ## Minimal-Setup (Node.js, modernes ESLint)
 
+Wir setzen bei diesem Setup voraus, dass wir bereits Node.js, Prettier 
+und TypeScript installiert haben und dass der Code in einem `src`-Ordner liegt.
+
+### Schritt 1: Pakete installieren
+  
 ```bash
-npm install -D eslint @eslint/js globals
+npm install -D eslint @eslint/js typescript-eslint eslint-config-prettier globals
 ```
 
-Optional kann die Konfiguration auch per Initialisierungsbefehl erzeugt werden:
+Dadurch werden die folgenden Pakete installiert:
 
-```bash
-npm init @eslint/config@latest
-```
+- eslint: der Linter selbst
+- @eslint/js: die offiziellen empfohlenen Regeln
+- typescript-eslint: TypeScript-Unterstützung 
+- eslint-config-prettier: deaktiviert ESLint-Regeln, die mit Prettier kollidieren
+- globals: globale Variablen für Node.js
 
-Dieser Befehl installiert ESLint und erstellt eine Konfigurationsdatei
-`eslint.config.js`.
+### Schritt 2: Konfigurationsdatei für ESLint erstellen
 
-Beispiel für `eslint.config.js`:
+Wir benötigen eine Datei `eslint.config.js` im Projektordner mit diesem Inhalt:
 
 ```js
 import js from '@eslint/js';
 import globals from 'globals';
+import { defineConfig } from 'eslint/config';
+import tseslint from 'typescript-eslint';
+import prettier from 'eslint-config-prettier';
 
-export default [
+export default defineConfig(
   js.configs.recommended,
+  tseslint.configs.recommended,
+  prettier,
   {
-    files: ['**/*.js'],
     languageOptions: {
-      sourceType: 'module',
-      globals: {
-        ...globals.node,
+      globals: globals.node,
+      parserOptions: {
+        projectService: {
+          allowDefaultProject: ['eslint.config.js'],
+        },
       },
     },
-    rules: {
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-      'no-console': 'off',
-      eqeqeq: ['error', 'always'],
-    },
   },
-];
+);
 ```
 
-npm-Scripts:
+### Schritt 3: npm-Skripte in `package.json` ergänzen
+
+Hinweis: Der folgende Block ist ein Ausschnitt aus `package.json`.
+
+Im "scripts"-Block kommt folgendes Skript hinzu:
 
 ```json
-{
-  "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
-  }
-}
+  "lint": "eslint src/"
 ```
+
+Nun können wir ESLint ausführen:
+
+```bash
+npm run lint
+```
+
+Falls wir keine Fehler haben, dann könnten wir zum Testen z. B. in 
+einer Datei temporär eine Variable erstellen, die nicht verwendet wird.
 
 ## Editor-Integration (VS Code)
 
 Die offizielle [ESLint-Extension für VS Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 markiert Probleme direkt im Editor und zeigt sie zusätzlich in der
 Problems-Ansicht.
-
-## Beispiel: Was ESLint meldet
-
-```js
-function calcScore(points, bonus) {
-  const total = points + bonus;
-  if (total == 10) {
-    console.log("Treffer");
-  }
-  return points;
-}
-```
-
-Typische Hinweise:
-
-- `eqeqeq`: `==` soll durch `===` ersetzt werden
-- `no-unused-vars`: `total` wird eventuell nicht sinnvoll weiterverwendet
-
-## Typische Regeln im Alltag
-
-- `no-unused-vars`: meldet ungenutzte Variablen oder Parameter
-- `eqeqeq`: erzwingt strikte Vergleiche (`===` statt `==`)
-- `no-undef`: meldet nicht deklarierte Variablen
-
-Eine vollständige Übersicht gibt die ESLint-Dokumentation:
-[Rules Reference](https://eslint.org/docs/latest/rules/).
-
-## Fehlergrade
-
-Jede ESLint-Regel kann mit einem Fehlergrad konfiguriert werden:
-
-- `"off"` (oder `0`): Regel deaktiviert
-- `"warn"` (oder `1`): Warnung
-- `"error"` (oder `2`): Fehler (Exit-Code ungleich 0)
 
 ## Zusammenspiel mit Prettier
 
@@ -122,35 +106,5 @@ ESLint und Prettier sollten klar getrennte Aufgaben übernehmen:
 - Prettier formatiert den Code
 - ESLint prüft Codequalität und potenzielle Fehler
 
-Damit es keine Konflikte bei Formatierungsregeln gibt, kann
-`eslint-config-prettier` ergänzt werden:
-
-```bash
-npm install --save-dev eslint-config-prettier
-```
-
-Beispiel:
-
-```js
-import js from '@eslint/js';
-import globals from 'globals';
-import prettier from 'eslint-config-prettier';
-
-export default [
-  js.configs.recommended,
-  prettier,
-  {
-    files: ['**/*.js'],
-    languageOptions: {
-      sourceType: 'module',
-      globals: {
-        ...globals.node,
-      },
-    },
-    rules: {
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-      eqeqeq: ['error', 'always'],
-    },
-  },
-];
-```
+Damit es keine Konflikte bei Formatierungsregeln gibt, haben wir oben
+`eslint-config-prettier` installiert und in der Konfiguration importiert.
