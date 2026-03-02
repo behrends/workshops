@@ -76,6 +76,54 @@ Typische Hinweise:
 - `eqeqeq`: `==` soll durch `===` ersetzt werden
 - `no-unused-vars`: `total` wird eventuell nicht sinnvoll weiterverwendet
 
+## Fehlergrade
+
+Jede ESLint-Regel kann mit einem Fehlergrad konfiguriert werden:
+
+- `"off"` (oder `0`): Regel deaktiviert
+- `"warn"` (oder `1`): Warnung
+- `"error"` (oder `2`): Fehler (Exit-Code ungleich 0)
+
+## Zusammenspiel mit Prettier
+
+ESLint und Prettier sollten klar getrennte Aufgaben übernehmen:
+
+- Prettier formatiert den Code
+- ESLint prüft Codequalität und potenzielle Fehler
+
+Damit es keine Konflikte bei Formatierungsregeln gibt, kann
+`eslint-config-prettier` ergänzt werden:
+
+```bash
+npm install --save-dev eslint-config-prettier
+```
+
+Beispiel:
+
+```js
+import js from '@eslint/js';
+import globals from 'globals';
+import prettier from 'eslint-config-prettier';
+
+export default [
+  js.configs.recommended,
+  prettier,
+  {
+    files: ['**/*.js'],
+    languageOptions: {
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      eqeqeq: ['error', 'always'],
+    },
+  },
+];
+```
+
 ## Übung
 
 1. Absichtlich 3 kleinere Regelverstöße in einer Datei erzeugen.

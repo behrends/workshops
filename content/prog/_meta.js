@@ -13,7 +13,7 @@ export default {
   '06-arrays': '6 - Arrays',
   '07-structure': '7 - Objekte und Klassen',
   '08-organize': '8 - Code und Daten organisieren',
-  '09-quality': '9 - Qualitätsmanagement',
+  '09-quality': '9 - Codequalität',
   '10-misc': '10 - Weiterführendes',
   '11-git': '11 - Git und GitHub (Copilot)',
 };

@@ -1,0 +1,129 @@
+import { Callout } from 'nextra/components'
+
+# ESLint (Linting)
+
+<Callout>
+  **Dauer:** 20 Minuten
+
+  - ESLint findet häufige Fehler und schlechte Praktiken
+  - Konfigurierbare Regeln für verschiedene Projekte
+
+  **Ziel:** ESLint installieren und konfigurieren
+</Callout>
+
+## Was ist ein Linter?
+
+Ein Linter ist ein Werkzeug, das Code statisch analysiert
+und auf häufige Fehler, schlechte Praktiken und stilistische
+Probleme hinweist. Im Gegensatz zu einem Formatter (wie Prettier)
+geht es beim Linting nicht nur um die Formatierung, sondern
+um die **inhaltliche Qualität** des Codes.
+
+[ESLint](https://eslint.org/) ist der Standard-Linter für
+JavaScript und TypeScript.
+
+## Installation
+
+ESLint kann mit folgendem Befehl eingerichtet werden:
+
+```bash
+npm init @eslint/config@latest
+```
+
+Dieser Befehl installiert ESLint und erstellt eine
+Konfigurationsdatei `eslint.config.js` (Flat Config).
+
+## Konfiguration
+
+Die Konfiguration erfolgt in der Datei `eslint.config.js`.
+Hier ein einfaches Beispiel:
+
+```js
+import js from '@eslint/js';
+
+export default [
+  js.configs.recommended,
+  {
+    rules: {
+      'no-unused-vars': 'warn',
+      'eqeqeq': 'error',
+    },
+  },
+];
+```
+
+### Wichtige Regeln
+
+- `no-unused-vars`: Warnt bei nicht verwendeten Variablen
+- `eqeqeq`: Erzwingt `===` statt `==` für Vergleiche
+- `no-console`: Warnt bei `console.log` im Produktionscode
+- `no-undef`: Fehler bei Verwendung nicht deklarierter Variablen
+
+Die vollständige Liste der Regeln ist in der
+[ESLint-Dokumentation](https://eslint.org/docs/latest/rules/)
+zu finden.
+
+### Fehlergrade
+
+Jede Regel kann einen von drei Fehlergraden haben:
+
+- `"off"` (oder `0`): Regel deaktiviert
+- `"warn"` (oder `1`): Warnung (kein Abbruch)
+- `"error"` (oder `2`): Fehler (Abbruch mit Fehlercode)
+
+## VS Code Extension
+
+Die offizielle [ESLint-Extension für VS Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+zeigt Lint-Fehler direkt im Editor an. Probleme werden
+mit Wellenlinien markiert und in der Problems-Ansicht aufgelistet.
+
+## npm Script
+
+Zum Linting aller Dateien kann ein Script in der
+`package.json` definiert werden:
+
+```json
+{
+  "scripts": {
+    "lint": "eslint ."
+  }
+}
+```
+
+Ausführung mit:
+
+```bash
+npm run lint
+```
+
+## Zusammenspiel mit Prettier
+
+ESLint und Prettier können sich bei Formatierungsregeln
+in die Quere kommen. Das Paket `eslint-config-prettier`
+deaktiviert alle ESLint-Regeln, die mit Prettier kollidieren:
+
+```bash
+npm install --save-dev eslint-config-prettier
+```
+
+```js
+import js from '@eslint/js';
+import prettier from 'eslint-config-prettier';
+
+export default [
+  js.configs.recommended,
+  prettier,
+  {
+    rules: {
+      'no-unused-vars': 'warn',
+      'eqeqeq': 'error',
+    },
+  },
+];
+```
+
+<Callout type="info">
+So wird sichergestellt, dass Prettier für die Formatierung
+und ESLint für die Code-Analyse zuständig ist &mdash;
+ohne Konflikte.
+</Callout>

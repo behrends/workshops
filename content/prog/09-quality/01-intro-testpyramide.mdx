@@ -1,6 +1,6 @@
 import { Callout } from 'nextra/components'
 
-# Einführung und Motivation: Qualitätsmanagement und Testpyramide
+# Einführung und Motivation: Codequalität und Testpyramide
 
 <Callout>
   **Dauer:** 30 Minuten
@@ -12,6 +12,13 @@ import { Callout } from 'nextra/components'
 Wenn Coding Agents mehr Code in kurzer Zeit erzeugen, steigt das Risiko,
 dass Fehler unbemerkt in den Projektstand gelangen. Genau deshalb wird
 Qualitätsmanagement wichtiger: Wir brauchen klare, wiederholbare Checks.
+
+Codequalität umfasst dabei mehrere Dimensionen:
+
+- **Formatierung:** Einheitlicher, lesbarer Code
+- **Typsicherheit:** Fehler durch falsche Datentypen früh vermeiden
+- **Linting:** Häufige Fehlerquellen und schlechte Praktiken erkennen
+- **Testing:** Sicherstellen, dass der Code korrekt funktioniert
 
 Ein hilfreiches Modell ist die **Testpyramide**. Von unten nach oben:
 
@@ -25,11 +32,43 @@ Ein hilfreiches Modell ist die **Testpyramide**. Von unten nach oben:
 Je weiter unten, desto schneller und günstiger lassen sich Checks
 in der täglichen Entwicklung ausführen.
 
+Eine visuelle Orientierung:
+
+```
+        /\
+       /  \
+      / Ma \       Manuelles Testen
+     /------\
+    /  E2E   \     End-to-End-Tests
+   /----------\
+  / Integra-   \   Integrationstests
+ / tionstests   \
+/----------------\
+|  Unit Tests    |  Unit Tests
+|----------------|
+|  Linting       |  Linting (ESLint)
+|----------------|
+| Statische Typen|  TypeScript
+|----------------|
+| Formatierung   |  Prettier
+------------------
+```
+
 <Callout type="info">
   **Formatierung als Fundament:** Werkzeuge wie
   [Prettier](https://prettier.io) reduzieren unnötige Unterschiede
   im Code. Das ist keine „Teststufe“, verbessert aber Lesbarkeit,
   Reviews und Team-Konsistenz deutlich.
+
+  Kurzkonfiguration über `.prettierrc`:
+
+  ```json
+  {
+    "singleQuote": true,
+    "semi": true,
+    "trailingComma": "all"
+  }
+  ```
 </Callout>
 
 Für unsere aktuelle TUI-App liegt der Fokus auf den unteren Ebenen:

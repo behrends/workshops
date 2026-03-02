@@ -98,3 +98,29 @@ Später im Studium werden ergänzend behandelt:
 - **Integrationstests:** Zusammenspiel mehrerer Module
 - **E2E-Tests:** komplette Nutzerabläufe
 - **Manuelles Testing:** exploratives Testen und fachliche Abnahme
+
+## Ausblick: CI/CD mit GitHub Actions
+
+Die unteren Qualitätsstufen (Formatierung, Type Checking, Linting, Unit-Tests)
+können in einer CI-Pipeline automatisiert werden, z. B. bei jedem Push
+oder Pull Request.
+
+Beispiel einer Workflow-Datei:
+
+```yaml
+# .github/workflows/ci.yml
+name: CI
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run test
+```

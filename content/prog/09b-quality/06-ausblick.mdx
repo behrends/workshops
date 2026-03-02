@@ -1,0 +1,72 @@
+import { Callout } from 'nextra/components'
+
+# Ausblick
+
+<Callout>
+  **Dauer:** 10 Minuten
+
+  **Ziel:** Überblick über weitere Ebenen der Testpyramide
+</Callout>
+
+## Höhere Ebenen der Testpyramide
+
+Neben den in dieser Vorlesung behandelten Werkzeugen
+gibt es weitere Ebenen der Qualitätssicherung, die
+in größeren Projekten wichtig werden.
+
+### Integrationstests
+
+Integrationstests prüfen das Zusammenspiel mehrerer
+Module oder Komponenten. Im Gegensatz zu Unit Tests
+testen sie nicht einzelne Funktionen isoliert, sondern
+das Verhalten von zusammenarbeitenden Teilen des Systems.
+
+### End-to-End-Tests (E2E)
+
+E2E-Tests simulieren echte Benutzerinteraktionen und
+testen die gesamte Anwendung von der Benutzeroberfläche
+bis zur Datenbank. Populäre Werkzeuge sind:
+
+- [Playwright](https://playwright.dev/) &mdash; modernes Framework von Microsoft
+- [Cypress](https://www.cypress.io/) &mdash; weit verbreitetes E2E-Testing-Framework
+
+### Manuelles Testen
+
+An der Spitze der Pyramide steht das manuelle Testen
+durch Menschen. Dies ist am aufwändigsten, aber für
+bestimmte Aspekte (z.B. Usability, visuelles Design)
+unverzichtbar.
+
+## CI/CD mit GitHub Actions
+
+Die vorgestellten Werkzeuge (Prettier, TypeScript, ESLint,
+Unit Tests) können in einer CI/CD-Pipeline automatisiert
+werden. Mit [GitHub Actions](https://github.com/features/actions)
+können die Prüfungen bei jedem Push oder Pull Request
+automatisch ausgeführt werden.
+
+Ein einfaches Beispiel für eine GitHub Actions Workflow-Datei:
+
+```yaml
+# .github/workflows/ci.yml
+name: CI
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run format -- --check
+      - run: npm run lint
+      - run: npm test
+```
+
+<Callout type="info">
+Die Themen CI/CD und E2E-Testing werden in späteren
+Veranstaltungen zur Webentwicklung und Softwaretechnik
+vertieft behandelt.
+</Callout>
