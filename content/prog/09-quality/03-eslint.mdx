@@ -60,17 +60,12 @@ import prettier from 'eslint-config-prettier';
 export default defineConfig(
   js.configs.recommended,
   tseslint.configs.recommended,
-  prettier,
   {
     languageOptions: {
       globals: globals.node,
-      parserOptions: {
-        projectService: {
-          allowDefaultProject: ['eslint.config.js'],
-        },
-      },
     },
   },
+  prettier,
 );
 ```
 
