@@ -17,11 +17,27 @@ import { Callout } from 'nextra/components'
 Gerade bei KI-generiertem Code hilft ein Linter, problematische Stellen
 früh und reproduzierbar zu erkennen.
 
+## Was ist ein Linter?
+
+Ein Linter analysiert Quellcode statisch und meldet typische Fehler,
+problematische Muster und Wartbarkeitsrisiken. Im Unterschied zu einem
+Formatter wie Prettier geht es beim Linting nicht primär um Einrückung
+oder Zeilenumbrüche, sondern um inhaltliche Codequalität.
+
 ## Minimal-Setup (Node.js, modernes ESLint)
 
 ```bash
-npm install --save-dev eslint @eslint/js globals
+npm install -D eslint @eslint/js globals
 ```
+
+Optional kann die Konfiguration auch per Initialisierungsbefehl erzeugt werden:
+
+```bash
+npm init @eslint/config@latest
+```
+
+Dieser Befehl installiert ESLint und erstellt eine Konfigurationsdatei
+`eslint.config.js`.
 
 Beispiel für `eslint.config.js`:
 
@@ -59,6 +75,12 @@ npm-Scripts:
 }
 ```
 
+## Editor-Integration (VS Code)
+
+Die offizielle [ESLint-Extension für VS Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+markiert Probleme direkt im Editor und zeigt sie zusätzlich in der
+Problems-Ansicht.
+
 ## Beispiel: Was ESLint meldet
 
 ```js
@@ -75,6 +97,15 @@ Typische Hinweise:
 
 - `eqeqeq`: `==` soll durch `===` ersetzt werden
 - `no-unused-vars`: `total` wird eventuell nicht sinnvoll weiterverwendet
+
+## Typische Regeln im Alltag
+
+- `no-unused-vars`: meldet ungenutzte Variablen oder Parameter
+- `eqeqeq`: erzwingt strikte Vergleiche (`===` statt `==`)
+- `no-undef`: meldet nicht deklarierte Variablen
+
+Eine vollständige Übersicht gibt die ESLint-Dokumentation:
+[Rules Reference](https://eslint.org/docs/latest/rules/).
 
 ## Fehlergrade
 
@@ -123,16 +154,3 @@ export default [
   },
 ];
 ```
-
-## Übung
-
-1. Absichtlich 3 kleinere Regelverstöße in einer Datei erzeugen.
-2. `npm run lint` ausführen.
-3. Die Meldungen korrigieren.
-4. Anschließend `npm run lint:fix` ausführen und besprechen,
-   welche Korrekturen automatisch möglich waren und welche nicht.
-
-<Callout type="info">
-  Formatierung (z. B. mit [Prettier](https://prettier.io))
-  ergänzt Linting sinnvoll, ersetzt es aber nicht.
-</Callout>
