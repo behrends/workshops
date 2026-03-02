@@ -1,0 +1,90 @@
+import { Callout } from 'nextra/components'
+
+# Linting mit ESLint
+
+<Callout>
+  **Dauer:** 45 Minuten
+
+  **Ziel:** Automatisierte Qualitätsregeln für Code im Team etablieren
+</Callout>
+
+[ESLint](https://eslint.org/) überprüft Code auf typische Probleme:
+
+- mögliche Fehler (z. B. undefinierte Variablen),
+- wartbarkeitsrelevante Muster,
+- inkonsistente Schreibweisen.
+
+Gerade bei KI-generiertem Code hilft ein Linter, problematische Stellen
+früh und reproduzierbar zu erkennen.
+
+## Minimal-Setup (Node.js, modernes ESLint)
+
+```bash
+npm install --save-dev eslint @eslint/js globals
+```
+
+Beispiel für `eslint.config.js`:
+
+```js
+import js from '@eslint/js';
+import globals from 'globals';
+
+export default [
+  js.configs.recommended,
+  {
+    files: ['**/*.js'],
+    languageOptions: {
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      'no-console': 'off',
+      eqeqeq: ['error', 'always'],
+    },
+  },
+];
+```
+
+npm-Scripts:
+
+```json
+{
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  }
+}
+```
+
+## Beispiel: Was ESLint meldet
+
+```js
+function calcScore(points, bonus) {
+  const total = points + bonus;
+  if (total == 10) {
+    console.log("Treffer");
+  }
+  return points;
+}
+```
+
+Typische Hinweise:
+
+- `eqeqeq`: `==` soll durch `===` ersetzt werden
+- `no-unused-vars`: `total` wird eventuell nicht sinnvoll weiterverwendet
+
+## Übung
+
+1. Absichtlich 3 kleinere Regelverstöße in einer Datei erzeugen.
+2. `npm run lint` ausführen.
+3. Die Meldungen korrigieren.
+4. Anschließend `npm run lint:fix` ausführen und besprechen,
+   welche Korrekturen automatisch möglich waren und welche nicht.
+
+<Callout type="info">
+  Formatierung (z. B. mit [Prettier](https://prettier.io))
+  ergänzt Linting sinnvoll, ersetzt es aber nicht.
+</Callout>

@@ -1,0 +1,60 @@
+import { Callout } from 'nextra/components'
+
+# Einführung und Motivation: Qualitätsmanagement und Testpyramide
+
+<Callout>
+  **Dauer:** 30 Minuten
+
+  **Ziel:** Verstehen, welche Qualitätssicherungsstufen für unser Projekt
+  jetzt sinnvoll und praktikabel sind
+</Callout>
+
+Wenn Coding Agents mehr Code in kurzer Zeit erzeugen, steigt das Risiko,
+dass Fehler unbemerkt in den Projektstand gelangen. Genau deshalb wird
+Qualitätsmanagement wichtiger: Wir brauchen klare, wiederholbare Checks.
+
+Ein hilfreiches Modell ist die **Testpyramide**. Von unten nach oben:
+
+1. **Static Typing / Type Checking** (bei uns mit TypeScript)
+2. **Linting** (bei uns mit ESLint)
+3. **Unit-Tests** (bei uns mit Vitest)
+4. **Integrationstests** (mehrere Module zusammen)
+5. **E2E-Tests** (realistische Nutzerabläufe)
+6. **Manuelles Testing** (gezielte Abnahme und Exploratives Testen)
+
+Je weiter unten, desto schneller und günstiger lassen sich Checks
+in der täglichen Entwicklung ausführen.
+
+<Callout type="info">
+  **Formatierung als Fundament:** Werkzeuge wie
+  [Prettier](https://prettier.io) reduzieren unnötige Unterschiede
+  im Code. Das ist keine „Teststufe“, verbessert aber Lesbarkeit,
+  Reviews und Team-Konsistenz deutlich.
+</Callout>
+
+Für unsere aktuelle TUI-App liegt der Fokus auf den unteren Ebenen:
+
+- Type Checking
+- Linting
+- Unit-Tests
+
+Integration/E2E werden hier als Ausblick behandelt und später im Studium vertieft.
+
+## Qualitäts-Checkliste für das Team
+
+Praktischer Mindeststandard für das Projekt:
+
+- `npm run typecheck` vor Commits ausführen
+- `npm run lint` vor Commits ausführen
+- `npm run test` für zentrale Funktionen ausführen
+- manuelle Schnellprüfung der wichtigsten User-Flows durchführen
+
+## Übung
+
+Für das Projekt eine eigene „Definition of Done“ mit folgenden Punkten festlegen:
+
+- 3 Pflicht-Checks vor dem Merge
+- 2 manuellen Prüfpunkten
+- 1 Regel, wie KI-generierter Code überprüft wird
+
+Die Regeln in `README.md` oder in einem kurzen `QUALITY.md` dokumentieren.

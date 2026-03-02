@@ -1,0 +1,97 @@
+import { Callout } from 'nextra/components'
+
+# TypeScript
+
+<Callout>
+  **Dauer:** 45 Minuten
+
+  **Ziel:** TypeScript als praktischen Qualitätscheck im Node.js-Projekt einrichten
+</Callout>
+
+JavaScript ist dynamisch typisiert. Das ist flexibel, kann aber in
+größeren Projekten zu Laufzeitfehlern führen, die erst spät auffallen.
+
+Mit [TypeScript](https://www.typescriptlang.org/) können viele dieser
+Probleme bereits vor dem Start des Programms gefunden werden.
+
+## Minimal-Setup für ein bestehendes Projekt
+
+```bash
+npm install --save-dev typescript @types/node
+npx tsc --init
+```
+
+In `tsconfig.json` sollten mindestens diese Optionen geprüft werden:
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "module": "nodenext",
+    "target": "es2022"
+  }
+}
+```
+
+Mit `noEmit` wird TypeScript zunächst nur als Qualitätscheck verwendet, ohne
+neue Build-Pipeline einzuführen.
+
+Type-Check ausführen:
+
+```bash
+npx tsc --noEmit
+```
+
+Optional als npm-Script:
+
+```json
+{
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  }
+}
+```
+
+## Kleines Beispiel (TUI-nah)
+
+```ts
+type Contact = {
+  id: number;
+  name: string;
+  email?: string;
+};
+
+function findContactById(contacts: Contact[], id: number): Contact | undefined {
+  return contacts.find((c) => c.id === id);
+}
+```
+
+Wenn `id` oder `contacts` falsch verwendet werden, zeigt TypeScript den
+Fehler frühzeitig im Editor oder beim `typecheck`.
+
+## Typfehler früh erkennen
+
+```ts
+function sum(a: number, b: number): number {
+  return a + b;
+}
+
+sum(4, 5);      // ok
+// sum("4", 5); // Fehler: string ist kein number
+```
+
+## Übung
+
+Eine bestehende Funktion aus dem Projekt auswählen und:
+
+1. Typannotationen für Parameter und Rückgabewert ergänzen,
+2. mindestens einen eigenen Typ (`type` oder `interface`) definieren,
+3. `npm run typecheck` (oder `npx tsc --noEmit`) ausführen,
+4. mindestens einen angezeigten Typfehler beheben.
+
+<Callout type="info">
+  Weitere Informationen:
+  [TypeScript-Dokumentation](https://www.typescriptlang.org/docs/)
+  und [TypeScript Playground](https://www.typescriptlang.org/play).
+</Callout>

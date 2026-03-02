@@ -13,7 +13,6 @@ export default {
   'array-methods': 'Array-Methoden',
   'syntax-tipps': 'Syntax-Tipps',
   'map_set': 'Map und Set',
-  typescript: 'TypeScript',
   tools: 'Weitere Werkzeuge',
   languages: 'Alternative Sprachen',
 };
