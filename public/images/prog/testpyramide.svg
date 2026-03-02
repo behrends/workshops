@@ -9,7 +9,6 @@
     .s3 { fill: #60a5fa; }
     .s4 { fill: #2563eb; }
     .label { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-weight: 600; text-anchor: middle; fill: #0f172a; }
-    .label-top { fill: #ffffff; }
     .base { font-size: 27px; }
     .mid { font-size: 44px; }
     .mid-sub { font-size: 34px; }
@@ -28,7 +27,7 @@
   <line class="outline" x1="350" y1="400" x2="850" y2="400" />
   <line class="outline" x1="426" y1="300" x2="774" y2="300" />
 
-  <text class="label top label-top" x="600" y="188">
+  <text class="label top" x="600" y="208">
     <tspan x="600" dy="0">Manuelles</tspan>
     <tspan x="600" dy="38">Testen</tspan>
   </text>
