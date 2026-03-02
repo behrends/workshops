@@ -32,9 +32,41 @@ Ein hilfreiches Modell ist die **Testpyramide**. Von unten nach oben:
 Je weiter unten, desto schneller und günstiger lassen sich Checks
 in der täglichen Entwicklung ausführen.
 
+<Callout type="warning">
+  **Geschwindigkeit und Aufwand**
+
+  - Viele schnelle Checks unten, wenige teure Checks oben.
+  - Obere Ebenen sind meist langsamer, fragiler und aufwändiger.
+  - E2E-Tests deshalb gezielt und sparsam für kritische User-Flows einsetzen.
+</Callout>
+
 Eine visuelle Orientierung:
 
 ![Testpyramide fuer Codequalitaet](/images/prog/testpyramide.svg)
+
+<Callout type="info">
+  **Hinweis zur Testpyramide**
+
+  - Als Ursprung des allgemein bekannten Modells wird häufig Mike Cohn genannt (u. a. aus dem Agile-Kontext).
+  - In der Praxis gibt es viele Abwandlungen und unterschiedliche Gewichtungen der Ebenen.
+  - Die hier gezeigte Pyramide ist nur ein möglicher Ansatz von vielen. Im Zeitalter der KI-Coding-Agents wird sich dieses Thema voraussichtlich weiterentwickeln.
+</Callout>
+
+## Aktualisierung im KI-Zeitalter
+
+Durch KI-Coding-Agents wird mehr Code in kürzerer Zeit erzeugt.
+Dadurch werden schnelle, automatisierbare Guardrails noch wichtiger.
+
+Eine praxisnahe Gewichtung:
+
+- **Ganz unten (breit):** Typen, Linting, Formatierung, Build, statische Analyse, Security-Scans, Schema-/Contract-Checks.
+- **Darüber:** Unit-Tests, vor allem für Geschäftslogik und pure Funktionen.
+- **Mehr Gewicht als früher:** Integrations- und Contract-Tests an Schnittstellen (Module, APIs, Datenformate, Seiteneffekte).
+- **Wenige stabile E2E-Tests:** nur für kritische Flows.
+- **Manuelles Testen:** explorativ für UX, fachliche Plausibilität und Edge Cases.
+
+Wichtiger als die reine Anzahl von Tests ist die Qualität der Test-Orakel:
+Es sollte Anforderungen und Risiken geprüft werden, nicht nur die aktuelle Implementierung.
 
 <Callout type="info">
   **Formatierung als Fundament:** Werkzeuge wie
@@ -59,7 +91,7 @@ Für unsere aktuelle TUI-App liegt der Fokus auf den unteren Ebenen:
 - Linting
 - Unit-Tests
 
-Integration/E2E werden hier als Ausblick behandelt und später im Studium vertieft.
+Integration/Contracts werden punktuell behandelt, E2E als Ausblick später vertieft.
 
 ## Qualitäts-Checkliste für das Team
 
@@ -68,6 +100,7 @@ Praktischer Mindeststandard für das Projekt:
 - `npm run typecheck` vor Commits ausführen
 - `npm run lint` vor Commits ausführen
 - `npm run test` für zentrale Funktionen ausführen
+- kritische Schnittstellen mindestens einmal mit Integrations- oder Contract-Checks prüfen
 - manuelle Schnellprüfung der wichtigsten User-Flows durchführen
 
 ## Übung
