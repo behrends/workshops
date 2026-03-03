@@ -1,0 +1,156 @@
+import { Callout } from 'nextra/components'
+
+# Einfacher Integrationscheck im TUI
+
+<Callout>
+  **Dauer:** 35 Minuten
+
+  **Ziel:** Einen kritischen TUI-Ablauf als kleinen Integrationscheck
+  mit 1 Erfolgs- und 1 Fehlerfall testen
+</Callout>
+
+Bei einem Integrationscheck testen wir nicht nur eine einzelne Funktion,
+sondern das Zusammenspiel mehrerer Teile:
+
+- Eingabe aufbereiten
+- Eingaben validieren
+- Daten speichern
+
+Für TUI-Apps ist das meist robuster als UI-Automation auf Zeichenebene.
+Wir testen den fachlichen Ablauf direkt über einen Use Case.
+
+## Beispiel-Ablauf
+
+Kritischer Ablauf: „Kontakt anlegen“
+
+1. Nutzereingabe wird übernommen (`rawInput`)
+2. Eingabe wird validiert
+3. Bei gültiger Eingabe wird gespeichert
+
+Dateistruktur:
+
+```txt
+src/
+  contact/
+    create-contact-flow.js
+    contact-repo-memory.js
+    create-contact-flow.integration.test.js
+```
+
+## Produktcode
+
+`src/contact/create-contact-flow.js`:
+
+```js
+function validateContact(input) {
+  const name = input?.name?.trim();
+  const email = input?.email?.trim();
+
+  if (!name) {
+    throw new Error('Name ist erforderlich');
+  }
+
+  if (!email || !email.includes('@')) {
+    throw new Error('E-Mail ist ungültig');
+  }
+
+  return { name, email };
+}
+
+export async function createContactFlow(rawInput, repo) {
+  const validContact = validateContact(rawInput);
+  const saved = await repo.save(validContact);
+  return saved;
+}
+```
+
+`src/contact/contact-repo-memory.js`:
+
+```js
+export function createMemoryContactRepo() {
+  const contacts = [];
+  let nextId = 1;
+
+  return {
+    async save(contact) {
+      const saved = { id: nextId++, ...contact };
+      contacts.push(saved);
+      return saved;
+    },
+    async all() {
+      return contacts;
+    },
+  };
+}
+```
+
+## Integrationscheck mit Vitest
+
+`src/contact/create-contact-flow.integration.test.js`:
+
+```js
+import { describe, expect, it } from 'vitest';
+import { createContactFlow } from './create-contact-flow.js';
+import { createMemoryContactRepo } from './contact-repo-memory.js';
+
+describe('createContactFlow (Integration)', () => {
+  it('Erfolgsfall: validiert und speichert Kontakt', async () => {
+    const repo = createMemoryContactRepo();
+
+    const saved = await createContactFlow(
+      { name: 'Anna', email: 'anna@example.com' },
+      repo,
+    );
+
+    expect(saved.id).toBe(1);
+    expect(saved.email).toBe('anna@example.com');
+    expect(await repo.all()).toHaveLength(1);
+  });
+
+  it('Fehlerfall: ungültige Eingabe wird nicht gespeichert', async () => {
+    const repo = createMemoryContactRepo();
+
+    await expect(
+      createContactFlow({ name: '', email: 'ungueltig' }, repo),
+    ).rejects.toThrow('Name ist erforderlich');
+
+    expect(await repo.all()).toHaveLength(0);
+  });
+});
+```
+
+Ausführen:
+
+```bash
+npm run test
+```
+
+## Einbindung in die TUI
+
+Die TUI ruft denselben Use Case auf, den auch der Integrationscheck testet:
+
+```js
+import { createContactFlow } from './contact/create-contact-flow.js';
+
+async function onSubmit(formValues, repo) {
+  try {
+    await createContactFlow(formValues, repo);
+    return 'Kontakt gespeichert';
+  } catch (error) {
+    return error.message;
+  }
+}
+```
+
+Dadurch prüfen die Integrationstests genau den Codepfad, den die App
+im Alltag ebenfalls nutzt.
+
+<Callout type="info">
+  **Praxisregel für dieses Projekt**
+
+  Wählt pro Feature mindestens einen kritischen Ablauf und schreibt dafür
+  genau zwei Integrationschecks:
+
+  - 1 Erfolgsfall
+  - 1 Fehlerfall
+</Callout>

@@ -2,6 +2,8 @@ export default {
   '01-intro': 'Einführung und Testpyramide',
   '02-typescript': 'TypeScript',
   '03-eslint': 'Linting mit ESLint',
-  '05-unit-testing': 'Unit-Testing',
+  '04-unit-testing-vitest': 'Unit-Testing mit Vitest',
+  '06-integrationscheck-tui': 'Einfacher Integrationscheck im TUI',
+  '05-unit-testing': 'Unit-Testing mit node:test',
   '05-ausblick': 'Ausblick',
 };

@@ -2,4 +2,159 @@ import { Callout } from 'nextra/components'
 
 # Unit Testing
 
-work in progress…
+<Callout>
+  **Dauer:** 30 Minuten
+
+  - Unit Tests prüfen einzelne Funktionen automatisiert
+  - Node.js hat einen eingebauten Test Runner
+
+  **Ziel:** Unit Tests mit `node:test` schreiben und ausführen
+</Callout>
+
+## Was sind Unit Tests?
+
+Unit Tests sind automatisierte Tests, die einzelne
+Funktionen oder Module isoliert prüfen. Sie stellen
+sicher, dass der Code korrekt funktioniert &mdash;
+auch nach Änderungen.
+
+Vorteile von Unit Tests:
+
+- Fehler werden frühzeitig erkannt
+- Änderungen am Code können sicher durchgeführt werden
+- Tests dokumentieren das erwartete Verhalten
+- KI-generierter Code kann systematisch überprüft werden
+
+## Node.js Test Runner
+
+Seit Node.js 18 gibt es einen eingebauten Test Runner,
+der ohne zusätzliche Pakete verwendet werden kann.
+
+### Einfaches Beispiel
+
+Gegeben ist eine Datei `math.js` mit einer Funktion:
+
+```js
+export function add(a, b) {
+  return a + b;
+}
+```
+
+Die dazugehörige Testdatei `math.test.js`:
+
+```js
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import { add } from './math.js';
+
+describe('add', () => {
+  it('addiert zwei positive Zahlen', () => {
+    assert.strictEqual(add(2, 3), 5);
+  });
+
+  it('addiert eine positive und eine negative Zahl', () => {
+    assert.strictEqual(add(5, -3), 2);
+  });
+
+  it('addiert zwei negative Zahlen', () => {
+    assert.strictEqual(add(-2, -3), -5);
+  });
+});
+```
+
+### Ausführung
+
+```bash
+node --test
+```
+
+Dieser Befehl findet automatisch alle Dateien mit dem
+Muster `*.test.js` und führt die Tests aus.
+
+### Komplexeres Beispiel
+
+Gegeben ist eine Funktion, die prüft ob ein String
+ein Palindrom ist:
+
+```js
+// palindrome.js
+export function isPalindrome(text) {
+  const cleaned = text.toLowerCase().replace(/\s/g, '');
+  return cleaned === cleaned.split('').reverse().join('');
+}
+```
+
+Die Tests dazu:
+
+```js
+// palindrome.test.js
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import { isPalindrome } from './palindrome.js';
+
+describe('isPalindrome', () => {
+  it('erkennt ein einfaches Palindrom', () => {
+    assert.strictEqual(isPalindrome('anna'), true);
+  });
+
+  it('erkennt ein Palindrom unabhängig von Groß-/Kleinschreibung', () => {
+    assert.strictEqual(isPalindrome('Anna'), true);
+  });
+
+  it('erkennt ein Palindrom mit Leerzeichen', () => {
+    assert.strictEqual(isPalindrome('die Liebe bei Leid'), true);
+  });
+
+  it('erkennt kein Palindrom', () => {
+    assert.strictEqual(isPalindrome('hallo'), false);
+  });
+});
+```
+
+## Wichtige Assert-Methoden
+
+| Methode | Beschreibung |
+|---------|-------------|
+| `assert.strictEqual(a, b)` | Prüft ob `a === b` |
+| `assert.notStrictEqual(a, b)` | Prüft ob `a !== b` |
+| `assert.deepStrictEqual(a, b)` | Prüft ob Objekte/Arrays gleich sind |
+| `assert.throws(fn)` | Prüft ob `fn` einen Fehler wirft |
+| `assert.ok(value)` | Prüft ob `value` truthy ist |
+
+## Dateikonvention
+
+Testdateien werden neben der getesteten Datei abgelegt
+und erhalten die Endung `.test.js`:
+
+```
+projekt/
+  math.js
+  math.test.js
+  palindrome.js
+  palindrome.test.js
+```
+
+## npm Script
+
+In der `package.json` kann ein Test-Script definiert werden:
+
+```json
+{
+  "scripts": {
+    "test": "node --test"
+  }
+}
+```
+
+Ausführung mit:
+
+```bash
+npm test
+```
+
+<Callout type="info">
+Beliebte Alternativen zum Node.js Test Runner sind
+[Vitest](https://vitest.dev/) und [Jest](https://jestjs.io/).
+Diese bieten zusätzliche Funktionen wie Mocking, Code Coverage
+und Watch Mode.
+</Callout>

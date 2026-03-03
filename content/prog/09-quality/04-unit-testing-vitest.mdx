@@ -1,0 +1,99 @@
+import { Callout } from 'nextra/components'
+
+# Unit-Testing mit Vitest
+
+<Callout>
+  **Dauer:** 60 Minuten
+
+  **Ziel:** Zentrale Logik mit schnellen, verlässlichen Unit-Tests absichern
+</Callout>
+
+Unit-Tests prüfen einzelne Funktionen isoliert. Für unser TUI-Projekt
+sind sie die wichtigste Teststufe nach Type Checking und Linting.
+
+Wir verwenden [Vitest](https://vitest.dev/), weil das Setup schlank ist
+und die Ausführung schnell bleibt.
+
+<Callout type="info">
+  Warum hier Vitest statt `node:test`?
+
+  Der eingebaute Node.js Test Runner ist eine gute Alternative für sehr
+  kleine Setups ohne Zusatzpakete. In diesem Kurs wird Vitest verwendet,
+  weil die API (`describe`/`it`/`expect`) in vielen Projekten verbreitet ist
+  und gut mit TypeScript-Workflows zusammenspielt. Vitest orientiert sich
+  stark an der API von [Jest](https://jestjs.io/) und wird auch häufig
+  in Webapps eingesetzt.
+</Callout>
+
+## Setup
+
+```bash
+npm install --save-dev vitest
+```
+
+In `package.json`:
+
+```json
+{
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  }
+}
+```
+
+## Beispiel: Reine Funktion testen
+
+`src/calc.js`:
+
+```js
+export function calculateTip(billAmount, percent) {
+  if (billAmount < 0 || percent < 0) {
+    throw new Error('Ungültige Eingaben');
+  }
+  return (billAmount * percent) / 100;
+}
+```
+
+`src/calc.test.js`:
+
+```js
+import { describe, expect, it } from 'vitest';
+import { calculateTip } from './calc.js';
+
+describe('calculateTip', () => {
+  it('berechnet 10% von 50 korrekt', () => {
+    // Arrange
+    const bill = 50;
+    const percent = 10;
+
+    // Act
+    const result = calculateTip(bill, percent);
+
+    // Assert
+    expect(result).toBe(5);
+  });
+
+  it('liefert 0 bei 0 Prozent', () => {
+    expect(calculateTip(80, 0)).toBe(0);
+  });
+
+  it('wirft Fehler bei negativem Betrag', () => {
+    expect(() => calculateTip(-10, 10)).toThrow('Ungültige Eingaben');
+  });
+});
+```
+
+## Gute Praxis für Unit-Tests
+
+- Testnamen klar formulieren (erwartetes Verhalten nennen)
+- AAA-Schema verwenden: Arrange, Act, Assert
+- Nur eine konkrete Erwartung pro Verhalten testen
+- Vor allem **pure Funktionen** testen (ohne I/O, ohne globale Seiteneffekte)
+- Verhalten und Anforderungen testen, nicht nur Implementierungsdetails
+- KI-generierte Tests kritisch prüfen (decken sie echte Risiken oder nur den Happy Path ab?)
+
+Als nächster Schritt: ein konkreter [Integrationscheck im TUI](/prog/09-quality/06-integrationscheck-tui)
+mit 1 Erfolgs- und 1 Fehlerfall.
+
+Die weiteren Qualitätsstufen (u. a. E2E, CI/CD) folgen im [Ausblick](/prog/09-quality/05-ausblick).
