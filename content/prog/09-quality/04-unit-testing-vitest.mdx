@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 # Unit-Testing mit Vitest
 
 <Callout>
-  **Dauer:** 60 Minuten
+  **Dauer:** 45 Minuten
 
   **Ziel:** Zentrale Logik mit schnellen, verlässlichen Unit-Tests absichern
 </Callout>
@@ -25,6 +25,28 @@ Vorteile von Unit-Tests:
 Für unser TUI-Projekt sind Unit-Tests die wichtigste
 Teststufe nach Type Checking und Linting.
 
+Es gibt viele Möglichkeiten, Unit-Tests zu schreiben. Im JavaScript-/TypeScript-Umfeld gibt es
+vor allem zwei gängige Frameworks:
+
+- [Vitest](https://vitest.dev/)
+- [Jest](https://jestjs.io/)
+
+Wir verwenden [Vitest](https://vitest.dev/) &mdash; für unser TUI-Projekt mit
+TypeScript sprechen mehrere Gründe dafür:
+
+- _Erstklassiger TypeScript-Support_ &mdash; Vitest versteht TypeScript
+  ohne zusätzliche Konfiguration. Jest benötigt dafür extra Pakete
+  wie `ts-jest` oder `@swc/jest`, was im Workshop unnötige Komplexität
+  bedeutet.
+- _Schnelle Ausführung_ &mdash; Vitest nutzt [Vite](https://vite.dev/)
+  unter der Haube und ist dadurch deutlich schneller als Jest.
+- _Jest-kompatible API_ &mdash; `describe`, `it`, `expect` funktionieren
+  wie bei Jest. Das Wissen ist direkt übertragbar und in vielen Projekten
+  und Webapps verbreitet.
+- _Einfaches Setup_ &mdash; `npm install -D vitest` und ein Script
+  in `package.json` reichen aus.
+
+<Callout type="info">
 Node.js bringt seit Version 18 einen eingebauten Test Runner mit
 ([`node:test`](https://nodejs.org/api/test.html)), der ohne zusätzliche
 Pakete funktioniert und für einfache Setups völlig ausreicht.
@@ -32,26 +54,9 @@ Die Konzepte sind dabei dieselben: Tests werden mit `describe` und `it`
 strukturiert, und Erwartungen mit Assertions geprüft. Wer `node:test`
 kennt, findet sich in Vitest sofort zurecht &mdash; und umgekehrt.
 Mehr dazu in der [optionalen Lektion zu node:test](/prog/09-quality/06-node-test).
-
-<Callout type="info">
-  **Warum Vitest?**
-
-  Für unser TUI-Projekt mit TypeScript sprechen mehrere Gründe für Vitest:
-
-  - **Erstklassiger TypeScript-Support** &mdash; Vitest versteht TypeScript
-    ohne zusätzliche Konfiguration. Jest benötigt dafür extra Pakete
-    wie `ts-jest` oder `@swc/jest`, was im Workshop unnötige Komplexität
-    bedeutet.
-  - **Schnelle Ausführung** &mdash; Vitest nutzt [Vite](https://vite.dev/)
-    unter der Haube und ist dadurch deutlich schneller als Jest.
-  - **Jest-kompatible API** &mdash; `describe`, `it`, `expect` funktionieren
-    wie bei Jest. Das Wissen ist direkt übertragbar und in vielen Projekten
-    und Webapps verbreitet.
-  - **Einfaches Setup** &mdash; `npm install -D vitest` und ein Script
-    in `package.json` reichen aus.
 </Callout>
 
-## Setup
+## Setup mit Vitest
 
 ```bash
 npm install -D vitest
@@ -69,6 +74,14 @@ In `package.json`:
 ```
 
 ## Beispiel: Reine Funktion testen
+
+Vitest-Tests nutzen drei zentrale Funktionen:
+
+| Funktion | Bedeutung |
+|---|---|
+| `describe('...', () => {})` | Gruppiert zusammengehörige Tests |
+| `it('...', () => {})` | Definiert einen einzelnen Testfall |
+| `expect(wert)` | Startet eine Prüfung (Assertion), z.B. `expect(wert).toBe(42)` |
 
 Beispiel mit TypeScript-Dateien:
 
@@ -89,7 +102,7 @@ export function celsiusToFahrenheit(celsius: number): number {
 
 ```ts
 import { describe, expect, it } from 'vitest';
-import { celsiusToFahrenheit } from './temperature';
+import { celsiusToFahrenheit } from './temperature.ts';
 
 describe('celsiusToFahrenheit', () => {
   it('rechnet 0°C in 32°F um', () => {
@@ -118,8 +131,10 @@ Bei einfachen Fällen (zweiter und dritter Test) darf alles in einer Zeile stehe
 
 ### Tests ausführen
 
+Tests ausführen mit `npm test` (Kurzform von `npm run test`):
+
 ```bash
-npm run test
+npm test
 ```
 
 Beispielausgabe (kann je nach Umgebung leicht abweichen):
@@ -133,6 +148,16 @@ Beispielausgabe (kann je nach Umgebung leicht abweichen):
  Test Files  1 passed (1)
       Tests  3 passed (3)
 ```
+
+### Watch Mode
+
+Mit `npm run test:watch` startet Vitest im Watch-Modus.
+Tests laufen dann bei Dateiänderungen automatisch neu.
+
+Das ist praktisch während der Entwicklung.
+Für einen einmaligen Check (z. B. vor Commit) nutzen wir `npm test`.
+
+Beenden: `q` oder `Ctrl+C`.
 
 ## Wichtige `expect`-Methoden
 
@@ -167,6 +192,20 @@ src/
 - Vor allem **pure Funktionen** testen (ohne I/O, ohne globale Seiteneffekte)
 - Verhalten und Anforderungen testen, nicht nur Implementierungsdetails
 - KI-generierte Tests kritisch prüfen (decken sie echte Risiken oder nur den Happy Path ab?)
+
+<Callout type="info">
+  **Tipp: KI-Coding-Agents im Test-Workflow**
+
+  - KI-Coding-Agents können Tests direkt ausführen (z. B. `npm run test` oder `npm run test:watch`).
+  - Sie können auch Testabdeckung prüfen (z. B. `npx vitest run --coverage`, wenn Coverage im Projekt eingerichtet ist).
+  - Sie können Tests generieren &mdash; entweder explizit auf Prompt oder als vorgegebene Teilaufgabe im Workflow (z. B. vor Commit).
+
+  **TDD (Test-Driven Development)**
+
+  Eine verbreitete Technik: zuerst einen fehlschlagenden Test schreiben,
+  dann den minimalen Code, der den Test bestehen lässt, anschließend
+  refactoren. So entstehen Tests, die echte Anforderungen prüfen.
+</Callout>
 
 Als nächster Schritt: ein konkreter [Integrationscheck im TUI](/prog/09-quality/05-integrationscheck-tui)
 mit 1 Erfolgs- und 1 Fehlerfall.
