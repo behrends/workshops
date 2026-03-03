@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 # Einfacher Integrationscheck im TUI
 
 <Callout>
-  **Dauer:** 35 Minuten
+  **Dauer:** 25 Minuten
 
   **Ziel:** Einen kritischen TUI-Ablauf als kleinen Integrationscheck
   mit 1 Erfolgs- und 1 Fehlerfall testen
@@ -14,130 +14,128 @@ wir einzelne Funktionen isoliert mit Unit-Tests geprüft. Jetzt gehen wir
 einen Schritt weiter: Bei einem Integrationscheck testen wir das
 Zusammenspiel mehrerer Teile:
 
-- Eingabe aufbereiten
-- Eingaben validieren
-- Daten speichern
+- Eingabe validieren
+- Temperatur umrechnen
+- Bericht formatieren
 
 Für TUI-Apps ist das meist robuster als UI-Automation auf Zeichenebene.
-Wir testen den fachlichen Ablauf direkt über einen Use Case.
+Wir testen den fachlichen Ablauf direkt über eine Funktion, die mehrere
+Schritte kombiniert.
 
 ## Beispiel-Ablauf
 
-Kritischer Ablauf in unserer Wetter-App: „Stadt als Favorit speichern“
+Kritischer Ablauf in unserer Wetter-App: „Wetterbericht formatieren“
 
-1. Nutzereingabe wird übernommen (`rawInput`)
-2. Eingabe wird validiert
-3. Bei gültiger Eingabe wird gespeichert
+1. Stadtname wird validiert (nicht leer?)
+2. Temperatur wird von °C in °F umgerechnet
+3. Ein formatierter Bericht-String wird erzeugt
 
 Dateistruktur:
 
 ```txt
 src/
-  favorites/
-    add-favorite-flow.js
-    favorites-repo-memory.js
-    add-favorite-flow.integration.test.js
+  temperature.ts
+  format-weather.ts
+  format-weather.integration.test.ts
 ```
-
-<Callout type="info">
-  Die Beispiele hier verwenden `.js`-Dateien. Dank `allowJs: true` in der
-  `tsconfig.json` funktioniert das im selben Projekt neben `.ts`-Dateien.
-  TypeScript kann so schrittweise eingeführt werden.
-</Callout>
 
 ## Produktcode
 
-`src/favorites/add-favorite-flow.js`:
+Die Funktion `celsiusToFahrenheit` aus `src/temperature.ts` kennen wir
+bereits aus der [Unit-Test-Lektion](/prog/09-quality/04-unit-testing-vitest)
+&mdash; sie ist dort einzeln getestet. Hier nutzen wir sie als Baustein.
 
-```js
-function validateCity(input) {
-  const city = input?.city?.trim();
+`src/format-weather.ts`:
 
-  if (!city) {
-    throw new Error('Stadtname ist erforderlich');
+```ts
+import { celsiusToFahrenheit } from './temperature.ts';
+
+function validateCityName(name: string): string {
+  const trimmed = name?.trim();
+
+  if (!trimmed) {
+    throw new Error('Stadtname darf nicht leer sein');
   }
 
-  return { city };
+  return trimmed;
 }
 
-export async function addFavoriteFlow(rawInput, repo) {
-  const validated = validateCity(rawInput);
-  const saved = await repo.save(validated);
-  return saved;
-}
-```
+export function formatWeatherReport(city: string, temperatureC: number): string {
+  const validCity = validateCityName(city);
+  const temperatureF = celsiusToFahrenheit(temperatureC);
 
-`src/favorites/favorites-repo-memory.js`:
-
-```js
-export function createMemoryFavoritesRepo() {
-  const favorites = [];
-  let nextId = 1;
-
-  return {
-    async save(favorite) {
-      const saved = { id: nextId++, ...favorite };
-      favorites.push(saved);
-      return saved;
-    },
-    async all() {
-      return favorites;
-    },
-  };
+  return `${validCity}: ${temperatureC}°C / ${temperatureF}°F`;
 }
 ```
+
+Die Funktion `formatWeatherReport` kombiniert drei Schritte:
+Stadtname prüfen, Temperatur umrechnen, formatierten String erzeugen.
+Alles sind reine Funktionen ohne Seiteneffekte &mdash; kein Dateizugriff,
+keine Netzwerkanfragen.
 
 ## Integrationscheck mit Vitest
 
-`src/favorites/add-favorite-flow.integration.test.js`:
+Die Testdatei heißt `.integration.test.ts`, um Integrationschecks
+klar von Unit-Tests (`.test.ts`) zu unterscheiden.
 
-```js
+`src/format-weather.integration.test.ts`:
+
+```ts
 import { describe, expect, it } from 'vitest';
-import { addFavoriteFlow } from './add-favorite-flow.js';
-import { createMemoryFavoritesRepo } from './favorites-repo-memory.js';
+import { formatWeatherReport } from './format-weather.ts';
 
-describe('addFavoriteFlow (Integration)', () => {
-  it('Erfolgsfall: validiert und speichert Favorit', async () => {
-    const repo = createMemoryFavoritesRepo();
+describe('formatWeatherReport (Integration)', () => {
+  it('Erfolgsfall: formatiert Bericht mit Stadt und Temperaturen', () => {
+    const result = formatWeatherReport('Berlin', 20);
 
-    const saved = await addFavoriteFlow({ city: 'Berlin' }, repo);
-
-    expect(saved.id).toBe(1);
-    expect(saved.city).toBe('Berlin');
-    expect(await repo.all()).toHaveLength(1);
+    expect(result).toContain('Berlin');
+    expect(result).toContain('20°C');
+    expect(result).toContain('68°F');
   });
 
-  it('Fehlerfall: leerer Stadtname wird nicht gespeichert', async () => {
-    const repo = createMemoryFavoritesRepo();
-
-    await expect(
-      addFavoriteFlow({ city: '' }, repo),
-    ).rejects.toThrow('Stadtname ist erforderlich');
-
-    expect(await repo.all()).toHaveLength(0);
+  it('Fehlerfall: leerer Stadtname wirft Fehler', () => {
+    expect(() => formatWeatherReport('', 20)).toThrow(
+      'Stadtname darf nicht leer sein',
+    );
   });
 });
 ```
 
+Anders als beim Unit-Test, der `celsiusToFahrenheit` isoliert prüft,
+testet dieser Check den ganzen Ablauf: Validierung, Umrechnung und
+Formatierung zusammen.
+
+Eine neue `expect`-Methode im Vergleich zur Unit-Test-Lektion:
+
+- `toContain(text)` &mdash; prüft, ob ein String (oder Array) den
+  angegebenen Wert enthält. Damit können wir flexibel prüfen, ob
+  bestimmte Bestandteile im Ergebnis vorkommen, ohne das exakte
+  Format festzunageln.
+
 Ausführen:
 
 ```bash
-npm run test
+npm test
 ```
 
 ## Einbindung in die TUI
 
-Die TUI ruft denselben Use Case auf, den auch der Integrationscheck testet:
+Die TUI kann `formatWeatherReport` direkt in der Ausgabe nutzen,
+z.&thinsp;B. in `print-weather.ts`:
 
-```js
-import { addFavoriteFlow } from './favorites/add-favorite-flow.js';
+```ts
+import { formatWeatherReport } from './format-weather.ts';
 
-async function onAddFavorite(formValues, repo) {
+function printWeather(city: string, temperatureC: number) {
   try {
-    await addFavoriteFlow(formValues, repo);
-    return 'Stadt wurde als Favorit gespeichert';
-  } catch (error) {
-    return error.message;
+    const report = formatWeatherReport(city, temperatureC);
+    console.log(report);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error.message);
+      return;
+    }
+    console.error('Unbekannter Fehler');
   }
 }
 ```
