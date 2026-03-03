@@ -11,18 +11,26 @@ import { Callout } from 'nextra/components'
 Unit-Tests prüfen einzelne Funktionen isoliert. Für unser TUI-Projekt
 sind sie die wichtigste Teststufe nach Type Checking und Linting.
 
-Wir verwenden [Vitest](https://vitest.dev/), weil das Setup schlank ist
-und die Ausführung schnell bleibt.
-
 <Callout type="info">
-  Warum hier Vitest statt `node:test`?
+  **Warum Vitest?**
 
-  Der eingebaute Node.js Test Runner ist eine gute Alternative für sehr
-  kleine Setups ohne Zusatzpakete. In diesem Kurs wird Vitest verwendet,
-  weil die API (`describe`/`it`/`expect`) in vielen Projekten verbreitet ist
-  und gut mit TypeScript-Workflows zusammenspielt. Vitest orientiert sich
-  stark an der API von [Jest](https://jestjs.io/) und wird auch häufig
-  in Webapps eingesetzt.
+  Der eingebaute Node.js Test Runner (`node:test`) ist eine gute Alternative
+  für sehr kleine Setups ohne Zusatzpakete. Für unser TUI-Projekt mit
+  TypeScript sprechen mehrere Gründe für Vitest:
+
+  - **Erstklassiger TypeScript-Support** &mdash; Vitest versteht TypeScript
+    ohne zusätzliche Konfiguration. Jest benötigt dafür extra Pakete
+    wie `ts-jest` oder `@swc/jest`, was im Workshop unnötige Komplexität
+    bedeutet.
+  - **Schnelle Ausführung** &mdash; Vitest nutzt [Vite](https://vite.dev/)
+    unter der Haube und ist dadurch deutlich schneller als Jest.
+  - **Jest-kompatible API** &mdash; `describe`, `it`, `expect` funktionieren
+    wie bei Jest. Das Wissen ist direkt übertragbar und in vielen Projekten
+    und Webapps verbreitet.
+  - **Einfaches Setup** &mdash; `npm install -D vitest` und ein Script
+    in `package.json` reichen aus.
+  - **Gute Mocking-Funktionen** &mdash; Mit `vi.fn()` und `vi.mock()` lassen
+    sich z.&nbsp;B. API-Aufrufe (Wetter-API) einfach mocken.
 </Callout>
 
 ## Setup
