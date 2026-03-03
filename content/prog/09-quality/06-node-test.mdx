@@ -3,7 +3,7 @@ import { Callout } from 'nextra/components'
 # Alternative: Unit-Tests mit node:test (optional)
 
 <Callout>
-  **Dauer:** 10-15 Minuten
+  **Dauer:** 10 Minuten
 
   **Ziel:** Verstehen, wann `node:test` als schlanke Alternative zu Vitest sinnvoll ist
 </Callout>
@@ -14,11 +14,11 @@ Der Hauptpfad im Kurs bleibt [Unit-Testing mit Vitest](/prog/09-quality/04-unit-
 ## Wann ist node:test sinnvoll?
 
 `node:test` ist der eingebaute Test Runner von Node.js (ab Node 18, stabil seit Node 20).
-Er ist besonders praktisch, wenn ihr:
+Er ist besonders praktisch, falls:
 
-- keine zusätzlichen Test-Abhängigkeiten installieren wollt,
-- ein sehr kleines Projekt oder Skript testet,
-- schnell einen Minimal-Setup-Check braucht.
+- keine zusätzlichen Test-Abhängigkeiten gewünscht sind,
+- ein sehr kleines Projekt oder Skript getestet werden soll,
+- schnell ein Minimal-Setup-Check durchgeführt werden soll.
 
 Für unser TUI-Projekt mit TypeScript bleibt Vitest in der Regel die bessere Standardwahl.
 
@@ -81,6 +81,5 @@ npm run test:node
 | Fehler erwarten | `assert.throws(fn)` | `expect(fn).toThrow()` |
 
 <Callout type="info">
-  Wenn ihr `node:test`-Beispiele seht, könnt ihr sie meist schnell nach Vitest
-  übertragen: Imports und Assertions anpassen, Teststruktur bleibt sehr ähnlich.
+ Die Grundkonzepte von node:test und Vitest sind sehr ähnlich.
 </Callout>
