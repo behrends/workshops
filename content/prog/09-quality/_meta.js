@@ -3,7 +3,7 @@ export default {
   '02-typescript': 'TypeScript',
   '03-eslint': 'Linting mit ESLint',
   '04-unit-testing-vitest': 'Unit-Testing mit Vitest',
-  '06-integrationscheck-tui': 'Einfacher Integrationscheck im TUI',
-  '05-unit-testing': 'Unit-Testing mit node:test',
-  '05-ausblick': 'Ausblick',
+  '05-integrationscheck-tui': 'Einfacher Integrationscheck im TUI',
+  '06-node-test': 'Alternative: node:test (optional)',
+  '07-ausblick': 'Ausblick',
 };

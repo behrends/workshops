@@ -1,0 +1,86 @@
+import { Callout } from 'nextra/components'
+
+# Alternative: Unit-Tests mit node:test (optional)
+
+<Callout>
+  **Dauer:** 10-15 Minuten
+
+  **Ziel:** Verstehen, wann `node:test` als schlanke Alternative zu Vitest sinnvoll ist
+</Callout>
+
+Diese Lektion ist **optional**.
+Der Hauptpfad im Kurs bleibt [Unit-Testing mit Vitest](/prog/09-quality/04-unit-testing-vitest).
+
+## Wann ist node:test sinnvoll?
+
+`node:test` ist der eingebaute Test Runner von Node.js (ab Node 18).
+Er ist besonders praktisch, wenn ihr:
+
+- keine zusätzlichen Test-Abhängigkeiten installieren wollt,
+- ein sehr kleines Projekt oder Skript testet,
+- schnell einen Minimal-Setup-Check braucht.
+
+Für unser TUI-Projekt mit TypeScript bleibt Vitest in der Regel die bessere Standardwahl.
+
+## Minimal-Setup
+
+In `package.json`:
+
+```json
+{
+  "scripts": {
+    "test:node": "node --test"
+  }
+}
+```
+
+Beispiel:
+
+```js
+// sum.js
+export function sum(a, b) {
+  return a + b;
+}
+```
+
+```js
+// sum.test.js
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import { sum } from './sum.js';
+
+describe('sum', () => {
+  it('addiert zwei Zahlen', () => {
+    assert.strictEqual(sum(2, 3), 5);
+  });
+});
+```
+
+Ausführen:
+
+```bash
+npm run test:node
+```
+
+## Schnellvergleich zu Vitest
+
+| Thema | node:test | Vitest |
+|------|------|------|
+| Installation | keine extra Test-Bibliothek | `npm i -D vitest` |
+| Assertions | `assert.*` | `expect(...)` |
+| Watch/Ökosystem | schlank, weniger Komfortfunktionen | mehr Komfort (z. B. Watch-Workflow) |
+| Empfehlung im Kurs | optional | Standard |
+
+## API-Mapping (hilft beim Lesen beider Stile)
+
+| Konzept | node:test | Vitest |
+|------|------|------|
+| Test-Suite | `describe(...)` | `describe(...)` |
+| Einzeltest | `it(...)` | `it(...)` |
+| Gleichheit | `assert.strictEqual(a, b)` | `expect(a).toBe(b)` |
+| Fehler erwarten | `assert.throws(fn)` | `expect(fn).toThrow()` |
+
+<Callout type="info">
+  Wenn ihr `node:test`-Beispiele seht, könnt ihr sie meist schnell nach Vitest
+  übertragen: Imports und Assertions anpassen, Teststruktur bleibt sehr ähnlich.
+</Callout>

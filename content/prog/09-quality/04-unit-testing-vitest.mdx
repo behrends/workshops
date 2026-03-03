@@ -8,15 +8,35 @@ import { Callout } from 'nextra/components'
   **Ziel:** Zentrale Logik mit schnellen, verlässlichen Unit-Tests absichern
 </Callout>
 
-Unit-Tests prüfen einzelne Funktionen isoliert. Für unser TUI-Projekt
-sind sie die wichtigste Teststufe nach Type Checking und Linting.
+## Was sind Unit-Tests?
+
+Unit-Tests sind automatisierte Tests, die einzelne
+Funktionen oder Module isoliert prüfen. Sie stellen
+sicher, dass der Code korrekt funktioniert &mdash;
+auch nach Änderungen.
+
+Vorteile von Unit-Tests:
+
+- Fehler werden frühzeitig erkannt
+- Änderungen am Code können sicher durchgeführt werden
+- Tests dokumentieren das erwartete Verhalten
+- KI-generierter Code kann systematisch überprüft werden
+
+Für unser TUI-Projekt sind Unit-Tests die wichtigste
+Teststufe nach Type Checking und Linting.
+
+Node.js bringt seit Version 18 einen eingebauten Test Runner mit
+([`node:test`](https://nodejs.org/api/test.html)), der ohne zusätzliche
+Pakete funktioniert und für einfache Setups völlig ausreicht.
+Die Konzepte sind dabei dieselben: Tests werden mit `describe` und `it`
+strukturiert, und Erwartungen mit Assertions geprüft. Wer `node:test`
+kennt, findet sich in Vitest sofort zurecht &mdash; und umgekehrt.
+Mehr dazu in der [optionalen Lektion zu node:test](/prog/09-quality/06-node-test).
 
 <Callout type="info">
   **Warum Vitest?**
 
-  Der eingebaute Node.js Test Runner (`node:test`) ist eine gute Alternative
-  für sehr kleine Setups ohne Zusatzpakete. Für unser TUI-Projekt mit
-  TypeScript sprechen mehrere Gründe für Vitest:
+  Für unser TUI-Projekt mit TypeScript sprechen mehrere Gründe für Vitest:
 
   - **Erstklassiger TypeScript-Support** &mdash; Vitest versteht TypeScript
     ohne zusätzliche Konfiguration. Jest benötigt dafür extra Pakete
@@ -29,8 +49,6 @@ sind sie die wichtigste Teststufe nach Type Checking und Linting.
     und Webapps verbreitet.
   - **Einfaches Setup** &mdash; `npm install -D vitest` und ein Script
     in `package.json` reichen aus.
-  - **Gute Mocking-Funktionen** &mdash; Mit `vi.fn()` und `vi.mock()` lassen
-    sich z.&nbsp;B. API-Aufrufe (Wetter-API) einfach mocken.
 </Callout>
 
 ## Setup
@@ -52,56 +70,101 @@ In `package.json`:
 
 ## Beispiel: Reine Funktion testen
 
-`src/calc.js`:
+`src/temperature.js`:
 
 ```js
-export function calculateTip(billAmount, percent) {
-  if (billAmount < 0 || percent < 0) {
-    throw new Error('Ungültige Eingaben');
+export function celsiusToFahrenheit(celsius) {
+  if (typeof celsius !== 'number' || Number.isNaN(celsius)) {
+    throw new Error('Ungültige Temperatur');
   }
-  return (billAmount * percent) / 100;
+  return (celsius * 9) / 5 + 32;
 }
 ```
 
-`src/calc.test.js`:
+`src/temperature.test.js`:
 
 ```js
 import { describe, expect, it } from 'vitest';
-import { calculateTip } from './calc.js';
+import { celsiusToFahrenheit } from './temperature.js';
 
-describe('calculateTip', () => {
-  it('berechnet 10% von 50 korrekt', () => {
-    // Arrange
-    const bill = 50;
-    const percent = 10;
+describe('celsiusToFahrenheit', () => {
+  it('rechnet 0°C in 32°F um', () => {
+    // Arrange — Testdaten vorbereiten
+    const celsius = 0;
 
-    // Act
-    const result = calculateTip(bill, percent);
+    // Act — Funktion aufrufen
+    const result = celsiusToFahrenheit(celsius);
 
-    // Assert
-    expect(result).toBe(5);
+    // Assert — Ergebnis prüfen
+    expect(result).toBe(32);
   });
 
-  it('liefert 0 bei 0 Prozent', () => {
-    expect(calculateTip(80, 0)).toBe(0);
+  it('rechnet 100°C in 212°F um', () => {
+    expect(celsiusToFahrenheit(100)).toBe(212);
   });
 
-  it('wirft Fehler bei negativem Betrag', () => {
-    expect(() => calculateTip(-10, 10)).toThrow('Ungültige Eingaben');
+  it('wirft Fehler bei ungültiger Eingabe', () => {
+    expect(() => celsiusToFahrenheit('warm')).toThrow('Ungültige Temperatur');
   });
 });
+```
+
+Der erste Test zeigt das **AAA-Schema** ausführlich mit Kommentaren.
+Bei einfachen Fällen (zweiter und dritter Test) darf alles in einer Zeile stehen.
+
+### Tests ausführen
+
+```bash
+npm run test
+```
+
+Erwartete Ausgabe:
+
+```
+ ✓ src/temperature.test.js (3 tests) 5ms
+   ✓ celsiusToFahrenheit > rechnet 0°C in 32°F um
+   ✓ celsiusToFahrenheit > rechnet 100°C in 212°F um
+   ✓ celsiusToFahrenheit > wirft Fehler bei ungültiger Eingabe
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+```
+
+## Wichtige `expect`-Methoden
+
+| Methode | Beschreibung |
+|---------|-------------|
+| `expect(a).toBe(b)` | Prüft ob `a === b` |
+| `expect(a).not.toBe(b)` | Prüft ob `a !== b` |
+| `expect(a).toEqual(b)` | Prüft ob Objekte/Arrays inhaltlich gleich sind |
+| `expect(fn).toThrow()` | Prüft ob `fn` einen Fehler wirft (optional mit erwarteter Nachricht, z.B. `toThrow('msg')`) |
+| `expect(a).toBeTruthy()` | Prüft ob `a` truthy ist |
+| `expect(a).toContain(b)` | Prüft ob Array/String `b` enthält |
+
+## Dateikonvention
+
+Testdateien werden neben der getesteten Datei abgelegt
+und erhalten die Endung `.test.js` (bzw. `.test.ts` mit TypeScript):
+
+```
+src/
+  temperature.js
+  temperature.test.js
+  weather-api.js
+  weather-api.test.js
 ```
 
 ## Gute Praxis für Unit-Tests
 
 - Testnamen klar formulieren (erwartetes Verhalten nennen)
-- AAA-Schema verwenden: Arrange, Act, Assert
+- **AAA-Schema** verwenden: **A**rrange (Testdaten vorbereiten),
+  **A**ct (Funktion aufrufen), **A**ssert (Ergebnis prüfen)
 - Nur eine konkrete Erwartung pro Verhalten testen
 - Vor allem **pure Funktionen** testen (ohne I/O, ohne globale Seiteneffekte)
 - Verhalten und Anforderungen testen, nicht nur Implementierungsdetails
 - KI-generierte Tests kritisch prüfen (decken sie echte Risiken oder nur den Happy Path ab?)
 
-Als nächster Schritt: ein konkreter [Integrationscheck im TUI](/prog/09-quality/06-integrationscheck-tui)
+Als nächster Schritt: ein konkreter [Integrationscheck im TUI](/prog/09-quality/05-integrationscheck-tui)
 mit 1 Erfolgs- und 1 Fehlerfall.
 
-Die weiteren Qualitätsstufen (u. a. E2E, CI/CD) folgen im [Ausblick](/prog/09-quality/05-ausblick).
+Die weiteren Qualitätsstufen (u. a. E2E, CI/CD) folgen im [Ausblick](/prog/09-quality/07-ausblick).
