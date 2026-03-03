@@ -9,8 +9,10 @@ import { Callout } from 'nextra/components'
   mit 1 Erfolgs- und 1 Fehlerfall testen
 </Callout>
 
-Bei einem Integrationscheck testen wir nicht nur eine einzelne Funktion,
-sondern das Zusammenspiel mehrerer Teile:
+In der [vorherigen Lektion](/prog/09-quality/04-unit-testing-vitest) haben
+wir einzelne Funktionen isoliert mit Unit-Tests geprüft. Jetzt gehen wir
+einen Schritt weiter: Bei einem Integrationscheck testen wir das
+Zusammenspiel mehrerer Teile:
 
 - Eingabe aufbereiten
 - Eingaben validieren
@@ -21,7 +23,7 @@ Wir testen den fachlichen Ablauf direkt über einen Use Case.
 
 ## Beispiel-Ablauf
 
-Kritischer Ablauf: „Kontakt anlegen“
+Kritischer Ablauf in unserer Wetter-App: „Stadt als Favorit speichern“
 
 1. Nutzereingabe wird übernommen (`rawInput`)
 2. Eingabe wird validiert
@@ -31,10 +33,10 @@ Dateistruktur:
 
 ```txt
 src/
-  contact/
-    create-contact-flow.js
-    contact-repo-memory.js
-    create-contact-flow.integration.test.js
+  favorites/
+    add-favorite-flow.js
+    favorites-repo-memory.js
+    add-favorite-flow.integration.test.js
 ```
 
 <Callout type="info">
@@ -45,46 +47,41 @@ src/
 
 ## Produktcode
 
-`src/contact/create-contact-flow.js`:
+`src/favorites/add-favorite-flow.js`:
 
 ```js
-function validateContact(input) {
-  const name = input?.name?.trim();
-  const email = input?.email?.trim();
+function validateCity(input) {
+  const city = input?.city?.trim();
 
-  if (!name) {
-    throw new Error('Name ist erforderlich');
+  if (!city) {
+    throw new Error('Stadtname ist erforderlich');
   }
 
-  if (!email || !email.includes('@')) {
-    throw new Error('E-Mail ist ungültig');
-  }
-
-  return { name, email };
+  return { city };
 }
 
-export async function createContactFlow(rawInput, repo) {
-  const validContact = validateContact(rawInput);
-  const saved = await repo.save(validContact);
+export async function addFavoriteFlow(rawInput, repo) {
+  const validated = validateCity(rawInput);
+  const saved = await repo.save(validated);
   return saved;
 }
 ```
 
-`src/contact/contact-repo-memory.js`:
+`src/favorites/favorites-repo-memory.js`:
 
 ```js
-export function createMemoryContactRepo() {
-  const contacts = [];
+export function createMemoryFavoritesRepo() {
+  const favorites = [];
   let nextId = 1;
 
   return {
-    async save(contact) {
-      const saved = { id: nextId++, ...contact };
-      contacts.push(saved);
+    async save(favorite) {
+      const saved = { id: nextId++, ...favorite };
+      favorites.push(saved);
       return saved;
     },
     async all() {
-      return contacts;
+      return favorites;
     },
   };
 }
@@ -92,33 +89,30 @@ export function createMemoryContactRepo() {
 
 ## Integrationscheck mit Vitest
 
-`src/contact/create-contact-flow.integration.test.js`:
+`src/favorites/add-favorite-flow.integration.test.js`:
 
 ```js
 import { describe, expect, it } from 'vitest';
-import { createContactFlow } from './create-contact-flow.js';
-import { createMemoryContactRepo } from './contact-repo-memory.js';
+import { addFavoriteFlow } from './add-favorite-flow.js';
+import { createMemoryFavoritesRepo } from './favorites-repo-memory.js';
 
-describe('createContactFlow (Integration)', () => {
-  it('Erfolgsfall: validiert und speichert Kontakt', async () => {
-    const repo = createMemoryContactRepo();
+describe('addFavoriteFlow (Integration)', () => {
+  it('Erfolgsfall: validiert und speichert Favorit', async () => {
+    const repo = createMemoryFavoritesRepo();
 
-    const saved = await createContactFlow(
-      { name: 'Anna', email: 'anna@example.com' },
-      repo,
-    );
+    const saved = await addFavoriteFlow({ city: 'Berlin' }, repo);
 
     expect(saved.id).toBe(1);
-    expect(saved.email).toBe('anna@example.com');
+    expect(saved.city).toBe('Berlin');
     expect(await repo.all()).toHaveLength(1);
   });
 
-  it('Fehlerfall: ungültige Eingabe wird nicht gespeichert', async () => {
-    const repo = createMemoryContactRepo();
+  it('Fehlerfall: leerer Stadtname wird nicht gespeichert', async () => {
+    const repo = createMemoryFavoritesRepo();
 
     await expect(
-      createContactFlow({ name: '', email: 'anna@example.com' }, repo),
-    ).rejects.toThrow('Name ist erforderlich');
+      addFavoriteFlow({ city: '' }, repo),
+    ).rejects.toThrow('Stadtname ist erforderlich');
 
     expect(await repo.all()).toHaveLength(0);
   });
@@ -136,12 +130,12 @@ npm run test
 Die TUI ruft denselben Use Case auf, den auch der Integrationscheck testet:
 
 ```js
-import { createContactFlow } from './contact/create-contact-flow.js';
+import { addFavoriteFlow } from './favorites/add-favorite-flow.js';
 
-async function onSubmit(formValues, repo) {
+async function onAddFavorite(formValues, repo) {
   try {
-    await createContactFlow(formValues, repo);
-    return 'Kontakt gespeichert';
+    await addFavoriteFlow(formValues, repo);
+    return 'Stadt wurde als Favorit gespeichert';
   } catch (error) {
     return error.message;
   }
