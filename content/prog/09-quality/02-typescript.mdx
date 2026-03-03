@@ -46,10 +46,15 @@ aber oft zu schwer auffindbaren Fehlern.
 
 ```bash
 npm install -D typescript @types/node tsx
-npx tsc --init
 ```
 
-`tsc` ist der TypeScript-Compiler. Mit `npx tsc --init` wird eine `tsconfig.json`-Datei erstellt. In dieser sollten mindestens diese Optionen geprüft werden:
+Dadurch werden die folgenden Pakete installiert:
+
+- `typescript`: der TypeScript-Compiler
+- `@types/node`: Typen für Node.js
+- `tsx`: ein schneller TypeScript-Runner
+
+Erstellt im Projektordner eine Datei `tsconfig.json` mit mindestens diesen Optionen:
 
 ```jsonc
 {
@@ -69,7 +74,10 @@ npx tsc --init
 
 <Callout type="info">
   Mit dieser `tsconfig`-Konfiguration sollte der Quellcode des Projekts
-  im Ordner `src` liegen, damit `tsc` alle relevanten Dateien prüft.
+  im Ordner `src` liegen, damit der TypeScript-Compiler `tsc` alle relevanten Dateien prüft.
+
+  Daher sollten auch die npm-Skripte in `package.json` so angepasst werden,
+  dass sie auf den `src`-Ordner zeigen (z. B. für Prettier).
 </Callout>
 
 npm-Script-Einträge für das Projekt in `package.json`:
@@ -78,8 +86,8 @@ npm-Script-Einträge für das Projekt in `package.json`:
 {
   "scripts": {
     "start": "tsx --env-file=.env src/main",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format": "prettier --write src/",
+    "format:check": "prettier --check src/",
     "typecheck": "tsc"
   }
 }
@@ -87,8 +95,8 @@ npm-Script-Einträge für das Projekt in `package.json`:
 
 Kurz erklärt:
 
-- `npm run start`: startet das TUI-Projekt lokal direkt mit `tsx` aus dem TypeScript-Code.
-- `npm run typecheck`: führt `tsc` als Typprüfung aus; mit `noEmit: true` werden dabei keine JS-Dateien erzeugt.
+- `npm run start`: startet das TUI-Projekt lokal direkt mit `tsx` aus dem TypeScript-Code. Es genügt auch `npm start`.
+- `npm run typecheck`: führt den TypeScript-Compiler `tsc` zur Typprüfung aus; mit der Konfiguration `noEmit: true` werden dabei keine JS-Dateien erzeugt, wie es sonst z. B. bei Web-Projekten üblich ist.
 
 <Callout type="info">
   Für dieses TUI-Projekt wird lokal kein separater JavaScript-Build erzeugt.
