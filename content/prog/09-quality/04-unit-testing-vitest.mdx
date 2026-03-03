@@ -70,10 +70,12 @@ In `package.json`:
 
 ## Beispiel: Reine Funktion testen
 
-`src/temperature.js`:
+Beispiel mit TypeScript-Dateien:
 
-```js
-export function celsiusToFahrenheit(celsius) {
+`src/temperature.ts`:
+
+```ts
+export function celsiusToFahrenheit(celsius: number): number {
   if (typeof celsius !== 'number' || Number.isNaN(celsius)) {
     throw new Error('Ungültige Temperatur');
   }
@@ -81,11 +83,11 @@ export function celsiusToFahrenheit(celsius) {
 }
 ```
 
-`src/temperature.test.js`:
+`src/temperature.test.ts`:
 
-```js
+```ts
 import { describe, expect, it } from 'vitest';
-import { celsiusToFahrenheit } from './temperature.js';
+import { celsiusToFahrenheit } from './temperature';
 
 describe('celsiusToFahrenheit', () => {
   it('rechnet 0°C in 32°F um', () => {
@@ -103,8 +105,8 @@ describe('celsiusToFahrenheit', () => {
     expect(celsiusToFahrenheit(100)).toBe(212);
   });
 
-  it('wirft Fehler bei ungültiger Eingabe', () => {
-    expect(() => celsiusToFahrenheit('warm')).toThrow('Ungültige Temperatur');
+  it('wirft Fehler bei NaN-Eingabe', () => {
+    expect(() => celsiusToFahrenheit(Number.NaN)).toThrow('Ungültige Temperatur');
   });
 });
 ```
@@ -118,13 +120,13 @@ Bei einfachen Fällen (zweiter und dritter Test) darf alles in einer Zeile stehe
 npm run test
 ```
 
-Erwartete Ausgabe:
+Beispielausgabe (kann je nach Umgebung leicht abweichen):
 
 ```
- ✓ src/temperature.test.js (3 tests) 5ms
+ ✓ src/temperature.test.ts (3 tests) 5ms
    ✓ celsiusToFahrenheit > rechnet 0°C in 32°F um
    ✓ celsiusToFahrenheit > rechnet 100°C in 212°F um
-   ✓ celsiusToFahrenheit > wirft Fehler bei ungültiger Eingabe
+   ✓ celsiusToFahrenheit > wirft Fehler bei NaN-Eingabe
 
  Test Files  1 passed (1)
       Tests  3 passed (3)
@@ -148,10 +150,10 @@ und erhalten die Endung `.test.js` (bzw. `.test.ts` mit TypeScript):
 
 ```
 src/
-  temperature.js
-  temperature.test.js
-  weather-api.js
-  weather-api.test.js
+  temperature.ts
+  temperature.test.ts
+  weather-api.ts
+  weather-api.test.ts
 ```
 
 ## Gute Praxis für Unit-Tests

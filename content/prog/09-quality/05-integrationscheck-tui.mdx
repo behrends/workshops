@@ -111,7 +111,7 @@ describe('createContactFlow (Integration)', () => {
     const repo = createMemoryContactRepo();
 
     await expect(
-      createContactFlow({ name: '', email: 'ungueltig' }, repo),
+      createContactFlow({ name: '', email: 'anna@example.com' }, repo),
     ).rejects.toThrow('Name ist erforderlich');
 
     expect(await repo.all()).toHaveLength(0);
