@@ -54,7 +54,7 @@ Mehr dazu in der [optionalen Lektion zu node:test](/prog/09-quality/06-node-test
 ## Setup
 
 ```bash
-npm install --save-dev vitest
+npm install -D vitest
 ```
 
 In `package.json`:
@@ -76,6 +76,8 @@ Beispiel mit TypeScript-Dateien:
 
 ```ts
 export function celsiusToFahrenheit(celsius: number): number {
+  // Defensiver Check: zur Laufzeit relevant, falls die Funktion
+  // aus ungetyptem JavaScript aufgerufen wird
   if (typeof celsius !== 'number' || Number.isNaN(celsius)) {
     throw new Error('Ungültige Temperatur');
   }

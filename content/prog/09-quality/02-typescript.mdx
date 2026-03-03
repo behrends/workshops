@@ -95,7 +95,7 @@ npm-Script-Einträge für das Projekt in `package.json`:
 
 Kurz erklärt:
 
-- `npm run start`: startet das TUI-Projekt lokal direkt mit `tsx` aus dem TypeScript-Code. Es genügt auch `npm start`.
+- `npm run start`: startet das TUI-Projekt lokal direkt mit `tsx` aus dem TypeScript-Code. Das Flag `--env-file=.env` lädt Umgebungsvariablen aus der Datei `.env` (benötigt Node.js ≥ 20.6). Es genügt auch `npm start`.
 - `npm run typecheck`: führt den TypeScript-Compiler `tsc` zur Typprüfung aus; mit der Konfiguration `noEmit: true` werden dabei keine JS-Dateien erzeugt, wie es sonst z. B. bei Web-Projekten üblich ist.
 
 <Callout type="info">
