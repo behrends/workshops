@@ -1,0 +1,125 @@
+import { Callout } from 'nextra/components'
+
+# Tipps für Coding Agents
+
+<Callout>
+  **Dauer:** 20 Minuten
+
+  - KI-CLI-Tools sinnvoll einsetzen
+  - Regeln im Repository klar festhalten
+  - Qualität durch kleine, feste Checks sichern
+
+  **Ziel:** Coding Agents mit hohem Nutzen und wenig Zusatzaufwand im Projekt einsetzen
+</Callout>
+
+## CLIs: OpenCode, Copilot CLI, Gemini CLI
+
+Für Coding Agents gibt es verschiedene CLI-Werkzeuge, z. B.:
+
+- OpenCode: [Hauptseite](https://opencode.ai) | [Docs](https://opencode.ai/docs/cli/)
+- GitHub Copilot CLI: [Hauptseite](https://github.com/features/copilot) | [Docs](https://docs.github.com/en/copilot/how-tos/copilot-cli)
+- Gemini CLI: [Hauptseite](https://geminicli.com) | [Docs](https://geminicli.com/docs/cli/)
+
+Stand Anfang 2026 erleben Agent-CLIs eine große Beliebtheit
+("Terminal-Renaissance") und gelten als wichtige State-of-the-Art-Tools.
+Der Agent-Mode bietet dabei teilweise mehr Möglichkeiten als die
+klassische Copilot-Nutzung direkt in VS Code.
+
+OpenCode kann mit verschiedenen Modell-Providern verbunden werden
+(inklusive GitHub-Copilot-Subscription als Provider).
+Gemini CLI kann kostenlos mit API-Key über
+[Google AI Studio](https://aistudio.google.com/) genutzt werden.
+
+Wie bei KI-Tools üblich kann sich diese Landschaft schnell ändern,
+sodass sich der Fokus künftig wieder auf andere Tools verschieben kann.
+
+## AGENTS.md als Projektvertrag
+
+Die Datei `AGENTS.md` legt Regeln für Agenten fest, z. B.:
+
+- Projektstruktur und relevante Dateien,
+- Coding-Style und Konventionen,
+- notwendige Skripte vor einem Commit,
+- Commit-Format und Review-Erwartungen.
+
+Eine allgemeine Referenz zu diesem Format gibt es unter
+[agents.md](https://agents.md).
+
+<Callout type="info">
+`AGENTS.md` sollte aktuell bleiben. Bei neuen Konventionen, neuen Skripten
+oder geänderten Abläufen die Datei direkt mitpflegen.
+Agents können explizit aufgefordert werden, `AGENTS.md` bei Änderungen
+automatisch mit zu aktualisieren.
+</Callout>
+
+### Start mit OpenCode: `/init`
+
+Ein pragmatischer Einstieg:
+
+1. OpenCode im Projekt starten.
+2. Im Chat `/init` ausführen.
+3. Dadurch wird eine erste Version von `AGENTS.md` erzeugt.
+4. Diese erste Version danach für euer Projekt erweitern und anpassen.
+
+### Commit Messages über `AGENTS.md` steuern
+
+In `AGENTS.md` können wir festlegen, wie Coding Agents Commit Messages
+aufbauen sollen. So entstehen konsistente Commit Messages im Team.
+
+```md
+## Commit Message Rules
+
+- Commit messages must be written in German.
+- Commit messages must be shorter than 80 characters.
+```
+
+### Projekt-Skripte über `AGENTS.md` steuern
+
+Auch Erwartungen zu Linting, Formatierung und Typecheck können direkt
+in `AGENTS.md` festgelegt werden:
+
+```md
+## Lint/Format/Typecheck Expectations
+
+- Run `npm run lint` after changes touching JS/TS files.
+- Run `npm run format` or `npm run format:check` before final review.
+- Run `npm run typecheck` for changes in `.ts` or TS-adjacent logic.
+```
+
+Für die Hintergründe zu diesen Checks siehe Abschnitt
+[Codequalität](/prog/09-quality), insbesondere:
+
+- [Einführung und Testpyramide](/prog/09-quality/01-intro)
+- [TypeScript](/prog/09-quality/02-typescript)
+- [Linting mit ESLint](/prog/09-quality/03-eslint)
+- [Unit-Testing mit Vitest](/prog/09-quality/04-unit-testing-vitest)
+
+## Skills für wiederkehrende Aufgaben
+
+Skills sind wiederverwendbare Arbeitsanweisungen für häufige Aufgaben
+(z. B. Refactoring, API-Integration, Test-Erstellung, Debugging, Setup-Schritte). Der Nutzen:
+
+- weniger Prompt-Wiederholungen,
+- konsistentere Ergebnisse,
+- schnelleres Onboarding neuer Teammitglieder.
+
+Eine zentrale Übersicht und Registry für Skills ist
+[skills.sh](https://skills.sh) — dort lassen sich Skills entdecken
+und für unterstützte Coding Agents installieren.
+
+## Ausblick: Fortgeschrittene Themen
+
+- **Hooks:** Pre-/Post-Command-Hooks für automatische Checks (`lint`, `test`, `typecheck`) und Policy-Checks.  
+  Ressourcen: [Gemini CLI Hooks](https://geminicli.com/docs/hooks/) | [Copilot CLI Hooks](https://docs.github.com/copilot/tutorials/copilot-cli-hooks)
+- **Subagents:** Aufgabenteilung nach Rollen, z. B. `refactor-agent`, `test-agent`, `docs-agent`.  
+  Ressourcen: [OpenCode Agents](https://opencode.ai/docs/agents/) | [Gemini CLI Subagents](https://geminicli.com/docs/core/subagents/)
+- **Review-Agent (als Subagent):** Separater Agent nur für Risiko-Review (Security, Breaking Changes, fehlende Tests).  
+  Ressourcen: [Custom Agents in Copilot](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/create-custom-agents)
+- **Guardrails/Permissions:** Festlegen, welche Befehle ohne Rückfrage erlaubt sind und welche immer Freigabe brauchen.  
+  Ressourcen: [OpenCode Permissions](https://opencode.ai/docs/permissions/) | [About GitHub Copilot CLI (Permissions)](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/about-copilot-cli) | [Responsible use of Copilot CLI](https://docs.github.com/en/copilot/responsible-use/copilot-in-the-cli)
+- **Plan-Mode vs. Execute-Mode:** Erst Plan/Dateiauswahl, danach gezielte Änderungen ausführen.  
+  Ressourcen: [OpenCode Plan/Build Agent-Modell](https://opencode.ai/docs/agents/) | [Gemini CLI Plan Mode](https://geminicli.com/docs/cli/plan-mode/) | [Copilot CLI Plan Mode](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/about-copilot-cli)
+- **Memory/Project Context:** Was zusätzlich zu `AGENTS.md` persistent gespeichert wird (Konventionen, Spezifikationen, bekannte Fallen).  
+  Ressourcen: [AGENTS.md](https://agents.md/) | [Copilot Repository Instructions (`copilot-instructions.md`)](https://docs.github.com/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot) | [Gemini.md Kontext-Hierarchie](https://geminicli.com/docs/cli/gemini-md)
+- **u. v. a. m.:** Viele Tools entwickeln sich schnell weiter. Es lohnt sich, die Changelogs und Doku-Updates der eingesetzten Agent-CLIs regelmäßig zu prüfen.
+  Ressourcen: [OpenCode Changelog](https://opencode.ai/changelog) | [Gemini CLI Release Notes](https://geminicli.com/docs/changelogs/) | [Copilot CLI Releases](https://github.com/github/gh-copilot/releases)

@@ -16,6 +16,6 @@ export default {
   '09-quality': '9 - Codequalität',
   'js-vertiefung': 'JavaScript Vertiefung',
   'js-praxis': 'JavaScript Praxis',
-  'misc': 'Weiterführendes (KI, Bibliotheken, Tools)',
-  'git': 'Git und GitHub (Copilot)',
+  misc: 'Weiterführendes (KI, Bibliotheken, Tools)',
+  git: 'Git und GitHub',
 };
