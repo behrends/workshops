@@ -14,6 +14,8 @@ export default {
   '07-structure': '7 - Objekte und Klassen',
   '08-organize': '8 - Code und Daten organisieren',
   '09-quality': '9 - Codequalität',
-  '10-misc': '10 - Weiterführendes',
-  '11-git': '11 - Git und GitHub (Copilot)',
+  'js-vertiefung': 'JavaScript Vertiefung',
+  'js-praxis': 'JavaScript Praxis',
+  'misc': 'Weiterführendes (KI, Bibliotheken, Tools)',
+  'git': 'Git und GitHub (Copilot)',
 };
