@@ -1,11 +1,18 @@
-import nextra from 'nextra'
- 
-// Set up Nextra with its configuration
-const withNextra = nextra({
-  // ... Add Nextra-specific options here
-})
- 
-// Export the final Next.js config with Nextra included
+import nextra from 'nextra';
+
+const withNextra = nextra({});
+
 export default withNextra({
-  // ... Add regular Next.js options here
-})
+  async rewrites() {
+    return [
+      {
+        source: '/praesi/vorlesung-praesentationen',
+        destination: '/praesi/vorlesung-praesentationen/index.html',
+      },
+      {
+        source: '/praesi/vorlesung-praesentationen/',
+        destination: '/praesi/vorlesung-praesentationen/index.html',
+      },
+    ];
+  },
+});

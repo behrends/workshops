@@ -1,0 +1,31 @@
+:root {
+  --r-background-color: #f4f0eb;
+  --r-main-color: #42535d;
+  --r-heading-color: #2f3a40;
+  --r-link-color: #b0332c;
+  --r-link-color-dark: #8f2a24;
+  --r-link-color-hover: #8f2a24;
+  --r-selection-background-color: rgba(176, 51, 44, 0.2);
+  --r-selection-color: #2f3a40;
+  --r-main-font: "Aptos", "Avenir Next", "Segoe UI", sans-serif;
+  --r-heading-font: "Aptos", "Avenir Next", "Segoe UI", sans-serif;
+  --r-code-font: "SFMono-Regular", Menlo, Consolas, monospace;
+  --r-main-font-size: 44px;
+  --r-heading-text-transform: none;
+  --r-heading-font-weight: 700;
+  --r-heading-line-height: 1.1;
+}
+
+.reveal-viewport {
+  background: var(--r-background-color);
+}
+
+.reveal {
+  font-family: var(--r-main-font);
+  font-size: var(--r-main-font-size);
+  font-weight: 400;
+}
+
+.reveal :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--r-heading-font);
+}
