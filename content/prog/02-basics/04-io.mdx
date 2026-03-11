@@ -282,3 +282,12 @@ umgestellt wird:
 chcp 65001
 ```
 </Callout>
+
+Unter Windows konnten insbesondere Probleme mit Umlauten
+bei `readline-sync` folgendermaßen gelöst werden: 
+
+```
+1. Profil öffnen: notepad $PROFILE
+2. Wenn Datei nicht existiert erstellen: New-Item -Path $PROFILE -Type File -Force
+3. Zeile einfügen: [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+```
