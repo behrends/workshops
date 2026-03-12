@@ -227,19 +227,19 @@ small {
   text-align: center;
 }
 
-.tool-logo {
+.reveal .slides .tool-logo {
   display: block;
   width: auto;
   height: 80px;
   margin: 0 auto 0.85rem;
   object-fit: contain;
-  border: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
 }
 
-.tool-logo-compact {
+.reveal .slides .tool-logo-compact {
   height: 64px;
 }
 
