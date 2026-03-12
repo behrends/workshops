@@ -1,0 +1,37 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 43.9 43.9"
+  role="img"
+  aria-labelledby="dhbw-logo-title dhbw-logo-desc"
+>
+  <title id="dhbw-logo-title">Logo der DHBW</title>
+  <desc id="dhbw-logo-desc">Logo der Dualen Hochschule Baden-Württemberg (DHBW).</desc>
+  <path
+    d="m43.7 11.2h-9.9v8.8c0 .4-.4 1.2-.8 1.6l-9 9.1c-.4.4-.8.4-.8 0v1c0 .4.4.8.8.8h19.7c.4 0 .8-.4.8-.8v-19.7c0-.5-.4-.8-.8-.8z"
+    fill="#5c6971"
+    opacity=".8"
+  />
+  <path
+    d="m33 .3-9 9.1c-.4.4-.8 1.2-.8 1.6v19.7c0 .4.4.4.8 0l9.1-9.1c.4-.4.8-1.2.8-1.6v-19.7c-.1-.4-.4-.4-.9 0z"
+    fill="#e2001a"
+  />
+  <path
+    d="m24 30.7 9.1-9.1c.4-.4.8-1.2.8-1.6v-8.9h-9.9c-.4 0-.8.4-.8.8v18.7c0 .5.3.5.8.1z"
+    fill="#5c6971"
+    opacity=".6"
+  />
+  <path
+    d="m20.5 32.5h-9.8v10.7c0 .4.4.4.8 0l9.1-9.1c.4-.4.8-1.2.8-1.6v-.9c-.1.5-.5.9-.9.9z"
+    fill="#5c6971"
+    opacity=".8"
+  />
+  <path
+    d="m20.5 11.2h-19.7c-.4 0-.8.3-.8.8v19.7c0 .4.4.8.8.8h19.7c.4 0 .8-.4.8-.8v-19.7c0-.5-.4-.8-.8-.8z"
+    fill="#e2001a"
+  />
+  <path
+    d="m20.5 12.8-9.1 9.1c-.4.4-.8 1.2-.8 1.6v9h9.8c.4 0 .8-.4.8-.8v-18.9c.1-.4-.3-.4-.7 0z"
+    fill="#5c6971"
+    opacity=".6"
+  />
+</svg>

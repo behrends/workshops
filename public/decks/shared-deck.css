@@ -1,0 +1,55 @@
+:root {
+  --deck-accent: #E2001A;
+  --deck-accent-rgb: 226, 0, 26;
+}
+
+.deck-logo {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 120px;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.reveal {
+  font-family: "Aptos", "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.reveal :is(h1, h2, h3, h4, h5, h6, p, li, div, span, a, figcaption) {
+  font-family: "Aptos", "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.reveal .slides section {
+  text-align: left;
+}
+
+.red {
+  color: var(--deck-accent);
+}
+
+.reveal a {
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+
+.speaker-status {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 40;
+  max-width: 320px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(var(--deck-accent-rgb), 0.22);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+@media (max-width: 980px) {
+  .speaker-status {
+    left: 16px;
+    right: 16px;
+    max-width: none;
+  }
+}

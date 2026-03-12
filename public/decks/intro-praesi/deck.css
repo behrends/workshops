@@ -1,0 +1,137 @@
+:root {
+  --deck-bg: #ffffff;
+  --deck-surface: #ffffff;
+  --deck-surface-soft: #f7f3ef;
+  --deck-ink: #42535d;
+  --deck-heading: #2f3a40;
+  --deck-muted: #6c7a82;
+  --deck-line: rgba(66, 83, 93, 0.14);
+  --deck-shadow: 0 12px 26px rgba(47, 58, 64, 0.06);
+}
+
+.reveal-viewport {
+  background:
+    linear-gradient(180deg, #ffffff 0%, #f6f2ee 100%);
+}
+
+.reveal {
+  font-size: 40px;
+  color: var(--deck-ink);
+}
+
+.reveal .slides section > * {
+  max-width: 1020px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.reveal .slides section:first-of-type {
+  text-align: center;
+}
+
+.reveal .slides section:first-of-type h3 {
+  width: fit-content;
+  max-width: 900px;
+  margin-top: 0.2rem;
+  padding-top: 0.42rem;
+  border-top: 6px solid var(--deck-accent);
+  font-size: 1.92em;
+}
+
+.reveal :is(h2, h3) {
+  margin-bottom: 0.85rem;
+  color: var(--deck-heading);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+
+.reveal h2 {
+  font-size: 1.5em;
+}
+
+.reveal h3 {
+  font-size: 1.62em;
+}
+
+.reveal .slides section:not(:first-of-type) :is(h2, h3)::after {
+  content: '';
+  display: block;
+  width: 96px;
+  height: 4px;
+  margin-top: 0.36rem;
+  border-radius: 999px;
+  background: var(--deck-accent);
+}
+
+.reveal h4 {
+  margin: 0.2rem auto 1rem;
+  max-width: 960px;
+  color: var(--deck-muted);
+  font-size: 0.8em;
+  font-weight: 600;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.reveal p,
+.reveal li {
+  line-height: 1.34;
+}
+
+.reveal p.enum {
+  margin: 0.55rem auto;
+  padding: 0.72rem 0.92rem 0.78rem;
+  border-radius: 16px;
+  border: 1px solid var(--deck-line);
+  border-left: 4px solid rgba(var(--deck-accent-rgb), 0.88);
+  background: var(--deck-surface);
+  box-shadow: var(--deck-shadow);
+  font-size: 0.88em;
+}
+
+.reveal p.enum.offset {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  background: var(--deck-surface-soft);
+  border-left-color: rgba(var(--deck-accent-rgb), 0.28);
+}
+
+.reveal ul {
+  display: block;
+  max-width: 980px;
+  margin: 0.7rem auto 0;
+  padding-left: 1.15em;
+  color: var(--deck-ink);
+}
+
+.reveal li {
+  margin: 0.48rem 0;
+  font-size: 0.82em;
+}
+
+.reveal li::marker {
+  color: var(--deck-accent);
+}
+
+.reveal .red {
+  font-weight: 600;
+}
+
+.reveal a {
+  color: #b00015;
+  text-decoration-color: rgba(var(--deck-accent-rgb), 0.42);
+}
+
+.reveal a:hover {
+  color: #8c0011;
+}
+
+@media (max-width: 980px) {
+  .reveal {
+    font-size: 32px;
+  }
+}
