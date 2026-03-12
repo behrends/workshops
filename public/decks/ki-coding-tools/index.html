@@ -31,28 +31,6 @@
 
     <div class="reveal">
       <div class="slides">
-        <section>
-          <h2>Beispiel-Präsentation</h2>
-          <p class="enum">
-            Es folgt eine Präsentation, die die Vorstellung eines Themas zeigt.
-          </p>
-          <p class="enum">Dauer: ca. 25 Minuten</p>
-        </section>
-
-        <section>
-          <h2>Vorbemerkung</h2>
-          <p class="enum">Erinnerung für Dozenten:</p>
-          <p class="enum offset">
-            Präsentation im Vorfeld ggf. aktualisieren und üben (auch Demos)
-          </p>
-          <p class="enum offset">
-            Es gibt auch Notizen zu Folien (siehe <code>aside</code>-Elemente)
-          </p>
-          <p class="enum offset">Presenter verwenden</p>
-          <p class="enum offset">Auf die Zeit achten</p>
-          <p class="enum">Ok, es geht los →</p>
-        </section>
-
         <section class="hero-slide" data-auto-animate>
           <h1>KI Coding Tools</h1>
           <h3>Vibe Coding &amp; AI Assisted Engineering</h3>
@@ -88,16 +66,24 @@
           <p class="red offset fragment">
             Command Line Interfaces (CLIs, im Terminal)
           </p>
-          <aside class="notes">
-            Wir können dies als roten Faden an das Whiteboard schreiben.
-          </aside>
+        </section>
+
+        <section>
+          <blockquote class="fragment">
+            The hottest new programming language is English.
+            <footer>
+              — Andrej Karpathy, März 2023 <span class="red">(!)</span> (<a
+                href="https://x.com/karpathy/status/1617979122625712128"
+                target="_blank"
+                rel="noreferrer"
+                >Quelle</a
+              >)
+            </footer>
+          </blockquote>
         </section>
 
         <section>
           <h3 class="accent-headline">Vibe Coding</h3>
-          <p class="enum fragment">
-            Andrej Karpathy (u.a. Ex-Director of AI bei Tesla) im Februar 2025:
-          </p>
           <blockquote class="fragment">
             There's a new kind of coding I call
             <b class="red">"vibe coding"</b>, where you fully give in to the
@@ -107,47 +93,32 @@
             I'm building a project or webapp, but it's
             <b class="red">not really coding</b> - I just see stuff, say stuff,
             run stuff, and copy paste stuff, and it mostly works.
+            <footer>
+              — Andrej Karpathy, Februar 2025 (<a
+                href="https://x.com/karpathy/status/1710842501382639983"
+                target="_blank"
+                rel="noreferrer"
+                >Quelle</a
+              >)
+            </footer>
           </blockquote>
-          <small class="fragment">
-            Quelle:
-            <a
-              href="https://x.com/karpathy/status/1710842501382639983"
-              target="_blank"
-              rel="noreferrer"
-            >
-              https://x.com/karpathy/status/1710842501382639983
-            </a>
-          </small>
-          <aside class="notes">
-            Bereits am 24.1.2023 schrieb er dies:
-            <i>The hottest new programming language is English</i> Quelle:
-            https://x.com/karpathy/status/1617979122625712128
-          </aside>
         </section>
 
         <section data-auto-animate>
-          <h3>Browser-Tools in KI-Chats (Vibe)</h3>
+          <h3>Browser-Tools in KI-Chats bieten Vibe Coding</h3>
           <p class="enum fragment">
-            Viele KI-Chats können Code nicht nur generieren, sondern auch direkt
-            in einer isolierten Umgebung (Sandbox) ausführen.
+            Viele KI-Chats können Code generieren und in einer isolierten
+            Umgebung (Sandbox) ausführen.
           </p>
-          <p class="enum fragment">
-            Von kleinen UI-Komponenten oder Code-Schnipseln bis zu Projekten mit
-            mehreren Dateien ist einiges möglich.
-          </p>
-        </section>
-
-        <section data-auto-animate>
-          <h3>Browser-Tools in KI-Chats (Vibe)</h3>
-          <p class="enum red">
+          <p class="enum red fragment">
             <a href="https://chatgpt.com" target="_blank" rel="noreferrer">
-              Vorführung: ChatGPT im Browser
+              Vorführung: ChatGPT im Browser mit diesem Prompt:
             </a>
           </p>
-          <blockquote>
+          <blockquote class="fragment">
             Bau eine App, die per Knopfdruck 5 Minuten rückwärts zählt und
-            zufällig eine Aktivität zur Entspannung zeigt (z.B. Atemübung,
-            Strecken, Visualisierung, Kaffee holen, usw.). Denk dir passende
+            zufällig eine Aktivität zur Entspannung zeigt. Beispiele: Atemübung,
+            Strecken, Visualisierung, Kaffee holen, usw. Denk dir passende
             Übungen aus. Mit motivierenden Texten!
           </blockquote>
         </section>
@@ -165,7 +136,7 @@
             />
           </div>
           <p class="slide-note">
-            Dies sind „One Shot“-Ergebnisse des Prompts auf der vorigen Folie.
+            „One Shot“-Ergebnisse des Prompts auf der vorigen Folie
           </p>
           <aside class="notes">
             Der Prompt liefert immer eine andere Variante. → Eigene Experimente
@@ -174,7 +145,7 @@
         </section>
 
         <section data-auto-animate>
-          <div class="tools-grid">
+          <div class="tools-strip">
             <a href="https://chat.com" target="_blank" rel="noreferrer">
               <figure>
                 <img
@@ -299,42 +270,58 @@
             >
               AI Studio von Google
             </a>
-            bietet neben Coding auch vieles mehr.
+            bietet Coding und mehr.
           </p>
-          <aside class="notes">
-            Die Chats bieten in der Regel kostenlosen Zugang. Stand 11/2025
-            konnte Mistral keinen Code ausführen. Gibt es noch weitere?
-          </aside>
         </section>
 
-        <section data-auto-animate>
+        <section class="text-slide" data-auto-animate>
           <h3>Web-Apps als Vibe-Plattformen</h3>
-          <p class="enum fragment">
-            Entwicklungsumgebung im Browser für umfangreiche Projekte.
-          </p>
-          <p class="enum fragment">
-            Komplette Apps verschiedenster Art können via Prompting entworfen,
-            gebaut, getestet und veröffentlicht werden.
-          </p>
-          <p class="enum fragment">
-            (komplett mit Frontend, Backend, Datenbank, API-Anbindung usw.)
-          </p>
-          <p class="enum fragment">
-            → Vollständiges Vibe Coding — nur Browser benötigt (ohne Setup!).
-          </p>
-          <p class="enum red fragment">
+          <div class="lead-card fragment">
+            Entwicklungsumgebung im Browser für ganze Projekte.
+          </div>
+          <div class="compact-grid">
+            <article class="compact-card fragment">
+              <h4>Von der Idee zur App</h4>
+              <p>
+                Komplette Apps können via Prompting entworfen, gebaut, getestet
+                und veröffentlicht werden.
+              </p>
+            </article>
+            <article class="compact-card fragment">
+              <h4>Ohne lokales Setup</h4>
+              <p>
+                Arbeitsumgebung, Ausführung und oft auch Deployment laufen
+                direkt im Browser.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="text-slide" data-auto-animate>
+          <h3>Web-Apps als Vibe-Plattformen</h3>
+          <div class="lead-card fragment">
+            Solche Plattformen decken oft fast den ganzen App-Stack ab.
+          </div>
+          <div class="chip-row fragment">
+            <span class="chip">Frontend</span>
+            <span class="chip">Backend</span>
+            <span class="chip">Datenbank</span>
+            <span class="chip">API-Anbindung</span>
+            <span class="chip">Tests</span>
+            <span class="chip">Deployment</span>
+          </div>
+          <div class="takeaway-strip fragment">
+            Vollständiges Vibe Coding — nur Browser benötigt.
+          </div>
+          <div class="support-card fragment">
             <a href="https://replit.com" target="_blank" rel="noreferrer">
               Vorführung: Replit (→ replit.com)
             </a>
-          </p>
-          <aside class="notes">
-            Dort ein vorgeschlagenes Beispiel bauen und ggf. eine fertige App
-            zeigen. Später wieder zur fertigen App zurückkehren?
-          </aside>
+          </div>
         </section>
 
         <section data-auto-animate>
-          <div class="tools-grid">
+          <div class="tools-strip">
             <a href="https://replit.com" target="_blank" rel="noreferrer">
               <figure>
                 <img
@@ -354,7 +341,7 @@
                 <img
                   src="images/logos/logo-v0.svg"
                   alt="v0 Logo"
-                  class="tool-logo tool-logo-compact"
+                  class="tool-logo"
                 />
                 <figcaption>
                   v0 von Vercel
@@ -445,70 +432,117 @@
           </p>
         </section>
 
-        <section data-auto-animate>
+        <section class="catalog-slide" data-auto-animate>
           <h3>Open-Source Vibe Coding Plattformen</h3>
-          <p class="enum fragment">
-            <b>
-              <a
-                href="https://stackblitz-labs.github.io/bolt.diy/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                bolt.diy
-              </a>
-            </b>
-            — offizielle Open-Source-Variante von bolt.new
-          </p>
-          <p class="enum fragment">
-            <b>
-              <a
-                href="https://github.com/cloudflare/vibesdk"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Cloudflare VibeSDK
-              </a>
-            </b>
-            — für Apps in der Cloudflare-Umgebung
-          </p>
-          <p class="enum fragment">
-            <b>
-              <a
-                href="https://vercel.com/templates/next.js/vibe-coding-platform"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Vercel OSS Vibe Coding Platform
-              </a>
-            </b>
-            — von den Machern von v0.dev
-          </p>
-          <p class="enum fragment offset">
-            Mit API-Keys können verschiedene KI-Modelle bzw. LLMs eingebunden
-            werden.
-          </p>
-          <p class="enum fragment offset">
-            → Somit können Unternehmen und Hochschulen ihre eigene Vibe Coding
-            Plattform hosten.
-          </p>
+          <div class="compact-grid">
+            <article class="compact-card fragment">
+              <h4>
+                <a
+                  href="https://stackblitz-labs.github.io/bolt.diy/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  bolt.diy
+                </a>
+              </h4>
+              <p>Offizielle Open-Source-Variante von bolt.new.</p>
+            </article>
+            <article class="compact-card fragment">
+              <h4>
+                <a
+                  href="https://github.com/cloudflare/vibesdk"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Cloudflare VibeSDK
+                </a>
+              </h4>
+              <p>Für Apps in der Cloudflare-Umgebung.</p>
+            </article>
+            <article class="compact-card fragment wide">
+              <h4>
+                <a
+                  href="https://vercel.com/templates/next.js/vibe-coding-platform"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Vercel OSS Vibe Coding Platform
+                </a>
+              </h4>
+              <p>Von den Machern von v0.dev.</p>
+            </article>
+          </div>
         </section>
 
-        <section data-auto-animate>
+        <section class="text-slide" data-auto-animate>
+          <h3>Open-Source Vibe Coding Plattformen</h3>
+          <div class="lead-card fragment">
+            Mit API-Keys lassen sich verschiedene KI-Modelle und LLMs einbinden.
+          </div>
+          <div class="compact-grid">
+            <article class="compact-card fragment">
+              <h4>Für Hochschulen</h4>
+              <p>
+                Eigene Vibe-Coding-Umgebungen können kontrolliert bereitgestellt
+                und angepasst werden.
+              </p>
+            </article>
+            <article class="compact-card fragment">
+              <h4>Für Unternehmen</h4>
+              <p>
+                Eigene Plattformen können intern gehostet und mit passenden
+                Modellen betrieben werden.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="text-slide" data-auto-animate>
           <h2>IDEs für Vibe Coding</h2>
-          <p class="enum fragment">
-            Entwicklungsumgebungen (IDEs) bieten neben dem Editor oft
-            zusätzliche KI-Funktionen.
-          </p>
-          <p class="enum fragment">
-            In vielen IDEs gibt es verschiedene Tools für KI-gestütztes
-            Arbeiten.
-          </p>
-          <p class="enum fragment">
-            Für Vibe Coding steht meist ein Chat-Interface zur Verfügung, das
-            auch einen Agent-Modus anbietet, der viele Programmieraufgaben
-            weitgehend autonom ausführen kann.
-          </p>
-          <p class="enum fragment offset">
+          <div class="lead-card fragment">
+            Die IDE wird zur Arbeitsfläche für KI-gestütztes Entwickeln.
+          </div>
+          <div class="compact-grid">
+            <article class="compact-card fragment">
+              <h4>Direkt im Editor</h4>
+              <p>
+                Neben dem Code-Editor stehen zusätzliche KI-Funktionen für die
+                tägliche Arbeit bereit.
+              </p>
+            </article>
+            <article class="compact-card fragment">
+              <h4>Im Projektkontext</h4>
+              <p>
+                Die KI arbeitet mit Dateien, Repo-Struktur und bestehendem Code
+                statt nur mit einem isolierten Prompt.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="text-slide" data-auto-animate>
+          <h2>IDEs für Vibe Coding</h2>
+          <div class="lead-card fragment">
+            Für Vibe Coding stehen meist Chat plus Agent-Modus für größere
+            Aufgaben bereit.
+          </div>
+          <div class="compact-grid">
+            <article class="compact-card fragment">
+              <h4>Chat-Interface</h4>
+              <p>
+                Fragen stellen, Änderungen anstoßen und Code direkt in der IDE
+                erklären lassen.
+              </p>
+            </article>
+            <article class="compact-card fragment">
+              <h4>Agent-Modus</h4>
+              <p>
+                Mehrschrittige Programmieraufgaben werden weitgehend autonom
+                bearbeitet.
+              </p>
+            </article>
+          </div>
+          <div class="support-card fragment">
             Tipp: Hochschulangehörige erhalten mit
             <a
               href="https://education.github.com"
@@ -517,8 +551,8 @@
             >
               GitHub Education
             </a>
-            kostenlosen Zugriff auf die Pro-Version von GitHub Copilot.
-          </p>
+            kostenlosen Zugriff auf GitHub Copilot Pro.
+          </div>
         </section>
 
         <section class="visual-slide">
@@ -541,7 +575,7 @@
 
         <section data-auto-animate>
           <h4>IDEs für Vibe Coding</h4>
-          <div class="tools-grid">
+          <div class="tools-strip">
             <a
               href="https://code.visualstudio.com"
               target="_blank"
@@ -633,9 +667,6 @@
               </figcaption>
             </figure>
           </div>
-          <aside class="notes">
-            Amp, Factory, Trae, Cline, RooCode, u.v.a.m.
-          </aside>
         </section>
 
         <section data-auto-animate>
@@ -680,192 +711,212 @@
             Zusammenarbeit“ mit der KI als
             <span class="red">AI Assisted Engineering</span>.
           </p>
-          <p class="enum fragment">
-            Simon Willison, Mitbegründer des Web-Frameworks Django und bekannter
-            KI-Blogger, schlägt den Begriff „Vibe Engineering“ vor:
-          </p>
-          <blockquote class="fragment">
-            I feel like vibe coding is pretty well established now as covering
-            the <b class="red">fast, loose and irresponsible way</b> of building
-            software with AI. What should we call the other end of the spectrum,
-            where <b class="red">seasoned professionals</b>
-            accelerate their work? I propose we call this
-            <b class="red">vibe engineering</b>
-          </blockquote>
-          <small class="fragment">
-            Quelle (oben leicht angepasst):
-            <a
-              href="https://simonwillison.net/2025/Oct/7/vibe-engineering/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              https://simonwillison.net/2025/Oct/7/vibe-engineering/
-            </a>
-          </small>
-          <aside class="notes">
-            Anders als bei Vibe Coding gibt es keinen festen Begriff — „AI
-            Assisted Engineering“ ist eine mögliche Bezeichnung.
-          </aside>
         </section>
 
-        <section>
+        <section class="text-slide">
           <h3>CLIs im Terminal als Assistenten</h3>
-          <p class="enum fragment">
-            In Terminal-CLIs gezielt und planvoll mit der KI zusammenarbeiten:
-          </p>
-          <p class="enum offset fragment">
-            <b>Onboarding:</b> „Analysiere dieses Repository und erkläre mir
-            Architektur und zentrale Konzepte des Projekts.“
-          </p>
-          <p class="enum offset fragment">
-            <b>Qualität:</b> „Untersuche den Code auf mögliche Bugs,
-            Sicherheitsprobleme und offensichtliche Code Smells.“
-          </p>
-          <p class="enum offset fragment">
-            <b>Migrationen/Updates:</b> „Erstelle einen Plan und Patches, um
-            Bibliotheken und Abhängigkeiten zu aktualisieren.“
-          </p>
-          <p class="enum offset fragment">
-            <b>Systematisches Coding:</b> „Hier sind Anforderungen an eine
-            Funktion. Entwerfe passende Unit-Tests, ohne die Funktion zu
-            implementieren.“
-          </p>
-          <p class="enum offset fragment">
-            → Typische Tätigkeiten eines Software Engineers → hier mit KI
-          </p>
+          <div class="lead-card fragment">
+            Im Terminal lässt sich planvoll mit der KI an echten
+            Engineering-Aufgaben arbeiten.
+          </div>
+          <div class="compact-grid">
+            <article class="compact-card fragment">
+              <h4>Onboarding</h4>
+              <p>
+                Architektur und zentrale Konzepte eines Repositories erklären
+                lassen.
+              </p>
+            </article>
+            <article class="compact-card fragment">
+              <h4>Qualität</h4>
+              <p>
+                Code auf Bugs, Sicherheitsprobleme und offensichtliche Smells
+                prüfen.
+              </p>
+            </article>
+            <article class="compact-card fragment">
+              <h4>Migrationen</h4>
+              <p>
+                Updates planen und passende Patches für Abhängigkeiten
+                vorbereiten.
+              </p>
+            </article>
+            <article class="compact-card fragment">
+              <h4>Systematisches Coding</h4>
+              <p>
+                Anforderungen zuerst in Tests oder einen klaren Plan übersetzen.
+              </p>
+            </article>
+          </div>
+          <div class="takeaway-strip fragment">
+            Typische Tätigkeiten eines Software Engineers — hier mit
+            KI-Unterstützung.
+          </div>
         </section>
 
-        <section data-auto-animate>
+        <section class="text-slide" data-auto-animate>
           <h3>Fähigkeiten von KI in IDEs</h3>
-          <p class="enum fragment">
-            <b>Tab-Completion:</b> Code-Vervollständigungen durch KI beim Tippen
-          </p>
-          <p class="enum fragment">
-            <b>Chat im Editor:</b> Fragen direkt inline zu bestimmtem Code
-            stellen.
-          </p>
-          <p class="enum fragment">
-            <b>Plan- und Agent-Modus im Chat:</b> komplexe Aufgaben in Schritte
-            zerlegen und gezielte Code-Änderungen vorschlagen lassen.
-          </p>
-          <p class="enum fragment">
-            <b>Multi-Agenten (Agent HQ):</b> spezialisierte Agenten (z.B. für
-            Tests, Refactoring, Doku) arbeiten koordiniert am Projekt.
-          </p>
-          <p class="enum fragment offset">
-            → Aus der IDE lassen sich Aufgaben direkt an Cloud-Agents (z.B.
-            GitHub oder OpenAI/Codex) delegieren.
-          </p>
+          <div class="compact-grid">
+            <article class="compact-card fragment">
+              <span class="eyebrow">Tab-Completion</span>
+              <p>Code-Vervollständigungen direkt beim Tippen.</p>
+            </article>
+            <article class="compact-card fragment">
+              <span class="eyebrow">Chat im Editor</span>
+              <p>Fragen direkt im Code-Kontext stellen.</p>
+            </article>
+            <article class="compact-card fragment">
+              <span class="eyebrow">Plan- und Agent-Modus</span>
+              <p>Komplexe Aufgaben strukturieren und Änderungen umsetzen.</p>
+            </article>
+            <article class="compact-card fragment">
+              <span class="eyebrow">Multi-Agenten</span>
+              <p>Tests, Refactoring oder Doku gezielt an Spezialisten geben.</p>
+            </article>
+          </div>
+          <div class="support-card fragment">
+            Aus der IDE lassen sich Aufgaben direkt an Cloud-Agents delegieren,
+            zum Beispiel an GitHub oder OpenAI/Codex.
+          </div>
         </section>
 
-        <section data-auto-animate>
+        <section class="text-slide" data-auto-animate>
           <h3>Coding-Agents in der Cloud</h3>
-          <p class="enum fragment">
-            Cloud-Agents laufen als Dienste in der Cloud, arbeiten eigenständig
-            mit ganzen Repositories (z.B. GitHub), werden im Browser gesteuert.
-          </p>
-          <p class="enum fragment">
-            Sie können große Codebasen analysieren, Änderungen planen und
-            schrittweise umsetzen (Branches, Commits, Pull Requests).
-          </p>
-          <p class="enum fragment">
-            IDEs und CLIs delegieren Aufgaben an diese Agents — der Agent
-            übernimmt das „Heavy Lifting“ und meldet den Fortschritt zurück.
-          </p>
-          <p class="enum fragment offset">
-            → Eher für größere Änderungen, Migrationen und lang laufende
-            Aufgaben geeignet (z.T. mehrere Stunden, perspektivisch länger).
-          </p>
+          <div class="lead-card fragment">
+            Cloud-Agents arbeiten eigenständig mit ganzen Repositories und
+            werden meist im Browser gesteuert.
+          </div>
+          <div class="compact-grid">
+            <article class="compact-card fragment">
+              <h4>Arbeitsweise</h4>
+              <p>
+                Sie analysieren Codebasen, planen Änderungen und setzen sie
+                schrittweise um.
+              </p>
+            </article>
+            <article class="compact-card fragment">
+              <h4>Outputs</h4>
+              <p>
+                Branches, Commits und Pull Requests machen die Arbeit
+                nachvollziehbar.
+              </p>
+            </article>
+          </div>
+          <div class="support-card fragment">
+            IDEs und CLIs delegieren das Heavy Lifting an diese Agents. Sie
+            eignen sich besonders für größere Änderungen, Migrationen und lang
+            laufende Aufgaben.
+          </div>
         </section>
 
-        <section data-auto-animate>
+        <section class="catalog-slide" data-auto-animate>
           <h2>Beispiele für Coding-Agents</h2>
-          <p class="enum">
-            <b>
-              <a
-                href="https://developers.openai.com/codex/cloud/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                OpenAI Codex </a
-              >:
-            </b>
-            cloudbasierter Coding-Agent, der Repositories in einer Sandbox klont
-            und Pull Requests vorschlägt.
-          </p>
-          <p class="enum">
-            <b>
-              <a
-                href="https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent"
-                target="_blank"
-                rel="noreferrer"
-              >
-                GitHub Copilot Coding Agent </a
-              >:
-            </b>
-            in GitHubs Cloud, verarbeitet Issues oder Pull Requests und erstellt
-            bzw. aktualisiert passende PRs.
-          </p>
-          <p class="enum">
-            Weitere:
-            <b>
-              <a
-                href="https://code.claude.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Claude Code
-              </a> </b
-            >,
-            <b>
-              <a href="https://jules.google/" target="_blank" rel="noreferrer">
-                Google Jules
-              </a> </b
-            >,
-            <b>
-              <a
-                href="https://cursor.com/docs/cloud-agent"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Cursor Cloud Agents
-              </a> </b
-            >, …
-          </p>
-          <p class="enum">
-            Die Coding-Agents in der Cloud ähneln sich: sie klonen Repos,
-            analysieren Code, planen Änderungen und liefern PRs zurück.
-          </p>
-          <p class="enum fragment offset red">
-            → Coding Agents als „(Junior) Software Engineers in der Cloud“.
-          </p>
+          <div class="compact-grid">
+            <article class="compact-card fragment">
+              <h4>
+                <a
+                  href="https://developers.openai.com/codex/cloud/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  OpenAI Codex
+                </a>
+              </h4>
+              <p>
+                Cloud-Agent, klont Repositories in einer Sandbox und schlägt
+                Pull Requests vor.
+              </p>
+            </article>
+            <article class="compact-card fragment">
+              <h4>
+                <a
+                  href="https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  GitHub Copilot Coding Agent
+                </a>
+              </h4>
+              <p>
+                Arbeitet in GitHubs Cloud auf Basis von Issues oder Pull
+                Requests.
+              </p>
+            </article>
+            <article class="compact-card fragment wide">
+              <h4>Weitere</h4>
+              <p>
+                <a
+                  href="https://code.claude.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Claude Code </a
+                >,
+                <a
+                  href="https://jules.google/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Google Jules </a
+                >,
+                <a
+                  href="https://cursor.com/docs/cloud-agent"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Cursor Cloud Agents
+                </a>
+                und weitere.
+              </p>
+            </article>
+          </div>
+          <div class="takeaway-strip fragment">
+            Coding Agents arbeiten wie (Junior) Software Engineers in der Cloud.
+          </div>
         </section>
 
-        <section data-auto-animate>
+        <section class="takeaway-slide" data-auto-animate>
           <h3>Fazit &amp; Takeaways</h3>
-          <p class="enum fragment">
-            <b>1. Vibe Coding:</b> schnell, explorativ, ideal für Ideen, Lernen,
-            Experimente und Prototyping — „echte“ Aufgaben ggf. mit Risiko.
-          </p>
-          <p class="enum fragment">
-            <b>2. AI Assisted Engineering:</b> professionelle Zusammenarbeit mit
-            der KI planvoll, nachvollziehbar und reviewbar gestalten.
-          </p>
-          <p class="enum fragment">
-            <b>3. Drei Tool-Plattformen:</b> Browser, IDE und Terminal bieten
-            jeweils Vibe- und Engineering-Modi — passenden Kontext wählen.
-          </p>
-          <p class="enum fragment">
-            <b>4. Coding-Agents in der Cloud:</b> arbeiten wie
-            (Junior-)Engineers am Repository und liefern Pläne, Diffs und Pull
-            Requests (viel Potenzial!).
-          </p>
-          <p class="enum fragment offset">
-            Wann verwenden wir welches (KI-)Tool? → selbst reviewen!
-            <br />
-            → Am Ende sind <span class="red">wir</span> für den Code
-            verantwortlich!
-          </p>
+          <div class="compact-grid">
+            <article class="compact-card fragment">
+              <span class="eyebrow">1. Vibe Coding</span>
+              <p>
+                Schnell und explorativ — gut für Ideen, Lernen und Prototyping.
+              </p>
+            </article>
+            <article class="compact-card fragment">
+              <span class="eyebrow">2. AI Assisted Engineering</span>
+              <p>
+                Professionelle Zusammenarbeit mit KI planvoll und reviewbar
+                gestalten.
+              </p>
+            </article>
+            <article class="compact-card fragment">
+              <span class="eyebrow">3. Drei Plattformen</span>
+              <p>
+                Browser, IDE und Terminal bieten jeweils eigene Stärken und
+                Modi.
+              </p>
+            </article>
+            <article class="compact-card fragment">
+              <span class="eyebrow">4. Coding-Agents</span>
+              <p>
+                Cloud-Agents liefern Pläne, Diffs und Pull Requests mit viel
+                Potenzial.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="takeaway-slide" data-auto-animate>
+          <h3>Fazit &amp; Takeaways</h3>
+          <div class="lead-card fragment">
+            Welches KI-Tool passt zum jeweiligen Kontext?
+          </div>
+          <div class="takeaway-strip fragment">
+            Selbst reviewen, bewusst auswählen und klar bleiben:
+            <strong>Am Ende sind wir für den Code verantwortlich.</strong>
+          </div>
         </section>
 
         <section class="split-slide">
@@ -880,10 +931,6 @@
               </p>
               <p class="enum fragment">
                 …und vielleicht auch in die Programmierung „hineinwachsen“?
-              </p>
-              <p class="enum fragment">
-                Haben wir anfangs eine App mit Vibe Coding bauen lassen, die nun
-                fertig ist? (→ Replit?)
               </p>
             </div>
             <div class="stacked-media">
@@ -901,13 +948,8 @@
 
         <section class="closing-slide">
           <h2>Vielen Dank!</h2>
-          <h2>Zeit für Fragen…</h2>
+          <h3>Zeit für Fragen…</h3>
           <h4>Erik Behrends</h4>
-        </section>
-
-        <section class="end-slide">
-          <h2>ENDE</h2>
-          <a href="/praesi/04-beispiel">← zurück zum Workshop</a>
         </section>
       </div>
     </div>
