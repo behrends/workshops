@@ -207,7 +207,7 @@ small {
 
 .tools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.15rem;
   align-items: start;
 }
@@ -218,8 +218,7 @@ small {
 
 .tools-grid figure {
   margin: 0;
-  min-height: 176px;
-  padding: 1.15rem 0.95rem 1rem;
+  padding: 0.9rem 0.8rem 0.85rem;
   border-radius: 24px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: linear-gradient(180deg, rgba(19, 25, 33, 0.96) 0%, rgba(15, 21, 29, 0.92) 100%);
@@ -230,8 +229,8 @@ small {
 .reveal .slides .tool-logo {
   display: block;
   width: auto;
-  height: 80px;
-  margin: 0 auto 0.85rem;
+  height: 60px;
+  margin: 0 auto 0.6rem;
   object-fit: contain;
   border: none;
   background: transparent;
@@ -240,13 +239,14 @@ small {
 }
 
 .reveal .slides .tool-logo-compact {
-  height: 64px;
+  height: 48px;
 }
 
 figcaption {
   font-size: 0.64em;
   line-height: 1.28;
   color: var(--deck-muted);
+  overflow-wrap: break-word;
 }
 
 .reveal .slides img {
