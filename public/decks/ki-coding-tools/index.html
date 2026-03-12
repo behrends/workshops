@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <meta
+      name="description"
+      content="KI Coding Tools - Beispielpräsentation im Studienzentrum Informatik an der DHBW Lörrach"
+    />
+    <meta name="author" content="Prof. Dr. Erik Behrends" />
+
+    <title>KI Coding Tools</title>
+    <base href="/decks/ki-coding-tools/" />
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/vendor/reveal/dist/reset.css" />
+    <link rel="stylesheet" href="/vendor/reveal/dist/reveal.css" />
+    <link rel="stylesheet" href="/vendor/reveal/dist/theme/dhbw.css" />
+    <link rel="stylesheet" href="./deck.css" />
+  </head>
+
+  <body>
+    <div id="speaker-status" class="speaker-status" hidden>
+      Popup blockiert - bitte mit <strong>S</strong> die Speaker View öffnen.
+    </div>
+
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h2>Beispiel-Präsentation</h2>
+          <p class="enum">
+            Es folgt eine Präsentation, die die Vorstellung eines Themas zeigt.
+          </p>
+          <p class="enum">Dauer: ca. 25 Minuten</p>
+        </section>
+
+        <section>
+          <h2>Vorbemerkung</h2>
+          <p class="enum">Erinnerung für Dozenten:</p>
+          <p class="enum offset">
+            Präsentation im Vorfeld ggf. aktualisieren und üben (auch Demos)
+          </p>
+          <p class="enum offset">
+            Es gibt auch Notizen zu Folien (siehe <code>aside</code>-Elemente)
+          </p>
+          <p class="enum offset">Presenter verwenden</p>
+          <p class="enum offset">Auf die Zeit achten</p>
+          <p class="enum">Ok, es geht los →</p>
+        </section>
+
+        <section class="hero-slide" data-auto-animate>
+          <h1>KI Coding Tools</h1>
+          <h3>Vibe Coding &amp; AI Assisted Engineering</h3>
+          <h4 class="enum">
+            Ein Überblick über aktuelle Vorgehensweisen und Werkzeuge
+          </h4>
+          <h4 class="hero-meta">Erik Behrends · DHBW Lörrach</h4>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Warum KI Coding Tools?</h2>
+          <p class="enum fragment">
+            KI-Tools können Programmcode analysieren, erzeugen und verändern —
+            in der Softwareentwicklung werden diese Tools immer mächtiger und
+            wichtiger.
+          </p>
+          <p class="enum fragment">
+            Ziel heute: einen Überblick gewinnen,
+            <span class="red">Vorgehensweisen</span> und
+            <span class="red">Werkzeuge</span> einordnen und bewusst auswählen.
+          </p>
+        </section>
+
+        <section class="roadmap-slide">
+          <h3 class="fragment">Vorgehensweisen</h3>
+          <div class="roadmap-row">
+            <p class="red fragment">Vibe Coding</p>
+            <p class="red fragment">AI Assisted Engineering</p>
+          </div>
+          <h3 class="fragment">Werkzeuge</h3>
+          <p class="red offset fragment">Anwendungen im Browser</p>
+          <p class="red offset fragment">Entwicklungsumgebungen (IDEs)</p>
+          <p class="red offset fragment">
+            Command Line Interfaces (CLIs, im Terminal)
+          </p>
+          <aside class="notes">
+            Wir können dies als roten Faden an das Whiteboard schreiben.
+          </aside>
+        </section>
+
+        <section>
+          <h3 class="accent-headline">Vibe Coding</h3>
+          <p class="enum fragment">
+            Andrej Karpathy (u.a. Ex-Director of AI bei Tesla) im Februar 2025:
+          </p>
+          <blockquote class="fragment">
+            There's a new kind of coding I call
+            <b class="red">"vibe coding"</b>, where you fully give in to the
+            vibes […] and <b class="red">forget that the code</b> even exists.
+            <br />
+            […] <br />
+            I'm building a project or webapp, but it's
+            <b class="red">not really coding</b> - I just see stuff, say stuff,
+            run stuff, and copy paste stuff, and it mostly works.
+          </blockquote>
+          <small class="fragment">
+            Quelle:
+            <a
+              href="https://x.com/karpathy/status/1710842501382639983"
+              target="_blank"
+              rel="noreferrer"
+            >
+              https://x.com/karpathy/status/1710842501382639983
+            </a>
+          </small>
+          <aside class="notes">
+            Bereits am 24.1.2023 schrieb er dies:
+            <i>The hottest new programming language is English</i> Quelle:
+            https://x.com/karpathy/status/1617979122625712128
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <h3>Browser-Tools in KI-Chats (Vibe)</h3>
+          <p class="enum fragment">
+            Viele KI-Chats können Code nicht nur generieren, sondern auch direkt
+            in einer isolierten Umgebung (Sandbox) ausführen.
+          </p>
+          <p class="enum fragment">
+            Von kleinen UI-Komponenten oder Code-Schnipseln bis zu Projekten mit
+            mehreren Dateien ist einiges möglich.
+          </p>
+        </section>
+
+        <section data-auto-animate>
+          <h3>Browser-Tools in KI-Chats (Vibe)</h3>
+          <p class="enum red">
+            <a href="https://chatgpt.com" target="_blank" rel="noreferrer">
+              Vorführung: ChatGPT im Browser
+            </a>
+          </p>
+          <blockquote>
+            Bau eine App, die per Knopfdruck 5 Minuten rückwärts zählt und
+            zufällig eine Aktivität zur Entspannung zeigt (z.B. Atemübung,
+            Strecken, Visualisierung, Kaffee holen, usw.). Denk dir passende
+            Übungen aus. Mit motivierenden Texten!
+          </blockquote>
+        </section>
+
+        <section class="media-pair-slide">
+          <!-- Add screenshots under ./images/ -->
+          <div class="image-pair">
+            <img
+              src="images/relax-app1.jpg"
+              alt="Screenshot ChatGPT Vibe Coding Relax App 1"
+            />
+            <img
+              src="images/relax-app2.jpg"
+              alt="Screenshot ChatGPT Vibe Coding Relax App 2"
+            />
+          </div>
+          <p class="slide-note">
+            Dies sind „One Shot“-Ergebnisse des Prompts auf der vorigen Folie.
+          </p>
+          <aside class="notes">
+            Der Prompt liefert immer eine andere Variante. → Eigene Experimente
+            mit mehr Details und spezifische Anweisungen.
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <div class="tools-grid">
+            <a href="https://chat.com" target="_blank" rel="noreferrer">
+              <figure>
+                <img
+                  src="images/logos/logo-openai-white.svg"
+                  alt="ChatGPT Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  ChatGPT von OpenAI
+                  <br />
+                  chat.com
+                </figcaption>
+              </figure>
+            </a>
+            <a href="https://claude.ai" target="_blank" rel="noreferrer">
+              <figure>
+                <img
+                  src="images/logos/logo-claude.svg"
+                  alt="Claude Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  Claude von Anthropic
+                  <br />
+                  claude.ai
+                </figcaption>
+              </figure>
+            </a>
+            <a
+              href="https://gemini.google.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <figure>
+                <img
+                  src="images/logos/logo-gemini.svg"
+                  alt="Gemini Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  Gemini von Google
+                  <br />
+                  gemini.google.com
+                </figcaption>
+              </figure>
+            </a>
+            <a href="https://kimi.com" target="_blank" rel="noreferrer">
+              <figure>
+                <img
+                  src="images/logos/logo-kimi.svg"
+                  alt="Kimi Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  Kimi von Moonshot AI
+                  <br />
+                  kimi.com
+                </figcaption>
+              </figure>
+            </a>
+            <a href="https://deepseek.com" target="_blank" rel="noreferrer">
+              <figure>
+                <img
+                  src="images/logos/logo-deepseek.svg"
+                  alt="DeepSeek Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  DeepSeek
+                  <br />
+                  deepseek.com
+                </figcaption>
+              </figure>
+            </a>
+            <a href="https://chat.mistral.ai" target="_blank" rel="noreferrer">
+              <figure>
+                <img
+                  src="images/logos/logo-mistral.svg"
+                  alt="Mistral Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  Le Chat von Mistral
+                  <br />
+                  chat.mistral.ai
+                </figcaption>
+              </figure>
+            </a>
+            <a href="https://perplexity.com" target="_blank" rel="noreferrer">
+              <figure>
+                <img
+                  src="images/logos/logo-perplexity.svg"
+                  alt="Perplexity Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  Perplexity
+                  <br />
+                  perplexity.com
+                </figcaption>
+              </figure>
+            </a>
+            <figure>
+              <img
+                src="images/logos/logo-question-mark.svg"
+                alt="Question Mark"
+                class="tool-logo"
+              />
+              <figcaption>
+                weitere…
+                <br />
+                GLM (z.ai), MiniMax.io, …
+              </figcaption>
+            </figure>
+          </div>
+          <p class="enum fragment offset">
+            Tipp:
+            <a
+              href="https://aistudio.google.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              AI Studio von Google
+            </a>
+            bietet neben Coding auch vieles mehr.
+          </p>
+          <aside class="notes">
+            Die Chats bieten in der Regel kostenlosen Zugang. Stand 11/2025
+            konnte Mistral keinen Code ausführen. Gibt es noch weitere?
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <h3>Web-Apps als Vibe-Plattformen</h3>
+          <p class="enum fragment">
+            Entwicklungsumgebung im Browser für umfangreiche Projekte.
+          </p>
+          <p class="enum fragment">
+            Komplette Apps verschiedenster Art können via Prompting entworfen,
+            gebaut, getestet und veröffentlicht werden.
+          </p>
+          <p class="enum fragment">
+            (komplett mit Frontend, Backend, Datenbank, API-Anbindung usw.)
+          </p>
+          <p class="enum fragment">
+            → Vollständiges Vibe Coding — nur Browser benötigt (ohne Setup!).
+          </p>
+          <p class="enum red fragment">
+            <a href="https://replit.com" target="_blank" rel="noreferrer">
+              Vorführung: Replit (→ replit.com)
+            </a>
+          </p>
+          <aside class="notes">
+            Dort ein vorgeschlagenes Beispiel bauen und ggf. eine fertige App
+            zeigen. Später wieder zur fertigen App zurückkehren?
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <div class="tools-grid">
+            <a href="https://replit.com" target="_blank" rel="noreferrer">
+              <figure>
+                <img
+                  src="images/logos/logo-replit.svg"
+                  alt="Replit Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  Replit
+                  <br />
+                  replit.com
+                </figcaption>
+              </figure>
+            </a>
+            <a href="https://v0.dev" target="_blank" rel="noreferrer">
+              <figure>
+                <img
+                  src="images/logos/logo-v0.svg"
+                  alt="v0 Logo"
+                  class="tool-logo tool-logo-compact"
+                />
+                <figcaption>
+                  v0 von Vercel
+                  <br />
+                  v0.dev
+                </figcaption>
+              </figure>
+            </a>
+            <a href="https://lovable.dev" target="_blank" rel="noreferrer">
+              <figure>
+                <img
+                  src="images/logos/logo-lovable.svg"
+                  alt="Lovable Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  Lovable
+                  <br />
+                  lovable.dev
+                </figcaption>
+              </figure>
+            </a>
+            <a href="https://bolt.new" target="_blank" rel="noreferrer">
+              <figure>
+                <img
+                  src="images/logos/logo-bolt.svg"
+                  alt="Bolt Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  Bolt von StackBlitz
+                  <br />
+                  bolt.new
+                </figcaption>
+              </figure>
+            </a>
+            <a
+              href="https://firebase.studio.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <figure>
+                <img
+                  src="images/logos/logo-firebase-studio.svg"
+                  alt="Firebase Studio Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  Firebase Studio von Google
+                  <br />
+                  firebase.studio.com
+                </figcaption>
+              </figure>
+            </a>
+            <a
+              href="https://github.com/features/spark"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <figure>
+                <img
+                  src="images/logos/logo-github.svg"
+                  alt="GitHub Spark Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  Spark von GitHub
+                  <br />
+                  github.com/features/spark
+                </figcaption>
+              </figure>
+            </a>
+            <figure>
+              <img
+                src="images/logos/logo-question-mark.svg"
+                alt="Question Mark"
+                class="tool-logo"
+              />
+              <figcaption>
+                weitere
+                <br />
+                …
+              </figcaption>
+            </figure>
+          </div>
+          <p class="fragment">
+            Der kostenlose Zugang ist bei vielen Tools ziemlich eingeschränkt.
+          </p>
+          <p class="fragment">
+            Viele ehemalige No-/Low-Code-Plattformen bieten inzwischen
+            KI-gestütztes Coding an — z.T. mit Vibe Coding-Funktionalität.
+          </p>
+        </section>
+
+        <section data-auto-animate>
+          <h3>Open-Source Vibe Coding Plattformen</h3>
+          <p class="enum fragment">
+            <b>
+              <a
+                href="https://stackblitz-labs.github.io/bolt.diy/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                bolt.diy
+              </a>
+            </b>
+            — offizielle Open-Source-Variante von bolt.new
+          </p>
+          <p class="enum fragment">
+            <b>
+              <a
+                href="https://github.com/cloudflare/vibesdk"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Cloudflare VibeSDK
+              </a>
+            </b>
+            — für Apps in der Cloudflare-Umgebung
+          </p>
+          <p class="enum fragment">
+            <b>
+              <a
+                href="https://vercel.com/templates/next.js/vibe-coding-platform"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Vercel OSS Vibe Coding Platform
+              </a>
+            </b>
+            — von den Machern von v0.dev
+          </p>
+          <p class="enum fragment offset">
+            Mit API-Keys können verschiedene KI-Modelle bzw. LLMs eingebunden
+            werden.
+          </p>
+          <p class="enum fragment offset">
+            → Somit können Unternehmen und Hochschulen ihre eigene Vibe Coding
+            Plattform hosten.
+          </p>
+        </section>
+
+        <section data-auto-animate>
+          <h2>IDEs für Vibe Coding</h2>
+          <p class="enum fragment">
+            Entwicklungsumgebungen (IDEs) bieten neben dem Editor oft
+            zusätzliche KI-Funktionen.
+          </p>
+          <p class="enum fragment">
+            In vielen IDEs gibt es verschiedene Tools für KI-gestütztes
+            Arbeiten.
+          </p>
+          <p class="enum fragment">
+            Für Vibe Coding steht meist ein Chat-Interface zur Verfügung, das
+            auch einen Agent-Modus anbietet, der viele Programmieraufgaben
+            weitgehend autonom ausführen kann.
+          </p>
+          <p class="enum fragment offset">
+            Tipp: Hochschulangehörige erhalten mit
+            <a
+              href="https://education.github.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub Education
+            </a>
+            kostenlosen Zugriff auf die Pro-Version von GitHub Copilot.
+          </p>
+        </section>
+
+        <section class="visual-slide">
+          <img
+            src="images/vibe-coding-vs-code.png"
+            alt="Screenshot VS Code mit GitHub Copilot Chat im Agent-Modus"
+            class="showcase-image"
+          />
+          <p class="enum fragment red">
+            <a
+              href="https://code.visualstudio.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Falls Zeit/Interesse: VS Code mit GitHub Copilot (Chat
+              Agent-Modus)
+            </a>
+          </p>
+        </section>
+
+        <section data-auto-animate>
+          <h4>IDEs für Vibe Coding</h4>
+          <div class="tools-grid">
+            <a
+              href="https://code.visualstudio.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <figure>
+                <img
+                  src="images/logos/logo-vscode.svg"
+                  alt="Visual Studio Code Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  VS Code mit GitHub Copilot
+                  <br />
+                  code.visualstudio.com
+                </figcaption>
+              </figure>
+            </a>
+            <a href="https://cursor.com" target="_blank" rel="noreferrer">
+              <figure>
+                <img
+                  src="images/logos/logo-cursor.svg"
+                  alt="Cursor Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  Cursor
+                  <br />
+                  cursor.com
+                </figcaption>
+              </figure>
+            </a>
+            <a
+              href="https://antigravity.google"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <figure>
+                <img
+                  src="images/logos/logo-antigravity.svg"
+                  alt="Google Antigravity Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  Antigravity von Google
+                  <br />
+                  antigravity.google
+                </figcaption>
+              </figure>
+            </a>
+            <a href="https://jetbrains.com" target="_blank" rel="noreferrer">
+              <figure>
+                <img
+                  src="images/logos/logo-jetbrains.svg"
+                  alt="JetBrains Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  IDEs von JetBrains
+                  <br />
+                  jetbrains.com
+                </figcaption>
+              </figure>
+            </a>
+            <a href="https://devin.com" target="_blank" rel="noreferrer">
+              <figure>
+                <img
+                  src="images/logos/logo-devin.svg"
+                  alt="Devin Logo"
+                  class="tool-logo"
+                />
+                <figcaption>
+                  Devin von Cognition
+                  <br />
+                  devin.com
+                </figcaption>
+              </figure>
+            </a>
+            <figure>
+              <img
+                src="images/logos/logo-question-mark.svg"
+                alt="Question Mark"
+                class="tool-logo"
+              />
+              <figcaption>
+                weitere
+                <br />
+                …
+              </figcaption>
+            </figure>
+          </div>
+          <aside class="notes">
+            Amp, Factory, Trae, Cline, RooCode, u.v.a.m.
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Terminal-CLIs mit KI (Vibe)</h2>
+          <p class="enum fragment">
+            Viele haben das Terminal bzw. die Kommandozeile als Umgebung für
+            Vibe Coding (wieder-)entdeckt.
+          </p>
+          <p class="enum fragment">
+            → Vibe Coding in einer rein textbasierten, fokussierten Umgebung.
+          </p>
+          <p class="enum fragment">
+            Manche haben mehrere Agents in eigenen Terminals laufen, die
+            verschiedene (Teil-)Aufgaben übernehmen — ist das noch Vibe Coding
+            im ursprünglichen Sinn?
+          </p>
+        </section>
+
+        <section class="visual-slide">
+          <img
+            src="images/vibe-coding-cli.jpg"
+            alt="Terminal/CLI Vibe Coding"
+            class="showcase-image"
+          />
+        </section>
+
+        <section>
+          <h3>Wann ist Vibe Coding passend?</h3>
+          <p class="enum fragment">
+            Schnelles Ausprobieren und Explorieren von Ideen
+          </p>
+          <p class="enum fragment">
+            Kleine Snippets, Lernbeispiele, Prototyping
+          </p>
+          <p class="enum fragment">Erstellung kompletter Apps 🤔 ?</p>
+        </section>
+
+        <section>
+          <h3 class="accent-headline">AI Assisted Engineering</h3>
+          <p class="enum fragment">
+            Im Gegensatz zu reinem Vibe Coding bezeichnen wir „professionelle
+            Zusammenarbeit“ mit der KI als
+            <span class="red">AI Assisted Engineering</span>.
+          </p>
+          <p class="enum fragment">
+            Simon Willison, Mitbegründer des Web-Frameworks Django und bekannter
+            KI-Blogger, schlägt den Begriff „Vibe Engineering“ vor:
+          </p>
+          <blockquote class="fragment">
+            I feel like vibe coding is pretty well established now as covering
+            the <b class="red">fast, loose and irresponsible way</b> of building
+            software with AI. What should we call the other end of the spectrum,
+            where <b class="red">seasoned professionals</b>
+            accelerate their work? I propose we call this
+            <b class="red">vibe engineering</b>
+          </blockquote>
+          <small class="fragment">
+            Quelle (oben leicht angepasst):
+            <a
+              href="https://simonwillison.net/2025/Oct/7/vibe-engineering/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              https://simonwillison.net/2025/Oct/7/vibe-engineering/
+            </a>
+          </small>
+          <aside class="notes">
+            Anders als bei Vibe Coding gibt es keinen festen Begriff — „AI
+            Assisted Engineering“ ist eine mögliche Bezeichnung.
+          </aside>
+        </section>
+
+        <section>
+          <h3>CLIs im Terminal als Assistenten</h3>
+          <p class="enum fragment">
+            In Terminal-CLIs gezielt und planvoll mit der KI zusammenarbeiten:
+          </p>
+          <p class="enum offset fragment">
+            <b>Onboarding:</b> „Analysiere dieses Repository und erkläre mir
+            Architektur und zentrale Konzepte des Projekts.“
+          </p>
+          <p class="enum offset fragment">
+            <b>Qualität:</b> „Untersuche den Code auf mögliche Bugs,
+            Sicherheitsprobleme und offensichtliche Code Smells.“
+          </p>
+          <p class="enum offset fragment">
+            <b>Migrationen/Updates:</b> „Erstelle einen Plan und Patches, um
+            Bibliotheken und Abhängigkeiten zu aktualisieren.“
+          </p>
+          <p class="enum offset fragment">
+            <b>Systematisches Coding:</b> „Hier sind Anforderungen an eine
+            Funktion. Entwerfe passende Unit-Tests, ohne die Funktion zu
+            implementieren.“
+          </p>
+          <p class="enum offset fragment">
+            → Typische Tätigkeiten eines Software Engineers → hier mit KI
+          </p>
+        </section>
+
+        <section data-auto-animate>
+          <h3>Fähigkeiten von KI in IDEs</h3>
+          <p class="enum fragment">
+            <b>Tab-Completion:</b> Code-Vervollständigungen durch KI beim Tippen
+          </p>
+          <p class="enum fragment">
+            <b>Chat im Editor:</b> Fragen direkt inline zu bestimmtem Code
+            stellen.
+          </p>
+          <p class="enum fragment">
+            <b>Plan- und Agent-Modus im Chat:</b> komplexe Aufgaben in Schritte
+            zerlegen und gezielte Code-Änderungen vorschlagen lassen.
+          </p>
+          <p class="enum fragment">
+            <b>Multi-Agenten (Agent HQ):</b> spezialisierte Agenten (z.B. für
+            Tests, Refactoring, Doku) arbeiten koordiniert am Projekt.
+          </p>
+          <p class="enum fragment offset">
+            → Aus der IDE lassen sich Aufgaben direkt an Cloud-Agents (z.B.
+            GitHub oder OpenAI/Codex) delegieren.
+          </p>
+        </section>
+
+        <section data-auto-animate>
+          <h3>Coding-Agents in der Cloud</h3>
+          <p class="enum fragment">
+            Cloud-Agents laufen als Dienste in der Cloud, arbeiten eigenständig
+            mit ganzen Repositories (z.B. GitHub), werden im Browser gesteuert.
+          </p>
+          <p class="enum fragment">
+            Sie können große Codebasen analysieren, Änderungen planen und
+            schrittweise umsetzen (Branches, Commits, Pull Requests).
+          </p>
+          <p class="enum fragment">
+            IDEs und CLIs delegieren Aufgaben an diese Agents — der Agent
+            übernimmt das „Heavy Lifting“ und meldet den Fortschritt zurück.
+          </p>
+          <p class="enum fragment offset">
+            → Eher für größere Änderungen, Migrationen und lang laufende
+            Aufgaben geeignet (z.T. mehrere Stunden, perspektivisch länger).
+          </p>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Beispiele für Coding-Agents</h2>
+          <p class="enum">
+            <b>
+              <a
+                href="https://developers.openai.com/codex/cloud/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                OpenAI Codex </a
+              >:
+            </b>
+            cloudbasierter Coding-Agent, der Repositories in einer Sandbox klont
+            und Pull Requests vorschlägt.
+          </p>
+          <p class="enum">
+            <b>
+              <a
+                href="https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent"
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub Copilot Coding Agent </a
+              >:
+            </b>
+            in GitHubs Cloud, verarbeitet Issues oder Pull Requests und erstellt
+            bzw. aktualisiert passende PRs.
+          </p>
+          <p class="enum">
+            Weitere:
+            <b>
+              <a
+                href="https://code.claude.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Claude Code
+              </a> </b
+            >,
+            <b>
+              <a href="https://jules.google/" target="_blank" rel="noreferrer">
+                Google Jules
+              </a> </b
+            >,
+            <b>
+              <a
+                href="https://cursor.com/docs/cloud-agent"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Cursor Cloud Agents
+              </a> </b
+            >, …
+          </p>
+          <p class="enum">
+            Die Coding-Agents in der Cloud ähneln sich: sie klonen Repos,
+            analysieren Code, planen Änderungen und liefern PRs zurück.
+          </p>
+          <p class="enum fragment offset red">
+            → Coding Agents als „(Junior) Software Engineers in der Cloud“.
+          </p>
+        </section>
+
+        <section data-auto-animate>
+          <h3>Fazit &amp; Takeaways</h3>
+          <p class="enum fragment">
+            <b>1. Vibe Coding:</b> schnell, explorativ, ideal für Ideen, Lernen,
+            Experimente und Prototyping — „echte“ Aufgaben ggf. mit Risiko.
+          </p>
+          <p class="enum fragment">
+            <b>2. AI Assisted Engineering:</b> professionelle Zusammenarbeit mit
+            der KI planvoll, nachvollziehbar und reviewbar gestalten.
+          </p>
+          <p class="enum fragment">
+            <b>3. Drei Tool-Plattformen:</b> Browser, IDE und Terminal bieten
+            jeweils Vibe- und Engineering-Modi — passenden Kontext wählen.
+          </p>
+          <p class="enum fragment">
+            <b>4. Coding-Agents in der Cloud:</b> arbeiten wie
+            (Junior-)Engineers am Repository und liefern Pläne, Diffs und Pull
+            Requests (viel Potenzial!).
+          </p>
+          <p class="enum fragment offset">
+            Wann verwenden wir welches (KI-)Tool? → selbst reviewen!
+            <br />
+            → Am Ende sind <span class="red">wir</span> für den Code
+            verantwortlich!
+          </p>
+        </section>
+
+        <section class="split-slide">
+          <h2>Vibe Coding für alle</h2>
+          <div class="split-layout">
+            <div>
+              <p class="enum fragment">
+                Wer einen KI-Chat nutzt, kann direkt Vibe Coding ausprobieren…
+              </p>
+              <p class="enum fragment">
+                …und diese nach eigenen Vorstellungen weiterentwickeln…
+              </p>
+              <p class="enum fragment">
+                …und vielleicht auch in die Programmierung „hineinwachsen“?
+              </p>
+              <p class="enum fragment">
+                Haben wir anfangs eine App mit Vibe Coding bauen lassen, die nun
+                fertig ist? (→ Replit?)
+              </p>
+            </div>
+            <div class="stacked-media">
+              <img
+                src="images/relax-app1.jpg"
+                alt="Screenshot ChatGPT Vibe Coding Relax App 1"
+              />
+              <img
+                src="images/relax-app2.jpg"
+                alt="Screenshot ChatGPT Vibe Coding Relax App 2"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section class="closing-slide">
+          <h2>Vielen Dank!</h2>
+          <h2>Zeit für Fragen…</h2>
+          <h4>Erik Behrends</h4>
+        </section>
+
+        <section class="end-slide">
+          <h2>ENDE</h2>
+          <a href="/praesi/04-beispiel">← zurück zum Workshop</a>
+        </section>
+      </div>
+    </div>
+
+    <script src="/vendor/reveal/dist/reveal.js"></script>
+    <script src="/vendor/reveal/plugin/notes/notes.js"></script>
+    <script src="/vendor/reveal/plugin/zoom/zoom.js"></script>
+    <script>
+      const speakerMode =
+        new URLSearchParams(window.location.search).get('speaker') === '1';
+      const speakerStatus = document.getElementById('speaker-status');
+
+      function showSpeakerStatus(message) {
+        speakerStatus.innerHTML = message;
+        speakerStatus.hidden = false;
+      }
+
+      Reveal.initialize({
+        hash: true,
+        controls: false,
+        center: true,
+        margin: 0.015,
+        slideNumber: true,
+        pdfSeparateFragments: false,
+        width: 1280,
+        height: 720,
+        plugins: [RevealNotes, RevealZoom],
+      }).then(() => {
+        if (!speakerMode) {
+          return;
+        }
+
+        const notesPlugin = Reveal.getPlugin('notes');
+        if (!notesPlugin || typeof notesPlugin.open !== 'function') {
+          showSpeakerStatus(
+            'Präsentationsmodus nicht verfügbar - bitte mit <strong>S</strong> die Speaker View öffnen.',
+          );
+          return;
+        }
+
+        let popupHandle = null;
+        const originalOpen = window.open.bind(window);
+
+        window.open = (...args) => {
+          popupHandle = originalOpen(...args);
+          return popupHandle;
+        };
+
+        try {
+          notesPlugin.open();
+        } finally {
+          window.open = originalOpen;
+        }
+
+        if (!popupHandle) {
+          showSpeakerStatus(
+            'Popup blockiert - bitte mit <strong>S</strong> die Speaker View öffnen.',
+          );
+        }
+      });
+    </script>
+  </body>
+</html>
