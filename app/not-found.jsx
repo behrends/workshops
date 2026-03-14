@@ -1,12 +1,13 @@
-import { NotFoundPage } from 'nextra-theme-docs';
-
 export default function NotFound() {
   return (
-    <NotFoundPage content={null} labels="broken-link">
+    <main className="mx-auto max-w-xl px-6 py-16">
       <h1 className="text-3xl font-bold">Seite nicht gefunden</h1>
-      <a className="text-blue-500" href="/">
-        Zur Startseite &rarr;
+      <p className="mt-4 text-slate-700">
+        Die angeforderte Seite existiert nicht oder ist nicht verfuegbar.
+      </p>
+      <a className="mt-6 inline-block text-blue-600" href="/">
+        Zur Startseite
       </a>
-    </NotFoundPage>
+    </main>
   );
 }

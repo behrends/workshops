@@ -11,18 +11,27 @@
     "dev": "node scripts/dev.mjs",
     "dev:next": "next",
     "decks:watch": "node scripts/decks-watch.mjs",
+    "slides:check": "node scripts/slides-check.mjs",
     "start": "next start",
-    "build": "next build",
-    "postbuild": "next-sitemap && pagefind --site .next/server/app --output-path public/_pagefind"
+    "build:site": "next build --webpack",
+    "build": "npm run slides:check && npm run build:site",
+    "postbuild": "next-sitemap && node scripts/pagefind-index.mjs"
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.7.1",
     "@codesandbox/sandpack-themes": "^2.0.21",
+    "gray-matter": "^4.0.3",
+    "mdast-util-to-string": "^4.0.0",
     "next": "16.0.11",
     "nextra": "^4.6.1",
     "nextra-theme-docs": "^4.6.1",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "remark-gfm": "^4.0.1",
+    "remark-mdx": "^3.1.1",
+    "remark-parse": "^11.0.0",
+    "reveal.js": "^6.0.0",
+    "unified": "^11.0.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

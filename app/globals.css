@@ -10,3 +10,109 @@
 .text-shadow {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
+
+.slide-meta-box {
+  margin: 2rem 0 2.5rem;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 1.5rem;
+  background: linear-gradient(180deg, rgba(239, 246, 255, 0.95), rgba(248, 250, 252, 0.95));
+  padding: 1.5rem;
+}
+
+.slide-meta-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.slide-meta-kicker {
+  margin: 0;
+  color: #1d4ed8;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.slide-meta-title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.slide-meta-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 0 0 1rem;
+}
+
+.slide-meta-card {
+  padding: 1rem 1.1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.slide-meta-card dt {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #475569;
+}
+
+.slide-meta-card dd {
+  margin: 0;
+  color: #0f172a;
+}
+
+.slide-meta-topics h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.slide-meta-topics ul {
+  margin: 0;
+}
+
+.slide-meta-actions {
+  margin-top: 1.25rem;
+}
+
+.slide-meta-link {
+  display: block;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.85);
+  color: #1d4ed8;
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.slide-meta-link:hover {
+  border-color: rgba(29, 78, 216, 0.45);
+  box-shadow: 0 16px 40px rgba(37, 99, 235, 0.08);
+  transform: translateY(-1px);
+}
+
+.slide-meta-link span {
+  display: block;
+  font-weight: 700;
+}
+
+.slide-meta-link small {
+  display: block;
+  margin-top: 0.35rem;
+  color: #475569;
+}
+
+@media (min-width: 640px) {
+  .slide-meta-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

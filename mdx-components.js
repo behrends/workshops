@@ -1,12 +1,20 @@
-import { useMDXComponents as getThemeComponents } from 'nextra-theme-docs' // nextra-theme-blog or your custom theme
- 
-// Get the default MDX components
-const themeComponents = getThemeComponents()
- 
-// Merge components
+import { useMDXComponents as getThemeComponents } from 'nextra-theme-docs';
+import {
+  DocsOnly,
+  SlideBreak,
+  SlideLead,
+  SlideOnly,
+} from './components/content/slide-visibility';
+
+const themeComponents = getThemeComponents();
+
 export function useMDXComponents(components) {
   return {
     ...themeComponents,
-    ...components
-  }
+    DocsOnly,
+    SlideOnly,
+    SlideLead,
+    SlideBreak,
+    ...components,
+  };
 }
