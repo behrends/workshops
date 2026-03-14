@@ -1,35 +1,35 @@
 import { Fragment } from 'react';
+import RevealDeck, { Slide } from './RevealDeck';
 
-import RevealDeck from './RevealDeck';
-
-export default function SlideDeckView({ slides }) {
+export default function SlideDeckView({ slides, embedded = false }) {
   return (
-    <RevealDeck>
+    <RevealDeck embedded={embedded}>
       {slides.map((slide, index) =>
         slide.kind === 'title' ? (
-          <section key={`title-${index}`} className="title-slide">
-            <h1>{slide.title}</h1>
-            {slide.duration || slide.goal ? (
-              <div className="title-slide-meta">
-                {slide.duration ? (
-                  <span className="title-slide-chip">{slide.duration}</span>
-                ) : null}
-                {slide.goal ? (
-                  <span className="title-slide-chip">{slide.goal}</span>
-                ) : null}
-              </div>
-            ) : null}
-          </section>
+          <Slide key={`title-${index}`}>
+            <div className="title-slide">
+              <h1>{slide.title}</h1>
+              {slide.duration || slide.goal ? (
+                <div className="title-slide-meta">
+                  {slide.duration ? (
+                    <span className="title-slide-chip">{slide.duration}</span>
+                  ) : null}
+                  {slide.goal ? (
+                    <span className="title-slide-chip">{slide.goal}</span>
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
+          </Slide>
         ) : (
-          <section
-            key={`${slide.title}-${slide.segmentIndex}-${index}`}
-            className="generated-slide"
-          >
-            <h2>{slide.title}</h2>
-            {slide.blocks.map((block, blockIndex) =>
-              renderBlock(block, `${slide.title}-${blockIndex}`),
-            )}
-          </section>
+          <Slide key={`${slide.title}-${slide.segmentIndex}-${index}`}>
+            <div className="generated-slide">
+              <h2>{slide.title}</h2>
+              {slide.blocks.map((block, blockIndex) =>
+                renderBlock(block, `${slide.title}-${blockIndex}`),
+              )}
+            </div>
+          </Slide>
         ),
       )}
     </RevealDeck>

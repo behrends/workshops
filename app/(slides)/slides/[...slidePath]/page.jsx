@@ -78,8 +78,10 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function SlidePage({ params }) {
+export default async function SlidePage({ params, searchParams }) {
   const { slidePath } = await params;
+  const resolvedSearchParams = await searchParams;
+  const embedded = resolvedSearchParams?.embedded !== undefined;
   const data = await loadSlidePageData(slidePath);
 
   if (!data.metadata.slides || data.status === 'error') {
@@ -91,5 +93,5 @@ export default async function SlidePage({ params }) {
     console.warn(`Slide warnings for ${slidePath.join('/')}:\n${summary}`);
   }
 
-  return <SlideDeckView slides={data.slides} />;
+  return <SlideDeckView slides={data.slides} embedded={embedded} />;
 }

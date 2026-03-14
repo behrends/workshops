@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import Reveal from 'reveal.js';
+import { Deck, Slide } from '@revealjs/react';
 
-const deckConfig = {
+export { Slide };
+
+const fullScreenConfig = {
   hash: true,
   controls: false,
   center: true,
@@ -13,31 +14,22 @@ const deckConfig = {
   height: 720,
 };
 
-export default function RevealDeck({ children }) {
-  const deckRef = useRef(null);
+const embeddedConfig = {
+  ...fullScreenConfig,
+  hash: false,
+  history: false,
+  embedded: true,
+  controls: true,
+  controlsLayout: 'edges',
+  keyboardCondition: 'focused',
+  mouseWheel: false,
+  touch: true,
+};
 
-  useEffect(() => {
-    if (!deckRef.current) {
-      return undefined;
-    }
-
-    const deck = new Reveal(deckRef.current, deckConfig);
-    deck.initialize().then(() => deck.sync());
-
-    return () => {
-      try {
-        deck.destroy();
-      } catch {
-        // Reveal may throw if already destroyed
-      }
-    };
-  }, []);
-
+export default function RevealDeck({ children, embedded = false }) {
   return (
     <div className="reveal-viewport">
-      <div ref={deckRef} className="reveal">
-        <div className="slides">{children}</div>
-      </div>
+      <Deck config={embedded ? embeddedConfig : fullScreenConfig}>{children}</Deck>
     </div>
   );
 }

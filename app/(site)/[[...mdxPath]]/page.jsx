@@ -3,7 +3,7 @@ import { generateStaticParamsFor, importPage } from 'nextra/pages';
 import { notFound } from 'next/navigation';
 
 import { useMDXComponents as getMDXComponents } from '../../../mdx-components';
-import SlideMetaBox from '../../../components/content/SlideMetaBox';
+import SlidePreviewBox from '../../../components/content/SlidePreviewBox';
 import { resolveContentFileFromSegments } from '../../../lib/slides/model.mjs';
 
 export const dynamicParams = false;
@@ -50,14 +50,12 @@ export default async function Page(props) {
     sourceCode,
   } = page;
 
-  const hasSlideMeta =
-    metadata.slides &&
-    (metadata.slideDuration || metadata.slideGoal || metadata.slideTopics);
+  const hasSlides = metadata.slides === true;
 
   return (
     <Wrapper toc={toc} metadata={metadata} sourceCode={sourceCode}>
-      {hasSlideMeta ? (
-        <SlideMetaBox
+      {hasSlides ? (
+        <SlidePreviewBox
           duration={metadata.slideDuration}
           goal={metadata.slideGoal}
           topics={metadata.slideTopics}
