@@ -93,19 +93,20 @@ Verhalten in der normalen Inhaltsseite:
 - Die Slides-Ansicht lebt in einer separaten Route
   `app/slides/[...slidePath]/page.jsx`.
 - Die Route setzt `dynamicParams = false`, damit nur vorab validierte
-  Slides-Routen erreichbar sind. Im Dev-Modus generiert Next.js die Params bei
-  jedem Request neu; ein Dev-Server-Neustart ist daher nicht nötig, wenn eine
-  neue `slides: true`-Seite hinzukommt.
+  Slides-Routen erreichbar sind.
 - Kandidaten für Slides-Routen kommen aus
   `generateStaticParamsFor('slidePath')`.
 - Für jeden Kandidaten werden zwei Datenquellen verwendet:
   - `importPage(params.slidePath)` für Metadaten und das reguläre MDX-Modul
   - `getRouteToFilepath()` plus `fs.readFile(...)`, um die rohe MDX-Datei aus
     `content/` einzulesen
+- Die Rohdatei wird zuerst mit `gray-matter` in YAML-Frontmatter und MDX-Body
+  getrennt.
 - Die Rohdatei wird AST-basiert geparst. V1 verwendet dafür direkt eine
   Parser-Pipeline auf MDX-Ebene, nicht die Traversierung des kompilierten
   React-Baums.
 - Geplante direkte Abhängigkeiten für die Implementierung:
+  - `gray-matter`
   - `unified`
   - `remark-parse`
   - `remark-mdx`
@@ -114,7 +115,8 @@ Verhalten in der normalen Inhaltsseite:
   - `mdast-util-to-string`
   - `reveal.js` (als npm-Paket, nicht mehr vendored aus `public/vendor/reveal/`)
 - Eine gemeinsame Funktion `validateAndBuildSlides(...)` erhält:
-  - Frontmatter/Metadaten
+  - Metadaten aus `importPage(...).metadata`
+  - den von `gray-matter` abgetrennten MDX-Body
   - Content-Pfad
   - den geparsten MDX-AST
   und liefert:
@@ -122,6 +124,11 @@ Verhalten in der normalen Inhaltsseite:
   - `warnings`
   - `errors`
   - `status: ok | warning | error`
+- Führende Quelle für Deck-Metadaten ist ausschließlich
+  `importPage(...).metadata`.
+- `gray-matter` dient nur dazu, YAML-Frontmatter vor dem AST-Parsing sauber vom
+  MDX-Body zu trennen; die dort gelesenen Werte werden nicht als zweite
+  konkurrierende Metadatenquelle verwendet.
 - `generateStaticParams` nimmt nur Seiten mit `slides: true` und
   `status !== error` auf.
 - Eine Seite ohne `slides: true` liefert unter `/slides/...` immer `404`.
@@ -143,6 +150,15 @@ Verhalten in der normalen Inhaltsseite:
   `npm run slides:check && npm run build:site` aus.
 - Vercel bleibt bei seinem Standard-Buildbefehl `npm run build`; es ist keine
   zusätzliche Dashboard- oder `vercel.json`-Sonderkonfiguration nötig.
+- `/slides/**` wird explizit aus Sitemap, Search-Index und Suchoberfläche
+  ausgeschlossen.
+- Konkrete technische Maßnahmen:
+  - `next-sitemap.config.js` erhält `exclude: ['/slides', '/slides/*', '/slides/**']`
+  - die Slides-Route exportiert `metadata` mit
+    `robots: { index: false, follow: false }`
+  - `postbuild` verwendet statt des direkten `pagefind`-CLI-Aufrufs ein kleines
+    Skript `scripts/pagefind-index.mjs`, das vor dem Indexieren `slides/` aus
+    dem zu indizierenden Build-Verzeichnis entfernt
 
 ## Projektions- und Validierungsregeln
 
@@ -245,17 +261,26 @@ Jede Warnung und jeder Fehler enthält mindestens:
 
 - Reveal wird als npm-Paket `reveal.js` installiert, nicht mehr aus
   `public/vendor/reveal/` geladen.
+- Die neue Slides-Route verwendet dieselbe Reveal-Version für JavaScript und
+  Reveal-Basis-CSS, nämlich die aus dem npm-Paket.
 - Die Slides-Route verwendet eine eigene Client Component
   `components/slides/RevealDeck.jsx` (`'use client'`), die Reveal imperativ auf
   einem `<div ref>` initialisiert (`new Reveal(deckRef.current, config).initialize()`).
 - Es wird kein Drittanbieter-React-Wrapper verwendet. Die imperative Kapselung
   ist ~30 Zeilen Code und vollständig unter eigener Kontrolle.
-- Das bestehende DHBW-Theme (`public/vendor/reveal/dist/theme/dhbw.css`) wird
-  als CSS-Datei in die Slides-Route importiert oder nach
-  `styles/` kopiert.
+- Das bestehende DHBW-Theme wird aus der vendored CSS-Datei in eine neue
+  projektinterne Datei wie `styles/reveal-dhbw.css` übernommen und dort als
+  eigenständiges Theme für die generierten Slides gepflegt.
+- Quelle der Wahrheit für neue generierte Slides ist damit:
+  - Reveal-JavaScript: npm-Paket `reveal.js`
+  - Reveal-Basis-CSS: npm-Paket `reveal.js`
+  - DHBW-Anpassungen: `styles/reveal-dhbw.css`
 - Die bestehenden handgebauten Decks unter `public/decks/` nutzen weiterhin
   die vendored Version unter `public/vendor/reveal/` und werden nicht
   umgestellt.
+- Es gibt in v1 keine automatische Synchronisierung zwischen alter vendored
+  Reveal-Version und neuem npm-basiertem Slides-Stack; die generierten Slides
+  sind ein bewusst getrennter Pfad mit eigener Quelle der Wahrheit.
 
 ### Allgemeines Layout-Modell
 
@@ -265,6 +290,8 @@ Jede Warnung und jeder Fehler enthält mindestens:
   MDX-Datei zu, aber mit getrennten Komponenten- und Renderpfaden.
 - Reveal-spezifische Styles und Laufzeitlogik werden nur in der Slides-Route
   geladen, nicht im normalen Docs-Pfad.
+- Die Slides-Route exportiert `metadata` mit
+  `robots: { index: false, follow: false }`.
 
 ### Doku-Meta-Infobox
 
@@ -349,6 +376,8 @@ Jede Warnung und jeder Fehler enthält mindestens:
 - Die Projektion wird AST-basiert aus der Roh-MDX-Datei erstellt.
 - Die AST-Pipeline verwendet `remark-gfm`, damit vorhandene Markdown-Tabellen
   im Content konsistent unterstützt werden.
+- Rohes YAML-Frontmatter wird mit `gray-matter` vor dem AST-Parsing entfernt;
+  führende Metadatenquelle bleibt `importPage(...).metadata`.
 - `##` ist die Standard-Slide-Grenze.
 - Segmentgrenzen innerhalb eines `##`-Abschnitts entstehen nur durch
   `SlideBreak`.
@@ -362,3 +391,6 @@ Jede Warnung und jeder Fehler enthält mindestens:
   Print-spezifische Funktionen sind nicht Teil von v1.
 - `slideTheme` wird als zukunftssichere Metadatenoption vorgesehen, aber in v1
   nicht ausgebaut.
+- Der Plan trifft keine Aussage über Hot-Reload- oder Dev-Server-Neustart-
+  Verhalten bei neu hinzukommenden `slides: true`-Seiten; das ist kein
+  v1-Vertragsbestandteil.
