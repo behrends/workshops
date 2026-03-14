@@ -93,7 +93,9 @@ Verhalten in der normalen Inhaltsseite:
 - Die Slides-Ansicht lebt in einer separaten Route
   `app/slides/[...slidePath]/page.jsx`.
 - Die Route setzt `dynamicParams = false`, damit nur vorab validierte
-  Slides-Routen erreichbar sind.
+  Slides-Routen erreichbar sind. Im Dev-Modus generiert Next.js die Params bei
+  jedem Request neu; ein Dev-Server-Neustart ist daher nicht nötig, wenn eine
+  neue `slides: true`-Seite hinzukommt.
 - Kandidaten für Slides-Routen kommen aus
   `generateStaticParamsFor('slidePath')`.
 - Für jeden Kandidaten werden zwei Datenquellen verwendet:
@@ -110,6 +112,7 @@ Verhalten in der normalen Inhaltsseite:
   - `remark-gfm`
   - `unist-util-visit`
   - `mdast-util-to-string`
+  - `reveal.js` (als npm-Paket, nicht mehr vendored aus `public/vendor/reveal/`)
 - Eine gemeinsame Funktion `validateAndBuildSlides(...)` erhält:
   - Frontmatter/Metadaten
   - Content-Pfad
@@ -157,7 +160,10 @@ Ohne zusätzliche Marker dürfen in einem Segment automatisch auf die Folie:
 - genau ein Markdown-Bild pro Segment
 - kurze `Callout`-Blöcke innerhalb eines Segments, wenn ihr sichtbarer Text
   höchstens 220 Zeichen umfasst oder wenn sie nur eine Liste mit höchstens
-  4 kurzen Punkten enthalten
+  4 kurzen Punkten enthalten.
+  Hinweis: `Callout` ist eine Nextra-Komponente und erscheint im MDX-AST als
+  `mdxJsxFlowElement` mit `name === "Callout"`. Die Erkennung nutzt denselben
+  JSX-Knotentyp wie die vier Slide-Marker.
 - Inline-Formatierung wie `strong`, `em`, Inline-Code, Links, `mark` und `br`
 
 ### Explizit sichtbare Inhalte
@@ -215,6 +221,9 @@ Die Slides-Validierung erzeugt harte Fehler bei:
 - einer `slides: true`-Seite ohne `##`-Abschnitt
 - einem manuellen `Dauer:`- oder `Ziel:`-Callout vor dem ersten `##`
 - einem Segment, das nach Projektion nur noch aus dem Titel besteht
+  (Fehlermeldung enthält eine Handlungsanweisung, z. B.: „Segment ‚## Einführung'
+  enthält nach Filterung keinen sichtbaren Inhalt. Füge `SlideOnly`- oder
+  `SlideLead`-Blöcke hinzu, oder wickle den gesamten Abschnitt in `DocsOnly`.")
 - einer `slides: true`-Seite, aus der keine einzige fachliche Folie entsteht
 
 Warnungen entstehen bei:
@@ -232,12 +241,33 @@ Jede Warnung und jeder Fehler enthält mindestens:
 
 ## Layout und Verhalten des Decks
 
+### Reveal-Integration auf Client-Seite
+
+- Reveal wird als npm-Paket `reveal.js` installiert, nicht mehr aus
+  `public/vendor/reveal/` geladen.
+- Die Slides-Route verwendet eine eigene Client Component
+  `components/slides/RevealDeck.jsx` (`'use client'`), die Reveal imperativ auf
+  einem `<div ref>` initialisiert (`new Reveal(deckRef.current, config).initialize()`).
+- Es wird kein Drittanbieter-React-Wrapper verwendet. Die imperative Kapselung
+  ist ~30 Zeilen Code und vollständig unter eigener Kontrolle.
+- Das bestehende DHBW-Theme (`public/vendor/reveal/dist/theme/dhbw.css`) wird
+  als CSS-Datei in die Slides-Route importiert oder nach
+  `styles/` kopiert.
+- Die bestehenden handgebauten Decks unter `public/decks/` nutzen weiterhin
+  die vendored Version unter `public/vendor/reveal/` und werden nicht
+  umgestellt.
+
+### Allgemeines Layout-Modell
+
 - Reveal bleibt die Präsentations-Engine, aber nur als Render-Layer in der
   separaten Slides-Route.
 - Die normale Nextra-Seite und die Slides-Ansicht greifen auf dieselbe
   MDX-Datei zu, aber mit getrennten Komponenten- und Renderpfaden.
 - Reveal-spezifische Styles und Laufzeitlogik werden nur in der Slides-Route
   geladen, nicht im normalen Docs-Pfad.
+
+### Doku-Meta-Infobox
+
 - Die standardisierte Doku-Meta-Infobox wird als eigene Komponente
   `components/content/SlideMetaBox.jsx` umgesetzt.
 - Für `slides: true`-Seiten rendert die normale Inhaltsseite oberhalb des
@@ -245,7 +275,11 @@ Jede Warnung und jeder Fehler enthält mindestens:
   `slideTopics`, falls mindestens eines dieser Felder gesetzt ist.
 - Integrationspunkt ist die bestehende Route
   `app/[[...mdxPath]]/page.jsx`: Die Meta-Infobox wird innerhalb des bestehenden
-  `Wrapper` direkt vor `<MDXContent />` gerendert.
+  `Wrapper` direkt vor `<MDXContent />` gerendert, bedingt auf
+  `metadata.slides && (metadata.slideDuration || metadata.slideGoal || metadata.slideTopics)`.
+- Die Einbindung in `page.jsx` ist bewusst gewählt statt über
+  `mdx-components.js`, weil `page.jsx` bereits direkten Zugriff auf `metadata`
+  via `importPage()` hat und kein zusätzliches Durchreichen nötig ist.
 - Die Titelfolie zeigt in v1 nur:
   - Titel
   - optional `slideDuration`
@@ -320,7 +354,9 @@ Jede Warnung und jeder Fehler enthält mindestens:
   `SlideBreak`.
 - Meta-Informationen für die Titelfolie und die Doku-Meta-Infobox kommen
   ausschließlich aus Frontmatter, einschließlich `slideTopics`.
-- Bilder werden automatisch übernommen, aber nur eines pro Segment.
+- Bilder werden automatisch übernommen, aber nur eines pro Segment. Wenn ein
+  Segment konzeptionell mehrere Bilder braucht (z. B. Vorher/Nachher), kann
+  der Autor mit `SlideBreak` auf zwei Folien aufteilen.
 - Speaker Notes sind nicht Teil von v1.
 - Kapitel-Decks, Fragmente, vertikale Slides, Agenda-Automatik und PDF- oder
   Print-spezifische Funktionen sind nicht Teil von v1.
