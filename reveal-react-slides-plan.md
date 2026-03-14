@@ -38,6 +38,7 @@ Zulässige v1-Felder:
 - `slideTitle: "..."` optional
 - `slideDuration: "..."` optional
 - `slideGoal: "..."` optional
+- `slideTopics: ["...", "..."]` optional
 - `slideTheme: "..."` optional, nur reserviert
 
 Regeln:
@@ -46,10 +47,14 @@ Regeln:
 - Der Titel der Titelfolie kommt aus `slideTitle`, sonst aus dem H1.
 - Meta-Chips auf der Titelfolie kommen ausschließlich aus `slideDuration` und
   `slideGoal`.
-- `slideDuration` und `slideGoal` sind die einzige Quelle für diese Meta-Infos
-  auf `slides: true`-Seiten.
+- `slideDuration`, `slideGoal` und `slideTopics` sind die einzige Quelle für
+  diese Meta-Infos auf `slides: true`-Seiten.
 - Manuell gepflegte Intro-Callouts mit `Dauer:` oder `Ziel:` vor dem ersten
   `##` sind auf `slides: true`-Seiten unzulässig.
+- Manuell gepflegte Intro-Callouts mit Themen- oder Inhaltslisten vor dem ersten
+  `##` sind auf `slides: true`-Seiten ebenfalls unzulässig.
+- Wenn auf `slides: true`-Seiten vor dem ersten `##` einleitender Doku-Text
+  nötig ist, muss er in `DocsOnly` stehen.
 
 ### Marker im MDX
 
@@ -102,6 +107,7 @@ Verhalten in der normalen Inhaltsseite:
   - `unified`
   - `remark-parse`
   - `remark-mdx`
+  - `remark-gfm`
   - `unist-util-visit`
   - `mdast-util-to-string`
 - Eine gemeinsame Funktion `validateAndBuildSlides(...)` erhält:
@@ -121,15 +127,19 @@ Verhalten in der normalen Inhaltsseite:
 
 ### Build- und Prüfverhalten
 
-- `next build` darf wegen fehlerhafter Slides-Seiten nicht den gesamten
-  Doku-Build blockieren.
-- Dafür wird zusätzlich ein dedizierter Check eingeplant:
+- Das Repo erhält drei klar getrennte Skripte:
   - `scripts/slides-check.mjs`
   - `npm run slides:check`
+  - `npm run build:site`
+  - `npm run build`
 - `slides:check` läuft über alle `slides: true`-Seiten und bricht hart bei
   jedem `status === error` ab.
-- `next build` baut nur valide Slides-Routen; fehlerhafte Slides-Seiten werden
-  ausgelassen und mit klarer Fehlerliste gemeldet.
+- `build:site` führt ausschließlich `next build` aus und dient als lokaler
+  Docs-Only-Build ohne harten Slides-Gate.
+- `build` wird zum verbindlichen Projekt-Build für CI und Vercel und führt
+  `npm run slides:check && npm run build:site` aus.
+- Vercel bleibt bei seinem Standard-Buildbefehl `npm run build`; es ist keine
+  zusätzliche Dashboard- oder `vercel.json`-Sonderkonfiguration nötig.
 
 ## Projektions- und Validierungsregeln
 
@@ -228,13 +238,20 @@ Jede Warnung und jeder Fehler enthält mindestens:
   MDX-Datei zu, aber mit getrennten Komponenten- und Renderpfaden.
 - Reveal-spezifische Styles und Laufzeitlogik werden nur in der Slides-Route
   geladen, nicht im normalen Docs-Pfad.
+- Die standardisierte Doku-Meta-Infobox wird als eigene Komponente
+  `components/content/SlideMetaBox.jsx` umgesetzt.
 - Für `slides: true`-Seiten rendert die normale Inhaltsseite oberhalb des
-  eigentlichen Inhalts eine standardisierte Meta-Infobox aus
-  `slideDuration` und `slideGoal`, falls diese Felder gesetzt sind.
+  eigentlichen Inhalts diese Meta-Infobox aus `slideDuration`, `slideGoal` und
+  `slideTopics`, falls mindestens eines dieser Felder gesetzt ist.
+- Integrationspunkt ist die bestehende Route
+  `app/[[...mdxPath]]/page.jsx`: Die Meta-Infobox wird innerhalb des bestehenden
+  `Wrapper` direkt vor `<MDXContent />` gerendert.
 - Die Titelfolie zeigt in v1 nur:
   - Titel
   - optional `slideDuration`
   - optional `slideGoal`
+- `slideTopics` werden in v1 nicht automatisch auf der Titelfolie gezeigt, um
+  die Einstiegsfolie kompakt zu halten.
 - Bestehende statische Decks werden nicht migriert und nicht in diese Logik
   einbezogen.
 
@@ -244,11 +261,13 @@ Jede Warnung und jeder Fehler enthält mindestens:
 
 - `content/prog/03-type-op-func/01-typen.mdx`
 - Erwartung:
-  - nach Migration der Meta-Infos ins Frontmatter ist die Seite mit
+  - nach Migration von `Dauer`, `Ziel` und Themenliste ins Frontmatter ist die
+    Seite mit
     `slides: true` über `/slides/prog/03-type-op-func/01-typen` erreichbar
   - `## Übersicht`, `## number`, `## boolean`, `## string`, `## undefined`,
     `## typeof` werden zu einzelnen Folien
-  - die normale Doku zeigt die Meta-Infobox aus Frontmatter
+  - die normale Doku zeigt die Meta-Infobox aus `slideDuration`, `slideGoal`
+    und `slideTopics`
   - eine Titelfolie erscheint nur bei `titleSlide: true`
   - Meta-Chips erscheinen nur, wenn `slideDuration` oder `slideGoal` im
     Frontmatter stehen
@@ -263,6 +282,8 @@ Jede Warnung und jeder Fehler enthält mindestens:
     validierungsseitig abgelehnt werden
 - eine `slides: true`-Seite mit manuellem `Dauer:`-Callout vor dem ersten `##`
   muss validierungsseitig fehlschlagen
+- eine `slides: true`-Seite mit manueller Themenliste im Intro-Callout vor dem
+  ersten `##` muss validierungsseitig fehlschlagen
 - ein Segment mit nur verborgenem oder ausgefiltertem Inhalt darf keine
   titellose oder titel-only Folie ergeben, sondern muss als Fehler enden
 - eine Seite ohne `slides: true` darf unter `/slides/...` nur `404` liefern
@@ -280,10 +301,10 @@ Jede Warnung und jeder Fehler enthält mindestens:
 - normale Nextra-Inhaltsseiten bleiben vollständig lesbar
 - bestehende statische Decks unter `public/decks` bleiben unverändert
   erreichbar
-- `next build` bleibt für die Doku lauffähig, auch wenn einzelne
+- `npm run build:site` bleibt für die Doku lauffähig, auch wenn einzelne
   `slides: true`-Seiten Validierungsfehler haben
-- `npm run slides:check` erkennt dieselben Fehler reproduzierbar und bricht
-  hart ab
+- `npm run build` und `npm run slides:check` erkennen dieselben Slides-Fehler
+  reproduzierbar und brechen hart ab
 
 ## Annahmen und bewusst gewählte Defaults
 
@@ -292,11 +313,13 @@ Jede Warnung und jeder Fehler enthält mindestens:
 - Eine MDX-Seite ist die einzige Deck-Einheit in v1.
 - Slides-URLs folgen 1:1 dem bestehenden Docs-Pfad.
 - Die Projektion wird AST-basiert aus der Roh-MDX-Datei erstellt.
+- Die AST-Pipeline verwendet `remark-gfm`, damit vorhandene Markdown-Tabellen
+  im Content konsistent unterstützt werden.
 - `##` ist die Standard-Slide-Grenze.
 - Segmentgrenzen innerhalb eines `##`-Abschnitts entstehen nur durch
   `SlideBreak`.
 - Meta-Informationen für die Titelfolie und die Doku-Meta-Infobox kommen
-  ausschließlich aus Frontmatter.
+  ausschließlich aus Frontmatter, einschließlich `slideTopics`.
 - Bilder werden automatisch übernommen, aber nur eines pro Segment.
 - Speaker Notes sind nicht Teil von v1.
 - Kapitel-Decks, Fragmente, vertikale Slides, Agenda-Automatik und PDF- oder
