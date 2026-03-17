@@ -1,9 +1,10 @@
-import { Fragment } from 'react';
+import { Fragment, Suspense } from 'react';
 import RevealDeck, { Slide } from './RevealDeck';
 
-export default function SlideDeckView({ slides, embedded = false }) {
+export default function SlideDeckView({ slides }) {
   return (
-    <RevealDeck embedded={embedded}>
+    <Suspense>
+    <RevealDeck>
       {slides.map((slide, index) =>
         slide.kind === 'title' ? (
           <Slide key={`title-${index}`}>
@@ -33,6 +34,7 @@ export default function SlideDeckView({ slides, embedded = false }) {
         ),
       )}
     </RevealDeck>
+    </Suspense>
   );
 }
 

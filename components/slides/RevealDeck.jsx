@@ -1,5 +1,6 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import { Deck, Slide } from '@revealjs/react';
 
 export { Slide };
@@ -26,7 +27,10 @@ const embeddedConfig = {
   touch: true,
 };
 
-export default function RevealDeck({ children, embedded = false }) {
+export default function RevealDeck({ children }) {
+  const searchParams = useSearchParams();
+  const embedded = searchParams.has('embedded');
+
   return (
     <div className="reveal-viewport">
       <Deck config={embedded ? embeddedConfig : fullScreenConfig}>{children}</Deck>

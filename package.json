@@ -13,7 +13,7 @@
     "decks:watch": "node scripts/decks-watch.mjs",
     "slides:check": "node scripts/slides-check.mjs",
     "start": "next start",
-    "build:site": "next build --webpack",
+    "build:site": "next build",
     "build": "npm run slides:check && npm run build:site",
     "postbuild": "next-sitemap && node scripts/pagefind-index.mjs"
   },
