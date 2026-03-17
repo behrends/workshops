@@ -37,7 +37,7 @@ export default function RevealDeck({ children }) {
 
   return (
     <div className="reveal-viewport">
-      {config ? <Deck config={config}>{children}</Deck> : children}
+      {config ? <Deck config={config}>{children}</Deck> : null}
     </div>
   );
 }
