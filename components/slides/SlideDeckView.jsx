@@ -1,9 +1,8 @@
-import { Fragment, Suspense } from 'react';
+import { Fragment } from 'react';
 import RevealDeck, { Slide } from './RevealDeck';
 
 export default function SlideDeckView({ slides }) {
   return (
-    <Suspense>
     <RevealDeck>
       {slides.map((slide, index) =>
         slide.kind === 'title' ? (
@@ -34,7 +33,6 @@ export default function SlideDeckView({ slides }) {
         ),
       )}
     </RevealDeck>
-    </Suspense>
   );
 }
 
