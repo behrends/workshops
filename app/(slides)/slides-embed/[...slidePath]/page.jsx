@@ -19,11 +19,11 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${deckTitle} - Folien`,
+    title: `${deckTitle} - Folienvorschau`,
   };
 }
 
-export default async function SlidePage({ params }) {
+export default async function EmbeddedSlidePage({ params }) {
   const { slidePath } = await params;
   const data = await loadSlidePageData(slidePath);
 
@@ -33,8 +33,8 @@ export default async function SlidePage({ params }) {
 
   if (data.warnings.length > 0) {
     const summary = data.warnings.map((warning) => formatIssue(warning)).join('\n');
-    console.warn(`Slide warnings for ${slidePath.join('/')}:\n${summary}`);
+    console.warn(`Embedded slide warnings for ${slidePath.join('/')}:\n${summary}`);
   }
 
-  return <SlideDeckView slides={data.slides} embedded={false} />;
+  return <SlideDeckView slides={data.slides} embedded />;
 }
