@@ -1,10 +1,16 @@
+import path from 'node:path';
+
 import { cache } from 'react';
 import { generateStaticParamsFor, importPage } from 'nextra/pages';
 import { notFound } from 'next/navigation';
 
 import { useMDXComponents as getMDXComponents } from '../../../mdx-components';
 import SlidePreviewBox from '../../../components/content/SlidePreviewBox';
-import { resolveContentFileFromSegments } from '../../../lib/slides/model.mjs';
+import {
+  resolveContentFileFromSegments,
+  readMdxSource,
+  validateAndBuildSlides,
+} from '../../../lib/slides/model.mjs';
 
 export const dynamicParams = false;
 export const generateStaticParams = generateStaticParamsFor('mdxPath');
@@ -50,7 +56,21 @@ export default async function Page(props) {
     sourceCode,
   } = page;
 
-  const hasSlides = metadata.slides === true;
+  let hasSlides = false;
+  if (metadata.slides === true) {
+    try {
+      const contentFile = await resolveContentFileFromSegments(process.cwd(), mdxPath);
+      const source = await readMdxSource(contentFile);
+      const { status } = validateAndBuildSlides({
+        metadata,
+        contentPath: path.relative(process.cwd(), contentFile),
+        mdxBody: source.body,
+      });
+      hasSlides = status !== 'error';
+    } catch {
+      hasSlides = false;
+    }
+  }
 
   return (
     <Wrapper toc={toc} metadata={metadata} sourceCode={sourceCode}>
