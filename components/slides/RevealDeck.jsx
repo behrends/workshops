@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Deck, Slide } from '@revealjs/react';
 
 export { Slide };
@@ -28,14 +28,12 @@ const embeddedConfig = {
 };
 
 export default function RevealDeck({ children }) {
-  const [config, setConfig] = useState(fullScreenConfig);
-
-  useEffect(() => {
-    const embedded = new URLSearchParams(window.location.search).has('embedded');
-    if (embedded) {
-      setConfig(embeddedConfig);
-    }
-  }, []);
+  const [config] = useState(() => {
+    if (typeof window === 'undefined') return fullScreenConfig;
+    return new URLSearchParams(window.location.search).has('embedded')
+      ? embeddedConfig
+      : fullScreenConfig;
+  });
 
   return (
     <div className="reveal-viewport">
