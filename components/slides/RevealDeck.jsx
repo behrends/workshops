@@ -28,16 +28,18 @@ const embeddedConfig = {
 };
 
 export default function RevealDeck({ children }) {
-  const [config, setConfig] = useState(null);
+  const [config, setConfig] = useState(fullScreenConfig);
 
   useEffect(() => {
     const embedded = new URLSearchParams(window.location.search).has('embedded');
-    setConfig(embedded ? embeddedConfig : fullScreenConfig);
+    if (embedded) {
+      setConfig(embeddedConfig);
+    }
   }, []);
 
   return (
     <div className="reveal-viewport">
-      {config ? <Deck config={config}>{children}</Deck> : null}
+      <Deck config={config}>{children}</Deck>
     </div>
   );
 }
