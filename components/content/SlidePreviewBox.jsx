@@ -3,7 +3,9 @@ function normalizeTopics(topics) {
     return [];
   }
 
-  return topics.filter((topic) => typeof topic === 'string' && topic.trim());
+  return topics
+    .filter((topic) => typeof topic === 'string' && topic.trim())
+    .map((topic) => topic.trim());
 }
 
 export default function SlidePreviewBox({
@@ -48,8 +50,8 @@ export default function SlidePreviewBox({
             <div className="slide-meta-topics">
               <h3>Themen</h3>
               <ul>
-                {items.map((topic) => (
-                  <li key={topic}>{topic}</li>
+                {items.map((topic, index) => (
+                  <li key={index}>{topic}</li>
                 ))}
               </ul>
             </div>
