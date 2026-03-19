@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
 import RevealDeck, { Slide } from './RevealDeck';
 
-export default function SlideDeckView({ slides }) {
+export default function SlideDeckView({ slides, embedded = false }) {
   return (
-    <RevealDeck>
+    <RevealDeck embedded={embedded}>
       {slides.map((slide, index) =>
         slide.kind === 'title' ? (
           <Slide key={`title-${index}`}>

@@ -17,6 +17,7 @@ export default function SlidePreviewBox({
   const items = normalizeTopics(topics);
   const basePath = Array.isArray(slidePath) ? slidePath.join('/') : '';
   const slideHref = basePath ? `/slides/${basePath}` : '';
+  const embeddedSlideHref = basePath ? `/slides-embed/${basePath}` : '';
 
   if (!duration && !goal && items.length === 0 && !slideHref) {
     return null;
@@ -59,7 +60,7 @@ export default function SlidePreviewBox({
           {slideHref ? (
             <div className="slide-preview-container">
               <iframe
-                src={`${slideHref}?embedded=1`}
+                src={embeddedSlideHref}
                 className="slide-preview-iframe"
                 title="Folienvorschau"
                 loading="lazy"

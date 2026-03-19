@@ -14,6 +14,7 @@ async function main() {
   try {
     await fs.cp(buildDir, tempSiteDir, { recursive: true });
     await fs.rm(path.join(tempSiteDir, 'slides'), { recursive: true, force: true });
+    await fs.rm(path.join(tempSiteDir, 'slides-embed'), { recursive: true, force: true });
     await fs.rm(outputDir, { recursive: true, force: true });
 
     await runPagefind({

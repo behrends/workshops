@@ -4,5 +4,5 @@ export default {
   changefreq: 'weekly',
   priority: '0.5',
   generateIndexSitemap: false,
-  exclude: ['/slides', '/slides/*', '/slides/**'],
+  exclude: ['/slides', '/slides/*', '/slides/**', '/slides-embed', '/slides-embed/*', '/slides-embed/**'],
 };
