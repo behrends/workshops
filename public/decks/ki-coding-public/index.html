@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <meta
+      name="description"
+      content="KI Coding im Software Engineering - Präsentation im Studienzentrum Informatik an der DHBW Lörrach"
+    />
+    <meta name="author" content="Prof. Dr. Erik Behrends" />
+
+    <title>KI Coding im Software Engineering</title>
+    <base href="/decks/ki-coding-public/" />
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="/vendor/reveal/dist/reset.css" />
+    <link rel="stylesheet" href="/vendor/reveal/dist/reveal.css" />
+    <link rel="stylesheet" href="/vendor/reveal/dist/theme/dhbw.css" />
+    <link rel="stylesheet" href="/decks/shared-deck.css" />
+    <link rel="stylesheet" href="./deck.css" />
+  </head>
+
+  <body>
+    <div id="speaker-status" class="speaker-status" hidden>
+      Popup blockiert - bitte mit <strong>S</strong> die Speaker View öffnen.
+    </div>
+
+    <div class="reveal">
+      <img src="/images/dhbw-logo.svg" alt="DHBW Logo" class="deck-logo" />
+      <div class="slides">
+        <section class="hero-slide" data-auto-animate>
+          <p class="eyebrow">Software Engineering · KI · Lehre</p>
+          <h1>KI Coding im Software Engineering</h1>
+          <h3>Vom manuellen Programmieren zu Agentic Engineering</h3>
+          <div class="hero-band">
+            Zeitleiste, Begriffe, Reviews, Risiken und Ausblick
+          </div>
+          <h4 class="hero-meta">Erik Behrends · DHBW Lörrach</h4>
+        </section>
+
+        <section class="text-slide">
+          <h2>Vorstellung</h2>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">Professor seit 2013</p>
+              <p>
+                Im Studienzentrum IT-Managemente & Informatik (SZI) der DHBW
+                Lörrach
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Softwareentwicklung</p>
+              <p>
+                In der Lehre und aktiven Projekten: Campus App, Code Companion,
+                …
+              </p>
+            </article>
+          </div>
+          <div class="lead-card fragment">
+            Perspektive aus Lehre, Projekten und Softwareentwicklung.
+          </div>
+        </section>
+
+        <section class="text-slide">
+          <h2>Fragen an das Publikum</h2>
+          <div class="prompt-stack">
+            <p class="prompt-card fragment">
+              Wer nutzt täglich irgendein KI-Tool?
+            </p>
+            <p class="prompt-card fragment">
+              Wer hat Erfahrungen mit Claude Code oder Codex?
+            </p>
+            <p class="prompt-card fragment">
+              Welche Tools tauchen im Alltag ganz selbstverständlich auf?
+            </p>
+          </div>
+          <div class="takeaway-strip fragment">
+            KI wirkt inzwischen fast so etabliert wie das Internet oder das WWW.
+          </div>
+        </section>
+
+        <section class="text-slide">
+          <h2>Disclaimer</h2>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">Fokus</p>
+              <h4>Entwicklungen im Software Engineering</h4>
+              <p>
+                Es geht heute um Coding, Review, Produktivität und
+                Arbeitsabläufe.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Sichtweise</p>
+              <h4>Eher positiv, aber nicht unkritisch</h4>
+              <p>
+                Die Chancen sind groß, die Risiken und Grenzen aber ebenfalls
+                relevant.
+              </p>
+            </article>
+            <article class="panel fragment wide">
+              <p class="panel-kicker">Abgrenzung</p>
+              <h4>Kein Rundumschlag zu Umwelt, Gesellschaft oder Politik</h4>
+              <p>
+                Diese Themen sind wichtig, stehen hier aber bewusst nicht im
+                Mittelpunkt.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="text-slide">
+          <div class="year-stamp fragment">Früher</div>
+          <h2>Manuelle Programmierung</h2>
+          <div class="timeline-ribbon fragment">
+            Lochkarten · Assembler · Cobol/Fortran · C/C++ · Java/C# ·
+            Python/Ruby/JS · ...
+          </div>
+          <div class="panel-grid three">
+            <article class="panel fragment">
+              <p class="panel-kicker">Arbeitsweise</p>
+              <h4>Code Zeile für Zeile tippen</h4>
+              <p>
+                Auch moderne IDEs bedeuten im Kern: Menschen schreiben den Code
+                selbst.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Aufwand</p>
+              <h4>Anspruchsvoll und anstrengend</h4>
+              <p>
+                Gute Software braucht Fachwissen, Konzentration und viel Zeit.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Kosten</p>
+              <h4>Langsam und teuer</h4>
+              <p>Umsetzungskapazität war lange einer der zentralen Engpässe.</p>
+            </article>
+          </div>
+          <div class="support-card fragment">
+            Roter Faden der Präsentation: Jahre, Abstraktionsebenen und der
+            sinkende Preis für Code.
+          </div>
+        </section>
+
+        <section class="text-slide" data-auto-animate>
+          <div class="year-stamp fragment">2022</div>
+          <h2>Copilot und Tab-Completion</h2>
+          <div class="lead-card fragment">
+            KI-Vervollständigung in VS Code verschiebt das Schreiben von Code
+            erstmals spürbar.
+          </div>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">Workflow</p>
+              <h4>Tippen, Vorschlag ansehen, Tab drücken</h4>
+              <p>
+                Die kleinste Einheit der Zusammenarbeit mit KI wird zur
+                Vervollständigung im Editor.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Wirkung</p>
+              <h4>Mehr Tempo, aber noch kein echter Agent</h4>
+              <p>Unterstützung bei Routinen, Boilerplate und Muster-Code.</p>
+            </article>
+          </div>
+          <div class="support-card fragment">
+            Optional für die Vorführung: Screenshot, GIF oder kurze Demo. Cursor
+            kann hier als spätere Weiterentwicklung vom Autocomplete zum
+            Agentenmodus erwähnt werden.
+          </div>
+        </section>
+
+        <section class="text-slide" data-auto-animate>
+          <div class="year-stamp fragment">2023</div>
+          <h2>ChatGPT</h2>
+          <div class="lead-card fragment">
+            Zunächst oft als Spielerei wahrgenommen, aber sofort praktisch
+            nutzbar.
+          </div>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">Modus</p>
+              <h4>Copy and Paste statt IDE-Integration</h4>
+              <p>
+                Prompts im Browser, Code zurück in Editor oder Terminal
+                übernehmen.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Lerneffekt</p>
+              <h4>KI wird zum Dialogpartner</h4>
+              <p>
+                Erklären lassen, Alternativen anfragen, kleine Beispiele direkt
+                generieren.
+              </p>
+            </article>
+          </div>
+          <div class="takeaway-strip fragment">
+            Chat-Interaktion mit Code wird normal und wandert wenig später auch
+            direkt in IDEs.
+          </div>
+        </section>
+
+        <section class="text-slide" data-auto-animate>
+          <div class="year-stamp fragment">2024</div>
+          <h2>GPT-4 und der Wendepunkt</h2>
+          <div class="lead-card fragment">
+            LLMs werden als ernsthafte Werkzeuge für Softwareentwicklung
+            betrachtet.
+          </div>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">Qualität</p>
+              <h4>Bessere Antworten, längere Ketten, weniger Zufall</h4>
+              <p>Aus netten Demos werden brauchbare Hilfen im Alltag.</p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Signal</p>
+              <h4>Erste Agenten tauchen auf</h4>
+              <p>
+                Ende 2024 gibt es schon Replit Agent, aber das Thema ist noch
+                nicht im Mainstream angekommen.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="text-slide" data-auto-animate>
+          <div class="year-stamp fragment">2025</div>
+          <h2>Claude Code</h2>
+          <div class="lead-card fragment">
+            KI-Coding-Agents verbreiten sich und das Terminal erlebt ein
+            Comeback.
+          </div>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">Interface</p>
+              <h4>CLI statt nur Chatfenster</h4>
+              <p>
+                Repository, Shell, Tests und Dateisystem werden Teil der
+                Interaktion.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Arbeitsweise</p>
+              <h4>Mehrschrittige Aufgaben statt einzelner Snippets</h4>
+              <p>
+                Planen, ändern, prüfen und iterieren in einer fokussierten
+                Umgebung.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="quote-slide">
+          <div class="year-stamp fragment">März 2025</div>
+          <h2>Dario Amodei</h2>
+          <blockquote class="quote-panel fragment">
+            <p>90% des Codes werden in 3 bis 6 Monaten von KI geschrieben.</p>
+            <footer>
+              Provokante Prognose zur Geschwindigkeit der Entwicklung
+            </footer>
+          </blockquote>
+          <p class="pull-quote fragment">Wir haben alle gelacht.</p>
+          <div class="support-card fragment">
+            Die Aussage wirkte extrem. Im Rückblick hat sie den Debattenrahmen
+            trotzdem stark verschoben.
+          </div>
+        </section>
+
+        <section class="text-slide" data-auto-animate>
+          <div class="year-stamp fragment">November 2025</div>
+          <h2>Opus 4.6 und GPT-5.2</h2>
+          <div class="lead-card fragment">
+            Rund um Feiertage und Jahreswechsel 2025/26 wird viel ausprobiert
+            und öffentlich berichtet.
+          </div>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">Praxistest</p>
+              <h4>Viele Experimente mit realen Repositories</h4>
+              <p>
+                Nicht nur Demos, sondern echte Aufgaben, Commits und Reviews.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Ergebnis</p>
+              <h4>Coding Agents funktionieren überraschend gut</h4>
+              <p>
+                Vor allem dann, wenn Aufgaben sauber geschnitten und überprüft
+                werden.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="text-slide" data-auto-animate>
+          <div class="year-stamp fragment">April 2026</div>
+          <h2>Heute</h2>
+          <div class="lead-card fragment">
+            Coding Agents sind etabliert und Teil echter
+            Software-Engineering-Workflows.
+          </div>
+          <div class="chip-row fragment">
+            <span class="chip">Claude Code</span>
+            <span class="chip">OpenAI Codex</span>
+            <span class="chip">Copilot Agent</span>
+            <span class="chip">Cursor Agents</span>
+            <span class="chip">Devin</span>
+            <span class="chip">u.v.a.m.</span>
+          </div>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">Status</p>
+              <h4>Keine Nische mehr</h4>
+              <p>
+                Agents werden produktiv genutzt, verglichen und in Teams
+                eingebaut.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Offene Aufgabe</p>
+              <h4>Belege für die Vortragsfassung ergänzen</h4>
+              <p>
+                Zwei bis drei belastbare Stimmen aus Entwicklerberichten,
+                Interviews oder Presseartikeln würden diese Folie schärfen.
+              </p>
+            </article>
+          </div>
+          <aside class="notes">
+            Offene Recherche: log-book nach Artikeln und Aussagen sichten,
+            eventuell NYT oder ähnliche Quellen als Belegfolie ergänzen.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Ein Team von Junior-Devs</h2>
+          <p>Subagents</p>
+          <p>Parallele Coding-Agents</p>
+        </section>
+
+        <section class="timeline-slide">
+          <h2>Entwicklungen im Überblick</h2>
+          <div class="timeline-grid">
+            <article class="timeline-item fragment">
+              <p class="timeline-year">Früher</p>
+              <div class="timeline-body">
+                <h4>Manuelles Coding</h4>
+                <p>
+                  Lochkarten, Assembler, Cobol/Fortran, C/C++, Java/C#,
+                  Python/Ruby/JS.
+                </p>
+              </div>
+            </article>
+            <article class="timeline-item fragment">
+              <p class="timeline-year">2022</p>
+              <div class="timeline-body">
+                <h4>Copilot</h4>
+                <p>Tab-Completion und KI-Vervollständigung im Editor.</p>
+              </div>
+            </article>
+            <article class="timeline-item fragment">
+              <p class="timeline-year">2023</p>
+              <div class="timeline-body">
+                <h4>ChatGPT</h4>
+                <p>Copy-and-paste-Workflows und Chat als Standardoberfläche.</p>
+              </div>
+            </article>
+            <article class="timeline-item fragment">
+              <p class="timeline-year">2025</p>
+              <div class="timeline-body">
+                <h4>Claude Code und Amodei</h4>
+                <p>Agentische CLI-Tools und provokante Prognosen.</p>
+              </div>
+            </article>
+            <article class="timeline-item fragment">
+              <p class="timeline-year">Spät 2025</p>
+              <div class="timeline-body">
+                <h4>Modellsprung</h4>
+                <p>Opus 4.6 und GPT-5.2 machen Agents praktisch relevant.</p>
+              </div>
+            </article>
+            <article class="timeline-item fragment">
+              <p class="timeline-year">2026</p>
+              <div class="timeline-body">
+                <h4>Abstraktionsebene</h4>
+                <p>
+                  Agentic Coding wirkt wie eine weitere Stufe über dem Code.
+                </p>
+              </div>
+            </article>
+          </div>
+          <div class="support-card fragment">
+            Bewusst unvollständige, persönliche Timeline. Es fehlen garantiert
+            wichtige Ereignisse und Gegenbeispiele.
+          </div>
+        </section>
+
+        <section class="compare-slide">
+          <h2>Vibe Coding vs. Agentic Engineering</h2>
+          <div class="mode-grid">
+            <article class="mode-card fragment">
+              <p class="mode-tag">Vibe Coding</p>
+              <h4>Schnell, explorativ, oft spielerisch</h4>
+              <blockquote class="mini-quote">
+                "I just see stuff, say stuff, run stuff, and copy paste stuff."
+              </blockquote>
+              <p>
+                Karpathy, Februar 2025. Gut für Prototypen, kleine Apps und
+                persönliches Ausprobieren.
+              </p>
+            </article>
+            <article class="mode-card fragment">
+              <p class="mode-tag">Agentic Engineering</p>
+              <h4>Planvoll, reviewbar, für wichtige Software</h4>
+              <p>
+                Auch als augmented coding oder AI assisted engineering
+                beschreibbar.
+              </p>
+              <p>
+                Geeignet, wenn andere Menschen von der Qualität und Stabilität
+                abhängig sind.
+              </p>
+            </article>
+          </div>
+          <div class="takeaway-strip fragment">
+            Zwei sinnvolle Modi: Apps für mich selbst anders bauen als Software,
+            die für andere zuverlässig funktionieren muss.
+          </div>
+          <aside class="notes">
+            Zwischenfrage für den Vortrag: Wollen wir an dieser Stelle etwas
+            vorführen oder ist das Material bereits dicht genug?
+          </aside>
+        </section>
+
+        <section class="text-slide">
+          <h2>Konsequenzen</h2>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">1</p>
+              <h4>Softwareentwicklung ist mehr als Coding</h4>
+              <p>
+                Anforderungen, Architektur, Review, Sicherheit und Betrieb
+                bleiben entscheidend.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">2</p>
+              <h4>Coding Agents schreiben schneller und oft besser</h4>
+              <p>
+                Vor allem bei Standardmustern, Migrationen und wiederkehrenden
+                Aufgaben.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">3</p>
+              <h4>Code wird billiger</h4>
+              <p>
+                Mehr Zeit kann in die wirklich teuren Probleme fließen:
+                Qualität, Produkt und Verantwortung.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">4</p>
+              <h4>Hohe Qualität bleibt anspruchsvoll</h4>
+              <p>
+                Gute Systeme entstehen nicht automatisch, nur weil mehr Code
+                produziert wird.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="question-slide">
+          <h2>KI codet, wer überprüft?</h2>
+          <div class="big-question fragment">
+            Wenn Output explodiert, wird Review selbst zum Engpass.
+          </div>
+        </section>
+
+        <section class="text-slide">
+          <h2>Human in the Loop</h2>
+          <div class="lead-card fragment">
+            Menschliche Kontrolle bleibt wichtig, skaliert aber schlecht, wenn
+            sehr viel neuer Code entsteht.
+          </div>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">Menge</p>
+              <h4>Zu viel neuer Code</h4>
+              <p>
+                Vollständige manuelle Prüfung wird schnell langsam und teuer.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Wirkung</p>
+              <h4>Kaum Produktivitätsgewinn</h4>
+              <p>
+                Wenn alles erneut von Hand geprüft werden muss, verschiebt sich
+                der Flaschenhals nur.
+              </p>
+            </article>
+            <article class="panel fragment wide">
+              <p class="panel-kicker">Beispiel</p>
+              <h4>Agents finden Dinge, die Menschen übersehen</h4>
+              <p>
+                Mythos fand laut Project Glasswing eine 27 Jahre alte
+                Security-Schwachstelle in OpenBSD.
+                <a
+                  href="https://simonwillison.net/2026/Apr/7/project-glasswing/"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Beispiel ansehen</a
+                >.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="text-slide">
+          <h2>Automatisierte Tests</h2>
+        </section>
+
+        <section class="text-slide">
+          <h2>Agents machen Reviews</h2>
+          <div class="lead-card fragment">
+            Ein möglicher Ansatz: getrennte Agenten für Erzeugung und Kritik.
+          </div>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">Mein Ansatz</p>
+              <h4>Codex schreibt, Claude Code reviewt</h4>
+              <p>Produzieren und Hinterfragen bewusst auseinanderziehen.</p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Eigene Werkzeuge</p>
+              <h4>Code Companion und interne Fähigkeiten</h4>
+              <p>
+                Reviews lassen sich in Agents integrieren oder über eigene Tools
+                ergänzen.
+              </p>
+            </article>
+            <article class="panel fragment wide">
+              <p class="panel-kicker">Ökosystem</p>
+              <h4>Devin, GrepTile, CodeRabbit und weitere</h4>
+              <p>
+                Spezialtools übernehmen einzelne Rollen wie Review, Suche,
+                Security oder PR-Begleitung.
+              </p>
+            </article>
+          </div>
+          <div class="takeaway-strip fragment">
+            Review wird selbst agentisch. Das kann besser skalieren als ein
+            Mensch allein im Loop.
+          </div>
+        </section>
+
+        <section class="dark-factory-slide">
+          <div class="dark-shell">
+            <div class="year-stamp inverse fragment">Vision</div>
+            <h2>Dark Factory</h2>
+            <div class="panel-grid">
+              <article class="panel dark fragment">
+                <p class="panel-kicker">These</p>
+                <h4>Kein Mensch achtet mehr direkt auf den Code</h4>
+                <p>
+                  Agenten bauen, testen, deployen und überwachen fast alles
+                  selbst.
+                </p>
+              </article>
+              <article class="panel dark fragment">
+                <p class="panel-kicker">Bild</p>
+                <h4>Die Lichter gehen aus</h4>
+                <p>
+                  Softwarefabriken laufen weitgehend autonom im Hintergrund.
+                </p>
+              </article>
+              <article class="panel dark fragment wide">
+                <p class="panel-kicker">Status heute</p>
+                <h4>Noch fragwürdig</h4>
+                <p>
+                  Als zugespitztes Zukunftsbild interessant, aber aktuell eher
+                  Denkfigur als belastbare Realität.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="text-slide">
+          <h2>Überlegungen</h2>
+          <div class="decision-grid">
+            <article class="decision-card fragment">
+              <p class="panel-kicker">Vibe</p>
+              <h4>Prototypen und persönliche Projekte</h4>
+              <p>Schnell erzeugen, ausprobieren, verwerfen, neu bauen.</p>
+            </article>
+            <article class="decision-card fragment">
+              <p class="panel-kicker">Agents</p>
+              <h4>Standard-Code schreiben und reviewen lassen</h4>
+              <p>
+                Dort automatisieren, wo Muster, Tests und Rückkopplung gut
+                funktionieren.
+              </p>
+            </article>
+            <article class="decision-card fragment">
+              <p class="panel-kicker">Menschen</p>
+              <h4>Kritischen Code aktiv mitgestalten</h4>
+              <p>
+                API, Architektur, Security und harte Designentscheidungen nicht
+                blind delegieren.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="text-slide">
+          <h2>Ausblick</h2>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">Arbeitsmarkt</p>
+              <h4>Weniger manuelles Tippen, nicht weniger Arbeit</h4>
+              <p>
+                Jevons-Paradox, mehr Softwarebedarf und neue Rollen sprechen
+                eher für Verschiebung als für Stillstand.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Breite Nutzung</p>
+              <h4>Jeder kann Code generieren</h4>
+              <p>
+                ChatGPT, Gemini oder AI Studio senken die Einstiegshürde massiv.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Skill Atrophy</p>
+              <h4>Verlernen verhindern</h4>
+              <p>
+                Systeme wie Code Companion können helfen, aktives Lernen und
+                bewusstes Verstehen zu erhalten.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Modelle</p>
+              <h4>Der Markt wird breiter</h4>
+              <p>
+                Neben Codex und Claude spielen Gemini, Gemma, Modelle aus China
+                und Mistral aus Europa eine Rolle.
+              </p>
+            </article>
+          </div>
+          <div class="takeaway-strip fragment">
+            Agentic Coding könnte eine weitere Ebene der Abstraktion sein. Die
+            Verantwortung verschwindet dadurch nicht.
+          </div>
+        </section>
+
+        <section class="backup-slide">
+          <p class="eyebrow">Reserve</p>
+          <h1>Backup</h1>
+          <h3>Ergänzungen für Diskussion, Fragen und Vertiefung</h3>
+        </section>
+
+        <section class="text-slide">
+          <h2>Jobmarkt</h2>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">These</p>
+              <h4>Die Arbeit verschiebt sich</h4>
+              <p>
+                Weniger Tipparbeit, mehr Verantwortung für System, Review und
+                Produktverständnis.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Spannung</p>
+              <h4>Mehr Automatisierung, aber auch mehr Software</h4>
+              <p>
+                Wenn Erstellen billiger wird, steigt oft die Nachfrage nach
+                neuen Lösungen.
+              </p>
+            </article>
+            <article class="panel fragment wide">
+              <p class="panel-kicker">TODO</p>
+              <h4>Konkrete Stellenangebote ergänzen</h4>
+              <p>
+                Sinnvoll wären zwei bis drei aktuelle Ausschreibungen, die
+                Architektur-, Integrations- oder KI-Kompetenz betonen.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="text-slide">
+          <h2>Jevons-Paradox</h2>
+          <div class="lead-card fragment">
+            Wenn eine Ressource effizienter nutzbar wird, sinken die Kosten pro
+            Einheit und die Gesamtnutzung kann sogar steigen.
+          </div>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">Übertragen auf KI-Coding</p>
+              <h4>Code wird günstiger</h4>
+              <p>
+                Mehr Menschen und Teams können mehr Software bauen als zuvor.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Folge</p>
+              <h4>Mehr Produkte, mehr Varianten, mehr Integration</h4>
+              <p>
+                Das kann den Bedarf an Engineering insgesamt erhöhen statt nur
+                zu reduzieren.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section>
+          <h2>Burn out mit agentic coding</h2>
+        </section>
+      </div>
+    </div>
+
+    <script src="/vendor/reveal/dist/reveal.js"></script>
+    <script src="/vendor/reveal/dist/plugin/notes.js"></script>
+    <script src="/vendor/reveal/dist/plugin/zoom.js"></script>
+    <script src="/decks/reveal-init.js"></script>
+    <script src="/decks/dev-reload.js"></script>
+  </body>
+</html>
