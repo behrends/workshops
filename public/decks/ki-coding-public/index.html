@@ -34,20 +34,14 @@
       <img src="/images/dhbw-logo.svg" alt="DHBW Logo" class="deck-logo" />
       <div class="slides">
         <section class="hero-slide" data-auto-animate>
-          <p class="eyebrow">Software Engineering · KI · Lehre</p>
-          <h1>KI Coding im Software Engineering</h1>
-          <h3>Vom manuellen Programmieren zu Agentic Engineering</h3>
-          <div class="hero-band">
-            Zeitleiste, Begriffe, Reviews, Risiken und Ausblick
-          </div>
-          <h4 class="hero-meta">
-            Wenn KI den Code schreibt, was ist dann noch unsere Aufgabe?
-          </h4>
-          <h4 class="hero-meta">Erik Behrends · DHBW Lörrach</h4>
+          <h1>Wenn KI den Code schreibt, was ist dann noch unsere Aufgabe?</h1>
+          <h2>Vom manuellen Programmieren zu Agentic Engineering</h2>
+          <h4 class="hero-meta">Prof. Dr. Erik Behrends · DHBW Lörrach</h4>
         </section>
 
         <section class="text-slide">
           <h2>Vorstellung</h2>
+          <p class="prompt-card fragment">Erik Behrends</p>
           <div class="panel-grid">
             <article class="panel fragment">
               <p class="panel-kicker">Professor seit 2013</p>
@@ -78,12 +72,10 @@
             <p class="prompt-card fragment">
               Wer hat Erfahrungen mit Claude Code oder Codex?
             </p>
-            <p class="prompt-card fragment">
-              Welche Tools tauchen im Alltag ganz selbstverständlich auf?
-            </p>
           </div>
           <div class="takeaway-strip fragment">
-            KI wirkt inzwischen fast so etabliert wie das Internet oder das WWW.
+            Für manche wirkt KI inzwischen fast so etabliert wie das Internet
+            oder das WWW…
           </div>
         </section>
 
@@ -92,26 +84,23 @@
           <div class="panel-grid">
             <article class="panel fragment">
               <p class="panel-kicker">Fokus</p>
-              <h4>Entwicklungen im Software Engineering</h4>
               <p>
-                Es geht heute um Coding, Review, Produktivität und
-                Arbeitsabläufe.
+                Es geht hier überwiegend um den Einsatz von KI in der
+                Programmierung.
               </p>
             </article>
             <article class="panel fragment">
-              <p class="panel-kicker">Sichtweise</p>
-              <h4>Eher positiv, aber nicht unkritisch</h4>
+              <p class="panel-kicker">Positive Sichtweise</p>
               <p>
-                Die Chancen sind groß, die Risiken und Grenzen aber ebenfalls
-                relevant.
+                Entwicklungen in der Softwareentwicklung sind furios und
+                spannend.
               </p>
             </article>
             <article class="panel fragment wide">
               <p class="panel-kicker">Abgrenzung</p>
-              <h4>Kein Rundumschlag zu Umwelt, Gesellschaft oder Politik</h4>
               <p>
-                Diese Themen sind wichtig, stehen hier aber bewusst nicht im
-                Mittelpunkt.
+                Themen wie Umwelt, Gesellschaft oder Politik sind wichtig aber
+                werden hier bewusst ausgeblendet.
               </p>
             </article>
           </div>
@@ -120,95 +109,94 @@
         <section class="text-slide">
           <div class="year-stamp fragment">Früher</div>
           <h2>Manuelle Programmierung</h2>
-          <div class="timeline-ribbon fragment">
-            Lochkarten · Assembler · Cobol/Fortran · C/C++ · Java/C# ·
-            Python/Ruby/JS · ...
-          </div>
           <div class="panel-grid three">
             <article class="panel fragment">
-              <p class="panel-kicker">Arbeitsweise</p>
-              <h4>Code Zeile für Zeile tippen</h4>
+              <p class="panel-kicker">Programmierung ist Handarbeit</p>
               <p>
-                Auch moderne IDEs bedeuten im Kern: Menschen schreiben den Code
-                selbst.
+                Code wird manuell geschrieben. In modernen IDEs gibt es
+                höchstens Autovervollständigung.
               </p>
             </article>
             <article class="panel fragment">
-              <p class="panel-kicker">Aufwand</p>
-              <h4>Anspruchsvoll und anstrengend</h4>
+              <p class="panel-kicker">Anspruchsvoll und aufwändig</p>
               <p>
-                Gute Software braucht Fachwissen, Konzentration und viel Zeit.
+                Kenntnisse in Syntax-Details und Schnittstellen sind nötig,
+                Fortschritt ist inkrementell.
               </p>
             </article>
+            <div class="timeline-ribbon fragment">
+              Lochkarten · Assembler · Cobol/Fortran · C/C++ · Java/C# ·
+              Python/Ruby/JS · ...
+            </div>
             <article class="panel fragment">
-              <p class="panel-kicker">Kosten</p>
-              <h4>Langsam und teuer</h4>
-              <p>Umsetzungskapazität war lange einer der zentralen Engpässe.</p>
+              <p class="panel-kicker">Langsam und teuer</p>
+              <p>
+                Die direkte Arbeit mit Programmcode war stets ein wesentlicher
+                Kostenfaktor und Engpass.
+              </p>
             </article>
           </div>
-          <div class="support-card fragment">
-            Roter Faden der Präsentation: Jahre, Abstraktionsebenen und der
-            sinkende Preis für Code.
-          </div>
+        </section>
+
+        <section>
+          <img src="images/vscode.jpg" alt="VS Code" />
         </section>
 
         <section class="text-slide" data-auto-animate>
           <div class="year-stamp fragment">2022</div>
-          <h2>Copilot und Tab-Completion</h2>
+          <h2>GitHub Copilot und Tab-Completion</h2>
           <div class="lead-card fragment">
-            KI-Vervollständigung in VS Code verschiebt das Schreiben von Code
-            erstmals spürbar.
+            KI schlägt beim Programmieren im Editor passenden Code vor
           </div>
+          <article class="panel fragment">
+            <img
+              src="images/vscode-tab-completion.jpg"
+              alt="VS Code mit Tab Completion"
+              width="30%"
+            />
+          </article>
           <div class="panel-grid">
             <article class="panel fragment">
-              <p class="panel-kicker">Workflow</p>
-              <h4>Tippen, Vorschlag ansehen, Tab drücken</h4>
-              <p>
-                Die kleinste Einheit der Zusammenarbeit mit KI wird zur
-                Vervollständigung im Editor.
-              </p>
+              <p class="panel-kicker">Produktivitätssteigerungen</p>
+              <p>KI-Vorschläge als erweiterte Autovervollständigung.</p>
             </article>
             <article class="panel fragment">
-              <p class="panel-kicker">Wirkung</p>
-              <h4>Mehr Tempo, aber noch kein echter Agent</h4>
-              <p>Unterstützung bei Routinen, Boilerplate und Muster-Code.</p>
+              <p class="panel-kicker">Gleiche Workflows</p>
+              <p>
+                Abläufe beim Programmieren bleiben gleich, ähnliche Tools folgen
+                (u. a. Cursor).
+              </p>
             </article>
           </div>
-          <div class="support-card fragment">
-            Optional für die Vorführung: Screenshot, GIF oder kurze Demo. Cursor
-            kann hier als spätere Weiterentwicklung vom Autocomplete zum
-            Agentenmodus erwähnt werden.
-          </div>
+          <aside class="notes">
+            2022 offiziell verfügbar, technical preview bereits 2021
+          </aside>
         </section>
 
         <section class="text-slide" data-auto-animate>
           <div class="year-stamp fragment">2023</div>
           <h2>ChatGPT</h2>
           <div class="lead-card fragment">
-            Zunächst oft als Spielerei wahrgenommen, aber sofort praktisch
-            nutzbar.
+            Zunächst von einigen nicht ernst genommen (Halluzinationen…).
           </div>
           <div class="panel-grid">
             <article class="panel fragment">
-              <p class="panel-kicker">Modus</p>
-              <h4>Copy and Paste statt IDE-Integration</h4>
+              <p class="panel-kicker">Programmieren</p>
               <p>
-                Prompts im Browser, Code zurück in Editor oder Terminal
-                übernehmen.
+                Prompting im Browser um Code zu generieren, kopieren und in
+                Programmierumgebung einfügen.
               </p>
             </article>
             <article class="panel fragment">
-              <p class="panel-kicker">Lerneffekt</p>
-              <h4>KI wird zum Dialogpartner</h4>
+              <p class="panel-kicker">Lernbegleiter</p>
               <p>
-                Erklären lassen, Alternativen anfragen, kleine Beispiele direkt
-                generieren.
+                Code erklären lassen, Fehler finden und beheben, Alternativen
+                anfragen, Feedback einholen, …
               </p>
             </article>
           </div>
           <div class="takeaway-strip fragment">
-            Chat-Interaktion mit Code wird normal und wandert wenig später auch
-            direkt in IDEs.
+            Chat-Interaktion mit Code kommt auch in die .
           </div>
         </section>
 
