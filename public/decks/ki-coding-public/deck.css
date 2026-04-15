@@ -182,16 +182,20 @@
 }
 
 .year-stamp {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
   display: inline-flex;
   align-items: center;
-  padding: 0.32rem 0.54rem 0.36rem;
+  padding: 0.38rem 0.72rem 0.42rem;
   border-radius: 999px;
   border: 1px solid rgba(var(--deck-accent-rgb), 0.24);
   background: rgba(var(--deck-accent-rgb), 0.08);
   color: rgba(var(--deck-accent-rgb), 0.92);
-  font-size: 0.36em;
+  font-size: 0.46em;
   font-weight: 700;
-  margin-bottom: 0.65rem;
+  margin: 0;
+  z-index: 10;
 }
 
 .year-stamp.inverse {
@@ -317,12 +321,8 @@
 }
 
 .panel.dark {
-  border-color: rgba(255, 255, 255, 0.08);
-  background: linear-gradient(
-    180deg,
-    rgba(30, 34, 40, 0.94) 0%,
-    rgba(18, 21, 26, 0.94) 100%
-  );
+  border-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, #262a30 0%, #1a1d22 100%);
   box-shadow: 0 22px 46px rgba(0, 0, 0, 0.34);
 }
 
@@ -490,18 +490,20 @@
 }
 
 .dark-shell {
+  position: relative;
   max-width: 1060px;
   padding: 1.1rem 1.2rem 1.2rem;
   border-radius: 34px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background:
-    radial-gradient(circle at top right, rgba(var(--deck-accent-rgb), 0.16), transparent 26%),
-    linear-gradient(180deg, rgba(24, 27, 32, 0.97) 0%, rgba(12, 14, 18, 0.98) 100%);
+    radial-gradient(circle at top right, rgba(var(--deck-accent-rgb), 0.18), transparent 26%),
+    linear-gradient(180deg, #1a1d22 0%, #0e1014 100%);
   box-shadow: 0 30px 72px rgba(0, 0, 0, 0.36);
 }
 
-.dark-shell h2,
-.dark-shell h4,
+.reveal .slides .dark-shell h2,
+.reveal .slides .dark-shell h3,
+.reveal .slides .dark-shell h4,
 .dark-shell p {
   color: #f5f7fb;
 }
@@ -520,6 +522,62 @@
 
 .backup-slide h1 {
   font-size: 2.08em;
+}
+
+/* --- Plain paragraph lists (unstyled sections) ----------------- */
+.reveal .slides section > p:not([class]) {
+  font-size: 0.78em;
+  color: #3f4550;
+  padding: 0.46rem 0.84rem;
+  margin-top: 0.46rem;
+  border-radius: 16px;
+  background: var(--deck-surface);
+  border: 1px solid var(--deck-line);
+  box-shadow: var(--deck-shadow-soft);
+}
+
+/* --- Images ---------------------------------------------------- */
+.reveal .slides img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Standalone image as only content in a section (full-slide screenshot) */
+.reveal .slides section > img:only-child {
+  margin: 0 auto;
+  max-height: 72vh;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow: var(--deck-shadow);
+}
+
+/* Panel that is image-only: image fills the card width */
+.panel-image {
+  padding: 0 !important;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background: rgba(18, 20, 24, 0.04);
+}
+
+.panel-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 0;
+  margin: 0;
+}
+
+/* Standalone panel-image (direct child of section, not in a grid) */
+.reveal .slides section > .panel-image {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 18px;
+}
+
+.reveal .slides section > .panel-image img {
+  border-radius: 18px;
 }
 
 @media (max-width: 1100px) {
