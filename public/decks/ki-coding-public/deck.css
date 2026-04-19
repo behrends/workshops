@@ -180,19 +180,25 @@
       13.6rem 2px no-repeat,
     linear-gradient(rgba(31, 35, 41, 0.1), rgba(31, 35, 41, 0.1)) 2rem 4.35rem /
       9.6rem 2px no-repeat,
-    linear-gradient(rgba(31, 35, 41, 0.1), rgba(31, 35, 41, 0.1)) 3.2rem 5.6rem /
-      12.4rem 2px no-repeat,
-    linear-gradient(rgba(31, 35, 41, 0.08), rgba(31, 35, 41, 0.08)) 1.2rem 6.85rem /
-      8.2rem 2px no-repeat,
+    linear-gradient(rgba(31, 35, 41, 0.1), rgba(31, 35, 41, 0.1)) 3.2rem
+      5.6rem / 12.4rem 2px no-repeat,
+    linear-gradient(rgba(31, 35, 41, 0.08), rgba(31, 35, 41, 0.08)) 1.2rem
+      6.85rem / 8.2rem 2px no-repeat,
     linear-gradient(rgba(31, 35, 41, 0.11), rgba(31, 35, 41, 0.11)) 0 8.1rem /
       15.1rem 2px no-repeat,
-    linear-gradient(rgba(31, 35, 41, 0.08), rgba(31, 35, 41, 0.08)) 2.7rem 9.35rem /
-      11.2rem 2px no-repeat,
+    linear-gradient(rgba(31, 35, 41, 0.08), rgba(31, 35, 41, 0.08)) 2.7rem
+      9.35rem / 11.2rem 2px no-repeat,
     linear-gradient(rgba(31, 35, 41, 0.1), rgba(31, 35, 41, 0.1)) 4rem 10.6rem /
       8.8rem 2px no-repeat,
-    linear-gradient(rgba(31, 35, 41, 0.08), rgba(31, 35, 41, 0.08)) 1.2rem 11.85rem /
-      13.2rem 2px no-repeat;
-  mask-image: linear-gradient(90deg, transparent, #000 18%, #000 78%, transparent);
+    linear-gradient(rgba(31, 35, 41, 0.08), rgba(31, 35, 41, 0.08)) 1.2rem
+      11.85rem / 13.2rem 2px no-repeat;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 18%,
+    #000 78%,
+    transparent
+  );
   transform: rotate(-3deg);
 }
 
@@ -406,6 +412,24 @@
 
 .timeline-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.reveal .slides section > .app-screenshot-row {
+  max-width: 640px;
+  margin: 0.62rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.48rem;
+  align-items: end;
+  justify-items: center;
+}
+
+.reveal .slides section > .app-screenshot-row img {
+  width: auto;
+  max-width: 100%;
+  max-height: 10em;
+  border-radius: 18px;
+  box-shadow: 0 16px 34px rgba(22, 24, 28, 0.16);
 }
 
 .panel,
