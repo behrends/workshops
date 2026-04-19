@@ -302,6 +302,20 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.reveal .slides section > .completion-layout {
+  max-width: 920px;
+  margin: 0.84rem auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(270px, 0.75fr);
+  gap: 0.84rem;
+  align-items: start;
+}
+
+.panel-stack {
+  display: grid;
+  gap: 0.84rem;
+}
+
 .timeline-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -599,6 +613,7 @@
 
   .panel-grid,
   .panel-grid.three,
+  .completion-layout,
   .timeline-grid,
   .decision-grid,
   .mode-grid {
