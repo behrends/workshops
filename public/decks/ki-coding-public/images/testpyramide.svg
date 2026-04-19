@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Testpyramide fuer Codequalitaet</title>
+  <desc id="desc">Stufenmodell mit Formatierung, statischen Typen, Linting, Unit-Tests, Integrationstests, End-to-End-Tests und manuellem Testen.</desc>
+  <style>
+    .outline { stroke: #1e3a8a; stroke-width: 4; fill: none; }
+    .s0 { fill: #dbeafe; }
+    .s1 { fill: #bfdbfe; }
+    .s2 { fill: #93c5fd; }
+    .s3 { fill: #60a5fa; }
+    .s4 { fill: #2563eb; }
+    .label { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-weight: 600; text-anchor: middle; fill: #0f172a; }
+    .base { font-size: 27px; }
+    .mid { font-size: 44px; }
+    .mid-sub { font-size: 34px; }
+    .top { font-size: 32px; }
+  </style>
+
+  <polygon class="s0" points="130,690 1070,690 994,590 206,590" />
+  <polygon class="s1" points="206,590 994,590 926,500 274,500" />
+  <polygon class="s2" points="274,500 926,500 850,400 350,400" />
+  <polygon class="s3" points="350,400 850,400 774,300 426,300" />
+  <polygon class="s4" points="426,300 774,300 600,70" />
+
+  <polygon class="outline" points="600,70 1070,690 130,690" />
+  <line class="outline" x1="206" y1="590" x2="994" y2="590" />
+  <line class="outline" x1="274" y1="500" x2="926" y2="500" />
+  <line class="outline" x1="350" y1="400" x2="850" y2="400" />
+  <line class="outline" x1="426" y1="300" x2="774" y2="300" />
+
+  <text class="label top" x="600" y="208">
+    <tspan x="600" dy="0">Manuelles</tspan>
+    <tspan x="600" dy="38">Testen</tspan>
+  </text>
+  <text class="label mid" x="600" y="364">End-To-End-Tests</text>
+  <text class="label mid" x="600" y="464">Integrationstests</text>
+  <text class="label mid" x="600" y="554">Unit-Tests</text>
+
+  <text class="label mid" x="600" y="644">Formatierung · Static Typing · Linting</text>
+</svg>

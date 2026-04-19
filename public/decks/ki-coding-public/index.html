@@ -196,7 +196,8 @@
           <div class="year-stamp fragment">2023</div>
           <h2>ChatGPT</h2>
           <div class="lead-card fragment">
-            Von vielen nicht ernst genommen… („Wieviele 'E' in 'Erdbeere'?“)
+            Von vielen nicht ernst genommen… &rarr;
+            <span style="font-style: italic">„Wieviele E in Erdbeere?“</span>
           </div>
           <div class="panel-grid">
             <article class="panel fragment">
@@ -387,7 +388,8 @@
             <span class="chip">Claude Code</span>
             <span class="chip">OpenAI Codex</span>
             <span class="chip">GitHub Copilot</span>
-            <span class="chip">Cursor Agents</span>
+            <span class="chip">Cursor</span>
+            <span class="chip">Replit</span>
             <span class="chip">Devin</span>
             <span class="chip">u.v.a.m.</span>
           </div>
@@ -395,9 +397,13 @@
 
         <section>
           <h2>Vorführung</h2>
-          <p>Todo: Text oder Screenshots? Live Demo…</p>
-          <p>Code Companion im Simulator, Codex, Claude Code, …</p>
+          <p>Wie arbeite ich an CodeCompanion?</p>
+          <p>Codex und daneben Simulator</p>
+          <p>Feature entwickeln</p>
+          <p>Zeigen, dass Codex Tests schreibt und ausführt</p>
+          <p>Mit Claude Reviewen lassen</p>
           <p>Dies ist MEINE Arbeitsweise, andere automatisieren viel mehr</p>
+          <p>Todo: Text oder Screenshots? Live Demo…</p>
         </section>
 
         <section>
@@ -432,137 +438,80 @@
           </div>
         </section>
 
-        <section class="text-slide">
-          <h2>Konsequenzen</h2>
-          <div class="panel-grid">
-            <article class="panel fragment">
-              <p class="panel-kicker">1</p>
-              <p>Softwareentwicklung ist nicht nur Coding.</p>
-            </article>
-            <article class="panel fragment">
-              <p class="panel-kicker">2</p>
-              <p>
-                Coding Agents schreiben schneller und oft besser als Menschen.
-              </p>
-            </article>
-            <article class="panel fragment">
-              <p class="panel-kicker">3</p>
-              <p>
-                Code wird billiger und es gibt mehr Zeit für die Qualität der
-                Software.
-              </p>
-            </article>
-            <article class="panel fragment">
-              <p class="panel-kicker">4</p>
-              <p>
-                Gute Systeme entstehen nicht automatisch, nur weil mehr Code
-                generiert wird.
-              </p>
-            </article>
-            <article class="panel fragment">
-              <p class="panel-kicker">5</p>
-              <p>
-                Programmiersprachen, Frameworks und deren Syntax werden
-                abstrahiert.
-              </p>
-            </article>
-          </div>
-        </section>
-
-        <section>
-          <h2>Vorführung</h2>
-          <p>Wie arbeite ich an CodeCompanion?</p>
-          <p>Codex und daneben Simulator</p>
-          <p>Feature entwickeln</p>
-          <p>Zeigen, dass Codex Tests schreibt und ausführt</p>
-          <p>Mit Claude Reviewen lassen</p>
-          <p>Falls Zeit kurz Agents u.a. erwähnen</p>
-        </section>
-
         <section class="question-slide">
           <h2>KI codet, wer überprüft?</h2>
-          <div class="big-question fragment">
-            Menge des Code-Outputs lässt Reviews zum Engpass werden.
-          </div>
         </section>
 
         <section class="text-slide">
-          <h2>Human in the Loop</h2>
-          <div class="lead-card fragment">
-            Menschliche Kontrolle bleibt wichtig, skaliert aber schlecht, wenn
-            sehr viel neuer Code entsteht.
+          <h2>Menschen als Reviewer</h2>
+          <div class="big-question fragment">
+            Sollten wir den generierten Code lesen und überprüfen?
           </div>
           <div class="panel-grid">
-            <article class="panel fragment">
-              <p class="panel-kicker">Code-Reviews</p>
-              <p>
-                Vollständige manuelle Prüfung ist langsam und unvollständig.
-              </p>
-            </article>
-            <article class="panel fragment">
-              <p class="panel-kicker">Wirkung</p>
-              <p>
-                Wenn alles erneut von Hand geprüft werden muss, verschiebt sich
-                der Flaschenhals nur.
-              </p>
-            </article>
             <article class="panel fragment wide">
               <p class="panel-kicker">
                 Agents finden Fehler, die Menschen übersehen
               </p>
               <p>
                 Anthropics Mythos fand laut Project Glasswing eine 27 Jahre alte
-                Security-Schwachstelle in OpenBSD.
+                kritsche Schwachstelle in OpenBSD. Siehe dazu z. B.
                 <a
                   href="https://simonwillison.net/2026/Apr/7/project-glasswing/"
                   target="_blank"
                   rel="noreferrer"
-                  >Beispiel ansehen</a
+                  >www.simonwillison.net/2026/Apr/7/project-glasswing</a
                 >.
               </p>
             </article>
-          </div>
-        </section>
-
-        <section class="text-slide">
-          <h2>Automatisierte Tests</h2>
-          <p>Unit Tests und E2E-Tests</p>
-          <p>Static Typing und Linting</p>
-          <p>Browser Testing via MCP oder Headless</p>
-          <p>Testpyramide und TDD?</p>
-        </section>
-
-        <section class="text-slide">
-          <h2>Agents machen Reviews</h2>
-          <div class="lead-card fragment">
-            Ein möglicher Ansatz: getrennte Agenten für Erzeugung und Kritik.
-          </div>
-          <div class="panel-grid">
             <article class="panel fragment">
-              <p class="panel-kicker">Mein Ansatz</p>
-              <h4>Codex schreibt, Claude Code reviewt</h4>
-              <p>Produzieren und Hinterfragen bewusst auseinanderziehen.</p>
-            </article>
-            <article class="panel fragment">
-              <p class="panel-kicker">Eigene Werkzeuge</p>
-              <h4>Code Companion und interne Fähigkeiten</h4>
+              <p class="panel-kicker">Menschliche Schwachstelle</p>
               <p>
-                Reviews lassen sich in Agents integrieren oder über eigene Tools
-                ergänzen.
+                Vollständige manuelle Prüfung ist langsam, unvollständig und
+                unzuverlässig.
               </p>
             </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Wirkung</p>
+              <p>
+                Der Flaschenhals verschiebt sich und die gewonnene Produktivität
+                sinkt wieder.
+              </p>
+            </article>
+          </div>
+          <div class="lead-card fragment">
+            Menschliche Kontrolle und Entscheidungen bleiben wichtig, skalieren
+            aber schlecht, wenn sehr viel neuer Code entsteht.
+          </div>
+          <aside class="notes">
+            Ähnlich wie beim autonomen Fahren machen Agents weniger Fehler.
+          </aside>
+        </section>
+
+        <section class="text-slide">
+          <h2>Agents für Reviews</h2>
+          <div class="big-question fragment">
+            Sollten KI-Agents den erzeugten Code reviewen?
+          </div>
+          <div class="lead-card fragment">
+            Verschiedene Agenten (LLMs) für Code-Generierung und -Reviews.
+          </div>
+          <div class="panel-grid">
             <article class="panel fragment wide">
               <p class="panel-kicker">Ökosystem</p>
-              <h4>Devin, GrepTile, CodeRabbit und weitere</h4>
               <p>
                 Spezialtools übernehmen einzelne Rollen wie Review, Suche,
                 Security oder PR-Begleitung.
               </p>
             </article>
           </div>
-          <div class="takeaway-strip fragment">
-            Review wird selbst agentisch. Das kann besser skalieren als ein
-            Mensch allein im Loop.
+          <div class="chip-row fragment">
+            <span class="chip">CodeRabbit</span>
+            <span class="chip">Greptile</span>
+            <span class="chip">Devin</span>
+            <span class="chip">u.v.a.m.</span>
+          </div>
+          <div class="big-question fragment">
+            Lässt sich die Softwareentwicklung voll automatisieren?
           </div>
         </section>
 
@@ -580,18 +529,32 @@
                 </p>
               </article>
               <article class="panel dark fragment">
-                <p class="panel-kicker">Bild</p>
-                <h4>Die Lichter gehen aus</h4>
+                <p class="panel-kicker">Sinnbild</p>
+                <h4>Die Lichter in der Fabrik gehen aus</h4>
                 <p>
                   Softwarefabriken laufen weitgehend autonom im Hintergrund.
                 </p>
               </article>
-              <article class="panel dark fragment wide">
+              <article class="panel dark fragment">
                 <p class="panel-kicker">Status heute</p>
-                <h4>Noch fragwürdig</h4>
+                <h4>Noch fragwürdig &mdash; aber wie lange noch?</h4>
                 <p>
-                  Als zugespitztes Zukunftsbild interessant, aber aktuell eher
-                  Denkfigur als belastbare Realität.
+                  Merfach wurden feste Vorstellungen in den letzten Monaten
+                  ausgehebelt…
+                </p>
+              </article>
+              <article class="panel dark fragment">
+                <p class="panel-kicker">Manche leben dies bereits</p>
+                <h4>
+                  Ein Beispiel ist Strong DM:
+                  <a href="https://factory.strongdm.ai" target="_blank"
+                    >factory.strongdm.ai</a
+                  >
+                </h4>
+                <p style="font-style: italic">
+                  Code must not be written by humans
+                  <br />
+                  Code must not be reviewed by humans
                 </p>
               </article>
             </div>
@@ -599,30 +562,155 @@
         </section>
 
         <section class="text-slide">
-          <h2>Überlegungen</h2>
-          <div class="decision-grid">
-            <article class="decision-card fragment">
-              <p class="panel-kicker">Vibe</p>
-              <h4>Prototypen und persönliche Projekte</h4>
-              <p>Schnell erzeugen, ausprobieren, verwerfen, neu bauen.</p>
-            </article>
-            <article class="decision-card fragment">
-              <p class="panel-kicker">Agents</p>
-              <h4>Standard-Code schreiben und reviewen lassen</h4>
+          <h2>Mein Ansatz: Human in the Loop</h2>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">Mein Ansatz</p>
+              <h4>Codex schreibt, Claude Code reviewt</h4>
               <p>
-                Dort automatisieren, wo Muster, Tests und Rückkopplung gut
-                funktionieren.
+                Produzieren und Hinterfragen bewusst ohne Automatisierung
+                auseinanderziehen.
               </p>
             </article>
-            <article class="decision-card fragment">
-              <p class="panel-kicker">Menschen</p>
-              <h4>Kritischen Code aktiv mitgestalten</h4>
+            <article class="panel fragment">
+              <p class="panel-kicker">Problem: Skill Atrophy</p>
+              <h4>Wie stärken wir unsere relevanten Kompetenzen?</h4>
               <p>
-                API, Architektur, Security und harte Designentscheidungen nicht
-                blind delegieren.
+                Durch bewusstes „Entschleunigen“ mit manuellen Reviews und
+                Coding Sessions.
+              </p>
+            </article>
+            <article class="panel wide fragment">
+              <p class="panel-kicker">Kritische Aspekte selbst ausgestalten</p>
+              <p>
+                Datenschema, Design, Architektur, Schnittstellen (APIs),
+                Security, usw. werden von Menschen entworfen und höchstens mit
+                KI-Assistenz umgesetzt.
               </p>
             </article>
           </div>
+        </section>
+
+        <section class="question-slide">
+          <h2>Wie sichern wir die Qualität?</h2>
+        </section>
+
+        <section class="text-slide">
+          <h2>Testpyramide</h2>
+          <article class="panel panel-image fragment">
+            <img src="images/testpyramide.svg" alt="Testpyramide" />
+          </article>
+          <div class="lead-card fragment">
+            Agents können ausgezeichnet Tests schreiben und auszuführen.
+          </div>
+          <div class="takeaway-strip fragment">
+            &rarr; Endlich haben wir die Möglichkeit, unsere Testpyramide
+            wirklich zu leben!
+          </div>
+          <aside class="notes">
+            In der Codex-Session sind auch Tests zu sehen. "Computer Use" für
+            manuelles agentic Testing.
+          </aside>
+        </section>
+
+        <section class="question-slide">
+          <h2>Das Ende der Bananen-Software?</h2>
+          <img
+            class="panel panel-image fragment"
+            src="images/bananas.png"
+            alt="Kiste mit grünen unreifen Bananen"
+          />
+          <div class="takeaway-strip fragment">
+            &rarr; Software muss nicht länger beim Kunden reifen.
+          </div>
+        </section>
+
+        <section class="text-slide">
+          <h2>Guardrails</h2>
+          <div class="lead-card fragment">
+            LLMs, Agents und Tools haben teilweise Guardrails eingebaut.
+          </div>
+          <div class="lead-card fragment">
+            Wir können z. B. mit AGENTS.md arbeiten.
+          </div>
+          <div class="lead-card fragment">
+            Problem: Agents bleiben nicht-deterministisch
+          </div>
+        </section>
+
+        <section class="text-slide">
+          <h2>Sandboxes</h2>
+          <div class="lead-card fragment">
+            Agents sollen gar nicht auf sensitive Daten oder Produktionssysteme
+            zugreifen.
+          </div>
+          <div class="lead-card fragment">
+            Wir sollten uns bewusst sein, dass KI-Agents nur im Yolo-Mode
+            (Autopilot o. a.) den vollen Nutzen entfalten können, aber auch die
+            größten Risiken bergen.
+          </div>
+          <div class="lead-card fragment">
+            Eigene Maschinen, VMs oder Container.
+          </div>
+          <div class="lead-card fragment">
+            Agents dürfen nur den Code und die Dateien anpassen, die wir ihnen
+            geben. Aber damit dürfen sie frei arbeiten und experimentieren mit
+            vollen Systemrechten, ohne dass wir ständig eingreifen müssen.
+          </div>
+        </section>
+
+        <section class="text-slide">
+          <h2>Verifikation</h2>
+          <div class="lead-card fragment">
+            Eigentlich sind Programmiersprachen und Frameworks nun irrelevant,
+            da diese für den Menschen gedacht waren.
+          </div>
+          <div class="lead-card fragment">
+            Wie sieht die Sprache der Agenten aus?
+          </div>
+          <div class="lead-card fragment">
+            Könnten formale Methoden und Verifikation praktische Bedeutung
+            erlangen?
+          </div>
+        </section>
+
+        <section class="text-slide">
+          <h2>Abschluss</h2>
+          <div class="panel-grid">
+            <article class="panel wide fragment">
+              <p>
+                KI-Agents können fast jeden Code besser und schneller generieren
+                als Menschen.
+              </p>
+            </article>
+            <article class="panel wide fragment">
+              <p>
+                Code ist kein Engpass mehr und kann deutlich günstiger und
+                schneller produziert werden.
+              </p>
+            </article>
+          </div>
+          <div class="takeaway-strip fragment">
+            Agentic Coding ist eine weitere Ebene der Abstraktion der
+            Programmiersprachen.
+          </div>
+          <div class="panel-grid">
+            <article class="panel wide fragment">
+              <p>
+                Softwareentwicklung umfasst viel mehr als nur die
+                Programmierung.
+              </p>
+            </article>
+          </div>
+          <div class="takeaway-strip fragment">
+            Die Verantwortung für die Software bleibt bei den Menschen.
+          </div>
+        </section>
+
+        <section class="backup-slide">
+          <p class="eyebrow">Reserve</p>
+          <h1>Backup</h1>
+          <h3>Ergänzungen für Diskussion, Fragen und Vertiefung</h3>
         </section>
 
         <section class="text-slide">
@@ -660,16 +748,6 @@
               </p>
             </article>
           </div>
-          <div class="takeaway-strip fragment">
-            Agentic Coding könnte eine weitere Ebene der Abstraktion sein. Die
-            Verantwortung verschwindet dadurch nicht.
-          </div>
-        </section>
-
-        <section class="backup-slide">
-          <p class="eyebrow">Reserve</p>
-          <h1>Backup</h1>
-          <h3>Ergänzungen für Diskussion, Fragen und Vertiefung</h3>
         </section>
 
         <section class="text-slide">
