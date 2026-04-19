@@ -106,8 +106,8 @@
             <article class="panel fragment wide">
               <p class="panel-kicker">Abgrenzung</p>
               <p>
-                Wichtige Themen wie Umwelt, Gesellschaft oder Politik werden
-                bewusst ausgeblendet.
+                Auswirkungen von KI auf Umwelt, Gesellschaft oder Politik werden
+                hier nicht behandelt.
               </p>
             </article>
           </div>
@@ -120,14 +120,13 @@
               <p class="panel-kicker">Wo stehen wir gerade?</p>
               <p>
                 Entwicklungen der letzten Jahre und aktueller Stand der Technik
-                in KI-Coding.
+                Coding mit KI.
               </p>
             </article>
             <article class="panel fragment">
               <p class="panel-kicker">Wie sichern wir die Qualität?</p>
               <p>
-                Zwischen herkömmlichen Best Practices und neuen Möglichkeiten
-                mit KI.
+                Von herkömmlichen Best Practices und neuen Möglichkeiten mit KI.
               </p>
             </article>
           </div>
@@ -161,8 +160,8 @@
           </div>
         </section>
 
-        <section>
-          <img src="images/vscode.jpg" alt="VS Code" />
+        <section class="vscode-screenshot-slide">
+          <img src="images/vscode.jpg" alt="VS Code" class="panel-image" />
         </section>
 
         <section class="text-slide" data-auto-animate>
@@ -208,19 +207,38 @@
             Von vielen nicht ernst genommen… &rarr;
             <span style="font-style: italic">„Wieviele E in Erdbeere?“</span>
           </div>
+          <div class="workflow-chain fragment">
+            <p class="chain-kicker">Chat oriented programming</p>
+            <div class="chain-steps">
+              <div class="chain-step">
+                <span class="chain-num">1</span>
+                <span class="chain-label">Prompt im Browser</span>
+              </div>
+              <span class="chain-arrow" aria-hidden="true">→</span>
+              <div class="chain-step">
+                <span class="chain-num">2</span>
+                <span class="chain-label">Code wird generiert</span>
+              </div>
+              <span class="chain-arrow" aria-hidden="true">→</span>
+              <div class="chain-step">
+                <span class="chain-num">3</span>
+                <span class="chain-label">Code kopieren</span>
+              </div>
+              <span class="chain-arrow chain-arrow-switch" aria-hidden="true"
+                >⇥</span
+              >
+              <div class="chain-step chain-step-editor">
+                <span class="chain-num">4</span>
+                <span class="chain-label">In Editor einfügen</span>
+              </div>
+            </div>
+          </div>
           <div class="panel-grid">
-            <article class="panel fragment">
-              <p class="panel-kicker">Programmieren</p>
+            <article class="panel wide fragment">
+              <p class="panel-kicker">Lernbegleiter und Assistent</p>
               <p>
-                Prompting im Browser um Code zu generieren, kopieren und in
-                Programmierumgebung einfügen.
-              </p>
-            </article>
-            <article class="panel fragment">
-              <p class="panel-kicker">Lernbegleiter</p>
-              <p>
-                Code erklären lassen, Fehler finden und beheben, Alternativen
-                anfragen, Feedback einholen, …
+                Code erklären lassen · Fehler finden und fixen · Alternativen
+                anfragen · Feedback einholen
               </p>
             </article>
           </div>
@@ -267,7 +285,7 @@
           </article>
           <div class="panel-grid">
             <article class="panel fragment">
-              <p class="panel-kicker">Agents</p>
+              <p class="panel-kicker">Echte Coding-Agents</p>
               <p>
                 Agents und Subagents können in Iterationen selbst Code
                 schreiben, testen und komplexe Tools ausführen.
@@ -285,25 +303,34 @@
 
         <section class="quote-slide">
           <div class="year-stamp fragment">März 2025</div>
-          <h2>Dario Amodei</h2>
-          <blockquote class="quote-panel fragment">
-            <p>90% des Codes werden in 3 bis 6 Monaten von KI geschrieben.</p>
-          </blockquote>
-          <p class="pull-quote fragment">
-            Für die meisten war dies übertriebener Hype.
-          </p>
+          <article class="panel panel-image fragment">
+            <img
+              src="images/amodei-code.jpg"
+              alt="Dario Amodei über Code-Generierung"
+            />
+          </article>
+          <div class="big-question fragment">
+            Übertriebener Hype oder realistische Vorhersage?
+          </div>
         </section>
 
         <section class="text-slide" data-auto-animate>
           <div class="year-stamp fragment">November 2025</div>
           <h2>Opus 4.6 und GPT-5.2 ändern alles…</h2>
-          <div class="lead-card fragment">
-            Um den Jahreswechsel 2025/26 vermehren sich erstaunte Berichte.
-          </div>
           <div class="panel-grid">
             <article class="panel fragment">
               <p class="panel-kicker">Coding Agents funktionieren</p>
-              <p>Code wird nicht mehr manuell geschrieben sondern generiert.</p>
+              <p>
+                Um den Jahreswechsel 2025/26 gibt es erstaunte Berichte in der
+                Coding-Welt.
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Komplette Transformation</p>
+              <p>
+                Das enorme Potenzial autonomer KI-Coding-Agents wird
+                offensichtlich.
+              </p>
             </article>
           </div>
         </section>
@@ -366,7 +393,7 @@
         </section>
 
         <section class="text-slide" data-auto-animate>
-          <div class="year-stamp fragment">April 2026</div>
+          <div class="year-stamp fragment">Frühjahr 2026</div>
           <h2>Heute</h2>
           <article class="panel panel-image fragment">
             <img
@@ -400,6 +427,7 @@
             <span class="chip">Cursor</span>
             <span class="chip">Replit</span>
             <span class="chip">Devin</span>
+            <span class="chip">Antigravity</span>
             <span class="chip">u.v.a.m.</span>
           </div>
         </section>
@@ -430,20 +458,31 @@
               <p class="mode-tag">Vibe Coding</p>
               <blockquote class="mini-quote">
                 "I just see stuff, say stuff, run stuff, and copy paste stuff."
+                &mdash; A. Karpathy (ex OpenAI, Tesla), Feb 2025
               </blockquote>
               <p>
-                Karpathy, Februar 2025. Gut für Prototypen, „Wegwerf“-Apps und
-                persönliches Ausprobieren.
+                Sinnvoll für Prototypen, „Wegwerf“-Apps und persönliches
+                Ausprobieren.
               </p>
             </article>
             <article class="mode-card fragment">
               <p class="mode-tag">Agentic Engineering</p>
-              <p>„Echtes“ Software Engineering für produktive Apps.</p>
+              <p>
+                „Echtes“ Software Engineering für produktive Apps. Der Mensch
+                steuert, überprüft und gestaltet die Software mit KI-Assistenz.
+                Programmcode wird von Agents generiert und getestet. <br />
+              </p>
             </article>
           </div>
           <div class="takeaway-strip fragment">
-            Zwei sinnvolle Modi: Baue ich Apps für mich selbst oder Software,
-            die für andere zuverlässig funktionieren muss?
+            Baue ich Apps für mich selbst oder Software, die für andere
+            zuverlässig funktionieren muss?
+          </div>
+          <div class="takeaway-strip fragment">
+            <span style="font-style: italic"
+              >„not AI but IA“ &rarr; intelligence amplification</span
+            >
+            (Erik Brynjolfsson)
           </div>
         </section>
 
