@@ -723,6 +723,24 @@
   border-radius: 18px;
 }
 
+/* Centered mobile app screenshot below a text card. */
+.reveal .slides section > .app-screenshot-panel {
+  width: fit-content;
+  max-width: min(360px, 42vw);
+  max-height: 12.2em;
+  margin-top: 0.72rem;
+  border-radius: 28px;
+  background: #fff;
+}
+
+.reveal .slides section > .app-screenshot-panel img {
+  width: auto;
+  max-width: 100%;
+  max-height: 12.2em;
+  object-fit: contain;
+  border-radius: 28px;
+}
+
 /* --- Workflow chain (numbered horizontal steps) ---------------- */
 .workflow-chain {
   max-width: 1020px;

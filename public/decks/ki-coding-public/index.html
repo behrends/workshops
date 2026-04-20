@@ -313,6 +313,17 @@
               alt="Dario Amodei über Code-Generierung"
             />
           </article>
+          <small
+            style="text-align: center; font-size: 0.5em; opacity: 0.7"
+            class="fragment"
+          >
+            <a
+              href="https://www.businessinsider.com/anthropic-ceo-ai-90-percent-code-3-to-6-months-2025-3"
+              target="_blank"
+              rel="noreferrer"
+              >businessinsider.com/anthropic-ceo-ai-90-percent-code-3-to-6-months-2025-3</a
+            >
+          </small>
           <div class="big-question fragment">
             Übertriebener Hype oder realistische Vorhersage?
           </div>
@@ -390,21 +401,41 @@
 
         <section>
           <h2>Vorführung</h2>
-          <p>Wie arbeite ich an CodeCompanion?</p>
-          <p>Codex und daneben Simulator</p>
-          <p>Feature entwickeln</p>
-          <p>Zeigen, dass Codex Tests schreibt und ausführt</p>
-          <p>Mit Claude Reviewen lassen</p>
-          <p>Dies ist MEINE Arbeitsweise, andere automatisieren viel mehr</p>
-          <p>Todo: Text oder Screenshots? Live Demo…</p>
+          <div class="lead-card fragment">
+            DHBW Code Companion zu 100% mit Agentic Engineering erstellt.
+          </div>
+          <article class="panel panel-image app-screenshot-panel fragment">
+            <img
+              src="images/code-companion-app.png"
+              alt="Screenshot der Code Companion App"
+            />
+          </article>
         </section>
 
         <section>
-          <h2>Ein Team von Junior-Devs</h2>
-          <p>Ich fühle mich wie ein Manager, der seine Agenten koordiniert.</p>
-          <p>Subagents</p>
-          <p>Parallele Coding-Agents</p>
-          <p>Ersetzt dies Programmierer? Spoiler: Nein</p>
+          <h2>KI-Agents als Team von Junior-Devs</h2>
+          <div class="panel-grid">
+            <article class="panel wide fragment">
+              <p class="panel-kicker">Sub-Agents</p>
+              <p>
+                Innerhalb eines Projekts können verschiedene Agents
+                unterschiedliche Rollen ausführen.
+              </p>
+            </article>
+            <article class="panel wide fragment">
+              <p class="panel-kicker">Parallele Agent-Sessions</p>
+              <p>
+                Gleichzeitige Arbeit an mehreren Projekten mit mehreren
+                Agents/LLMs ist möglich.
+              </p>
+            </article>
+          </div>
+          <div class="lead-card fragment">
+            Es fühlt sich an, als würde ein Manager seine Junior-Devs anweisen.
+          </div>
+          <div class="big-question fragment">
+            Ist Programmiererfahrung für gute Ergebnisse nötig?
+          </div>
         </section>
 
         <section class="compare-slide">
@@ -512,6 +543,8 @@
             <span class="chip">CodeRabbit</span>
             <span class="chip">Greptile</span>
             <span class="chip">Devin</span>
+            <span class="chip">Graphite</span>
+            <span class="chip">Snyk</span>
             <span class="chip">u.v.a.m.</span>
           </div>
           <div class="big-question fragment">
@@ -588,8 +621,8 @@
               <p class="panel-kicker">Kritische Aspekte selbst ausgestalten</p>
               <p>
                 Datenschema, Design, Architektur, Schnittstellen (APIs),
-                Security, usw. werden von Menschen entworfen und höchstens mit
-                KI-Assistenz geplant und umgesetzt.
+                Security, usw. werden von Menschen ausgearbeitet und höchstens
+                mit KI-Assistenz geprüft und umgesetzt.
               </p>
             </article>
           </div>
@@ -631,50 +664,72 @@
 
         <section class="text-slide">
           <h2>Guardrails</h2>
-          <div class="lead-card fragment">
-            LLMs, Agents und Tools haben teilweise Guardrails eingebaut.
-          </div>
-          <div class="lead-card fragment">
-            Wir können z. B. mit AGENTS.md arbeiten.
-          </div>
-          <div class="lead-card fragment">
-            Problem: Agents bleiben nicht-deterministisch
+          <div class="panel-grid">
+            <article class="panel wide fragment">
+              <p class="panel-kicker">
+                LLMs, Tools und Harnesses haben Schutzvorkehrungen
+              </p>
+              <p>Können wir denen vertrauen?</p>
+            </article>
+            <article class="panel wide fragment">
+              <p class="panel-kicker">
+                AGENTS.md, Hooks, Routines, Commands, usw.
+              </p>
+              <p>Problem: Agents/LLMs sind im Kern nicht-deterministisch…</p>
+            </article>
+            <article class="panel wide fragment">
+              <p class="panel-kicker">Eigenverantwortung</p>
+              <p>Unterschiedliche Setups verlangen verschiedene Ansätze.</p>
+            </article>
           </div>
         </section>
 
         <section class="text-slide">
           <h2>Sandboxes</h2>
-          <div class="lead-card fragment">
-            Agents sollen gar nicht auf sensitive Daten oder Produktionssysteme
-            zugreifen.
-          </div>
-          <div class="lead-card fragment">
-            Wir sollten uns bewusst sein, dass KI-Agents nur im Yolo-Mode
-            (Autopilot o. a.) den vollen Nutzen entfalten können, aber auch die
-            größten Risiken bergen.
-          </div>
-          <div class="lead-card fragment">
-            Eigene Maschinen, VMs oder Container.
-          </div>
-          <div class="lead-card fragment">
-            Agents dürfen nur den Code und die Dateien anpassen, die wir ihnen
-            geben. Aber damit dürfen sie frei arbeiten und experimentieren mit
-            vollen Systemrechten, ohne dass wir ständig eingreifen müssen.
+          <div class="panel-grid">
+            <article class="panel wide fragment">
+              <p class="panel-kicker">
+                VPS, Virtuelle Maschinen, Docker-Container, usw.
+              </p>
+              <p>
+                Von vornherein steuern, auf welche Daten oder Produktionssysteme
+                zugreifen können.
+              </p>
+            </article>
+            <article class="panel wide fragment">
+              <p class="panel-kicker">Autopilot</p>
+              <p>
+                Andererseits: Agents entfalten ihr volles Potenzial erst bei
+                ausreichend Zugriff (yolo mode).
+              </p>
+            </article>
+            <article class="panel wide fragment">
+              <p class="panel-kicker">Tradeoffs</p>
+              <p>
+                Kompromisse zwischen Sicherheit und Produktivität müssen bewusst
+                getroffen werden.
+              </p>
+            </article>
           </div>
         </section>
 
         <section class="text-slide">
-          <h2>Verifikation</h2>
-          <div class="lead-card fragment">
-            Eigentlich sind Programmiersprachen und Frameworks nun irrelevant,
-            da diese für den Menschen gedacht waren.
-          </div>
-          <div class="lead-card fragment">
-            Wie sieht die Sprache der Agenten aus?
-          </div>
-          <div class="lead-card fragment">
-            Könnten formale Methoden und Verifikation praktische Bedeutung
-            erlangen?
+          <h2>Zukunft</h2>
+          <div class="panel-grid">
+            <article class="panel wide fragment">
+              <p class="panel-kicker">Spezielle Sprachen und Umgebungen</p>
+              <p>
+                Eigentlich sind Programmiersprachen und Frameworks nun
+                irrelevant, da diese für den Menschen gedacht waren.
+              </p>
+            </article>
+            <article class="panel wide fragment">
+              <p class="panel-kicker">Verifikation</p>
+              <p>
+                Könnten formale Methoden bzw. Spezifikationen praktische
+                Bedeutung erlangen?
+              </p>
+            </article>
           </div>
         </section>
 
@@ -703,6 +758,12 @@
               <p>
                 Softwareentwicklung umfasst viel mehr als nur die
                 Programmierung.
+              </p>
+            </article>
+            <article class="panel wide fragment">
+              <p>
+                Agentic Engineering ist noch sehr neu und es gibt viele
+                ungelärte Fragen.
               </p>
             </article>
           </div>
