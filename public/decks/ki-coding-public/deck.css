@@ -123,23 +123,6 @@
   color: #770714;
 }
 
-.eyebrow,
-.panel-kicker,
-.mode-tag,
-.year-stamp {
-  font-family:
-    'IBM Plex Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.eyebrow {
-  margin-bottom: 0.8rem;
-  color: rgba(var(--deck-accent-rgb), 0.88);
-  font-size: 0.42em;
-  font-weight: 700;
-}
-
 .hero-slide,
 .backup-slide {
   text-align: center !important;
@@ -549,10 +532,6 @@
 
 .dark-shell h2::after {
   background: linear-gradient(90deg, #ff7a8c, rgba(255, 122, 140, 0.14));
-}
-
-.backup-slide h1 {
-  font-size: 2.08em;
 }
 
 /* --- Utility-Klassen ------------------------------------------- */
