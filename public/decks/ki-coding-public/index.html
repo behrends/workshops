@@ -297,9 +297,6 @@
               </p>
             </article>
           </div>
-          <div class="takeaway-strip fragment">
-            2025 wird von einigen als „year of the agents“ angekündigt.
-          </div>
         </section>
 
         <section class="text-slide" data-auto-animate>
@@ -324,6 +321,9 @@
               </p>
             </article>
           </div>
+          <p class="fragment">
+            Inzwischen gibt es einige CLI-Agents bzw. Harnesses:
+          </p>
           <div class="chip-row fragment">
             <span class="chip">Claude Code</span>
             <span class="chip">Codex CLI</span>
@@ -362,7 +362,7 @@
 
         <section class="text-slide" data-auto-animate>
           <div class="year-stamp fragment">Ende 2025</div>
-          <h2>Opus 4.5 und GPT-5.2 ändern alles…</h2>
+          <h2>Opus 4.5 und GPT-5.2 markieren einen Wendepunkt</h2>
           <div class="panel-grid">
             <article class="panel wide fragment">
               <p class="panel-kicker">Coding Agents funktionieren!</p>
@@ -376,7 +376,8 @@
               <p>
                 Coding-Agents können komplexe Aufgaben der Programmierung
                 übernehmen und über längere Zeiträume hinweg zuverlässig,
-                eigenständig und zielführend arbeiten.
+                eigenständig und zielführend arbeiten, wenn die Aufgaben, der
+                Kontext und die Anweisungen stimmen.
               </p>
             </article>
           </div>
@@ -416,8 +417,7 @@
             >
           </small>
           <div class="lead-card fragment">
-            Code tippen ist nicht mehr nötig &rarr; KI Agents erzeugen guten
-            Code
+            Code tippen ist oft nicht nötig &rarr; KI Agents erzeugen guten Code
           </div>
           <div class="chip-row fragment">
             <span class="chip">Claude Code</span>
@@ -492,7 +492,7 @@
             <span style="font-style: italic"
               >„IA not AI“ &rarr; intelligence amplification</span
             >
-            (R. Ashby, Introduction to Cybernetics, 1956)
+            (vgl. R. Ashby, Introduction to Cybernetics, 1956)
           </div>
         </section>
 
@@ -538,7 +538,7 @@
           <div class="panel-grid">
             <article class="panel fragment wide">
               <p class="panel-kicker">
-                Agents finden (manchmal?) Fehler, die Menschen übersehen
+                Agents können Fehler finden, die Menschen übersehen
               </p>
               <p>
                 Anthropics Mythos fand laut Project Glasswing eine 27 Jahre alte
@@ -687,6 +687,41 @@
         </section>
 
         <section class="text-slide">
+          <h2>Quality Stack für Agentic Engineering</h2>
+          <div class="lead-card fragment">
+            Wenn Agents viel Code erzeugen, muss Qualität systematisch in den
+            Workflow eingebaut werden.
+          </div>
+          <div class="chip-row fragment">
+            <span class="chip">Spezifikation</span>
+            <span class="chip">Definition of Done</span>
+            <span class="chip">Tests</span>
+            <span class="chip">CI</span>
+            <span class="chip">Statische Analyse</span>
+            <span class="chip">Dependency Scans</span>
+            <span class="chip">Secret Scanning</span>
+            <span class="chip">Code Review</span>
+            <span class="chip">Monitoring</span>
+          </div>
+          <div class="panel-grid">
+            <article class="panel fragment">
+              <p class="panel-kicker">Vor der Generierung</p>
+              <p>
+                Gute Prompts ersetzen keine Anforderungen: Was soll gelten, wann
+                ist die Aufgabe fertig, welche Randfälle sind relevant?
+              </p>
+            </article>
+            <article class="panel fragment">
+              <p class="panel-kicker">Nach der Generierung</p>
+              <p>
+                Automatisierte Checks, Reviews und Laufzeitbeobachtung müssen
+                schnell sichtbar machen, ob der Code wirklich trägt.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="text-slide">
           <h2>Testpyramide</h2>
           <article class="panel panel-image fragment">
             <img src="images/testpyramide.svg" alt="Testpyramide" />
@@ -732,6 +767,13 @@
               <p>Problem: Agents/LLMs sind im Kern nicht-deterministisch…</p>
             </article>
             <article class="panel wide fragment">
+              <p class="panel-kicker">Least Privilege</p>
+              <p>
+                Guardrails sollten technische Grenzen setzen: minimale Rechte,
+                klare erlaubte Befehle und nachvollziehbare Logs.
+              </p>
+            </article>
+            <article class="panel wide fragment">
               <p class="panel-kicker">Eigenverantwortung</p>
               <p>Unterschiedliche Setups verlangen verschiedene Ansätze.</p>
             </article>
@@ -748,6 +790,14 @@
               <p>
                 Von vornherein steuern, auf welche Daten oder Produktionssysteme
                 Agents zugreifen können.
+              </p>
+            </article>
+            <article class="panel wide fragment">
+              <p class="panel-kicker">Keine Produktionsdaten</p>
+              <p>
+                Agents sollten in isolierten Umgebungen arbeiten: minimale
+                Secrets, keine produktiven Datenbanken und keine direkten
+                Deploy-Rechte.
               </p>
             </article>
             <article class="panel wide fragment">
@@ -788,7 +838,7 @@
         </section>
 
         <section class="text-slide">
-          <h2>Abschluss</h2>
+          <h2>Was ändert sich?</h2>
           <div class="panel-grid">
             <article class="panel wide fragment">
               <p>
@@ -798,7 +848,7 @@
             </article>
             <article class="panel wide fragment">
               <p>
-                Code ist kein Engpass mehr und kann deutlich günstiger und
+                Code ist seltener der Engpass und kann deutlich günstiger und
                 schneller produziert werden.
               </p>
             </article>
@@ -813,6 +863,10 @@
             Agentic Coding ist eine weitere Ebene der Abstraktion der
             Programmiersprachen.
           </div>
+        </section>
+
+        <section class="text-slide">
+          <h2>Was bleibt unsere Aufgabe?</h2>
           <div class="panel-grid">
             <article class="panel wide fragment">
               <p>
