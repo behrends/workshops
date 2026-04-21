@@ -201,7 +201,7 @@
             Zwischen Hype und Spielerei… &rarr;
             <span class="italic">„Wie viele E in Erdbeere?“</span>
           </div>
-          <div class="panel-grid">
+          <div class="panel-grid fragment" data-fragment-index="1">
             <article class="panel wide">
               <p class="panel-kicker">Lernbegleiter und Assistent</p>
               <p>
@@ -210,10 +210,10 @@
               </p>
             </article>
           </div>
-          <div class="takeaway-strip">
+          <div class="takeaway-strip fragment" data-fragment-index="2">
             Chat-Interaktion mit Code kommt auch in die Editoren bzw. IDEs.
           </div>
-          <div class="workflow-chain">
+          <div class="workflow-chain fragment" data-fragment-index="2">
             <p class="chain-kicker">Chat oriented programming</p>
             <div class="chain-steps">
               <div class="chain-step">
@@ -253,9 +253,6 @@
               </p>
             </article>
           </div>
-          <div class="lead-card">
-            LLMs sind nun nützliche Werkzeuge für die Softwareentwicklung.
-          </div>
           <div class="panel-grid">
             <article class="panel wide">
               <p class="panel-kicker">Weitere Entwicklungen in 2023 / 2024</p>
@@ -291,31 +288,10 @@
             <article class="panel wide fragment">
               <p class="panel-kicker">LLMs vs. Agents</p>
               <p>
-                Begriffe auseinanderhalten: LLMs (z. B. Claude Opus) und Agents
-                (z. B. Claude Code)
+                Begriffe auseinanderhalten: LLMs (z. B. Claude Opus) und
+                Agent-Tools (z. B. Claude Code)
               </p>
             </article>
-          </div>
-        </section>
-
-        <section class="quote-slide">
-          <div class="year-stamp">März 2025</div>
-          <article class="panel panel-image">
-            <img
-              src="images/amodei-code.jpg"
-              alt="Dario Amodei über Code-Generierung"
-            />
-          </article>
-          <small class="source-caption">
-            <a
-              href="https://www.businessinsider.com/anthropic-ceo-ai-90-percent-code-3-to-6-months-2025-3"
-              target="_blank"
-              rel="noreferrer"
-              >businessinsider.com/anthropic-ceo-ai-90-percent-code-3-to-6-months-2025-3</a
-            >
-          </small>
-          <div class="big-question fragment">
-            Übertriebener Hype oder realistische Vorhersage?
           </div>
         </section>
 
@@ -340,38 +316,9 @@
               </p>
             </article>
           </div>
-        </section>
-
-        <section data-auto-animate>
-          <div class="year-stamp">Frühjahr 2026</div>
-          <h2>Heute</h2>
-          <article class="panel panel-image">
-            <img
-              src="images/nytimes.jpg"
-              alt="Artikel zu KI-Coding-Agents in der New York Times"
-            />
-          </article>
-          <small class="source-caption source-caption-block">
-            <a
-              href="https://www.nytimes.com/2026/03/12/magazine/ai-coding-programming-jobs-claude-chatgpt.html"
-              target="_blank"
-              rel="noreferrer"
-              >nytimes.com/2026/03/12/magazine/ai-coding-programming-jobs-claude-chatgpt.html</a
-            >
-          </small>
           <div class="lead-card fragment">
             Code tippen oft nicht nötig &rarr; KI-Agents liefern brauchbaren
             Code
-          </div>
-          <div class="chip-row fragment">
-            <span class="chip">Claude Code</span>
-            <span class="chip">OpenAI Codex</span>
-            <span class="chip">GitHub Copilot</span>
-            <span class="chip">Cursor</span>
-            <span class="chip">Replit</span>
-            <span class="chip">Devin</span>
-            <span class="chip">Antigravity</span>
-            <span class="chip">u.v.a.m.</span>
           </div>
         </section>
 
@@ -405,39 +352,6 @@
               src="images/claude-code-review.jpg"
               alt="Code mit Claude reviewt"
             />
-          </div>
-        </section>
-
-        <section>
-          <h2>Vibe Coding vs. Agentic Engineering</h2>
-          <div class="mode-grid">
-            <article class="mode-card">
-              <p class="mode-tag">Vibe Coding</p>
-              <blockquote class="mini-quote">
-                "I just see stuff, say stuff, run stuff, and copy paste stuff."
-                &mdash; A. Karpathy (ex OpenAI, Tesla), Feb 2025
-              </blockquote>
-              <p>
-                Sinnvoll für Prototypen, „Wegwerf“-Apps und persönliches
-                Ausprobieren.
-              </p>
-            </article>
-            <article class="mode-card">
-              <p class="mode-tag">Agentic Engineering</p>
-              <p>
-                „Echtes“ Software Engineering für produktive Apps. Der Mensch
-                steuert, überprüft und gestaltet die Software mit KI-Assistenz.
-                Programmcode wird von Agents generiert und getestet.
-              </p>
-            </article>
-          </div>
-          <div class="takeaway-strip fragment">
-            Ist die Software nur für mich oder muss sie für andere zuverlässig
-            funktionieren?
-          </div>
-          <div class="takeaway-strip fragment">
-            <span class="italic">„IA not AI“: intelligence amplification</span>
-            (vgl. R. Ashby, Introduction to Cybernetics, 1956)
           </div>
         </section>
 
@@ -595,10 +509,6 @@
               </p>
             </article>
           </div>
-        </section>
-
-        <section class="question-slide">
-          <h2>Wie sichern wir die Qualität?</h2>
         </section>
 
         <section>
@@ -765,6 +675,89 @@
                 zu reduzieren.
               </p>
             </article>
+          </div>
+        </section>
+
+        <section>
+          <h2>Vibe Coding vs. Agentic Engineering</h2>
+          <div class="mode-grid">
+            <article class="mode-card">
+              <p class="mode-tag">Vibe Coding</p>
+              <blockquote class="mini-quote">
+                "I just see stuff, say stuff, run stuff, and copy paste stuff."
+                &mdash; A. Karpathy (ex OpenAI, Tesla), Feb 2025
+              </blockquote>
+              <p>
+                Sinnvoll für Prototypen, „Wegwerf“-Apps und persönliches
+                Ausprobieren.
+              </p>
+            </article>
+            <article class="mode-card">
+              <p class="mode-tag">Agentic Engineering</p>
+              <p>
+                „Echtes“ Software Engineering für produktive Apps. Der Mensch
+                steuert, überprüft und gestaltet die Software mit KI-Assistenz.
+                Programmcode wird von Agents generiert und getestet.
+              </p>
+            </article>
+          </div>
+          <div class="takeaway-strip fragment">
+            Ist die Software nur für mich oder muss sie für andere zuverlässig
+            funktionieren?
+          </div>
+          <div class="takeaway-strip fragment">
+            <span class="italic">„IA not AI“: intelligence amplification</span>
+            (vgl. R. Ashby, Introduction to Cybernetics, 1956)
+          </div>
+        </section>
+
+        <section class="quote-slide">
+          <div class="year-stamp">März 2025</div>
+          <article class="panel panel-image">
+            <img
+              src="images/amodei-code.jpg"
+              alt="Dario Amodei über Code-Generierung"
+            />
+          </article>
+          <small class="source-caption">
+            <a
+              href="https://www.businessinsider.com/anthropic-ceo-ai-90-percent-code-3-to-6-months-2025-3"
+              target="_blank"
+              rel="noreferrer"
+              >businessinsider.com/anthropic-ceo-ai-90-percent-code-3-to-6-months-2025-3</a
+            >
+          </small>
+          <div class="big-question fragment">
+            Übertriebener Hype oder realistische Vorhersage?
+          </div>
+        </section>
+
+        <section data-auto-animate>
+          <div class="year-stamp">Frühjahr 2026</div>
+          <h2>Heute</h2>
+          <article class="panel panel-image">
+            <img
+              src="images/nytimes.jpg"
+              alt="Artikel zu KI-Coding-Agents in der New York Times"
+            />
+          </article>
+          <small class="source-caption source-caption-block">
+            <a
+              href="https://www.nytimes.com/2026/03/12/magazine/ai-coding-programming-jobs-claude-chatgpt.html"
+              target="_blank"
+              rel="noreferrer"
+              >nytimes.com/2026/03/12/magazine/ai-coding-programming-jobs-claude-chatgpt.html</a
+            >
+          </small>
+          <div class="chip-row fragment">
+            <span class="chip">Claude Code</span>
+            <span class="chip">OpenAI Codex</span>
+            <span class="chip">GitHub Copilot</span>
+            <span class="chip">Cursor</span>
+            <span class="chip">Replit</span>
+            <span class="chip">Devin</span>
+            <span class="chip">Antigravity</span>
+            <span class="chip">u.v.a.m.</span>
           </div>
         </section>
 
