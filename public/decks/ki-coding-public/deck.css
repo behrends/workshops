@@ -337,7 +337,7 @@
 }
 
 .reveal .slides section > .completion-layout {
-  max-width: 920px;
+  max-width: 1024px;
   margin: 0.84rem auto 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(270px, 0.75fr);
