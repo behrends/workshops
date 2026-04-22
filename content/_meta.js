@@ -8,6 +8,10 @@ export default {
     display: 'hidden',
     theme: { layout: 'full', toc: false, typesetting: 'article' },
   },
+  decks: {
+    title: 'Folien',
+    display: 'hidden',
+  },
   prog: 'Programmieren',
   'web-prog': 'Web-Programmierung',
   mobile: 'Mobile Apps',

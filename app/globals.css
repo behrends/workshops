@@ -11,6 +11,10 @@
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
+.deck-index-display {
+  font-family: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+}
+
 .slide-meta-box {
   --slide-box-border: rgba(148, 163, 184, 0.25);
   --slide-box-bg: rgba(248, 250, 252, 0.85);
