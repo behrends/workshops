@@ -19,9 +19,9 @@ timeline
         2020 : GPT-3 : RAG
     section Jährliche Intervalle (LLM- & App-Explosion)
         2021 : GitHub Copilot (tab completion)
-        2022 : ChatGPT : LLMs werden bekannt
+        2022 : ChatGPT : LLMs werden bekannt : Schlagwort „Generative KI“ 
         2023 : GPT-4 : Claude 2 : Cursor : Mistral : Gemini : Function Calling / Tool Calling
         2024 : GPT-4o : Claude 3 : o1 (Reasoning Models) : Replit Agent : MCP
         2025 : DeepSeek R1 : Claude Code : Gemini 3 : Opus 4.5 : GPT-5.2 : Agentic Coding wird Mainstream
-        2026 : GPT-5.4 : Codex App : Opus 4.7 : Mythos Preview(Anthropic)
+        2026 : GPT-5.4 : Codex App : Opus 4.7 : Mythos Preview (Anthropic)
 ```
