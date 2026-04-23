@@ -956,6 +956,15 @@
 }
 
 @media print {
+  .reveal-viewport,
+  .reveal-viewport::before,
+  .hero-slide::after,
+  .qr-shell::before,
+  .qr-shell::after {
+    background-image: none !important;
+    mask-image: none !important;
+  }
+
   .speaker-status,
   .lead-card,
   .takeaway-strip,
@@ -1008,6 +1017,41 @@
     background-image: none !important;
   }
 
+  .year-stamp,
+  .chip,
+  .chain-num,
+  .chain-step,
+  .chain-step-editor,
+  .reveal .slides section h2::after,
+  .reveal .slides section h3::after,
+  .dark-shell h2::after {
+    background-image: none !important;
+  }
+
+  .year-stamp,
+  .chip,
+  .chain-step {
+    background-color: #fbf7f1 !important;
+  }
+
+  .chain-step-editor {
+    background-color: #f6ece2 !important;
+  }
+
+  .chain-num {
+    background-color: rgba(var(--deck-accent-rgb), 0.18) !important;
+  }
+
+  .chain-step-editor .chain-num {
+    background-color: rgba(var(--deck-accent-rgb), 0.92) !important;
+  }
+
+  .reveal .slides section h2::after,
+  .reveal .slides section h3::after,
+  .dark-shell h2::after {
+    background: var(--deck-accent) !important;
+  }
+
   .chain-steps {
     grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr !important;
   }
@@ -1019,10 +1063,5 @@
 
   .dark-factory-slide .panel-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
- 
-  .qr-shell::before,
-  .qr-shell::after {
-    display: none !important;
   }
 }
