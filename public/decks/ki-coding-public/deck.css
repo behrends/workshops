@@ -40,6 +40,16 @@
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.45), transparent 92%);
 }
 
+@media print {
+  .reveal-viewport::before {
+    display: none;
+  }
+
+  .reveal-viewport {
+    background: var(--deck-bg-strong);
+  }
+}
+
 .speaker-status {
   background: rgba(255, 250, 244, 0.96);
   box-shadow: var(--deck-shadow-soft);
@@ -936,5 +946,64 @@
     max-width: 12.6em;
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+@media print {
+  .speaker-status,
+  .lead-card,
+  .takeaway-strip,
+  .prompt-card,
+  .big-question,
+  .reveal .slides section > .app-screenshot-row img,
+  .panel,
+  .mode-card,
+  .chip,
+  .mini-quote,
+  .dark-shell,
+  .qr-shell,
+  .qr-card,
+  .qr-frame,
+  .qr-frame img,
+  .reveal .slides section > p:not([class]),
+  .reveal .slides section > img:only-child,
+  .reveal .slides section > .image-pair img,
+  .workflow-chain {
+    box-shadow: none !important;
+  }
+
+  .lead-card,
+  .prompt-card,
+  .panel,
+  .mode-card,
+  .mini-quote,
+  .workflow-chain,
+  .qr-shell,
+  .qr-card,
+  .qr-frame,
+  .reveal .slides section > p:not([class]) {
+    background: #fbf7f1 !important;
+    background-image: none !important;
+  }
+
+  .big-question {
+    background: #f4ece1 !important;
+    background-image: none !important;
+  }
+
+  .takeaway-strip {
+    background: #520a14 !important;
+    background-image: none !important;
+  }
+
+  .panel.dark,
+  .dark-shell {
+    background: #1a1d22 !important;
+    background-image: none !important;
+  }
+
+  .qr-shell::before,
+  .qr-shell::after {
+    display: none !important;
   }
 }
