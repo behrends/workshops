@@ -15,5 +15,5 @@ export default {
   prog: 'Programmieren',
   'web-prog': 'Web-Programmierung',
   mobile: 'Mobile Apps',
-  praesi: 'Präsentationskompetenzen',
+  praesi: 'Lernen und Präsentieren',
 };
