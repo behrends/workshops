@@ -160,3 +160,66 @@
 .reveal .forgetting-curve .fragment.visible .curve-spaced.draw {
   stroke-dashoffset: 0;
 }
+
+/* Bloom-Pyramide */
+:root {
+  --bloom-1: #7b8990;
+  --bloom-2: #5c6971;
+  --bloom-3: #a3283a;
+  --bloom-4: #e2001a;
+}
+
+.reveal .bloom {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0.4rem auto 0.9rem;
+}
+
+.reveal .bloom-level {
+  display: grid;
+  grid-template-columns: 460px 1fr;
+  align-items: center;
+  column-gap: 32px;
+}
+
+.reveal .bloom-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  color: #ffffff;
+  font-size: 0.7em;
+  font-weight: 700;
+}
+
+.reveal .bloom-text {
+  color: var(--deck-ink);
+  font-size: 0.7em;
+}
+
+/* Stumpfe Pyramide: Jede Stufe ist ein Trapez */
+.reveal .bloom .level-4 .bloom-step {
+  background: var(--bloom-4);
+  clip-path: polygon(35% 0, 65% 0, 73.75% 100%, 26.25% 100%);
+}
+
+.reveal .bloom .level-3 .bloom-step {
+  background: var(--bloom-3);
+  clip-path: polygon(26.25% 0, 73.75% 0, 82.5% 100%, 17.5% 100%);
+}
+
+.reveal .bloom .level-2 .bloom-step {
+  background: var(--bloom-2);
+  clip-path: polygon(17.5% 0, 82.5% 0, 91.25% 100%, 8.75% 100%);
+}
+
+.reveal .bloom .level-1 .bloom-step {
+  background: var(--bloom-1);
+  clip-path: polygon(8.75% 0, 91.25% 0, 100% 100%, 0 100%);
+}
+
+.reveal .bloom .level-4 .bloom-text {
+  color: var(--bloom-4);
+  font-weight: 600;
+}
