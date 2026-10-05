@@ -92,6 +92,72 @@
         </section>
 
         <section>
+          <h3>Die Vergessenskurve</h3>
+          <svg
+            class="forgetting-curve"
+            viewBox="0 0 1000 400"
+            role="img"
+            aria-label="Vergessenskurve: Ohne Wiederholung sinkt die Erinnerung schnell gegen null, mit verteilten Wiederholungen bleibt sie hoch und sinkt jedes Mal langsamer."
+          >
+            <g class="axis">
+              <line x1="80" y1="40" x2="80" y2="330" />
+              <line x1="80" y1="330" x2="960" y2="330" />
+              <text x="70" y="46" text-anchor="end">100 %</text>
+              <text x="70" y="336" text-anchor="end">0 %</text>
+              <text
+                x="30"
+                y="185"
+                text-anchor="middle"
+                transform="rotate(-90 30 185)"
+              >
+                Erinnerung
+              </text>
+              <text x="80" y="362" text-anchor="middle">0</text>
+              <text x="122" y="362" text-anchor="middle">1</text>
+              <text x="206" y="362" text-anchor="middle">3</text>
+              <text x="373" y="362" text-anchor="middle">7</text>
+              <text x="667" y="362" text-anchor="middle">14</text>
+              <text x="960" y="362" text-anchor="middle">21</text>
+              <text x="520" y="392" text-anchor="middle">Tage nach dem Lernen</text>
+            </g>
+
+            <g class="fragment">
+              <path
+                class="curve curve-once draw"
+                pathLength="1"
+                d="M80,40 L94.7,100.4 109.3,148.1 124,186 138.7,216 153.3,239.7 168,258.5 182.7,273.4 197.3,285.2 212,294.5 226.7,301.9 241.3,307.7 256,312.4 270.7,316 285.3,318.9 300,321.2 314.7,323.1 329.3,324.5 344,325.7 373.3,327.3 402.7,328.3 446.7,329.2 505.3,329.7 593.3,329.9 960,330"
+              />
+              <text class="label-once" x="300" y="306">Einmal gelernt</text>
+            </g>
+
+            <g class="fragment">
+              <path
+                class="curve curve-spaced draw"
+                pathLength="1"
+                d="M80,40 L84.2,58.7 88.4,76.2 92.6,92.6 96.8,107.9 101,122.2 105.1,135.6 109.3,148.1 113.5,159.9 117.7,170.8 121.9,181.1 L121.9,40 L130.3,55.1 138.7,69.3 147,82.9 155.4,95.7 163.8,107.9 172.2,119.4 180.6,130.4 189,140.7 197.3,150.6 205.7,159.9 L205.7,40 L222.5,52.1 239.2,63.7 256,74.8 272.8,85.5 289.5,95.7 306.3,105.5 323,114.9 339.8,123.9 356.6,132.5 373.3,140.7 L373.3,40 L402.7,48.5 432,56.8 461.3,64.9 490.7,72.7 520,80.2 549.3,87.6 578.7,94.7 608,101.6 637.3,108.4 666.7,114.9 L666.7,40 L705.8,44.6 744.9,49.1 784,53.5 823.1,57.9 862.2,62.2 901.3,66.4 930.7,69.6 960,72.7"
+              />
+              <g class="repeat-dots">
+                <circle cx="121.9" cy="40" r="6" />
+                <circle cx="205.7" cy="40" r="6" />
+                <circle cx="373.3" cy="40" r="6" />
+                <circle cx="666.7" cy="40" r="6" />
+              </g>
+              <text class="label-spaced" x="690" y="118">
+                Mit verteilten Wiederholungen
+              </text>
+            </g>
+
+            <g class="fragment exam">
+              <line x1="960" y1="20" x2="960" y2="330" />
+              <text x="950" y="24" text-anchor="end">Prüfung</text>
+            </g>
+          </svg>
+          <p class="quiet">
+            Schematisch nach Hermann Ebbinghaus (1885)
+          </p>
+        </section>
+
+        <section>
           <h3>Klausur nicht bestanden?</h3>
           <p class="enum fragment">
             Auf die erste Klausur kann eine Wiederholungsklausur folgen.

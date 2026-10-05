@@ -88,3 +88,75 @@
   background: transparent;
   color: rgba(255, 255, 255, 0.6);
 }
+
+/* Vergessenskurve */
+.reveal .forgetting-curve {
+  display: block;
+  width: auto;
+  height: 350px;
+  margin-top: 0.2rem;
+  overflow: visible;
+}
+
+.reveal .forgetting-curve text {
+  fill: var(--deck-muted);
+  font-size: 20px;
+}
+
+.reveal .forgetting-curve .axis line {
+  stroke: var(--deck-line);
+  stroke-width: 2;
+}
+
+.reveal .forgetting-curve .curve {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.reveal .forgetting-curve .curve-once {
+  stroke: var(--deck-muted);
+  stroke-dasharray: 0.012 0.008;
+}
+
+.reveal .forgetting-curve .curve-spaced {
+  stroke: var(--deck-accent);
+}
+
+.reveal .forgetting-curve .label-once {
+  font-weight: 600;
+}
+
+.reveal .forgetting-curve .label-spaced {
+  fill: var(--deck-accent);
+  font-weight: 700;
+}
+
+.reveal .forgetting-curve .repeat-dots circle {
+  fill: #ffffff;
+  stroke: var(--deck-accent);
+  stroke-width: 3;
+}
+
+.reveal .forgetting-curve .exam line {
+  stroke: var(--deck-heading);
+  stroke-width: 2;
+  stroke-dasharray: 8 6;
+}
+
+.reveal .forgetting-curve .exam text {
+  fill: var(--deck-heading);
+  font-weight: 700;
+}
+
+/* Kurve wird beim Einblenden gezeichnet */
+.reveal .forgetting-curve .curve-spaced.draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.8s ease-out;
+}
+
+.reveal .forgetting-curve .fragment.visible .curve-spaced.draw {
+  stroke-dashoffset: 0;
+}
