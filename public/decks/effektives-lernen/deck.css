@@ -39,3 +39,52 @@
   color: var(--deck-muted);
   font-size: 0.72em;
 }
+
+/* Kapiteltrenner */
+.reveal .slides section.chapter::before {
+  content: attr(data-chapter);
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(var(--deck-accent-rgb), 0.9);
+  font-size: 8em;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.reveal .slides section.chapter > * {
+  margin-left: 60px;
+  max-width: 820px;
+}
+
+.reveal .chapter-label {
+  margin-bottom: 0.4rem;
+  color: var(--deck-accent);
+  font-size: 0.62em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.reveal .slides section.chapter h3 {
+  color: #ffffff;
+  font-size: 2.1em;
+}
+
+.reveal .chapter-lead {
+  margin-top: 0.9rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.8em;
+}
+
+.reveal.has-dark-background .deck-logo {
+  filter: brightness(0) invert(1);
+}
+
+.reveal.has-dark-background .slide-number {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+}
