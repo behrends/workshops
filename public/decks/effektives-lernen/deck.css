@@ -295,3 +295,86 @@
 .reveal .selftest .level-5 .selftest-level {
   box-shadow: 0 0 0 3px var(--deck-accent);
 }
+
+/* Programmieraufgabe zum Mitmachen */
+.reveal .code-exercise {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  align-items: center;
+  column-gap: 40px;
+}
+
+.reveal .code-exercise ul {
+  margin: 0;
+  font-size: 0.82em;
+}
+
+.reveal .code-exercise li {
+  margin: 0.5rem 0;
+}
+
+.reveal .code-card {
+  padding: 0.9rem 1.1rem 1rem;
+  border-radius: 16px;
+  background: var(--deck-heading);
+  box-shadow: var(--deck-shadow);
+}
+
+.reveal .code-question {
+  margin: 0 0 0.5rem;
+  color: #ffffff;
+  font-size: 0.66em;
+  font-weight: 700;
+}
+
+.reveal .code-card pre {
+  width: auto;
+  margin: 0;
+  box-shadow: none;
+  font-size: 0.56em;
+  line-height: 1.5;
+}
+
+.reveal .code-card pre,
+.reveal .code-card pre * {
+  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+}
+
+.reveal .code-card code {
+  display: block;
+  max-height: none;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+  color: #e7ecef;
+  white-space: pre;
+}
+
+.reveal .code-card .kw {
+  color: #ff8a96;
+}
+
+.reveal .code-card .num {
+  color: #f6c177;
+}
+
+.reveal .code-card .fn {
+  color: #9ccfd8;
+}
+
+.reveal .code-answer {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  margin: 0.7rem 0 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.6em;
+}
+
+.reveal .code-answer b {
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.6em;
+}

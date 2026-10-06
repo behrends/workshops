@@ -369,11 +369,27 @@
 
         <section>
           <h3>Programmieraufgaben üben</h3>
-          <ul>
-            <li class="fragment">Code von Hand nachvollziehen</li>
-            <li class="fragment">Die Ausgabe vorhersagen</li>
-            <li class="fragment">Fehler finden und Code ergänzen</li>
-          </ul>
+          <div class="code-exercise">
+            <ul>
+              <li class="fragment">Code von Hand nachvollziehen</li>
+              <li class="fragment">Die Ausgabe vorhersagen</li>
+              <li class="fragment">Fehler finden und Code ergänzen</li>
+            </ul>
+            <div class="code-card fragment">
+              <p class="code-question">Was gibt dieser Code aus?</p>
+              <pre><code><span class="kw">int</span> summe = <span class="num">0</span>;
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i &lt; <span class="num">5</span>; i++) {
+    <span class="kw">if</span> (i % <span class="num">2</span> == <span class="num">1</span>) {
+        summe += i * i;
+    }
+}
+System.out.<span class="fn">println</span>(summe);</code></pre>
+              <p class="code-answer fragment">
+                <b>10</b>
+                <span>(1² + 3² = 10)</span>
+              </p>
+            </div>
+          </div>
         </section>
 
         <section>
