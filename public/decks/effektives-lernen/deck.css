@@ -4,8 +4,39 @@
   padding-top: 20px;
 }
 
-.reveal .slides section:first-of-type h3 {
-  max-width: 1050px;
+/* Titelfolie mit Foto eines Lernplatzes */
+.reveal .slides section.title-slide {
+  text-align: left;
+}
+
+.reveal .title-layout {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: 64px;
+  width: 1020px;
+}
+
+.reveal .slides section.title-slide h3 {
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding-top: 20px;
+}
+
+.reveal .title-copy h4 {
+  margin: 24px 0 0;
+  line-height: 1.45;
+}
+
+.reveal .title-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border-radius: 14px;
 }
 
 .reveal .slides section:not(:first-of-type) h3 {
