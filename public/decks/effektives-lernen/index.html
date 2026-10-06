@@ -330,8 +330,62 @@
           </ul>
         </section>
 
-        <section>
+        <section id="ki-als-tutor" class="tutor-example">
           <h3>KI als Tutor einsetzen</h3>
+          <p class="quiet">
+            Beispieldialog: Die KI fragt nach, Sie denken selbst.
+          </p>
+          <ol
+            class="tutor-dialog"
+            aria-label="Beispieldialog zum Üben von Java-Schleifen"
+          >
+            <li class="tutor-message tutor-ai">
+              <span class="tutor-speaker">KI</span>
+              <div class="tutor-content">
+                <p>Was gibt diese Java-Schleife aus?</p>
+                <pre><code>for (int i = 0; i &lt; 3; i++) {
+    System.out.println(i);
+}</code></pre>
+              </div>
+            </li>
+            <li
+              class="tutor-message tutor-student fragment"
+              data-fragment-index="0"
+            >
+              <span class="tutor-speaker">Sie</span>
+              <div class="tutor-content">
+                <p>Die Ausgabe ist 0, 1, 2, 3.</p>
+              </div>
+            </li>
+            <li class="tutor-message tutor-ai fragment" data-fragment-index="1">
+              <span class="tutor-speaker">KI</span>
+              <div class="tutor-content">
+                <p>
+                  Prüfen Sie die Bedingung für <code>i = 3</code>:<br />
+                  Ist <code>3 &lt; 3</code> wahr?
+                </p>
+              </div>
+            </li>
+            <li
+              class="tutor-message tutor-student fragment"
+              data-fragment-index="2"
+            >
+              <span class="tutor-speaker">Sie</span>
+              <div class="tutor-content">
+                <p>
+                  Nein. Die Schleife endet vorher.<br />
+                  Die Ausgabe ist 0, 1, 2.
+                </p>
+              </div>
+            </li>
+          </ol>
+          <p class="quiet fragment" data-fragment-index="3">
+            Eigene Antworten zuerst. KI-Antworten anschließend überprüfen.
+          </p>
+        </section>
+
+        <section id="ki-tutor-prompt">
+          <h3>Ein Prompt für Ihren KI-Tutor</h3>
           <p class="quiet">
             Mastery Learning: Erst weitergehen, wenn eine Kompetenz sitzt.
           </p>

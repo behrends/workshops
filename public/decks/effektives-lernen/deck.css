@@ -40,6 +40,86 @@
   font-size: 0.72em;
 }
 
+/* Beispieldialog mit dem KI-Tutor */
+.reveal .slides .tutor-example > * {
+  max-width: 980px;
+}
+
+.reveal .tutor-example > .quiet:last-child {
+  margin-top: 0.4rem;
+}
+
+.reveal .tutor-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 1020px;
+  margin: 0.5rem auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reveal .tutor-dialog .tutor-message {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  align-items: start;
+  gap: 16px;
+  width: 88%;
+  margin: 0;
+  padding: 14px 20px;
+  border-left: 4px solid var(--deck-accent);
+  border-radius: 0 14px 14px 14px;
+  background: var(--deck-surface-soft);
+  font-size: 0.66em;
+  line-height: 1.3;
+}
+
+.reveal .tutor-dialog .tutor-student {
+  align-self: flex-end;
+  border-left-color: var(--deck-heading);
+  border-radius: 14px 0 14px 14px;
+  background: #edf1f3;
+}
+
+.reveal .tutor-speaker {
+  color: var(--deck-accent);
+  font-weight: 700;
+}
+
+.reveal .tutor-student .tutor-speaker {
+  color: var(--deck-heading);
+}
+
+.reveal .tutor-content p {
+  margin: 0;
+  line-height: 1.3;
+}
+
+.reveal .tutor-content pre {
+  width: auto;
+  margin: 8px 0 0;
+  box-shadow: none;
+  font-size: 0.9em;
+  line-height: 1.35;
+}
+
+.reveal .tutor-content code {
+  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+}
+
+.reveal .tutor-content p code {
+  font-size: 0.9em;
+}
+
+.reveal .tutor-content pre code {
+  max-height: none;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+  color: var(--deck-heading);
+  white-space: pre;
+}
+
 /* Kapiteltrenner */
 .reveal .slides section.chapter::before {
   content: attr(data-chapter);
