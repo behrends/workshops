@@ -1,0 +1,7 @@
+Bearbeitet mit dem integrierten image_gen-Tool.
+
+Use case: precise-object-edit.
+Edit target: the referenced photograph.
+Entferne ausschließlich das Smartphone rechts unten vollständig und entferne seinen Schatten. Fülle seine bisherige Fläche nahtlos mit der passenden hellen Holzmaserung des Tisches unter identischem weichen Tageslicht. Dort bleibt einfach eine freie Tischfläche, kein Ersatzobjekt.
+Bewahre alles andere exakt: fotorealistischer Stil, leicht schräge Perspektive von oben, Bildausschnitt, Querformat 4:3, Tomaten-Timer links, geöffnetes Notizbuch mittig, Lernkarten rechts oben, roter Bleistift rechts, Licht, Farben, Materialtexturen und Objektpositionen.
+Bewahre sämtliche vorhandenen handgeschriebenen Texte und die Strichliste genau und gut lesbar. Links: "Dienstag", "9–11  Statistik üben", "14–16 Bibliothek: Java". Rechts: "Lernblöcke", "Mo ||   Di |   Do |||". Auf der obersten Lernkarte: "Wann nutze ich eine for-Schleife?". Keine weiteren Texte, keine Logos, keine Personen, keine Hände. Nur das Handy mit seinem Schatten entfernen.
