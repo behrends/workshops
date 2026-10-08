@@ -12,10 +12,14 @@ import { Callout } from 'nextra/components'
 
 ## Vorbemerkung
 
-Android Studio ist einerseits die Entwicklungsumgebung für die
+Android Studio ist einerseits die Entwicklungsumgebung (IDE) für die
 native Android-App-Entwicklung, andererseits bringt eine Installation
 von Android Studio auch die notwendigen Werkzeuge für die
-Ausführung von Apps auf Android-Geräten mit.
+Ausführung von Apps auf Android-Geräten mit:
+
+- Android SDK inklusive Build-Tools und Platform-Tools (`adb`)
+- Android Emulator, um Apps ohne physisches Smartphone zu testen
+- SDK Manager, um Android-Versionen und Werkzeuge nachzuinstallieren
 
 Mit Android Studio können virtuelle Android-Geräte (Emulatoren)
 erstellt werden. Wer z. B. ein iPhone besitzt und mit einem
@@ -28,7 +32,25 @@ Es ist daher auch dann sinnvoll, Android Studio zu installieren,
 wenn ein Projektteam später eine andere Entwicklungsplattform (z. B. 
 React Native) oder einen anderen Editor wie VS Code wählen sollte.
 
+<Callout type="important">
+**Neu in 2026: Android CLI (agent tools)**
+
+Android Apps können auch komplett ohne Android Studio entwickelt werden,
+was insbesondere mit KI Coding Agents (Claude Code, OpenAI Codex, usw.)
+interessant ist. Das Android CLI ist für die Arbeit mit Coding Agents optimiert.
+
+Mehr Infos dazu: https://developer.android.com/tools/agents
+
+Wir werden dies beobachten und ggf. vorführen.
+</Callout>
+
 ## Android Studio einrichten
+
+<Callout type="info">
+Wer bereits viel Erfahrung mit KI Coding Agents hat, kann auf Android 
+Studio verzichten und direkt das Android CLI installieren: 
+https://developer.android.com/tools/agents
+</Callout>
 
 _Android Studio_ wird von Google bereitgestellt, ist kostenlos und 
 kann auf allen Betriebssystemen installiert werden 

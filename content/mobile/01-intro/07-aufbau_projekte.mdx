@@ -82,11 +82,13 @@ Früher war Java die Hauptprogrammiersprache für Android-Apps. Seit einigen Jah
 Es wird ein kurzer Überblick der wichtigsten 
 Dateien und Konzepte in Android Studio gegeben:
 
-- `MainActivity.kt` definiert eine `Activity`, welche einen UI-Bereich bzw. „Screen“ zur Interaktion mit der App darstellt. Die Funktion `onCreate` wird beim Start der `Activity` automatisch von Android ausgeführt. Dort wird u.a. das UI mit `setContent` festgelegt.
-- Das Verzeichnis `kotlin+java` enthält den Kotlin-Code, u.a. ist `MainActivity.kt` hier zu finden. Dieses Verzeichnis hat im Dateisystem einen anderen Namen (`app/src/main/java`), dies kann in der `Project`-Ansicht nachvollzogen werden.
-- Das Verzeichnis `res` (kurz für `resources`) enthält alle Ressourcen der App, die kein Code sind (z. B. Bilder und Übersetzungen in andere Sprachen).
-- `manifests/AndroidManifest.xml` beschreibt die Bestandteile des Projekts, u.a. welche `Activity` den Einstiegspunkt beim Start der App darstellt (oft `MainActivity.kt`)
-- Die beiden Dateien `build.gradle.kts` in `Gradle Scripts` beinhalten die Konfiguration und Abhängigkeiten des Projekts.
+- `MainActivity.kt` definiert eine `Activity`, die als Einstiegspunkt für das UI der App dienen kann. Eine Activity kann mehrere Screens enthalten. Die Funktion `onCreate` wird beim Erstellen der Activity automatisch von Android ausgeführt. Dort wird u. a. das UI mit `setContent` festgelegt (bei Jetpack Compose).
+- `@Composable`-Funktionen definieren das UI bei Jetpack Compose. Sie beschreiben die Darstellung einzelner UI-Elemente bis hin zu vollständigen Screens.
+- Das Verzeichnis `kotlin+java` enthält den Kotlin- und Java-Code, u. a. `MainActivity.kt`. Im Dateisystem liegt dieser standardmäßig unter `app/src/main/java`, was in der `Project`-Ansicht nachvollzogen werden kann.
+- Das Verzeichnis `res` (kurz für *resources*) enthält Ressourcen der App, die kein ausführbarer Code sind (z. B. Bilder, Texte und Übersetzungen).
+- `manifests/AndroidManifest.xml` beschreibt wichtige Bestandteile und Eigenschaften der App, u. a. Berechtigungen und welche Activity beim Start über das Launcher-Icon geöffnet wird (oft `MainActivity`). Im Dateisystem liegt die Datei unter `app/src/main/AndroidManifest.xml`.
+- Die beiden Dateien `build.gradle.kts` unter `Gradle Scripts` enthalten die Build-Konfiguration. Die Projektdatei legt übergreifende Einstellungen fest, während `app/build.gradle.kts` insbesondere die Android-Konfiguration und Abhängigkeiten des App-Moduls definiert.
+- `gradle/libs.versions.toml` verwaltet zentral die Versionen und Definitionen von Bibliotheken und Gradle-Plugins, die in den `build.gradle.kts`-Dateien verwendet werden.
 
 <Callout type="warning" emoji="👨🏻‍💻">
 Wir besprechen u.a. kurz den Ablauf beim Start 

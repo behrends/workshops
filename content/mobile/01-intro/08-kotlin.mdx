@@ -63,23 +63,28 @@ Wir werden im Laufe der Vorführungen mehrere Kotlin-Beispiele sehen.
 
 Ausgewählte Besonderheiten von Kotlin für Leute mit Erfahrung in Java (thanks ChatGPT!): 
 
-* Interop mit Java nahtlos: Kotlin kann Java (und umgekehrt) nutzen
+* Interop mit Java weitgehend nahtlos: Kotlin kann Java (und umgekehrt) nutzen, mit einigen Einschränkungen
 * Semikolons optional, `new` existiert nicht
-* Frühere NullPointer-Probleme werden zur Compile-Time sichtbar
-* Null-Safety: `String?` (nullable) vs. `String` (non-null) 
-* Null-Safety: Safe-Call `?.`, Elvis-Operator `?:`, Not-Null-Assert `!!`
-* `val` (immutable) vs. `var` (mutable)
-* `var x: Int = 0` erzeugt automatisch Getter/Setter
-* Custom-Getter/Setter direkt an der Property definierbar
+* Null-Safety: `String?` (nullable) vs. `String` (non-null); viele NullPointer-Probleme werden zur Compile-Time erkannt
+* Null-Safety: Safe-Call `?.`, Elvis-Operator `?:`, Not-Null-Assert `!!` (NPEs bleiben möglich, z. B. bei Java-Interop)
+* `val` (nicht neu zuweisbar) vs. `var` (neu zuweisbar); `val` bedeutet nicht, dass das Objekt immutable ist
+* Properties erzeugen automatisch Getter/Setter; Custom-Getter/Setter direkt definierbar
+* Primary Constructor: `class User(val name: String, var age: Int)`
 * Top-Level-Funktionen (keine Utility-Klassen nötig)
-* Default-Parameter & Named Arguments (`fun f(a: Int = 0)`)
+* Extension Functions: `fun String.foo() = ...` erweitert Typen ohne Vererbung
+* Default-Parameter & Named Arguments (`fun f(a: Int = 0)`; Named Arguments nicht bei Java-Methoden)
 * Single-Expression-Funktionen: `fun inc(x: Int) = x + 1`
+* String Templates: `"Hallo $name"` oder `"Ergebnis: ${x + 1}"`
+* Lambdas mit Trailing-Lambda-Syntax: `list.filter { it > 0 }`
+* Collections: `List` (read-only) vs. `MutableList`, Operationen wie `map`, `filter`, `groupBy`
 * Klassen sind `final` by default → `open` für Vererbung
-* `data class` generiert `equals/hashCode/toString/copy`
-* `when` statt `switch`: Ausdruck (liefert Wert), pattern-artig, häufig `else` überflüssig
+* `data class` ähnlich Java Records, zusätzlich `copy()` (shallow copy) und Destructuring über `componentN()`
+* `when` ähnlich Java `switch`, aber auch mit beliebigen Bedingungen, Typprüfungen und Ranges
+* `if` und `try` sind Ausdrücke (können Werte liefern)
+* `object` für Singletons, `companion object` für klassenbezogene Funktionen/Werte
+* Keine Checked Exceptions (kein verpflichtendes `throws`/`catch`)
 * Scoping-Funktionen: `let`, `also`, `apply`, `run`, `with` (unterscheiden: Rückgabewert & Receiver)
-* Koroutinen statt Threads: `suspend`-Funktionen, `flow` für Streams
-* u.v.m.
+* Koroutinen für suspendierbare Nebenläufigkeit: `suspend`-Funktionen, `Flow` für asynchrone Streams (`kotlinx.coroutines`); Alternative zu Java Virtual Threads, kein vollständiger Ersatz für Threads
 
 **Tipp:** Mit KI-Tools wie ChatGPT oder Gemini (auch in Android Studio) kann Kotlin gelernt werden, insbesondere aus Sicht anderer Sprachen wie Java.
 

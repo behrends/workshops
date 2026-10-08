@@ -49,9 +49,17 @@ Native Apps werden für Android in Googles _PlayStore_ und für
 iPhones in Apples _AppStore_ veröffentlicht.
 
 <Callout type="info">
-Die „echten“ nativen Entwicklungsansätze erfordern zwei getrennte Code-Repositories und oftmals auch zwei dezidierte Entwickler-Teams, um eine App für beide Plattformen zu entwickeln.
+Die „echten“ nativen Entwicklungsansätze erfordern zwei getrennte Code-Repositories und oftmals 
+auch zwei dezidierte Entwickler-Teams, um eine App für beide Plattformen zu entwickeln.
 
-Durch Ansätze wie _Kotlin Multiplatform (KMP)_ ist es auch möglich, die Geschäftslogik einer App in Kotlin zu schreiben und diese plattformübergreifend zu verwenden. Außerdem gibt es mehrere plattformübergreifende UI-Frameworks, die wir neben KMP weiter unten betrachten.
+Durch Ansätze wie _Kotlin Multiplatform (KMP)_ ist es auch möglich, die Geschäftslogik einer 
+App in Kotlin zu schreiben und diese plattformübergreifend zu verwenden. Außerdem gibt es mehrere 
+plattformübergreifende UI-Frameworks, die wir neben KMP weiter unten betrachten.
+
+**In 2026 ist zu beobachten, dass größere Firmen (Shopify, Coinbase) ihre React Native Apps mit 
+KI Coding Agents in zwei separate, eigenständige native Apps für Android und iOS migrieren.**
+
+&rarr; Das Argument „nur eine Code-Basis“ ist nicht mehr so stark.
 </Callout>
 
 ### Webanwendungen
@@ -93,12 +101,12 @@ für Android und iOS entwickelt werden können:
 
 Framework | Ursprung | Programmiersprache | Entwicklungsumgebung | Webseite |
 --- | --- | --- | --- | --- |
-Kotlin Multiplatform (KMP) | Jetbrains (mit Google?) | Kotlin | Android Studio oder IntelliJ | [jetbrains.com/kotlin-multiplatform](https://www.jetbrains.com/kotlin-multiplatform/) |
+Kotlin Multiplatform (KMP), optional mit Compose Multiplatform (CMP) für die UI | Jetbrains | Kotlin | Android Studio oder IntelliJ | KMP: [jetbrains.com/kotlin-multiplatform](https://www.jetbrains.com/kotlin-multiplatform/), CMP: [www.jetbrains.com/compose-multiplatform/](https://www.jetbrains.com/compose-multiplatform/) |
 Flutter | Google | Dart | Texteditor, empfohlen werden Android Studio oder VS Code | [flutter.dev](https://flutter.dev/) |
 React Native (mit Expo) | Meta (Facebook) | JavaScript bzw. TypeScript | Texteditor, empfohlen wird VS Code | [reactnative.dev](https://reactnative.dev) |
 Lynx | ByteDance (TikTok) | JavaScript bzw. TypeScript | Texteditor (z. B. VS Code) | [lynxjs.org](https://lynxjs.org) |
 ionic | Ionic | JavaScript bzw. TypeScript | Texteditor, empfohlen wird VS Code | [ionicframework.com](https://ionicframework.com/) |
-.NET MAUI | Microsoft | C# | Visual Studio (nicht VS Code) | [dot.net/maui](https://dot.net/maui) |
+.NET MAUI | Microsoft | C# | Visual Studio (oder auch VS Code) | [dot.net/maui](https://dot.net/maui) |
 
 Alle diese Frameworks sind Open Source Projekte.
 
@@ -111,13 +119,22 @@ wie Windows, macOS, u.a.).
 
 Möglicherweise gibt es weitere relevante Frameworks, d.h. solche, die von einigen genutzt und weiterentwickelt werden. Folgende Frameworks sind Open Source:
 
+- Skip; [skip.dev](https://skip.dev) (Swift)
 - OneStack für React Native &mdash; [onestack.dev](https://onestack.dev ) (JavaScript/TypeScript)
 - NativeScript &mdash; [nativescript.org](https://nativescript.org/) (JavaScript/TypeScript)
-- Codename One &mdash; [codenameone.com](https://www.codenameone.com) (Java und Kotlin)
-- Kivy &mdash; [kivy.org](https://kivy.org) (Python)
-- Tauri &mdash; [tauri.app](https://tauri.app) (Rust)
+- Angular Native (mit Expo!); [ng-native.com](https://ng-native.com) (JavaScript/TypeScript)
+- NativePHP [nativephp.com](https://nativephp.com/) (PHP)
+- Uno Platform; [platform.uno](https://platform.uno/) (C#, XAML)
+- Valdi von SnapChat (2026: nur mit macOS); [github.com/Snapchat/Valdi](https://github.com/Snapchat/Valdi) (JavaScript/TypeScript)
+- Codename; [codenameone.com](https://www.codenameone.com) (Java und Kotlin)
+- Flet (basiert auf Flutter) [flet.dev](https://flet.dev) (Python)
+- Kivy; [kivy.org](https://kivy.org) (Python)
+- Tauri; [tauri.app](https://tauri.app) (Rust)
+- Slint [slint.dev](slint.dev/) (Rust)
+- Avalonia UI [avaloniaui.net](https://avaloniaui.net/) (C#, F#, XAML)
+- Qt / Qt Quick; [qt.io/](https://www.qt.io/) (C++, QML)
 - kennen die Studierenden weitere Ansätze?
-
+- Diskussion bzw. offene Frage: Bleiben Frameworks im Zeitalter der KI Coding Agents relevant? (Aufwand für zwei native Apps schwindet…)
 
 ## PAUSE
 
