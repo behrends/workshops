@@ -124,6 +124,12 @@ androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lif
 implementation(libs.androidx.lifecycle.viewmodel.compose)
 implementation(libs.androidx.lifecycle.runtime.compose)
 ```
+
+Die Compose-Bibliotheken selbst (z. B. `material3`) stehen in
+`libs.versions.toml` ohne Version. Ihre Versionen legt die
+**Compose-BOM** (*Bill of Materials*, `composeBom`) fest, damit alle
+zusammenpassen. Aktualisiert wird nur die BOM. Die Lifecycle-Bibliotheken
+gehören nicht dazu und brauchen deshalb eine eigene Version.
 </DocsOnly>
 
 ## Stateful und stateless

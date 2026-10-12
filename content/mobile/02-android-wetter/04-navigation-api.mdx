@@ -400,9 +400,14 @@ Hinweise zu den Übungen:
   ([Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-10...schritt-11)).
 - **7-Tage-Vorhersage:** Parameter `daily=weather_code,temperature_2m_max,temperature_2m_min`,
   neues Datenmodell `DailyForecast`, Liste im Wetter-Screen.
-- **Zurück-Pfeil:** Material 3 bringt keine Icons mehr mit. In Android
-  Studio über *File → New → Vector Asset* ein Icon anlegen und mit
-  `Icon(painterResource(R.drawable.…), …)` anzeigen.
+- **Zurück-Pfeil:** Material 3 bringt keine Icons mehr mit. Auf
+  [fonts.google.com/icons](https://fonts.google.com/icons) z. B.
+  „arrow_back“ wählen, im Reiter *Android* als XML herunterladen und
+  per Drag-and-Drop in den *Resource Manager* von Android Studio ziehen.
+  Anzeigen mit `Icon(painterResource(R.drawable.…), contentDescription = "Zurück")`
+  im Parameter `navigationIcon` der `TopAppBar`. Meldet der Build einen
+  Fehler zu `?attr/colorControlNormal`, das Attribut `android:tint` aus
+  der XML-Datei löschen.
 - **Erneut versuchen:** Der Zustand `Error` braucht dafür die Stadt, die
   nicht geladen werden konnte.
 - **Laden beim Öffnen:** `LaunchedEffect(city)` statt Laden beim

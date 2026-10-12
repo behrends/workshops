@@ -67,6 +67,14 @@ var useCelsius by remember { mutableStateOf(true) }
 ```
 
 <DocsOnly>
+Merksatz: **UI = f(State)**. Die Oberfläche ist eine Funktion des
+Zustands; ändert sich der State, wird sie neu berechnet.
+
+Recomposition lässt sich beobachten: `Log.d("WeatherScreen", "Recomposition")`
+in das Composable schreiben, die App starten und im Fenster *Logcat* von
+Android Studio nach `WeatherScreen` filtern. Jedes Antippen erzeugt
+eine neue Zeile.
+
 Durch `by` (Delegation) schreiben wir `useCelsius` statt
 `useCelsius.value`. Dafür braucht es zwei Imports, die Android Studio
 nicht immer automatisch vorschlägt:
@@ -178,4 +186,5 @@ Screens noch eine Ebene höher: in ein ViewModel.
 
 - [State und Jetpack Compose](https://developer.android.com/develop/ui/compose/state)
 - [Wo State hingehört (State Hoisting)](https://developer.android.com/develop/ui/compose/state-hoisting)
+- [Delegated Properties (`by`)](https://kotlinlang.org/docs/delegated-properties.html)
 </DocsOnly>

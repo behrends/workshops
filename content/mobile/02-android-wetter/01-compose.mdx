@@ -43,6 +43,13 @@ setContent {
 }
 ```
 
+`setContent { … }` legt fest, welche Composables die Activity anzeigt.
+Die geschweiften Klammern sind ein **Trailing Lambda**: Ist der letzte
+Parameter einer Funktion eine Funktion, darf sie hinter den runden
+Klammern stehen. `setContent { … }` ist also kurz für
+`setContent(content = { … })`. Diese Schreibweise steckt in fast jedem
+Compose-Code, z. B. `Column { … }` oder `Scaffold(…) { innerPadding -> … }`.
+
 Zusätzlich liegt im Repository eine Datei `AGENTS.md` mit Regeln für
 Coding Agents (siehe [Navigation und API](./04-navigation-api)).
 </DocsOnly>
@@ -186,6 +193,11 @@ fun WeatherScreen(modifier: Modifier = Modifier) {
 
 `CurrentWeatherCard` legt eine `Box` mit Hintergrund um die `Column`
 (siehe nächster Abschnitt zu Modifiern).
+
+Größen werden in `dp` (*density-independent pixels*) angegeben, damit
+sie auf allen Displays gleich groß wirken. Schriftgrößen in `sp`
+(*scalable pixels*): wie `dp`, berücksichtigen aber zusätzlich die
+Schriftgröße aus den Systemeinstellungen.
 
 `Spacer(Modifier.weight(1f))` nimmt den gesamten freien Platz in der
 `Row` ein und schiebt so den zweiten Text an den rechten Rand.
@@ -491,7 +503,9 @@ Code: [`schritt-05`](https://github.com/behrends/WeatherAndroidTIF24/tree/schrit
 
 - [Thinking in Compose](https://developer.android.com/develop/ui/compose/mental-model)
 - [Compose-Layouts: Grundlagen](https://developer.android.com/develop/ui/compose/layouts/basics)
-- [Modifier](https://developer.android.com/develop/ui/compose/modifiers)
+- [Previews](https://developer.android.com/develop/ui/compose/tooling/previews)
+- [Modifier](https://developer.android.com/develop/ui/compose/modifiers) und
+  [Liste aller Modifier](https://developer.android.com/develop/ui/compose/modifiers-list)
 - [Material 3 in Compose](https://developer.android.com/develop/ui/compose/designsystems/material3)
 - [Listen und Raster](https://developer.android.com/develop/ui/compose/lists)
 </DocsOnly>
