@@ -173,7 +173,7 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
 - **Konzept:** Recomposition, `remember`, `mutableStateOf`, `rememberSaveable`;
   State Hoisting (State liegt oben), Unidirectional Data Flow (State nach unten, Events nach oben)
 - **Code:**
-  - Umschalter °C/°F im `WeatherScreen` (z. B. `FilterChip` oder `Switch` in der TopAppBar)
+  - Umschalter °C/°F im `WeatherScreen` als `UnitToggle` (`TextButton` in den `actions` der TopAppBar)
   - zuerst ohne `remember`: funktioniert nicht, das bewusst zeigen
   - dann `remember`, dann `rememberSaveable` (Bildschirm drehen)
   - State Hoisting: `useCelsius` und `onToggle` als Parameter; Anzeige über eine Hilfsfunktion
