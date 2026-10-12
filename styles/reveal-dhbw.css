@@ -76,6 +76,14 @@
   padding-left: 1.2em;
 }
 
+.generated-slide li {
+  line-height: 1.35;
+}
+
+.generated-slide li + li {
+  margin-top: 0.3em;
+}
+
 .slide-lead {
   font-size: 1.08em;
   line-height: 1.35;
@@ -99,7 +107,8 @@
 .generated-slide :not(pre) > code {
   background: rgba(66, 83, 93, 0.12);
   border-radius: 0.3em;
-  padding: 0.12em 0.28em;
+  padding: 0.08em 0.28em;
+  font-size: 0.85em;
 }
 
 .generated-slide table {
