@@ -19,7 +19,9 @@ Generalprobe ergänzen. Notfall immer: `git stash && git checkout schritt-XX`.
 5. App starten
 
 **Erklären:** Funktion statt Klasse, deklarativ, `modifier`-Konvention
-**Moment:** Texte überlappen → Überleitung zu Layouts
+**Moment:** Texte überlappen → Überleitung zu Layouts. Erklärung: Compose hat
+keinen Textfluss wie HTML; ohne Layout liegen alle Kinder oben links übereinander.
+Beide `Text`s bekommen den `modifier`, weil es noch kein äußerstes Element gibt.
 **Stolperstellen:** –
 
 ---

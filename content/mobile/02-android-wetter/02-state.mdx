@@ -70,10 +70,14 @@ var useCelsius by remember { mutableStateOf(true) }
 Merksatz: **UI = f(State)**. Die Oberfläche ist eine Funktion des
 Zustands; ändert sich der State, wird sie neu berechnet.
 
-Recomposition lässt sich beobachten: `Log.d("WeatherScreen", "Recomposition")`
-in das Composable schreiben, die App starten und im Fenster *Logcat* von
-Android Studio nach `WeatherScreen` filtern. Jedes Antippen erzeugt
-eine neue Zeile.
+Recomposition lässt sich beobachten, z. B. in `CurrentWeatherCard`, die
+`useCelsius` als Parameter bekommt (siehe unten): dort
+`Log.d("CurrentWeatherCard", "Recomposition")` einfügen, die App starten
+und im Fenster *Logcat* von Android Studio danach filtern. Jedes
+Umschalten erzeugt eine neue Zeile. Compose kann unveränderte Bereiche
+überspringen. Neu ausgeführt werden vor allem Bereiche, die geänderten
+State lesen oder geänderte Parameter bekommen. Ein `Log.d` direkt in
+`WeatherScreen` erscheint deshalb nicht unbedingt.
 
 Durch `by` (Delegation) schreiben wir `useCelsius` statt
 `useCelsius.value`. Dafür braucht es zwei Imports, die Android Studio

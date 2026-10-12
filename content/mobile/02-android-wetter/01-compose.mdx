@@ -22,6 +22,9 @@ Fake-Daten: eine Städteliste und eine Wetteranzeige.
 
 Code: [Repository auf GitHub](https://github.com/behrends/WeatherAndroidTIF24),
 Schritte 0 bis 5.
+
+Codebeispiele mit `// ...` oder `/* ... */` sind gekürzt; der
+vollständige Code steht im Repository unter dem jeweiligen Tag.
 </DocsOnly>
 
 ## Die Wetter-App
@@ -34,7 +37,14 @@ Eine Liste von Städten, nach Antippen das aktuelle Wetter der Stadt.
 
 <DocsOnly>
 Ausgangspunkt (`schritt-00`) ist ein neues Projekt mit der Vorlage
-*Empty Activity*. In `MainActivity` bleibt nur das Nötigste übrig:
+*Empty Activity* und dem Namen `WeatherAndroidTIF24`. Aus dem
+Projektnamen erzeugt Android Studio den Namen des Themes
+(`WeatherAndroidTIF24Theme`) und des Pakets
+(`com.example.weatherandroidtif24`); bei einem anderen Namen heißen sie
+entsprechend anders. Wer nicht selbst tippen möchte, klont das
+Repository und wechselt mit `git checkout schritt-00` an den Anfang.
+
+In `MainActivity` bleibt nur das Nötigste übrig:
 
 ```kotlin
 setContent {
@@ -131,6 +141,14 @@ Neue Projekte zeichnen *edge-to-edge*, also bis unter die Statusleiste.
 
 Die beiden Texte überlappen sich, weil noch ein Layout fehlt. Darum
 geht es im nächsten Abschnitt.
+
+<Callout type="info">
+**Warum überlappen sich die Texte?** Anders als in HTML ordnet Compose
+Elemente nicht automatisch untereinander an. Ohne Layout landen alle
+Kinder an derselben Stelle oben links; die Anordnung legt erst ein
+Layout wie `Column` fest. Deshalb bekommen hier auch beide `Text`s den
+`modifier`: Es gibt noch kein äußerstes Element, an das er gehen könnte.
+</Callout>
 </DocsOnly>
 
 <SlideBreak />
@@ -274,8 +292,27 @@ Die Koordinaten in `City` brauchen wir erst in Schritt 10 für die API.
 Das Datenmodell ist aber von Anfang an so geschnitten, dass es später
 passt.
 
-Die Fake-Daten (`fakeCities`, `fakeCurrentWeather`) liegen in
-`data/FakeData.kt` im neuen Paket `data`.
+Die Fake-Daten liegen in `data/FakeData.kt` im neuen Paket `data`:
+eine Liste von Städten und eine Map vom Städtenamen auf das Wetter.
+
+```kotlin
+val fakeCities: List<City> = listOf(
+    City(name = "Lörrach", latitude = 47.6156, longitude = 7.6614),
+    // ... Freiburg, Basel
+)
+
+val fakeCurrentWeather: Map<String, CurrentWeather> = mapOf(
+    "Lörrach" to CurrentWeather(
+        temperature = 14.2,
+        windSpeed = 8.5,
+        condition = WeatherCondition.PARTLY_CLOUDY,
+    ),
+    // ... Freiburg, Basel
+)
+```
+
+Vollständig:
+[`FakeData.kt`](https://github.com/behrends/WeatherAndroidTIF24/blob/schritt-03/app/src/main/java/com/example/weatherandroidtif24/data/FakeData.kt)
 </DocsOnly>
 
 <SlideBreak />

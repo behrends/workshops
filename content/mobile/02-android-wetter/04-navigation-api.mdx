@@ -78,7 +78,8 @@ dependencies {
 
 Die Versionen am besten aus der
 [Dokumentation](https://developer.android.com/guide/navigation/navigation-3/get-started)
-übernehmen.
+übernehmen. Navigation 3 verlangt außerdem `compileSdk` 36 oder höher
+(in `app/build.gradle.kts`); neue Projekte erfüllen das bereits.
 </DocsOnly>
 
 ## Routen als Typen
@@ -182,6 +183,12 @@ geladen, nicht beim Öffnen des Screens. Wird die App vom System beendet
 und wiederhergestellt, stellt der Back Stack den Wetter-Screen wieder
 her, das ViewModel hat aber keine Daten. Sauberer wäre
 `LaunchedEffect(city) { viewModel.loadWeather(city) }` im Screen.
+
+Zweite Vereinfachung: Jedes Antippen startet eine neue Coroutine, ohne
+die vorige abzubrechen. Mit der echten API kann bei schnellem Wechsel
+die langsamere Antwort zuletzt ankommen; dann steht das Wetter von
+Stadt A unter dem Titel von Stadt B. Abhilfe: den `Job` von `launch`
+speichern und vor jedem neuen Laden `cancel()` aufrufen.
 </Callout>
 
 Code: [`schritt-09`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-09) ·
@@ -404,12 +411,19 @@ Hinweise zu den Übungen:
   [fonts.google.com/icons](https://fonts.google.com/icons) z. B.
   „arrow_back“ wählen, im Reiter *Android* als XML herunterladen und
   per Drag-and-Drop in den *Resource Manager* von Android Studio ziehen.
-  Anzeigen mit `Icon(painterResource(R.drawable.…), contentDescription = "Zurück")`
-  im Parameter `navigationIcon` der `TopAppBar`. Meldet der Build einen
+  In der `TopAppBar` unter `navigationIcon` ein
+  `IconButton(onClick = onBack)` mit
+  `Icon(painterResource(R.drawable.…), contentDescription = "Zurück")`
+  einsetzen. `onBack` bekommt `WeatherScreen` als neuen Parameter und
+  reicht es an `WeatherContent` weiter; in `WeatherApp` wird
+  `onBack = { backStack.removeLastOrNull() }` übergeben. Meldet der Build einen
   Fehler zu `?attr/colorControlNormal`, das Attribut `android:tint` aus
   der XML-Datei löschen.
-- **Erneut versuchen:** Der Zustand `Error` braucht dafür die Stadt, die
-  nicht geladen werden konnte.
+- **Erneut versuchen:** Die Stadt kennt der Screen schon aus der Route.
+  `WeatherContent` bekommt einen Parameter `onRetry`, `WeatherScreen`
+  übergibt `{ viewModel.loadWeather(city) }`.
+- **Laden abbrechen:** Vor jedem neuen Laden die vorige Coroutine
+  abbrechen (siehe Hinweis bei NavDisplay).
 - **Laden beim Öffnen:** `LaunchedEffect(city)` statt Laden beim
   Antippen (siehe Hinweis bei NavDisplay).
 

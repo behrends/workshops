@@ -205,6 +205,10 @@ Er ist reiner Anzeige-Zustand (UI-Element-State) und gehört nicht ins
 ViewModel. Was dagegen den Inhalt des Screens bestimmt (Screen-State),
 gehört ins ViewModel.
 
+Genau genommen ist `WeatherContent` deshalb nicht ganz stateless.
+„Stateless“ bezieht sich hier auf den Screen-Zustand: Der kommt von
+außen, nur der Anzeige-Zustand für °C/°F bleibt im Composable.
+
 Code: [`schritt-07`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-07) ·
 [Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-06...schritt-07)
 </DocsOnly>
@@ -266,7 +270,8 @@ fun loadWeather(city: City) {
         _uiState.value = try {
             val weather = repository.getCurrentWeather(city)
             WeatherUiState.Success(city, weather)
-        } catch (e: Exception) {
+        } catch (e: CancellationException) { throw e }
+        catch (e: Exception) {
             WeatherUiState.Error(e.message ?: "Unbekannter Fehler")
         }
     }
@@ -323,9 +328,11 @@ class WeatherViewModel(
 <DocsOnly>
 In größeren Apps übernimmt das ein Dependency-Injection-Framework wie
 Hilt oder Koin. Für diese App reicht der Default-Parameter, und das
-Prinzip ist dasselbe: Das ViewModel erzeugt seine Datenquelle nicht
-selbst, sie wird von außen hineingegeben. Das macht das ViewModel auch
-testbar, z. B. mit `FakeWeatherRepository(shouldFail = true)`.
+Prinzip ist ähnlich: Das ViewModel ist nicht fest an eine Datenquelle
+gebunden. Ohne Argument erzeugt es per Default selbst ein
+`FakeWeatherRepository`, von außen lässt sich aber jede andere
+Implementierung übergeben. Das macht das ViewModel auch testbar, z. B.
+mit `WeatherViewModel(FakeWeatherRepository(shouldFail = true))`.
 
 Code: [`schritt-08`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-08) ·
 [Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-07...schritt-08)
