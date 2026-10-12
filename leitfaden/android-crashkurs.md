@@ -31,9 +31,9 @@ Aufbau von Android-Projekten, Kotlin-Grundlagen.
       (Kotlin-first, Coroutines, multiplatformfähig, also weiterverwendbar in `03-android-kmp`;
       der Request steht explizit im Code, das hilft beim Lesen der Agent-Diffs).
       Retrofit nur als Hinweis: verbreitet in Googles Codelabs und in bestehenden Projekten.
-- [ ] **Wettersymbole:** Emojis als `Text` (keine Abhängigkeit, Vorschlag)
-      oder Vektor-Icons (Material Symbols)
-- [ ] **Repo-Name:** passend zum Framework/Kurs, z. B. `wetter-app-android-tif24`, Tags `schritt-00` … `schritt-12`
+- [x] **Wettersymbole:** Emojis als `Text` (keine Abhängigkeit)
+- [x] **Repo-Name:** `WeatherAndroidTIF24` (github.com/behrends/WeatherAndroidTIF24),
+      Tags `schritt-00` … `schritt-11` (11 = Referenzlösung Stadtsuche, 12 bleibt Übung)
 
 ## Datenmodell (ab Schritt 3, bleibt danach stabil)
 
@@ -376,7 +376,7 @@ Für Walkthrough-Schritte genügt der Diff des Tags.
 | 7 | Live | | | Gradle-Abhängigkeiten |
 | 8 | Walkthrough | | | |
 | 9 | Walkthrough | | | Gradle-Abhängigkeiten, Navigation-Setup |
-| 10 | Agent live | | | Prompt für den Agent |
+| 10 | Agent live | | | Prompt aus `04-navigation-api.mdx`; hängt der Agent: `git checkout schritt-10` |
 
 ## Jährliches Update
 
