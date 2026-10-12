@@ -1,0 +1,99 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 20 Minuten
+slideGoal: KMP einrichten und ein neues Projekt verstehen
+slideTopics:
+  - Kotlin Multiplatform und Compose Multiplatform
+  - Setup in Android Studio
+  - Projekt erstellen und Projektstruktur
+---
+
+import { Callout } from 'nextra/components'
+
+# Einrichtung und Projekt
+
+## Kotlin Multiplatform
+
+- **Kotlin Multiplatform (KMP):** Kotlin-Code für mehrere Plattformen, z. B. Android und iOS
+- **Compose Multiplatform (CMP):** Compose-UI für alle Plattformen, basiert auf Jetpack Compose
+- von JetBrains, offiziell von Google unterstützt
+
+<DocsOnly>
+Ursprünglich war KMP dafür gedacht, Geschäftslogik zwischen Plattformen zu
+teilen. Mit Compose Multiplatform lässt sich auch die UI teilen, also eine
+komplette App. Fast alles aus dem Android-Teil gilt hier weiter.
+
+- [Kotlin Multiplatform](https://www.jetbrains.com/kotlin-multiplatform/)
+- [Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/)
+</DocsOnly>
+
+## Setup in Android Studio
+
+1. Willkommensbildschirm → *Plugins* → „Kotlin Multiplatform“ installieren
+2. Nur macOS: Xcode installieren und **einmal starten**
+
+<DocsOnly>
+Stand Oktober 2026 (Android Studio Rabbit, 2026.2.1). Die Schritte ändern sich
+regelmäßig, im Zweifel gilt die
+[offizielle Anleitung](https://kotlinlang.org/docs/multiplatform/quickstart.html).
+
+Xcode muss auch nach jedem Update einmal gestartet werden, sonst klappt der
+iOS-Build nicht. Bei Problemen mit der Umgebung hilft das Fenster
+*Preflight Checks* (zweimal Shift drücken, „preflight“ suchen).
+</DocsOnly>
+
+<Callout type="warning">
+  Das Plugin läuft auch unter Windows und Linux. iOS-Apps lassen sich aber
+  nur auf macOS bauen und starten.
+</Callout>
+
+## Projekt erstellen
+
+*New Project* → links *Generic* → *Kotlin Multiplatform*:
+
+- Name: `WeatherKMPTIF24` (ergibt das Paket `com.example.weatherkmptif24`)
+- Build system: **Gradle**
+- **Android** und **iOS**, UI: *Share UI (Compose Multiplatform)*
+- Desktop, Web, Server und Tests abwählen
+
+<DocsOnly>
+„Server“ meint ein eigenes Backend mit Ktor. Das brauchen wir nicht,
+die Wetterdaten kommen von Open-Meteo.
+</DocsOnly>
+
+## Projektstruktur
+
+| Ordner | Inhalt |
+|---|---|
+| `shared/src/commonMain` | gemeinsamer Code: UI, ViewModel, Daten (`App.kt`) |
+| `shared/src/androidMain`, `iosMain` | Code nur für eine Plattform |
+| `androidApp` | nur `MainActivity`, zeigt `App()` |
+| `iosApp` | Xcode-Projekt, zeigt `App()` über `MainViewController()` |
+
+<DocsOnly>
+Fast der ganze Code liegt in `shared/src/commonMain`. Die beiden
+App-Module sind nur Einstiegspunkte: `MainActivity` ruft `App()` auf,
+unter iOS ruft `ContentView.swift` die Funktion `MainViewController()`
+aus `iosMain` auf, die ebenfalls `App()` anzeigt.
+
+Wie in der Android-App stehen Versionen und Bibliotheken in
+`gradle/libs.versions.toml`. ViewModel und Lifecycle sind schon
+eingebunden (`org.jetbrains.androidx.lifecycle`). Ein eigenes Theme
+gibt es nicht, `App()` verwendet direkt `MaterialTheme`.
+</DocsOnly>
+
+## App starten
+
+- Im Run-Widget die Konfiguration für Android bzw. iOS wählen und starten
+- Für iOS einen Simulator wählen, kein echtes iPhone
+
+<DocsOnly>
+Ein echtes iPhone braucht zusätzlich eine Apple-ID zum Signieren der App.
+
+Der erste iOS-Build lädt einmalig die Werkzeuge für Kotlin/Native herunter
+und dauert entsprechend lange. Am besten vor der Vorlesung einmal bauen.
+
+Ohne Mac lässt sich nur die Android-App starten. Der gemeinsame Code
+in `commonMain` ist trotzdem derselbe.
+</DocsOnly>

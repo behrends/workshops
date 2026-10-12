@@ -1,0 +1,261 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 30 Minuten
+slideGoal: Die Android-Wetter-App in KMP zum Laufen bringen
+slideTopics:
+  - Abhängigkeiten in commonMain
+  - Code aus der Android-App kopieren
+  - Was plattformspezifisch ist
+  - Kompiliert heißt nicht läuft
+---
+
+import { Callout } from 'nextra/components'
+
+# Wetter-App übernehmen
+
+<DocsOnly>
+Ausgangspunkt ist der Tag
+[`schritt-10`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-10)
+der Android-App: Städteliste, Wetter-Screen, Navigation 3 und Open-Meteo.
+Den Code kopieren wir in das neue KMP-Projekt und passen nur an, was
+außerhalb von Android nicht funktioniert.
+
+Der Code liegt auf GitHub:
+[behrends/WeatherKMPTIF24](https://github.com/behrends/WeatherKMPTIF24),
+Tags `kmp-00` (Projekt aus dem Wizard) bis `kmp-04`.
+</DocsOnly>
+
+## Abhängigkeiten
+
+| Wofür | Bibliothek | Source Set |
+|---|---|---|
+| Navigation 3 | `org.jetbrains.androidx.navigation3:navigation3-ui` | `commonMain` |
+| Serialization | `kotlinx-serialization-core` + Plugin | `commonMain` |
+| HTTP | Ktor Client, Content Negotiation, JSON | `commonMain` |
+| HTTP-Engine | `ktor-client-okhttp` / `ktor-client-darwin` | `androidMain` / `iosMain` |
+| ViewModel, Lifecycle | schon vom Wizard eingebunden | `commonMain` |
+
+<DocsOnly>
+Navigation 3 und Lifecycle kommen in KMP von JetBrains
+(`org.jetbrains.androidx…`), nicht direkt von Google. Die Versionen
+können deshalb etwas hinter denen für Android liegen.
+
+```toml
+# gradle/libs.versions.toml
+[versions]
+navigation3 = "1.1.2"
+kotlinxSerialization = "1.11.0"
+ktor = "3.6.0"
+
+[libraries]
+navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version.ref = "navigation3" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+
+[plugins]
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+```
+
+```kotlin
+// shared/build.gradle.kts
+plugins {
+    // …
+    alias(libs.plugins.kotlinSerialization)
+}
+
+kotlin {
+    sourceSets {
+        androidMain.dependencies {
+            // …
+            implementation(libs.ktor.client.okhttp)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+        commonMain.dependencies {
+            // …
+            implementation(libs.navigation3.ui)
+            implementation(libs.kotlinx.serialization.core)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+        }
+    }
+}
+```
+
+Das Plugin außerdem im Root-`build.gradle.kts` mit `apply false` eintragen
+und die INTERNET-Permission in `androidApp/src/main/AndroidManifest.xml`
+ergänzen, wie in der Android-App.
+
+Code: [`kmp-01`](https://github.com/behrends/WeatherKMPTIF24/tree/kmp-01) ·
+[Änderungen](https://github.com/behrends/WeatherKMPTIF24/compare/kmp-00...kmp-01)
+</DocsOnly>
+
+## Code kopieren
+
+1. `model/`, `data/` und `ui/` (mit `ui/theme`) aus `schritt-10` nach
+   `shared/src/commonMain/kotlin/…` kopieren
+2. Paketnamen in `package` und Imports ersetzen (`weatherandroidtif24` → `weatherkmptif24`)
+3. `App()` zeigt die Wetter-App
+
+```kotlin
+@Composable
+fun App() {
+    WeatherAndroidTIF24Theme {
+        WeatherApp()
+    }
+}
+```
+
+<DocsOnly>
+Paketnamen und Imports lassen sich in Android Studio auf einmal ersetzen:
+*Edit → Find → Replace in Files*. Die Paketnamen hier gelten für ein
+Projekt namens `WeatherKMPTIF24` (Paket `com.example.weatherkmptif24`);
+bei einem anderen Namen entsprechend anpassen. Den Beispielcode des Templates
+(`Greeting`, `Platform`) brauchen wir nicht mehr.
+
+Das Theme heißt weiterhin `WeatherAndroidTIF24Theme`. Wir benennen es
+bewusst nicht um, damit die Änderungen in den nächsten Schritten nur das
+zeigen, was für KMP nötig ist.
+
+<Callout type="warning">
+  Dieser Zwischenstand kompiliert absichtlich nicht. Die Fehler zeigen,
+  was nur unter Android oder auf der JVM funktioniert. Fehlerliste:
+  `./gradlew :shared:compileKotlinIosSimulatorArm64 --continue`
+</Callout>
+
+Code: [`kmp-02`](https://github.com/behrends/WeatherKMPTIF24/tree/kmp-02) ·
+[Änderungen](https://github.com/behrends/WeatherKMPTIF24/compare/kmp-01...kmp-02)
+</DocsOnly>
+
+## Was nicht mehr kompiliert
+
+Alles, was es nur unter Android oder auf der JVM gibt:
+
+| Stelle | Ersatz |
+|---|---|
+| `HttpClient(OkHttp)` | `HttpClient { … }`, Engine pro Plattform |
+| `java.io.IOException` | `kotlinx.io.IOException` |
+| `"%.2f".format(…)` | String-Template |
+| Dynamic Color im Theme | feste Farben |
+| Preview mit `uiMode` | Theme mit `darkTheme = true` |
+
+<DocsOnly>
+Die meisten Änderungen sind Einzeiler. Für `IOException` gibt es mit
+kotlinx-io einen Ersatz für alle Plattformen; Ktor bringt die Bibliothek
+schon mit, es ändert sich nur der Import.
+
+Ohne Engine nimmt Ktor die, die für die Plattform eingebunden ist:
+
+```kotlin
+// Ohne Angabe der Engine nimmt Ktor die der Plattform: OkHttp (Android), Darwin (iOS)
+val httpClient = HttpClient {
+    expectSuccess = true
+    install(ContentNegotiation) {
+        json(Json { ignoreUnknownKeys = true })
+    }
+}
+```
+
+`String.format` gibt es in Common Kotlin nicht. Die Koordinaten stehen
+deshalb ungerundet in der Liste:
+
+```kotlin
+Text(text = "${city.latitude}° N, ${city.longitude}° O")
+```
+
+Im Theme entfällt Dynamic Color (Farben aus dem Hintergrundbild, ab Android 12):
+
+```kotlin
+@Composable
+fun WeatherAndroidTIF24Theme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    // Dynamic Color gibt es nur unter Android, deshalb hier feste Farben
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+    // …
+}
+```
+</DocsOnly>
+
+## Navigation 3 ohne Reflection
+
+```kotlin
+private val navConfig = SavedStateConfiguration {
+    serializersModule = SerializersModule {
+        polymorphic(NavKey::class) {
+            subclass(CityList::class, CityList.serializer())
+            subclass(CityWeather::class, CityWeather.serializer())
+        }
+    }
+}
+
+val backStack = rememberNavBackStack(navConfig, CityList)
+```
+
+<DocsOnly>
+Der Back Stack wird gespeichert, damit er Drehen und Prozessende übersteht.
+Unter Android findet die Bibliothek per Reflection selbst heraus, welche
+Routen es gibt. Unter iOS gibt es keine Reflection, deshalb melden wir
+alle Routen ausdrücklich an. Neue Routen müssen hier ergänzt werden.
+
+Zurück geht es unter iOS ohne weiteren Code: `NavDisplay` reagiert auf das
+Wischen vom linken Bildschirmrand, so wie es iOS-Apps gewohnt sind.
+
+Code: [`kmp-03`](https://github.com/behrends/WeatherKMPTIF24/tree/kmp-03) ·
+[Änderungen](https://github.com/behrends/WeatherKMPTIF24/compare/kmp-02...kmp-03)
+</DocsOnly>
+
+## Kompiliert, stürzt aber ab
+
+Unter iOS stürzt die App beim Start ab:
+
+```
+UnsupportedOperationException: `Factory.create(String, CreationExtras)` is not implemented.
+```
+
+```kotlin
+// WeatherApp
+val weatherViewModel = viewModel { WeatherViewModel() }
+// WeatherScreen (Default-Parameter)
+viewModel: WeatherViewModel = viewModel { WeatherViewModel() },
+```
+
+<DocsOnly>
+Auch hier fehlt Reflection: `viewModel()` ohne Parameter erzeugt das
+ViewModel unter Android per Reflection. Unter iOS kompiliert der Aufruf
+zwar, wirft aber zur Laufzeit eine Exception. Mit dem Initializer
+`{ WeatherViewModel() }` steht im Code, wie das ViewModel erzeugt wird.
+
+Dieselbe Änderung steht auch beim Default-Parameter von `WeatherScreen`.
+Dort stürzt es nie ab, weil `WeatherApp` das ViewModel immer übergibt;
+wir ändern es trotzdem, damit kein `viewModel()` ohne Initializer übrig bleibt.
+
+Wer nur Android testen kann, bemerkt diesen Fehler nicht. Deshalb gehört
+zu KMP, regelmäßig auf allen Plattformen zu testen.
+
+Code: [`kmp-04`](https://github.com/behrends/WeatherKMPTIF24/tree/kmp-04) ·
+[Änderungen](https://github.com/behrends/WeatherKMPTIF24/compare/kmp-03...kmp-04)
+</DocsOnly>
+
+## Was gleich bleibt
+
+- Von gut 600 Zeilen Kotlin ändern sich 6 Dateien mit rund 40 Zeilen
+- Composables, ViewModel, Repository, DTOs: unverändert
+- Der Grund für fast jede Änderung: Android-APIs und Reflection gibt es auf iOS nicht
+
+<DocsOnly>
+`collectAsStateWithLifecycle`, `rememberSaveable`, Coroutines und
+kotlinx.serialization funktionieren in `commonMain` genauso wie unter Android.
+
+- [Navigation 3 in KMP](https://kotlinlang.org/docs/multiplatform/compose-navigation-3.html)
+- [ViewModel in KMP](https://kotlinlang.org/docs/multiplatform/compose-viewmodel.html)
+- [Ktor Client Engines](https://ktor.io/docs/client-engines.html)
+</DocsOnly>

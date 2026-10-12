@@ -1,0 +1,22 @@
+---
+asIndexPage: true
+---
+
+import { Callout } from 'nextra/components'
+import meta from './_meta.js';
+import SectionLinks from '@/components/SectionLinks';
+
+# KMP: Wetter-App
+
+Mit Kotlin Multiplatform (KMP) und Compose Multiplatform läuft die
+Wetter-App aus dem Android-Teil auch auf dem iPhone. Dazu kopieren wir
+den Code fast unverändert in ein neues KMP-Projekt.
+
+<Callout type="info">
+  Der Code liegt auf GitHub:
+  [behrends/WeatherKMPTIF24](https://github.com/behrends/WeatherKMPTIF24).
+  Jeder Schritt hat einen eigenen Tag (`kmp-00` bis `kmp-04`).
+  Ausgangspunkt ist der Tag `schritt-10` der Android-App.
+</Callout>
+
+<SectionLinks meta={meta} />

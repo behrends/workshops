@@ -1,0 +1,105 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 10 Minuten
+slideGoal: Einordnen, was KMP darüber hinaus kann
+slideTopics:
+  - Plattformspezifischer Code mit expect und actual
+  - Ressourcen
+  - Bibliotheken für KMP
+  - Übungen
+---
+
+import { Callout } from 'nextra/components'
+
+# Ausblick
+
+## expect und actual
+
+Gemeinsamer Code deklariert, die Plattformen liefern die Umsetzung
+(Beispiel aus dem Wizard-Projekt, Tag `kmp-00`):
+
+```kotlin
+// commonMain
+expect fun getPlatform(): Platform
+
+// androidMain
+actual fun getPlatform(): Platform = AndroidPlatform()
+
+// iosMain
+actual fun getPlatform(): Platform = IOSPlatform()
+```
+
+<DocsOnly>
+Das Beispiel stammt aus dem Projekt, das der Wizard erzeugt
+([`kmp-00`](https://github.com/behrends/WeatherKMPTIF24/tree/kmp-00)).
+In der Wetter-App haben wir diese Dateien beim Übernehmen gelöscht.
+`AndroidPlatform` liest die Android-Version über `Build.VERSION.SDK_INT`,
+`IOSPlatform` die iOS-Version über `UIDevice`. In `androidMain` und
+`iosMain` stehen also die nativen APIs der jeweiligen Plattform zur Verfügung.
+
+So ließe sich zum Beispiel Dynamic Color zurückholen: unter Android die
+Farben aus dem Hintergrundbild, unter iOS die festen Farben.
+
+- [expect und actual](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html)
+</DocsOnly>
+
+## Ressourcen
+
+Bilder, Icons und Texte liegen in `shared/src/commonMain/composeResources/`
+und werden über die generierte Klasse `Res` angesprochen:
+
+```kotlin
+Image(painterResource(Res.drawable.compose_multiplatform), null)
+```
+
+<DocsOnly>
+Das ersetzt `R.drawable…` aus der Android-App. Auch dieses Beispiel
+stammt aus dem Projekt des Wizards.
+
+- [Ressourcen in Compose Multiplatform](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-resources.html)
+</DocsOnly>
+
+## Bibliotheken
+
+Vor dem Einbinden prüfen: Gibt es die Bibliothek für KMP?
+
+- Ktor, kotlinx.serialization, Navigation 3, ViewModel: ja (haben wir benutzt)
+- Room und DataStore: ja
+- Retrofit, Gson: nein, nur Android bzw. JVM
+
+<DocsOnly>
+Eine Sammlung von Bibliotheken für KMP:
+[kmp-awesome](https://github.com/terrakok/kmp-awesome).
+Für die Wetter-App war Ktor statt Retrofit deshalb die richtige Wahl.
+</DocsOnly>
+
+## Übungen
+
+- Koordinaten in der Städteliste auf zwei Nachkommastellen runden
+- Dynamic Color unter Android mit `expect`/`actual`
+- Zurück-Pfeil in der `TopAppBar` als Ressource in `composeResources`
+- Stadtsuche, Vorhersage, Favoriten aus dem Android-Teil umsetzen
+
+<DocsOnly>
+Hinweise:
+
+- **Runden:** `String.format` gibt es in Common Kotlin nicht. Eine
+  Möglichkeit: `(value * 100).roundToInt() / 100.0` (mit `100.0`, sonst
+  rechnet Kotlin mit ganzen Zahlen). Aus 47,999 wird dann aber „48.0“
+  statt „48.00“; für genau zwei Nachkommastellen muss man auffüllen.
+- **Stadtsuche:** Die Referenzlösung aus
+  [`schritt-11`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-11)
+  lässt sich wie in diesem Kapitel übernehmen. Ktor und die Geocoding-API
+  funktionieren in KMP genauso.
+- **Favoriten:** Room und DataStore funktionieren auch in KMP, siehe
+  [Room für KMP](https://developer.android.com/kotlin/multiplatform/room).
+
+## Weiterführendes Material
+
+- [Kotlin Multiplatform bei JetBrains](https://www.jetbrains.com/kotlin-multiplatform/)
+- [Kotlin Multiplatform in der Android-Doku](https://developer.android.com/kotlin/multiplatform)
+- [Codelab: Einstieg in KMP](https://developer.android.com/codelabs/kmp-get-started)
+- Beispiel-Apps: [JetBrains](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-samples.html),
+  [Google](https://github.com/android/kotlin-multiplatform-samples/)
+</DocsOnly>
