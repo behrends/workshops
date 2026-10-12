@@ -62,9 +62,25 @@ sealed interface WeatherUiState {
 <DocsOnly>
 Neue Datei `ui/WeatherUiState.kt`.
 
-`sealed` bedeutet: Es gibt genau diese drei Varianten, keine weiteren.
-Deshalb kann `when (uiState)` prüfen, ob alle Fälle behandelt sind, ganz
-ohne `else`-Zweig.
+`sealed` (versiegelt) bedeutet: Der Compiler kennt alle Varianten, hier
+genau drei. Von außen (anderes Paket oder Modul) kann niemand weitere
+hinzufügen. Deshalb kann `when (uiState)` prüfen, ob alle Fälle
+behandelt sind, ganz ohne `else`-Zweig. Kommt ein Zustand hinzu, meldet
+der Compiler jede Stelle, die ihn noch nicht behandelt.
+
+Jede Variante implementiert das Interface (`: WeatherUiState`):
+
+- `Loading` trägt keine Daten und wird nur einmal gebraucht, deshalb ein
+  `data object`: ein Singleton wie `object`, dazu ein lesbares
+  `toString()`.
+- `Success` und `Error` tragen Daten (Stadt und Wetter bzw.
+  Fehlermeldung). Davon entstehen beliebig viele Instanzen mit
+  unterschiedlichem Inhalt, deshalb `data class`.
+
+Im `when` (siehe unten) steht deshalb `WeatherUiState.Loading ->` ohne `is` (Vergleich
+mit dem einen Objekt), die Klassen dagegen mit `is` (Typprüfung). Nach
+`is WeatherUiState.Success` weiß Kotlin, dass `uiState` ein `Success`
+ist, und erlaubt den Zugriff auf `uiState.city` (*Smart Cast*).
 </DocsOnly>
 
 ## ViewModel mit StateFlow

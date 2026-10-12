@@ -171,7 +171,7 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
 
 - **Modus:** Live
 - **Konzept:** Recomposition, `remember`, `mutableStateOf`, `rememberSaveable`;
-  State Hoisting: State nach unten, Events nach oben
+  State Hoisting (State liegt oben), Unidirectional Data Flow (State nach unten, Events nach oben)
 - **Code:**
   - Umschalter °C/°F im `WeatherScreen` (z. B. `FilterChip` oder `Switch` in der TopAppBar)
   - zuerst ohne `remember`: funktioniert nicht, das bewusst zeigen

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
-  <title>State Hoisting: State nach unten, Events nach oben</title>
+  <title>Unidirectional Data Flow: State nach unten, Events nach oben</title>
   <defs>
     <marker id="down" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
