@@ -198,15 +198,20 @@ Aufgabe für den Agent: ein `ApiWeatherRepository` für Open-Meteo bauen und im 
 - erst dann committen
 
 <DocsOnly>
-Die Datei `AGENTS.md` im Repository gibt dem Agent den Rahmen vor:
-Architektur (UI → ViewModel → Repository), Tech-Stack (Ktor,
-kotlinx.serialization) und Regeln (keine neuen Libraries ohne
-Rückfrage, Datenschicht ändern ohne die UI anzufassen, nicht selbst
-committen).
+Die Datei `AGENTS.md` im Repository gibt dem Agent Regeln vor, z. B.
+Ktor statt Retrofit, keine neuen Libraries ohne Rückfrage, die UI nicht
+anfassen, nicht selbst committen. Gängige Agents lesen sie automatisch,
+auch Gemini in Android Studio.
+
+Hinein gehört nur, was der Agent nicht aus dem Code ablesen kann:
+Abweichungen vom Üblichen und Regeln für die Zusammenarbeit. Eine
+Beschreibung des Projekts oder der Architektur hilft dagegen kaum, denn
+der Agent liest den Code ohnehin. Jede Zeile kostet bei jeder Anfrage
+Tokens.
 
 Ein möglicher Prompt:
 
-> Lies AGENTS.md. Baue ein `ApiWeatherRepository`, das das aktuelle
+> Baue ein `ApiWeatherRepository`, das das aktuelle
 > Wetter einer Stadt von Open-Meteo lädt (Temperatur, Wettercode,
 > Windgeschwindigkeit; Koordinaten aus `City`). Setze es als
 > Default im `WeatherViewModel` ein. Zeig mir zuerst deinen Plan.

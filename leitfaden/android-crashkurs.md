@@ -264,9 +264,13 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
 ### Vorbereitung
 
 - `AGENTS.md` im App-Repo (schon ab `schritt-00`), Vorlage `leitfaden/vorlagen/wetter-app-AGENTS.md`:
-  - Architektur: UI → ViewModel → Repository; UiState als sealed interface
-  - keine neuen Libraries ohne Begründung; Compose und Material 3
-  - kleine Schritte, nach jedem Schritt bauen
+  - nur Regeln, die nicht im Code stehen: Ktor statt Retrofit, keine neuen
+    Libraries ohne Rückfrage, DTOs, UI nicht anfassen, Plan zuerst, bauen,
+    nicht committen
+  - keine Projekt- oder Architekturbeschreibung: hilft laut Studien kaum
+    und kostet Tokens (Gloaguen et al., arXiv 2602.11988)
+  - wird automatisch gelesen (Gemini in Android Studio, Codex, Cursor,
+    Copilot; Claude Code nur ohne `CLAUDE.md`), im Prompt nicht erwähnen
 - Ablauf pro Aufgabe: **Plan anfordern → Plan prüfen → umsetzen lassen → Diff lesen und erklären → committen**
 - Lernziel: Agent-Output beurteilen und erklären können, nicht nur Code erzeugen lassen
 - Tools: Gemini in Android Studio (bei allen schon installiert) oder andere Agents
