@@ -70,7 +70,8 @@ Fast jede Änderung hat denselben Grund: Android-APIs und Reflection gibt es auf
    (`schritt-10`) nach `shared/src/commonMain/kotlin/com/example/weatherkmptif24/` ziehen
 2. *Edit → Find → Replace in Files*: `weatherandroidtif24` → `weatherkmptif24`
 3. `App()` auf `WeatherAndroidTIF24Theme { WeatherApp() }` umstellen
-4. Fehlerliste zeigen (Notfall: `git stash && git checkout kmp-02`):
+4. Fehlerliste zeigen (Notfall: `git stash -u && git checkout kmp-02`, `-u` wegen
+   der kopierten, noch unversionierten Dateien):
    `./gradlew :shared:compileKotlinIosSimulatorArm64 --continue`
 5. Fehler der Folientabelle zuordnen, dann `git checkout kmp-03` (Walkthrough)
 
@@ -90,7 +91,7 @@ Fast jede Änderung hat denselben Grund: Android-APIs und Reflection gibt es auf
 ## Stolperstellen
 
 - `kmp-02` kompiliert absichtlich nicht. Fehlerliste per
-  `./gradlew :shared:compileKotlinIosSimulatorArm64` zeigen
+  `./gradlew :shared:compileKotlinIosSimulatorArm64 --continue` zeigen
 - `kmp-03` → Absturz nur unter iOS sichtbar, unter Android läuft alles.
   Fehlermeldung: `UnsupportedOperationException: Factory.create(String, CreationExtras) is not implemented`
 - `String.format` fehlt in Common Kotlin: Koordinaten ungerundet (Übung)
