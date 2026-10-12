@@ -114,7 +114,7 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
   `@Preview` mit `showBackground = true`; in `MainActivity` mit `Modifier.safeDrawingPadding()`
   (wegen Edge-to-Edge)
 - **Didaktischer Moment:** Die beiden Texte überlappen sich, weil ein Layout fehlt. Überleitung zu Schritt 2
-- **Folien:** „Was ist ein Composable?“, „Deklarativ vs. imperativ“ (Diagramm)
+- **Folien:** „Composables“ (mit Preview)
 - **Tag:** `schritt-01`
 
 ### Schritt 2: Layouts und Modifier
@@ -125,9 +125,9 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
   - Column: Stadt, großes Emoji, Temperatur
   - Row: Wind | Zustand, mit `Spacer(Modifier.weight(1f))`
   - Box: Hintergrund mit zentriertem Inhalt
-  - Modifier: `padding`, `fillMaxWidth`, `background`, `size`
+  - Modifier: `padding`, `fillMaxWidth`, `background`, `weight`
 - **Didaktischer Moment:** `padding` vor und nach `background` vertauschen, Unterschied in der Preview zeigen
-- **Folien:** „Layout-Boxen“ (Diagramm Column/Row/Box), „Modifier-Kette“
+- **Folien:** „Layouts: Column, Row, Box“, „Modifier“
 - **Tag:** `schritt-02`
 
 ### Schritt 3: Datenmodell und Fake-Daten
@@ -140,7 +140,7 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
   - `ui/WeatherConditionUi.kt`: `WeatherCondition.emoji()` und `.label()` per `when`
     (Anzeige gehört zur UI, nicht ins Datenmodell)
   - `CurrentWeatherCard(city: City, weather: CurrentWeather)`; Preview mit Fake-Daten
-- **Folien:** „data class“, „Composables bekommen Daten, sie holen sie nicht“
+- **Folien:** „Datenmodell mit data class“ (mit „Composables bekommen Daten, sie holen sie nicht“)
 - **Tag:** `schritt-03`
 
 ### Schritt 4: Material 3
@@ -152,7 +152,7 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
   - `CurrentWeatherCard` in einer `Card`
   - `MaterialTheme.typography` (z. B. `displayLarge` für die Temperatur), `MaterialTheme.colorScheme`
   - Preview mit Dark Mode (`uiMode`); Dynamic Color erwähnen
-- **Folien:** „Material 3: Komponenten, Farben, Typografie“
+- **Folien:** „Material 3“
 - **Tag:** `schritt-04`
 
 ### Schritt 5: Listen
@@ -164,7 +164,7 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
     und `ListItem` pro Stadt; `Scaffold` mit Titel „Städte“
   - `MainActivity` zeigt vorerst die Städteliste; `WeatherScreen` nur in der Preview
     (verbunden werden beide erst in Schritt 9)
-- **Folien:** „Warum Lazy?“ (Diagramm: nur sichtbare Elemente werden komponiert)
+- **Folien:** „Listen mit LazyColumn“
 - **Tag:** `schritt-05`
 
 ### Schritt 6: State
@@ -180,7 +180,7 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
   - `MainActivity` zeigt ab hier `WeatherScreen` (für das Drehen im Emulator), bis Schritt 9
   - `formatTemperature(celsius, useCelsius)` in `ui/WeatherConditionUi.kt`
 - **Fallen:** Imports für `by` (`getValue`/`setValue`)
-- **Folien:** „State und Recomposition“, „Unidirectional Data Flow“ (Diagramm)
+- **Folien:** „Erster Versuch“, „Recomposition“, „State Hoisting“ (Diagramm Datenfluss)
 - **Tag:** `schritt-06`
 
 ### Schritt 7: ViewModel und UiState
@@ -198,7 +198,7 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
   - Previews für Success und Loading
 - **Diskussionspunkt:** Bleibt °C/°F im UI-State (`rememberSaveable`) oder kommt es ins ViewModel?
   (UI-Element-State vs. Screen-State)
-- **Folien:** „MVVM-Schichten“ (Diagramm), „UiState als sealed interface“
+- **Folien:** „MVVM-Schichten“ (Diagramm), „UiState als sealed interface“, „ViewModel mit StateFlow“, „Stateful und stateless“
 - **Tag:** `schritt-07`
 
 ### Schritt 8: Repository, Loading und Error
@@ -218,7 +218,7 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
 - **Im Walkthrough zeigen:** einmal mit `shouldFail = true` starten → Fehleranzeige
 - **Hinweis:** Der Default-Parameter ersetzt bewusst eine ViewModel-Factory bzw. Dependency Injection.
   Hilt/Koin nur als Ausblick.
-- **Folien:** „Repository-Pattern“, „Coroutines in 5 Minuten“
+- **Folien:** „Repository“, „Coroutines im ViewModel“, „Repository als Default-Parameter“
 - **Tag:** `schritt-08`
 
 ### Schritt 9: Navigation
@@ -254,7 +254,7 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
   - Serialization-Plugin an drei Stellen: `libs.versions.toml` (Version = Kotlin-Version),
     Root-`build.gradle.kts` (`apply false`), `app/build.gradle.kts`
   - Import von `NavKey`; `onBack` nicht vergessen
-- **Folien:** „Back Stack als Liste“ (Diagramm), „Routen als Typen, Argumente als Properties“
+- **Folien:** „Navigation 3“, „Routen als Typen“, „NavDisplay“
 - **Tag:** `schritt-09`
 
 ---
@@ -361,7 +361,7 @@ Lifecycle 2.11.0, Navigation 3 1.2.0, kotlinx-serialization-core 1.9.0, Ktor 3.6
 ## Notizen aus der Generalprobe
 
 Pro Schritt nachtragen: echte Zeit, Stolperstellen, Snippets zum Einfügen statt Tippen.
-Daraus entstehen anschließend Live-Coding-Karten, nur für die Live-Schritte 1, 2, 6 und 7.
+Live-Coding-Karten für die Live-Schritte 1, 2, 6 und 7: [android-live-karten.md](android-live-karten.md).
 Für Walkthrough-Schritte genügt der Diff des Tags.
 
 | # | Modus | Zeit real | Stolperstellen | Snippets vorbereiten |
