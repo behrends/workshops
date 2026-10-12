@@ -182,6 +182,8 @@ nicht mehr → `MainActivity` gleich auf `WeatherScreen()` umstellen
   mit der Maus ist fummelig.
 - Schritt 10: Vergisst der Agent die `INTERNET`-Permission, zeigt die App den
   Zustand `Error` mit einer Permission-Meldung → als Review-Moment nutzen.
+- Schritt 10: Flugmodus an → Fehlermeldung von Ktor/OkHttp auf Englisch
+  („Unable to resolve host …“), obwohl `AGENTS.md` Deutsch verlangt → Review-Moment.
 - Schritt 10: Abhängigkeiten (Ktor) schon beim Plan bestätigen. **Spätestens nach
   15 Minuten** auf `git stash -u && git checkout schritt-10` wechseln und den
   fertigen Diff (`git diff schritt-09 schritt-10`) erklären.

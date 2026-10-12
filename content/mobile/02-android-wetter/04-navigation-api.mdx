@@ -183,6 +183,9 @@ geladen, nicht beim Öffnen des Screens. Wird die App vom System beendet
 und wiederhergestellt, stellt der Back Stack den Wetter-Screen wieder
 her, das ViewModel hat aber keine Daten. Sauberer wäre
 `LaunchedEffect(city) { viewModel.loadWeather(city) }` im Screen.
+Nachstellen lässt sich das mit der Entwickleroption *Aktivitäten nicht
+speichern* (*Don't keep activities*): Stadt öffnen, App in den
+Hintergrund, wieder öffnen → der Ladekreis dreht sich endlos.
 
 Zweite Vereinfachung: Jedes Antippen startet eine neue Coroutine, ohne
 die vorige abzubrechen. Mit der echten API kann bei schnellem Wechsel
@@ -379,6 +382,12 @@ class WeatherViewModel(
 Fehler wie fehlendes Internet landen automatisch im Zustand `Error`, weil
 das ViewModel die Exceptions des Repositorys bereits abfängt.
 
+Ein Blick beim Review lohnt sich trotzdem: Angezeigt wird `e.message`,
+und die kommt jetzt von Ktor bzw. OkHttp, z. B. „Unable to resolve host
+…“. Das ist Englisch und für Nutzer unverständlich, obwohl `AGENTS.md`
+deutsche Texte verlangt. Am einfachsten im Emulator mit Flugmodus
+ausprobieren (siehe Übungen).
+
 Code: [`schritt-10`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-10) ·
 [Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-09...schritt-10)
 </DocsOnly>
@@ -401,7 +410,12 @@ Hinweise zu den Übungen:
   `https://geocoding-api.open-meteo.com/v1/search?name=…&count=5&language=de`.
   Die Städteliste wird dafür zu State in einem eigenen ViewModel.
   Achtung: Mehrere Städte heißen gleich (es gibt mehrere „Hamburg“),
-  `key = { it.name }` in der `LazyColumn` führt dann zum Absturz.
+  `key = { it.name }` in der `LazyColumn` führt dann zum Absturz. In der
+  Trefferliste lassen sich gleichnamige Städte über die Felder `admin1`
+  (Bundesland) und `country` der Antwort unterscheiden; dafür braucht
+  `City` ein weiteres Feld. Negative Koordinaten (Süd, West) sollten als
+  „33,87° S“ statt „-33,87° N“ erscheinen. Auch bei der Suche können
+  sich Anfragen überholen (siehe Laden abbrechen).
   Eine Referenzlösung liegt im Tag
   [`schritt-11`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-11)
   ([Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-10...schritt-11)).
@@ -426,6 +440,14 @@ Hinweise zu den Übungen:
   abbrechen (siehe Hinweis bei NavDisplay).
 - **Laden beim Öffnen:** `LaunchedEffect(city)` statt Laden beim
   Antippen (siehe Hinweis bei NavDisplay).
+- **Fehlermeldungen auf Deutsch:** Im ViewModel statt `e.message`
+  eigene Texte setzen, z. B. bei `IOException` (kein Netz) „Keine
+  Internetverbindung“, sonst „Wetterdaten konnten nicht geladen werden“.
+- **Unit-Tests:** `formatTemperature` lässt sich ohne weitere
+  Abhängigkeit testen (`src/test`, JUnit ist schon eingebunden). Für
+  Tests des ViewModels mit `FakeWeatherRepository` braucht es
+  `kotlinx-coroutines-test` und `Dispatchers.setMain(…)`, weil
+  `viewModelScope` den Main-Dispatcher verwendet.
 
 ## Weiterführendes Material
 
