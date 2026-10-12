@@ -217,6 +217,12 @@ sie auf allen Displays gleich groß wirken. Schriftgrößen in `sp`
 (*scalable pixels*): wie `dp`, berücksichtigen aber zusätzlich die
 Schriftgröße aus den Systemeinstellungen.
 
+<Callout type="warning">
+Bei Alt+Enter auf den richtigen Import achten: `androidx.compose.ui.Modifier`
+(nicht `java.lang.reflect.Modifier`) und `androidx.compose.ui.graphics.Color`
+(nicht `android.graphics.Color`).
+</Callout>
+
 `Spacer(Modifier.weight(1f))` nimmt den gesamten freien Platz in der
 `Row` ein und schiebt so den zweiten Text an den rechten Rand.
 

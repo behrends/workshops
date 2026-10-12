@@ -85,11 +85,18 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
 ### Vor der Vorlesung
 
 - [ ] Projekt auf `schritt-00` ausgecheckt, Gradle-Sync durch, App einmal gebaut
-- [ ] Emulator gestartet, App einmal darauf ausgeführt
+- [ ] Emulator gestartet, App einmal darauf ausgeführt, Auto-Rotate eingeschaltet
+      (für `remember` vs. `rememberSaveable` in Schritt 6)
+- [ ] Preview einmal gebaut (sonst zeigt sie live nur „Build & Refresh“)
+- [ ] Tags `schritt-07`, `-09`, `-10` je einmal ausgecheckt, synchronisiert und gebaut
+      (Abhängigkeiten landen im Gradle-Cache, unabhängig vom Hörsaal-WLAN)
+- [ ] Android Studio: *Settings → Editor → General → Auto Import →
+      „Add unambiguous imports on the fly“* aktiviert
+- [ ] Schritt 6 im Querformat geprüft: Wetterkarte vollständig sichtbar?
 - [ ] Open-Meteo im Hörsaal-WLAN erreichbar (Endpunkt im Browser aufrufen)
 - [ ] Agent eingeloggt und kurz getestet
 - [ ] Folien im Browser offen, Schriftgröße in Android Studio für den Beamer erhöht
-- [ ] Fallback: alle Tags lokal vorhanden (`git fetch --tags`)
+- [ ] Fallback: alle Tags lokal vorhanden (`git fetch --tags`); nach jedem Checkout Gradle-Sync abwarten
 
 ---
 

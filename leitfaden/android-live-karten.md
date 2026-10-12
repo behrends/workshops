@@ -2,7 +2,8 @@
 
 Nur für die Live-Schritte 1, 2, 6 und 7. Abgeleitet aus den Diffs im Referenz-Repo
 (github.com/behrends/WeatherAndroidTIF24); Stolperstellen und echte Zeiten nach der
-Generalprobe ergänzen. Notfall immer: `git stash && git checkout schritt-XX`.
+Generalprobe ergänzen. Notfall immer: `git stash -u && git checkout schritt-XX`
+(`-u` sichert auch live neu angelegte Dateien, sonst blockieren sie den Checkout).
 
 ---
 
@@ -22,7 +23,9 @@ Generalprobe ergänzen. Notfall immer: `git stash && git checkout schritt-XX`.
 **Moment:** Texte überlappen → Überleitung zu Layouts. Erklärung: Compose hat
 keinen Textfluss wie HTML; ohne Layout liegen alle Kinder oben links übereinander.
 Beide `Text`s bekommen den `modifier`, weil es noch kein äußerstes Element gibt.
-**Stolperstellen:** –
+**Stolperstellen:** Alt+Enter bei `Modifier` → `androidx.compose.ui.Modifier`,
+nicht `java.lang.reflect.Modifier`; erste Preview braucht einen Build
+(„Build & Refresh“), vorher schon einmal gebaut haben
 
 ---
 
@@ -42,7 +45,8 @@ Beide `Text`s bekommen den `modifier`, weil es noch kein äußerstes Element gib
 **Erklären:** Kette beginnt mit `modifier` (Aufrufer-Modifier kommt an)
 **Moment:** in der Preview `padding` vor/nach `background` vertauschen
 **Stolperstellen:** `weight` gibt es nur im `RowScope`/`ColumnScope`; Imports
-`sp`/`dp` (`androidx.compose.ui.unit`)
+`sp`/`dp` (`androidx.compose.ui.unit`); `Color` → `androidx.compose.ui.graphics.Color`,
+nicht `android.graphics.Color`
 
 ---
 
@@ -55,8 +59,9 @@ Beide `Text`s bekommen den `modifier`, weil es noch kein äußerstes Element gib
 2. In `WeatherScreen`: `var useCelsius = true`, `TextButton` in `actions` der
    `TopAppBar` → antippen, nichts passiert. Erklären: Recomposition
 3. `var useCelsius by remember { mutableStateOf(true) }` → Text wechselt;
-   Gerät drehen → zurück auf °C
-4. `rememberSaveable` → bleibt beim Drehen
+   **App neu starten**, auf °F, Gerät drehen → zurück auf °C
+4. `rememberSaveable` → **App neu starten**, auf °F, drehen → bleibt
+   (ohne Neustart kann Live Edit den State verfälschen)
 5. Button auslagern: `UnitToggle(useCelsius, onToggle, modifier)`, stateless
 6. `formatTemperature(celsius, useCelsius)` in `ui/WeatherConditionUi.kt`;
    `CurrentWeatherCard` bekommt Parameter `useCelsius`
@@ -64,7 +69,9 @@ Beide `Text`s bekommen den `modifier`, weil es noch kein äußerstes Element gib
 
 **Erklären:** State liegt in `WeatherScreen`, weil Toggle und Karte ihn brauchen
 **Stolperstellen:** Imports `getValue`/`setValue` für `by` (Alt+Enter schlägt sie
-nicht immer vor); Drehen im Emulator: Auto-Rotate einschalten
+nicht immer vor), `roundToInt` in `WeatherConditionUi.kt`; Drehen im Emulator:
+Auto-Rotate muss an sein (Checkliste); Karte im Querformat evtl. abgeschnitten
+(in der Generalprobe prüfen)
 
 ---
 
@@ -89,16 +96,92 @@ implementation(libs.androidx.lifecycle.runtime.compose)
    `Success(city, weather)`, `Error(message)`
 3. `ui/WeatherViewModel.kt`: `MutableStateFlow` mit `Success` für Lörrach,
    nach außen `uiState: StateFlow` per `asStateFlow()`
-4. Bisheriges `WeatherScreen` umbenennen in `WeatherContent(uiState, modifier)`
-   (Shift+F6), Titel per `when`, Inhalt per `when (uiState)`
+4. Bisheriges `WeatherScreen` umbenennen in `WeatherContent` (Shift+F6).
+   **Ankündigen:** Jetzt ist kurz alles rot, Aufrufe passen nicht mehr.
+   Parameter auf `uiState: WeatherUiState` umstellen, Titel und Inhalt
+   per Snippet (unten)
 5. Neues stateful `WeatherScreen(modifier, viewModel = viewModel())` mit
    `collectAsStateWithLifecycle()`
-6. `CenteredBox` für Loading/Error; Preview auf `WeatherContent` umstellen,
-   Loading-Preview dazu
+6. `CenteredBox` und Previews per Snippet
 7. `MainActivity`: nur noch `WeatherScreen()`
+
+**Snippets für den Umbau:**
+
+```kotlin
+// in WeatherContent, vor dem Scaffold
+val title = when (uiState) {
+    is WeatherUiState.Success -> uiState.city.name
+    WeatherUiState.Loading, is WeatherUiState.Error -> "Wetter"
+}
+
+// im Scaffold statt CurrentWeatherCard(...)
+when (uiState) {
+    WeatherUiState.Loading -> CenteredBox(Modifier.padding(innerPadding)) {
+        CircularProgressIndicator()
+    }
+    is WeatherUiState.Success -> CurrentWeatherCard(
+        city = uiState.city,
+        weather = uiState.weather,
+        useCelsius = useCelsius,
+        modifier = Modifier.padding(innerPadding),
+    )
+    is WeatherUiState.Error -> CenteredBox(Modifier.padding(innerPadding)) {
+        Text(text = uiState.message)
+    }
+}
+```
+
+```kotlin
+@Composable
+fun CenteredBox(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        content()
+    }
+}
+
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
+@Composable
+fun WeatherContentPreview() {
+    val city = fakeCities.first()
+    WeatherAndroidTIF24Theme {
+        WeatherContent(
+            uiState = WeatherUiState.Success(city, fakeCurrentWeather.getValue(city.name)),
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Loading")
+@Composable
+fun WeatherContentLoadingPreview() {
+    WeatherAndroidTIF24Theme {
+        WeatherContent(uiState = WeatherUiState.Loading)
+    }
+}
+```
 
 **Erklären:** Preview kann kein ViewModel erzeugen → stateful/stateless;
 `is` bei Klassen, ohne `is` bei `Loading`
 **Diskussion:** Gehört °C/°F ins ViewModel? (Nein: UI-Element-State)
-**Stolperstellen:** Gradle Sync dauert; `by` braucht wieder `getValue`;
-Shift+F6 benennt auch die Preview-Aufrufe um
+**Stolperstellen:** vor dem Einfügen in `libs.versions.toml` prüfen, ob der
+Versionseintrag `lifecycleRuntimeKtx` so heißt; Gradle Sync abwarten, sonst findet
+Alt+Enter `viewModel()` nicht; `by` braucht wieder `getValue`;
+Shift+F6 benennt auch Previews und den Aufruf in `MainActivity` um, der passt dann
+nicht mehr → `MainActivity` gleich auf `WeatherScreen()` umstellen
+
+---
+
+## Walkthroughs und Schritt 10
+
+- Nach `git checkout schritt-07`, `-09`, `-10`: Gradle-Dateien geändert →
+  „Sync Now“ abwarten, sonst rote Fehler. Hinweis „detached HEAD“ ist normal.
+- Schritt 8: Ladezustand ist nach 1,5 s vorbei → Loading-Preview zeigen oder für
+  die Demo kurz `delay(3000)`. Fehlerdemo mit `FakeWeatherRepository(shouldFail = true)`:
+  App neu starten (das ViewModel behält sein Repository), danach zurücknehmen.
+- Schritt 9: Zurück über den Back-Button in der Emulator-Toolbar, die Wischgeste
+  mit der Maus ist fummelig.
+- Schritt 10: Vergisst der Agent die `INTERNET`-Permission, zeigt die App den
+  Zustand `Error` mit einer Permission-Meldung → als Review-Moment nutzen.
+- Schritt 10: Abhängigkeiten (Ktor) schon beim Plan bestätigen. **Spätestens nach
+  15 Minuten** auf `git stash -u && git checkout schritt-10` wechseln und den
+  fertigen Diff (`git diff schritt-09 schritt-10`) erklären.
