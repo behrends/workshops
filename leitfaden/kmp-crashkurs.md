@@ -114,7 +114,7 @@ Fast jede Änderung hat denselben Grund: Android-APIs und Reflection gibt es auf
 
 ## Referenz-Repo
 
-`~/tmp/WeatherKMPTIF24` (lokal, noch nicht auf GitHub), Tags `kmp-00` … `kmp-04`.
+[github.com/behrends/WeatherKMPTIF24](https://github.com/behrends/WeatherKMPTIF24) (öffentlich; lokal unter `~/tmp/WeatherKMPTIF24`), Tags `kmp-00` … `kmp-04`.
 `kmp-00` = Wizard-Projekt, `kmp-01` bis `kmp-04` von Claude Code gebaut;
 Android und iOS gebaut, im Simulator und Emulator durchgeklickt.
 
