@@ -330,7 +330,7 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
 
 Vorerst in der Navigation versteckt (`display: 'hidden'` in `content/mobile/_meta.js`).
 Umschalten: alten Ordner `02-android` entfernen bzw. umbenennen und den Eintrag sichtbar machen.
-Die Links zeigen auf `github.com/behrends/WeatherAndroidTIF24`; Repo vorher dort veröffentlichen.
+Die Links zeigen auf `github.com/behrends/WeatherAndroidTIF24` (veröffentlicht Okt. 2026).
 
 Vier Seiten, jede mit `slides: true`. Pro Seite: kurze Erklärungen in `DocsOnly`, wenige Folien,
 normale Markdown-Links auf die Tags im Repo (keine eigene Komponente; die Repo-URL wird jährlich
@@ -349,7 +349,7 @@ Vorerst gestrichen: Room-Vertiefung, Speaker Notes, Seite zur Stadtsuche.
 
 ## Referenz-Repo
 
-`~/tmp/WeatherAndroidTIF24` (lokal, noch nicht auf GitHub), Tags `schritt-00` … `schritt-11`.
+[github.com/behrends/WeatherAndroidTIF24](https://github.com/behrends/WeatherAndroidTIF24) (öffentlich; lokal unter `~/tmp/WeatherAndroidTIF24`), Tags `schritt-00` … `schritt-11`.
 Schritte 1–11 von Claude Code gebaut; jeder Schritt mit `./gradlew assembleDebug` gebaut,
 API-Aufrufe (Schritt 10, 11) einmal per Unit-Test gegen Open-Meteo geprüft.
 **Nicht geprüft:** Previews und App im Emulator; das ist das Durchklicken der Tags.
