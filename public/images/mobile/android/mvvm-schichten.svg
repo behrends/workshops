@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title>MVVM-Schichten der Wetter-App</title>
+  <defs>
+    <marker id="down" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c2410c"/>
+    </marker>
+    <marker id="up" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+  </defs>
+  <rect width="800" height="520" fill="#ffffff"/>
+
+  <!-- UI -->
+  <text x="40" y="62" font-size="15" font-weight="700" fill="#64748b" letter-spacing="1">UI</text>
+  <rect x="200" y="30" width="400" height="70" rx="14" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="400" y="62" text-anchor="middle" font-size="22" font-weight="600" fill="#0f172a">WeatherScreen</text>
+  <text x="400" y="86" text-anchor="middle" font-size="14" fill="#475569">Composables zeigen den Zustand an</text>
+
+  <!-- ViewModel -->
+  <text x="40" y="192" font-size="15" font-weight="700" fill="#64748b" letter-spacing="1">VIEWMODEL</text>
+  <rect x="200" y="160" width="400" height="70" rx="14" fill="#eef2ff" stroke="#4338ca" stroke-width="2"/>
+  <text x="400" y="192" text-anchor="middle" font-size="22" font-weight="600" fill="#1e1b4b">WeatherViewModel</text>
+  <text x="400" y="216" text-anchor="middle" font-size="14" font-family="ui-monospace, Menlo, monospace" fill="#312e81">StateFlow&lt;WeatherUiState&gt;</text>
+
+  <!-- Repository -->
+  <text x="40" y="322" font-size="15" font-weight="700" fill="#64748b" letter-spacing="1">DATEN</text>
+  <rect x="200" y="290" width="400" height="70" rx="14" fill="#f0fdf4" stroke="#15803d" stroke-width="2" stroke-dasharray="8 5"/>
+  <text x="400" y="322" text-anchor="middle" font-size="20" font-weight="600" fill="#14532d">interface WeatherRepository</text>
+  <text x="400" y="346" text-anchor="middle" font-size="14" fill="#166534">austauschbar</text>
+
+  <rect x="150" y="420" width="230" height="64" rx="12" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+  <text x="265" y="450" text-anchor="middle" font-size="17" font-weight="600" fill="#14532d">FakeWeatherRepository</text>
+  <text x="265" y="472" text-anchor="middle" font-size="13" fill="#166534">Schritt 8: Fake-Daten</text>
+
+  <rect x="420" y="420" width="230" height="64" rx="12" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+  <text x="535" y="450" text-anchor="middle" font-size="17" font-weight="600" fill="#14532d">ApiWeatherRepository</text>
+  <text x="535" y="472" text-anchor="middle" font-size="13" fill="#166534">Schritt 10: Open-Meteo</text>
+
+  <line x1="330" y1="360" x2="290" y2="416" stroke="#15803d" stroke-width="2"/>
+  <line x1="470" y1="360" x2="510" y2="416" stroke="#15803d" stroke-width="2"/>
+
+  <!-- Events nach unten (links) -->
+  <line x1="300" y1="100" x2="300" y2="156" stroke="#c2410c" stroke-width="3" marker-end="url(#down)"/>
+  <text x="290" y="134" text-anchor="end" font-size="14" font-family="ui-monospace, Menlo, monospace" fill="#c2410c">loadWeather(city)</text>
+  <line x1="300" y1="230" x2="300" y2="286" stroke="#c2410c" stroke-width="3" marker-end="url(#down)"/>
+  <text x="290" y="264" text-anchor="end" font-size="14" font-family="ui-monospace, Menlo, monospace" fill="#c2410c">getCurrentWeather(city)</text>
+
+  <!-- Daten nach oben (rechts) -->
+  <line x1="500" y1="156" x2="500" y2="104" stroke="#1d4ed8" stroke-width="3" marker-end="url(#up)"/>
+  <text x="510" y="134" font-size="14" font-family="ui-monospace, Menlo, monospace" fill="#1d4ed8">uiState</text>
+  <line x1="500" y1="286" x2="500" y2="234" stroke="#1d4ed8" stroke-width="3" marker-end="url(#up)"/>
+  <text x="510" y="264" font-size="14" font-family="ui-monospace, Menlo, monospace" fill="#1d4ed8">CurrentWeather</text>
+</svg>

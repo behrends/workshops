@@ -110,7 +110,7 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
 - **Modus:** Live
 - **Konzept:** Composable = Funktion, die UI beschreibt; deklarativ vs. imperativ;
   `@Preview` vs. Emulator
-- **Code:** Paket `ui/`, `WeatherScreen()` mit zwei `Text`s (Stadt, Temperatur, fest codiert);
+- **Code:** neue Datei `ui/WeatherScreen.kt` (Paket `ui` gibt es schon wegen `ui/theme`), `WeatherScreen()` mit zwei `Text`s (Stadt, Temperatur, fest codiert);
   `@Preview` mit `showBackground = true`; in `MainActivity` mit `Modifier.safeDrawingPadding()`
   (wegen Edge-to-Edge)
 - **Didaktischer Moment:** Die beiden Texte überlappen sich, weil ein Layout fehlt. Überleitung zu Schritt 2
@@ -322,7 +322,11 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
 
 ---
 
-## Zuordnung zu den MDX-Seiten (neues `content/mobile/02-android/`)
+## Zuordnung zu den MDX-Seiten (`content/mobile/02-android-wetter/`)
+
+Vorerst in der Navigation versteckt (`display: 'hidden'` in `content/mobile/_meta.js`).
+Umschalten: alten Ordner `02-android` entfernen bzw. umbenennen und den Eintrag sichtbar machen.
+Die Links zeigen auf `github.com/behrends/WeatherAndroidTIF24`; Repo vorher dort veröffentlichen.
 
 Vier Seiten, jede mit `slides: true`. Pro Seite: kurze Erklärungen in `DocsOnly`, wenige Folien,
 normale Markdown-Links auf die Tags im Repo (keine eigene Komponente; die Repo-URL wird jährlich

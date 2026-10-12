@@ -1,0 +1,413 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 35 Minuten
+slideGoal: Screens verbinden und echte Daten mit einem Coding Agent anbinden
+slideTopics:
+  - Navigation 3 mit Back Stack als Liste
+  - Routen als Typen
+  - API-Anbindung mit einem Coding Agent
+  - Ktor und kotlinx.serialization
+---
+
+import { Callout } from 'nextra/components'
+
+# Navigation und API
+
+<DocsOnly>
+Zum Schluss verbinden wir Städteliste und Wetteranzeige mit Navigation 3
+und ersetzen die Fake-Daten durch echte Wetterdaten. Die API-Anbindung
+übernimmt ein Coding Agent; unsere Aufgabe ist, seinen Plan und seinen
+Code zu prüfen.
+</DocsOnly>
+
+## Navigation 3
+
+Der Back Stack ist eine Liste, die die App selbst als State hält.
+
+- Navigieren: Element hinzufügen, `backStack.add(…)`
+- Zurück: letztes Element entfernen, `backStack.removeLastOrNull()`
+- Angezeigt wird immer das letzte Element der Liste
+
+<DocsOnly>
+Das passt zu dem, was wir über State wissen: Der Back Stack ist eine
+beobachtbare Liste. Ändert sie sich, zeigt `NavDisplay` den passenden
+Screen an.
+
+Navigation 3 braucht drei Abhängigkeiten und ein Gradle-Plugin:
+
+```toml
+# gradle/libs.versions.toml
+[versions]
+nav3Core = "1.2.0"
+kotlinxSerializationCore = "1.9.0"
+
+[libraries]
+androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }
+androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3Core" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
+
+[plugins]
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+```
+
+Das Plugin muss außerdem in der Root-`build.gradle.kts` (mit
+`apply false`) und in `app/build.gradle.kts` eingetragen werden, die drei
+Bibliotheken unter `dependencies`:
+
+```kotlin
+// build.gradle.kts (Root)
+plugins {
+    // ...
+    alias(libs.plugins.kotlin.serialization) apply false
+}
+
+// app/build.gradle.kts
+plugins {
+    // ...
+    alias(libs.plugins.kotlin.serialization)
+}
+
+dependencies {
+    // ...
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.kotlinx.serialization.core)
+}
+```
+
+Die Versionen am besten aus der
+[Dokumentation](https://developer.android.com/guide/navigation/navigation-3/get-started)
+übernehmen.
+</DocsOnly>
+
+## Routen als Typen
+
+Jeder Screen ist ein Typ, Argumente sind Properties.
+
+```kotlin
+@Serializable
+data object CityList : NavKey
+
+@Serializable
+data class CityWeather(val city: City) : NavKey
+```
+
+<DocsOnly>
+`@Serializable` und `NavKey` sind nötig, damit `rememberNavBackStack`
+den Back Stack speichern kann, z. B. beim Drehen des Bildschirms. Weil
+`City` Teil der Route ist, bekommt auch `City` in `model/City.kt` die
+Annotation `@Serializable`.
+
+Die Routen stehen in der neuen Datei `ui/WeatherApp.kt` (siehe unten).
+</DocsOnly>
+
+## NavDisplay
+
+`NavDisplay` zeigt das letzte Element des Back Stacks an.
+
+<SlideOnly>
+```kotlin
+val backStack = rememberNavBackStack(CityList)
+
+NavDisplay(
+    backStack = backStack,
+    onBack = { backStack.removeLastOrNull() },
+    entryProvider = entryProvider {
+        entry<CityList> { CityListScreen(/* ... */) }
+        entry<CityWeather> { key ->
+            WeatherScreen(city = key.city, /* ... */)
+        }
+    },
+)
+```
+</SlideOnly>
+
+<DocsOnly>
+Die neue Datei `ui/WeatherApp.kt`; `MainActivity` zeigt statt `WeatherScreen()` jetzt `WeatherApp()` an:
+
+```kotlin
+@Composable
+fun WeatherApp() {
+    // Der Back Stack ist eine Liste: Navigieren = Element hinzufügen oder entfernen
+    val backStack = rememberNavBackStack(CityList)
+
+    // Ohne Decorator ist das ViewModel an die Activity gebunden
+    val weatherViewModel: WeatherViewModel = viewModel()
+
+    NavDisplay(
+        backStack = backStack,
+        onBack = { backStack.removeLastOrNull() },
+        entryProvider = entryProvider {
+            entry<CityList> {
+                CityListScreen(
+                    cities = fakeCities,
+                    onCityClick = { city ->
+                        weatherViewModel.loadWeather(city)
+                        backStack.add(CityWeather(city))
+                    },
+                )
+            }
+            entry<CityWeather> { key ->
+                WeatherScreen(
+                    city = key.city,
+                    viewModel = weatherViewModel,
+                )
+            }
+        },
+    )
+}
+```
+
+`WeatherScreen` und `WeatherContent` bekommen dafür einen neuen
+Parameter `city: City`. Der Titel in der `TopAppBar` kommt jetzt aus der
+Route (`city.name`) statt aus dem `uiState`; so steht der Name der Stadt
+schon während des Ladens da. Die Previews übergeben
+`city = fakeCities.first()`.
+
+`onBack` wird bei der Zurück-Geste des Systems aufgerufen. Einen
+Zurück-Pfeil in der `TopAppBar` haben wir bewusst weggelassen (siehe
+Übungen).
+
+Das Wetter wird jetzt beim Antippen geladen. Der `init`-Block im
+`WeatherViewModel`, der bisher Lörrach geladen hat, entfällt deshalb.
+
+Das ViewModel wird oberhalb von `NavDisplay` geholt und an
+`WeatherScreen` übergeben. Ohne weitere Konfiguration ist es an die
+Activity gebunden. Für diese App reicht das.
+
+<Callout type="warning">
+Bewusste Vereinfachung: Das Wetter wird beim Antippen in der Liste
+geladen, nicht beim Öffnen des Screens. Wird die App vom System beendet
+und wiederhergestellt, stellt der Back Stack den Wetter-Screen wieder
+her, das ViewModel hat aber keine Daten. Sauberer wäre
+`LaunchedEffect(city) { viewModel.loadWeather(city) }` im Screen.
+</Callout>
+
+Code: [`schritt-09`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-09) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-08...schritt-09)
+</DocsOnly>
+
+## API-Anbindung mit einem Coding Agent
+
+Aufgabe für den Agent: ein `ApiWeatherRepository` für Open-Meteo bauen und im ViewModel einsetzen.
+
+- Plan anfordern und prüfen, bevor Code entsteht
+- umsetzen lassen, bauen, App testen
+- Diff lesen und erklären können
+- erst dann committen
+
+<DocsOnly>
+Die Datei `AGENTS.md` im Repository gibt dem Agent den Rahmen vor:
+Architektur (UI → ViewModel → Repository), Tech-Stack (Ktor,
+kotlinx.serialization) und Regeln (keine neuen Libraries ohne
+Rückfrage, Datenschicht ändern ohne die UI anzufassen, nicht selbst
+committen).
+
+Ein möglicher Prompt:
+
+> Lies AGENTS.md. Baue ein `ApiWeatherRepository`, das das aktuelle
+> Wetter einer Stadt von Open-Meteo lädt (Temperatur, Wettercode,
+> Windgeschwindigkeit; Koordinaten aus `City`). Setze es als
+> Default im `WeatherViewModel` ein. Zeig mir zuerst deinen Plan.
+
+Die API braucht keinen Schlüssel. Eine Antwort lässt sich vorab im
+Browser ansehen:
+[api.open-meteo.com/v1/forecast?latitude=47.62&longitude=7.66&current=temperature_2m,weather_code,wind_speed_10m](https://api.open-meteo.com/v1/forecast?latitude=47.62&longitude=7.66&current=temperature_2m,weather_code,wind_speed_10m)
+</DocsOnly>
+
+## Ktor-Client
+
+Ktor ist ein HTTP-Client von JetBrains für Kotlin. Der Request steht explizit im Code.
+
+```kotlin
+override suspend fun getCurrentWeather(city: City): CurrentWeather {
+    val url = "https://api.open-meteo.com/v1/forecast"
+    val response: ForecastResponse = client.get(url) {
+        parameter("latitude", city.latitude)
+        parameter("longitude", city.longitude)
+        parameter("current", "temperature_2m,weather_code,wind_speed_10m")
+        parameter("timezone", "auto")
+    }.body()
+    return response.current.toCurrentWeather()
+}
+```
+
+<DocsOnly>
+Neue Datei `data/ApiWeatherRepository.kt`. Die Funktion gehört zur Klasse
+`ApiWeatherRepository(private val client: HttpClient = httpClient) : WeatherRepository`.
+Was der Agent im Referenz-Repository außerdem angelegt hat:
+
+- `INTERNET`-Permission in `AndroidManifest.xml`, ohne die Android keine
+  Netzwerkzugriffe erlaubt:
+
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+```
+
+- Abhängigkeiten in `gradle/libs.versions.toml` (Version `ktor = "3.6.0"`)
+  und `app/build.gradle.kts`:
+
+```toml
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+```
+
+```kotlin
+implementation(libs.ktor.client.core)
+implementation(libs.ktor.client.okhttp)
+implementation(libs.ktor.client.content.negotiation)
+implementation(libs.ktor.serialization.kotlinx.json)
+```
+
+- einen gemeinsamen `HttpClient` mit JSON-Unterstützung in `data/api/HttpClient.kt`:
+
+```kotlin
+val httpClient = HttpClient(OkHttp) {
+    expectSuccess = true // HTTP-Fehler (4xx, 5xx) als Exception werfen
+    install(ContentNegotiation) {
+        json(Json { ignoreUnknownKeys = true })
+    }
+}
+```
+
+`ignoreUnknownKeys` ist wichtig: Die API liefert mehr Felder, als wir
+brauchen.
+
+Alternative zu Ktor ist Retrofit, das in vielen bestehenden
+Android-Projekten und in Googles Codelabs verwendet wird. Gute Übung:
+den Agent fragen, wie dasselbe mit Retrofit aussähe, und die beiden
+Varianten vergleichen.
+</DocsOnly>
+
+## DTO und Datenmodell
+
+Die JSON-Antwort bekommt eigene Klassen (DTOs). Sie werden auf unser Datenmodell abgebildet.
+
+```kotlin
+@Serializable
+data class CurrentDto(
+    @SerialName("temperature_2m") val temperature: Double,
+    @SerialName("weather_code") val weatherCode: Int,
+    @SerialName("wind_speed_10m") val windSpeed: Double,
+)
+```
+
+<DocsOnly>
+Die DTOs stehen in der neuen Datei `data/api/OpenMeteoDto.kt`.
+`CurrentDto` steckt in einer Hülle für die gesamte Antwort, weil die
+API die Werte im Feld `current` liefert:
+
+```kotlin
+@Serializable
+data class ForecastResponse(
+    val current: CurrentDto,
+)
+```
+
+Eine Erweiterungsfunktion in `ApiWeatherRepository.kt` bildet das DTO
+auf das Datenmodell ab:
+
+```kotlin
+private fun CurrentDto.toCurrentWeather() = CurrentWeather(
+    temperature = temperature,
+    windSpeed = windSpeed,
+    condition = weatherConditionFromWmoCode(weatherCode),
+)
+```
+
+Warum nicht gleich `CurrentWeather` mit `@Serializable` versehen? Weil
+das Datenmodell dann vom Format der API abhängt. Mit DTOs bleibt eine
+Änderung der API auf die Datenschicht beschränkt; die Oberfläche
+merkt nichts davon.
+
+Die Wetterlage liefert die API als Zahl (WMO-Code). Eine Funktion
+bildet sie auf `WeatherCondition` ab:
+
+```kotlin
+private fun weatherConditionFromWmoCode(code: Int): WeatherCondition = when (code) {
+    0 -> WeatherCondition.CLEAR
+    1, 2 -> WeatherCondition.PARTLY_CLOUDY
+    3 -> WeatherCondition.CLOUDY
+    45, 48 -> WeatherCondition.FOG
+    in 51..67, in 80..82 -> WeatherCondition.RAIN
+    in 71..77, 85, 86 -> WeatherCondition.SNOW
+    in 95..99 -> WeatherCondition.THUNDERSTORM
+    else -> WeatherCondition.CLOUDY
+}
+```
+</DocsOnly>
+
+## Der Nutzen der Architektur
+
+Für echte Daten wurde kein einziges Composable geändert.
+
+```
+$ git diff --stat schritt-09 schritt-10
+ app/build.gradle.kts                    |  4 ++
+ app/src/main/AndroidManifest.xml        |  2 +
+ .../data/ApiWeatherRepository.kt        | 45 +++++++++
+ .../data/api/HttpClient.kt              | 15 ++++
+ .../data/api/OpenMeteoDto.kt            | 18 ++++
+ .../ui/WeatherViewModel.kt              |  4 +-
+ gradle/libs.versions.toml               |  5 ++
+```
+
+<DocsOnly>
+Im ViewModel hat sich nur der Default-Parameter geändert:
+
+```kotlin
+class WeatherViewModel(
+    private val repository: WeatherRepository = ApiWeatherRepository(),
+) : ViewModel()
+```
+
+Fehler wie fehlendes Internet landen automatisch im Zustand `Error`, weil
+das ViewModel die Exceptions des Repositorys bereits abfängt.
+
+Code: [`schritt-10`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-10) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-09...schritt-10)
+</DocsOnly>
+
+## Übungen
+
+Selbst oder mit einem Coding Agent umsetzen, jeweils Plan und Diff prüfen.
+
+- Stadtsuche über die Geocoding-API von Open-Meteo
+- 7-Tage-Vorhersage im Wetter-Screen
+- Zurück-Pfeil in der `TopAppBar`
+- Button „Erneut versuchen“ bei Fehlern
+- Favoriten dauerhaft speichern (DataStore oder Room)
+- Unit-Tests für das ViewModel mit `FakeWeatherRepository`
+
+<DocsOnly>
+Hinweise zu den Übungen:
+
+- **Stadtsuche:** Endpunkt
+  `https://geocoding-api.open-meteo.com/v1/search?name=…&count=5&language=de`.
+  Die Städteliste wird dafür zu State in einem eigenen ViewModel.
+  Achtung: Mehrere Städte heißen gleich (es gibt mehrere „Hamburg“),
+  `key = { it.name }` in der `LazyColumn` führt dann zum Absturz.
+  Eine Referenzlösung liegt im Tag
+  [`schritt-11`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-11)
+  ([Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-10...schritt-11)).
+- **7-Tage-Vorhersage:** Parameter `daily=weather_code,temperature_2m_max,temperature_2m_min`,
+  neues Datenmodell `DailyForecast`, Liste im Wetter-Screen.
+- **Zurück-Pfeil:** Material 3 bringt keine Icons mehr mit. In Android
+  Studio über *File → New → Vector Asset* ein Icon anlegen und mit
+  `Icon(painterResource(R.drawable.…), …)` anzeigen.
+- **Erneut versuchen:** Der Zustand `Error` braucht dafür die Stadt, die
+  nicht geladen werden konnte.
+- **Laden beim Öffnen:** `LaunchedEffect(city)` statt Laden beim
+  Antippen (siehe Hinweis bei NavDisplay).
+
+## Weiterführendes Material
+
+- [Navigation 3](https://developer.android.com/guide/navigation/navigation-3)
+- [Ktor Client](https://ktor.io/docs/client-create-new-application.html)
+- [kotlinx.serialization](https://kotlinlang.org/docs/serialization.html)
+- [Open-Meteo API](https://open-meteo.com/en/docs)
+- [Datenschicht (Data Layer)](https://developer.android.com/topic/architecture/data-layer)
+</DocsOnly>

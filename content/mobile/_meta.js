@@ -2,6 +2,10 @@ export default {
   index: 'Übersicht',
   '01-intro': '1 - Einleitung',
   '02-android': '2 - Android',
+  '02-android-wetter': {
+    title: '2 - Android (Wetter-App)',
+    display: 'hidden',
+  },
   '03-android-kmp': '3 - Android und KMP',
   '04-flutter': '4 - Flutter',
   '05-react-native': '5 - React Native',

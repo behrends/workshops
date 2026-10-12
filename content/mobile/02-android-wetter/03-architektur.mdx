@@ -1,0 +1,317 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 20 Minuten
+slideGoal: Zustand und Daten sauber von der Oberfläche trennen
+slideTopics:
+  - MVVM-Schichten
+  - UiState als sealed interface
+  - ViewModel mit StateFlow
+  - stateful und stateless Composables
+  - Repository und Coroutines
+---
+
+import { Callout } from 'nextra/components'
+
+# ViewModel und Architektur
+
+<DocsOnly>
+Bisher stecken die Daten direkt im Code der Oberfläche. Für echte Daten
+aus dem Netz braucht die App eine klare Aufteilung: Wer lädt die Daten,
+wer hält den Zustand, wer zeigt ihn an? Dafür verwenden wir das
+Architekturmuster **MVVM** (Model, View, ViewModel), so wie es Google
+für Android empfiehlt.
+</DocsOnly>
+
+## MVVM-Schichten
+
+Jede Schicht hat eine Aufgabe und kennt nur die Schicht darunter.
+
+![MVVM-Schichten der Wetter-App](/images/mobile/android/mvvm-schichten.svg)
+
+<DocsOnly>
+- **UI** (Composables): zeigt den Zustand an und meldet Events
+- **ViewModel**: hält den Zustand des Screens und reagiert auf Events
+- **Repository**: liefert Daten, egal ob aus Fake-Daten, Datenbank oder Netz
+
+Im Code liegt das ViewModel trotzdem im Paket `ui/`, neben dem Screen,
+zu dem es gehört. Googles Architektur-Leitfaden zählt ViewModels zur
+UI-Schicht: Sie sind *State Holder* für die Oberfläche. Das Diagramm
+trennt sie, um die Aufgaben deutlich zu machen.
+
+Der Clou: Das Repository ist ein Interface. In Schritt 8 steckt dahinter
+eine Fake-Implementierung, in Schritt 10 die echte API. UI und ViewModel
+merken davon nichts.
+</DocsOnly>
+
+## UiState als sealed interface
+
+Der Screen ist immer in genau einem von drei Zuständen.
+
+```kotlin
+sealed interface WeatherUiState {
+    data object Loading : WeatherUiState
+    data class Success(
+        val city: City,
+        val weather: CurrentWeather,
+    ) : WeatherUiState
+    data class Error(val message: String) : WeatherUiState
+}
+```
+
+<DocsOnly>
+Neue Datei `ui/WeatherUiState.kt`.
+
+`sealed` bedeutet: Es gibt genau diese drei Varianten, keine weiteren.
+Deshalb kann `when (uiState)` prüfen, ob alle Fälle behandelt sind, ganz
+ohne `else`-Zweig.
+</DocsOnly>
+
+## ViewModel mit StateFlow
+
+Das ViewModel hält den Zustand. Es überlebt das Drehen des Bildschirms.
+
+```kotlin
+class WeatherViewModel : ViewModel() {
+    private val _uiState = MutableStateFlow<WeatherUiState>(
+        WeatherUiState.Success(
+            city = fakeCities.first(),
+            weather = fakeCurrentWeather.getValue("Lörrach"),
+        )
+    )
+    val uiState: StateFlow<WeatherUiState> = _uiState.asStateFlow()
+}
+```
+
+<DocsOnly>
+Neue Datei `ui/WeatherViewModel.kt`.
+
+`StateFlow` ist ein beobachtbarer Wert, ähnlich wie `mutableStateOf`,
+aber unabhängig von Compose. Nach außen gibt das ViewModel nur die
+lesbare Variante `uiState` frei; ändern kann den Zustand nur das
+ViewModel selbst über `_uiState`.
+
+`MainActivity` ruft jetzt nur noch `WeatherScreen()` auf. Die Daten
+kommen aus dem ViewModel, nicht mehr von außen.
+
+Dafür braucht das Projekt zwei Abhängigkeiten. Sie verwenden dieselbe
+Version wie das schon vorhandene `lifecycle-runtime-ktx`:
+
+```toml
+# gradle/libs.versions.toml, unter [libraries]
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
+```
+
+```kotlin
+// app/build.gradle.kts, unter dependencies
+implementation(libs.androidx.lifecycle.viewmodel.compose)
+implementation(libs.androidx.lifecycle.runtime.compose)
+```
+</DocsOnly>
+
+## Stateful und stateless
+
+Ein Composable holt den Zustand aus dem ViewModel, ein zweites zeigt ihn nur an.
+
+```kotlin
+@Composable // stateful
+fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    WeatherContent(uiState = uiState)
+}
+
+@Composable // stateless
+fun WeatherContent(uiState: WeatherUiState) {
+    // Scaffold, TopAppBar ...
+    when (uiState) { /* Loading, Success, Error */ }
+}
+```
+
+<DocsOnly>
+Im Repository haben beide Composables zusätzlich den üblichen Parameter
+`modifier: Modifier = Modifier`; hier ist er der Übersicht halber weggelassen.
+
+Beide stehen in `ui/WeatherScreen.kt`; aus dem bisherigen
+`WeatherScreen` wird `WeatherContent`.
+
+Warum die Aufteilung? Eine Preview kann kein ViewModel erzeugen.
+`WeatherContent` bekommt den Zustand als Parameter und lässt sich deshalb
+in der Preview mit jedem Zustand anzeigen:
+
+```kotlin
+@Preview(showBackground = true, name = "Loading")
+@Composable
+fun WeatherContentLoadingPreview() {
+    WeatherAndroidTIF24Theme {
+        WeatherContent(uiState = WeatherUiState.Loading)
+    }
+}
+```
+
+In `WeatherContent` entscheidet `when (uiState)`, was angezeigt wird.
+Der Titel der `TopAppBar` hängt ebenfalls vom Zustand ab:
+
+```kotlin
+val title = when (uiState) {
+    is WeatherUiState.Success -> uiState.city.name
+    WeatherUiState.Loading, is WeatherUiState.Error -> "Wetter"
+}
+
+// im Scaffold:
+when (uiState) {
+    WeatherUiState.Loading -> CenteredBox(Modifier.padding(innerPadding)) {
+        CircularProgressIndicator()
+    }
+    is WeatherUiState.Success -> CurrentWeatherCard(
+        city = uiState.city,
+        weather = uiState.weather,
+        useCelsius = useCelsius,
+        modifier = Modifier.padding(innerPadding),
+    )
+    is WeatherUiState.Error -> CenteredBox(Modifier.padding(innerPadding)) {
+        Text(text = uiState.message)
+    }
+}
+```
+
+`CenteredBox` ist ein kleines Hilfs-Composable, das seinen Inhalt in
+einer `Box` mit `fillMaxSize()` zentriert.
+
+Der Umschalter °C/°F bleibt als `rememberSaveable` in `WeatherContent`.
+Er ist reiner Anzeige-Zustand (UI-Element-State) und gehört nicht ins
+ViewModel. Was dagegen den Inhalt des Screens bestimmt (Screen-State),
+gehört ins ViewModel.
+
+Code: [`schritt-07`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-07) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-06...schritt-07)
+</DocsOnly>
+
+## Repository
+
+Das Repository liefert die Daten. Das ViewModel kennt nur das Interface.
+
+```kotlin
+interface WeatherRepository {
+    suspend fun getCurrentWeather(city: City): CurrentWeather
+}
+```
+
+<SlideBreak />
+
+```kotlin
+class FakeWeatherRepository(
+    private val shouldFail: Boolean = false,
+) : WeatherRepository {
+    override suspend fun getCurrentWeather(city: City): CurrentWeather {
+        delay(1500) // simuliert die Antwortzeit eines Servers
+        if (shouldFail) throw IOException("Keine Verbindung (simuliert)")
+        return fakeCurrentWeather[city.name]
+            ?: throw IOException("Keine Wetterdaten für ${city.name}")
+    }
+}
+```
+
+<DocsOnly>
+Neue Dateien `data/WeatherRepository.kt` und
+`data/FakeWeatherRepository.kt`.
+
+Mit `delay(1500)` verhält sich das Fake-Repository wie ein langsamer
+Server: Der Ladezustand wird sichtbar. Mit `shouldFail = true` lässt sich
+der Fehlerzustand ausprobieren, ohne das WLAN abzuschalten. Ohne Emulator
+zeigt eine dritte Preview den Fehlerzustand:
+
+```kotlin
+@Preview(showBackground = true, name = "Error")
+@Composable
+fun WeatherContentErrorPreview() {
+    WeatherAndroidTIF24Theme {
+        WeatherContent(uiState = WeatherUiState.Error("Keine Verbindung zum Server"))
+    }
+}
+```
+</DocsOnly>
+
+## Coroutines im ViewModel
+
+`suspend`-Funktionen können warten, ohne die Oberfläche zu blockieren. Das ViewModel startet sie in `viewModelScope`.
+
+<SlideOnly>
+```kotlin
+fun loadWeather(city: City) {
+    _uiState.value = WeatherUiState.Loading
+    viewModelScope.launch {
+        _uiState.value = try {
+            val weather = repository.getCurrentWeather(city)
+            WeatherUiState.Success(city, weather)
+        } catch (e: Exception) {
+            WeatherUiState.Error(e.message ?: "Unbekannter Fehler")
+        }
+    }
+}
+```
+</SlideOnly>
+
+<DocsOnly>
+```kotlin
+class WeatherViewModel(
+    private val repository: WeatherRepository = FakeWeatherRepository(),
+) : ViewModel() {
+    private val _uiState = MutableStateFlow<WeatherUiState>(WeatherUiState.Loading)
+    val uiState: StateFlow<WeatherUiState> = _uiState.asStateFlow()
+
+    init {
+        loadWeather(fakeCities.first())
+    }
+
+    fun loadWeather(city: City) {
+        _uiState.value = WeatherUiState.Loading
+        viewModelScope.launch {
+            _uiState.value = try {
+                WeatherUiState.Success(city, repository.getCurrentWeather(city))
+            } catch (e: CancellationException) {
+                throw e // Abbruch der Coroutine nicht als Fehler behandeln
+            } catch (e: Exception) {
+                WeatherUiState.Error(e.message ?: "Unbekannter Fehler")
+            }
+        }
+    }
+}
+```
+
+`viewModelScope` beendet laufende Coroutines automatisch, wenn das
+ViewModel nicht mehr gebraucht wird. Dabei wird eine
+`CancellationException` geworfen. Sie darf nicht als Fehler angezeigt
+werden, deshalb wird sie vor dem allgemeinen `catch` weitergeworfen.
+
+Das `init` lädt vorerst das Wetter für Lörrach. Ab Schritt 9 übernimmt
+das ein Klick in der Städteliste.
+</DocsOnly>
+
+## Repository als Default-Parameter
+
+Das ViewModel bekommt sein Repository als Parameter mit Default-Wert. Für die echte API ändert sich später nur diese Zeile.
+
+```kotlin
+class WeatherViewModel(
+    private val repository: WeatherRepository = FakeWeatherRepository(),
+) : ViewModel()
+```
+
+<DocsOnly>
+In größeren Apps übernimmt das ein Dependency-Injection-Framework wie
+Hilt oder Koin. Für diese App reicht der Default-Parameter, und das
+Prinzip ist dasselbe: Das ViewModel erzeugt seine Datenquelle nicht
+selbst, sie wird von außen hineingegeben. Das macht das ViewModel auch
+testbar, z. B. mit `FakeWeatherRepository(shouldFail = true)`.
+
+Code: [`schritt-08`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-08) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-07...schritt-08)
+
+## Weiterführendes Material
+
+- [Leitfaden zur App-Architektur](https://developer.android.com/topic/architecture)
+- [UI-Schicht und UiState](https://developer.android.com/topic/architecture/ui-layer)
+- [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
+- [Coroutines in Android](https://developer.android.com/kotlin/coroutines)
+</DocsOnly>

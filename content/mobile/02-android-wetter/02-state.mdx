@@ -1,0 +1,181 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 15 Minuten
+slideGoal: Verstehen, wie Compose auf Zustandsänderungen reagiert
+slideTopics:
+  - Recomposition
+  - remember und mutableStateOf
+  - rememberSaveable
+  - State Hoisting
+---
+
+import { Callout } from 'nextra/components'
+
+# State
+
+<DocsOnly>
+Bisher zeigt die App nur feste Daten an. Jetzt soll die Oberfläche
+auf Eingaben reagieren: Ein Umschalter in der `TopAppBar` wechselt die
+Temperaturanzeige zwischen °C und °F.
+
+Code: [`schritt-06`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-06) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-05...schritt-06)
+
+Um den State im Emulator auszuprobieren (auch beim Drehen des
+Bildschirms), zeigt `MainActivity` in diesem Schritt wieder
+`WeatherScreen` statt der Städteliste:
+
+```kotlin
+val city = fakeCities.first()
+WeatherScreen(city = city, weather = fakeCurrentWeather.getValue(city.name))
+```
+</DocsOnly>
+
+## Erster Versuch
+
+Eine normale Variable reicht nicht: Antippen ändert den Wert, aber die Anzeige bleibt gleich.
+
+```kotlin
+@Composable
+fun WeatherScreen(/* ... */) {
+    var useCelsius = true // funktioniert nicht!
+
+    TextButton(onClick = { useCelsius = !useCelsius }) {
+        Text(text = if (useCelsius) "°C" else "°F")
+    }
+}
+```
+
+<DocsOnly>
+Compose weiß nicht, dass sich `useCelsius` geändert hat, und zeichnet
+das Composable deshalb nicht neu. Selbst wenn es neu gezeichnet würde,
+stünde `useCelsius` danach wieder auf `true`, weil die Funktion von
+vorne ausgeführt wird.
+</DocsOnly>
+
+## Recomposition
+
+Ändert sich State, ruft Compose die betroffenen Composables erneut auf. Das heißt **Recomposition**.
+
+- `mutableStateOf(…)`: ein Wert, dessen Änderungen Compose beobachtet
+- `remember { … }`: behält den Wert über Recompositions hinweg
+- `rememberSaveable { … }`: behält ihn auch beim Drehen des Bildschirms
+
+```kotlin
+var useCelsius by remember { mutableStateOf(true) }
+```
+
+<DocsOnly>
+Durch `by` (Delegation) schreiben wir `useCelsius` statt
+`useCelsius.value`. Dafür braucht es zwei Imports, die Android Studio
+nicht immer automatisch vorschlägt:
+
+```kotlin
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+```
+
+Beim Drehen des Bildschirms wird die Activity neu erzeugt, und mit
+`remember` geht der Wert verloren. Mit `rememberSaveable` bleibt er
+erhalten. Gut im Emulator auszuprobieren: einmal mit `remember`, einmal
+mit `rememberSaveable` auf °F schalten und das Gerät drehen.
+</DocsOnly>
+
+## State Hoisting
+
+Den State dort halten, wo alle ihn brauchen, und ihn nach unten weitergeben. Änderungen kommen als Events zurück nach oben.
+
+![State Hoisting: State nach unten, Events nach oben](/images/mobile/android/udf-state-hoisting.svg)
+
+<DocsOnly>
+Der Umschalter (`UnitToggle`) und die Karte (`CurrentWeatherCard`)
+brauchen beide `useCelsius`. Deshalb liegt der State im gemeinsamen
+Eltern-Composable `WeatherScreen`. Dieses Muster heißt
+**State Hoisting** („State nach oben ziehen“), das Prinzip dahinter
+**Unidirectional Data Flow**: State fließt nach unten, Events nach oben.
+</DocsOnly>
+
+<SlideBreak />
+
+```kotlin
+var useCelsius by rememberSaveable { mutableStateOf(true) }
+
+UnitToggle(
+    useCelsius = useCelsius,                 // State ↓
+    onToggle = { useCelsius = !useCelsius }, // Event ↑
+)
+CurrentWeatherCard(city, weather, useCelsius) // State ↓
+```
+
+<DocsOnly>
+Vollständig in `WeatherScreen`: `UnitToggle` steckt in der `TopAppBar`,
+die Karte im Inhalt des `Scaffold`.
+
+```kotlin
+var useCelsius by rememberSaveable { mutableStateOf(true) }
+
+Scaffold(
+    topBar = {
+        TopAppBar(
+            title = { Text(text = city.name) },
+            actions = {
+                UnitToggle(
+                    useCelsius = useCelsius,
+                    onToggle = { useCelsius = !useCelsius },
+                )
+            },
+        )
+    },
+) { innerPadding ->
+    CurrentWeatherCard(city, weather, useCelsius, /* ... */)
+}
+```
+
+`CurrentWeatherCard` bekommt dafür einen neuen Parameter
+`useCelsius: Boolean` und zeigt die Temperatur mit
+`formatTemperature(weather.temperature, useCelsius)` an (siehe unten).
+
+`UnitToggle` steht ebenfalls in `ui/WeatherScreen.kt`. Es ist stateless
+und bekommt den aktuellen Wert und meldet
+das Antippen über `onToggle`:
+
+```kotlin
+@Composable
+fun UnitToggle(useCelsius: Boolean, onToggle: () -> Unit, modifier: Modifier = Modifier) {
+    TextButton(onClick = onToggle, modifier = modifier) {
+        Text(text = if (useCelsius) "°C" else "°F")
+    }
+}
+```
+
+Die Umrechnung steckt in einer Hilfsfunktion in `ui/WeatherConditionUi.kt`:
+
+```kotlin
+fun formatTemperature(celsius: Double, useCelsius: Boolean): String =
+    if (useCelsius) {
+        "${celsius.roundToInt()} °C"
+    } else {
+        "${(celsius * 9 / 5 + 32).roundToInt()} °F"
+    }
+```
+</DocsOnly>
+
+## Zusammenfassung
+
+<Callout type="info">
+State in Compose: `mutableStateOf` für beobachtbare Werte,
+`remember`/`rememberSaveable` zum Behalten, State so weit oben wie nötig,
+Events als Lambdas nach oben.
+</Callout>
+
+<DocsOnly>
+Dasselbe Muster findet sich in Flutter und React Native wieder, nur mit
+anderen Namen. In der nächsten Lektion wandert der Zustand des ganzen
+Screens noch eine Ebene höher: in ein ViewModel.
+
+## Weiterführendes Material
+
+- [State und Jetpack Compose](https://developer.android.com/develop/ui/compose/state)
+- [Wo State hingehört (State Hoisting)](https://developer.android.com/develop/ui/compose/state-hoisting)
+</DocsOnly>
