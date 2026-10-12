@@ -111,7 +111,9 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
 - **Konzept:** Composable = Funktion, die UI beschreibt; deklarativ vs. imperativ;
   `@Preview` vs. Emulator
 - **Code:** Paket `ui/`, `WeatherScreen()` mit zwei `Text`s (Stadt, Temperatur, fest codiert);
-  `@Preview` mit `showBackground = true`
+  `@Preview` mit `showBackground = true`; in `MainActivity` mit `Modifier.safeDrawingPadding()`
+  (wegen Edge-to-Edge)
+- **Didaktischer Moment:** Die beiden Texte überlappen sich, weil ein Layout fehlt. Überleitung zu Schritt 2
 - **Folien:** „Was ist ein Composable?“, „Deklarativ vs. imperativ“ (Diagramm)
 - **Tag:** `schritt-01`
 
@@ -135,7 +137,8 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
 - **Code:**
   - `model/City.kt`, `model/CurrentWeather.kt` (siehe Datenmodell)
   - `data/FakeData.kt` aus der Vorlage einfügen (`fakeCities`, `fakeCurrentWeather`)
-  - `WeatherCondition.emoji()` per `when`
+  - `ui/WeatherConditionUi.kt`: `WeatherCondition.emoji()` und `.label()` per `when`
+    (Anzeige gehört zur UI, nicht ins Datenmodell)
   - `CurrentWeatherCard(city: City, weather: CurrentWeather)`; Preview mit Fake-Daten
 - **Folien:** „data class“, „Composables bekommen Daten, sie holen sie nicht“
 - **Tag:** `schritt-03`
@@ -174,7 +177,8 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
   - zuerst ohne `remember`: funktioniert nicht, das bewusst zeigen
   - dann `remember`, dann `rememberSaveable` (Bildschirm drehen)
   - State Hoisting: `useCelsius` und `onToggle` als Parameter; Anzeige über eine Hilfsfunktion
-  - Für die Live-Vorführung `MainActivity` kurz auf `WeatherScreen` umstellen
+  - `MainActivity` zeigt ab hier `WeatherScreen` (für das Drehen im Emulator), bis Schritt 9
+  - `formatTemperature(celsius, useCelsius)` in `ui/WeatherConditionUi.kt`
 - **Fallen:** Imports für `by` (`getValue`/`setValue`)
 - **Folien:** „State und Recomposition“, „Unidirectional Data Flow“ (Diagramm)
 - **Tag:** `schritt-06`
@@ -188,7 +192,10 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
   - Abhängigkeiten: `lifecycle-viewmodel-compose`, `lifecycle-runtime-compose` (als Snippet einfügen)
   - `WeatherUiState`: `Loading`, `Success(city, weather)`, `Error(message)`
   - `WeatherViewModel` mit `MutableStateFlow`, zunächst direkt mit Fake-Daten für Lörrach befüllt
-  - Screen: `viewModel()` und `collectAsStateWithLifecycle()`, `when (uiState)`
+  - Aufteilung in **stateful** `WeatherScreen(viewModel)` (holt `uiState` per `collectAsStateWithLifecycle()`)
+    und **stateless** `WeatherContent(uiState)` mit `when (uiState)`. Nur so funktionieren die Previews
+    weiter, denn eine Preview kann kein ViewModel erzeugen. Wichtiger Punkt für die Live-Erklärung!
+  - Previews für Success und Loading
 - **Diskussionspunkt:** Bleibt °C/°F im UI-State (`rememberSaveable`) oder kommt es ins ViewModel?
   (UI-Element-State vs. Screen-State)
 - **Folien:** „MVVM-Schichten“ (Diagramm), „UiState als sealed interface“
@@ -204,7 +211,10 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
     liefert aus `fakeCurrentWeather`, bei `shouldFail` oder unbekannter Stadt → Exception
   - ViewModel: `class WeatherViewModel(private val repository: WeatherRepository = FakeWeatherRepository())`,
     `loadWeather(city)` mit `try`/`catch` → Loading/Success/Error; vorerst im `init` für Lörrach aufgerufen
-  - UI: `CircularProgressIndicator`, Fehleranzeige mit „Erneut versuchen“
+  - `catch (e: CancellationException) { throw e }` vor `catch (e: Exception)`: Abbruch einer Coroutine
+    ist kein Fehler. Kurz erwähnen, nicht vertiefen.
+  - UI: `CircularProgressIndicator`, Fehlermeldung als Text; Previews für Loading und Error
+  - Bewusst weggelassen: Button „Erneut versuchen“ (Übung, siehe Schritt 12)
 - **Im Walkthrough zeigen:** einmal mit `shouldFail = true` starten → Fehleranzeige
 - **Hinweis:** Der Default-Parameter ersetzt bewusst eine ViewModel-Factory bzw. Dependency Injection.
   Hilt/Koin nur als Ausblick.
@@ -227,16 +237,23 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
     `@Serializable data class CityWeather(val city: City) : NavKey`
   - `val backStack = rememberNavBackStack(CityList)`
   - `NavDisplay(backStack, onBack = { backStack.removeLastOrNull() }, entryProvider = entryProvider { entry<CityList> { … }; entry<CityWeather> { key -> … } })`
+  - Neue Datei `ui/WeatherApp.kt` mit Routen und `NavDisplay`; `MainActivity` zeigt `WeatherApp()`
   - Klick auf eine Stadt → `viewModel.loadWeather(city)` und `backStack.add(CityWeather(city))`;
-    Zurück-Pfeil in der TopAppBar; `init`-Aufruf im ViewModel entfällt
+    `init`-Aufruf im ViewModel entfällt; `WeatherScreen(city, viewModel)`, Titel aus der Route
+  - Bewusst weggelassen: Zurück-Pfeil in der TopAppBar. Die System-Zurück-Geste reicht und läuft
+    über `onBack` im `NavDisplay`. (Pfeil als Übung: Material 3 bringt keine Icons mehr mit, also
+    Vektor-Drawable per *New → Vector Asset*; Vorsicht bei `android:tint="?attr/colorControlNormal"`,
+    das ohne AppCompat einen Build-Fehler gibt.)
   - ViewModel oberhalb von `NavDisplay` holen und an den Wetter-Screen übergeben.
     Ohne Decorator ist `viewModel()` an die Activity gebunden.
     `lifecycle-viewmodel-navigation3` (ViewModel pro Eintrag) wird nicht gebraucht, nur als Ausblick.
 - **Bewusste Vereinfachung:** Laden beim Klick statt beim Öffnen des Screens. Nach einem Prozessende
   stellt der Back Stack den Wetter-Screen wieder her, das ViewModel hat aber keine Daten.
   Sauberer wäre `LaunchedEffect(city)` oder ein ViewModel pro Eintrag; als Ausblick nennen.
-- **Fallen (in der Generalprobe prüfen):** Serialization-Plugin in `libs.versions.toml` und `app/build.gradle.kts`;
-  Import von `NavKey`; `onBack` nicht vergessen
+- **Fallen:**
+  - Serialization-Plugin an drei Stellen: `libs.versions.toml` (Version = Kotlin-Version),
+    Root-`build.gradle.kts` (`apply false`), `app/build.gradle.kts`
+  - Import von `NavKey`; `onBack` nicht vergessen
 - **Folien:** „Back Stack als Liste“ (Diagramm), „Routen als Typen, Argumente als Properties“
 - **Tag:** `schritt-09`
 
@@ -269,7 +286,8 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
   - ein `HttpClient` mit `ContentNegotiation { json(Json { ignoreUnknownKeys = true }) }`
   - DTOs mit `@Serializable` und `@SerialName("temperature_2m")` usw., Mapping DTO → `CurrentWeather`
   - WMO-Wettercodes auf `WeatherCondition` abbilden
-- **Kernmoment:** Diff zeigen. UI-Dateien unverändert!
+- **Kernmoment:** Diff zeigen. Kein Composable geändert, im ViewModel nur der Default-Parameter
+  (`git diff --stat schritt-09 schritt-10`: 7 Dateien, alle in `data/`, Gradle, Manifest und eine Zeile im ViewModel)
 - **Beim Lesen des Diffs:** DTO vs. Datenmodell (warum zwei Klassen?), wo Fehler (kein Netz)
   im UiState landen, `client.get(…) { parameter(…) }.body()` erklären
 - **Vergleichsaufgabe (Übung):** Agent zeigen lassen, wie dasselbe mit Retrofit aussähe
@@ -280,7 +298,12 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
 - **Aufgabe:** Suche per `TextField` über die Geocoding-API
   (`https://geocoding-api.open-meteo.com/v1/search?name=…&count=5&language=de`),
   gefundene Stadt zur Liste hinzufügen
-- Die Städteliste wird dafür zu State (eigenes ViewModel oder im bestehenden)
+- Referenzlösung: `CityRepository`/`ApiCityRepository`, `CityListViewModel` mit `CityListUiState`
+  (Städte, Suchergebnisse, `isSearching`, Fehlermeldung); Suchtext als `rememberSaveable` im Composable;
+  Antippen eines Ergebnisses fügt die Stadt hinzu und öffnet das Wetter
+- **Falle:** Mehrere Städte heißen gleich (z. B. 4× Hamburg) → `key = { it.name }` in `LazyColumn`
+  stürzt ab. Koordinaten als Key verwenden.
+- **Verbesserung (Übung):** Land/Region im Suchergebnis anzeigen, sonst sind gleichnamige Städte nicht unterscheidbar
 - Wiederholt State Hoisting und Events (Suchtext, Auswahl)
 - **Tag:** `schritt-11` (in der Generalprobe bauen, als Referenz)
 
@@ -288,7 +311,9 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
 
 - 7-Tage-Vorhersage: `daily=…` in der API, neues Datenmodell `DailyForecast`, Liste im Wetter-Screen.
   Zeigt, wie man mit einer stabilen Architektur ein Feature ergänzt.
-- Favoriten dauerhaft speichern (DataStore oder Room). Ersetzt die bisherigen Room-Lektionen als Vertiefung.
+- „Erneut versuchen“-Button bei Fehlern (braucht die Stadt im Error-Zustand)
+- Zurück-Pfeil in der TopAppBar (siehe Schritt 9)
+- Favoriten dauerhaft speichern (DataStore oder Room)
 - aktueller Standort (Runtime-Permission)
 - Laden beim Öffnen des Screens (`LaunchedEffect`) bzw. ViewModel pro Eintrag, siehe Schritt 9
 - Pull-to-Refresh
@@ -299,29 +324,37 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
 
 ## Zuordnung zu den MDX-Seiten (neues `content/mobile/02-android/`)
 
-Seiten nach Konzept benannt, jede mit `slides: true` und Diff-Link auf ihren Schritt.
-Die Walkthrough-Schritte brauchen auf den Seiten besonders gute Erklärungen,
+Vier Seiten, jede mit `slides: true`. Pro Seite: kurze Erklärungen in `DocsOnly`, wenige Folien,
+normale Markdown-Links auf die Tags im Repo (keine eigene Komponente; die Repo-URL wird jährlich
+per Suchen und Ersetzen getauscht). Die Walkthrough-Schritte brauchen die besseren Erklärungen,
 weil sie in der Vorführung nur kurz gezeigt werden.
 
-| Seite | Schritte |
-|---|---|
-| `01-compose` | 0, 1 |
-| `02-layouts` | 2 |
-| `03-daten` | 3 |
-| `04-material` | 4 |
-| `05-listen` | 5 |
-| `06-state` | 6 |
-| `07-viewmodel` | 7, 8 |
-| `08-navigation` | 9 |
-| `09-agents-api` | 10–12 |
+| Seite | Schritte | Diagramme |
+|---|---|---|
+| `01-compose` | 0–5: Composables, Layouts, Modifier, `data class`, Material 3, Listen | – (live in Android Studio) |
+| `02-state` | 6: State, Recomposition, State Hoisting | Unidirectional Data Flow |
+| `03-architektur` | 7–8: ViewModel, UiState, Repository | MVVM-Schichten |
+| `04-navigation-api` | 9–10: Navigation 3, API mit Agent; 11–12 als Übungen | – |
 
-Bisherige Todo-Lektionen ersetzen; Room (`03-android-kmp/01-room`, `02-room2`) als Vertiefung auf die Wetter-App umschreiben oder entfallen lassen.
+Bisherige Todo-Seiten bleiben, bis die neuen fertig sind, und werden dann ersetzt.
+Vorerst gestrichen: Room-Vertiefung, Speaker Notes, Seite zur Stadtsuche.
+
+## Referenz-Repo
+
+`~/tmp/WeatherAndroidTIF24` (lokal, noch nicht auf GitHub), Tags `schritt-00` … `schritt-11`.
+Schritte 1–11 von Claude Code gebaut; jeder Schritt mit `./gradlew assembleDebug` gebaut,
+API-Aufrufe (Schritt 10, 11) einmal per Unit-Test gegen Open-Meteo geprüft.
+**Nicht geprüft:** Previews und App im Emulator; das ist das Durchklicken der Tags.
+
+Versionen (Okt. 2026): Android Studio mit AGP 9.4.1 (Kotlin eingebaut, kein `kotlin-android`-Plugin),
+Kotlin 2.2.10, Compose BOM 2026.02.01, compileSdk/targetSdk 37, minSdk 24,
+Lifecycle 2.11.0, Navigation 3 1.2.0, kotlinx-serialization-core 1.9.0, Ktor 3.6.0.
 
 ## Notizen aus der Generalprobe
 
 Pro Schritt nachtragen: echte Zeit, Stolperstellen, Snippets zum Einfügen statt Tippen.
-Daraus entstehen anschließend die Live-Coding-Karten (für Live-Schritte ausführlich,
-für Walkthrough-Schritte nur die zu zeigenden Stellen).
+Daraus entstehen anschließend Live-Coding-Karten, nur für die Live-Schritte 1, 2, 6 und 7.
+Für Walkthrough-Schritte genügt der Diff des Tags.
 
 | # | Modus | Zeit real | Stolperstellen | Snippets vorbereiten |
 |---|---|---|---|---|
