@@ -446,9 +446,11 @@ Hinweise zu den Übungen:
 - **Favoriten:** Für wenige einfache Werte (z. B. die Namen der
   Lieblingsstädte) reicht [DataStore](https://developer.android.com/topic/libraries/architecture/datastore).
   Für strukturierte Daten mit Abfragen gibt es die Datenbank
-  [Room](https://developer.android.com/training/data-storage/room) (SQLite).
+  [Room](https://developer.android.com/training/data-storage/room) (SQLite),
+  Einstieg mit dem [Codelab](https://developer.android.com/codelabs/basic-android-kotlin-compose-persisting-data-room).
   Der Zugriff gehört in ein eigenes Repository in `data/`, wie beim
-  Wetter; ViewModel und UI bleiben beim selben Muster.
+  Wetter; ViewModel und UI bleiben beim selben Muster. Die Datenbank im
+  Emulator lässt sich unter *View → Tool Windows → App Inspection* ansehen.
 - **Unit-Tests:** `formatTemperature` lässt sich ohne weitere
   Abhängigkeit testen (`src/test`, JUnit ist schon eingebunden). Für
   Tests des ViewModels mit `FakeWeatherRepository` braucht es
@@ -458,6 +460,7 @@ Hinweise zu den Übungen:
 ## Weiterführendes Material
 
 - [Navigation 3](https://developer.android.com/guide/navigation/navigation-3)
+- [nav3-recipes](https://github.com/android/nav3-recipes): Beispiele, z. B. Bottom Navigation
 - [Ktor Client](https://ktor.io/docs/client-create-new-application.html)
 - [kotlinx.serialization](https://kotlinlang.org/docs/serialization.html)
 - [Open-Meteo API](https://open-meteo.com/en/docs)
