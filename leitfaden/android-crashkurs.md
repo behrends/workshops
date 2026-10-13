@@ -91,7 +91,7 @@ in der IDE unübersichtlich ist), **Hauptmedium** (Walkthrough: Folie statt rohe
 |---|---|---|
 | – | Titelfolie Compose, „Die Wetter-App“, „Projektstruktur“ | vorher |
 | 1 | „Composables“ (mit Preview) | danach |
-| 2 | „Layouts: Column, Row, Box“ (Liste) | vorher |
+| 2 | „Layouts: Column, Row, Box“ (Liste), Layout-Baum (Diagramm) | vorher |
 | 2 | Layout-Code | überspringen |
 | 2 | „Modifier“ (Reihenfolge-Callout) | danach |
 | 3–5 | „Datenmodell mit data class“, „Material 3“, „Listen mit LazyColumn“ | Hauptmedium |

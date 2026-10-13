@@ -141,6 +141,18 @@ werden soll, nicht *wie* die Oberfläche Schritt für Schritt verändert
 wird. Ändern sich die Daten, ruft Compose die Funktion erneut auf und
 zeichnet das Ergebnis neu.
 
+<Callout type="info">
+**Ausblick:** Dasselbe Prinzip heißt in Flutter *Widget*, in React Native
+*Komponente*. Die Oberfläche entsteht immer als Baum verschachtelter
+Bausteine:
+
+| Framework | Baustein | Beispiel |
+|---|---|---|
+| Compose | Composable | `Column { Text("Lörrach") }` |
+| Flutter | Widget | `Column(children: [Text('Lörrach')])` |
+| React Native | Komponente | `<View><Text>Lörrach</Text></View>` |
+</Callout>
+
 Konventionen für Composables:
 
 - Annotation `@Composable`
@@ -206,6 +218,12 @@ Composables werden mit Layout-Composables angeordnet.
 - `Row`: nebeneinander
 - `Box`: übereinander, z. B. Inhalt auf einem Hintergrund
 - `Spacer`: Abstand bzw. freier Platz
+
+<SlideBreak />
+
+Die Verschachtelung im Code entspricht der Verschachtelung auf dem Bildschirm.
+
+![Layout als verschachtelte Boxen: Bildschirm und Code haben denselben Aufbau](/images/mobile/android/compose-layout-baum.svg)
 
 <SlideBreak />
 
