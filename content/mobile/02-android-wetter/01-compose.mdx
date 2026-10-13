@@ -232,7 +232,8 @@ UI-Systemen ist das in Compose kein Performance-Problem.
 
 ## Modifier
 
-Modifier verändern Größe, Abstand, Hintergrund und Verhalten eines Composables. Sie werden verkettet.
+Modifier verändern Größe, Abstand, Hintergrund und Verhalten eines Composables.
+Sie werden durch aufeinanderfolgende Funktionsaufrufe verkettet.
 
 ```kotlin
 Box(
@@ -266,7 +267,7 @@ Code: [`schritt-02`](https://github.com/behrends/WeatherAndroidTIF24/tree/schrit
 
 ## Datenmodell mit data class
 
-Statt fester Texte bekommen Composables Daten als Parameter.
+Statt fester Texte bekommen Composables nun Daten als Parameter.
 
 ```kotlin
 data class City(
@@ -287,6 +288,8 @@ Neue Dateien `model/City.kt` und `model/CurrentWeather.kt` im neuen
 Paket `model`.
 
 Eine `data class` bekommt automatisch `equals`, `toString` und `copy`.
+Ihre Properties sind mit `val` nur lesbar; Getter erzeugt Kotlin
+automatisch, Setter gibt es nur bei `var`.
 Für feste Auswahlmöglichkeiten wie die Wetterlage eignet sich eine
 `enum class`. Sie steht mit in `model/CurrentWeather.kt`:
 
@@ -295,11 +298,11 @@ enum class WeatherCondition { CLEAR, PARTLY_CLOUDY, CLOUDY, FOG, RAIN, SNOW, THU
 ```
 
 Die Koordinaten in `City` brauchen wir erst in Schritt 10 für die API.
-Das Datenmodell ist aber von Anfang an so geschnitten, dass es später
+Das Datenmodell ist aber von Anfang an so aufgebaut, dass es später
 passt.
 
 Die Fake-Daten liegen in `data/FakeData.kt` im neuen Paket `data`:
-eine Liste von Städten und eine Map vom Städtenamen auf das Wetter.
+eine Liste von Städten und eine `Map`, die Städtenamen das Wetter zuordnet.
 
 ```kotlin
 val fakeCities: List<City> = listOf(
@@ -323,7 +326,7 @@ Vollständig:
 
 <SlideBreak />
 
-Composables bekommen Daten, sie holen sie nicht.
+Composables sollten Daten als Parameter erhalten und sie nicht eigenständig holen.
 
 ```kotlin
 @Composable
@@ -490,7 +493,7 @@ Code: [`schritt-04`](https://github.com/behrends/WeatherAndroidTIF24/tree/schrit
 
 ## Listen mit LazyColumn
 
-`LazyColumn` zeichnet nur die sichtbaren Einträge. Damit bleiben auch lange Listen schnell.
+`LazyColumn` zeichnet nur die sichtbaren Einträge. Damit bleiben auch lange Listen performant.
 
 ```kotlin
 LazyColumn(contentPadding = innerPadding) {
@@ -506,7 +509,7 @@ LazyColumn(contentPadding = innerPadding) {
 
 <DocsOnly>
 Eine normale `Column` würde alle Einträge auf einmal erzeugen. Für
-wenige, feste Elemente ist das in Ordnung, für Listen nicht.
+wenige, feste Elemente reicht das, für lange Listen nicht.
 
 `key` sagt Compose, welcher Eintrag welcher ist, z. B. wenn sich die
 Liste ändert. Der Key muss eindeutig sein. Später (Stadtsuche) heißen
