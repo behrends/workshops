@@ -28,7 +28,7 @@ Aufbau von Android-Projekten, Kotlin-Grundlagen.
 
 - [x] **Navigation:** Navigation 3 (Doku geprüft Okt. 2026, siehe Schritt 9)
 - [x] **HTTP-Client:** Ktor Client mit kotlinx.serialization
-      (Kotlin-first, Coroutines, multiplatformfähig, also weiterverwendbar in `03-kmp-wetter`;
+      (Kotlin-first, Coroutines, multiplatformfähig, also weiterverwendbar in `03-kmp`;
       der Request steht explizit im Code, das hilft beim Lesen der Agent-Diffs).
       Retrofit nur als Hinweis: verbreitet in Googles Codelabs und in bestehenden Projekten.
 - [x] **Wettersymbole:** Emojis als `Text` (keine Abhängigkeit)
