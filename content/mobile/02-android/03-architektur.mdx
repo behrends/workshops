@@ -171,16 +171,11 @@ fun WeatherContentLoadingPreview() {
 }
 ```
 
-In `WeatherContent` entscheidet `when (uiState)`, was angezeigt wird.
-Der Titel der `TopAppBar` hängt ebenfalls vom Zustand ab:
+In `WeatherContent` entscheidet `when (uiState)` im `Scaffold`, was
+angezeigt wird. Die `TopAppBar` zeigt vorerst den festen Titel „Wetter“;
+den Namen der Stadt bekommt sie mit der Navigation.
 
 ```kotlin
-val title = when (uiState) {
-    is WeatherUiState.Success -> uiState.city.name
-    WeatherUiState.Loading, is WeatherUiState.Error -> "Wetter"
-}
-
-// im Scaffold:
 when (uiState) {
     WeatherUiState.Loading -> CenteredBox(Modifier.padding(innerPadding)) {
         CircularProgressIndicator()

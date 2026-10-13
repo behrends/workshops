@@ -204,9 +204,9 @@ fun WeatherApp() {
 ```
 
 `WeatherScreen` und `WeatherContent` bekommen dafür einen neuen
-Parameter `city: City`. Der Titel in der `TopAppBar` kommt jetzt aus der
-Route (`city.name`) statt aus dem `uiState`; so steht der Name der Stadt
-schon während des Ladens da. Die Previews übergeben
+Parameter `city: City`. Statt „Wetter“ zeigt die `TopAppBar` jetzt
+`city.name` aus der Route; so steht der Name der Stadt schon während des
+Ladens da. Die Previews übergeben
 `city = fakeCities.first()`.
 
 `onBack` wird bei der Zurück-Geste des Systems aufgerufen. Einen
