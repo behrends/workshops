@@ -118,7 +118,8 @@ Paketnamen und Imports lassen sich in Android Studio auf einmal ersetzen:
 *Edit → Find → Replace in Files*. Die Paketnamen hier gelten für ein
 Projekt namens `WeatherKMPTIF24` (Paket `com.example.weatherkmptif24`);
 bei einem anderen Namen entsprechend anpassen. Den Beispielcode des Templates
-(`Greeting`, `Platform`) brauchen wir nicht mehr.
+(`Greeting`, `Platform` und das Beispielbild in `composeResources`)
+brauchen wir nicht mehr.
 
 Das Theme heißt weiterhin `WeatherAndroidTIF24Theme`. Wir benennen es
 bewusst nicht um, damit die Änderungen in den nächsten Schritten nur das
@@ -147,6 +148,8 @@ Alles, was es nur unter Android oder auf der JVM gibt:
 | Preview mit `uiMode` | Theme mit `darkTheme = true` |
 
 <DocsOnly>
+Dazu kommt ein Fehler bei `rememberNavBackStack`, siehe nächster Abschnitt.
+
 Die meisten Änderungen sind Einzeiler. Für `IOException` gibt es mit
 kotlinx-io einen Ersatz für alle Plattformen; Ktor bringt die Bibliothek
 schon mit, es ändert sich nur der Import.
@@ -201,7 +204,8 @@ val backStack = rememberNavBackStack(navConfig, CityList)
 ```
 
 <DocsOnly>
-Der Back Stack wird gespeichert, damit er Drehen und Prozessende übersteht.
+Ohne diese Konfiguration kompiliert `rememberNavBackStack(CityList)` in
+`commonMain` nicht. Der Back Stack wird gespeichert, damit er Drehen und Prozessende übersteht.
 Unter Android findet die Bibliothek per Reflection selbst heraus, welche
 Routen es gibt. Unter iOS gibt es keine Reflection, deshalb melden wir
 alle Routen ausdrücklich an. Neue Routen müssen hier ergänzt werden.
@@ -248,7 +252,8 @@ Code: [`kmp-04`](https://github.com/behrends/WeatherKMPTIF24/tree/kmp-04) ·
 ## Was gleich bleibt
 
 - Von gut 600 Zeilen Kotlin ändern sich 6 Dateien mit rund 40 Zeilen
-- Composables, ViewModel, Repository, DTOs: unverändert
+- ViewModel, Repositorys, DTOs: unverändert
+- Composables: nur einzelne Zeilen geändert
 - Der Grund für fast jede Änderung: Android-APIs und Reflection gibt es auf iOS nicht
 
 <DocsOnly>

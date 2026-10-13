@@ -73,7 +73,9 @@ Fast jede Änderung hat denselben Grund: Android-APIs und Reflection gibt es auf
 4. Fehlerliste zeigen (Notfall: `git stash -u && git checkout kmp-02`, `-u` wegen
    der kopierten, noch unversionierten Dateien):
    `./gradlew :shared:compileKotlinIosSimulatorArm64 --continue`
-5. Fehler der Folientabelle zuordnen, dann `git checkout kmp-03` (Walkthrough)
+5. Fehler der Folientabelle zuordnen (Fehler in `WeatherApp.kt` bei
+   `rememberNavBackStack` → nächste Folie „Navigation 3“), dann
+   `git checkout kmp-03` (Walkthrough)
 
 **`kmp-04`: Absturz unter iOS** (10 Min)
 

@@ -55,7 +55,8 @@ Image(painterResource(Res.drawable.compose_multiplatform), null)
 
 <DocsOnly>
 Das ersetzt `R.drawable…` aus der Android-App. Auch dieses Beispiel
-stammt aus dem Projekt des Wizards.
+stammt aus dem Projekt des Wizards; in der Wetter-App haben wir den
+Ordner beim Übernehmen gelöscht.
 
 - [Ressourcen in Compose Multiplatform](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-resources.html)
 </DocsOnly>
@@ -88,10 +89,25 @@ Hinweise:
   Möglichkeit: `(value * 100).roundToInt() / 100.0` (mit `100.0`, sonst
   rechnet Kotlin mit ganzen Zahlen). Aus 47,999 wird dann aber „48.0“
   statt „48.00“; für genau zwei Nachkommastellen muss man auffüllen.
+- **Dynamic Color:** In `commonMain` z. B.
+  `@Composable expect fun dynamicColorScheme(darkTheme: Boolean): ColorScheme?`
+  deklarieren. In `androidMain` wie im ursprünglichen Theme mit
+  `LocalContext` und der Prüfung auf Android 12 umsetzen, in `iosMain`
+  `null` zurückgeben. Das Theme nimmt dann
+  `dynamicColorScheme(darkTheme) ?: if (darkTheme) DarkColorScheme else LightColorScheme`.
+- **Zurück-Pfeil:** Den Ordner `shared/src/commonMain/composeResources/drawable/`
+  anlegen (beim Übernehmen gelöscht) und die Vector-XML von
+  [fonts.google.com/icons](https://fonts.google.com/icons) hineinlegen; das
+  Android-Format funktioniert auch hier. Nach einem Build steht das Icon als
+  `Res.drawable.…` bereit, `Res` kommt aus
+  `weatherkmptif24.shared.generated.resources`. Einbinden mit
+  `painterResource(…)` in einem `IconButton`, wie im Android-Teil.
 - **Stadtsuche:** Die Referenzlösung aus
   [`schritt-11`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-11)
   lässt sich wie in diesem Kapitel übernehmen. Ktor und die Geocoding-API
-  funktionieren in KMP genauso.
+  funktionieren in KMP genauso. Anzupassen sind dieselben Stellen wie
+  oben: `viewModel { CityListViewModel() }` statt `viewModel()` und kein
+  `"%.2f".format(…)` in der Städteliste.
 - **Favoriten:** Room und DataStore funktionieren auch in KMP, siehe
   [Room für KMP](https://developer.android.com/kotlin/multiplatform/room)
   und das Codelab [Room nach KMP migrieren](https://developer.android.com/codelabs/kmp-migrate-room).
