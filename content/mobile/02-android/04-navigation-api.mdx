@@ -443,6 +443,12 @@ Hinweise zu den Übungen:
 - **Fehlermeldungen auf Deutsch:** Im ViewModel statt `e.message`
   eigene Texte setzen, z. B. bei `IOException` (kein Netz) „Keine
   Internetverbindung“, sonst „Wetterdaten konnten nicht geladen werden“.
+- **Favoriten:** Für wenige einfache Werte (z. B. die Namen der
+  Lieblingsstädte) reicht [DataStore](https://developer.android.com/topic/libraries/architecture/datastore).
+  Für strukturierte Daten mit Abfragen gibt es die Datenbank
+  [Room](https://developer.android.com/training/data-storage/room) (SQLite).
+  Der Zugriff gehört in ein eigenes Repository in `data/`, wie beim
+  Wetter; ViewModel und UI bleiben beim selben Muster.
 - **Unit-Tests:** `formatTemperature` lässt sich ohne weitere
   Abhängigkeit testen (`src/test`, JUnit ist schon eingebunden). Für
   Tests des ViewModels mit `FakeWeatherRepository` braucht es
