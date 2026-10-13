@@ -97,11 +97,15 @@ Hinweise:
   `dynamicColorScheme(darkTheme) ?: if (darkTheme) DarkColorScheme else LightColorScheme`.
 - **Zurück-Pfeil:** Den Ordner `shared/src/commonMain/composeResources/drawable/`
   anlegen (beim Übernehmen gelöscht) und die Vector-XML von
-  [fonts.google.com/icons](https://fonts.google.com/icons) hineinlegen; das
-  Android-Format funktioniert auch hier. Nach einem Build steht das Icon als
-  `Res.drawable.…` bereit, `Res` kommt aus
-  `weatherkmptif24.shared.generated.resources`. Einbinden mit
-  `painterResource(…)` in einem `IconButton`, wie im Android-Teil.
+  [fonts.google.com/icons](https://fonts.google.com/icons) hineinlegen.
+  Verweise auf Android-Ressourcen funktionieren hier nicht: `android:tint`
+  entfernen und `android:fillColor` auf einen Farbwert wie `#000000` setzen
+  ([Anleitung](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-resources-usage.html#icons)).
+  Nach einem Build steht das Icon bereit, z. B. für `arrow_back.xml`:
+  `painterResource(Res.drawable.arrow_back)` in einem `IconButton`, wie im
+  Android-Teil. Die Imports unterscheiden sich von Android:
+  `org.jetbrains.compose.resources.painterResource` sowie `Res` und
+  `arrow_back` aus `weatherkmptif24.shared.generated.resources`.
 - **Stadtsuche:** Die Referenzlösung aus
   [`schritt-11`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-11)
   lässt sich wie in diesem Kapitel übernehmen. Ktor und die Geocoding-API

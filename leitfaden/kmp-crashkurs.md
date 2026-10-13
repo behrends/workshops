@@ -72,7 +72,7 @@ Fast jede Änderung hat denselben Grund: Android-APIs und Reflection gibt es auf
 3. `App()` auf `WeatherAndroidTIF24Theme { WeatherApp() }` umstellen
 4. Fehlerliste zeigen (Notfall: `git stash -u && git checkout kmp-02`, `-u` wegen
    der kopierten, noch unversionierten Dateien):
-   `./gradlew :shared:compileKotlinIosSimulatorArm64 --continue`
+   `./gradlew :shared:compileCommonMainKotlinMetadata --continue`
 5. Fehler der Folientabelle zuordnen (Fehler in `WeatherApp.kt` bei
    `rememberNavBackStack` → nächste Folie „Navigation 3“), dann
    `git checkout kmp-03` (Walkthrough)
@@ -92,8 +92,9 @@ Fast jede Änderung hat denselben Grund: Android-APIs und Reflection gibt es auf
 
 ## Stolperstellen
 
-- `kmp-02` kompiliert absichtlich nicht. Fehlerliste per
-  `./gradlew :shared:compileKotlinIosSimulatorArm64 --continue` zeigen
+- `kmp-02` kompiliert absichtlich nicht für iOS (der Android-Teil kompiliert
+  noch). Fehlerliste per
+  `./gradlew :shared:compileCommonMainKotlinMetadata --continue` zeigen
 - `kmp-03` → Absturz nur unter iOS sichtbar, unter Android läuft alles.
   Fehlermeldung: `UnsupportedOperationException: Factory.create(String, CreationExtras) is not implemented`
 - `String.format` fehlt in Common Kotlin: Koordinaten ungerundet (Übung)

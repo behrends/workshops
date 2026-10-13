@@ -126,10 +126,16 @@ bewusst nicht um, damit die Änderungen in den nächsten Schritten nur das
 zeigen, was für KMP nötig ist.
 
 <Callout type="warning">
-  Dieser Zwischenstand kompiliert absichtlich nicht. Die Fehler zeigen,
-  was nur unter Android oder auf der JVM funktioniert. Fehlerliste:
-  `./gradlew :shared:compileKotlinIosSimulatorArm64 --continue`
+  Dieser Zwischenstand kompiliert für iOS absichtlich nicht. Die Fehler
+  zeigen, was nur unter Android oder auf der JVM funktioniert. Fehlerliste
+  (auch unter Windows und Linux):
+  `./gradlew :shared:compileCommonMainKotlinMetadata --continue`
 </Callout>
+
+Für Android kompiliert der Code dagegen noch, weil dort die Android- und
+JVM-APIs zur Verfügung stehen. Deshalb diesen Befehl nehmen: Er prüft den
+gemeinsamen Code ohne Bezug zu einer Plattform.
+Android Studio markiert dieselben Fehler auch im Editor.
 
 Code: [`kmp-02`](https://github.com/behrends/WeatherKMPTIF24/tree/kmp-02) ·
 [Änderungen](https://github.com/behrends/WeatherKMPTIF24/compare/kmp-01...kmp-02)
