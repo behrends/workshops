@@ -80,6 +80,35 @@ Modi:
 | 5 | 11–12 | Erweiterungen | Stadtsuche, Vorhersage, Favoriten … | Ausblick |
 | 15 | – | Puffer | Fragen, Pannen (Gradle, Emulator, WLAN) | |
 
+### Folieneinsatz
+
+Android Studio ist das Hauptmedium. Folien nur, wo sie mehr zeigen als die IDE:
+**vorher** (Einstieg ins Konzept), **danach** (30 Sekunden Zusammenfassung, wenn der Code
+in der IDE unübersichtlich ist), **Hauptmedium** (Walkthrough: Folie statt rohem
+`git diff`), **überspringen** (zeigt nur, was gerade getippt wird).
+
+| # | Folie | Einsatz |
+|---|---|---|
+| – | Titelfolie Compose, „Die Wetter-App“, „Projektstruktur“ | vorher |
+| 1 | „Composables“ (mit Preview) | danach |
+| 2 | „Layouts: Column, Row, Box“ (Liste) | vorher |
+| 2 | Layout-Code | überspringen |
+| 2 | „Modifier“ (Reihenfolge-Callout) | danach |
+| 3–5 | „Datenmodell mit data class“, „Material 3“, „Listen mit LazyColumn“ | Hauptmedium |
+| 6 | „Erster Versuch“, Code-Folie zu State Hoisting | überspringen |
+| 6 | „Recomposition“, „Zusammenfassung“ | danach |
+| 6 | „State Hoisting“ (Diagramm) | immer, nach dem Auslagern von `UnitToggle` |
+| 7 | „MVVM-Schichten“ (Diagramm) | vorher |
+| 7 | „UiState als sealed interface“, „Stateful und stateless“ | danach |
+| 7 | „ViewModel mit StateFlow“ | überspringen |
+| 8 | „Repository“, „Coroutines im ViewModel“, „Repository als Default-Parameter“ | Hauptmedium |
+| 9 | „Navigation 3“ (Liste) | vorher |
+| 9 | „Routen als Typen“, „NavDisplay“ | Hauptmedium |
+| 10 | „API-Anbindung mit einem Coding Agent“ | vorher |
+| 10 | „Ktor-Client“, „DTO und Datenmodell“ | danach, beim Review des Diffs |
+| 10 | „Der Nutzen der Architektur“ | immer, zum Abschluss |
+| 11–12 | „Übungen“ | am Ende |
+
 Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch die Walkthrough-Schritte.
 
 ### Vor der Vorlesung
