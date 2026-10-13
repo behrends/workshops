@@ -2,10 +2,6 @@ export default {
   index: 'Übersicht',
   '01-intro': '1 - Einleitung',
   '02-android': '2 - Android',
-  '02-android-wetter': {
-    title: '2 - Android (Wetter-App)',
-    display: 'hidden',
-  },
   '03-android-kmp': '3 - Android und KMP',
   '03-kmp-wetter': {
     title: '3 - KMP (Wetter-App)',

@@ -1,8 +1,6 @@
 export default {
-  '01-compose': 'Einstieg in Compose',
-  '02-layouts': 'Layouts, Styling und Modifier',
-  '03-material': 'Material Design und Themes',
-  '04-state': 'Zustand im UI',
-  '05-lists': 'Listen',
-  '06-viewmodel': 'State und ViewModel',
+  '01-compose': 'Compose-Grundlagen',
+  '02-state': 'State',
+  '03-architektur': 'ViewModel und Architektur',
+  '04-navigation-api': 'Navigation und API',
 };

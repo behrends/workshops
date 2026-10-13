@@ -1,198 +1,603 @@
-import { Callout, Summary } from 'nextra/components'
+---
+slides: true
+titleSlide: true
+slideDuration: 25 Minuten
+slideGoal: Die Bausteine von Jetpack Compose kennenlernen
+slideTopics:
+  - Composables und Preview
+  - Column, Row, Box und Modifier
+  - data class und Fake-Daten
+  - Material 3
+  - Listen mit LazyColumn
+---
 
-# Einstieg in UI-Erstellung mit Compose
+import { Callout } from 'nextra/components'
 
-<Callout>
-  **Dauer:** 35 Minuten 
+# Compose-Grundlagen
 
-  - Einstieg in UIs mit Jetpack Compose
-  - Composables und Previews
+<DocsOnly>
+Wir bauen die Oberfläche der Wetter-App Schritt für Schritt mit
+Jetpack Compose auf. Am Ende dieser Seite gibt es zwei Screens mit
+Fake-Daten: eine Städteliste und eine Wetteranzeige.
 
-  **Ziel:** Grundlegendes Verständnis von Compose
-</Callout>
+Code: [Repository auf GitHub](https://github.com/behrends/WeatherAndroidTIF24),
+Schritte 0 bis 5.
 
-<Callout type="error" emoji="‼️">
-**Disclaimer**
-Android Studio und die verschiedenen Aspekte der 
-Android-Entwicklung ändern sich manchmal mehrmals im Jahr.
-Der Dozent wird in der Vorbereitung nicht alle neuen
-oder geänderten Aspekte berücksichtigen können.
+Codebeispiele mit `// ...` oder `/* ... */` sind gekürzt; der
+vollständige Code steht im Repository unter dem jeweiligen Tag.
+</DocsOnly>
 
-&rarr; Es kann immer wieder passieren, dass etwas im
-Live Coding nicht klappt oder hier nicht ganz korrekt ist
-😏
-</Callout>
+## Die Wetter-App
 
-## Vorbemerkungen
+Eine Liste von Städten, nach Antippen das aktuelle Wetter der Stadt.
 
-Falls der vorige Termin weiter zurück liegt: 
+- Schritte 1–9: Oberfläche und Architektur mit Fake-Daten
+- Schritt 10: echte Wetterdaten von Open-Meteo, angebunden mit einem Coding Agent
+- Jeder Schritt ist ein Commit mit Tag, z. B. `schritt-05`
 
-- Kurze Wiederholung und Fragen klären
-- Falls nötig ein neues Projekt erstellen: `TodosAndroid`
-- &rarr; Projekt im Terminal mit `git` versionieren
+<DocsOnly>
+Ausgangspunkt (`schritt-00`) ist ein neues Projekt mit der Vorlage
+*Empty Activity* und dem Namen `WeatherAndroidTIF24`. Aus dem
+Projektnamen erzeugt Android Studio den Namen des Themes
+(`WeatherAndroidTIF24Theme`) und des Pakets
+(`com.example.weatherandroidtif24`); bei einem anderen Namen heißen sie
+entsprechend anders. Wer nicht selbst tippen möchte, klont das
+Repository und wechselt mit `git checkout schritt-00` an den Anfang.
 
-<Callout type="warning">
-Mit den Studierenden checken, wie sie auf ihrem Rechner das Projekt mit 
-`git` initialisieren können: Terminal/git-Tools in Android Studio?
-</Callout>
+In `gradle/libs.versions.toml` markiert Android Studio Versionen gelb,
+für die es eine neuere gibt; Alt+Enter setzt sie ein. Das
+Referenz-Repository verwendet die Versionen der Vorlage. Aktualisieren
+ist möglich, kann aber weitere Anpassungen nötig machen, z. B. eine
+neuere Version des Android-Gradle-Plugins.
 
-Zur Erinnerung: Wir wollen schrittweise eine einfache Todo-App 
-erstellen, die die Grundlagen der Android-Entwicklung mit Kotlin
-und Jetpack Compose vermittelt. Dabei gehen wir wie folgt vor 
-(und werden auch bei den anderen Frameworks so vorgehen):
-
-<Callout type="info">
-**Vorstellung des Frameworks**
-
-- [x] Installation und Einrichtung der Entwicklungsumgebung
-- [ ] Prinzipien des Frameworks (Projektstruktur, Komponenten/Widgets, …)
-- [ ] App mit einem Screen: UI-Elemente, Layout, Interaktion und State
-- [ ] Daten lokal speichern
-- [ ] Navigation zwischen mehreren Screens
-
-</Callout>
-
-## `MainActivity` auf das Minimum reduzieren
-
-Die UI-Entwicklung in Android erfolgt mit (Jetpack) Compose. 
-Mit Compose steht ein modernes UI-Toolkit für die deklarative
-Erstellung von Benutzeroberflächen bereit. Einzelne UI-Elemente
-werden als sogenannte Composable-Funktionen definiert, die meist
-nur „Composables“ genannt werden.
-
-Wir reduzieren den Code in `MainActivity` zunächst auf das Minimum, 
-damit wir den Code und die Prinzipien von Compose Schritt für Schritt 
-kennenlernen können.
+In `MainActivity` bleibt nur das Nötigste übrig:
 
 ```kotlin
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            Text("Hello World")
-        }
+setContent {
+    WeatherAndroidTIF24Theme {
     }
 }
 ```
 
-Die weiteren Funktionen können gelöscht werden und wir zeigen, wie die Import-Anweisungen mit `Alt+Enter` aufgeräumt werden können.
+`setContent { … }` legt fest, welche Composables die Activity anzeigt.
+Die geschweiften Klammern sind ein **Trailing Lambda**: Ist der letzte
+Parameter einer Funktion eine Funktion, darf sie hinter den runden
+Klammern stehen. `setContent { … }` ist also kurz für
+`setContent(content = { … })`. Diese Schreibweise steckt in fast jedem
+Compose-Code, z. B. `Column { … }` oder `Scaffold(…) { innerPadding -> … }`.
 
-<Callout type="important">
-Wir haben ein paar benötigte oder empfohlene Code-Bestandteile wie z. B. 
-`enableEdgeToEdge()` zur Einfachheit entfernt und werden diese später 
-wieder hinzufügen.
+Zusätzlich liegt im Repository eine Datei `AGENTS.md` mit Regeln für
+Coding Agents (siehe [Navigation und API](./04-navigation-api)).
+</DocsOnly>
+
+## Projektstruktur
+
+Der Kotlin-Code ist nach Aufgaben in Pakete aufgeteilt.
+
+```
+app/src/main/java/com/example/weatherandroidtif24/
+├── MainActivity.kt
+├── ui/          Screens und Composables, ViewModels
+│   └── theme/   Farben, Schriften, Theme (aus der Vorlage)
+├── model/       Datenmodell: City, CurrentWeather
+└── data/        Datenquellen: Fake-Daten, Repositorys
+    └── api/     HTTP-Client und DTOs (ab Schritt 10)
+```
+
+<DocsOnly>
+Pfade auf dieser und den folgenden Seiten (z. B. `ui/WeatherScreen.kt`)
+beziehen sich auf diesen Ordner. In der Ansicht *Android* von Android
+Studio erscheint er unter `app/kotlin+java/com.example.weatherandroidtif24`.
+
+Neue Pakete und Dateien legen wir per Rechtsklick auf das Paket an:
+
+- *New → Package* für einen Unterordner wie `model`
+- *New → Kotlin Class/File* für eine Datei, dann z. B. *File* wählen
+
+`ui/` mit `ui/theme/` bringt die Vorlage *Empty Activity* schon mit;
+die übrigen Pakete entstehen in Schritt 3 (`model`, `data`) und
+Schritt 10 (`data/api`).
+
+<Callout type="info">
+**Tipps für Android Studio**
+
+| Aktion | macOS | Windows/Linux |
+|---|---|---|
+| Quick Fix, z. B. fehlender Import | ⌥ ⏎ | Alt+Enter |
+| Imports aufräumen (*Optimize Imports*) | ⌃ ⌥ O | Ctrl+Alt+O |
+| Code formatieren (*Reformat Code*) | ⌥ ⌘ L | Ctrl+Alt+L |
+| Umbenennen, überall (*Rename*) | ⇧ F6 | Shift+F6 |
+| Zur Definition springen | ⌘ + Klick | Ctrl+Klick |
+| Parameter einer Funktion anzeigen | ⌘ P | Ctrl+P |
+| Alles durchsuchen | 2× ⇧ | 2× Shift |
+
+Live Templates sparen Tipparbeit: `comp` + Tab erzeugt ein Composable,
+`prev` + Tab eine Preview.
+
+Damit Android Studio eindeutige Imports selbst einfügt: *Settings →
+Editor → General → Auto Import → „Add unambiguous imports on the fly“*.
 </Callout>
+</DocsOnly>
 
-Bei Bedarf können wir die einzelnen Bestandteile besprechen:
+## Composables
 
-- Eine Activity ist eine Klasse, die eine Benutzeroberfläche für eine App bereitstellt.
-- `MainActivity` ist die _Launcher_-Activity, die beim Start der App ausgeführt und angezeigt wird, da dies so im `AndroidManifest.xml` definiert ist.
-- `onCreate` ist eine Funktion, die beim Start der Activity automatisch vom Android-System ausgeführt wird (ähnlich wie die `main`-Methode in Java-Programmen).
-- `setContent` startet eine Compose-Composition für die Activity und setzt die 
-übergebene Composable-Lambda als Wurzel des UI-Baums.
-- mit `{ … }` wird ein Lambda-Ausdruck definiert, der das UI beschreibt, d.h. `setContent` erhält eine Funktion als Parameter. Diese Syntax wird _trailing lambda_ genannt und ist in Kotlin sehr verbreitet. 
-- das _trailing lambda_ könnte auch so geschrieben werden: <br/> `setContent(content = { Text("Hello World") })` <br/> Die kürzere Schreibweise mit `{ … }` ist aber üblicher und leichter lesbar (insbesondere wenn wir mehrere Composables hierarchisch verschachteln).
-- `Text` ist eine vordefiniert Composable-Funktion aus der Compose-API, die einen Text darstellt.
-- Wir werden weitere vordefinierte Composables kennenlernen und auch eigene Composables erstellen.
+Ein Composable ist eine Kotlin-Funktion, die beschreibt, wie ein Teil der Oberfläche aussieht.
 
-<Callout>
-Der Dozent kennt nicht alle Details zu Compose und hat nur 
-grundlegende Kenntnis von Kotlin. 
-
-**Tipp:** KI-Tools wie ChatGPT oder Gemini können Code erklären.
-</Callout>
-
-In der Preview- bzw. Design-Ansicht ist jetzt nichts zu sehen, aber 
-die App sollte bei Ausführung im Emulator oder Handy „Hello World“ 
-anzeigen.
-
-## `Todo` als Composable-Funktion
-
-Wir wollen eine einfache Todo-App erstellen. Dazu erstellen wir 
-eine Composable-Funktion `Todo`, die einen Text anzeigt:
+<DocsOnly>
+Neue Datei `ui/WeatherScreen.kt` im Paket `ui`, das die Vorlage schon mitbringt:
+</DocsOnly>
 
 ```kotlin
 @Composable
-fun Todo(text: String) {
-    Text(text)
+fun WeatherScreen(modifier: Modifier = Modifier) {
+    Text(text = "Lörrach", modifier = modifier)
+    Text(text = "14 °C", modifier = modifier)
 }
 ```
 
-Dazu müssen wir auch die entsprechenden Imports hinzufügen
-(dies kann Android Studio für uns automatisch erledigen):
+<DocsOnly>
+Compose arbeitet **deklarativ**: Wir beschreiben, *was* angezeigt
+werden soll, nicht *wie* die Oberfläche Schritt für Schritt verändert
+wird. Ändern sich die Daten, ruft Compose die Funktion erneut auf und
+zeichnet das Ergebnis neu.
 
-```kotlin
-import androidx.compose.runtime.Composable
-```
+<Callout type="info">
+**Ausblick:** Dasselbe Prinzip heißt in Flutter *Widget*, in React Native
+*Komponente*. Die Oberfläche entsteht immer als Baum verschachtelter
+Bausteine:
 
-In `onCreate` ersetzen wir `Text` in `setContent` mit einem
-Aufruf der neuen Composable-Funktion `Todo`:
+| Framework | Baustein | Beispiel |
+|---|---|---|
+| Compose | Composable | `Column { Text("Lörrach") }` |
+| Flutter | Widget | `Column(children: [Text('Lörrach')])` |
+| React Native | Komponente | `<View><Text>Lörrach</Text></View>` |
+</Callout>
+
+Konventionen für Composables:
+
+- Annotation `@Composable`
+- Name in `PascalCase`, wie eine Klasse
+- kein Rückgabewert: Composables erzeugen UI, statt etwas zurückzugeben
+- ein optionaler Parameter `modifier: Modifier = Modifier`: Standardwert
+  ist der leere `Modifier`; so kann der Aufrufer z. B. Abstände von außen
+  festlegen. Das Composable gibt ihn an sein äußerstes Element weiter.
+
+Damit `WeatherScreen` auch in der App erscheint, ruft `MainActivity`
+es auf:
 
 ```kotlin
 setContent {
-    Todo("Einkaufen")
+    WeatherAndroidTIF24Theme {
+        // Abstand zu Statusleiste und Kamera-Aussparung
+        WeatherScreen(modifier = Modifier.safeDrawingPadding())
+    }
 }
 ```
 
-**Tipp:** Mit `Code -> Reformat Code` bzw. `Code -> Reformat File…` 
-kann bestimmter Kotlin-Code bzw. die ganze Datei formatiert werden.
+Neue Projekte zeichnen *edge-to-edge*, also bis unter die Statusleiste.
+`safeDrawingPadding()` hält den Inhalt aus diesen Bereichen heraus.
 
-## Preview vs. Emulator
+Die beiden Texte überlappen sich, weil noch ein Layout fehlt. Darum
+geht es im nächsten Abschnitt.
 
-Unterschied zwischen Preview und Emulator kurz erklären:
+<Callout type="info">
+**Warum überlappen sich die Texte?** Anders als in HTML ordnet Compose
+Elemente nicht automatisch untereinander an. Ohne Layout landen alle
+Kinder an derselben Stelle oben links; die Anordnung legt erst ein
+Layout wie `Column` fest. Deshalb bekommen hier auch beide `Text`s den
+`modifier`: Es gibt noch kein äußerstes Element, an das er gehen könnte.
+</Callout>
+</DocsOnly>
 
-- Preview: Vorschau im Android Studio, zeigt das UI in der IDE
-- Emulator: Simuliert ein echtes Gerät, zeigt das UI in einer virtuellen Umgebung
+<SlideBreak />
 
-Composables mit `@Preview` sind ein nützliches Feature von Compose, 
-um das UI während der Programmierung visuell in einer Vorschau 
-darzustellen. Wir testen die App immer direkt im Emulator.
+Mit `@Preview` zeigt Android Studio ein Composable direkt im Editor an, ohne Emulator.
 
-Dennoch könnten Previews mittelfristig für Teams nützlich sein, die 
-Apps mit Compose entwickeln. Mehr zu Previews in Compose: 
-https://developer.android.com/develop/ui/compose/tooling/previews
+```kotlin
+@Preview(showBackground = true)
+@Composable
+fun WeatherScreenPreview() {
+    WeatherScreen()
+}
+```
 
-## Abhängigkeiten für Compose aktualisieren
+<DocsOnly>
+Die Preview aktualisiert sich bei jeder Änderung im Code. Für
+Interaktionen (Antippen, Eingaben) gibt es den interaktiven Modus der
+Preview; für alles andere starten wir die App im Emulator.
 
-In `libs.versions.toml` lassen sich die Abhängigkeiten für Compose
-aktualisieren, damit wir die neuesten Features und Bugfixes nutzen können.
-Versionen, die aktualisiert werden können, sind in der Datei gelb markiert.
-Mit `Alt+Enter` können die neuen Versionen automatisch eingesetzt werden.
+Code: [`schritt-01`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-01) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-00...schritt-01)
+</DocsOnly>
 
-Mit der sogenannten „_Compose-BOM_“ (_Bill of Materials_) halten wir im
-Android-Projekt alle Compose-Artefakte konsistent, ohne jede Lib einzeln zu 
-versionieren. Wir versionieren nur die BOM; die eigentlichen Artefakte bekommen 
-keine eigene Versionsangabe. 
+## Layouts: Column, Row, Box
 
-Mehr dazu: https://developer.android.com/develop/ui/compose/bom
+Composables werden mit Layout-Composables angeordnet.
 
-## Zusammenfassung zu Composables
+- `Column`: untereinander
+- `Row`: nebeneinander
+- `Box`: übereinander, z. B. Inhalt auf einem Hintergrund
+- `Spacer`: Abstand bzw. freier Platz
 
-Composable-Funktionen oder kurz _Composables_ sind Funktionen, die mit 
-`@Composable` annotiert sind. Sie sind die Bausteine für die UI-Elemente 
-und können von anderen Composables aufgerufen werden. 
-Ein Composable hat keinen Rückgabewert und wird häufig in _PascalCase_ benannt
-(Namensteile werden groß geschrieben). 
-Für bestimmte UI-Elemente wie z. B. `Text` gibt es vordefinierte Composables.
-Später werden wir auch vordefinierte Layout-Funktionen wie z. B. `Column` oder 
-`Row` verwenden.
+<SlideBreak />
 
-<Callout>
-Composables sind ein Beispiel für die deklarative Programmierung, die in modernen 
-UI-Frameworks verwendet wird. Dabei werden einzelne UI-Elemente und deren Verhalten 
-als Funktionen beschrieben. Das komplette UI einer App sind verschachtelte UI-Elemente, 
-die zusammen den UI-Baum bilden.
+Die Verschachtelung im Code entspricht der Verschachtelung auf dem Bildschirm.
 
-Wir werden mit Widgets in Flutter und mit Komponenten in React Native
-ähnliche Konzepte kennenlernen.
+![Layout als verschachtelte Boxen: Bildschirm und Code haben denselben Aufbau](/images/mobile/android/compose-layout-baum.svg)
 
-&rarr; Passende Visualisierung dazu am Whiteboard: 
+<SlideBreak />
 
-- UI-Elemente farbig als geschlossene Kästen zeichnen
-- dazu passende Composable-Syntax mit `{…}` als Pseudocode daneben schreiben
+```kotlin
+Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Text(text = "Lörrach", fontSize = 28.sp)
+    Text(text = "⛅", fontSize = 72.sp)
+    Text(text = "14 °C", fontSize = 48.sp)
+    Spacer(modifier = Modifier.height(16.dp))
+    Row(modifier = Modifier.fillMaxWidth()) {
+        Text(text = "Wind: 8 km/h")
+        Spacer(modifier = Modifier.weight(1f))
+        Text(text = "Teilweise bewölkt")
+    }
+}
+```
+
+<DocsOnly>
+Dieser Code steckt in einem neuen Composable `CurrentWeatherCard`,
+ebenfalls in `ui/WeatherScreen.kt`.
+`WeatherScreen` ruft es nur noch auf und reicht seinen `modifier` weiter:
+
+```kotlin
+@Composable
+fun WeatherScreen(modifier: Modifier = Modifier) {
+    CurrentWeatherCard(modifier = modifier)
+}
+```
+
+`CurrentWeatherCard` legt eine `Box` mit Hintergrund um die `Column`
+(siehe nächster Abschnitt zu Modifiern).
+
+Größen werden in `dp` (*density-independent pixels*) angegeben, damit
+sie auf allen Displays gleich groß wirken. Schriftgrößen in `sp`
+(*scalable pixels*): wie `dp`, berücksichtigen aber zusätzlich die
+Schriftgröße aus den Systemeinstellungen.
+
+<Callout type="warning">
+Bei Alt+Enter auf den richtigen Import achten: `androidx.compose.ui.Modifier`
+(nicht `java.lang.reflect.Modifier`) und `androidx.compose.ui.graphics.Color`
+(nicht `android.graphics.Color`).
 </Callout>
 
+`Spacer(Modifier.weight(1f))` nimmt den gesamten freien Platz in der
+`Row` ein und schiebt so den zweiten Text an den rechten Rand.
+
+Layouts lassen sich beliebig verschachteln. Im Unterschied zu älteren
+UI-Systemen ist das in Compose kein Performance-Problem.
+</DocsOnly>
+
+## Modifier
+
+Modifier verändern Größe, Abstand, Hintergrund und Verhalten eines Composables.
+Sie werden durch aufeinanderfolgende Funktionsaufrufe verkettet.
+
+```kotlin
+Box(
+    modifier = modifier
+        .fillMaxWidth()
+        .padding(16.dp)
+        .background(Color(0xFFBBDEFB), RoundedCornerShape(24.dp))
+        .padding(24.dp),
+    contentAlignment = Alignment.Center,
+) { /* Column von oben */ }
+```
+
+<Callout type="warning">
+Die Reihenfolge zählt: `padding` vor `background` ist Außenabstand,
+`padding` nach `background` ist Innenabstand.
+</Callout>
+
+<DocsOnly>
+Die Kette beginnt mit dem Parameter `modifier` statt mit `Modifier`.
+So erreicht der Modifier des Aufrufers (z. B. `safeDrawingPadding()`
+aus `MainActivity`) das äußerste Element, statt verloren zu gehen.
+
+Am besten in der Preview ausprobieren: die beiden `padding`-Aufrufe
+vertauschen oder einen entfernen und den Unterschied ansehen.
+
+Weitere häufige Modifier: `size`, `fillMaxSize`, `clickable`, `border`, `clip`.
+
+Code: [`schritt-02`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-02) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-01...schritt-02)
+</DocsOnly>
+
+## Datenmodell mit data class
+
+Statt fester Texte bekommen Composables nun Daten als Parameter.
+
+```kotlin
+data class City(
+    val name: String,
+    val latitude: Double,
+    val longitude: Double,
+)
+
+data class CurrentWeather(
+    val temperature: Double,
+    val windSpeed: Double,
+    val condition: WeatherCondition,
+)
+```
+
+<DocsOnly>
+Neue Dateien `model/City.kt` und `model/CurrentWeather.kt` im neuen
+Paket `model`.
+
+Eine `data class` bekommt automatisch `equals`, `toString` und `copy`.
+Ihre Properties sind mit `val` nur lesbar; Getter erzeugt Kotlin
+automatisch, Setter gibt es nur bei `var`.
+Für feste Auswahlmöglichkeiten wie die Wetterlage eignet sich eine
+`enum class`. Sie steht mit in `model/CurrentWeather.kt`:
+
+```kotlin
+enum class WeatherCondition { CLEAR, PARTLY_CLOUDY, CLOUDY, FOG, RAIN, SNOW, THUNDERSTORM }
+```
+
+Die Koordinaten in `City` brauchen wir erst in Schritt 10 für die API.
+Das Datenmodell ist aber von Anfang an so aufgebaut, dass es später
+passt.
+
+Die Fake-Daten liegen in `data/FakeData.kt` im neuen Paket `data`:
+eine Liste von Städten und eine `Map`, die Städtenamen das Wetter zuordnet.
+
+```kotlin
+val fakeCities: List<City> = listOf(
+    City(name = "Lörrach", latitude = 47.6156, longitude = 7.6614),
+    // ... Freiburg, Basel
+)
+
+val fakeCurrentWeather: Map<String, CurrentWeather> = mapOf(
+    "Lörrach" to CurrentWeather(
+        temperature = 14.2,
+        windSpeed = 8.5,
+        condition = WeatherCondition.PARTLY_CLOUDY,
+    ),
+    // ... Freiburg, Basel
+)
+```
+
+Vollständig:
+[`FakeData.kt`](https://github.com/behrends/WeatherAndroidTIF24/blob/schritt-03/app/src/main/java/com/example/weatherandroidtif24/data/FakeData.kt)
+</DocsOnly>
+
+<SlideBreak />
+
+Composables sollten Daten als Parameter erhalten und sie nicht eigenständig holen.
+
+```kotlin
+@Composable
+fun CurrentWeatherCard(
+    city: City,
+    weather: CurrentWeather,
+    modifier: Modifier = Modifier,
+) {
+    // ...
+    Text(text = city.name)
+    Text(text = weather.condition.emoji())
+    Text(text = "${weather.temperature.roundToInt()} °C")
+}
+```
+
+<DocsOnly>
+Solche Composables heißen **stateless**: Sie zeigen nur an, was sie
+als Parameter bekommen. Dadurch lassen sie sich in der Preview mit
+beliebigen Daten testen.
+
+Die Anzeige der Wetterlage ist eine Erweiterungsfunktion mit `when`
+in `ui/WeatherConditionUi.kt`. Sie gehört zur UI, nicht ins Datenmodell:
+
+```kotlin
+fun WeatherCondition.emoji(): String = when (this) {
+    WeatherCondition.CLEAR -> "☀️"
+    WeatherCondition.PARTLY_CLOUDY -> "⛅"
+    // ...
+}
+```
+
+`when` muss alle Fälle der `enum class` abdecken. Kommt ein neuer Fall
+hinzu, meldet der Compiler jede Stelle, die angepasst werden muss.
+Nach demselben Muster liefert `WeatherCondition.label()` den Text
+(„Sonnig“, „Regen“ …) für die rechte Seite der `Row`; links steht die
+Windgeschwindigkeit `weather.windSpeed`.
+
+Auch `WeatherScreen` bekommt die Daten jetzt als Parameter und reicht
+sie an die Karte weiter. Die Preview übergibt Fake-Daten:
+
+```kotlin
+@Composable
+fun WeatherScreen(city: City, weather: CurrentWeather, modifier: Modifier = Modifier) {
+    CurrentWeatherCard(city = city, weather = weather, modifier = modifier)
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WeatherScreenPreview() {
+    val city = fakeCities.first()
+    WeatherScreen(city = city, weather = fakeCurrentWeather.getValue(city.name))
+}
+```
+
+Auch `MainActivity` übergibt jetzt die Fake-Daten:
+
+```kotlin
+val city = fakeCities.first()
+WeatherScreen(
+    city = city,
+    weather = fakeCurrentWeather.getValue(city.name),
+    modifier = Modifier.safeDrawingPadding(),
+)
+```
+
+Code: [`schritt-03`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-03) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-02...schritt-03)
+</DocsOnly>
+
+## Material 3
+
+Material 3 liefert fertige Bausteine und ein Theme mit Farben und Schriften.
+
+- `Scaffold`: Grundgerüst eines Screens mit Platz für `TopAppBar`
+- `Card`: Fläche mit Hintergrund und abgerundeten Ecken
+- `MaterialTheme.colorScheme`: Farben statt `Color(0xFF…)`
+- `MaterialTheme.typography`: Schriftgrößen statt `fontSize = …sp`
+
+<SlideBreak />
+
+```kotlin
+Scaffold(
+    topBar = { TopAppBar(title = { Text(text = city.name) }) },
+) { innerPadding ->
+    Card(
+        modifier = Modifier.padding(innerPadding).padding(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+        ),
+    ) { /* ... */ }
+}
+```
+
+<DocsOnly>
+Der Code ist hier verkürzt. Im Repository ersetzt die `Card` in
+`CurrentWeatherCard` die selbst gebaute `Box` mit `background`. Den
+Innenabstand bekommt jetzt die `Column`:
+
+```kotlin
+Card(
+    modifier = modifier
+        .fillMaxWidth()
+        .padding(16.dp),
+    colors = CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.primaryContainer,
+    ),
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(text = city.name, style = MaterialTheme.typography.headlineMedium)
+        Text(text = weather.condition.emoji(), fontSize = 72.sp)
+        Text(
+            text = "${weather.temperature.roundToInt()} °C",
+            style = MaterialTheme.typography.displayLarge,
+        )
+        // Spacer und Row wie bisher, Texte mit MaterialTheme.typography.bodyLarge
+    }
+}
+```
+
+Nur das Emoji behält eine feste Größe, weil es im Theme keinen passenden
+Schriftstil dafür gibt. `WeatherScreen` legt das `Scaffold` mit der
+`TopAppBar` um die Karte und gibt `innerPadding` als Modifier weiter.
+
+Weil Farben und Schriften aus dem Theme kommen, funktioniert der Dark
+Mode automatisch. Ab Android 12 passt *Dynamic Color* die Farben sogar
+an das Hintergrundbild des Geräts an. Eine zweite Preview zeigt den
+Dark Mode:
+
+```kotlin
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
+@Composable
+fun WeatherScreenPreview() {
+    val city = fakeCities.first()
+    WeatherAndroidTIF24Theme {
+        WeatherScreen(city = city, weather = fakeCurrentWeather.getValue(city.name))
+    }
+}
+```
+
+Wichtig: Die Preview muss das Theme der App (`WeatherAndroidTIF24Theme`)
+um den Screen legen. Sonst zeigt sie die Standardfarben von Material 3,
+nicht die der App.
+
+`TopAppBar` ist noch als experimentell markiert und braucht deshalb
+`@OptIn(ExperimentalMaterial3Api::class)`.
+
+In `MainActivity` entfällt `Modifier.safeDrawingPadding()`: Das
+`Scaffold` berücksichtigt Statusleiste und Navigationsleiste selbst und
+gibt den nötigen Abstand als `innerPadding` an seinen Inhalt weiter.
+
+```kotlin
+WeatherScreen(city = city, weather = fakeCurrentWeather.getValue(city.name))
+```
+
+Code: [`schritt-04`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-04) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-03...schritt-04)
+</DocsOnly>
+
+## Listen mit LazyColumn
+
+`LazyColumn` zeichnet nur die sichtbaren Einträge. Damit bleiben auch lange Listen performant.
+
+```kotlin
+LazyColumn(contentPadding = innerPadding) {
+    items(cities, key = { it.name }) { city ->
+        ListItem(
+            headlineContent = { Text(text = city.name) },
+            modifier = Modifier.clickable { onCityClick(city) },
+        )
+        HorizontalDivider()
+    }
+}
+```
+
+<DocsOnly>
+Eine normale `Column` würde alle Einträge auf einmal erzeugen. Für
+wenige, feste Elemente reicht das, für lange Listen nicht.
+
+`key` sagt Compose, welcher Eintrag welcher ist, z. B. wenn sich die
+Liste ändert. Der Key muss eindeutig sein. Später (Stadtsuche) heißen
+mehrere Städte gleich; dann sind die Koordinaten der bessere Key.
+
+Neue Datei `ui/CityListScreen.kt`. Der Code ist hier verkürzt. Im
+Repository steckt die `LazyColumn` in einem `Scaffold` mit
+`TopAppBar(title = { Text(text = "Städte") })`, und jeder Eintrag zeigt zusätzlich die Koordinaten:
+
+```kotlin
+supportingContent = {
+    Text(text = "%.2f° N, %.2f° O".format(city.latitude, city.longitude))
+},
+```
+
+Eine Preview zeigt die Liste mit `fakeCities` und einem leeren
+`onCityClick = {}`.
+
+`CityListScreen` bekommt die Städte und eine Funktion `onCityClick` als
+Parameter. Was beim Antippen passiert, entscheidet der Aufrufer. Das
+wird in Schritt 9 (Navigation) wichtig.
+
+Vorerst zeigt `MainActivity` nur die Städteliste; das Antippen bewirkt
+noch nichts. `WeatherScreen` ist in diesem Schritt nur in seiner
+Preview zu sehen:
+
+```kotlin
+CityListScreen(cities = fakeCities, onCityClick = {})
+```
+
+Code: [`schritt-05`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-05) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-04...schritt-05)
+</DocsOnly>
+
+<DocsOnly>
 ## Weiterführendes Material
 
-Tutorial, Sample-Apps, Docs und Quick Guides zu Compose im „Core Area“ zu UIs in 
-den Android Developer Docs: https://developer.android.com/develop/ui
+- [UI-Entwicklung für Android](https://developer.android.com/develop/ui):
+  Einstieg mit Tutorials, Beispielen und Quick Guides
+- [Thinking in Compose](https://developer.android.com/develop/ui/compose/mental-model)
+- [Compose-Layouts: Grundlagen](https://developer.android.com/develop/ui/compose/layouts/basics)
+- [Previews](https://developer.android.com/develop/ui/compose/tooling/previews)
+- [Modifier](https://developer.android.com/develop/ui/compose/modifiers) und
+  [Liste aller Modifier](https://developer.android.com/develop/ui/compose/modifiers-list)
+- [Material 3 in Compose](https://developer.android.com/develop/ui/compose/designsystems/material3)
+- [Listen und Raster](https://developer.android.com/develop/ui/compose/lists)
+</DocsOnly>

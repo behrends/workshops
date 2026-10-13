@@ -2,9 +2,39 @@
 asIndexPage: true
 ---
 
+import { Callout } from 'nextra/components'
 import meta from './_meta.js';
 import SectionLinks from '@/components/SectionLinks';
 
-# Android
+# Android: Wetter-App
+
+In diesem Crashkurs entsteht eine Wetter-App mit Jetpack Compose:
+Eine Liste von Städten, und nach Antippen einer Stadt deren aktuelles Wetter.
+Zuerst mit Fake-Daten, am Ende mit echten Daten von
+[Open-Meteo](https://open-meteo.com), angebunden mit einem Coding Agent.
+
+<Callout type="info">
+  Der Code liegt auf GitHub:
+  [behrends/WeatherAndroidTIF24](https://github.com/behrends/WeatherAndroidTIF24).
+  Jeder Schritt hat einen eigenen Tag (`schritt-00` bis `schritt-11`).
+  Mit `git checkout schritt-05` lässt sich jeder Zwischenstand ansehen,
+  der Link „Änderungen“ auf den folgenden Seiten zeigt den Diff eines Schritts.
+</Callout>
+
+<Callout type="warning">
+  Android ändert sich mehrmals im Jahr. Im Live-Coding kann deshalb etwas
+  anders aussehen oder nicht klappen. Bei Codelabs, Tutorials und Videos
+  auf das Datum achten!
+</Callout>
 
 <SectionLinks meta={meta} />
+
+Zum Weiterlernen:
+
+- [Android Basics with Compose](https://developer.android.com/courses/android-basics-compose/course):
+  Kurs mit Kotlin-Grundlagen für Android
+- [Jetpack Compose for Android Developers](https://developer.android.com/courses/jetpack-compose/course):
+  Kurs für alle, die schon programmieren können
+- [Codelabs](https://developer.android.com/get-started/codelabs): kurze Tutorials zu einzelnen Themen
+- [Compose Samples](https://github.com/android/compose-samples): Beispiel-Apps mit Quellcode
+- [Android Developers auf YouTube](https://www.youtube.com/@AndroidDevelopers/videos): Videos von Google

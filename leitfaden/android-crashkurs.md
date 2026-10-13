@@ -362,10 +362,9 @@ Für die Generalprobe gilt: **alle** Schritte von Hand bauen und taggen, auch di
 
 ---
 
-## Zuordnung zu den MDX-Seiten (`content/mobile/02-android-wetter/`)
+## Zuordnung zu den MDX-Seiten (`content/mobile/02-android/`)
 
-Vorerst in der Navigation versteckt (`display: 'hidden'` in `content/mobile/_meta.js`).
-Umschalten: alten Ordner `02-android` entfernen bzw. umbenennen und den Eintrag sichtbar machen.
+Seit Okt. 2026 live; ersetzt die alte Todo-Lektion (im Git-Verlauf vor `dca52e4`).
 Die Links zeigen auf `github.com/behrends/WeatherAndroidTIF24` (veröffentlicht Okt. 2026).
 
 Vier Seiten, jede mit `slides: true`. Pro Seite: kurze Erklärungen in `DocsOnly`, wenige Folien,
