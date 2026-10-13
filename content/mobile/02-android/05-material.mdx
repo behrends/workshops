@@ -1,0 +1,106 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 10 Minuten
+slideGoal: Farben und Schriften aus dem Theme statt fester Werte
+slideTopics:
+  - colorScheme und typography
+  - Card
+  - Dark Mode und Dynamic Color
+---
+
+# Material 3
+
+<DocsOnly>
+Zum Schluss der Feinschliff: Die Karte im Wetter-Screen hat bisher eine
+feste Farbe (`Color(0xFFBBDEFB)`) und feste Schriftgrößen. Im Dark Mode
+ist ihre Schrift auf dem hellen Hintergrund kaum lesbar, weil das
+`Scaffold` die Textfarbe an den dunklen Hintergrund anpasst.
+</DocsOnly>
+
+## Theme statt fester Werte
+
+Material 3 liefert ein Theme mit Farben und Schriften und fertige Bausteine wie `Card`.
+
+- `MaterialTheme.colorScheme`: Farben statt `Color(0xFF…)`
+- `MaterialTheme.typography`: Schriftgrößen statt `fontSize = …sp`
+- `Card`: Fläche mit Hintergrund und abgerundeten Ecken
+
+<SlideBreak />
+
+```kotlin
+Card(
+    modifier = modifier.fillMaxWidth().padding(16.dp),
+    colors = CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.primaryContainer,
+    ),
+) {
+    Column(/* ... */) {
+        Text(text = city.name, style = MaterialTheme.typography.headlineMedium)
+        // ...
+    }
+}
+```
+
+<DocsOnly>
+In `CurrentWeatherCard` ersetzt die `Card` die selbst gebaute `Box` mit
+`background`. Den Innenabstand bekommt jetzt die `Column`:
+
+```kotlin
+Card(
+    modifier = modifier
+        .fillMaxWidth()
+        .padding(16.dp),
+    colors = CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.primaryContainer,
+    ),
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(text = city.name, style = MaterialTheme.typography.headlineMedium)
+        Text(text = weather.condition.emoji(), fontSize = 72.sp)
+        Text(
+            text = formatTemperature(weather.temperature, useCelsius),
+            style = MaterialTheme.typography.displayLarge,
+        )
+        // Spacer und Row wie bisher, Texte mit MaterialTheme.typography.bodyLarge
+    }
+}
+```
+
+Nur das Emoji behält eine feste Größe, weil es im Theme keinen passenden
+Schriftstil dafür gibt. Die `Card` setzt passend zur Hintergrundfarbe
+auch die Textfarbe (`onPrimaryContainer`).
+</DocsOnly>
+
+## Dark Mode und Dynamic Color
+
+Weil Farben und Schriften aus dem Theme kommen, funktioniert der Dark Mode automatisch.
+
+```kotlin
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
+@Composable
+fun WeatherContentPreview() { /* ... */ }
+```
+
+<DocsOnly>
+Zwei `@Preview`-Annotationen an derselben Funktion erzeugen zwei
+Previews, hier eine helle und eine dunkle.
+
+Ab Android 12 passt *Dynamic Color* die Farben sogar an das
+Hintergrundbild des Geräts an. Die Vorlage schaltet das in
+`ui/theme/Theme.kt` bereits ein (`dynamicColor: Boolean = true`).
+
+Code: [`schritt-10`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-10) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-09...schritt-10)
+
+## Weiterführendes Material
+
+- [Material 3 in Compose](https://developer.android.com/develop/ui/compose/designsystems/material3)
+- [Material Design 3](https://m3.material.io): Richtlinien und Komponenten
+</DocsOnly>

@@ -1,14 +1,13 @@
 ---
 slides: true
 titleSlide: true
-slideDuration: 25 Minuten
+slideDuration: 20 Minuten
 slideGoal: Die Bausteine von Jetpack Compose kennenlernen
 slideTopics:
   - Composables und Preview
   - Column, Row, Box und Modifier
   - data class und Fake-Daten
-  - Material 3
-  - Listen mit LazyColumn
+  - Scaffold und TopAppBar
 ---
 
 import { Callout } from 'nextra/components'
@@ -17,11 +16,11 @@ import { Callout } from 'nextra/components'
 
 <DocsOnly>
 Wir bauen die Oberfläche der Wetter-App Schritt für Schritt mit
-Jetpack Compose auf. Am Ende dieser Seite gibt es zwei Screens mit
-Fake-Daten: eine Städteliste und eine Wetteranzeige.
+Jetpack Compose auf. Am Ende dieser Seite zeigt die App das Wetter
+einer Stadt mit Fake-Daten an.
 
 Code: [Repository auf GitHub](https://github.com/behrends/WeatherAndroidTIF24),
-Schritte 0 bis 5.
+Schritte 0 bis 4.
 
 Codebeispiele mit `// ...` oder `/* ... */` sind gekürzt; der
 vollständige Code steht im Repository unter dem jeweiligen Tag.
@@ -31,8 +30,9 @@ vollständige Code steht im Repository unter dem jeweiligen Tag.
 
 Eine Liste von Städten, nach Antippen das aktuelle Wetter der Stadt.
 
-- Schritte 1–9: Oberfläche und Architektur mit Fake-Daten
-- Schritt 10: echte Wetterdaten von Open-Meteo, angebunden mit einem Coding Agent
+- Schritte 1–8: Oberfläche und Architektur mit Fake-Daten
+- Schritt 9: echte Wetterdaten von Open-Meteo, angebunden mit einem Coding Agent
+- Schritt 10: Feinschliff mit Material 3
 - Jeder Schritt ist ein Commit mit Tag, z. B. `schritt-05`
 
 <DocsOnly>
@@ -81,7 +81,7 @@ app/src/main/java/com/example/weatherandroidtif24/
 │   └── theme/   Farben, Schriften, Theme (aus der Vorlage)
 ├── model/       Datenmodell: City, CurrentWeather
 └── data/        Datenquellen: Fake-Daten, Repositorys
-    └── api/     HTTP-Client und DTOs (ab Schritt 10)
+    └── api/     HTTP-Client und DTOs (ab Schritt 9)
 ```
 
 <DocsOnly>
@@ -96,7 +96,7 @@ Neue Pakete und Dateien legen wir per Rechtsklick auf das Paket an:
 
 `ui/` mit `ui/theme/` bringt die Vorlage *Empty Activity* schon mit;
 die übrigen Pakete entstehen in Schritt 3 (`model`, `data`) und
-Schritt 10 (`data/api`).
+Schritt 9 (`data/api`).
 
 <Callout type="info">
 **Tipps für Android Studio**
@@ -341,7 +341,7 @@ Für feste Auswahlmöglichkeiten wie die Wetterlage eignet sich eine
 enum class WeatherCondition { CLEAR, PARTLY_CLOUDY, CLOUDY, FOG, RAIN, SNOW, THUNDERSTORM }
 ```
 
-Die Koordinaten in `City` brauchen wir erst in Schritt 10 für die API.
+Die Koordinaten in `City` brauchen wir erst in Schritt 9 für die API.
 Das Datenmodell ist aber von Anfang an so aufgebaut, dass es später
 passt.
 
@@ -440,73 +440,42 @@ Code: [`schritt-03`](https://github.com/behrends/WeatherAndroidTIF24/tree/schrit
 [Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-02...schritt-03)
 </DocsOnly>
 
-## Material 3
+## Scaffold und TopAppBar
 
-Material 3 liefert fertige Bausteine und ein Theme mit Farben und Schriften.
-
-- `Scaffold`: Grundgerüst eines Screens mit Platz für `TopAppBar`
-- `Card`: Fläche mit Hintergrund und abgerundeten Ecken
-- `MaterialTheme.colorScheme`: Farben statt `Color(0xFF…)`
-- `MaterialTheme.typography`: Schriftgrößen statt `fontSize = …sp`
-
-<SlideBreak />
+Compose bringt die Komponenten von **Material Design 3** mit, dem Designsystem von Google. `Scaffold` ist das Grundgerüst eines Screens, z. B. mit einer `TopAppBar`.
 
 ```kotlin
 Scaffold(
     topBar = { TopAppBar(title = { Text(text = city.name) }) },
 ) { innerPadding ->
-    Card(
-        modifier = Modifier.padding(innerPadding).padding(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-        ),
-    ) { /* ... */ }
+    CurrentWeatherCard(
+        city = city,
+        weather = weather,
+        modifier = Modifier.padding(innerPadding),
+    )
 }
 ```
 
 <DocsOnly>
-Der Code ist hier verkürzt. Im Repository ersetzt die `Card` in
-`CurrentWeatherCard` die selbst gebaute `Box` mit `background`. Den
-Innenabstand bekommt jetzt die `Column`:
+Das `Scaffold` steht in `WeatherScreen`, das dafür
+`@OptIn(ExperimentalMaterial3Api::class)` braucht: `TopAppBar` ist noch
+als experimentell markiert.
+
+`innerPadding` ist der Platz, den `TopAppBar`, Statusleiste und
+Navigationsleiste belegen. Der Inhalt bekommt ihn als Modifier, damit
+nichts verdeckt wird. In `MainActivity` entfällt deshalb
+`Modifier.safeDrawingPadding()`:
 
 ```kotlin
-Card(
-    modifier = modifier
-        .fillMaxWidth()
-        .padding(16.dp),
-    colors = CardDefaults.cardColors(
-        containerColor = MaterialTheme.colorScheme.primaryContainer,
-    ),
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(text = city.name, style = MaterialTheme.typography.headlineMedium)
-        Text(text = weather.condition.emoji(), fontSize = 72.sp)
-        Text(
-            text = "${weather.temperature.roundToInt()} °C",
-            style = MaterialTheme.typography.displayLarge,
-        )
-        // Spacer und Row wie bisher, Texte mit MaterialTheme.typography.bodyLarge
-    }
-}
+WeatherScreen(city = city, weather = fakeCurrentWeather.getValue(city.name))
 ```
 
-Nur das Emoji behält eine feste Größe, weil es im Theme keinen passenden
-Schriftstil dafür gibt. `WeatherScreen` legt das `Scaffold` mit der
-`TopAppBar` um die Karte und gibt `innerPadding` als Modifier weiter.
-
-Weil Farben und Schriften aus dem Theme kommen, funktioniert der Dark
-Mode automatisch. Ab Android 12 passt *Dynamic Color* die Farben sogar
-an das Hintergrundbild des Geräts an. Eine zweite Preview zeigt den
-Dark Mode:
+Die Preview legt das Theme der App (`WeatherAndroidTIF24Theme`) um den
+Screen. Sonst zeigt sie die Standardfarben von Material 3, nicht die der
+App:
 
 ```kotlin
 @Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
 @Composable
 fun WeatherScreenPreview() {
     val city = fakeCities.first()
@@ -516,76 +485,12 @@ fun WeatherScreenPreview() {
 }
 ```
 
-Wichtig: Die Preview muss das Theme der App (`WeatherAndroidTIF24Theme`)
-um den Screen legen. Sonst zeigt sie die Standardfarben von Material 3,
-nicht die der App.
-
-`TopAppBar` ist noch als experimentell markiert und braucht deshalb
-`@OptIn(ExperimentalMaterial3Api::class)`.
-
-In `MainActivity` entfällt `Modifier.safeDrawingPadding()`: Das
-`Scaffold` berücksichtigt Statusleiste und Navigationsleiste selbst und
-gibt den nötigen Abstand als `innerPadding` an seinen Inhalt weiter.
-
-```kotlin
-WeatherScreen(city = city, weather = fakeCurrentWeather.getValue(city.name))
-```
+Die Karte behält vorerst ihre feste Farbe und Schriftgrößen. Farben und
+Schriften aus dem Theme, `Card` und Dark Mode kommen am Ende dazu (siehe
+[Material 3](./05-material)).
 
 Code: [`schritt-04`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-04) ·
 [Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-03...schritt-04)
-</DocsOnly>
-
-## Listen mit LazyColumn
-
-`LazyColumn` zeichnet nur die sichtbaren Einträge. Damit bleiben auch lange Listen performant.
-
-```kotlin
-LazyColumn(contentPadding = innerPadding) {
-    items(cities, key = { it.name }) { city ->
-        ListItem(
-            headlineContent = { Text(text = city.name) },
-            modifier = Modifier.clickable { onCityClick(city) },
-        )
-        HorizontalDivider()
-    }
-}
-```
-
-<DocsOnly>
-Eine normale `Column` würde alle Einträge auf einmal erzeugen. Für
-wenige, feste Elemente reicht das, für lange Listen nicht.
-
-`key` sagt Compose, welcher Eintrag welcher ist, z. B. wenn sich die
-Liste ändert. Der Key muss eindeutig sein. Später (Stadtsuche) heißen
-mehrere Städte gleich; dann sind die Koordinaten der bessere Key.
-
-Neue Datei `ui/CityListScreen.kt`. Der Code ist hier verkürzt. Im
-Repository steckt die `LazyColumn` in einem `Scaffold` mit
-`TopAppBar(title = { Text(text = "Städte") })`, und jeder Eintrag zeigt zusätzlich die Koordinaten:
-
-```kotlin
-supportingContent = {
-    Text(text = "%.2f° N, %.2f° O".format(city.latitude, city.longitude))
-},
-```
-
-Eine Preview zeigt die Liste mit `fakeCities` und einem leeren
-`onCityClick = {}`.
-
-`CityListScreen` bekommt die Städte und eine Funktion `onCityClick` als
-Parameter. Was beim Antippen passiert, entscheidet der Aufrufer. Das
-wird in Schritt 9 (Navigation) wichtig.
-
-Vorerst zeigt `MainActivity` nur die Städteliste; das Antippen bewirkt
-noch nichts. `WeatherScreen` ist in diesem Schritt nur in seiner
-Preview zu sehen:
-
-```kotlin
-CityListScreen(cities = fakeCities, onCityClick = {})
-```
-
-Code: [`schritt-05`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-05) ·
-[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-04...schritt-05)
 </DocsOnly>
 
 <DocsOnly>
@@ -598,6 +503,4 @@ Code: [`schritt-05`](https://github.com/behrends/WeatherAndroidTIF24/tree/schrit
 - [Previews](https://developer.android.com/develop/ui/compose/tooling/previews)
 - [Modifier](https://developer.android.com/develop/ui/compose/modifiers) und
   [Liste aller Modifier](https://developer.android.com/develop/ui/compose/modifiers-list)
-- [Material 3 in Compose](https://developer.android.com/develop/ui/compose/designsystems/material3)
-- [Listen und Raster](https://developer.android.com/develop/ui/compose/lists)
 </DocsOnly>

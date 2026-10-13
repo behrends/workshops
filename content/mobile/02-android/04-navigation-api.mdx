@@ -1,9 +1,10 @@
 ---
 slides: true
 titleSlide: true
-slideDuration: 35 Minuten
-slideGoal: Screens verbinden und echte Daten mit einem Coding Agent anbinden
+slideDuration: 40 Minuten
+slideGoal: Eine Liste anzeigen, Screens verbinden und echte Daten mit einem Coding Agent anbinden
 slideTopics:
+  - Listen mit LazyColumn
   - Navigation 3 mit Back Stack als Liste
   - Routen als Typen
   - API-Anbindung mit einem Coding Agent
@@ -15,10 +16,52 @@ import { Callout } from 'nextra/components'
 # Navigation und API
 
 <DocsOnly>
-Zum Schluss verbinden wir Städteliste und Wetteranzeige mit Navigation 3
-und ersetzen die Fake-Daten durch echte Wetterdaten. Die API-Anbindung
-übernimmt ein Coding Agent; unsere Aufgabe ist, seinen Plan und seinen
-Code zu prüfen.
+Die App bekommt eine Städteliste, die wir mit Navigation 3 und der
+Wetteranzeige verbinden. Danach ersetzen wir die Fake-Daten durch echte
+Wetterdaten. Die API-Anbindung übernimmt ein Coding Agent; unsere
+Aufgabe ist, seinen Plan und seinen Code zu prüfen.
+</DocsOnly>
+
+## Listen mit LazyColumn
+
+`LazyColumn` zeichnet nur die sichtbaren Einträge. Damit bleiben auch lange Listen performant.
+
+```kotlin
+LazyColumn(contentPadding = innerPadding) {
+    items(cities, key = { it.name }) { city ->
+        ListItem(
+            headlineContent = { Text(text = city.name) },
+            modifier = Modifier.clickable { onCityClick(city) },
+        )
+        HorizontalDivider()
+    }
+}
+```
+
+<DocsOnly>
+Eine normale `Column` würde alle Einträge auf einmal erzeugen. Für
+wenige, feste Elemente reicht das, für lange Listen nicht.
+
+`key` sagt Compose, welcher Eintrag welcher ist, z. B. wenn sich die
+Liste ändert. Der Key muss eindeutig sein. Später (Stadtsuche) heißen
+mehrere Städte gleich; dann sind die Koordinaten der bessere Key.
+
+Neue Datei `ui/CityListScreen.kt`. Der Code ist hier verkürzt. Im
+Repository steckt die `LazyColumn` in einem `Scaffold` mit
+`TopAppBar(title = { Text(text = "Städte") })`, und jeder Eintrag zeigt zusätzlich die Koordinaten:
+
+```kotlin
+supportingContent = {
+    Text(text = "%.2f° N, %.2f° O".format(city.latitude, city.longitude))
+},
+```
+
+Eine Preview zeigt die Liste mit `fakeCities` und einem leeren
+`onCityClick = {}`.
+
+`CityListScreen` bekommt die Städte und eine Funktion `onCityClick` als
+Parameter. Was beim Antippen passiert, entscheidet der Aufrufer: Mit
+Navigation 3 öffnet das Antippen den Wetter-Screen der Stadt.
 </DocsOnly>
 
 ## Navigation 3
@@ -194,8 +237,8 @@ Stadt A unter dem Titel von Stadt B. Abhilfe: den `Job` von `launch`
 speichern und vor jedem neuen Laden `cancel()` aufrufen.
 </Callout>
 
-Code: [`schritt-09`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-09) ·
-[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-08...schritt-09)
+Code: [`schritt-08`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-08) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-07...schritt-08)
 </DocsOnly>
 
 ## API-Anbindung mit einem Coding Agent
@@ -360,7 +403,7 @@ private fun weatherConditionFromWmoCode(code: Int): WeatherCondition = when (cod
 Für echte Daten wurde kein einziges Composable geändert.
 
 ```
-$ git diff --stat schritt-09 schritt-10
+$ git diff --stat schritt-08 schritt-09
  app/build.gradle.kts                    |  4 ++
  app/src/main/AndroidManifest.xml        |  2 +
  .../data/ApiWeatherRepository.kt        | 45 +++++++++
@@ -388,8 +431,8 @@ und die kommt jetzt von Ktor bzw. OkHttp, z. B. „Unable to resolve host
 deutsche Texte verlangt. Am einfachsten im Emulator mit Flugmodus
 ausprobieren (siehe Übungen).
 
-Code: [`schritt-10`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-10) ·
-[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-09...schritt-10)
+Code: [`schritt-09`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-09) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-08...schritt-09)
 </DocsOnly>
 
 ## Übungen
@@ -459,6 +502,7 @@ Hinweise zu den Übungen:
 
 ## Weiterführendes Material
 
+- [Listen und Raster](https://developer.android.com/develop/ui/compose/lists)
 - [Navigation 3](https://developer.android.com/guide/navigation/navigation-3)
 - [nav3-recipes](https://github.com/android/nav3-recipes): Beispiele, z. B. Bottom Navigation
 - [Ktor Client](https://ktor.io/docs/client-create-new-application.html)

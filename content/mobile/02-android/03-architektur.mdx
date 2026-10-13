@@ -39,8 +39,8 @@ zu dem es gehört. Googles Architektur-Leitfaden zählt ViewModels zur
 UI-Schicht: Sie sind *State Holder* für die Oberfläche. Das Diagramm
 trennt sie, um die Aufgaben deutlich zu machen.
 
-Der Clou: Das Repository ist ein Interface. In Schritt 8 steckt dahinter
-eine Fake-Implementierung, in Schritt 10 die echte API. UI und ViewModel
+Der Clou: Das Repository ist ein Interface. In Schritt 7 steckt dahinter
+eine Fake-Implementierung, in Schritt 9 die echte API. UI und ViewModel
 merken davon nichts.
 </DocsOnly>
 
@@ -209,8 +209,8 @@ Genau genommen ist `WeatherContent` deshalb nicht ganz stateless.
 „Stateless“ bezieht sich hier auf den Screen-Zustand: Der kommt von
 außen, nur der Anzeige-Zustand für °C/°F bleibt im Composable.
 
-Code: [`schritt-07`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-07) ·
-[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-06...schritt-07)
+Code: [`schritt-06`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-06) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-05...schritt-06)
 </DocsOnly>
 
 ## Repository
@@ -311,7 +311,7 @@ ViewModel nicht mehr gebraucht wird. Dabei wird eine
 `CancellationException` geworfen. Sie darf nicht als Fehler angezeigt
 werden, deshalb wird sie vor dem allgemeinen `catch` weitergeworfen.
 
-Das `init` lädt vorerst das Wetter für Lörrach. Ab Schritt 9 übernimmt
+Das `init` lädt vorerst das Wetter für Lörrach. Ab Schritt 8 übernimmt
 das ein Klick in der Städteliste.
 </DocsOnly>
 
@@ -334,8 +334,8 @@ gebunden. Ohne Argument erzeugt es per Default selbst ein
 Implementierung übergeben. Das macht das ViewModel auch testbar, z. B.
 mit `WeatherViewModel(FakeWeatherRepository(shouldFail = true))`.
 
-Code: [`schritt-08`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-08) ·
-[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-07...schritt-08)
+Code: [`schritt-07`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-07) ·
+[Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-06...schritt-07)
 
 ## Weiterführendes Material
 
