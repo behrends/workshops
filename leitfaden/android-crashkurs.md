@@ -389,6 +389,8 @@ Für Walkthrough-Schritte genügt der Diff des Tags.
 
 1. Aktuellste Android-Studio-Version installieren; die Entscheidungen oben neu prüfen
 2. Neues Repo (Name siehe oben) als Generalprobe bauen; Versionen in die README
+   - direkt nach dem Wizard: Versionen in `libs.versions.toml` per Alt+Enter aktualisieren
+     (gelb markiert), bauen, starten und im Commit `schritt-00` mitnehmen
 3. MDX-Seiten mit den Tags abgleichen (Agent: Codebeispiele vs. Repo vergleichen)
 4. Dieses Dokument aktualisieren: Zeiten, Stolperstellen, Karten
 5. Repo-URL zentral ändern, deployen, Folien durchklicken

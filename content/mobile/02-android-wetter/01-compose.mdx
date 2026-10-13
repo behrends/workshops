@@ -44,6 +44,12 @@ Projektnamen erzeugt Android Studio den Namen des Themes
 entsprechend anders. Wer nicht selbst tippen möchte, klont das
 Repository und wechselt mit `git checkout schritt-00` an den Anfang.
 
+In `gradle/libs.versions.toml` markiert Android Studio Versionen gelb,
+für die es eine neuere gibt; Alt+Enter setzt sie ein. Das
+Referenz-Repository verwendet die Versionen der Vorlage. Aktualisieren
+ist möglich, kann aber weitere Anpassungen nötig machen, z. B. eine
+neuere Version des Android-Gradle-Plugins.
+
 In `MainActivity` bleibt nur das Nötigste übrig:
 
 ```kotlin
