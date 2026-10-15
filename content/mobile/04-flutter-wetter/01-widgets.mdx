@@ -66,9 +66,18 @@ Die Flutter-Dokumentation empfiehlt VS Code mit der Flutter-Extension.
 - Gerät unten rechts in der Statusleiste wählen, starten mit F5
 
 <DocsOnly>
-Fehlt das Flutter-SDK, bietet die Extension an, es herunterzuladen.
-Unter macOS geht es auch mit Homebrew (`brew install --cask flutter`).
-`flutter doctor` im Terminal zeigt, ob alles eingerichtet ist.
+Fehlt das Flutter-SDK, bietet die Extension an, es herunterzuladen
+(*Download SDK*). Als Ordner eignet sich `~/develop` bzw.
+`C:\Users\<Name>\develop`: nicht der Projektordner, kein Cloud-Ordner wie
+OneDrive, keine Leerzeichen oder Umlaute im Pfad (sonst z. B.
+`C:\develop`). Danach *Add SDK to PATH* bestätigen und VS Code neu
+starten. Wer einen Paketmanager nutzt, kann Flutter auch darüber
+installieren, z. B. mit Homebrew unter macOS
+(`brew install --cask flutter`), Chocolatey unter Windows
+(`choco install flutter`) oder Snap unter Ubuntu
+(`sudo snap install flutter --classic`); aktualisiert wird dann
+ebenfalls über den Paketmanager. `flutter doctor` im Terminal zeigt, ob
+alles eingerichtet ist.
 
 Den Android-Emulator kennen wir schon: Er kommt aus dem *Device Manager*
 von Android Studio. Android Studio muss dafür installiert sein, aber
