@@ -192,6 +192,8 @@ Neue Datei `ui/weather_screen.dart`:
 </DocsOnly>
 
 ```dart
+import 'package:flutter/material.dart';
+
 class WeatherScreen extends StatelessWidget {
   const WeatherScreen({super.key});
 
@@ -210,8 +212,7 @@ class WeatherScreen extends StatelessWidget {
 <DocsOnly>
 Ein Widget ist eine Klasse. `build` beschreibt, wie es aussieht, und
 gibt genau ein Widget zurück. Mehrere Kinder brauchen deshalb ein Layout
-wie `Column`; das Problem mit überlappenden Texten aus der Android-App
-gibt es so nicht.
+wie `Column`.
 
 Flutter arbeitet wie Compose **deklarativ**: Wir beschreiben, *was*
 angezeigt werden soll. Ändern sich die Daten, ruft Flutter `build` erneut
