@@ -45,6 +45,7 @@
     "tailwindcss": "^4"
   },
   "overrides": {
-    "@xmldom/xmldom": "^0.9.12"
+    "@xmldom/xmldom": "^0.9.12",
+    "katex": "^0.18.11"
   }
 }
