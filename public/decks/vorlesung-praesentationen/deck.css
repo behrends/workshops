@@ -174,12 +174,10 @@
 
 .section-slide,
 .resource-slide,
-.closing-slide,
 .end-slide {
   text-align: center !important;
 }
 .section-slide h2::after,
-.closing-slide h3::after,
 .end-slide h2::after {
   display: none;
 }
@@ -228,24 +226,21 @@
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(239, 232, 225, 0.92) 100%);
 }
 
-.resource-slide p.enum,
-.closing-slide p.enum {
+.resource-slide p.enum {
   max-width: 900px;
 }
 
-.closing-slide h3 {
-  font-size: 1.7em;
-  margin-bottom: 0.6rem;
-}
-
-.closing-slide p.enum {
+.summary-slide .summary-question {
+  margin-top: 1.2rem;
   text-align: center;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(239, 232, 225, 0.9) 100%);
+  font-size: 0.8em;
+  font-style: italic;
 }
 
-.closing-slide h6 {
-  margin-top: 1rem;
-  font-size: 0.8em;
+.summary-slide h6 {
+  margin-top: 0.6rem;
+  text-align: center;
+  font-size: 0.7em;
 }
 
 .end-slide a {
