@@ -30,11 +30,11 @@
 
   <rect x="150" y="420" width="230" height="64" rx="12" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
   <text x="265" y="450" text-anchor="middle" font-size="17" font-weight="600" fill="#14532d">FakeWeatherRepository</text>
-  <text x="265" y="472" text-anchor="middle" font-size="13" fill="#166534">Schritt 8: Fake-Daten</text>
+  <text x="265" y="472" text-anchor="middle" font-size="13" fill="#166534">Schritt 7: Fake-Daten</text>
 
   <rect x="420" y="420" width="230" height="64" rx="12" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
   <text x="535" y="450" text-anchor="middle" font-size="17" font-weight="600" fill="#14532d">ApiWeatherRepository</text>
-  <text x="535" y="472" text-anchor="middle" font-size="13" fill="#166534">Schritt 10: Open-Meteo</text>
+  <text x="535" y="472" text-anchor="middle" font-size="13" fill="#166534">Schritt 9: Open-Meteo</text>
 
   <line x1="330" y1="360" x2="290" y2="416" stroke="#15803d" stroke-width="2"/>
   <line x1="470" y1="360" x2="510" y2="416" stroke="#15803d" stroke-width="2"/>
