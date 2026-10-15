@@ -1,0 +1,240 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 15 Minuten
+slideGoal: Verstehen, wie Flutter auf Zustandsänderungen reagiert
+slideTopics:
+  - StatefulWidget und State
+  - setState
+  - Lifting State Up
+---
+
+import { Callout } from 'nextra/components'
+
+# State
+
+<DocsOnly>
+Bisher zeigt die App nur feste Daten an. Jetzt soll die Oberfläche
+auf Eingaben reagieren: Ein Umschalter in der `AppBar` wechselt die
+Temperaturanzeige zwischen °C und °F.
+
+Code: [`schritt-05`](https://github.com/behrends/WeatherFlutterTIF24/tree/schritt-05) ·
+[Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-04...schritt-05)
+</DocsOnly>
+
+## Erster Versuch
+
+Eine normale Variable reicht nicht: Antippen ändert den Wert, aber die Anzeige bleibt gleich.
+
+```dart
+@override
+Widget build(BuildContext context) {
+  var useCelsius = true; // funktioniert nicht!
+
+  return TextButton(
+    onPressed: () => useCelsius = !useCelsius,
+    child: Text(useCelsius ? '°C' : '°F'),
+  );
+}
+```
+
+<DocsOnly>
+Flutter weiß nicht, dass sich `useCelsius` geändert hat, und ruft
+`build` deshalb nicht erneut auf. Selbst wenn, stünde `useCelsius`
+danach wieder auf `true`, weil `build` von vorne ausgeführt wird.
+
+Auch ein Feld im `StatelessWidget` hilft nicht: Widgets sind
+unveränderlich, der Analyzer warnt bei Feldern ohne `final`
+(`must_be_immutable`).
+</DocsOnly>
+
+## StatefulWidget
+
+Ein `StatefulWidget` besteht aus zwei Klassen: dem Widget und seinem `State`, der über `build` hinweg erhalten bleibt.
+
+```dart
+class WeatherScreen extends StatefulWidget {
+  const WeatherScreen({super.key, required this.city, required this.weather});
+  // final-Felder city und weather ...
+
+  @override
+  State<WeatherScreen> createState() => _WeatherScreenState();
+}
+
+class _WeatherScreenState extends State<WeatherScreen> {
+  bool _useCelsius = true;
+  // build(...) wie bisher, Zugriff auf Felder des Widgets mit widget.city
+}
+```
+
+<DocsOnly>
+Das Widget selbst bleibt unveränderlich. Den veränderlichen Zustand hält
+das `State`-Objekt, das Flutter einmal erzeugt und bei jedem neuen
+`build` wiederverwendet. Damit übernimmt es die Rolle von `remember` in
+Compose.
+
+Der Unterstrich in `_WeatherScreenState` und `_useCelsius` macht beides
+privat für die Datei. Auf die Felder des Widgets greift der `State` über
+`widget.` zu, z. B. `widget.city.name`.
+
+Am schnellsten geht der Umbau mit Quick Fix (⌘ .) auf
+`StatelessWidget`: *Convert to StatefulWidget*.
+</DocsOnly>
+
+## setState
+
+`setState` ändert den Zustand und sagt Flutter, dass `build` erneut aufgerufen werden muss.
+
+```dart
+TextButton(
+  onPressed: () => setState(() => _useCelsius = !_useCelsius),
+  child: Text(_useCelsius ? '°C' : '°F'),
+)
+```
+
+<DocsOnly>
+Merksatz wie bei Compose: **UI = f(State)**. Die Oberfläche ist eine
+Funktion des Zustands; ändert sich der State, wird sie neu berechnet.
+
+Das erneute Bauen lässt sich beobachten: in `build` von
+`CurrentWeatherCard` die Zeile `debugPrint('build CurrentWeatherCard');`
+einfügen und die *Debug Console* von VS Code öffnen. Jedes Umschalten
+erzeugt eine neue Zeile. Anders als Compose überspringt Flutter dabei
+nicht automatisch unveränderte Kinder: `setState` baut den ganzen
+Teilbaum unterhalb dieses `State` neu. Ausgenommen sind nur
+`const`-Widgets. Das klingt teuer, ist es aber nicht: Widgets sind
+leichte Beschreibungen, gezeichnet wird nur, was sich wirklich geändert
+hat.
+
+Beim Drehen des Bildschirms bleibt der `State` erhalten, ein Gegenstück zu
+`rememberSaveable` braucht es dafür nicht. Flutter verarbeitet die
+Drehung selbst, statt die Activity neu zu erzeugen. Im Emulator
+ausprobieren: auf °F schalten und das Gerät drehen.
+</DocsOnly>
+
+## Lifting State Up
+
+Den State dort halten, wo alle ihn brauchen, und ihn nach unten weitergeben. Änderungen kommen als Callbacks zurück nach oben.
+
+![Unidirectional Data Flow: State nach unten, Events nach oben](/images/mobile/flutter/udf-lifting-state.svg)
+
+<DocsOnly>
+Der Umschalter (`UnitToggle`) und die Karte (`CurrentWeatherCard`)
+brauchen beide `useCelsius`. Deshalb liegt der State im gemeinsamen
+Eltern-Widget `WeatherScreen`. In Compose heißt das Muster *State
+Hoisting*, in Flutter **Lifting State Up**; das Prinzip dahinter ist
+dasselbe: State fließt nach unten, Events nach oben.
+</DocsOnly>
+
+<SlideBreak />
+
+```dart
+bool _useCelsius = true;
+
+UnitToggle(
+  useCelsius: _useCelsius,                                     // State ↓
+  onToggle: () => setState(() => _useCelsius = !_useCelsius), // Event ↑
+),
+CurrentWeatherCard(city: …, weather: …, useCelsius: _useCelsius), // State ↓
+```
+
+<DocsOnly>
+Vollständig in `_WeatherScreenState`: `UnitToggle` steckt in den
+`actions` der `AppBar`, die Karte im `body` des `Scaffold`.
+
+```dart
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text(widget.city.name),
+      actions: [
+        UnitToggle(
+          useCelsius: _useCelsius,
+          onToggle: () => setState(() => _useCelsius = !_useCelsius),
+        ),
+      ],
+    ),
+    body: SingleChildScrollView(
+      child: CurrentWeatherCard(
+        city: widget.city,
+        weather: widget.weather,
+        useCelsius: _useCelsius,
+      ),
+    ),
+  );
+}
+```
+
+`CurrentWeatherCard` bekommt dafür ein neues Feld `useCelsius` und
+zeigt die Temperatur mit
+`formatTemperature(weather.temperature, useCelsius: useCelsius)` an
+(siehe unten).
+
+`UnitToggle` steht ebenfalls in `ui/weather_screen.dart`. Es ist
+stateless, bekommt den aktuellen Wert und meldet das Antippen über
+`onToggle`:
+
+```dart
+class UnitToggle extends StatelessWidget {
+  const UnitToggle({super.key, required this.useCelsius, required this.onToggle});
+
+  final bool useCelsius;
+  final VoidCallback onToggle;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: onToggle,
+      child: Text(useCelsius ? '°C' : '°F'),
+    );
+  }
+}
+```
+
+`VoidCallback` ist der Typ einer Funktion ohne Parameter und
+Rückgabewert, wie `() -> Unit` in Kotlin.
+
+Die Umrechnung steckt in einer Hilfsfunktion in
+`ui/weather_condition_ui.dart`:
+
+```dart
+String formatTemperature(double celsius, {required bool useCelsius}) =>
+    useCelsius
+    ? '${celsius.round()} °C'
+    : '${(celsius * 9 / 5 + 32).round()} °F';
+```
+
+`useCelsius` ist hier ein benannter Parameter. So ist beim Aufruf klar,
+was `true` bedeutet.
+</DocsOnly>
+
+## Zusammenfassung
+
+<Callout type="info">
+State in Flutter: `StatefulWidget` mit einem `State`-Objekt, das den Wert
+behält, `setState` zum Ändern, State so weit oben wie nötig, Events als
+Callbacks nach oben.
+</Callout>
+
+<DocsOnly>
+| Compose | Flutter |
+|---|---|
+| `remember { mutableStateOf(…) }` | Feld im `State` eines `StatefulWidget` |
+| Zuweisung `useCelsius = …` | `setState(() => _useCelsius = …)` |
+| Recomposition | erneuter Aufruf von `build` |
+| `rememberSaveable` | beim Drehen nicht nötig |
+| State Hoisting | Lifting State Up |
+| `() -> Unit` | `VoidCallback` |
+
+Für einen einzelnen Schalter reicht `setState`. In der nächsten Lektion
+wandert der Zustand des ganzen Screens eine Ebene höher: in ein
+ViewModel.
+
+## Weiterführendes Material
+
+- [Interaktivität und State](https://docs.flutter.dev/ui/interactivity)
+- [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html):
+  API-Dokumentation mit Lebenszyklus
+- [Lifting State Up](https://docs.flutter.dev/get-started/fundamentals/state-management)
+</DocsOnly>

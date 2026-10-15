@@ -1,0 +1,552 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 30 Minuten
+slideGoal: Die Bausteine von Flutter kennenlernen
+slideTopics:
+  - Projekt in VS Code anlegen
+  - Widgets und Hot Reload
+  - Column, Row, Container und SizedBox
+  - Klassen und enum in Dart, Fake-Daten
+  - Scaffold und AppBar
+---
+
+import { Callout } from 'nextra/components'
+
+# Widget-Grundlagen
+
+<DocsOnly>
+Wir bauen die Oberfläche der Wetter-App Schritt für Schritt mit
+Flutter auf. Am Ende dieser Seite zeigt die App das Wetter einer Stadt
+mit Fake-Daten an, genau wie die Android-App nach Schritt 4.
+
+Code: [Repository auf GitHub](https://github.com/behrends/WeatherFlutterTIF24),
+Schritte 0 bis 4.
+
+Codebeispiele mit `// ...` sind gekürzt; der vollständige Code steht im
+Repository unter dem jeweiligen Tag.
+</DocsOnly>
+
+## Flutter und Dart
+
+[Flutter](https://flutter.dev) ist ein Open-Source-Framework von Google
+für Apps auf Android, iOS, Web und Desktop aus einer Codebasis.
+Programmiert wird in [Dart](https://dart.dev).
+
+- Flutter zeichnet die Oberfläche selbst, statt native UI-Elemente zu verwenden
+- dadurch sieht die App auf allen Plattformen gleich aus
+- Dart wird für Android und iOS in nativen Maschinencode kompiliert
+
+<DocsOnly>
+Compose und Flutter verfolgen dasselbe Prinzip: Die Oberfläche wird
+deklarativ als Baum verschachtelter Bausteine beschrieben. Der
+Unterschied liegt darunter: Compose erzeugt eine Android-App, Flutter
+bringt eine eigene Rendering-Engine mit und zeichnet jedes Pixel selbst,
+auf Android, iOS und im Browser.
+
+<Callout type="info">
+Im Oktober 2024 entstand mit [Flock](https://getflocked.dev) ein
+Community-Fork von Flutter, angestoßen von Matt Carroll, einem ehemaligen Mitglied des
+Flutter-Teams ([Hintergrund](https://getflocked.dev/blog/posts/we-are-forking-flutter-this-is-why/)).
+Flock sollte Flutter ergänzen und Fixes schneller ausliefern, nicht ersetzen.
+
+Stand Oktober 2026: Im [Flock-Repository](https://github.com/join-the-flock/flock)
+gibt es seit Dezember 2025 keine neuen Commits, Releases gab es nie.
+Für die Vorlesung und das Projekt verwenden wir das Original von Google.
+</Callout>
+</DocsOnly>
+
+## Projekt in VS Code anlegen
+
+Die Flutter-Dokumentation empfiehlt VS Code mit der Flutter-Extension.
+
+- Extension *Flutter* installieren (bringt *Dart* mit)
+- Command Palette → *Flutter: New Project* → *Empty Application*
+- Projektname: `weather_flutter_tif24`
+- Gerät unten rechts in der Statusleiste wählen, starten mit F5
+
+<DocsOnly>
+Fehlt das Flutter-SDK, bietet die Extension an, es herunterzuladen.
+Unter macOS geht es auch mit Homebrew (`brew install --cask flutter`).
+`flutter doctor` im Terminal zeigt, ob alles eingerichtet ist.
+
+Den Android-Emulator kennen wir schon: Er kommt aus dem *Device Manager*
+von Android Studio. Android Studio muss dafür installiert sein, aber
+nicht laufen. In VS Code erscheint der Emulator in der Geräteauswahl
+(auch über *Flutter: Select Device*). Ohne Emulator läuft die App auch in
+Chrome oder als macOS-App.
+
+Projektnamen in Dart bestehen aus Kleinbuchstaben und Unterstrichen.
+Das Referenz-Repository heißt `WeatherFlutterTIF24`, das Projekt darin
+`weather_flutter_tif24`. Ein Git-Repository legt Flutter nicht an, das
+geht mit `git init` im Projektordner.
+
+<Callout type="info">
+Android Studio mit dem
+[Flutter-Plugin](https://docs.flutter.dev/tools/android-studio)
+funktioniert genauso. Wer dort schon zu Hause ist, kann dabei bleiben.
+In der Vorlesung verwenden wir VS Code, um zu zeigen, dass Flutter an
+keine IDE gebunden ist.
+</Callout>
+
+Ausgangspunkt (`schritt-00`) ist die Vorlage *Empty Application*. In
+`lib/main.dart` bleibt nur das Nötigste übrig:
+
+```dart
+void main() {
+  runApp(const WeatherApp());
+}
+
+class WeatherApp extends StatelessWidget {
+  const WeatherApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Wetter',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+      ),
+      home: const Scaffold(body: SafeArea(child: Placeholder())),
+    );
+  }
+}
+```
+
+`runApp` startet die App mit dem obersten Widget. `MaterialApp` richtet
+Theme und Navigation ein, `home` ist der erste Screen. `Placeholder`
+zeichnet ein durchgestrichenes Rechteck, bis dort echter Inhalt steht.
+
+Zusätzlich liegt im Repository eine Datei `AGENTS.md` mit Regeln für
+Coding Agents (siehe [Navigation und API](./04-navigation-api)).
+</DocsOnly>
+
+## Projektstruktur
+
+Der Dart-Code liegt in `lib/`, nach Aufgaben in Ordner aufgeteilt.
+
+```
+lib/
+├── main.dart
+├── ui/          Screens und Widgets, ViewModels
+├── model/       Datenmodell: City, CurrentWeather
+└── data/        Datenquellen: Fake-Daten, Repositorys
+    └── api/     DTOs für die API (ab Schritt 9)
+pubspec.yaml     Name, Abhängigkeiten, Assets
+android/ ios/ web/  Plattform-Projekte, selten angefasst
+```
+
+<DocsOnly>
+Die Ordner sind dieselben wie in der Android-App. Pfade auf dieser und
+den folgenden Seiten (z. B. `ui/weather_screen.dart`) beziehen sich auf
+`lib/`. Dateinamen schreibt man in Dart in `snake_case`, Klassennamen in
+`PascalCase`. Importiert wird mit relativen Pfaden, z. B.
+`import '../model/city.dart';`.
+
+`pubspec.yaml` entspricht `build.gradle.kts` und
+`libs.versions.toml` zusammen: Hier stehen die Abhängigkeiten (Pakete
+von [pub.dev](https://pub.dev)).
+
+Die Ordner `android/` und `ios/` enthalten echte native Projekte, die
+Flutter beim Bauen verwendet. Angepasst werden sie nur für Dinge wie
+Berechtigungen oder App-Icons.
+
+<Callout type="info">
+**Tipps für VS Code**
+
+| Aktion | macOS | Windows/Linux |
+|---|---|---|
+| Quick Fix, z. B. fehlender Import | ⌘ . | Ctrl+. |
+| Code formatieren (*Format Document*) | ⇧ ⌥ F | Shift+Alt+F |
+| Umbenennen, überall (*Rename Symbol*) | F2 | F2 |
+| Zur Definition springen | ⌘ + Klick | Ctrl+Klick |
+| Parameter einer Funktion anzeigen | ⇧ ⌘ Leertaste | Ctrl+Shift+Leertaste |
+| Command Palette | ⇧ ⌘ P | Ctrl+Shift+P |
+
+Besonders praktisch: Quick Fix auf einem Widget bietet *Wrap with
+Column*, *Wrap with Padding*, *Remove this widget* usw. an. Damit lässt
+sich der Widget-Baum umbauen, ohne Klammern zu zählen.
+
+Snippets sparen Tipparbeit: `stless` + Tab erzeugt ein
+`StatelessWidget`, `stful` + Tab ein `StatefulWidget`.
+
+Formatieren beim Speichern: *Settings → „Format On Save“* aktivieren.
+</Callout>
+</DocsOnly>
+
+## Widgets
+
+In Flutter ist alles ein Widget: Text, Abstände, Layouts, ganze Screens.
+
+<DocsOnly>
+Neue Datei `ui/weather_screen.dart`:
+</DocsOnly>
+
+```dart
+class WeatherScreen extends StatelessWidget {
+  const WeatherScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        Text('Lörrach'),
+        Text('14 °C'),
+      ],
+    );
+  }
+}
+```
+
+<DocsOnly>
+Ein Widget ist eine Klasse. `build` beschreibt, wie es aussieht, und
+gibt genau ein Widget zurück. Mehrere Kinder brauchen deshalb ein Layout
+wie `Column`; das Problem mit überlappenden Texten aus der Android-App
+gibt es so nicht.
+
+Flutter arbeitet wie Compose **deklarativ**: Wir beschreiben, *was*
+angezeigt werden soll. Ändern sich die Daten, ruft Flutter `build` erneut
+auf.
+
+| Compose | Flutter |
+|---|---|
+| Funktion mit `@Composable` | Klasse, die von `StatelessWidget` erbt |
+| Parameter der Funktion | Felder der Klasse, Konstruktor |
+| Inhalt im Funktionsrumpf | Rückgabewert von `build` |
+| `Column { … }` (Trailing Lambda) | `Column(children: [ … ])` |
+| `modifier` | eigene Widgets und Eigenschaften (siehe unten) |
+
+Konventionen für Widgets:
+
+- `const`-Konstruktor mit `{super.key}`: `key` brauchen wir erst bei
+  Listen, er gehört aber zur Konvention
+- Felder sind `final`, ein Widget ist unveränderlich
+- `const` vor einem Widget sagt Flutter, dass es sich nie ändert; es
+  wird nur einmal erzeugt
+
+Damit `WeatherScreen` erscheint, setzt `main.dart` es statt des
+`Placeholder` ein:
+
+```dart
+home: const Scaffold(body: SafeArea(child: WeatherScreen())),
+```
+
+`SafeArea` hält den Inhalt aus Statusleiste und Kamera-Aussparung heraus,
+wie `safeDrawingPadding()` in Compose.
+</DocsOnly>
+
+<SlideBreak />
+
+**Hot Reload:** Speichern genügt, die Änderung ist in unter einer Sekunde im laufenden Emulator.
+
+- Hot Reload (Speichern): Code neu laden, State bleibt erhalten
+- Hot Restart (⇧ ⌘ F5): App neu starten, State geht verloren
+- neuer Build nötig bei Änderungen an `pubspec.yaml` oder nativem Code
+
+<DocsOnly>
+Hot Reload übernimmt die Rolle der `@Preview` in Android Studio, nur
+direkt im Emulator und mit echter Interaktion. Am besten ausprobieren:
+Text ändern, speichern, Ergebnis ansehen.
+
+Manche Änderungen kommen mit Hot Reload nicht an, z. B. neue
+Startwerte von State oder Änderungen in `main()`. Dann hilft
+Hot Restart.
+
+<Callout type="info">
+Seit Flutter 3.35 gibt es auch
+[Widget Previews](https://docs.flutter.dev/tools/widget-previews) ähnlich
+wie `@Preview` in Compose. Sie sind noch experimentell; in dieser Lektion
+verwenden wir Hot Reload.
+</Callout>
+
+Code: [`schritt-01`](https://github.com/behrends/WeatherFlutterTIF24/tree/schritt-01) ·
+[Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-00...schritt-01)
+</DocsOnly>
+
+## Layouts: Column, Row, Container
+
+Widgets werden mit Layout-Widgets angeordnet.
+
+- `Column`: untereinander
+- `Row`: nebeneinander
+- `Stack`: übereinander
+- `Container`: Hintergrund, Rahmen, Abstände um ein Kind
+- `SizedBox`: fester Abstand, `Spacer`: freier Platz
+
+<SlideBreak />
+
+Die Verschachtelung im Code entspricht der Verschachtelung auf dem Bildschirm.
+
+![Layout als verschachtelte Boxen: Bildschirm und Code haben denselben Aufbau](/images/mobile/flutter/layout-baum.svg)
+
+<SlideBreak />
+
+```dart
+Column(
+  mainAxisSize: MainAxisSize.min,
+  children: [
+    Text('Lörrach', style: TextStyle(fontSize: 28)),
+    Text('⛅', style: TextStyle(fontSize: 72)),
+    Text('14 °C', style: TextStyle(fontSize: 48)),
+    SizedBox(height: 16),
+    Row(children: [Text('Wind: 8 km/h'), Spacer(), Text('Teilweise bewölkt')]),
+  ],
+)
+```
+
+<DocsOnly>
+Dieser Code steckt in einem neuen Widget `CurrentWeatherCard`, ebenfalls
+in `ui/weather_screen.dart`. `WeatherScreen` gibt nur noch
+`const CurrentWeatherCard()` zurück.
+
+`Column` und `Row` zentrieren ihre Kinder quer zur Hauptachse
+standardmäßig. Entlang der Hauptachse nimmt eine `Column` so viel Platz
+ein wie möglich; `mainAxisSize: MainAxisSize.min` macht sie so klein wie
+ihr Inhalt.
+
+`Spacer()` nimmt den gesamten freien Platz in der `Row` ein und schiebt
+so den zweiten Text an den rechten Rand, wie `Spacer(Modifier.weight(1f))`
+in Compose.
+
+Größen sind *logische Pixel*, das entspricht `dp`. Eine eigene Einheit
+für Schrift wie `sp` gibt es nicht: Flutter skaliert Text automatisch mit
+der Schriftgröße aus den Systemeinstellungen.
+
+Im Repository steht die `Row` über mehrere Zeilen, so wie sie der
+Formatierer (`dart format`) anordnet. Seit Dart 3.7 entscheidet er
+selbst nach der Zeilenlänge, ob ein Aufruf in eine oder mehrere Zeilen
+kommt, und setzt oder entfernt die abschließenden Kommas passend.
+Speichern genügt, von Hand formatieren muss man nichts.
+</DocsOnly>
+
+## Abstände und Hintergrund
+
+Einen `Modifier` gibt es nicht. Abstände und Hintergrund sind Eigenschaften von `Container` oder eigene Widgets wie `Padding`.
+
+```dart
+Container(
+  width: double.infinity,
+  margin: const EdgeInsets.all(16),   // außen
+  padding: const EdgeInsets.all(24),  // innen
+  decoration: BoxDecoration(
+    color: const Color(0xFFBBDEFB),
+    borderRadius: BorderRadius.circular(24),
+  ),
+  child: const Column(/* von oben */),
+)
+```
+
+<DocsOnly>
+Anders als bei Modifiern in Compose spielt die Reihenfolge der
+Argumente keine Rolle: `margin` ist immer außen, `padding` immer innen.
+Dafür wird der Baum tiefer, sobald mehrere Widgets ineinander stecken,
+z. B. `Padding(padding: …, child: Center(child: …))`.
+
+`width: double.infinity` entspricht `fillMaxWidth()`: so breit wie der
+verfügbare Platz.
+
+Am besten mit Hot Reload ausprobieren: `margin` oder `padding` ändern
+oder entfernen und den Unterschied ansehen.
+
+Code: [`schritt-02`](https://github.com/behrends/WeatherFlutterTIF24/tree/schritt-02) ·
+[Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-01...schritt-02)
+</DocsOnly>
+
+## Datenmodell mit Klassen
+
+Statt fester Texte bekommen Widgets nun Daten über den Konstruktor.
+
+```dart
+class City {
+  const City({
+    required this.name,
+    required this.latitude,
+    required this.longitude,
+  });
+
+  final String name;
+  final double latitude;
+  final double longitude;
+}
+```
+
+<DocsOnly>
+Neue Dateien `model/city.dart` und `model/current_weather.dart` im neuen
+Ordner `model`.
+
+Eine `data class` wie in Kotlin gibt es in Dart nicht. Wir schreiben
+eine normale Klasse mit `final`-Feldern und einem `const`-Konstruktor.
+`{ … }` macht die Parameter zu **benannten Parametern**, `required`
+macht sie zu Pflichtangaben. Aufgerufen wird mit Namen, wie in Kotlin:
+`City(name: 'Lörrach', latitude: 47.6156, longitude: 7.6614)`.
+`equals` und `copy` erzeugt Dart nicht automatisch; wir brauchen sie hier
+auch nicht.
+
+`CurrentWeather` ist genauso aufgebaut (`temperature`, `windSpeed`,
+`condition`). Für die Wetterlage gibt es ein `enum`, Werte in
+`lowerCamelCase`:
+
+```dart
+enum WeatherCondition { clear, partlyCloudy, cloudy, fog, rain, snow, thunderstorm }
+```
+
+Die Koordinaten in `City` brauchen wir erst in Schritt 9 für die API.
+
+Die Fake-Daten liegen in `data/fake_data.dart` im neuen Ordner `data`:
+
+```dart
+const fakeCities = [
+  City(name: 'Lörrach', latitude: 47.6156, longitude: 7.6614),
+  // ... Freiburg, Basel
+];
+
+const fakeCurrentWeather = {
+  'Lörrach': CurrentWeather(
+    temperature: 14.2,
+    windSpeed: 8.5,
+    condition: WeatherCondition.partlyCloudy,
+  ),
+  // ... Freiburg, Basel
+};
+```
+
+Listen (`[…]`) und Maps (`{…}`) haben in Dart eigene Literale. Die Typen
+`List<City>` und `Map<String, CurrentWeather>` leitet Dart ab.
+
+Vollständig:
+[`fake_data.dart`](https://github.com/behrends/WeatherFlutterTIF24/blob/schritt-03/lib/data/fake_data.dart)
+
+<Callout type="info">
+**Dart für Kotlin-Kenner:** Vieles ist ähnlich, z. B. Null-Safety mit
+`String?`, `?.` und `!`, Extension Methods oder String-Templates mit
+`'$name'` bzw. `'${city.name}'`. Unterschiede: Semikolons sind Pflicht,
+der Typ steht vor dem Namen (`final String name`), Strings meist in
+einfachen Anführungszeichen, und `_` am Namensanfang macht etwas
+privat (statt `private`).
+</Callout>
+</DocsOnly>
+
+<SlideBreak />
+
+Widgets sollten Daten über den Konstruktor erhalten und sie nicht eigenständig holen.
+
+```dart
+class CurrentWeatherCard extends StatelessWidget {
+  const CurrentWeatherCard({super.key, required this.city, required this.weather});
+
+  final City city;
+  final CurrentWeather weather;
+
+  @override
+  Widget build(BuildContext context) {
+    // Container und Column wie bisher, die Texte jetzt aus den Daten:
+    // Text(city.name), Text(weather.condition.emoji), ...
+  }
+}
+```
+
+<DocsOnly>
+Weil die Texte jetzt aus Variablen kommen, entfällt das `const` vor der
+`Column`; nur die festen `TextStyle`s bleiben `const`.
+
+Die Anzeige der Wetterlage ist eine Extension mit einem
+`switch`-Ausdruck in `ui/weather_condition_ui.dart`. Sie gehört zur UI,
+nicht ins Datenmodell:
+
+```dart
+extension WeatherConditionUi on WeatherCondition {
+  String get emoji => switch (this) {
+    WeatherCondition.clear => '☀️',
+    WeatherCondition.partlyCloudy => '⛅',
+    // ...
+  };
+}
+```
+
+Wie `when` in Kotlin muss der `switch`-Ausdruck alle Werte des `enum`
+abdecken. Kommt ein neuer Wert hinzu, meldet der Analyzer jede Stelle,
+die angepasst werden muss. `emoji` ist ein Getter (`get`), deshalb steht
+beim Aufruf keine Klammer: `weather.condition.emoji`. Nach demselben
+Muster liefert `label` den Text („Sonnig“, „Regen“ …).
+
+Auch `WeatherScreen` bekommt `city` und `weather` über den Konstruktor
+und reicht sie an die Karte weiter. `main.dart` übergibt die Fake-Daten:
+
+```dart
+WeatherScreen(
+  city: fakeCities.first,
+  weather: fakeCurrentWeather[fakeCities.first.name]!,
+)
+```
+
+Der Zugriff auf eine `Map` liefert `CurrentWeather?`, weil es den
+Schlüssel vielleicht nicht gibt. `!` sagt: Hier ist der Wert sicher da.
+Fehlt er doch, stürzt die App ab, wie mit `getValue` in Kotlin.
+
+Code: [`schritt-03`](https://github.com/behrends/WeatherFlutterTIF24/tree/schritt-03) ·
+[Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-02...schritt-03)
+</DocsOnly>
+
+## Scaffold und AppBar
+
+Flutter bringt die Widgets von **Material Design 3** mit. `Scaffold` ist das Grundgerüst eines Screens, z. B. mit einer `AppBar`.
+
+```dart
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(title: Text(city.name)),
+    body: SingleChildScrollView(
+      child: CurrentWeatherCard(city: city, weather: weather),
+    ),
+  );
+}
+```
+
+<DocsOnly>
+Das `Scaffold` wandert aus `main.dart` in `WeatherScreen`. `main.dart`
+setzt `WeatherScreen` jetzt direkt als `home` ein, ohne `Scaffold` und
+`SafeArea`:
+
+```dart
+home: WeatherScreen(
+  city: fakeCities.first,
+  weather: fakeCurrentWeather[fakeCities.first.name]!,
+),
+```
+
+Ein `innerPadding` wie in Compose gibt es nicht: Das `Scaffold` legt
+`body` automatisch unter die `AppBar`, und die `AppBar` berücksichtigt die
+Statusleiste selbst. Für den oberen Rand ist `SafeArea` deshalb nicht
+mehr nötig. Seitliche Aussparungen im Querformat schützt die `AppBar`
+nicht; bei Inhalten bis an den Rand hilft dort weiterhin `SafeArea`.
+
+`SingleChildScrollView` macht den Inhalt scrollbar, wenn er nicht auf
+den Bildschirm passt. Im Querformat ist die Karte höher als der freie
+Platz; ohne Scrollen zeigt Flutter einen gelb-schwarz gestreiften
+Balken (*Overflow*). Anders als in Compose scrollt in Flutter nichts von
+selbst, und zu große Inhalte werden nicht stillschweigend
+abgeschnitten.
+
+Die `AppBar` folgt den Konventionen der Plattform: Auf Android steht
+der Titel links, auf iOS mittig.
+
+Die Karte behält vorerst ihre feste Farbe und Schriftgrößen. Farben und
+Schriften aus dem Theme, `Card` und Dark Mode kommen am Ende dazu (siehe
+[Material 3](./05-material)).
+
+Code: [`schritt-04`](https://github.com/behrends/WeatherFlutterTIF24/tree/schritt-04) ·
+[Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-03...schritt-04)
+</DocsOnly>
+
+<DocsOnly>
+## Weiterführendes Material
+
+- [Flutter einrichten](https://docs.flutter.dev/get-started/quick)
+- [Flutter für Android-Entwickler](https://docs.flutter.dev/get-started/flutter-for/android-devs):
+  Vergleich mit Compose und Views
+- [Layouts in Flutter](https://docs.flutter.dev/ui/layout)
+- [Widget-Katalog](https://docs.flutter.dev/ui/widgets)
+- [Hot Reload](https://docs.flutter.dev/tools/hot-reload)
+- [Dart-Sprachtour](https://dart.dev/language)
+</DocsOnly>

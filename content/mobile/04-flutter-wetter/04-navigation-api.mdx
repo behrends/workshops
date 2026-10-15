@@ -1,0 +1,455 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 40 Minuten
+slideGoal: Eine Liste anzeigen, Screens verbinden und echte Daten mit einem Coding Agent anbinden
+slideTopics:
+  - Listen mit ListView
+  - Navigation mit Navigator.push
+  - Laden beim Öffnen eines Screens
+  - API-Anbindung mit einem Coding Agent
+  - Paket http und JSON
+---
+
+import { Callout } from 'nextra/components'
+
+# Navigation und API
+
+<DocsOnly>
+Die App bekommt eine Städteliste, die wir mit dem `Navigator` und der
+Wetteranzeige verbinden. Danach ersetzen wir die Fake-Daten durch echte
+Wetterdaten. Die API-Anbindung übernimmt ein Coding Agent; unsere
+Aufgabe ist, seinen Plan und seinen Code zu prüfen.
+</DocsOnly>
+
+## Listen mit ListView
+
+`ListView.builder` erzeugt Einträge erst, wenn sie sichtbar werden. Damit bleiben auch lange Listen performant.
+
+```dart
+ListView.separated(
+  itemCount: cities.length,
+  itemBuilder: (context, index) {
+    final city = cities[index];
+    return ListTile(
+      title: Text(city.name),
+      onTap: () { /* Navigation, siehe unten */ },
+    );
+  },
+  separatorBuilder: (context, index) => const Divider(height: 1),
+)
+```
+
+<DocsOnly>
+Neue Datei `ui/city_list_screen.dart`. `CityListScreen` ist ein
+`StatelessWidget` mit dem Feld `cities` und einem `Scaffold` mit
+`AppBar(title: const Text('Städte'))`; `main.dart` setzt
+`const CityListScreen(cities: fakeCities)` als `home` ein.
+
+`ListView.separated` ist eine Variante von `ListView.builder`, die
+zwischen zwei Einträgen einen Trenner einfügt, hier einen `Divider`.
+Ein `ListView(children: [...])` würde wie eine `Column` alle Einträge
+auf einmal erzeugen. Für wenige, feste Elemente reicht das, für lange
+Listen nicht.
+
+`ListTile` ist die fertige Material-Zeile mit Titel, Untertitel und
+`onTap`, wie `ListItem` in Compose. Jeder Eintrag zeigt zusätzlich die
+Koordinaten:
+
+```dart
+subtitle: Text(
+  '${city.latitude.toStringAsFixed(2)}° N, '
+  '${city.longitude.toStringAsFixed(2)}° O',
+),
+```
+
+Zwei String-Literale direkt hintereinander verbindet Dart automatisch.
+
+Einen `key` wie in der `LazyColumn` braucht die Liste nicht, solange sie
+sich nicht ändert. Bei veränderlichen Listen hilft ein `ValueKey`
+Flutter, Einträge wiederzuerkennen.
+</DocsOnly>
+
+## Navigation mit Navigator
+
+Der `Navigator` verwaltet einen Stapel von Screens (Routes).
+
+- Navigieren: Route auf den Stapel legen, `Navigator.push(…)`
+- Zurück: oberste Route entfernen, `Navigator.pop(context)`
+- Angezeigt wird immer die oberste Route
+
+```dart
+onTap: () => Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => WeatherScreen(city: city)),
+),
+```
+
+<DocsOnly>
+`MaterialApp` bringt den `Navigator` schon mit, eine zusätzliche
+Abhängigkeit braucht es nicht. `Navigator.push` findet ihn über den
+`context`, die Position des Widgets im Baum. `MaterialPageRoute` erzeugt
+den Screen und animiert den Übergang passend zur Plattform.
+
+Der Zurück-Pfeil in der `AppBar` erscheint automatisch, sobald eine
+Route unter der aktuellen liegt. Zurück-Pfeil und Zurück-Geste des
+Systems rufen beide `Navigator.pop` auf.
+
+Anders als bei Navigation 3 ist der Stapel hier kein State der App,
+sondern steckt im `Navigator`. Navigiert wird **imperativ** mit
+Befehlen wie `push` und `pop`. Für Deep Links oder Web-URLs gibt es
+zusätzlich eine deklarative Variante; am bekanntesten ist das Paket
+[go_router](https://pub.dev/packages/go_router), das Routen als Pfade wie
+`/city/loerrach` beschreibt. Für unsere zwei Screens reicht `push`.
+
+| Navigation 3 (Compose) | Navigator (Flutter) |
+|---|---|
+| Back Stack als Liste im State | Stapel im `Navigator` |
+| `backStack.add(CityWeather(city))` | `Navigator.push(context, MaterialPageRoute(…))` |
+| `backStack.removeLastOrNull()` | `Navigator.pop(context)` |
+| Routen als `@Serializable`-Typen | Route mit `builder`, Argumente über den Konstruktor |
+| Zurück-Pfeil selbst einbauen | Zurück-Pfeil automatisch |
+
+Hier navigiert `CityListScreen` selbst. In der Android-App entscheidet
+der Aufrufer über `onCityClick`; das ginge auch hier, wäre aber für eine
+App mit zwei Screens mehr Code, als es nützt.
+</DocsOnly>
+
+## Laden beim Öffnen
+
+Jeder Wetter-Screen erzeugt sein eigenes ViewModel und lädt das Wetter in `initState`.
+
+```dart
+class _WeatherScreenState extends State<WeatherScreen> {
+  final _viewModel = WeatherViewModel();
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel.loadWeather(widget.city);
+  }
+  // dispose() und build() wie bisher
+}
+```
+
+<DocsOnly>
+`WeatherScreen` und `WeatherContent` bekommen dafür ein neues Feld
+`City city`. Statt „Wetter“ zeigt die `AppBar` jetzt `city.name`; so
+steht der Name der Stadt schon während des Ladens da.
+
+`initState` wird einmal aufgerufen, wenn der `State` entsteht, also beim
+Öffnen des Screens. Der Konstruktor des `WeatherViewModel`, der bisher
+Lörrach geladen hat, lädt deshalb nichts mehr.
+
+Das ist sauberer als in der Android-App, wo ein gemeinsames ViewModel
+beim Antippen geladen wird: Das ViewModel lebt genau so lange wie der
+Screen. Wechselt man schnell zwischen Städten, kann keine alte Antwort
+im neuen Screen landen.
+
+<Callout type="warning">
+Eine Stolperfalle bleibt: Verlässt man den Screen, während noch geladen
+wird, gibt `dispose()` das ViewModel frei. Kommt die Antwort danach an,
+ruft `loadWeather` `notifyListeners()` auf einem freigegebenen
+`ChangeNotifier` auf, und Flutter meldet im Debug-Modus einen Fehler
+(„A WeatherViewModel was used after being disposed“). Ein `Future` lässt
+sich nicht abbrechen. Deshalb merkt sich das ViewModel, ob es
+freigegeben wurde:
+
+```dart
+bool _disposed = false;
+
+@override
+void dispose() {
+  _disposed = true;
+  super.dispose();
+}
+
+// am Ende von loadWeather:
+if (!_disposed) notifyListeners();
+```
+
+Nachstellen: die Abfrage `if (!_disposed)` entfernen, eine Stadt öffnen
+und sofort zurückgehen.
+</Callout>
+
+Code: [`schritt-08`](https://github.com/behrends/WeatherFlutterTIF24/tree/schritt-08) ·
+[Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-07...schritt-08)
+</DocsOnly>
+
+## API-Anbindung mit einem Coding Agent
+
+Aufgabe für den Agent: ein `ApiWeatherRepository` für Open-Meteo bauen und im ViewModel einsetzen.
+
+- Plan anfordern und prüfen, bevor Code entsteht
+- umsetzen lassen, `flutter analyze`, App testen
+- Diff lesen und erklären können
+- erst dann committen
+
+<DocsOnly>
+Die Datei `AGENTS.md` im Repository gibt dem Agent Regeln vor, z. B.
+das Paket `http` statt Dio, kein Provider/Riverpod, kein Code-Generator,
+die UI nicht anfassen, nicht selbst committen. Gängige Agents lesen sie
+automatisch, z. B. Claude Code oder GitHub Copilot in VS Code.
+
+Hinein gehört nur, was der Agent nicht aus dem Code ablesen kann:
+Abweichungen vom Üblichen und Regeln für die Zusammenarbeit. Eine
+Beschreibung des Projekts oder der Architektur hilft dagegen kaum, denn
+der Agent liest den Code ohnehin. Jede Zeile kostet bei jeder Anfrage
+Tokens.
+
+Ein möglicher Prompt:
+
+> Baue ein `ApiWeatherRepository`, das das aktuelle
+> Wetter einer Stadt von Open-Meteo lädt (Temperatur, Wettercode,
+> Windgeschwindigkeit; Koordinaten aus `City`). Setze es als
+> Default im `WeatherViewModel` ein. Zeig mir zuerst deinen Plan.
+
+Die API braucht keinen Schlüssel. Eine Antwort lässt sich vorab im
+Browser ansehen:
+[api.open-meteo.com/v1/forecast?latitude=47.62&longitude=7.66&current=temperature_2m,weather_code,wind_speed_10m](https://api.open-meteo.com/v1/forecast?latitude=47.62&longitude=7.66&current=temperature_2m,weather_code,wind_speed_10m)
+</DocsOnly>
+
+## Das Paket http
+
+Pakete kommen von [pub.dev](https://pub.dev) und werden mit `flutter pub add` eingebunden.
+
+<SlideOnly>
+```dart
+final uri = Uri.https('api.open-meteo.com', '/v1/forecast', {
+  'latitude': '${city.latitude}',
+  'longitude': '${city.longitude}',
+  'current': 'temperature_2m,weather_code,wind_speed_10m',
+});
+final response = await _client.get(uri);
+if (response.statusCode != 200) {
+  throw Exception('HTTP-Fehler ${response.statusCode}');
+}
+final json = jsonDecode(utf8.decode(response.bodyBytes));
+return ForecastResponse.fromJson(json).current.toCurrentWeather();
+```
+</SlideOnly>
+
+<DocsOnly>
+```dart
+@override
+Future<CurrentWeather> getCurrentWeather(City city) async {
+  final uri = Uri.https('api.open-meteo.com', '/v1/forecast', {
+    'latitude': '${city.latitude}',
+    'longitude': '${city.longitude}',
+    'current': 'temperature_2m,weather_code,wind_speed_10m',
+    'timezone': 'auto',
+  });
+  final response = await _client.get(uri);
+  if (response.statusCode != 200) {
+    throw Exception('HTTP-Fehler ${response.statusCode}');
+  }
+  final json = jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+  return ForecastResponse.fromJson(json).current.toCurrentWeather();
+}
+```
+
+Neue Datei `data/api_weather_repository.dart`. Die Methode gehört zur
+Klasse `ApiWeatherRepository implements WeatherRepository`, die einen
+`http.Client` als optionalen Parameter bekommt, wie das ViewModel sein
+Repository. Was der Agent im Referenz-Repository außerdem geändert hat:
+
+- `flutter pub add http` trägt das Paket in `pubspec.yaml` ein
+  (`http: ^1.6.0`) und lädt es herunter.
+- `INTERNET`-Permission in `android/app/src/main/AndroidManifest.xml`:
+
+```xml
+<uses-permission android:name="android.permission.INTERNET"/>
+```
+
+<Callout type="warning">
+Ohne diese Zeile funktioniert die App beim Entwickeln trotzdem, weil
+Flutter die Permission im Debug-Build automatisch ergänzt
+(`android/app/src/debug/AndroidManifest.xml`). Erst die Release-APK
+lädt dann nichts mehr. Ein typischer Fehler, der beim Review auffallen
+sollte.
+</Callout>
+
+Anders als Ktor wirft `http` bei HTTP-Fehlern (4xx, 5xx) keine
+Exception. Deshalb prüft der Code `statusCode` selbst.
+
+`jsonDecode` aus `dart:convert` macht aus dem JSON-Text eine
+`Map<String, dynamic>`. `dynamic` heißt: Typ unbekannt, erst zur
+Laufzeit geprüft. Die Umwandlung in typisierte Objekte übernehmen die
+DTOs. `utf8.decode(response.bodyBytes)` sorgt dafür, dass Umlaute
+richtig ankommen, auch wenn der Server keinen Zeichensatz angibt.
+
+Alternative zu `http` ist [Dio](https://pub.dev/packages/dio) mit mehr
+Komfort, z. B. Interceptors. Gute Übung: den Agent fragen, wie dasselbe
+mit Dio aussähe, und die beiden Varianten vergleichen.
+</DocsOnly>
+
+## DTO und Datenmodell
+
+Die JSON-Antwort bekommt eigene Klassen (DTOs). Sie werden auf unser Datenmodell abgebildet.
+
+```dart
+class CurrentDto {
+  // const-Konstruktor und final-Felder ...
+
+  factory CurrentDto.fromJson(Map<String, dynamic> json) => CurrentDto(
+    temperature: (json['temperature_2m'] as num).toDouble(),
+    weatherCode: json['weather_code'] as int,
+    windSpeed: (json['wind_speed_10m'] as num).toDouble(),
+  );
+}
+```
+
+<DocsOnly>
+Die DTOs stehen in der neuen Datei `data/api/open_meteo_dto.dart`.
+`CurrentDto` steckt in einer Hülle `ForecastResponse` für die gesamte
+Antwort, weil die API die Werte im Feld `current` liefert.
+
+Ein `factory`-Konstruktor erzeugt das Objekt nicht direkt, sondern gibt
+es zurück. `fromJson` ist die übliche Konvention dafür. Anders als mit
+`@Serializable` in Kotlin schreiben wir die Zuordnung von Hand; JSON-Zahlen
+kommen als `num` (`14` oder `14.2`), deshalb `toDouble()`. Das Paket
+[json_serializable](https://pub.dev/packages/json_serializable) erzeugt
+diesen Code automatisch, braucht dafür aber einen Code-Generator.
+`AGENTS.md` schließt das für diese App aus.
+
+Eine Extension in `api_weather_repository.dart` bildet das DTO auf das
+Datenmodell ab:
+
+```dart
+extension on CurrentDto {
+  CurrentWeather toCurrentWeather() => CurrentWeather(
+    temperature: temperature,
+    windSpeed: windSpeed,
+    condition: _weatherConditionFromWmoCode(weatherCode),
+  );
+}
+```
+
+Eine Extension ohne Namen ist nur in ihrer Datei sichtbar, wie eine
+`private`-Erweiterungsfunktion in Kotlin.
+
+Warum nicht gleich `CurrentWeather.fromJson`? Weil das Datenmodell dann
+vom Format der API abhängt. Mit DTOs bleibt eine Änderung der API auf die
+Datenschicht beschränkt; die Oberfläche merkt nichts davon.
+
+Die Wetterlage liefert die API als Zahl (WMO-Code). Ein `switch` mit
+Patterns bildet sie auf `WeatherCondition` ab:
+
+```dart
+WeatherCondition _weatherConditionFromWmoCode(int code) => switch (code) {
+  0 => WeatherCondition.clear,
+  1 || 2 => WeatherCondition.partlyCloudy,
+  3 => WeatherCondition.cloudy,
+  45 || 48 => WeatherCondition.fog,
+  (>= 51 && <= 67) || (>= 80 && <= 82) => WeatherCondition.rain,
+  (>= 71 && <= 77) || 85 || 86 => WeatherCondition.snow,
+  >= 95 && <= 99 => WeatherCondition.thunderstorm,
+  _ => WeatherCondition.cloudy,
+};
+```
+
+`||` verbindet Alternativen, `>= 51 && <= 67` ist ein Bereich wie
+`in 51..67` in Kotlin, `_` entspricht `else`.
+</DocsOnly>
+
+## Der Nutzen der Architektur
+
+Für echte Daten wurde kein einziges Widget geändert.
+
+```
+$ git diff --stat schritt-08 schritt-09
+ android/app/src/main/AndroidManifest.xml |  2 ++
+ lib/data/api/open_meteo_dto.dart         | 31 ++++++++++
+ lib/data/api_weather_repository.dart     | 52 ++++++++++++++++
+ lib/ui/weather_view_model.dart           |  4 +-
+ pubspec.lock                             | 32 ++++++++++
+ pubspec.yaml                             |  1 +
+```
+
+<DocsOnly>
+Im ViewModel hat sich nur der Default geändert:
+
+```dart
+WeatherViewModel({WeatherRepository? repository})
+  : _repository = repository ?? ApiWeatherRepository();
+```
+
+`pubspec.lock` hält die genauen Versionen aller Pakete fest, auch der
+indirekten. Die Datei gehört bei Apps ins Repository, damit alle mit
+denselben Versionen bauen.
+
+Fehler wie fehlendes Internet landen automatisch im Zustand
+`WeatherError`, weil das ViewModel die Exceptions des Repositorys
+bereits abfängt.
+
+Ein Blick beim Review lohnt sich trotzdem: Angezeigt wird `'$e'`, und
+das kommt jetzt vom Paket `http`, z. B. „ClientException with
+SocketException: Failed host lookup …“. Das ist Englisch und für Nutzer
+unverständlich, obwohl `AGENTS.md` deutsche Texte verlangt. Am
+einfachsten im Emulator mit Flugmodus ausprobieren (siehe Übungen).
+
+Code: [`schritt-09`](https://github.com/behrends/WeatherFlutterTIF24/tree/schritt-09) ·
+[Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-08...schritt-09)
+</DocsOnly>
+
+## Übungen
+
+Selbst oder mit einem Coding Agent umsetzen, jeweils Plan und Diff prüfen.
+
+- Stadtsuche über die Geocoding-API von Open-Meteo
+- 7-Tage-Vorhersage im Wetter-Screen
+- Button „Erneut versuchen“ bei Fehlern
+- Pull-to-Refresh im Wetter-Screen
+- Unit-Tests für das ViewModel mit `FakeWeatherRepository`
+
+<DocsOnly>
+Hinweise zu den Übungen:
+
+- **Stadtsuche:** Endpunkt
+  `https://geocoding-api.open-meteo.com/v1/search?name=…&count=5&language=de`.
+  Die Städteliste wird dafür zu State in einem eigenen ViewModel, und
+  `CityListScreen` wird zum `StatefulWidget`, das ViewModel und einen
+  `TextEditingController` für das Suchfeld besitzt (beide in `dispose()`
+  freigeben). Fehlt das Feld `results` in der Antwort, wurde nichts
+  gefunden. Negative Koordinaten (Süd, West) sollten als „33.87° S“
+  statt „-33.87° N“ erscheinen. Wer schnell hintereinander sucht, kann
+  Antworten in falscher Reihenfolge bekommen; eine laufende Nummer pro
+  Suche verhindert, dass eine ältere Antwort die neuere überschreibt.
+  Eine Referenzlösung liegt im Tag
+  [`schritt-11`](https://github.com/behrends/WeatherFlutterTIF24/tree/schritt-11)
+  ([Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-10...schritt-11)).
+  Statt einer eigenen `UiState`-Klasse hält das ViewModel dort mehrere
+  Felder (`cities`, `searchResults`, `isSearching`, `errorMessage`),
+  weil diese Zustände gleichzeitig auftreten können.
+  Weiterführend, nicht in der Referenzlösung: Mehrere Städte heißen
+  gleich (es gibt mehrere „Hamburg“). Die Felder `admin1` (Bundesland)
+  und `country` der Antwort unterscheiden sie in der Trefferliste, dafür
+  braucht `City` weitere Felder.
+- **7-Tage-Vorhersage:** Parameter `daily=weather_code,temperature_2m_max,temperature_2m_min`,
+  neues Datenmodell `DailyForecast`, Liste im Wetter-Screen.
+- **Erneut versuchen:** `WeatherContent` bekommt einen Callback
+  `onRetry`, `_WeatherScreenState` übergibt
+  `() => _viewModel.loadWeather(widget.city)`.
+- **Pull-to-Refresh:** `RefreshIndicator` um den Inhalt legen;
+  `onRefresh` erwartet ein `Future`, `loadWeather` liefert eines. Der
+  Inhalt muss dafür scrollbar sein, z. B. ein `ListView`.
+- **Fehlermeldungen auf Deutsch:** Im ViewModel statt `'$e'` eigene Texte
+  setzen, z. B. bei `http.ClientException` (kein Netz) „Keine
+  Internetverbindung“, sonst „Wetterdaten konnten nicht geladen werden“.
+- **Unit-Tests:** Tests liegen in `test/` und laufen mit `flutter test`;
+  `flutter_test` ist schon eingebunden. `formatTemperature` lässt sich
+  direkt testen. Für das ViewModel mit `FakeWeatherRepository` genügt
+  `await viewModel.loadWeather(city)` und danach eine Prüfung von
+  `viewModel.uiState`. Einen Main-Dispatcher wie in Android gibt es
+  nicht.
+
+## Weiterführendes Material
+
+- [Listen](https://docs.flutter.dev/cookbook/lists/long-lists)
+- [Navigation und Routing](https://docs.flutter.dev/ui/navigation)
+- [go_router](https://pub.dev/packages/go_router)
+- [Daten aus dem Internet laden](https://docs.flutter.dev/cookbook/networking/fetch-data)
+- [JSON in Flutter](https://docs.flutter.dev/data-and-backend/serialization/json)
+- [Open-Meteo API](https://open-meteo.com/en/docs)
+- [Datenschicht im Architektur-Leitfaden](https://docs.flutter.dev/app-architecture/guide#data-layer)
+</DocsOnly>

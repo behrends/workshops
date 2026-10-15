@@ -1,0 +1,355 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 20 Minuten
+slideGoal: Zustand und Daten sauber von der Oberfläche trennen
+slideTopics:
+  - MVVM-Schichten
+  - UiState als sealed class
+  - ViewModel mit ChangeNotifier
+  - ListenableBuilder
+  - Repository und async/await
+---
+
+import { Callout } from 'nextra/components'
+
+# ViewModel und Architektur
+
+<DocsOnly>
+Bisher stecken die Daten direkt im Code der Oberfläche. Für echte Daten
+aus dem Netz braucht die App eine klare Aufteilung: Wer lädt die Daten,
+wer hält den Zustand, wer zeigt ihn an? Dafür verwenden wir wie in der
+Android-App das Architekturmuster **MVVM** (Model, View, ViewModel).
+Auch der
+[Architektur-Leitfaden von Flutter](https://docs.flutter.dev/app-architecture)
+empfiehlt MVVM, umgesetzt mit Bordmitteln von Flutter, ohne zusätzliche
+Pakete.
+</DocsOnly>
+
+## MVVM-Schichten
+
+Jede Schicht hat eine Aufgabe und kennt nur die Schicht darunter.
+
+![MVVM-Schichten der Wetter-App](/images/mobile/flutter/mvvm-schichten.svg)
+
+<DocsOnly>
+- **UI** (Widgets): zeigt den Zustand an und meldet Events
+- **ViewModel**: hält den Zustand des Screens und reagiert auf Events
+- **Repository**: liefert Daten, egal ob aus Fake-Daten, Datenbank oder Netz
+
+Das ViewModel liegt im Ordner `ui/`, neben dem Screen, zu dem es gehört.
+
+Der Clou: Das Repository ist ein Interface. In Schritt 7 steckt dahinter
+eine Fake-Implementierung, in Schritt 9 die echte API. UI und ViewModel
+merken davon nichts.
+</DocsOnly>
+
+## UiState als sealed class
+
+Der Screen ist immer in genau einem von drei Zuständen.
+
+```dart
+sealed class WeatherUiState {
+  const WeatherUiState();
+}
+
+class WeatherLoading extends WeatherUiState { /* ... */ }
+
+class WeatherSuccess extends WeatherUiState {
+  const WeatherSuccess(this.city, this.weather);
+  final City city;
+  final CurrentWeather weather;
+}
+
+class WeatherError extends WeatherUiState { /* final String message */ }
+```
+
+<DocsOnly>
+Neue Datei `ui/weather_ui_state.dart`.
+
+`sealed` bedeutet wie in Kotlin: Der Compiler kennt alle Unterklassen,
+weil sie in derselben Datei stehen müssen. Ein `switch` über
+`WeatherUiState` muss deshalb alle drei Fälle behandeln, ohne
+`default`. Kommt ein Zustand hinzu, meldet der Analyzer jede Stelle, die
+ihn noch nicht behandelt.
+
+Ein `data object` gibt es in Dart nicht. `WeatherLoading` ist eine
+Klasse ohne Felder mit `const`-Konstruktor; `const WeatherLoading()`
+ergibt dadurch immer dasselbe Objekt.
+
+`WeatherSuccess(this.city, this.weather)` nutzt **positionale**
+Parameter (ohne `{}`): Aufruf mit `WeatherSuccess(city, weather)`.
+`this.city` weist den Parameter direkt dem Feld zu.
+
+Der `switch`-Ausdruck mit **Pattern Matching** (siehe unten) prüft den
+Typ und holt die Felder heraus:
+
+```dart
+switch (uiState) {
+  WeatherLoading() => /* ... */,
+  WeatherSuccess(:final city, :final weather) => /* ... */,
+  WeatherError(:final message) => /* ... */,
+}
+```
+
+`WeatherSuccess(:final weather)` bedeutet: Wenn `uiState` ein
+`WeatherSuccess` ist, lege sein Feld `weather` in eine gleichnamige
+Variable. Das entspricht `is WeatherUiState.Success` mit Smart Cast in
+Kotlin.
+</DocsOnly>
+
+## ViewModel mit ChangeNotifier
+
+Das ViewModel hält den Zustand und meldet Änderungen mit `notifyListeners()`.
+
+```dart
+class WeatherViewModel extends ChangeNotifier {
+  final WeatherUiState _uiState = WeatherSuccess(
+    fakeCities.first,
+    fakeCurrentWeather[fakeCities.first.name]!,
+  );
+
+  WeatherUiState get uiState => _uiState;
+}
+```
+
+<DocsOnly>
+Neue Datei `ui/weather_view_model.dart`.
+
+`ChangeNotifier` gehört zu Flutter (`package:flutter/foundation.dart`),
+es braucht keine zusätzliche Abhängigkeit. Wer sich für Änderungen
+interessiert, meldet sich als *Listener* an; `notifyListeners()`
+benachrichtigt alle. Das entspricht dem `StateFlow` in Kotlin.
+
+Nach außen gibt das ViewModel nur den Getter `uiState` frei; ändern kann
+den Zustand nur das ViewModel selbst über das private Feld `_uiState`.
+Vorerst ist es `final`, weil sich noch nichts ändert. Das kommt mit dem
+Repository.
+
+<Callout type="warning">
+Ein Unterschied zum `ViewModel` von Android: Ein `ChangeNotifier` kennt
+keinen Lebenszyklus. Wer ihn erzeugt, muss ihn mit `dispose()` auch
+wieder freigeben (siehe unten).
+</Callout>
+</DocsOnly>
+
+## Stateful und stateless
+
+Ein Widget besitzt das ViewModel, ein zweites zeigt den Zustand nur an.
+
+```dart
+class _WeatherScreenState extends State<WeatherScreen> { // stateful
+  final _viewModel = WeatherViewModel();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+      listenable: _viewModel,
+      builder: (context, _) => WeatherContent(uiState: _viewModel.uiState),
+    );
+  }
+}
+
+class WeatherContent extends StatelessWidget { /* ... */ } // stateless
+```
+
+<DocsOnly>
+Beide stehen in `ui/weather_screen.dart`. Aus dem bisherigen Inhalt von
+`WeatherScreen` wird das neue `WeatherContent`; `WeatherScreen` bekommt
+keine Daten mehr über den Konstruktor, `main.dart` setzt nur noch
+`const WeatherScreen()` ein.
+
+`ListenableBuilder` hört auf das ViewModel und ruft `builder` bei jedem
+`notifyListeners()` erneut auf. Das entspricht
+`collectAsStateWithLifecycle()` in Compose.
+
+Das ViewModel entsteht einmal mit dem `State` und wird mit ihm
+freigegeben:
+
+```dart
+@override
+void dispose() {
+  _viewModel.dispose();
+  super.dispose();
+}
+```
+
+Warum die Aufteilung? `WeatherContent` bekommt den Zustand von außen und
+lässt sich deshalb mit jedem Zustand anzeigen, z. B. in einem
+Widget-Test oder einer Widget Preview, ohne ViewModel.
+
+In `WeatherContent` entscheidet ein `switch`-Ausdruck im `body` des
+`Scaffold`, was angezeigt wird. Die `AppBar` zeigt vorerst den festen
+Titel „Wetter“; den Namen der Stadt bekommt sie mit der Navigation.
+
+```dart
+body: switch (uiState) {
+  WeatherLoading() => const Center(child: CircularProgressIndicator()),
+  WeatherSuccess(:final city, :final weather) => SingleChildScrollView(
+    child: CurrentWeatherCard(
+      city: city,
+      weather: weather,
+      useCelsius: useCelsius,
+    ),
+  ),
+  WeatherError(:final message) => Center(child: Text(message)),
+},
+```
+
+Weil `switch` in Dart auch ein Ausdruck sein kann, steht es direkt
+als Wert von `body`. Ein Hilfs-Widget wie `CenteredBox` in Compose
+braucht es nicht, `Center` gibt es schon.
+
+Der Umschalter °C/°F bleibt als Feld `_useCelsius` im `State` von
+`WeatherScreen`. Er ist reiner Anzeige-Zustand (UI-Element-State) und
+gehört nicht ins ViewModel. `WeatherContent` bekommt ihn mit dem
+Callback als Parameter:
+
+```dart
+WeatherContent(
+  uiState: _viewModel.uiState,
+  useCelsius: _useCelsius,
+  onToggleUnit: () => setState(() => _useCelsius = !_useCelsius),
+)
+```
+
+Damit ist `WeatherContent` ganz stateless, anders als in der
+Android-App, wo `rememberSaveable` in `WeatherContent` steckt.
+
+Code: [`schritt-06`](https://github.com/behrends/WeatherFlutterTIF24/tree/schritt-06) ·
+[Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-05...schritt-06)
+</DocsOnly>
+
+## Repository
+
+Das Repository liefert die Daten. Das ViewModel kennt nur das Interface.
+
+```dart
+abstract interface class WeatherRepository {
+  Future<CurrentWeather> getCurrentWeather(City city);
+}
+```
+
+<SlideBreak />
+
+```dart
+class FakeWeatherRepository implements WeatherRepository {
+  FakeWeatherRepository({this.shouldFail = false});
+  final bool shouldFail;
+
+  @override
+  Future<CurrentWeather> getCurrentWeather(City city) async {
+    await Future.delayed(const Duration(milliseconds: 1500));
+    if (shouldFail) throw Exception('Keine Verbindung (simuliert)');
+    final weather = fakeCurrentWeather[city.name];
+    if (weather == null) throw Exception('Keine Wetterdaten für ${city.name}');
+    return weather;
+  }
+}
+```
+
+<DocsOnly>
+Neue Dateien `data/weather_repository.dart` und
+`data/fake_weather_repository.dart`.
+
+Ein eigenes Schlüsselwort `interface` wie in Kotlin hat Dart nicht.
+`abstract interface class` ist eine Klasse ohne Implementierung, die
+andere Dateien nur mit `implements` umsetzen, nicht mit `extends`
+erben können.
+
+Ein `Future<T>` ist ein Wert, der später ankommt, wie ein Promise in
+JavaScript. Eine `async`-Funktion liefert immer ein `Future`; mit
+`await` wartet sie darauf, ohne die Oberfläche zu blockieren. Das
+entspricht `suspend` und `delay` in Kotlin.
+
+Mit `Future.delayed` verhält sich das Fake-Repository wie ein langsamer
+Server: Der Ladezustand wird sichtbar. Mit `shouldFail: true` lässt sich
+der Fehlerzustand ausprobieren, ohne das WLAN abzuschalten.
+</DocsOnly>
+
+## async/await im ViewModel
+
+Das ViewModel setzt den Zustand vor und nach dem Warten und meldet jede Änderung.
+
+```dart
+Future<void> loadWeather(City city) async {
+  _uiState = const WeatherLoading();
+  notifyListeners();
+  try {
+    final weather = await _repository.getCurrentWeather(city);
+    _uiState = WeatherSuccess(city, weather);
+  } catch (e) {
+    _uiState = WeatherError('$e');
+  }
+  notifyListeners();
+}
+```
+
+<DocsOnly>
+Vollständig:
+
+```dart
+class WeatherViewModel extends ChangeNotifier {
+  WeatherViewModel({WeatherRepository? repository})
+    : _repository = repository ?? FakeWeatherRepository() {
+    loadWeather(fakeCities.first);
+  }
+
+  final WeatherRepository _repository;
+
+  WeatherUiState _uiState = const WeatherLoading();
+  WeatherUiState get uiState => _uiState;
+
+  Future<void> loadWeather(City city) async {
+    // ... wie oben
+  }
+}
+```
+
+Ein `viewModelScope` wie in Android braucht es nicht: `async`-Funktionen
+laufen in Dart ohne Scope. Dafür lassen sie sich auch nicht abbrechen.
+Was das bedeutet, zeigt sich mit der Navigation.
+
+`'$e'` macht aus der Exception einen Text, z. B. „Exception: Keine
+Verbindung zum Server (simuliert)“.
+
+Der Konstruktor lädt vorerst das Wetter für Lörrach. Ab Schritt 8
+übernimmt das der Wetter-Screen der angetippten Stadt.
+</DocsOnly>
+
+## Repository als Default-Parameter
+
+Das ViewModel bekommt sein Repository als optionalen Parameter. Für die echte API ändert sich später nur diese Zeile.
+
+```dart
+WeatherViewModel({WeatherRepository? repository})
+  : _repository = repository ?? FakeWeatherRepository();
+```
+
+<DocsOnly>
+Ein Default-Wert wie in Kotlin geht hier nicht, weil Default-Werte in
+Dart `const` sein müssen. Deshalb ist der Parameter nullable, und die
+**Initialisierungsliste** nach dem `:` setzt mit `??` das
+`FakeWeatherRepository` ein, wenn nichts übergeben wurde.
+
+In größeren Apps übernimmt das ein Paket wie
+[provider](https://pub.dev/packages/provider), das der
+Architektur-Leitfaden von Flutter dafür verwendet. Für diese App reicht
+der optionale Parameter, und das Prinzip ist ähnlich: Das ViewModel ist
+nicht fest an eine Datenquelle gebunden. Das macht es auch testbar, z. B.
+mit `WeatherViewModel(repository: FakeWeatherRepository(shouldFail: true))`.
+
+Code: [`schritt-07`](https://github.com/behrends/WeatherFlutterTIF24/tree/schritt-07) ·
+[Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-06...schritt-07)
+
+## Weiterführendes Material
+
+- [Leitfaden zur App-Architektur](https://docs.flutter.dev/app-architecture)
+- [Fallstudie MVVM in Flutter](https://docs.flutter.dev/app-architecture/case-study):
+  die Beispiel-App *Compass* mit derselben Architektur in groß
+- [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html)
+  und [ListenableBuilder](https://api.flutter.dev/flutter/widgets/ListenableBuilder-class.html)
+- [Asynchrone Programmierung in Dart](https://dart.dev/libraries/async/async-await)
+- [Patterns](https://dart.dev/language/patterns) und
+  [sealed-Klassen](https://dart.dev/language/class-modifiers#sealed) in Dart
+</DocsOnly>

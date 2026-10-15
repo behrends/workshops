@@ -1,0 +1,124 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 10 Minuten
+slideGoal: Farben und Schriften aus dem Theme statt fester Werte
+slideTopics:
+  - colorScheme und textTheme
+  - Card
+  - Dark Mode
+---
+
+# Material 3
+
+<DocsOnly>
+Zum Schluss der Feinschliff: Die Karte im Wetter-Screen hat bisher eine
+feste Farbe (`Color(0xFFBBDEFB)`) und feste Schriftgrößen. Im Dark Mode
+passt sie nicht zum Rest der App.
+</DocsOnly>
+
+## Theme statt fester Werte
+
+Material 3 liefert ein Theme mit Farben und Schriften und fertige Bausteine wie `Card`.
+
+- `Theme.of(context).colorScheme`: Farben statt `Color(0xFF…)`
+- `Theme.of(context).textTheme`: Schriftgrößen statt `fontSize: …`
+- `Card`: Fläche mit Hintergrund und abgerundeten Ecken
+
+<SlideBreak />
+
+```dart
+final colorScheme = Theme.of(context).colorScheme;
+final textTheme = Theme.of(context).textTheme;
+
+return Card(
+  color: colorScheme.primaryContainer,
+  child: Padding(
+    padding: const EdgeInsets.all(24),
+    child: Text(city.name, style: textTheme.headlineMedium), // in der Column
+  ),
+);
+```
+
+<DocsOnly>
+In `CurrentWeatherCard` ersetzt die `Card` den selbst gebauten
+`Container` mit `BoxDecoration`. Den Innenabstand bekommt jetzt ein
+`Padding`-Widget um die `Column`:
+
+```dart
+Card(
+  margin: const EdgeInsets.all(16),
+  color: colorScheme.primaryContainer,
+  child: Padding(
+    padding: const EdgeInsets.all(24),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(city.name, style: textTheme.headlineMedium),
+        Text(weather.condition.emoji, style: const TextStyle(fontSize: 72)),
+        Text(
+          formatTemperature(weather.temperature, useCelsius: useCelsius),
+          style: textTheme.displayLarge,
+        ),
+        // SizedBox und Row wie bisher, Texte mit textTheme.bodyLarge
+      ],
+    ),
+  ),
+)
+```
+
+`Theme.of(context)` sucht im Widget-Baum nach oben das nächste Theme,
+hier das aus `MaterialApp`. Dasselbe Muster `X.of(context)` begegnet
+uns bei `Navigator.of(context)` und `MediaQuery.of(context)`.
+
+Nur das Emoji behält eine feste Größe, weil es im Theme keinen passenden
+Schriftstil dafür gibt. Die Namen der Schriftstile (`headlineMedium`,
+`displayLarge`, `bodyLarge` …) sind dieselben wie in Compose.
+
+Die Textfarbe setzt die `Card` anders als in Compose nicht automatisch
+auf `onPrimaryContainer`. Mit dem blauen Seed fällt das kaum auf; bei
+kräftigen Farben `style: textTheme.bodyLarge?.copyWith(color:
+colorScheme.onPrimaryContainer)` verwenden.
+</DocsOnly>
+
+## Dark Mode
+
+Weil Farben und Schriften aus dem Theme kommen, braucht der Dark Mode nur ein zweites Theme.
+
+```dart
+MaterialApp(
+  theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)),
+  darkTheme: ThemeData(
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: Colors.blue,
+      brightness: Brightness.dark,
+    ),
+  ),
+  themeMode: ThemeMode.system,
+)
+```
+
+<DocsOnly>
+`ColorScheme.fromSeed` berechnet aus einer Farbe ein ganzes
+Farbschema, mit `brightness: Brightness.dark` die dunkle Variante.
+`ThemeMode.system` folgt der Einstellung des Geräts; es ist der
+Standardwert und steht nur zur Verdeutlichung da. Zum Testen im Emulator
+den Dark Mode in den Schnelleinstellungen umschalten.
+
+Material 3 ist in Flutter seit Version 3.16 Standard. Ein Gegenstück zu
+`dynamicColor` aus der Android-Vorlage gibt es nicht eingebaut. Das
+Paket [dynamic_color](https://pub.dev/packages/dynamic_color) liest die
+Farben des Hintergrundbilds auf Android 12 und neuer aus.
+
+Emojis zeigt Flutter auf Android und iOS farbig an. Im Browser kann ein
+Emoji schwarz-weiß erscheinen, weil Flutter dort eigene Schriften lädt.
+
+Code: [`schritt-10`](https://github.com/behrends/WeatherFlutterTIF24/tree/schritt-10) ·
+[Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-09...schritt-10)
+
+## Weiterführendes Material
+
+- [Material Design in Flutter](https://docs.flutter.dev/ui/design/material)
+- [Themes](https://docs.flutter.dev/cookbook/design/themes)
+- [Material Design 3](https://m3.material.io): Richtlinien und Komponenten
+</DocsOnly>

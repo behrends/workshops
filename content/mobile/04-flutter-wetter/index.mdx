@@ -1,0 +1,45 @@
+---
+asIndexPage: true
+---
+
+import { Callout } from 'nextra/components'
+import meta from './_meta.js';
+import SectionLinks from '@/components/SectionLinks';
+
+# Flutter: Wetter-App
+
+In diesem Crashkurs entsteht eine ähnliche Wetter-App wie in der
+[Android-Lektion](../02-android), diesmal mit Flutter und Dart:
+Eine Liste von Städten, und nach Antippen einer Stadt deren aktuelles
+Wetter. Zuerst mit Fake-Daten, am Ende mit echten Daten von
+[Open-Meteo](https://open-meteo.com), angebunden mit einem Coding Agent.
+
+Die Schritte orientieren sich an der Android-App. So lassen sich die
+Konzepte direkt mit Compose vergleichen.
+
+<Callout type="info">
+  Der Code liegt auf GitHub:
+  [behrends/WeatherFlutterTIF24](https://github.com/behrends/WeatherFlutterTIF24).
+  Jeder Schritt hat einen eigenen Tag (`schritt-00` bis `schritt-11`).
+  Mit `git checkout schritt-05` lässt sich jeder Zwischenstand ansehen,
+  der Link „Änderungen“ auf den folgenden Seiten zeigt den Diff eines Schritts.
+</Callout>
+
+<Callout type="warning">
+  Flutter erscheint etwa viermal im Jahr in einer neuen stabilen Version.
+  Im Live-Coding kann deshalb etwas anders aussehen oder nicht klappen.
+  Bei Codelabs, Tutorials und Videos auf das Datum achten!
+</Callout>
+
+<SectionLinks meta={meta} />
+
+Zum Weiterlernen:
+
+- [Flutter-Dokumentation](https://docs.flutter.dev): Einstieg, Lernpfade und Cookbook
+- [Codelabs](https://docs.flutter.dev/codelabs): kurze Tutorials zu einzelnen Themen
+- [Dart-Überblick](https://dart.dev/overview) und [DartPad](https://dartpad.dev):
+  Dart im Browser ausprobieren
+- [Architektur-Leitfaden](https://docs.flutter.dev/app-architecture):
+  MVVM mit `ChangeNotifier`, wie in dieser Lektion
+- [Flutter-Samples](https://github.com/flutter/samples): Beispiel-Apps mit Quellcode
+- [Flutter auf YouTube](https://www.youtube.com/@flutterdev/videos): Videos von Google
