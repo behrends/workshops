@@ -39,6 +39,7 @@ TypeScript mit [React](https://react.dev).
 
 - Komponenten wie `View` und `Text` werden zu echten nativen
   UI-Elementen von Android bzw. iOS
+- dadurch wirken Header, Ladeanzeige oder Schalter wie auf der Plattform gewohnt
 - der JavaScript-Code läuft in einer eigenen Engine (Hermes) auf dem Gerät
 - [Expo](https://expo.dev) ist das Framework rund um React Native:
   Projektvorlage, Navigation, Werkzeuge, Bibliotheken
@@ -48,9 +49,18 @@ Wie Compose und Flutter beschreibt React die Oberfläche **deklarativ**
 als Baum verschachtelter Bausteine. Der Unterschied liegt darunter:
 Flutter zeichnet jedes Pixel selbst, React Native erzeugt die nativen
 UI-Elemente der Plattform. Eine `ScrollView` wird auf Android also zu
-einer nativen `ScrollView`, auf iOS zu einer `UIScrollView`. Deshalb sieht eine React-Native-App
-auf Android und iOS nicht ganz gleich aus, z. B. der Header oder die
-Ladeanzeige.
+einer nativen `ScrollView`, auf iOS zu einer `UIScrollView`. Deshalb
+sieht eine React-Native-App auf Android und iOS nicht ganz gleich aus,
+z. B. der Header oder die Ladeanzeige.
+
+Plattformtypisch sehen aber nur die eingebauten Elemente mit eigener
+Optik aus: Header, `ActivityIndicator`, `Switch`, `Button`, `TextInput`
+und Alert-Dialoge. Eine `View` mit eigenem Style, wie die Wetterkarte
+auf dieser Seite, sieht auf beiden Plattformen gleich aus. Unter Android
+sind die nativen Elemente klassische Android-Views wie `TextView` und
+`ViewGroup`, keine Compose-Elemente. Fertige Komponenten im Stil von
+Material Design bringt React Native nicht mit; dafür gibt es
+Bibliotheken wie React Native Paper (siehe [Theme und Dark Mode](./05-theme)).
 
 Die [React-Native-Doku](https://reactnative.dev/docs/environment-setup)
 empfiehlt selbst, neue Apps mit einem Framework wie Expo zu beginnen.
