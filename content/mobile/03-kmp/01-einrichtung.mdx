@@ -17,6 +17,7 @@ import { Callout } from 'nextra/components'
 
 - **Kotlin Multiplatform (KMP):** Kotlin-Code für mehrere Plattformen, z. B. Android und iOS
 - **Compose Multiplatform (CMP):** Compose-UI für alle Plattformen, basiert auf Jetpack Compose
+- CMP zeichnet die UI auf iOS selbst, wie Flutter: Material 3 sieht dort aus wie auf Android
 - von JetBrains, offiziell von Google unterstützt
 
 <DocsOnly>
@@ -26,6 +27,29 @@ komplette App. Fast alles aus dem Android-Teil gilt hier weiter.
 Damit ist KMP eine Alternative zu Flutter und React Native: eine
 Codebasis für Android und iOS, aber in Kotlin und mit den Werkzeugen
 der Android-Entwicklung.
+
+Auf iOS verwendet Compose Multiplatform keine UIKit-Elemente, sondern
+zeichnet die Oberfläche selbst mit Skia, wie Flutter. Eine `TopAppBar`
+ist dort ein gezeichnetes Material-3-Element; die Wetter-App sieht auf
+dem iPhone aus wie auf Android. Beim Verhalten passt sich CMP an iOS an,
+z. B. beim Scrollen mit Zurückfedern, bei der Textauswahl und bei
+VoiceOver. Auch Jetpack Compose auf Android zeichnet übrigens selbst und
+verwendet keine klassischen Android-Views; es ist aber das offizielle
+UI-Toolkit der Plattform.
+
+Native iOS-Elemente lassen sich bei Bedarf einbetten, z. B. eine Karte
+aus MapKit ([UIKit](https://kotlinlang.org/docs/multiplatform/compose-uikit-integration.html),
+[SwiftUI](https://kotlinlang.org/docs/multiplatform/compose-swiftui-integration.html)).
+Wer auf iOS durchgehend native UI möchte, teilt mit KMP nur Logik und
+Daten (ViewModel, Repository, Ktor) und schreibt die Oberfläche für iOS
+in SwiftUI. Dann gibt es allerdings zwei UIs.
+
+| | Android | iOS |
+|---|---|---|
+| Flutter | zeichnet selbst | zeichnet selbst |
+| Compose Multiplatform | Jetpack Compose (zeichnet selbst) | zeichnet selbst (Skia) |
+| React Native | native Android-Views | native UIKit-Elemente |
+| KMP mit SwiftUI | Jetpack Compose | SwiftUI (nativ) |
 
 - [Kotlin Multiplatform](https://www.jetbrains.com/kotlin-multiplatform/)
 - [Compose Multiplatform](https://www.jetbrains.com/compose-multiplatform/)
