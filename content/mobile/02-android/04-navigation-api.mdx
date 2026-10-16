@@ -46,18 +46,70 @@ wenige, feste Elemente reicht das, für lange Listen nicht.
 Liste ändert. Der Key muss eindeutig sein. Später (Stadtsuche) heißen
 mehrere Städte gleich; dann sind die Koordinaten der bessere Key.
 
-Neue Datei `ui/CityListScreen.kt`. Der Code ist hier verkürzt. Im
-Repository steckt die `LazyColumn` in einem `Scaffold` mit
-`TopAppBar(title = { Text(text = "Städte") })`, und jeder Eintrag zeigt zusätzlich die Koordinaten:
+Neue Datei im Paket `ui`. Die `LazyColumn` steckt in einem `Scaffold`
+mit `TopAppBar`, jeder Eintrag zeigt zusätzlich die Koordinaten, und eine
+Preview zeigt die Liste mit `fakeCities`:
 
-```kotlin
-supportingContent = {
-    Text(text = "%.2f° N, %.2f° O".format(city.latitude, city.longitude))
-},
+<details>
+<summary>Code: `ui/CityListScreen.kt` (schritt-08)</summary>
+
+```kotlin filename="ui/CityListScreen.kt"
+package com.example.weatherandroidtif24.ui
+
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.weatherandroidtif24.data.fakeCities
+import com.example.weatherandroidtif24.model.City
+import com.example.weatherandroidtif24.ui.theme.WeatherAndroidTIF24Theme
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CityListScreen(
+    cities: List<City>,
+    onCityClick: (City) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Scaffold(
+        modifier = modifier,
+        topBar = { TopAppBar(title = { Text(text = "Städte") }) },
+    ) { innerPadding ->
+        LazyColumn(contentPadding = innerPadding) {
+            items(cities, key = { it.name }) { city ->
+                ListItem(
+                    headlineContent = { Text(text = city.name) },
+                    supportingContent = {
+                        Text(text = "%.2f° N, %.2f° O".format(city.latitude, city.longitude))
+                    },
+                    modifier = Modifier.clickable { onCityClick(city) },
+                )
+                HorizontalDivider()
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CityListScreenPreview() {
+    WeatherAndroidTIF24Theme {
+        CityListScreen(cities = fakeCities, onCityClick = {})
+    }
+}
 ```
 
-Eine Preview zeigt die Liste mit `fakeCities` und einem leeren
-`onCityClick = {}`.
+</details>
+
+`"%.2f".format(…)` formatiert eine Zahl mit zwei Nachkommastellen.
 
 `CityListScreen` bekommt die Städte und eine Funktion `onCityClick` als
 Parameter. Was beim Antippen passiert, entscheidet der Aufrufer: Mit
@@ -77,47 +129,57 @@ Das passt zu dem, was wir über State wissen: Der Back Stack ist eine
 beobachtbare Liste. Ändert sie sich, zeigt `NavDisplay` den passenden
 Screen an.
 
-Navigation 3 braucht drei Abhängigkeiten und ein Gradle-Plugin:
+Navigation 3 braucht drei Abhängigkeiten und ein Gradle-Plugin. In
+`gradle/libs.versions.toml` kommen Zeilen in drei Abschnitte, jeweils
+ans Ende:
 
-```toml
-# gradle/libs.versions.toml
+```toml filename="gradle/libs.versions.toml"
 [versions]
+# ...
 nav3Core = "1.2.0"
 kotlinxSerializationCore = "1.9.0"
 
 [libraries]
+# ...
 androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }
 androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3Core" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
 
 [plugins]
+# ...
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ```
 
-Das Plugin muss außerdem in der Root-`build.gradle.kts` (mit
-`apply false`) und in `app/build.gradle.kts` eingetragen werden, die drei
-Bibliotheken unter `dependencies`:
+Das Plugin muss außerdem in der `build.gradle.kts` im Projektordner (mit
+`apply false`) und in `app/build.gradle.kts` eingetragen werden:
 
-```kotlin
-// build.gradle.kts (Root)
+```kotlin filename="build.gradle.kts"
 plugins {
-    // ...
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.serialization) apply false
 }
+```
 
-// app/build.gradle.kts
+```kotlin filename="app/build.gradle.kts"
 plugins {
-    // ...
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
 }
 
+// ...
+
 dependencies {
-    // ...
+    // ... bisherige Einträge
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.kotlinx.serialization.core)
+    // ... testImplementation usw.
 }
 ```
+
+Danach *Sync Now*.
 
 Die Versionen am besten aus der
 [Dokumentation](https://developer.android.com/guide/navigation/navigation-3/get-started)
@@ -141,7 +203,20 @@ data class CityWeather(val city: City) : NavKey
 `@Serializable` und `NavKey` sind nötig, damit `rememberNavBackStack`
 den Back Stack speichern kann, z. B. beim Drehen des Bildschirms. Weil
 `City` Teil der Route ist, bekommt auch `City` in `model/City.kt` die
-Annotation `@Serializable`.
+Annotation `@Serializable`:
+
+```kotlin filename="model/City.kt" {3-5}
+package com.example.weatherandroidtif24.model
+
+import kotlinx.serialization.Serializable
+
+@Serializable // nötig, weil City Argument einer Route ist (siehe WeatherApp.kt)
+data class City(
+    val name: String,
+    val latitude: Double,
+    val longitude: Double,
+)
+```
 
 Die Routen stehen in der neuen Datei `ui/WeatherApp.kt` (siehe unten).
 </DocsOnly>
@@ -168,9 +243,28 @@ NavDisplay(
 </SlideOnly>
 
 <DocsOnly>
-Die neue Datei `ui/WeatherApp.kt`; `MainActivity` zeigt statt `WeatherScreen()` jetzt `WeatherApp()` an:
+Neue Datei im Paket `ui`, mit den Routen von oben:
 
-```kotlin
+```kotlin filename="ui/WeatherApp.kt"
+package com.example.weatherandroidtif24.ui
+
+import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
+import com.example.weatherandroidtif24.data.fakeCities
+import com.example.weatherandroidtif24.model.City
+import kotlinx.serialization.Serializable
+
+// Routen: jeder Screen ist ein Typ, Argumente sind Properties
+@Serializable
+data object CityList : NavKey
+
+@Serializable
+data class CityWeather(val city: City) : NavKey
+
 @Composable
 fun WeatherApp() {
     // Der Back Stack ist eine Liste: Navigieren = Element hinzufügen oder entfernen
@@ -203,18 +297,267 @@ fun WeatherApp() {
 }
 ```
 
+`MainActivity` zeigt statt `WeatherScreen()` jetzt `WeatherApp()` an:
+
+<details>
+<summary>Code: `MainActivity.kt` (schritt-08)</summary>
+
+```kotlin filename="MainActivity.kt" {7,16}
+package com.example.weatherandroidtif24
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import com.example.weatherandroidtif24.ui.WeatherApp
+import com.example.weatherandroidtif24.ui.theme.WeatherAndroidTIF24Theme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            WeatherAndroidTIF24Theme {
+                WeatherApp()
+            }
+        }
+    }
+}
+```
+
+</details>
+
 `WeatherScreen` und `WeatherContent` bekommen dafür einen neuen
 Parameter `city: City`. Statt „Wetter“ zeigt die `TopAppBar` jetzt
 `city.name` aus der Route; so steht der Name der Stadt schon während des
 Ladens da. Die Previews übergeben
 `city = fakeCities.first()`.
 
+<details>
+<summary>Code: `ui/WeatherScreen.kt` (schritt-08)</summary>
+
+```kotlin filename="ui/WeatherScreen.kt"
+package com.example.weatherandroidtif24.ui
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.weatherandroidtif24.data.fakeCities
+import com.example.weatherandroidtif24.data.fakeCurrentWeather
+import com.example.weatherandroidtif24.model.City
+import com.example.weatherandroidtif24.model.CurrentWeather
+import com.example.weatherandroidtif24.ui.theme.WeatherAndroidTIF24Theme
+import kotlin.math.roundToInt
+
+// Stateful: holt den Zustand aus dem ViewModel
+@Composable
+fun WeatherScreen(
+    city: City,
+    modifier: Modifier = Modifier,
+    viewModel: WeatherViewModel = viewModel(),
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    WeatherContent(
+        city = city,
+        uiState = uiState,
+        modifier = modifier,
+    )
+}
+
+// Stateless: zeigt nur an, was es bekommt (dadurch auch in der Preview nutzbar)
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun WeatherContent(
+    city: City,
+    uiState: WeatherUiState,
+    modifier: Modifier = Modifier,
+) {
+    // UI-Element-State: bleibt im Composable, gehört nicht ins ViewModel
+    var useCelsius by rememberSaveable { mutableStateOf(true) }
+
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopAppBar(
+                title = { Text(text = city.name) },
+                actions = {
+                    UnitToggle(useCelsius = useCelsius, onToggle = { useCelsius = !useCelsius })
+                },
+            )
+        },
+    ) { innerPadding ->
+        when (uiState) {
+            WeatherUiState.Loading -> CenteredBox(Modifier.padding(innerPadding)) {
+                CircularProgressIndicator()
+            }
+
+            is WeatherUiState.Success -> CurrentWeatherCard(
+                city = uiState.city,
+                weather = uiState.weather,
+                useCelsius = useCelsius,
+                modifier = Modifier.padding(innerPadding),
+            )
+
+            is WeatherUiState.Error -> CenteredBox(Modifier.padding(innerPadding)) {
+                Text(text = uiState.message)
+            }
+        }
+    }
+}
+
+@Composable
+fun CenteredBox(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        content()
+    }
+}
+
+@Composable
+fun UnitToggle(useCelsius: Boolean, onToggle: () -> Unit, modifier: Modifier = Modifier) {
+    TextButton(onClick = onToggle, modifier = modifier) {
+        Text(text = if (useCelsius) "°C" else "°F")
+    }
+}
+
+@Composable
+fun CurrentWeatherCard(
+    city: City,
+    weather: CurrentWeather,
+    useCelsius: Boolean,
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .background(Color(0xFFBBDEFB), RoundedCornerShape(24.dp))
+            .padding(24.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = city.name, fontSize = 28.sp)
+            Text(text = weather.condition.emoji(), fontSize = 72.sp)
+            Text(text = formatTemperature(weather.temperature, useCelsius), fontSize = 48.sp)
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(text = "Wind: ${weather.windSpeed.roundToInt()} km/h")
+                Spacer(modifier = Modifier.weight(1f))
+                Text(text = weather.condition.label())
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WeatherContentPreview() {
+    val city = fakeCities.first()
+    WeatherAndroidTIF24Theme {
+        WeatherContent(
+            city = city,
+            uiState = WeatherUiState.Success(city, fakeCurrentWeather.getValue(city.name)),
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Loading")
+@Composable
+fun WeatherContentLoadingPreview() {
+    WeatherAndroidTIF24Theme {
+        WeatherContent(
+            city = fakeCities.first(),
+            uiState = WeatherUiState.Loading,
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Error")
+@Composable
+fun WeatherContentErrorPreview() {
+    WeatherAndroidTIF24Theme {
+        WeatherContent(
+            city = fakeCities.first(),
+            uiState = WeatherUiState.Error("Keine Verbindung zum Server"),
+        )
+    }
+}
+```
+
+</details>
+
 `onBack` wird bei der Zurück-Geste des Systems aufgerufen. Einen
 Zurück-Pfeil in der `TopAppBar` haben wir bewusst weggelassen (siehe
 Übungen).
 
 Das Wetter wird jetzt beim Antippen geladen. Der `init`-Block im
-`WeatherViewModel`, der bisher Lörrach geladen hat, entfällt deshalb.
+`WeatherViewModel`, der bisher Lörrach geladen hat, entfällt deshalb,
+ebenso der Import von `fakeCities`:
+
+<details>
+<summary>Code: `ui/WeatherViewModel.kt` (schritt-08)</summary>
+
+```kotlin filename="ui/WeatherViewModel.kt"
+package com.example.weatherandroidtif24.ui
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.weatherandroidtif24.data.FakeWeatherRepository
+import com.example.weatherandroidtif24.data.WeatherRepository
+import com.example.weatherandroidtif24.model.City
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+
+class WeatherViewModel(
+    private val repository: WeatherRepository = FakeWeatherRepository(),
+) : ViewModel() {
+    private val _uiState = MutableStateFlow<WeatherUiState>(WeatherUiState.Loading)
+    val uiState: StateFlow<WeatherUiState> = _uiState.asStateFlow()
+
+    fun loadWeather(city: City) {
+        _uiState.value = WeatherUiState.Loading
+        viewModelScope.launch {
+            _uiState.value = try {
+                WeatherUiState.Success(city, repository.getCurrentWeather(city))
+            } catch (e: CancellationException) {
+                throw e // Abbruch der Coroutine nicht als Fehler behandeln
+            } catch (e: Exception) {
+                WeatherUiState.Error(e.message ?: "Unbekannter Fehler")
+            }
+        }
+    }
+}
+```
+
+</details>
 
 Das ViewModel wird oberhalb von `NavDisplay` geholt und an
 `WeatherScreen` übergeben. Ohne weitere Konfiguration ist es an die
@@ -262,6 +605,33 @@ Beschreibung des Projekts oder der Architektur hilft dagegen kaum, denn
 der Agent liest den Code ohnehin. Jede Zeile kostet bei jeder Anfrage
 Tokens.
 
+Die Datei liegt im Projektordner, neben `settings.gradle.kts`:
+
+```markdown filename="AGENTS.md"
+# AGENTS.md
+
+Lern-Projekt: Die Personen hier lernen gerade Android-Entwicklung.
+Erkläre deine Änderungen so, dass sie nachvollziehbar sind.
+
+## Regeln
+
+- HTTP mit Ktor (Engine OkHttp) und kotlinx.serialization.
+  Kein Retrofit, kein Gson/Moshi, kein Hilt/Koin.
+- Keine weiteren Libraries, ohne zu begründen, warum, und nachzufragen.
+- API-Antworten als eigene DTO-Klassen abbilden und auf `model/` mappen.
+  Das Datenmodell nicht an die API anpassen.
+- Änderungen an der Datenschicht (`data/`) dürfen die UI (`ui/`) nicht
+  verändern. Wenn das doch nötig scheint, vorher nachfragen.
+- Zu jedem neuen Composable eine `@Preview` mit Fake-Daten.
+- Texte in der App auf Deutsch.
+
+## Arbeitsweise
+
+- Vor größeren Änderungen einen kurzen Plan vorlegen und auf Bestätigung warten.
+- Nach jeder Änderung bauen: `./gradlew assembleDebug`
+- Nicht selbst committen; die Person prüft den Diff und committet.
+```
+
 Ein möglicher Prompt:
 
 > Baue ein `ApiWeatherRepository`, das das aktuelle
@@ -292,37 +662,91 @@ override suspend fun getCurrentWeather(city: City): CurrentWeather {
 ```
 
 <DocsOnly>
-Neue Datei `data/ApiWeatherRepository.kt`. Die Funktion gehört zur Klasse
-`ApiWeatherRepository(private val client: HttpClient = httpClient) : WeatherRepository`.
+Den Code im Referenz-Repository hat ein Coding Agent geschrieben. Wer
+ohne Agent nachbaut, kann die folgenden Dateien direkt übernehmen.
+
+Neue Datei im Paket `data`, erster Teil. Die Funktionen
+`toCurrentWeather` und `weatherConditionFromWmoCode` am Ende der Datei
+folgen im Abschnitt [DTO und Datenmodell](#dto-und-datenmodell):
+
+```kotlin filename="data/ApiWeatherRepository.kt"
+package com.example.weatherandroidtif24.data
+
+import com.example.weatherandroidtif24.data.api.CurrentDto
+import com.example.weatherandroidtif24.data.api.ForecastResponse
+import com.example.weatherandroidtif24.data.api.httpClient
+import com.example.weatherandroidtif24.model.City
+import com.example.weatherandroidtif24.model.CurrentWeather
+import com.example.weatherandroidtif24.model.WeatherCondition
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.parameter
+
+class ApiWeatherRepository(
+    private val client: HttpClient = httpClient,
+) : WeatherRepository {
+
+    override suspend fun getCurrentWeather(city: City): CurrentWeather {
+        val response: ForecastResponse = client.get("https://api.open-meteo.com/v1/forecast") {
+            parameter("latitude", city.latitude)
+            parameter("longitude", city.longitude)
+            parameter("current", "temperature_2m,weather_code,wind_speed_10m")
+            parameter("timezone", "auto")
+        }.body()
+        return response.current.toCurrentWeather()
+    }
+}
+```
+
 Was der Agent im Referenz-Repository außerdem angelegt hat:
 
-- `INTERNET`-Permission in `AndroidManifest.xml`, ohne die Android keine
-  Netzwerkzugriffe erlaubt:
+- `INTERNET`-Permission im Manifest, ohne die Android keine
+  Netzwerkzugriffe erlaubt, direkt unter dem öffnenden `<manifest …>`-Tag:
 
-```xml
+```xml filename="app/src/main/AndroidManifest.xml"
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 
-- Abhängigkeiten in `gradle/libs.versions.toml` (Version `ktor = "3.6.0"`)
-  und `app/build.gradle.kts`:
+- Abhängigkeiten, jeweils am Ende der Abschnitte:
 
-```toml
+```toml filename="gradle/libs.versions.toml"
+[versions]
+# ...
+ktor = "3.6.0"
+
+[libraries]
+# ...
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ```
 
-```kotlin
-implementation(libs.ktor.client.core)
-implementation(libs.ktor.client.okhttp)
-implementation(libs.ktor.client.content.negotiation)
-implementation(libs.ktor.serialization.kotlinx.json)
+```kotlin filename="app/build.gradle.kts"
+dependencies {
+    // ... bisherige Einträge
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    // ... testImplementation usw.
+}
 ```
 
-- einen gemeinsamen `HttpClient` mit JSON-Unterstützung in `data/api/HttpClient.kt`:
+- einen gemeinsamen `HttpClient` mit JSON-Unterstützung im neuen Paket
+  `data/api`:
 
-```kotlin
+```kotlin filename="data/api/HttpClient.kt"
+package com.example.weatherandroidtif24.data.api
+
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
+
+// Ein HttpClient für die ganze App
 val httpClient = HttpClient(OkHttp) {
     expectSuccess = true // HTTP-Fehler (4xx, 5xx) als Exception werfen
     install(ContentNegotiation) {
@@ -354,21 +778,35 @@ data class CurrentDto(
 ```
 
 <DocsOnly>
-Die DTOs stehen in der neuen Datei `data/api/OpenMeteoDto.kt`.
-`CurrentDto` steckt in einer Hülle für die gesamte Antwort, weil die
-API die Werte im Feld `current` liefert:
+Die DTOs kommen in eine neue Datei im Paket `data/api`. `CurrentDto`
+steckt in einer Hülle für die gesamte Antwort, weil die API die Werte im
+Feld `current` liefert:
 
-```kotlin
+```kotlin filename="data/api/OpenMeteoDto.kt"
+package com.example.weatherandroidtif24.data.api
+
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+// DTOs bilden die JSON-Antwort von Open-Meteo ab, nicht unser Datenmodell
+
 @Serializable
 data class ForecastResponse(
     val current: CurrentDto,
 )
+
+@Serializable
+data class CurrentDto(
+    @SerialName("temperature_2m") val temperature: Double,
+    @SerialName("weather_code") val weatherCode: Int,
+    @SerialName("wind_speed_10m") val windSpeed: Double,
+)
 ```
 
-Eine Erweiterungsfunktion in `ApiWeatherRepository.kt` bildet das DTO
-auf das Datenmodell ab:
+Eine Erweiterungsfunktion am Ende von `ApiWeatherRepository.kt`, unter
+der Klasse, bildet das DTO auf das Datenmodell ab:
 
-```kotlin
+```kotlin filename="data/ApiWeatherRepository.kt"
 private fun CurrentDto.toCurrentWeather() = CurrentWeather(
     temperature = temperature,
     windSpeed = windSpeed,
@@ -381,10 +819,11 @@ das Datenmodell dann vom Format der API abhängt. Mit DTOs bleibt eine
 Änderung der API auf die Datenschicht beschränkt; die Oberfläche
 merkt nichts davon.
 
-Die Wetterlage liefert die API als Zahl (WMO-Code). Eine Funktion
-bildet sie auf `WeatherCondition` ab:
+Die Wetterlage liefert die API als Zahl (WMO-Code). Eine Funktion ganz
+am Ende der Datei bildet sie auf `WeatherCondition` ab:
 
-```kotlin
+```kotlin filename="data/ApiWeatherRepository.kt"
+// WMO-Wettercodes, siehe https://open-meteo.com/en/docs (Abschnitt "WMO Weather interpretation codes")
 private fun weatherConditionFromWmoCode(code: Int): WeatherCondition = when (code) {
     0 -> WeatherCondition.CLEAR
     1, 2 -> WeatherCondition.PARTLY_CLOUDY
@@ -414,9 +853,14 @@ $ git diff --stat schritt-08 schritt-09
 ```
 
 <DocsOnly>
-Im ViewModel hat sich nur der Default-Parameter geändert:
+Im ViewModel haben sich nur ein Import und der Default-Parameter
+geändert:
 
-```kotlin
+```kotlin filename="ui/WeatherViewModel.kt"
+import com.example.weatherandroidtif24.data.ApiWeatherRepository // statt FakeWeatherRepository
+```
+
+```kotlin filename="ui/WeatherViewModel.kt"
 class WeatherViewModel(
     private val repository: WeatherRepository = ApiWeatherRepository(),
 ) : ViewModel()
@@ -462,6 +906,14 @@ Hinweise zu den Übungen:
   Eine Referenzlösung liegt im Tag
   [`schritt-11`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-11)
   ([Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-10...schritt-11)).
+  Die Dateien zum Kopieren:
+  [`data/api/GeocodingDto.kt`](https://github.com/behrends/WeatherAndroidTIF24/blob/schritt-11/app/src/main/java/com/example/weatherandroidtif24/data/api/GeocodingDto.kt),
+  [`data/CityRepository.kt`](https://github.com/behrends/WeatherAndroidTIF24/blob/schritt-11/app/src/main/java/com/example/weatherandroidtif24/data/CityRepository.kt),
+  [`data/ApiCityRepository.kt`](https://github.com/behrends/WeatherAndroidTIF24/blob/schritt-11/app/src/main/java/com/example/weatherandroidtif24/data/ApiCityRepository.kt),
+  [`ui/CityListUiState.kt`](https://github.com/behrends/WeatherAndroidTIF24/blob/schritt-11/app/src/main/java/com/example/weatherandroidtif24/ui/CityListUiState.kt),
+  [`ui/CityListViewModel.kt`](https://github.com/behrends/WeatherAndroidTIF24/blob/schritt-11/app/src/main/java/com/example/weatherandroidtif24/ui/CityListViewModel.kt),
+  [`ui/CityListScreen.kt`](https://github.com/behrends/WeatherAndroidTIF24/blob/schritt-11/app/src/main/java/com/example/weatherandroidtif24/ui/CityListScreen.kt)
+  und [`ui/WeatherApp.kt`](https://github.com/behrends/WeatherAndroidTIF24/blob/schritt-11/app/src/main/java/com/example/weatherandroidtif24/ui/WeatherApp.kt).
 - **7-Tage-Vorhersage:** Parameter `daily=weather_code,temperature_2m_max,temperature_2m_min`,
   neues Datenmodell `DailyForecast`, Liste im Wetter-Screen.
 - **Zurück-Pfeil:** Material 3 bringt keine Icons mehr mit. Auf

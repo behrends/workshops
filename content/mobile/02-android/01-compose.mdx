@@ -22,8 +22,11 @@ einer Stadt mit Fake-Daten an.
 Code: [Repository auf GitHub](https://github.com/behrends/WeatherAndroidTIF24),
 Schritte 0 bis 4.
 
-Codebeispiele mit `// ...` oder `/* ... */` sind gekürzt; der
-vollständige Code steht im Repository unter dem jeweiligen Tag.
+Die Notizen enthalten den vollständigen Code jeder Datei, sodass sich
+die App durch Kopieren und Einfügen nachbauen lässt. Die Folien zeigen
+nur Ausschnitte. Wo auch die Notizen kürzen, verlinken sie die Datei im
+Repository mit dem Tag des Schritts. Wer das Projekt anders benannt hat,
+passt die Zeilen mit `package` und `import com.example…` an.
 </DocsOnly>
 
 ## Die Wetter-App
@@ -52,9 +55,23 @@ neuere Version des Android-Gradle-Plugins.
 
 In `MainActivity` bleibt nur das Nötigste übrig:
 
-```kotlin
-setContent {
-    WeatherAndroidTIF24Theme {
+```kotlin filename="MainActivity.kt" {13-16}
+package com.example.weatherandroidtif24
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import com.example.weatherandroidtif24.ui.theme.WeatherAndroidTIF24Theme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            WeatherAndroidTIF24Theme {
+            }
+        }
     }
 }
 ```
@@ -177,14 +194,36 @@ Konventionen für Composables:
 Damit `WeatherScreen` auch in der App erscheint, ruft `MainActivity`
 es auf:
 
-```kotlin
-setContent {
-    WeatherAndroidTIF24Theme {
-        // Abstand zu Statusleiste und Kamera-Aussparung
-        WeatherScreen(modifier = Modifier.safeDrawingPadding())
+<details>
+<summary>Code: `MainActivity.kt` (schritt-01)</summary>
+
+```kotlin filename="MainActivity.kt" {7-9,18-19}
+package com.example.weatherandroidtif24
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.ui.Modifier
+import com.example.weatherandroidtif24.ui.WeatherScreen
+import com.example.weatherandroidtif24.ui.theme.WeatherAndroidTIF24Theme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            WeatherAndroidTIF24Theme {
+                // Abstand zu Statusleiste und Kamera-Aussparung
+                WeatherScreen(modifier = Modifier.safeDrawingPadding())
+            }
+        }
     }
 }
 ```
+
+</details>
 
 Neue Projekte zeichnen *edge-to-edge*, also bis unter die Statusleiste.
 `safeDrawingPadding()` hält den Inhalt aus diesen Bereichen heraus.
@@ -217,6 +256,35 @@ fun WeatherScreenPreview() {
 Die Preview aktualisiert sich bei jeder Änderung im Code. Für
 Interaktionen (Antippen, Eingaben) gibt es den interaktiven Modus der
 Preview; für alles andere starten wir die App im Emulator.
+
+Die Preview steht in derselben Datei unter `WeatherScreen`. Mit den
+Imports sieht die Datei so aus:
+
+<details>
+<summary>Code: `ui/WeatherScreen.kt` (schritt-01)</summary>
+
+```kotlin filename="ui/WeatherScreen.kt"
+package com.example.weatherandroidtif24.ui
+
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+
+@Composable
+fun WeatherScreen(modifier: Modifier = Modifier) {
+    Text(text = "Lörrach", modifier = modifier)
+    Text(text = "14 °C", modifier = modifier)
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WeatherScreenPreview() {
+    WeatherScreen()
+}
+```
+
+</details>
 
 Code: [`schritt-01`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-01) ·
 [Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-00...schritt-01)
@@ -258,7 +326,7 @@ Dieser Code steckt in einem neuen Composable `CurrentWeatherCard`,
 ebenfalls in `ui/WeatherScreen.kt`.
 `WeatherScreen` ruft es nur noch auf und reicht seinen `modifier` weiter:
 
-```kotlin
+```kotlin filename="ui/WeatherScreen.kt"
 @Composable
 fun WeatherScreen(modifier: Modifier = Modifier) {
     CurrentWeatherCard(modifier = modifier)
@@ -317,6 +385,70 @@ vertauschen oder einen entfernen und den Unterschied ansehen.
 
 Weitere häufige Modifier: `size`, `fillMaxSize`, `clickable`, `border`, `clip`.
 
+Die ganze Datei nach diesem Schritt, mit `Box`, `Column` und `Row`:
+
+<details>
+<summary>Code: `ui/WeatherScreen.kt` (schritt-02)</summary>
+
+```kotlin filename="ui/WeatherScreen.kt"
+package com.example.weatherandroidtif24.ui
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+
+@Composable
+fun WeatherScreen(modifier: Modifier = Modifier) {
+    CurrentWeatherCard(modifier = modifier)
+}
+
+@Composable
+fun CurrentWeatherCard(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .background(Color(0xFFBBDEFB), RoundedCornerShape(24.dp))
+            .padding(24.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = "Lörrach", fontSize = 28.sp)
+            Text(text = "⛅", fontSize = 72.sp)
+            Text(text = "14 °C", fontSize = 48.sp)
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(text = "Wind: 8 km/h")
+                Spacer(modifier = Modifier.weight(1f))
+                Text(text = "Teilweise bewölkt")
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WeatherScreenPreview() {
+    WeatherScreen()
+}
+```
+
+</details>
+
 Code: [`schritt-02`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-02) ·
 [Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-01...schritt-02)
 </DocsOnly>
@@ -340,30 +472,54 @@ data class CurrentWeather(
 ```
 
 <DocsOnly>
-Neue Dateien `model/City.kt` und `model/CurrentWeather.kt` im neuen
-Paket `model`.
+Die beiden Klassen kommen in zwei Dateien im neuen Paket `model`:
+
+```kotlin filename="model/City.kt"
+package com.example.weatherandroidtif24.model
+
+data class City(
+    val name: String,
+    val latitude: Double,
+    val longitude: Double,
+)
+```
+
+```kotlin filename="model/CurrentWeather.kt"
+package com.example.weatherandroidtif24.model
+
+enum class WeatherCondition { CLEAR, PARTLY_CLOUDY, CLOUDY, FOG, RAIN, SNOW, THUNDERSTORM }
+
+data class CurrentWeather(
+    val temperature: Double,
+    val windSpeed: Double,
+    val condition: WeatherCondition,
+)
+```
 
 Eine `data class` bekommt automatisch `equals`, `toString` und `copy`.
 Ihre Properties sind mit `val` nur lesbar; Getter erzeugt Kotlin
 automatisch, Setter gibt es nur bei `var`.
 Für feste Auswahlmöglichkeiten wie die Wetterlage eignet sich eine
-`enum class`. Sie steht mit in `model/CurrentWeather.kt`:
-
-```kotlin
-enum class WeatherCondition { CLEAR, PARTLY_CLOUDY, CLOUDY, FOG, RAIN, SNOW, THUNDERSTORM }
-```
+`enum class`. Sie steht mit in `model/CurrentWeather.kt`.
 
 Die Koordinaten in `City` brauchen wir erst in Schritt 9 für die API.
 Das Datenmodell ist aber von Anfang an so aufgebaut, dass es später
 passt.
 
-Die Fake-Daten liegen in `data/FakeData.kt` im neuen Paket `data`:
-eine Liste von Städten und eine `Map`, die Städtenamen das Wetter zuordnet.
+Die Fake-Daten kommen in das neue Paket `data`: eine Liste von Städten
+und eine `Map`, die Städtenamen das Wetter zuordnet.
 
-```kotlin
+```kotlin filename="data/FakeData.kt"
+package com.example.weatherandroidtif24.data
+
+import com.example.weatherandroidtif24.model.City
+import com.example.weatherandroidtif24.model.CurrentWeather
+import com.example.weatherandroidtif24.model.WeatherCondition
+
 val fakeCities: List<City> = listOf(
     City(name = "Lörrach", latitude = 47.6156, longitude = 7.6614),
-    // ... Freiburg, Basel
+    City(name = "Freiburg", latitude = 47.9990, longitude = 7.8421),
+    City(name = "Basel", latitude = 47.5596, longitude = 7.5886),
 )
 
 val fakeCurrentWeather: Map<String, CurrentWeather> = mapOf(
@@ -372,12 +528,18 @@ val fakeCurrentWeather: Map<String, CurrentWeather> = mapOf(
         windSpeed = 8.5,
         condition = WeatherCondition.PARTLY_CLOUDY,
     ),
-    // ... Freiburg, Basel
+    "Freiburg" to CurrentWeather(
+        temperature = 15.0,
+        windSpeed = 6.1,
+        condition = WeatherCondition.CLEAR,
+    ),
+    "Basel" to CurrentWeather(
+        temperature = 13.6,
+        windSpeed = 11.2,
+        condition = WeatherCondition.RAIN,
+    ),
 )
 ```
-
-Vollständig:
-[`FakeData.kt`](https://github.com/behrends/WeatherAndroidTIF24/blob/schritt-03/app/src/main/java/com/example/weatherandroidtif24/data/FakeData.kt)
 </DocsOnly>
 
 <SlideBreak />
@@ -404,29 +566,100 @@ als Parameter bekommen. Dadurch lassen sie sich in der Preview mit
 beliebigen Daten testen.
 
 Die Anzeige der Wetterlage ist eine Erweiterungsfunktion mit `when`
-in `ui/WeatherConditionUi.kt`. Sie gehört zur UI, nicht ins Datenmodell:
+in einer neuen Datei. Sie gehört zur UI, nicht ins Datenmodell:
 
-```kotlin
+```kotlin filename="ui/WeatherConditionUi.kt"
+package com.example.weatherandroidtif24.ui
+
+import com.example.weatherandroidtif24.model.WeatherCondition
+
 fun WeatherCondition.emoji(): String = when (this) {
     WeatherCondition.CLEAR -> "☀️"
     WeatherCondition.PARTLY_CLOUDY -> "⛅"
-    // ...
+    WeatherCondition.CLOUDY -> "☁️"
+    WeatherCondition.FOG -> "🌫️"
+    WeatherCondition.RAIN -> "🌧️"
+    WeatherCondition.SNOW -> "❄️"
+    WeatherCondition.THUNDERSTORM -> "⛈️"
+}
+
+fun WeatherCondition.label(): String = when (this) {
+    WeatherCondition.CLEAR -> "Sonnig"
+    WeatherCondition.PARTLY_CLOUDY -> "Teilweise bewölkt"
+    WeatherCondition.CLOUDY -> "Bewölkt"
+    WeatherCondition.FOG -> "Nebel"
+    WeatherCondition.RAIN -> "Regen"
+    WeatherCondition.SNOW -> "Schnee"
+    WeatherCondition.THUNDERSTORM -> "Gewitter"
 }
 ```
 
 `when` muss alle Fälle der `enum class` abdecken. Kommt ein neuer Fall
 hinzu, meldet der Compiler jede Stelle, die angepasst werden muss.
-Nach demselben Muster liefert `WeatherCondition.label()` den Text
-(„Sonnig“, „Regen“ …) für die rechte Seite der `Row`; links steht die
-Windgeschwindigkeit `weather.windSpeed`.
+`label()` liefert den Text („Sonnig“, „Regen“ …) für die rechte Seite
+der `Row`; links steht die Windgeschwindigkeit `weather.windSpeed`.
 
 Auch `WeatherScreen` bekommt die Daten jetzt als Parameter und reicht
-sie an die Karte weiter. Die Preview übergibt Fake-Daten:
+sie an die Karte weiter. Die Preview übergibt Fake-Daten.
+`roundToInt()` rundet auf eine ganze Zahl, `"${…}"` setzt einen Ausdruck
+in einen String ein.
 
-```kotlin
+<details>
+<summary>Code: `ui/WeatherScreen.kt` (schritt-03)</summary>
+
+```kotlin filename="ui/WeatherScreen.kt"
+package com.example.weatherandroidtif24.ui
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.weatherandroidtif24.data.fakeCities
+import com.example.weatherandroidtif24.data.fakeCurrentWeather
+import com.example.weatherandroidtif24.model.City
+import com.example.weatherandroidtif24.model.CurrentWeather
+import kotlin.math.roundToInt
+
 @Composable
 fun WeatherScreen(city: City, weather: CurrentWeather, modifier: Modifier = Modifier) {
     CurrentWeatherCard(city = city, weather = weather, modifier = modifier)
+}
+
+@Composable
+fun CurrentWeatherCard(city: City, weather: CurrentWeather, modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .background(Color(0xFFBBDEFB), RoundedCornerShape(24.dp))
+            .padding(24.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = city.name, fontSize = 28.sp)
+            Text(text = weather.condition.emoji(), fontSize = 72.sp)
+            Text(text = "${weather.temperature.roundToInt()} °C", fontSize = 48.sp)
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(text = "Wind: ${weather.windSpeed.roundToInt()} km/h")
+                Spacer(modifier = Modifier.weight(1f))
+                Text(text = weather.condition.label())
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
@@ -437,16 +670,47 @@ fun WeatherScreenPreview() {
 }
 ```
 
+</details>
+
 Auch `MainActivity` übergibt jetzt die Fake-Daten:
 
-```kotlin
-val city = fakeCities.first()
-WeatherScreen(
-    city = city,
-    weather = fakeCurrentWeather.getValue(city.name),
-    modifier = Modifier.safeDrawingPadding(),
-)
+<details>
+<summary>Code: `MainActivity.kt` (schritt-03)</summary>
+
+```kotlin filename="MainActivity.kt" {9-10,20-26}
+package com.example.weatherandroidtif24
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.ui.Modifier
+import com.example.weatherandroidtif24.data.fakeCities
+import com.example.weatherandroidtif24.data.fakeCurrentWeather
+import com.example.weatherandroidtif24.ui.WeatherScreen
+import com.example.weatherandroidtif24.ui.theme.WeatherAndroidTIF24Theme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            WeatherAndroidTIF24Theme {
+                val city = fakeCities.first()
+                // Abstand zu Statusleiste und Kamera-Aussparung
+                WeatherScreen(
+                    city = city,
+                    weather = fakeCurrentWeather.getValue(city.name),
+                    modifier = Modifier.safeDrawingPadding(),
+                )
+            }
+        }
+    }
+}
 ```
+
+</details>
 
 Code: [`schritt-03`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-03) ·
 [Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-02...schritt-03)
@@ -476,17 +740,44 @@ als experimentell markiert.
 `innerPadding` ist der Platz, den `TopAppBar`, Statusleiste und
 Navigationsleiste belegen. Der Inhalt bekommt ihn als Modifier, damit
 nichts verdeckt wird. In `MainActivity` entfällt deshalb
-`Modifier.safeDrawingPadding()`:
+`Modifier.safeDrawingPadding()` mit seinen beiden Imports:
 
-```kotlin
-WeatherScreen(city = city, weather = fakeCurrentWeather.getValue(city.name))
+<details>
+<summary>Code: `MainActivity.kt` (schritt-04)</summary>
+
+```kotlin filename="MainActivity.kt" {19}
+package com.example.weatherandroidtif24
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import com.example.weatherandroidtif24.data.fakeCities
+import com.example.weatherandroidtif24.data.fakeCurrentWeather
+import com.example.weatherandroidtif24.ui.WeatherScreen
+import com.example.weatherandroidtif24.ui.theme.WeatherAndroidTIF24Theme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            WeatherAndroidTIF24Theme {
+                val city = fakeCities.first()
+                WeatherScreen(city = city, weather = fakeCurrentWeather.getValue(city.name))
+            }
+        }
+    }
+}
 ```
+
+</details>
 
 Die Preview legt das Theme der App (`WeatherAndroidTIF24Theme`) um den
 Screen. Sonst zeigt sie die Standardfarben von Material 3, nicht die der
 App:
 
-```kotlin
+```kotlin filename="ui/WeatherScreen.kt"
 @Preview(showBackground = true)
 @Composable
 fun WeatherScreenPreview() {
@@ -496,6 +787,92 @@ fun WeatherScreenPreview() {
     }
 }
 ```
+
+Die ganze Datei mit `Scaffold`, den neuen Imports und der Preview:
+
+<details>
+<summary>Code: `ui/WeatherScreen.kt` (schritt-04)</summary>
+
+```kotlin filename="ui/WeatherScreen.kt"
+package com.example.weatherandroidtif24.ui
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.weatherandroidtif24.data.fakeCities
+import com.example.weatherandroidtif24.data.fakeCurrentWeather
+import com.example.weatherandroidtif24.model.City
+import com.example.weatherandroidtif24.model.CurrentWeather
+import com.example.weatherandroidtif24.ui.theme.WeatherAndroidTIF24Theme
+import kotlin.math.roundToInt
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun WeatherScreen(city: City, weather: CurrentWeather, modifier: Modifier = Modifier) {
+    Scaffold(
+        modifier = modifier,
+        topBar = { TopAppBar(title = { Text(text = city.name) }) },
+    ) { innerPadding ->
+        CurrentWeatherCard(
+            city = city,
+            weather = weather,
+            modifier = Modifier.padding(innerPadding),
+        )
+    }
+}
+
+@Composable
+fun CurrentWeatherCard(city: City, weather: CurrentWeather, modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .background(Color(0xFFBBDEFB), RoundedCornerShape(24.dp))
+            .padding(24.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = city.name, fontSize = 28.sp)
+            Text(text = weather.condition.emoji(), fontSize = 72.sp)
+            Text(text = "${weather.temperature.roundToInt()} °C", fontSize = 48.sp)
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(text = "Wind: ${weather.windSpeed.roundToInt()} km/h")
+                Spacer(modifier = Modifier.weight(1f))
+                Text(text = weather.condition.label())
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WeatherScreenPreview() {
+    val city = fakeCities.first()
+    WeatherAndroidTIF24Theme {
+        WeatherScreen(city = city, weather = fakeCurrentWeather.getValue(city.name))
+    }
+}
+```
+
+</details>
 
 Die Karte behält vorerst ihre feste Farbe und Schriftgrößen. Farben und
 Schriften aus dem Theme, `Card` und Dark Mode kommen am Ende dazu (siehe

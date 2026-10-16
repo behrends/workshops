@@ -74,7 +74,7 @@ Durch `by` (Delegation) schreiben wir `useCelsius` statt
 `useCelsius.value`. Dafür braucht es zwei Imports, die Android Studio
 nicht immer automatisch vorschlägt:
 
-```kotlin
+```kotlin filename="ui/WeatherScreen.kt"
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 ```
@@ -112,26 +112,34 @@ CurrentWeatherCard(city, weather, useCelsius) // State ↓
 ```
 
 <DocsOnly>
-Vollständig in `WeatherScreen`: `UnitToggle` steckt in der `TopAppBar`,
-die Karte im Inhalt des `Scaffold`.
+Vollständig in `WeatherScreen`: `UnitToggle` steckt in den `actions`
+der `TopAppBar`, die Karte im Inhalt des `Scaffold`.
 
-```kotlin
-var useCelsius by rememberSaveable { mutableStateOf(true) }
+```kotlin filename="ui/WeatherScreen.kt" {4-5,10-16,21}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun WeatherScreen(city: City, weather: CurrentWeather, modifier: Modifier = Modifier) {
+    // State liegt hier, weil TopAppBar und Karte ihn beide brauchen (State Hoisting)
+    var useCelsius by rememberSaveable { mutableStateOf(true) }
 
-Scaffold(
-    topBar = {
-        TopAppBar(
-            title = { Text(text = city.name) },
-            actions = {
-                UnitToggle(
-                    useCelsius = useCelsius,
-                    onToggle = { useCelsius = !useCelsius },
-                )
-            },
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopAppBar(
+                title = { Text(text = city.name) },
+                actions = {
+                    UnitToggle(useCelsius = useCelsius, onToggle = { useCelsius = !useCelsius })
+                },
+            )
+        },
+    ) { innerPadding ->
+        CurrentWeatherCard(
+            city = city,
+            weather = weather,
+            useCelsius = useCelsius,
+            modifier = Modifier.padding(innerPadding),
         )
-    },
-) { innerPadding ->
-    CurrentWeatherCard(city, weather, useCelsius, /* ... */)
+    }
 }
 ```
 
@@ -139,11 +147,11 @@ Scaffold(
 `useCelsius: Boolean` und zeigt die Temperatur mit
 `formatTemperature(weather.temperature, useCelsius)` an (siehe unten).
 
-`UnitToggle` steht ebenfalls in `ui/WeatherScreen.kt`. Es ist stateless
-und bekommt den aktuellen Wert und meldet
-das Antippen über `onToggle`:
+`UnitToggle` steht in derselben Datei, zwischen `WeatherScreen` und
+`CurrentWeatherCard`. Es ist stateless, bekommt den aktuellen Wert und
+meldet das Antippen über `onToggle`:
 
-```kotlin
+```kotlin filename="ui/WeatherScreen.kt"
 @Composable
 fun UnitToggle(useCelsius: Boolean, onToggle: () -> Unit, modifier: Modifier = Modifier) {
     TextButton(onClick = onToggle, modifier = modifier) {
@@ -152,9 +160,125 @@ fun UnitToggle(useCelsius: Boolean, onToggle: () -> Unit, modifier: Modifier = M
 }
 ```
 
-Die Umrechnung steckt in einer Hilfsfunktion in `ui/WeatherConditionUi.kt`:
+Die ganze Datei mit allen neuen Imports:
 
-```kotlin
+<details>
+<summary>Code: `ui/WeatherScreen.kt` (schritt-05)</summary>
+
+```kotlin filename="ui/WeatherScreen.kt"
+package com.example.weatherandroidtif24.ui
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.weatherandroidtif24.data.fakeCities
+import com.example.weatherandroidtif24.data.fakeCurrentWeather
+import com.example.weatherandroidtif24.model.City
+import com.example.weatherandroidtif24.model.CurrentWeather
+import com.example.weatherandroidtif24.ui.theme.WeatherAndroidTIF24Theme
+import kotlin.math.roundToInt
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun WeatherScreen(city: City, weather: CurrentWeather, modifier: Modifier = Modifier) {
+    // State liegt hier, weil TopAppBar und Karte ihn beide brauchen (State Hoisting)
+    var useCelsius by rememberSaveable { mutableStateOf(true) }
+
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopAppBar(
+                title = { Text(text = city.name) },
+                actions = {
+                    UnitToggle(useCelsius = useCelsius, onToggle = { useCelsius = !useCelsius })
+                },
+            )
+        },
+    ) { innerPadding ->
+        CurrentWeatherCard(
+            city = city,
+            weather = weather,
+            useCelsius = useCelsius,
+            modifier = Modifier.padding(innerPadding),
+        )
+    }
+}
+
+@Composable
+fun UnitToggle(useCelsius: Boolean, onToggle: () -> Unit, modifier: Modifier = Modifier) {
+    TextButton(onClick = onToggle, modifier = modifier) {
+        Text(text = if (useCelsius) "°C" else "°F")
+    }
+}
+
+@Composable
+fun CurrentWeatherCard(
+    city: City,
+    weather: CurrentWeather,
+    useCelsius: Boolean,
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .background(Color(0xFFBBDEFB), RoundedCornerShape(24.dp))
+            .padding(24.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = city.name, fontSize = 28.sp)
+            Text(text = weather.condition.emoji(), fontSize = 72.sp)
+            Text(text = formatTemperature(weather.temperature, useCelsius), fontSize = 48.sp)
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(text = "Wind: ${weather.windSpeed.roundToInt()} km/h")
+                Spacer(modifier = Modifier.weight(1f))
+                Text(text = weather.condition.label())
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WeatherScreenPreview() {
+    val city = fakeCities.first()
+    WeatherAndroidTIF24Theme {
+        WeatherScreen(city = city, weather = fakeCurrentWeather.getValue(city.name))
+    }
+}
+```
+
+</details>
+
+Die Umrechnung steckt in einer Hilfsfunktion am Ende von
+`WeatherConditionUi.kt`. Oben in der Datei kommt dafür
+`import kotlin.math.roundToInt` dazu.
+
+```kotlin filename="ui/WeatherConditionUi.kt"
 fun formatTemperature(celsius: Double, useCelsius: Boolean): String =
     if (useCelsius) {
         "${celsius.roundToInt()} °C"
