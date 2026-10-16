@@ -68,17 +68,63 @@ class _WeatherScreenState extends State<WeatherScreen> {
 ```
 
 <DocsOnly>
-Das Widget selbst bleibt unveränderlich. Den veränderlichen Zustand hält
-das `State`-Objekt, das Flutter einmal erzeugt und bei jedem neuen
-`build` wiederverwendet. Damit übernimmt es die Rolle von `remember` in
-Compose.
+Den Umbau von `WeatherScreen` machen wir einmal von Hand, um zu sehen,
+was dabei passiert.
+
+**1.** `WeatherScreen` erbt von `StatefulWidget` statt von
+`StatelessWidget` und bekommt die Methode `createState`. Die
+`build`-Methode zunächst ausschneiden, sie zieht gleich um:
+
+```dart {1,7-8}
+class WeatherScreen extends StatefulWidget {
+  const WeatherScreen({super.key, required this.city, required this.weather});
+
+  final City city;
+  final CurrentWeather weather;
+
+  @override
+  State<WeatherScreen> createState() => _WeatherScreenState();
+}
+```
+
+Ein `StatefulWidget` hat selbst keine `build`-Methode. `createState`
+ruft Flutter einmal auf, wenn das Widget in den Baum kommt.
+
+**2.** Darunter die Klasse `_WeatherScreenState` anlegen und `build`
+dort einfügen:
+
+```dart {1,5,7}
+class _WeatherScreenState extends State<WeatherScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(widget.city.name)),
+      body: SingleChildScrollView(
+        child: CurrentWeatherCard(city: widget.city, weather: widget.weather),
+      ),
+    );
+  }
+}
+```
+
+**3.** `city` und `weather` sind jetzt Felder einer *anderen* Klasse.
+Der Analyzer meldet deshalb Fehler, bis jeder Zugriff `widget.`
+voranstellt: `widget.city`, `widget.weather`. `widget` ist das aktuelle
+Widget, zu dem dieser `State` gehört.
+
+**4.** Erst jetzt kommt der eigentliche Zustand dazu: das Feld
+`bool _useCelsius = true;` in `_WeatherScreenState`. Wie es geändert
+wird, zeigt der nächste Abschnitt.
 
 Der Unterstrich in `_WeatherScreenState` und `_useCelsius` macht beides
-privat für die Datei. Auf die Felder des Widgets greift der `State` über
-`widget.` zu, z. B. `widget.city.name`.
+privat für die Datei. Das Widget selbst bleibt unveränderlich. Den
+veränderlichen Zustand hält das `State`-Objekt, das Flutter einmal
+erzeugt und bei jedem neuen `build` wiederverwendet. Damit übernimmt es
+die Rolle von `remember` in Compose.
 
-Am schnellsten geht der Umbau mit Quick Fix (⌘ .) auf
-`StatelessWidget`: *Convert to StatefulWidget*.
+Wer den Umbau einmal von Hand gemacht hat, kann künftig den Quick Fix
+nutzen: Cursor auf `StatelessWidget`, ⌘ . (Windows/Linux: Strg + .) und
+*Convert to StatefulWidget*. Er erledigt die Schritte 1 bis 3.
 </DocsOnly>
 
 ## setState
