@@ -325,6 +325,21 @@ Jede `View` ist ein Flexbox-Container. Ohne weitere Angabe stehen die Kinder unt
 
 <SlideBreak />
 
+Die Verschachtelung im Code entspricht der Verschachtelung auf dem Bildschirm.
+
+![Layout als verschachtelte Views: Bildschirm und Code haben denselben Aufbau](/images/mobile/reactnative/wetter/layout-baum.svg)
+
+<DocsOnly>
+Im Vergleich mit Flutter und Compose fällt auf: Es gibt nur eine Art
+Box, die `View`. Hintergrund, Abstände und Anordnung kommen alle aus
+ihrem `style`; ein eigenes `Container` neben `Column` braucht es nicht.
+Auch `SizedBox` und `Spacer` fehlen: Den Abstand über der Zeile macht
+`marginTop`, den freien Platz zwischen den beiden Texten
+`justifyContent: 'space-between'` (siehe unten).
+</DocsOnly>
+
+<SlideBreak />
+
 <SlideOnly>
 ```tsx
 <View style={styles.card}>
