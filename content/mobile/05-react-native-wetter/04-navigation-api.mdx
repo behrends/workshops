@@ -26,7 +26,7 @@ Aufgabe ist, seinen Plan und seinen Code zu prüfen.
 
 `FlatList` erzeugt Einträge erst, wenn sie sichtbar werden. Damit bleiben auch lange Listen performant.
 
-```tsx
+```tsx filename="src/ui/city-list-screen.tsx"
 <FlatList
   data={cities}
   keyExtractor={(city) => city.name}
@@ -38,7 +38,10 @@ Aufgabe ist, seinen Plan und seinen Code zu prüfen.
 <DocsOnly>
 Neue Datei `ui/city-list-screen.tsx`:
 
-```tsx
+<details>
+<summary>Code: `src/ui/city-list-screen.tsx` (schritt-08)</summary>
+
+```tsx filename="src/ui/city-list-screen.tsx"
 import { router, Stack } from 'expo-router';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -101,6 +104,8 @@ const styles = StyleSheet.create({
 });
 ```
 
+</details>
+
 `renderItem` bekommt jeden Eintrag als `item` und gibt die Zeile dafür
 zurück, wie `items(cities) { … }` in einer `LazyColumn` oder
 `itemBuilder` in Flutter. `ItemSeparatorComponent` fügt zwischen zwei
@@ -135,7 +140,7 @@ Jede Datei in `app/` ist eine Route. Der `Stack` im Layout verwaltet einen Stape
 <DocsOnly>
 `app/index.tsx` zeigt jetzt die Städteliste:
 
-```tsx
+```tsx filename="src/app/index.tsx"
 import { fakeCities } from '@/data/fake-data';
 import { CityListScreen } from '@/ui/city-list-screen';
 
@@ -173,7 +178,7 @@ soll (siehe Übung Stadtsuche), ist `router.push` im `onPress` einfacher.
 
 Parameter kommen über die URL und sind immer Strings. Gelesen werden sie mit `useLocalSearchParams`.
 
-```tsx
+```tsx filename="src/app/weather.tsx"
 const { name, latitude, longitude } = useLocalSearchParams<{
   name: string;
   latitude: string;
@@ -184,7 +189,7 @@ const { name, latitude, longitude } = useLocalSearchParams<{
 <DocsOnly>
 Neue Datei `app/weather.tsx`:
 
-```tsx
+```tsx filename="src/app/weather.tsx"
 import { useLocalSearchParams } from 'expo-router';
 import { useMemo } from 'react';
 
@@ -233,7 +238,7 @@ In `ui/weather-screen.tsx` bekommt `WeatherContent` die neue Prop
 `city`, und der Header zeigt statt „Wetter“ den Namen der Stadt. So
 steht er schon während des Ladens da:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx" {7,16,24,33}
 export function WeatherScreen({ city }: WeatherScreenProps) {
   const uiState = useWeather(city);
   const [isCelsius, setIsCelsius] = useState(true);
@@ -278,8 +283,178 @@ function WeatherContent({
 }
 ```
 
-Vollständig:
-[`weather-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-08/src/ui/weather-screen.tsx)
+<details>
+<summary>Code: `src/ui/weather-screen.tsx` (schritt-08)</summary>
+
+```tsx filename="src/ui/weather-screen.tsx"
+import { Stack } from 'expo-router';
+import { type ReactElement, useState } from 'react';
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+
+import type { City } from '@/model/city';
+import type { CurrentWeather } from '@/model/current-weather';
+import { useWeather } from '@/ui/use-weather';
+import {
+  conditionEmoji,
+  conditionLabel,
+  formatTemperature,
+} from '@/ui/weather-condition-ui';
+import type { WeatherUiState } from '@/ui/weather-ui-state';
+
+type WeatherScreenProps = {
+  city: City;
+};
+
+// Holt den Zustand aus dem Hook und hält den UI-State für °C/°F
+export function WeatherScreen({ city }: WeatherScreenProps) {
+  const uiState = useWeather(city);
+  const [isCelsius, setIsCelsius] = useState(true);
+
+  return (
+    <WeatherContent
+      city={city}
+      uiState={uiState}
+      isCelsius={isCelsius}
+      onToggleUnit={() => setIsCelsius(!isCelsius)}
+    />
+  );
+}
+
+type WeatherContentProps = {
+  city: City;
+  uiState: WeatherUiState;
+  isCelsius: boolean;
+  onToggleUnit: () => void;
+};
+
+// Zeigt nur an, was es über Props bekommt
+function WeatherContent({
+  city,
+  uiState,
+  isCelsius,
+  onToggleUnit,
+}: WeatherContentProps) {
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          title: city.name,
+          headerRight: () => (
+            <UnitToggle isCelsius={isCelsius} onToggle={onToggleUnit} />
+          ),
+        }}
+      />
+      <WeatherBody uiState={uiState} isCelsius={isCelsius} />
+    </>
+  );
+}
+
+type WeatherBodyProps = {
+  uiState: WeatherUiState;
+  isCelsius: boolean;
+};
+
+function WeatherBody({ uiState, isCelsius }: WeatherBodyProps): ReactElement {
+  switch (uiState.status) {
+    case 'loading':
+      return (
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    case 'success':
+      return (
+        <ScrollView>
+          <CurrentWeatherCard
+            city={uiState.city}
+            weather={uiState.weather}
+            isCelsius={isCelsius}
+          />
+        </ScrollView>
+      );
+    case 'error':
+      return (
+        <View style={styles.centered}>
+          <Text>{uiState.message}</Text>
+        </View>
+      );
+  }
+}
+
+type UnitToggleProps = {
+  isCelsius: boolean;
+  onToggle: () => void;
+};
+
+function UnitToggle({ isCelsius, onToggle }: UnitToggleProps) {
+  return (
+    <Pressable onPress={onToggle} hitSlop={12}>
+      <Text style={styles.toggle}>{isCelsius ? '°C' : '°F'}</Text>
+    </Pressable>
+  );
+}
+
+type CurrentWeatherCardProps = {
+  city: City;
+  weather: CurrentWeather;
+  isCelsius: boolean;
+};
+
+function CurrentWeatherCard({
+  city,
+  weather,
+  isCelsius,
+}: CurrentWeatherCardProps) {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.city}>{city.name}</Text>
+      <Text style={styles.emoji}>{conditionEmoji[weather.condition]}</Text>
+      <Text style={styles.temperature}>
+        {formatTemperature(weather.temperature, isCelsius)}
+      </Text>
+      <View style={styles.row}>
+        <Text>Wind: {Math.round(weather.windSpeed)} km/h</Text>
+        <Text>{conditionLabel[weather.condition]}</Text>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  centered: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  toggle: { fontSize: 18, color: '#1565C0', paddingHorizontal: 8 },
+  card: {
+    margin: 16, // außen
+    padding: 24, // innen
+    borderRadius: 24,
+    backgroundColor: '#BBDEFB',
+    alignItems: 'center',
+  },
+  city: { fontSize: 28 },
+  emoji: { fontSize: 72 },
+  temperature: { fontSize: 48 },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    marginTop: 16,
+  },
+});
+```
+
+</details>
 
 Wie in Flutter lebt der Zustand genau so lange wie der Screen: Jeder
 Wetter-Screen hat seinen eigenen Hook. Wechselt man schnell zwischen
@@ -319,6 +494,41 @@ Expo ändert sich so schnell, dass das Wissen eines Modells oft veraltet
 ist. Eine Beschreibung des Projekts hilft dagegen kaum, denn der Agent
 liest den Code ohnehin. Jede Zeile kostet bei jeder Anfrage Tokens.
 
+Die Datei liegt im Projektordner, neben `package.json`, und ersetzt die
+`AGENTS.md` der Vorlage:
+
+```markdown filename="AGENTS.md"
+# AGENTS.md
+
+Lern-Projekt: Die Personen hier lernen gerade React Native mit Expo.
+Erkläre deine Änderungen so, dass sie nachvollziehbar sind.
+
+## Regeln
+
+- Expo ändert sich mit jeder SDK-Version. Vor Code mit Expo- oder
+  React-Native-APIs die Doku zur Version in `package.json` lesen:
+  `https://docs.expo.dev/versions/v57.0.0/`, Übersicht in
+  https://docs.expo.dev/llms.txt
+- HTTP mit `fetch`. Kein axios, kein TanStack Query/SWR, kein
+  Redux/Zustand/MobX, keine UI-Bibliothek, kein zod.
+- Keine weiteren Pakete, ohne zu begründen, warum, und nachzufragen.
+  Pakete immer mit `npx expo install` hinzufügen.
+- API-Antworten als eigene DTO-Typen in `src/data/api/` abbilden und auf
+  `src/model/` mappen. Das Datenmodell nicht an die API anpassen.
+- Änderungen an der Datenschicht (`src/data/`) dürfen die Komponenten in
+  `src/ui/` und die Routen in `src/app/` nicht verändern. Wenn das doch
+  nötig scheint, vorher nachfragen.
+- State mit `useState`/`useEffect`; die Logik eines Screens steckt in
+  einem Custom Hook (`src/ui/use-….ts`) als ViewModel.
+- Texte in der App auf Deutsch.
+
+## Arbeitsweise
+
+- Vor größeren Änderungen einen kurzen Plan vorlegen und auf Bestätigung warten.
+- Nach jeder Änderung prüfen: `npx tsc --noEmit` und `npx expo lint`
+- Nicht selbst committen; die Person prüft den Diff und committet.
+```
+
 Ein möglicher Prompt:
 
 > Baue ein Repository `createApiWeatherRepository`, das das aktuelle
@@ -336,7 +546,7 @@ Browser ansehen:
 `fetch` ist in React Native eingebaut, wie im Browser. Ein Paket braucht es nicht.
 
 <SlideOnly>
-```ts
+```ts filename="src/data/api-weather-repository.ts"
 const params = new URLSearchParams({
   latitude: String(city.latitude),
   longitude: String(city.longitude),
@@ -353,7 +563,7 @@ return toCurrentWeather(json.current);
 Neue Datei `data/api-weather-repository.ts`, so wie der Agent sie im
 Referenz-Repository angelegt hat:
 
-```ts
+```ts filename="src/data/api-weather-repository.ts"
 import type {
   CurrentDto,
   ForecastResponseDto,
@@ -434,7 +644,7 @@ beim Review.
 
 Die JSON-Antwort bekommt eigene Typen (DTOs). Sie werden auf unser Datenmodell abgebildet.
 
-```ts
+```ts filename="src/data/api/open-meteo-dto.ts"
 // Ausschnitt der Antwort von https://api.open-meteo.com/v1/forecast
 export type ForecastResponseDto = {
   current: CurrentDto;
@@ -483,13 +693,63 @@ $ git diff --stat schritt-08 schritt-09
 ```
 
 <DocsOnly>
-Im Hook haben sich nur Import und Default geändert:
+Im Hook haben sich nur zwei Zeilen geändert: Der Import von
+`createFakeWeatherRepository` und der Default verwenden jetzt das
+API-Repository:
 
-```ts
+```ts filename="src/ui/use-weather.ts"
 import { createApiWeatherRepository } from '@/data/api-weather-repository';
 
 const defaultRepository = createApiWeatherRepository();
 ```
+
+<details>
+<summary>Code: `src/ui/use-weather.ts` (schritt-09)</summary>
+
+```ts filename="src/ui/use-weather.ts" {3,8}
+import { useEffect, useState } from 'react';
+
+import { createApiWeatherRepository } from '@/data/api-weather-repository';
+import type { WeatherRepository } from '@/data/weather-repository';
+import type { City } from '@/model/city';
+import type { WeatherUiState } from '@/ui/weather-ui-state';
+
+const defaultRepository = createApiWeatherRepository();
+
+export function useWeather(
+  city: City,
+  repository: WeatherRepository = defaultRepository,
+): WeatherUiState {
+  const [uiState, setUiState] = useState<WeatherUiState>({
+    status: 'loading',
+  });
+
+  useEffect(() => {
+    // wird true, sobald die Antwort nicht mehr gebraucht wird
+    let ignore = false;
+
+    async function loadWeather() {
+      try {
+        const weather = await repository.getCurrentWeather(city);
+        if (!ignore) setUiState({ status: 'success', city, weather });
+      } catch (error) {
+        if (!ignore) setUiState({ status: 'error', message: String(error) });
+      }
+    }
+
+    loadWeather();
+
+    // Aufräumen: beim Verlassen des Screens oder vor dem nächsten Laden
+    return () => {
+      ignore = true;
+    };
+  }, [city, repository]);
+
+  return uiState;
+}
+```
+
+</details>
 
 Anders als bei Flutter und Android kommt keine Abhängigkeit hinzu:
 `package.json` bleibt unverändert, weil `fetch` eingebaut ist.
@@ -542,6 +802,14 @@ Hinweise zu den Übungen:
   Eine Referenzlösung liegt im Tag
   [`schritt-11`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-11)
   ([Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-10...schritt-11)).
+  Die Dateien zum Kopieren:
+  [`data/api/geocoding-dto.ts`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-11/src/data/api/geocoding-dto.ts),
+  [`data/city-repository.ts`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-11/src/data/city-repository.ts),
+  [`data/api-city-repository.ts`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-11/src/data/api-city-repository.ts),
+  [`ui/use-city-list.ts`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-11/src/ui/use-city-list.ts),
+  [`ui/city-list-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-11/src/ui/city-list-screen.tsx),
+  [`ui/theme.ts`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-11/src/ui/theme.ts)
+  und [`app/index.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-11/src/app/index.tsx).
   Statt eines `UiState`-Typs hält der Hook dort mehrere Werte
   (`cities`, `searchResults`, `isSearching`, `errorMessage`), weil diese
   Zustände gleichzeitig auftreten können. Die Liste ist dort eine

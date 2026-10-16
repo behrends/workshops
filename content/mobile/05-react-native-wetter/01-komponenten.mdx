@@ -24,9 +24,11 @@ Schritt 4.
 Code: [Repository auf GitHub](https://github.com/behrends/WeatherReactNativeTIF24),
 Schritte 0 bis 4.
 
-Die Codebeispiele lassen sich direkt kopieren. Wo etwas weggelassen ist,
-steht ein Link auf die vollständige Datei im Repository beim passenden
-Tag.
+Die Notizen enthalten den vollständigen Code jeder Datei, sodass sich
+die App durch Kopieren und Einfügen nachbauen lässt. Die Folien zeigen
+nur Ausschnitte. Lange Dateien sind eingeklappt; über jedem Codeblock
+steht, in welche Datei er gehört. Wo auch die Notizen kürzen, verlinken
+sie die Datei im Repository mit dem Tag des Schritts.
 </DocsOnly>
 
 ## React Native und Expo
@@ -145,7 +147,7 @@ Ausgangspunkt (`schritt-00`) ist die Vorlage nach `reset-project`.
 `src/app/_layout.tsx` legt einen *Stack* an, der die Screens verwaltet
 und oben einen Header anzeigt:
 
-```tsx
+```tsx filename="src/app/_layout.tsx"
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
@@ -155,6 +157,11 @@ export default function RootLayout() {
 
 `src/app/index.tsx` ist der erste Screen. Dort steht vorerst nur ein
 Hinweistext in einer `View`.
+
+Die Datei `AGENTS.md` aus dem Referenz-Repository steht vollständig auf
+der Seite [Navigation und API](./04-navigation-api#api-anbindung-mit-einem-coding-agent).
+Wer das Projekt selbst anlegt, ersetzt die `AGENTS.md` der Vorlage
+spätestens dort.
 </DocsOnly>
 
 ## Projektstruktur
@@ -178,10 +185,11 @@ der Flutter-App. Neu ist `app/`: **Expo Router** macht aus jeder Datei
 darin einen Screen (dateibasiertes Routing). Was kein Screen ist, gehört
 nach den Regeln von Expo Router nicht in diesen Ordner.
 
-Pfade auf dieser und den folgenden Seiten (z. B. `ui/weather-screen.tsx`)
-beziehen sich auf `src/`. Dateinamen schreiben wir in `kebab-case` wie
-die Vorlage von Expo, Komponenten in `PascalCase`. Importiert wird mit
-dem Alias `@/` für `src/`, z. B.
+Pfade im Text dieser und der folgenden Seiten (z. B.
+`ui/weather-screen.tsx`) beziehen sich auf `src/`. Über den Codeblöcken
+steht der vollständige Pfad ab dem Projektordner. Dateinamen schreiben
+wir in `kebab-case` wie die Vorlage von Expo, Komponenten in
+`PascalCase`. Importiert wird mit dem Alias `@/` für `src/`, z. B.
 `import type { City } from '@/model/city';`. Den Alias richtet die
 Vorlage in `tsconfig.json` ein.
 
@@ -216,7 +224,7 @@ In React ist alles eine Komponente: eine Funktion, die beschreibt, was angezeigt
 Neue Datei `ui/weather-screen.tsx` im neuen Ordner `ui`:
 </DocsOnly>
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 import { Text, View } from 'react-native';
 
 export function WeatherScreen() {
@@ -250,7 +258,7 @@ Funktion erneut auf.
 Damit `WeatherScreen` erscheint, ersetzen wir den Inhalt von
 `app/index.tsx`:
 
-```tsx
+```tsx filename="src/app/index.tsx"
 import { WeatherScreen } from '@/ui/weather-screen';
 
 export default function Index() {
@@ -317,7 +325,7 @@ Jede `View` ist ein Flexbox-Container. Ohne weitere Angabe stehen die Kinder unt
 </SlideOnly>
 
 <DocsOnly>
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 function CurrentWeatherCard() {
   return (
     <View style={styles.card}>
@@ -338,7 +346,7 @@ Die neue Komponente `CurrentWeatherCard` steht ebenfalls in
 `WeatherScreen` gibt nur noch die Karte zurück; der Import ändert sich,
 weil jetzt auch `StyleSheet` gebraucht wird:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 import { StyleSheet, Text, View } from 'react-native';
 
 export function WeatherScreen() {
@@ -374,7 +382,9 @@ const styles = StyleSheet.create({
 </SlideOnly>
 
 <DocsOnly>
-```tsx
+Die Styles stehen am Ende von `ui/weather-screen.tsx`:
+
+```tsx filename="src/ui/weather-screen.tsx"
 const styles = StyleSheet.create({
   card: {
     margin: 16, // außen
@@ -413,8 +423,51 @@ einer `column` quer zur Hauptachse gestreckt werden
 Am besten mit Fast Refresh ausprobieren: `margin`, `padding` oder
 `alignSelf` ändern oder entfernen und den Unterschied ansehen.
 
-Vollständig:
-[`weather-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-02/src/ui/weather-screen.tsx)
+<details>
+<summary>Code: `src/ui/weather-screen.tsx` (schritt-02)</summary>
+
+```tsx filename="src/ui/weather-screen.tsx"
+import { StyleSheet, Text, View } from 'react-native';
+
+export function WeatherScreen() {
+  return <CurrentWeatherCard />;
+}
+
+function CurrentWeatherCard() {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.city}>Lörrach</Text>
+      <Text style={styles.emoji}>⛅</Text>
+      <Text style={styles.temperature}>14 °C</Text>
+      <View style={styles.row}>
+        <Text>Wind: 8 km/h</Text>
+        <Text>Teilweise bewölkt</Text>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  card: {
+    margin: 16, // außen
+    padding: 24, // innen
+    borderRadius: 24,
+    backgroundColor: '#BBDEFB',
+    alignItems: 'center',
+  },
+  city: { fontSize: 28 },
+  emoji: { fontSize: 72 },
+  temperature: { fontSize: 48 },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    marginTop: 16,
+  },
+});
+```
+
+</details>
 
 Code: [`schritt-02`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-02) ·
 [Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-01...schritt-02)
@@ -424,7 +477,7 @@ Code: [`schritt-02`](https://github.com/behrends/WeatherReactNativeTIF24/tree/sc
 
 Statt fester Texte bekommen Komponenten nun Daten als Props. Die Form der Daten beschreiben **Typen** in TypeScript.
 
-```ts
+```ts filename="src/model/city.ts"
 export type City = {
   name: string;
   latitude: number;
@@ -433,7 +486,8 @@ export type City = {
 ```
 
 <DocsOnly>
-Neue Datei `model/city.ts` im neuen Ordner `model`. Die Endung ist `.ts`,
+Der Code oben ist die vollständige Datei `model/city.ts` im neuen Ordner
+`model`. Die Endung ist `.ts`,
 weil die Datei kein JSX enthält; Dateien mit Komponenten enden auf
 `.tsx`.
 
@@ -445,7 +499,7 @@ Zahlen haben nur einen Typ, `number`; `Int` und `Double` gibt es nicht.
 
 Neue Datei `model/current-weather.ts`:
 
-```ts
+```ts filename="src/model/current-weather.ts"
 export type WeatherCondition =
   | 'clear'
   | 'partlyCloudy'
@@ -469,7 +523,7 @@ normaler String.
 
 Die Fake-Daten liegen in `data/fake-data.ts` im neuen Ordner `data`:
 
-```ts
+```ts filename="src/data/fake-data.ts"
 import type { City } from '@/model/city';
 import type { CurrentWeather } from '@/model/current-weather';
 
@@ -524,7 +578,7 @@ function CurrentWeatherCard({ city, weather }: CurrentWeatherCardProps) {
 </SlideOnly>
 
 <DocsOnly>
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 type CurrentWeatherCardProps = {
   city: City;
   weather: CurrentWeather;
@@ -558,7 +612,7 @@ In JSX steht JavaScript in geschweiften Klammern: `{city.name}`,
 Die Anzeige der Wetterlage steht in `ui/weather-condition-ui.ts`. Sie
 gehört zur UI, nicht ins Datenmodell:
 
-```ts
+```ts filename="src/ui/weather-condition-ui.ts"
 import type { WeatherCondition } from '@/model/current-weather';
 
 export const conditionEmoji: Record<WeatherCondition, string> = {
@@ -589,7 +643,7 @@ Tabelle, in der sie fehlt, wie `when` in Kotlin oder `switch` in Dart.
 `WeatherScreen` bekommt `city` und `weather` als Props und reicht sie
 an die Karte weiter. Der Anfang von `ui/weather-screen.tsx`:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 import { StyleSheet, Text, View } from 'react-native';
 
 import type { City } from '@/model/city';
@@ -606,13 +660,73 @@ export function WeatherScreen({ city, weather }: WeatherScreenProps) {
 }
 ```
 
-Darunter folgen `CurrentWeatherCard` von oben und `styles` wie bisher.
-Vollständig:
-[`weather-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-03/src/ui/weather-screen.tsx)
+Darunter folgen `CurrentWeatherCard` von oben und `styles` wie bisher:
+
+<details>
+<summary>Code: `src/ui/weather-screen.tsx` (schritt-03)</summary>
+
+```tsx filename="src/ui/weather-screen.tsx"
+import { StyleSheet, Text, View } from 'react-native';
+
+import type { City } from '@/model/city';
+import type { CurrentWeather } from '@/model/current-weather';
+import { conditionEmoji, conditionLabel } from '@/ui/weather-condition-ui';
+
+type WeatherScreenProps = {
+  city: City;
+  weather: CurrentWeather;
+};
+
+export function WeatherScreen({ city, weather }: WeatherScreenProps) {
+  return <CurrentWeatherCard city={city} weather={weather} />;
+}
+
+type CurrentWeatherCardProps = {
+  city: City;
+  weather: CurrentWeather;
+};
+
+function CurrentWeatherCard({ city, weather }: CurrentWeatherCardProps) {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.city}>{city.name}</Text>
+      <Text style={styles.emoji}>{conditionEmoji[weather.condition]}</Text>
+      <Text style={styles.temperature}>
+        {Math.round(weather.temperature)} °C
+      </Text>
+      <View style={styles.row}>
+        <Text>Wind: {Math.round(weather.windSpeed)} km/h</Text>
+        <Text>{conditionLabel[weather.condition]}</Text>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  card: {
+    margin: 16, // außen
+    padding: 24, // innen
+    borderRadius: 24,
+    backgroundColor: '#BBDEFB',
+    alignItems: 'center',
+  },
+  city: { fontSize: 28 },
+  emoji: { fontSize: 72 },
+  temperature: { fontSize: 48 },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    marginTop: 16,
+  },
+});
+```
+
+</details>
 
 `app/index.tsx` übergibt die Fake-Daten:
 
-```tsx
+```tsx filename="src/app/index.tsx"
 import { fakeCities, fakeCurrentWeather } from '@/data/fake-data';
 import { WeatherScreen } from '@/ui/weather-screen';
 
@@ -635,7 +749,7 @@ Code: [`schritt-03`](https://github.com/behrends/WeatherReactNativeTIF24/tree/sc
 
 Den Header zeigt der `Stack` aus dem Layout. Jeder Screen setzt seinen Titel selbst.
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 export function WeatherScreen({ city, weather }: WeatherScreenProps) {
   return (
     <ScrollView>
@@ -649,7 +763,7 @@ export function WeatherScreen({ city, weather }: WeatherScreenProps) {
 <DocsOnly>
 Dazu kommen zwei Imports am Anfang von `ui/weather-screen.tsx`:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 import { Stack } from 'expo-router';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 ```
@@ -672,6 +786,74 @@ braucht es dafür nicht.
 Die Karte behält vorerst ihre feste Farbe und Schriftgrößen. Farben aus
 einem Theme und Dark Mode kommen am Ende dazu (siehe
 [Theme und Dark Mode](./05-theme)).
+
+<details>
+<summary>Code: `src/ui/weather-screen.tsx` (schritt-04)</summary>
+
+```tsx filename="src/ui/weather-screen.tsx"
+import { Stack } from 'expo-router';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+
+import type { City } from '@/model/city';
+import type { CurrentWeather } from '@/model/current-weather';
+import { conditionEmoji, conditionLabel } from '@/ui/weather-condition-ui';
+
+type WeatherScreenProps = {
+  city: City;
+  weather: CurrentWeather;
+};
+
+export function WeatherScreen({ city, weather }: WeatherScreenProps) {
+  return (
+    <ScrollView>
+      <Stack.Screen options={{ title: city.name }} />
+      <CurrentWeatherCard city={city} weather={weather} />
+    </ScrollView>
+  );
+}
+
+type CurrentWeatherCardProps = {
+  city: City;
+  weather: CurrentWeather;
+};
+
+function CurrentWeatherCard({ city, weather }: CurrentWeatherCardProps) {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.city}>{city.name}</Text>
+      <Text style={styles.emoji}>{conditionEmoji[weather.condition]}</Text>
+      <Text style={styles.temperature}>
+        {Math.round(weather.temperature)} °C
+      </Text>
+      <View style={styles.row}>
+        <Text>Wind: {Math.round(weather.windSpeed)} km/h</Text>
+        <Text>{conditionLabel[weather.condition]}</Text>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  card: {
+    margin: 16, // außen
+    padding: 24, // innen
+    borderRadius: 24,
+    backgroundColor: '#BBDEFB',
+    alignItems: 'center',
+  },
+  city: { fontSize: 28 },
+  emoji: { fontSize: 72 },
+  temperature: { fontSize: 48 },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    marginTop: 16,
+  },
+});
+```
+
+</details>
 
 Code: [`schritt-04`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-04) ·
 [Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-03...schritt-04)

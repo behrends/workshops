@@ -28,7 +28,7 @@ Namen orientieren sich an Material 3, damit der Vergleich leichtfällt.
 
 Alle Farben stehen an einer Stelle, je einmal für hell und dunkel. Der Hook `useColorScheme` verrät, was am Gerät eingestellt ist.
 
-```ts
+```ts filename="src/ui/theme.ts"
 export function useAppColors(): AppColors {
   return useColorScheme() === 'dark' ? darkColors : lightColors;
 }
@@ -37,7 +37,7 @@ export function useAppColors(): AppColors {
 <DocsOnly>
 Neue Datei `ui/theme.ts`:
 
-```ts
+```ts filename="src/ui/theme.ts"
 import { DarkTheme, DefaultTheme, type Theme } from 'expo-router';
 import { StyleSheet, useColorScheme } from 'react-native';
 
@@ -131,7 +131,7 @@ bleiben z. B. die Schriften für den Header erhalten.
 Der `ThemeProvider` im Layout gibt Header und Hintergrund aller Screens die passenden Farben.
 
 <SlideOnly>
-```tsx
+```tsx filename="src/app/_layout.tsx"
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
@@ -146,7 +146,7 @@ export default function RootLayout() {
 </SlideOnly>
 
 <DocsOnly>
-```tsx
+```tsx filename="src/app/_layout.tsx"
 import { Stack, ThemeProvider } from 'expo-router';
 import { useColorScheme } from 'react-native';
 
@@ -180,7 +180,7 @@ Screens. Ohne ihn verwendet Expo Router immer das helle Standard-Theme.
 
 Jede Komponente holt sich die Farben mit `useAppColors()`. Feste Styles bleiben im `StyleSheet`, Farben kommen als zweiter Style dazu.
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 const colors = useAppColors();
 const textColor = { color: colors.onPrimaryContainer };
 
@@ -195,13 +195,13 @@ nicht, weil sie erst beim Rendern feststehen.
 
 In `ui/weather-screen.tsx` kommt ein Import hinzu:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 import { typography, useAppColors } from '@/ui/theme';
 ```
 
 `CurrentWeatherCard` verwendet die Farben und Schriften aus dem Theme:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 function CurrentWeatherCard({
   city,
   weather,
@@ -233,23 +233,45 @@ function CurrentWeatherCard({
 Nur das Emoji behält eine feste Größe, weil es im Theme keinen passenden
 Schriftstil dafür gibt.
 
-Auch `WeatherBody` und `UnitToggle` holen sich die Farben. Am Anfang von
-`WeatherBody` steht `const colors = useAppColors();`, und zwei Stellen
-ändern sich:
+Auch `WeatherBody` und `UnitToggle` holen sich die Farben. In
+`WeatherBody` bekommen die Ladeanzeige und die Fehlermeldung eine Farbe:
 
-```tsx
-<ActivityIndicator size="large" color={colors.primary} />
-```
+```tsx filename="src/ui/weather-screen.tsx" {2,8,24-26}
+function WeatherBody({ uiState, isCelsius }: WeatherBodyProps): ReactElement {
+  const colors = useAppColors();
 
-```tsx
-<Text style={[typography.bodyLarge, { color: colors.text }]}>
-  {uiState.message}
-</Text>
+  switch (uiState.status) {
+    case 'loading':
+      return (
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" color={colors.primary} />
+        </View>
+      );
+    case 'success':
+      return (
+        <ScrollView>
+          <CurrentWeatherCard
+            city={uiState.city}
+            weather={uiState.weather}
+            isCelsius={isCelsius}
+          />
+        </ScrollView>
+      );
+    case 'error':
+      return (
+        <View style={styles.centered}>
+          <Text style={[typography.bodyLarge, { color: colors.text }]}>
+            {uiState.message}
+          </Text>
+        </View>
+      );
+  }
+}
 ```
 
 `UnitToggle` bekommt die Farbe `primary`:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 function UnitToggle({ isCelsius, onToggle }: UnitToggleProps) {
   const colors = useAppColors();
 
@@ -265,7 +287,7 @@ function UnitToggle({ isCelsius, onToggle }: UnitToggleProps) {
 
 In `styles` fallen die festen Farben und Schriftgrößen weg:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 const styles = StyleSheet.create({
   centered: {
     flex: 1,
@@ -290,8 +312,191 @@ const styles = StyleSheet.create({
 });
 ```
 
-Vollständig:
-[`weather-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-10/src/ui/weather-screen.tsx)
+<details>
+<summary>Code: `src/ui/weather-screen.tsx` (schritt-10)</summary>
+
+```tsx filename="src/ui/weather-screen.tsx"
+import { Stack } from 'expo-router';
+import { type ReactElement, useState } from 'react';
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+
+import type { City } from '@/model/city';
+import type { CurrentWeather } from '@/model/current-weather';
+import { typography, useAppColors } from '@/ui/theme';
+import { useWeather } from '@/ui/use-weather';
+import {
+  conditionEmoji,
+  conditionLabel,
+  formatTemperature,
+} from '@/ui/weather-condition-ui';
+import type { WeatherUiState } from '@/ui/weather-ui-state';
+
+type WeatherScreenProps = {
+  city: City;
+};
+
+// Holt den Zustand aus dem Hook und hält den UI-State für °C/°F
+export function WeatherScreen({ city }: WeatherScreenProps) {
+  const uiState = useWeather(city);
+  const [isCelsius, setIsCelsius] = useState(true);
+
+  return (
+    <WeatherContent
+      city={city}
+      uiState={uiState}
+      isCelsius={isCelsius}
+      onToggleUnit={() => setIsCelsius(!isCelsius)}
+    />
+  );
+}
+
+type WeatherContentProps = {
+  city: City;
+  uiState: WeatherUiState;
+  isCelsius: boolean;
+  onToggleUnit: () => void;
+};
+
+// Zeigt nur an, was es über Props bekommt
+function WeatherContent({
+  city,
+  uiState,
+  isCelsius,
+  onToggleUnit,
+}: WeatherContentProps) {
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          title: city.name,
+          headerRight: () => (
+            <UnitToggle isCelsius={isCelsius} onToggle={onToggleUnit} />
+          ),
+        }}
+      />
+      <WeatherBody uiState={uiState} isCelsius={isCelsius} />
+    </>
+  );
+}
+
+type WeatherBodyProps = {
+  uiState: WeatherUiState;
+  isCelsius: boolean;
+};
+
+function WeatherBody({ uiState, isCelsius }: WeatherBodyProps): ReactElement {
+  const colors = useAppColors();
+
+  switch (uiState.status) {
+    case 'loading':
+      return (
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" color={colors.primary} />
+        </View>
+      );
+    case 'success':
+      return (
+        <ScrollView>
+          <CurrentWeatherCard
+            city={uiState.city}
+            weather={uiState.weather}
+            isCelsius={isCelsius}
+          />
+        </ScrollView>
+      );
+    case 'error':
+      return (
+        <View style={styles.centered}>
+          <Text style={[typography.bodyLarge, { color: colors.text }]}>
+            {uiState.message}
+          </Text>
+        </View>
+      );
+  }
+}
+
+type UnitToggleProps = {
+  isCelsius: boolean;
+  onToggle: () => void;
+};
+
+function UnitToggle({ isCelsius, onToggle }: UnitToggleProps) {
+  const colors = useAppColors();
+
+  return (
+    <Pressable onPress={onToggle} hitSlop={12}>
+      <Text style={[styles.toggle, { color: colors.primary }]}>
+        {isCelsius ? '°C' : '°F'}
+      </Text>
+    </Pressable>
+  );
+}
+
+type CurrentWeatherCardProps = {
+  city: City;
+  weather: CurrentWeather;
+  isCelsius: boolean;
+};
+
+function CurrentWeatherCard({
+  city,
+  weather,
+  isCelsius,
+}: CurrentWeatherCardProps) {
+  const colors = useAppColors();
+  const textColor = { color: colors.onPrimaryContainer };
+
+  return (
+    <View style={[styles.card, { backgroundColor: colors.primaryContainer }]}>
+      <Text style={[typography.headlineMedium, textColor]}>{city.name}</Text>
+      <Text style={styles.emoji}>{conditionEmoji[weather.condition]}</Text>
+      <Text style={[typography.displayLarge, textColor]}>
+        {formatTemperature(weather.temperature, isCelsius)}
+      </Text>
+      <View style={styles.row}>
+        <Text style={[typography.bodyLarge, textColor]}>
+          Wind: {Math.round(weather.windSpeed)} km/h
+        </Text>
+        <Text style={[typography.bodyLarge, textColor]}>
+          {conditionLabel[weather.condition]}
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  centered: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  toggle: { fontSize: 18, paddingHorizontal: 8 },
+  card: {
+    margin: 16, // außen
+    padding: 24, // innen
+    borderRadius: 24,
+    alignItems: 'center',
+  },
+  emoji: { fontSize: 72 },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    marginTop: 16,
+  },
+});
+```
+
+</details>
 
 <Callout type="warning">
 Ein `Text` ohne Farbangabe kennt unser Theme nicht. Anders als in
@@ -303,9 +508,12 @@ Komponente `ThemedText`, die die Farbe selbst setzt.
 </Callout>
 
 In `ui/city-list-screen.tsx` holen sich `CityRow` und `Divider` die
-Farben ebenso. Die vollständige Datei:
+Farben ebenso:
 
-```tsx
+<details>
+<summary>Code: `src/ui/city-list-screen.tsx` (schritt-10)</summary>
+
+```tsx filename="src/ui/city-list-screen.tsx"
 import { router, Stack } from 'expo-router';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -376,6 +584,8 @@ const styles = StyleSheet.create({
   divider: { height: StyleSheet.hairlineWidth },
 });
 ```
+
+</details>
 </DocsOnly>
 
 ## Dark Mode

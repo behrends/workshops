@@ -129,10 +129,11 @@ const [isCelsius, setIsCelsius] = useState(true);
 ```
 
 <DocsOnly>
-Vollständig in `ui/weather-screen.tsx`: `UnitToggle` steckt in der
-Option `headerRight` des Headers, die Karte in der `ScrollView`.
+In `ui/weather-screen.tsx` steckt `UnitToggle` in der Option
+`headerRight` des Headers, die Karte in der `ScrollView`. Der Anfang der
+Datei mit den neuen Imports und `WeatherScreen`:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 import { Stack } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -180,7 +181,7 @@ gerendert wird, bekommt auch der Header den neuen Wert.
 eigenen State, bekommt den aktuellen Wert und meldet das Antippen über
 `onToggle`:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 type UnitToggleProps = {
   isCelsius: boolean;
   onToggle: () => void;
@@ -201,27 +202,149 @@ Fläche um 12 dp in jede Richtung, ohne dass sich das Aussehen ändert.
 
 In `styles` kommt dafür ein Eintrag hinzu:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 toggle: { fontSize: 18, color: '#1565C0', paddingHorizontal: 8 },
 ```
 
-`CurrentWeatherCard` bekommt eine neue Prop `isCelsius: boolean` (im
-Typ `CurrentWeatherCardProps` und in der Parameterliste) und zeigt die
-Temperatur so an:
+`CurrentWeatherCard` bekommt eine neue Prop `isCelsius` und zeigt die
+Temperatur mit `formatTemperature` an:
 
-```tsx
-<Text style={styles.temperature}>
-  {formatTemperature(weather.temperature, isCelsius)}
-</Text>
+```tsx filename="src/ui/weather-screen.tsx" {4,10,17}
+type CurrentWeatherCardProps = {
+  city: City;
+  weather: CurrentWeather;
+  isCelsius: boolean;
+};
+
+function CurrentWeatherCard({
+  city,
+  weather,
+  isCelsius,
+}: CurrentWeatherCardProps) {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.city}>{city.name}</Text>
+      <Text style={styles.emoji}>{conditionEmoji[weather.condition]}</Text>
+      <Text style={styles.temperature}>
+        {formatTemperature(weather.temperature, isCelsius)}
+      </Text>
+      <View style={styles.row}>
+        <Text>Wind: {Math.round(weather.windSpeed)} km/h</Text>
+        <Text>{conditionLabel[weather.condition]}</Text>
+      </View>
+    </View>
+  );
+}
 ```
 
-Vollständig:
-[`weather-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-05/src/ui/weather-screen.tsx)
+<details>
+<summary>Code: `src/ui/weather-screen.tsx` (schritt-05)</summary>
+
+```tsx filename="src/ui/weather-screen.tsx"
+import { Stack } from 'expo-router';
+import { useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+
+import type { City } from '@/model/city';
+import type { CurrentWeather } from '@/model/current-weather';
+import {
+  conditionEmoji,
+  conditionLabel,
+  formatTemperature,
+} from '@/ui/weather-condition-ui';
+
+type WeatherScreenProps = {
+  city: City;
+  weather: CurrentWeather;
+};
+
+export function WeatherScreen({ city, weather }: WeatherScreenProps) {
+  const [isCelsius, setIsCelsius] = useState(true);
+
+  return (
+    <ScrollView>
+      <Stack.Screen
+        options={{
+          title: city.name,
+          headerRight: () => (
+            <UnitToggle
+              isCelsius={isCelsius} // State ↓
+              onToggle={() => setIsCelsius(!isCelsius)} // Event ↑
+            />
+          ),
+        }}
+      />
+      <CurrentWeatherCard city={city} weather={weather} isCelsius={isCelsius} />
+    </ScrollView>
+  );
+}
+
+type UnitToggleProps = {
+  isCelsius: boolean;
+  onToggle: () => void;
+};
+
+function UnitToggle({ isCelsius, onToggle }: UnitToggleProps) {
+  return (
+    <Pressable onPress={onToggle} hitSlop={12}>
+      <Text style={styles.toggle}>{isCelsius ? '°C' : '°F'}</Text>
+    </Pressable>
+  );
+}
+
+type CurrentWeatherCardProps = {
+  city: City;
+  weather: CurrentWeather;
+  isCelsius: boolean;
+};
+
+function CurrentWeatherCard({
+  city,
+  weather,
+  isCelsius,
+}: CurrentWeatherCardProps) {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.city}>{city.name}</Text>
+      <Text style={styles.emoji}>{conditionEmoji[weather.condition]}</Text>
+      <Text style={styles.temperature}>
+        {formatTemperature(weather.temperature, isCelsius)}
+      </Text>
+      <View style={styles.row}>
+        <Text>Wind: {Math.round(weather.windSpeed)} km/h</Text>
+        <Text>{conditionLabel[weather.condition]}</Text>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  toggle: { fontSize: 18, color: '#1565C0', paddingHorizontal: 8 },
+  card: {
+    margin: 16, // außen
+    padding: 24, // innen
+    borderRadius: 24,
+    backgroundColor: '#BBDEFB',
+    alignItems: 'center',
+  },
+  city: { fontSize: 28 },
+  emoji: { fontSize: 72 },
+  temperature: { fontSize: 48 },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    marginTop: 16,
+  },
+});
+```
+
+</details>
 
 Die Umrechnung steckt in einer Hilfsfunktion am Ende von
 `ui/weather-condition-ui.ts`:
 
-```ts
+```ts filename="src/ui/weather-condition-ui.ts"
 export function formatTemperature(celsius: number, isCelsius: boolean): string {
   return isCelsius
     ? `${Math.round(celsius)} °C`

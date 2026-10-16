@@ -50,7 +50,7 @@ merken davon nichts.
 
 Der Screen ist immer in genau einem von drei Zuständen.
 
-```ts
+```ts filename="src/ui/weather-ui-state.ts"
 import type { City } from '@/model/city';
 import type { CurrentWeather } from '@/model/current-weather';
 
@@ -61,7 +61,7 @@ export type WeatherUiState =
 ```
 
 <DocsOnly>
-Neue Datei `ui/weather-ui-state.ts`.
+Der Code oben ist die vollständige neue Datei `ui/weather-ui-state.ts`.
 
 Das ist eine **Discriminated Union**: Jeder Zustand ist ein Objekt mit
 dem Feld `status`, und an dessen Wert erkennt TypeScript, welche
@@ -78,7 +78,7 @@ Pattern Matching in Dart.
 
 Ein Custom Hook ist eine Funktion, deren Name mit `use` beginnt und die selbst Hooks aufruft. Er hält den Zustand und gibt ihn zurück.
 
-```ts
+```ts filename="src/ui/use-weather.ts"
 import { useState } from 'react';
 
 import { fakeCities, fakeCurrentWeather } from '@/data/fake-data';
@@ -96,7 +96,7 @@ export function useWeather(): WeatherUiState {
 ```
 
 <DocsOnly>
-Neue Datei `ui/use-weather.ts`.
+Der Code oben ist die vollständige neue Datei `ui/use-weather.ts`.
 
 `useState<WeatherUiState>(…)` gibt den Typ ausdrücklich an. Sonst würde
 TypeScript nur den Typ des Startwerts ableiten, und der Zustand könnte
@@ -122,7 +122,7 @@ Hook pro Screen passt das genau.
 
 Eine Komponente holt den Zustand aus dem Hook, eine zweite zeigt ihn nur an.
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 export function WeatherScreen() {
   const uiState = useWeather();
   const [isCelsius, setIsCelsius] = useState(true);
@@ -143,7 +143,7 @@ Beide stehen in `ui/weather-screen.tsx`. Aus dem bisherigen Inhalt von
 `WeatherBody`. `WeatherScreen` bekommt keine Daten mehr als Props;
 `app/index.tsx` setzt nur noch `<WeatherScreen />` ein:
 
-```tsx
+```tsx filename="src/app/index.tsx"
 import { WeatherScreen } from '@/ui/weather-screen';
 
 export default function Index() {
@@ -153,7 +153,7 @@ export default function Index() {
 
 Der Anfang von `ui/weather-screen.tsx` mit den neuen Imports:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 import { Stack } from 'expo-router';
 import { type ReactElement, useState } from 'react';
 import {
@@ -179,7 +179,7 @@ import type { WeatherUiState } from '@/ui/weather-ui-state';
 Danach folgt `WeatherScreen` von oben. `WeatherContent` setzt die
 Optionen des Headers und überlässt den Inhalt `WeatherBody`:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 type WeatherContentProps = {
   uiState: WeatherUiState;
   isCelsius: boolean;
@@ -214,7 +214,7 @@ selbst etwas anzuzeigen. Der Header zeigt vorerst den festen Titel
 
 `WeatherBody` entscheidet mit einem `switch`, was angezeigt wird:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 type WeatherBodyProps = {
   uiState: WeatherUiState;
   isCelsius: boolean;
@@ -258,7 +258,7 @@ nicht behandelt. Ausprobieren: den Fall `'error'` löschen und
 `ActivityIndicator` ist die Ladeanzeige der Plattform. In `styles` kommt
 `centered` hinzu, das Gegenstück zu `Center` in Flutter:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx"
 centered: {
   flex: 1,
   alignItems: 'center',
@@ -267,8 +267,173 @@ centered: {
 },
 ```
 
-`UnitToggle` und `CurrentWeatherCard` bleiben unverändert. Vollständig:
-[`weather-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-06/src/ui/weather-screen.tsx)
+`UnitToggle` und `CurrentWeatherCard` bleiben unverändert.
+
+<details>
+<summary>Code: `src/ui/weather-screen.tsx` (schritt-06)</summary>
+
+```tsx filename="src/ui/weather-screen.tsx"
+import { Stack } from 'expo-router';
+import { type ReactElement, useState } from 'react';
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+
+import type { City } from '@/model/city';
+import type { CurrentWeather } from '@/model/current-weather';
+import { useWeather } from '@/ui/use-weather';
+import {
+  conditionEmoji,
+  conditionLabel,
+  formatTemperature,
+} from '@/ui/weather-condition-ui';
+import type { WeatherUiState } from '@/ui/weather-ui-state';
+
+// Holt den Zustand aus dem Hook und hält den UI-State für °C/°F
+export function WeatherScreen() {
+  const uiState = useWeather();
+  const [isCelsius, setIsCelsius] = useState(true);
+
+  return (
+    <WeatherContent
+      uiState={uiState}
+      isCelsius={isCelsius}
+      onToggleUnit={() => setIsCelsius(!isCelsius)}
+    />
+  );
+}
+
+type WeatherContentProps = {
+  uiState: WeatherUiState;
+  isCelsius: boolean;
+  onToggleUnit: () => void;
+};
+
+// Zeigt nur an, was es über Props bekommt
+function WeatherContent({
+  uiState,
+  isCelsius,
+  onToggleUnit,
+}: WeatherContentProps) {
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          title: 'Wetter',
+          headerRight: () => (
+            <UnitToggle isCelsius={isCelsius} onToggle={onToggleUnit} />
+          ),
+        }}
+      />
+      <WeatherBody uiState={uiState} isCelsius={isCelsius} />
+    </>
+  );
+}
+
+type WeatherBodyProps = {
+  uiState: WeatherUiState;
+  isCelsius: boolean;
+};
+
+function WeatherBody({ uiState, isCelsius }: WeatherBodyProps): ReactElement {
+  switch (uiState.status) {
+    case 'loading':
+      return (
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    case 'success':
+      return (
+        <ScrollView>
+          <CurrentWeatherCard
+            city={uiState.city}
+            weather={uiState.weather}
+            isCelsius={isCelsius}
+          />
+        </ScrollView>
+      );
+    case 'error':
+      return (
+        <View style={styles.centered}>
+          <Text>{uiState.message}</Text>
+        </View>
+      );
+  }
+}
+
+type UnitToggleProps = {
+  isCelsius: boolean;
+  onToggle: () => void;
+};
+
+function UnitToggle({ isCelsius, onToggle }: UnitToggleProps) {
+  return (
+    <Pressable onPress={onToggle} hitSlop={12}>
+      <Text style={styles.toggle}>{isCelsius ? '°C' : '°F'}</Text>
+    </Pressable>
+  );
+}
+
+type CurrentWeatherCardProps = {
+  city: City;
+  weather: CurrentWeather;
+  isCelsius: boolean;
+};
+
+function CurrentWeatherCard({
+  city,
+  weather,
+  isCelsius,
+}: CurrentWeatherCardProps) {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.city}>{city.name}</Text>
+      <Text style={styles.emoji}>{conditionEmoji[weather.condition]}</Text>
+      <Text style={styles.temperature}>
+        {formatTemperature(weather.temperature, isCelsius)}
+      </Text>
+      <View style={styles.row}>
+        <Text>Wind: {Math.round(weather.windSpeed)} km/h</Text>
+        <Text>{conditionLabel[weather.condition]}</Text>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  centered: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  toggle: { fontSize: 18, color: '#1565C0', paddingHorizontal: 8 },
+  card: {
+    margin: 16, // außen
+    padding: 24, // innen
+    borderRadius: 24,
+    backgroundColor: '#BBDEFB',
+    alignItems: 'center',
+  },
+  city: { fontSize: 28 },
+  emoji: { fontSize: 72 },
+  temperature: { fontSize: 48 },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    marginTop: 16,
+  },
+});
+```
+
+</details>
 
 Warum die Aufteilung? `WeatherContent` bekommt alles über Props und
 lässt sich deshalb mit jedem Zustand anzeigen, z. B. in einem Test, ohne
@@ -285,7 +450,7 @@ Code: [`schritt-06`](https://github.com/behrends/WeatherReactNativeTIF24/tree/sc
 
 Das Repository liefert die Daten. Der Hook kennt nur den Typ.
 
-```ts
+```ts filename="src/data/weather-repository.ts"
 import type { City } from '@/model/city';
 import type { CurrentWeather } from '@/model/current-weather';
 
@@ -313,7 +478,7 @@ export function createFakeWeatherRepository({
 </SlideOnly>
 
 <DocsOnly>
-```ts
+```ts filename="src/data/fake-weather-repository.ts"
 import { fakeCurrentWeather } from '@/data/fake-data';
 import type { WeatherRepository } from '@/data/weather-repository';
 
@@ -381,9 +546,9 @@ useEffect(() => {
 </SlideOnly>
 
 <DocsOnly>
-Vollständig in `ui/use-weather.ts`:
+Die neue Fassung von `ui/use-weather.ts`:
 
-```ts
+```ts filename="src/ui/use-weather.ts"
 import { useEffect, useState } from 'react';
 
 import { createFakeWeatherRepository } from '@/data/fake-weather-repository';
@@ -461,7 +626,7 @@ Objekt.
 
 Der Hook bekommt sein Repository als optionalen Parameter. Für die echte API ändert sich später nur eine Zeile.
 
-```ts
+```ts filename="src/ui/use-weather.ts"
 const defaultRepository = createFakeWeatherRepository();
 
 export function useWeather(
@@ -487,9 +652,10 @@ Default-Parameter, und das Prinzip ist dasselbe: Der Hook ist nicht fest
 an eine Datenquelle gebunden.
 
 `WeatherScreen` bekommt dafür die Prop `city` und gibt sie an den Hook
-weiter:
+weiter. Der Typ `WeatherScreenProps` kommt neu dazu, der Rest der Datei
+bleibt gleich:
 
-```tsx
+```tsx filename="src/ui/weather-screen.tsx" {1-3,6-7}
 type WeatherScreenProps = {
   city: City;
 };
@@ -498,16 +664,190 @@ type WeatherScreenProps = {
 export function WeatherScreen({ city }: WeatherScreenProps) {
   const uiState = useWeather(city);
   const [isCelsius, setIsCelsius] = useState(true);
-  // return wie bisher
+
+  return (
+    <WeatherContent
+      uiState={uiState}
+      isCelsius={isCelsius}
+      onToggleUnit={() => setIsCelsius(!isCelsius)}
+    />
+  );
 }
 ```
 
-Vollständig:
-[`weather-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-07/src/ui/weather-screen.tsx)
+<details>
+<summary>Code: `src/ui/weather-screen.tsx` (schritt-07)</summary>
+
+```tsx filename="src/ui/weather-screen.tsx"
+import { Stack } from 'expo-router';
+import { type ReactElement, useState } from 'react';
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+
+import type { City } from '@/model/city';
+import type { CurrentWeather } from '@/model/current-weather';
+import { useWeather } from '@/ui/use-weather';
+import {
+  conditionEmoji,
+  conditionLabel,
+  formatTemperature,
+} from '@/ui/weather-condition-ui';
+import type { WeatherUiState } from '@/ui/weather-ui-state';
+
+type WeatherScreenProps = {
+  city: City;
+};
+
+// Holt den Zustand aus dem Hook und hält den UI-State für °C/°F
+export function WeatherScreen({ city }: WeatherScreenProps) {
+  const uiState = useWeather(city);
+  const [isCelsius, setIsCelsius] = useState(true);
+
+  return (
+    <WeatherContent
+      uiState={uiState}
+      isCelsius={isCelsius}
+      onToggleUnit={() => setIsCelsius(!isCelsius)}
+    />
+  );
+}
+
+type WeatherContentProps = {
+  uiState: WeatherUiState;
+  isCelsius: boolean;
+  onToggleUnit: () => void;
+};
+
+// Zeigt nur an, was es über Props bekommt
+function WeatherContent({
+  uiState,
+  isCelsius,
+  onToggleUnit,
+}: WeatherContentProps) {
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          title: 'Wetter',
+          headerRight: () => (
+            <UnitToggle isCelsius={isCelsius} onToggle={onToggleUnit} />
+          ),
+        }}
+      />
+      <WeatherBody uiState={uiState} isCelsius={isCelsius} />
+    </>
+  );
+}
+
+type WeatherBodyProps = {
+  uiState: WeatherUiState;
+  isCelsius: boolean;
+};
+
+function WeatherBody({ uiState, isCelsius }: WeatherBodyProps): ReactElement {
+  switch (uiState.status) {
+    case 'loading':
+      return (
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    case 'success':
+      return (
+        <ScrollView>
+          <CurrentWeatherCard
+            city={uiState.city}
+            weather={uiState.weather}
+            isCelsius={isCelsius}
+          />
+        </ScrollView>
+      );
+    case 'error':
+      return (
+        <View style={styles.centered}>
+          <Text>{uiState.message}</Text>
+        </View>
+      );
+  }
+}
+
+type UnitToggleProps = {
+  isCelsius: boolean;
+  onToggle: () => void;
+};
+
+function UnitToggle({ isCelsius, onToggle }: UnitToggleProps) {
+  return (
+    <Pressable onPress={onToggle} hitSlop={12}>
+      <Text style={styles.toggle}>{isCelsius ? '°C' : '°F'}</Text>
+    </Pressable>
+  );
+}
+
+type CurrentWeatherCardProps = {
+  city: City;
+  weather: CurrentWeather;
+  isCelsius: boolean;
+};
+
+function CurrentWeatherCard({
+  city,
+  weather,
+  isCelsius,
+}: CurrentWeatherCardProps) {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.city}>{city.name}</Text>
+      <Text style={styles.emoji}>{conditionEmoji[weather.condition]}</Text>
+      <Text style={styles.temperature}>
+        {formatTemperature(weather.temperature, isCelsius)}
+      </Text>
+      <View style={styles.row}>
+        <Text>Wind: {Math.round(weather.windSpeed)} km/h</Text>
+        <Text>{conditionLabel[weather.condition]}</Text>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  centered: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  toggle: { fontSize: 18, color: '#1565C0', paddingHorizontal: 8 },
+  card: {
+    margin: 16, // außen
+    padding: 24, // innen
+    borderRadius: 24,
+    backgroundColor: '#BBDEFB',
+    alignItems: 'center',
+  },
+  city: { fontSize: 28 },
+  emoji: { fontSize: 72 },
+  temperature: { fontSize: 48 },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    marginTop: 16,
+  },
+});
+```
+
+</details>
 
 `app/index.tsx` übergibt vorerst Lörrach:
 
-```tsx
+```tsx filename="src/app/index.tsx"
 import { fakeCities } from '@/data/fake-data';
 import { WeatherScreen } from '@/ui/weather-screen';
 
