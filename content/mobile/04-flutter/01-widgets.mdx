@@ -36,7 +36,8 @@ für Apps auf Android, iOS, Web und Desktop aus einer Codebasis.
 Programmiert wird in [Dart](https://dart.dev).
 
 - Flutter zeichnet die Oberfläche selbst, statt native UI-Elemente zu verwenden
-- dadurch sieht die App auf allen Plattformen gleich aus
+- dadurch sieht die App überall fast gleich aus, auch auf alten OS-Versionen
+- Details wie AppBar und Scrollen passt Flutter an die Plattform an
 - Dart wird für Android und iOS in nativen Maschinencode kompiliert
 
 <DocsOnly>
@@ -45,6 +46,16 @@ deklarativ als Baum verschachtelter Bausteine beschrieben. Der
 Unterschied liegt darunter: Compose erzeugt eine Android-App, Flutter
 bringt eine eigene Rendering-Engine mit und zeichnet jedes Pixel selbst,
 auf Android, iOS und im Browser.
+
+Das Aussehen hängt deshalb nicht von der Android- oder iOS-Version ab.
+Ganz gleich ist die App trotzdem nicht: Flutter passt das Verhalten an
+die Plattform an. Auf iOS steht der Titel der `AppBar` mittig, Listen
+federn am Ende zurück, neue Screens schieben sich von rechts herein und
+lassen sich per Wischgeste schließen; die Systemschrift ist San
+Francisco statt Roboto. Wer mehr iOS-Optik möchte, verwendet z. B.
+`Switch.adaptive` oder die Cupertino-Widgets. React Native geht den
+umgekehrten Weg: Es verwendet die nativen UI-Elemente und sieht dadurch
+automatisch nach der jeweiligen Plattform aus.
 
 <Callout type="info">
 Im Oktober 2024 entstand mit [Flock](https://getflocked.dev) ein
