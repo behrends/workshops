@@ -23,8 +23,10 @@ mit Fake-Daten an, genau wie die Android-App nach Schritt 4.
 Code: [Repository auf GitHub](https://github.com/behrends/WeatherFlutterTIF24),
 Schritte 0 bis 4.
 
-Codebeispiele mit `// ...` sind gekürzt; der vollständige Code steht im
-Repository unter dem jeweiligen Tag.
+Die Notizen enthalten den vollständigen Code jeder Datei, sodass sich
+die App durch Kopieren und Einfügen nachbauen lässt. Die Folien zeigen
+nur Ausschnitte. Wo auch die Notizen kürzen, verlinken sie die Datei im
+Repository mit dem Tag des Schritts.
 </DocsOnly>
 
 ## Flutter und Dart
@@ -101,7 +103,9 @@ keine IDE gebunden ist.
 Ausgangspunkt (`schritt-00`) ist die Vorlage *Empty Application*. In
 `lib/main.dart` bleibt nur das Nötigste übrig:
 
-```dart
+```dart filename="lib/main.dart"
+import 'package:flutter/material.dart';
+
 void main() {
   runApp(const WeatherApp());
 }
@@ -234,12 +238,38 @@ Konventionen für Widgets:
 - `const` vor einem Widget sagt Flutter, dass es sich nie ändert; es
   wird nur einmal erzeugt
 
-Damit `WeatherScreen` erscheint, setzt `main.dart` es statt des
-`Placeholder` ein:
+Damit `WeatherScreen` erscheint, importiert `main.dart` die neue Datei
+und setzt das Widget statt des `Placeholder` ein:
 
-```dart
-home: const Scaffold(body: SafeArea(child: WeatherScreen())),
+<details>
+<summary>Code: `lib/main.dart` (schritt-01)</summary>
+
+```dart filename="lib/main.dart" {3,19}
+import 'package:flutter/material.dart';
+
+import 'ui/weather_screen.dart';
+
+void main() {
+  runApp(const WeatherApp());
+}
+
+class WeatherApp extends StatelessWidget {
+  const WeatherApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Wetter',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+      ),
+      home: const Scaffold(body: SafeArea(child: WeatherScreen())),
+    );
+  }
+}
 ```
+
+</details>
 
 `SafeArea` hält den Inhalt aus Statusleiste und Kamera-Aussparung heraus,
 wie `safeDrawingPadding()` in Compose.
@@ -307,7 +337,9 @@ Column(
 <DocsOnly>
 Dieser Code steckt in einem neuen Widget `CurrentWeatherCard`, ebenfalls
 in `ui/weather_screen.dart`. `WeatherScreen` gibt nur noch
-`const CurrentWeatherCard()` zurück.
+`const CurrentWeatherCard()` zurück. Die vollständige Datei folgt im
+nächsten Abschnitt, wenn die Karte noch Abstände und Hintergrund
+bekommt.
 
 `Column` und `Row` zentrieren ihre Kinder quer zur Hauptachse
 standardmäßig. Entlang der Hauptachse nimmt eine `Column` so viel Platz
@@ -358,6 +390,57 @@ verfügbare Platz.
 Am besten mit Hot Reload ausprobieren: `margin` oder `padding` ändern
 oder entfernen und den Unterschied ansehen.
 
+<details>
+<summary>Code: `lib/ui/weather_screen.dart` (schritt-02)</summary>
+
+```dart filename="lib/ui/weather_screen.dart"
+import 'package:flutter/material.dart';
+
+class WeatherScreen extends StatelessWidget {
+  const WeatherScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const CurrentWeatherCard();
+  }
+}
+
+class CurrentWeatherCard extends StatelessWidget {
+  const CurrentWeatherCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: const Color(0xFFBBDEFB),
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: const Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('Lörrach', style: TextStyle(fontSize: 28)),
+          Text('⛅', style: TextStyle(fontSize: 72)),
+          Text('14 °C', style: TextStyle(fontSize: 48)),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Text('Wind: 8 km/h'),
+              Spacer(),
+              Text('Teilweise bewölkt'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+</details>
+
 Code: [`schritt-02`](https://github.com/behrends/WeatherFlutterTIF24/tree/schritt-02) ·
 [Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-01...schritt-02)
 </DocsOnly>
@@ -381,7 +464,7 @@ class City {
 ```
 
 <DocsOnly>
-Neue Dateien `model/city.dart` und `model/current_weather.dart` im neuen
+Der Code oben ist die vollständige Datei `model/city.dart` im neuen
 Ordner `model`.
 
 Eine `data class` wie in Kotlin gibt es in Dart nicht. Wir schreiben
@@ -392,22 +475,45 @@ macht sie zu Pflichtangaben. Aufgerufen wird mit Namen, wie in Kotlin:
 `equals` und `copy` erzeugt Dart nicht automatisch; wir brauchen sie hier
 auch nicht.
 
-`CurrentWeather` ist genauso aufgebaut (`temperature`, `windSpeed`,
-`condition`). Für die Wetterlage gibt es ein `enum`, Werte in
-`lowerCamelCase`:
+`CurrentWeather` ist genauso aufgebaut.
+Für die Wetterlage gibt es ein `enum`, Werte in `lowerCamelCase`:
 
-```dart
-enum WeatherCondition { clear, partlyCloudy, cloudy, fog, rain, snow, thunderstorm }
+```dart filename="lib/model/current_weather.dart"
+enum WeatherCondition {
+  clear,
+  partlyCloudy,
+  cloudy,
+  fog,
+  rain,
+  snow,
+  thunderstorm,
+}
+
+class CurrentWeather {
+  const CurrentWeather({
+    required this.temperature,
+    required this.windSpeed,
+    required this.condition,
+  });
+
+  final double temperature;
+  final double windSpeed;
+  final WeatherCondition condition;
+}
 ```
 
 Die Koordinaten in `City` brauchen wir erst in Schritt 9 für die API.
 
-Die Fake-Daten liegen in `data/fake_data.dart` im neuen Ordner `data`:
+Die Fake-Daten kommen in den neuen Ordner `data`:
 
-```dart
+```dart filename="lib/data/fake_data.dart"
+import '../model/city.dart';
+import '../model/current_weather.dart';
+
 const fakeCities = [
   City(name: 'Lörrach', latitude: 47.6156, longitude: 7.6614),
-  // ... Freiburg, Basel
+  City(name: 'Freiburg', latitude: 47.9990, longitude: 7.8421),
+  City(name: 'Basel', latitude: 47.5596, longitude: 7.5886),
 ];
 
 const fakeCurrentWeather = {
@@ -416,15 +522,21 @@ const fakeCurrentWeather = {
     windSpeed: 8.5,
     condition: WeatherCondition.partlyCloudy,
   ),
-  // ... Freiburg, Basel
+  'Freiburg': CurrentWeather(
+    temperature: 15.0,
+    windSpeed: 6.1,
+    condition: WeatherCondition.clear,
+  ),
+  'Basel': CurrentWeather(
+    temperature: 13.6,
+    windSpeed: 11.2,
+    condition: WeatherCondition.rain,
+  ),
 };
 ```
 
 Listen (`[…]`) und Maps (`{…}`) haben in Dart eigene Literale. Die Typen
 `List<City>` und `Map<String, CurrentWeather>` leitet Dart ab.
-
-Vollständig:
-[`fake_data.dart`](https://github.com/behrends/WeatherFlutterTIF24/blob/schritt-03/lib/data/fake_data.dart)
 
 <Callout type="info">
 **Dart für Kotlin-Kenner:** Vieles ist ähnlich, z. B. Null-Safety mit
@@ -460,15 +572,30 @@ Weil die Texte jetzt aus Variablen kommen, entfällt das `const` vor der
 `Column`; nur die festen `TextStyle`s bleiben `const`.
 
 Die Anzeige der Wetterlage ist eine Extension mit einem
-`switch`-Ausdruck in `ui/weather_condition_ui.dart`. Sie gehört zur UI,
-nicht ins Datenmodell:
+`switch`-Ausdruck. Sie gehört zur UI, nicht ins Datenmodell:
 
-```dart
+```dart filename="lib/ui/weather_condition_ui.dart"
+import '../model/current_weather.dart';
+
 extension WeatherConditionUi on WeatherCondition {
   String get emoji => switch (this) {
     WeatherCondition.clear => '☀️',
     WeatherCondition.partlyCloudy => '⛅',
-    // ...
+    WeatherCondition.cloudy => '☁️',
+    WeatherCondition.fog => '🌫️',
+    WeatherCondition.rain => '🌧️',
+    WeatherCondition.snow => '❄️',
+    WeatherCondition.thunderstorm => '⛈️',
+  };
+
+  String get label => switch (this) {
+    WeatherCondition.clear => 'Sonnig',
+    WeatherCondition.partlyCloudy => 'Teilweise bewölkt',
+    WeatherCondition.cloudy => 'Bewölkt',
+    WeatherCondition.fog => 'Nebel',
+    WeatherCondition.rain => 'Regen',
+    WeatherCondition.snow => 'Schnee',
+    WeatherCondition.thunderstorm => 'Gewitter',
   };
 }
 ```
@@ -480,14 +607,121 @@ beim Aufruf keine Klammer: `weather.condition.emoji`. Nach demselben
 Muster liefert `label` den Text („Sonnig“, „Regen“ …).
 
 Auch `WeatherScreen` bekommt `city` und `weather` über den Konstruktor
-und reicht sie an die Karte weiter. `main.dart` übergibt die Fake-Daten:
+und reicht sie an die Karte weiter:
 
-```dart
-WeatherScreen(
-  city: fakeCities.first,
-  weather: fakeCurrentWeather[fakeCities.first.name]!,
-)
+<details>
+<summary>Code: `lib/ui/weather_screen.dart` (schritt-03)</summary>
+
+```dart filename="lib/ui/weather_screen.dart"
+import 'package:flutter/material.dart';
+
+import '../model/city.dart';
+import '../model/current_weather.dart';
+import 'weather_condition_ui.dart';
+
+class WeatherScreen extends StatelessWidget {
+  const WeatherScreen({super.key, required this.city, required this.weather});
+
+  final City city;
+  final CurrentWeather weather;
+
+  @override
+  Widget build(BuildContext context) {
+    return CurrentWeatherCard(city: city, weather: weather);
+  }
+}
+
+class CurrentWeatherCard extends StatelessWidget {
+  const CurrentWeatherCard({
+    super.key,
+    required this.city,
+    required this.weather,
+  });
+
+  final City city;
+  final CurrentWeather weather;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: const Color(0xFFBBDEFB),
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(city.name, style: const TextStyle(fontSize: 28)),
+          Text(weather.condition.emoji, style: const TextStyle(fontSize: 72)),
+          Text(
+            '${weather.temperature.round()} °C',
+            style: const TextStyle(fontSize: 48),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              Text('Wind: ${weather.windSpeed.round()} km/h'),
+              const Spacer(),
+              Text(weather.condition.label),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
 ```
+
+</details>
+
+`round()` rundet auf eine ganze Zahl, `'${…}'` setzt einen Ausdruck in
+einen String ein.
+
+`main.dart` importiert die Fake-Daten und übergibt sie:
+
+<details>
+<summary>Code: `lib/main.dart` (schritt-03)</summary>
+
+```dart filename="lib/main.dart" {3,20-27}
+import 'package:flutter/material.dart';
+
+import 'data/fake_data.dart';
+import 'ui/weather_screen.dart';
+
+void main() {
+  runApp(const WeatherApp());
+}
+
+class WeatherApp extends StatelessWidget {
+  const WeatherApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Wetter',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+      ),
+      home: Scaffold(
+        body: SafeArea(
+          child: WeatherScreen(
+            city: fakeCities.first,
+            weather: fakeCurrentWeather[fakeCities.first.name]!,
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+</details>
+
+Das `const` vor `Scaffold` entfällt, weil `WeatherScreen` jetzt Werte
+erhält, die erst zur Laufzeit feststehen.
 
 Der Zugriff auf eine `Map` liefert `CurrentWeather?`, weil es den
 Schlüssel vielleicht nicht gibt. `!` sagt: Hier ist der Wert sicher da.
@@ -514,11 +748,13 @@ Widget build(BuildContext context) {
 ```
 
 <DocsOnly>
-Das `Scaffold` wandert aus `main.dart` in `WeatherScreen`. `main.dart`
-setzt `WeatherScreen` jetzt direkt als `home` ein, ohne `Scaffold` und
-`SafeArea`:
+Das `Scaffold` wandert aus `main.dart` in `WeatherScreen`: Der Code oben
+ersetzt die `build`-Methode von `WeatherScreen` in
+`ui/weather_screen.dart`, `CurrentWeatherCard` bleibt unverändert.
+`main.dart` setzt `WeatherScreen` jetzt direkt als `home` ein, ohne
+`Scaffold` und `SafeArea`. Dies ersetzt den bisherigen Wert von `home`:
 
-```dart
+```dart filename="lib/main.dart"
 home: WeatherScreen(
   city: fakeCities.first,
   weather: fakeCurrentWeather[fakeCities.first.name]!,

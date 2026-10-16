@@ -65,7 +65,33 @@ class WeatherError extends WeatherUiState { /* final String message */ }
 ```
 
 <DocsOnly>
-Neue Datei `ui/weather_ui_state.dart`.
+Neue Datei:
+
+```dart filename="lib/ui/weather_ui_state.dart"
+import '../model/city.dart';
+import '../model/current_weather.dart';
+
+sealed class WeatherUiState {
+  const WeatherUiState();
+}
+
+class WeatherLoading extends WeatherUiState {
+  const WeatherLoading();
+}
+
+class WeatherSuccess extends WeatherUiState {
+  const WeatherSuccess(this.city, this.weather);
+
+  final City city;
+  final CurrentWeather weather;
+}
+
+class WeatherError extends WeatherUiState {
+  const WeatherError(this.message);
+
+  final String message;
+}
+```
 
 `sealed` bedeutet wie in Kotlin: Der Compiler kennt alle Unterklassen,
 weil sie in derselben Datei stehen müssen. Ein `switch` über
@@ -114,7 +140,23 @@ class WeatherViewModel extends ChangeNotifier {
 ```
 
 <DocsOnly>
-Neue Datei `ui/weather_view_model.dart`.
+Neue Datei:
+
+```dart filename="lib/ui/weather_view_model.dart"
+import 'package:flutter/foundation.dart';
+
+import '../data/fake_data.dart';
+import 'weather_ui_state.dart';
+
+class WeatherViewModel extends ChangeNotifier {
+  final WeatherUiState _uiState = WeatherSuccess(
+    fakeCities.first,
+    fakeCurrentWeather[fakeCities.first.name]!,
+  );
+
+  WeatherUiState get uiState => _uiState;
+}
+```
 
 `ChangeNotifier` gehört zu Flutter (`package:flutter/foundation.dart`),
 es braucht keine zusätzliche Abhängigkeit. Wer sich für Änderungen
@@ -156,65 +198,158 @@ class WeatherContent extends StatelessWidget { /* ... */ } // stateless
 <DocsOnly>
 Beide stehen in `ui/weather_screen.dart`. Aus dem bisherigen Inhalt von
 `WeatherScreen` wird das neue `WeatherContent`; `WeatherScreen` bekommt
-keine Daten mehr über den Konstruktor, `main.dart` setzt nur noch
-`const WeatherScreen()` ein.
+keine Daten mehr über den Konstruktor.
 
 `ListenableBuilder` hört auf das ViewModel und ruft `builder` bei jedem
 `notifyListeners()` erneut auf. Das entspricht
 `collectAsStateWithLifecycle()` in Compose.
 
-Das ViewModel entsteht einmal mit dem `State` und wird mit ihm
-freigegeben:
-
-```dart
-@override
-void dispose() {
-  _viewModel.dispose();
-  super.dispose();
-}
-```
+Das ViewModel entsteht einmal mit dem `State` und wird in `dispose()`
+mit ihm freigegeben.
 
 Warum die Aufteilung? `WeatherContent` bekommt den Zustand von außen und
 lässt sich deshalb mit jedem Zustand anzeigen, z. B. in einem
 Widget-Test oder einer Widget Preview, ohne ViewModel.
 
 In `WeatherContent` entscheidet ein `switch`-Ausdruck im `body` des
-`Scaffold`, was angezeigt wird. Die `AppBar` zeigt vorerst den festen
-Titel „Wetter“; den Namen der Stadt bekommt sie mit der Navigation.
-
-```dart
-body: switch (uiState) {
-  WeatherLoading() => const Center(child: CircularProgressIndicator()),
-  WeatherSuccess(:final city, :final weather) => SingleChildScrollView(
-    child: CurrentWeatherCard(
-      city: city,
-      weather: weather,
-      useCelsius: useCelsius,
-    ),
-  ),
-  WeatherError(:final message) => Center(child: Text(message)),
-},
-```
-
-Weil `switch` in Dart auch ein Ausdruck sein kann, steht es direkt
-als Wert von `body`. Ein Hilfs-Widget wie `CenteredBox` in Compose
-braucht es nicht, `Center` gibt es schon.
+`Scaffold`, was angezeigt wird. Weil `switch` in Dart auch ein Ausdruck
+sein kann, steht es direkt als Wert von `body`. Ein Hilfs-Widget wie
+`CenteredBox` in Compose braucht es nicht, `Center` gibt es schon. Die
+`AppBar` zeigt vorerst den festen Titel „Wetter“; den Namen der Stadt
+bekommt sie mit der Navigation.
 
 Der Umschalter °C/°F bleibt als Feld `_useCelsius` im `State` von
 `WeatherScreen`. Er ist reiner Anzeige-Zustand (UI-Element-State) und
 gehört nicht ins ViewModel. `WeatherContent` bekommt ihn mit dem
-Callback als Parameter:
+Callback als Parameter. Damit ist `WeatherContent` ganz stateless, anders
+als in der Android-App, wo `rememberSaveable` in `WeatherContent` steckt.
 
-```dart
-WeatherContent(
-  uiState: _viewModel.uiState,
-  useCelsius: _useCelsius,
-  onToggleUnit: () => setState(() => _useCelsius = !_useCelsius),
-)
+Der obere Teil der Datei ersetzt die bisherigen
+Klassen `WeatherScreen` und `_WeatherScreenState`. `UnitToggle` und
+`CurrentWeatherCard` darunter bleiben unverändert:
+
+<details>
+<summary>Code: oberer Teil von `lib/ui/weather_screen.dart` (schritt-06)</summary>
+
+```dart filename="lib/ui/weather_screen.dart"
+import 'package:flutter/material.dart';
+
+import '../model/city.dart';
+import '../model/current_weather.dart';
+import 'weather_condition_ui.dart';
+import 'weather_ui_state.dart';
+import 'weather_view_model.dart';
+
+// Stateful: besitzt das ViewModel und den UI-State für °C/°F
+class WeatherScreen extends StatefulWidget {
+  const WeatherScreen({super.key});
+
+  @override
+  State<WeatherScreen> createState() => _WeatherScreenState();
+}
+
+class _WeatherScreenState extends State<WeatherScreen> {
+  final _viewModel = WeatherViewModel();
+
+  // UI-Element-State: bleibt im Widget, gehört nicht ins ViewModel
+  bool _useCelsius = true;
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Baut neu, sobald das ViewModel notifyListeners() aufruft
+    return ListenableBuilder(
+      listenable: _viewModel,
+      builder: (context, _) => WeatherContent(
+        uiState: _viewModel.uiState,
+        useCelsius: _useCelsius,
+        onToggleUnit: () => setState(() => _useCelsius = !_useCelsius),
+      ),
+    );
+  }
+}
+
+// Stateless: zeigt nur an, was es bekommt
+class WeatherContent extends StatelessWidget {
+  const WeatherContent({
+    super.key,
+    required this.uiState,
+    required this.useCelsius,
+    required this.onToggleUnit,
+  });
+
+  final WeatherUiState uiState;
+  final bool useCelsius;
+  final VoidCallback onToggleUnit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Wetter'),
+        actions: [UnitToggle(useCelsius: useCelsius, onToggle: onToggleUnit)],
+      ),
+      body: switch (uiState) {
+        WeatherLoading() => const Center(child: CircularProgressIndicator()),
+        // Scrollbar, damit die Karte im Querformat nicht überläuft
+        WeatherSuccess(:final city, :final weather) => SingleChildScrollView(
+          child: CurrentWeatherCard(
+            city: city,
+            weather: weather,
+            useCelsius: useCelsius,
+          ),
+        ),
+        WeatherError(:final message) => Center(child: Text(message)),
+      },
+    );
+  }
+}
+
+// UnitToggle und CurrentWeatherCard unverändert aus Schritt 5
 ```
 
-Damit ist `WeatherContent` ganz stateless, anders als in der
-Android-App, wo `rememberSaveable` in `WeatherContent` steckt.
+</details>
+
+Vollständige Datei:
+[`ui/weather_screen.dart` in `schritt-06`](https://github.com/behrends/WeatherFlutterTIF24/blob/schritt-06/lib/ui/weather_screen.dart)
+
+`main.dart` setzt nur noch `const WeatherScreen()` ein. Der Import von
+`fake_data.dart` entfällt, die Fake-Daten holt jetzt das ViewModel:
+
+<details>
+<summary>Code: `lib/main.dart` (schritt-06)</summary>
+
+```dart filename="lib/main.dart"
+import 'package:flutter/material.dart';
+
+import 'ui/weather_screen.dart';
+
+void main() {
+  runApp(const WeatherApp());
+}
+
+class WeatherApp extends StatelessWidget {
+  const WeatherApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Wetter',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+      ),
+      home: const WeatherScreen(),
+    );
+  }
+}
+```
+
+</details>
 
 Code: [`schritt-06`](https://github.com/behrends/WeatherFlutterTIF24/tree/schritt-06) ·
 [Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-05...schritt-06)
@@ -249,8 +384,43 @@ class FakeWeatherRepository implements WeatherRepository {
 ```
 
 <DocsOnly>
-Neue Dateien `data/weather_repository.dart` und
-`data/fake_weather_repository.dart`.
+Zwei neue Dateien:
+
+```dart filename="lib/data/weather_repository.dart"
+import '../model/city.dart';
+import '../model/current_weather.dart';
+
+abstract interface class WeatherRepository {
+  Future<CurrentWeather> getCurrentWeather(City city);
+}
+```
+
+```dart filename="lib/data/fake_weather_repository.dart"
+import '../model/city.dart';
+import '../model/current_weather.dart';
+import 'fake_data.dart';
+import 'weather_repository.dart';
+
+class FakeWeatherRepository implements WeatherRepository {
+  FakeWeatherRepository({this.shouldFail = false});
+
+  final bool shouldFail;
+
+  @override
+  Future<CurrentWeather> getCurrentWeather(City city) async {
+    // simuliert die Antwortzeit eines Servers
+    await Future.delayed(const Duration(milliseconds: 1500));
+    if (shouldFail) {
+      throw Exception('Keine Verbindung zum Server (simuliert)');
+    }
+    final weather = fakeCurrentWeather[city.name];
+    if (weather == null) {
+      throw Exception('Keine Wetterdaten für ${city.name}');
+    }
+    return weather;
+  }
+}
+```
 
 Ein eigenes Schlüsselwort `interface` wie in Kotlin hat Dart nicht.
 `abstract interface class` ist eine Klasse ohne Implementierung, die
@@ -286,9 +456,18 @@ Future<void> loadWeather(City city) async {
 ```
 
 <DocsOnly>
-Vollständig:
+<details>
+<summary>Code: `lib/ui/weather_view_model.dart` (schritt-07)</summary>
 
-```dart
+```dart filename="lib/ui/weather_view_model.dart"
+import 'package:flutter/foundation.dart';
+
+import '../data/fake_data.dart';
+import '../data/fake_weather_repository.dart';
+import '../data/weather_repository.dart';
+import '../model/city.dart';
+import 'weather_ui_state.dart';
+
 class WeatherViewModel extends ChangeNotifier {
   WeatherViewModel({WeatherRepository? repository})
     : _repository = repository ?? FakeWeatherRepository() {
@@ -301,10 +480,23 @@ class WeatherViewModel extends ChangeNotifier {
   WeatherUiState get uiState => _uiState;
 
   Future<void> loadWeather(City city) async {
-    // ... wie oben
+    _uiState = const WeatherLoading();
+    notifyListeners();
+    try {
+      final weather = await _repository.getCurrentWeather(city);
+      _uiState = WeatherSuccess(city, weather);
+    } catch (e) {
+      _uiState = WeatherError('$e');
+    }
+    notifyListeners();
   }
 }
 ```
+
+</details>
+
+An der UI ändert sich nichts: `WeatherContent` behandelt Laden und
+Fehler bereits seit Schritt 6.
 
 Ein `viewModelScope` wie in Android braucht es nicht: `async`-Funktionen
 laufen in Dart ohne Scope. Dafür lassen sie sich auch nicht abbrechen.
