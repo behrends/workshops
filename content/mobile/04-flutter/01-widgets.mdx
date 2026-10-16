@@ -780,6 +780,87 @@ Code: [`schritt-04`](https://github.com/behrends/WeatherFlutterTIF24/tree/schrit
 [Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-03...schritt-04)
 </DocsOnly>
 
+## Übung: Karte gestalten
+
+- Farben, Abstände und Schriftgrößen der Karte ändern, mit Hot Reload ausprobieren
+- Bonus: neuer Parameter `highlighted`, der die Karte mit einem Rahmen hervorhebt
+
+<DocsOnly>
+Der Aufruf in `WeatherScreen` soll so aussehen:
+
+```dart
+CurrentWeatherCard(city: city, weather: weather, highlighted: true)
+```
+
+Ohne `highlighted` soll die Karte aussehen wie bisher.
+
+Tipps: Ein benannter Parameter ohne `required` braucht einen
+Standardwert, z. B. `this.highlighted = false`. Einen Rahmen zeichnet die
+`BoxDecoration` mit `border: Border.all(…)`; `null` bedeutet kein Rahmen.
+
+<details>
+<summary>Lösung</summary>
+
+```dart filename="lib/ui/weather_screen.dart" {6,11,22-24}
+class CurrentWeatherCard extends StatelessWidget {
+  const CurrentWeatherCard({
+    super.key,
+    required this.city,
+    required this.weather,
+    this.highlighted = false,
+  });
+
+  final City city;
+  final CurrentWeather weather;
+  final bool highlighted;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: const Color(0xFFBBDEFB),
+        borderRadius: BorderRadius.circular(24),
+        border: highlighted
+            ? Border.all(color: const Color(0xFF1565C0), width: 3)
+            : null,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(city.name, style: const TextStyle(fontSize: 28)),
+          Text(weather.condition.emoji, style: const TextStyle(fontSize: 72)),
+          Text(
+            '${weather.temperature.round()} °C',
+            style: const TextStyle(fontSize: 48),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              Text('Wind: ${weather.windSpeed.round()} km/h'),
+              const Spacer(),
+              Text(weather.condition.label),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+Mit `this.highlighted = false` ist der Parameter optional, wie ein
+Default-Wert in Kotlin. Das Feld bleibt `final bool` ohne `?`, weil es
+immer einen Wert hat.
+</details>
+
+Das Referenz-Repository enthält diese Änderung nicht. Die eingeklappten
+Dateien auf den folgenden Seiten überschreiben sie; wer sie behalten
+will, muss sie dort selbst wieder einbauen.
+</DocsOnly>
+
 <DocsOnly>
 ## Weiterführendes Material
 

@@ -721,6 +721,7 @@ Selbst oder mit einem Coding Agent umsetzen, jeweils Plan und Diff prüfen.
 - Button „Erneut versuchen“ bei Fehlern
 - Pull-to-Refresh im Wetter-Screen
 - Unit-Tests für das ViewModel mit `FakeWeatherRepository`
+- Favoriten: Städte auf dem Gerät speichern
 
 <DocsOnly>
 Hinweise zu den Übungen:
@@ -735,6 +736,10 @@ Hinweise zu den Übungen:
   statt „-33.87° N“ erscheinen. Wer schnell hintereinander sucht, kann
   Antworten in falscher Reihenfolge bekommen; eine laufende Nummer pro
   Suche verhindert, dass eine ältere Antwort die neuere überschreibt.
+  Eine neue Stadt kommt mit `_cities.add(city)` in die Liste; sichtbar
+  wird sie erst nach `notifyListeners()`. Damit niemand die Liste an
+  `notifyListeners()` vorbei ändert, gibt das ViewModel sie nur als
+  `List.unmodifiable(_cities)` heraus.
   Eine Referenzlösung liegt im Tag
   [`schritt-11`](https://github.com/behrends/WeatherFlutterTIF24/tree/schritt-11)
   ([Änderungen](https://github.com/behrends/WeatherFlutterTIF24/compare/schritt-10...schritt-11)).
@@ -763,6 +768,14 @@ Hinweise zu den Übungen:
 - **Fehlermeldungen auf Deutsch:** Im ViewModel statt `'$e'` eigene Texte
   setzen, z. B. bei `http.ClientException` (kein Netz) „Keine
   Internetverbindung“, sonst „Wetterdaten konnten nicht geladen werden“.
+- **Favoriten:** Für wenige Werte reicht
+  [shared_preferences](https://pub.dev/packages/shared_preferences), ein
+  Key-Value-Speicher für alle Plattformen. Die Liste der Städte wird
+  dafür z. B. mit `jsonEncode` als String gespeichert und mit
+  `jsonDecode` wieder gelesen. Für mehr Daten gibt es SQLite, siehe das
+  [Cookbook zu SQLite](https://docs.flutter.dev/cookbook/persistence/sqlite).
+  Pakete mit `flutter pub add` hinzufügen; `AGENTS.md` verlangt, dass ein
+  Agent vorher nachfragt.
 - **Unit-Tests:** Tests liegen in `test/` und laufen mit `flutter test`;
   `flutter_test` ist schon eingebunden. `formatTemperature` lässt sich
   direkt testen. Für das ViewModel mit `FakeWeatherRepository` genügt

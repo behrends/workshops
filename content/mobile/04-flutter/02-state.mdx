@@ -306,6 +306,96 @@ String formatTemperature(double celsius, {required bool useCelsius}) =>
 was `true` bedeutet.
 </DocsOnly>
 
+## Übung: Zähler
+
+In [DartPad](https://dartpad.dev) einen Zähler bauen:
+
+- eine große Zahl, darunter Buttons „+1“, „+10“ und „Zurücksetzen“
+- Bonus: Button „−1“, der nicht unter 0 zählt
+- Bonus: die Buttons in ein eigenes `StatelessWidget` `CounterButtons` auslagern
+
+<DocsOnly>
+DartPad öffnet mit einem Dart-Beispiel; über *Samples* gibt es
+Flutter-Beispiele, deren Code wir ersetzen. Die Vorschau erscheint
+rechts. Übrigens: Die Vorlage *Application* von *Flutter: New Project*
+ist genau so ein Zähler.
+
+Bei der zweiten Bonus-Aufgabe kommt Lifting State Up ins Spiel: Der State
+bleibt im `StatefulWidget`, `CounterButtons` bekommt nur Callbacks.
+
+<details>
+<summary>Lösung</summary>
+
+```dart filename="main.dart"
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MaterialApp(home: CounterScreen()));
+}
+
+class CounterScreen extends StatefulWidget {
+  const CounterScreen({super.key});
+
+  @override
+  State<CounterScreen> createState() => _CounterScreenState();
+}
+
+class _CounterScreenState extends State<CounterScreen> {
+  int _count = 0;
+
+  void _add(int amount) {
+    setState(() => _count = max(0, _count + amount));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('$_count', style: const TextStyle(fontSize: 96)),
+            CounterButtons(
+              onAdd: _add,
+              onReset: () => setState(() => _count = 0),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CounterButtons extends StatelessWidget {
+  const CounterButtons({super.key, required this.onAdd, required this.onReset});
+
+  final ValueChanged<int> onAdd;
+  final VoidCallback onReset;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 8,
+      children: [
+        FilledButton(onPressed: () => onAdd(-1), child: const Text('−1')),
+        FilledButton(onPressed: () => onAdd(1), child: const Text('+1')),
+        FilledButton(onPressed: () => onAdd(10), child: const Text('+10')),
+        OutlinedButton(onPressed: onReset, child: const Text('Zurücksetzen')),
+      ],
+    );
+  }
+}
+```
+
+`max` aus `dart:math` verhindert negative Werte. `ValueChanged<int>` ist
+der Typ eines Callbacks mit einem `int`-Parameter, wie `(Int) -> Unit` in
+Kotlin. `_add` passt dazu und wird ohne Klammern übergeben. `Wrap` setzt
+die Buttons nebeneinander und bricht um, wenn der Platz nicht reicht.
+</details>
+</DocsOnly>
+
 ## Zusammenfassung
 
 <Callout type="info">
