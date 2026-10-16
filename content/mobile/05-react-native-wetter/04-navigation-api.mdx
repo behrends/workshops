@@ -1,0 +1,583 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 35 Minuten
+slideGoal: Eine Liste anzeigen, Screens verbinden und echte Daten mit einem Coding Agent anbinden
+slideTopics:
+  - Listen mit FlatList
+  - Dateibasierte Navigation mit Expo Router
+  - Laden beim Öffnen eines Screens
+  - API-Anbindung mit einem Coding Agent
+  - fetch und JSON
+---
+
+import { Callout } from 'nextra/components'
+
+# Navigation und API
+
+<DocsOnly>
+Die App bekommt eine Städteliste, die wir mit Expo Router und der
+Wetteranzeige verbinden. Danach ersetzen wir die Fake-Daten durch echte
+Wetterdaten. Die API-Anbindung übernimmt ein Coding Agent; unsere
+Aufgabe ist, seinen Plan und seinen Code zu prüfen.
+</DocsOnly>
+
+## Listen mit FlatList
+
+`FlatList` erzeugt Einträge erst, wenn sie sichtbar werden. Damit bleiben auch lange Listen performant.
+
+```tsx
+<FlatList
+  data={cities}
+  keyExtractor={(city) => city.name}
+  renderItem={({ item }) => <CityRow city={item} />}
+  ItemSeparatorComponent={Divider}
+/>
+```
+
+<DocsOnly>
+Neue Datei `ui/city-list-screen.tsx`:
+
+```tsx
+import { router, Stack } from 'expo-router';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+
+import type { City } from '@/model/city';
+
+type CityListScreenProps = {
+  cities: City[];
+};
+
+export function CityListScreen({ cities }: CityListScreenProps) {
+  return (
+    <>
+      <Stack.Screen options={{ title: 'Städte' }} />
+      <FlatList
+        data={cities}
+        keyExtractor={(city) => city.name}
+        renderItem={({ item }) => <CityRow city={item} />}
+        ItemSeparatorComponent={Divider}
+      />
+    </>
+  );
+}
+
+function CityRow({ city }: { city: City }) {
+  function openWeather() {
+    // Navigieren = neuen Screen auf den Stack legen
+    router.push({
+      pathname: '/weather',
+      params: {
+        name: city.name,
+        latitude: city.latitude,
+        longitude: city.longitude,
+      },
+    });
+  }
+
+  return (
+    <Pressable
+      onPress={openWeather}
+      style={({ pressed }) => [styles.row, pressed && styles.pressed]}
+    >
+      <Text style={styles.name}>{city.name}</Text>
+      <Text style={styles.coordinates}>
+        {city.latitude.toFixed(2)}° N, {city.longitude.toFixed(2)}° O
+      </Text>
+    </Pressable>
+  );
+}
+
+function Divider() {
+  return <View style={styles.divider} />;
+}
+
+const styles = StyleSheet.create({
+  row: { paddingHorizontal: 16, paddingVertical: 12 },
+  pressed: { backgroundColor: '#E0E0E0' },
+  name: { fontSize: 18 },
+  coordinates: { fontSize: 14, color: '#555' },
+  divider: { height: StyleSheet.hairlineWidth, backgroundColor: '#BDBDBD' },
+});
+```
+
+`renderItem` bekommt jeden Eintrag als `item` und gibt die Zeile dafür
+zurück, wie `items(cities) { … }` in einer `LazyColumn` oder
+`itemBuilder` in Flutter. `ItemSeparatorComponent` fügt zwischen zwei
+Einträgen einen Trenner ein, wie `ListView.separated`.
+
+`keyExtractor` liefert für jeden Eintrag einen eindeutigen Schlüssel.
+Daran erkennt React Einträge wieder, wenn sich die Liste ändert. Fehlt
+er, warnt React. Für unsere drei Städte genügt der Name.
+
+Eine fertige Zeile wie `ListItem` oder `ListTile` gibt es nicht. `CityRow`
+baut sie aus `Pressable` und zwei Texten. `style` darf bei `Pressable`
+auch eine Funktion sein: Sie bekommt `pressed` und liefert einen anderen
+Hintergrund, solange der Finger auf der Zeile liegt. Ein Array in `style`
+kombiniert mehrere Styles; `false` wird dabei ignoriert.
+
+`StyleSheet.hairlineWidth` ist die dünnste Linie, die das Display zeigen
+kann.
+
+Für `{ city }: { city: City }` lohnt sich kein eigener Props-Typ; der Typ
+steht direkt in der Parameterliste.
+</DocsOnly>
+
+## Navigation mit Expo Router
+
+Jede Datei in `app/` ist eine Route. Der `Stack` im Layout verwaltet einen Stapel von Screens.
+
+- `app/index.tsx` → `/`, der erste Screen
+- `app/weather.tsx` → `/weather`
+- Navigieren: `router.push('/weather')` legt den Screen auf den Stapel
+- Zurück: `router.back()`, Zurück-Pfeil oder Zurück-Geste
+
+<DocsOnly>
+`app/index.tsx` zeigt jetzt die Städteliste:
+
+```tsx
+import { fakeCities } from '@/data/fake-data';
+import { CityListScreen } from '@/ui/city-list-screen';
+
+export default function Index() {
+  return <CityListScreen cities={fakeCities} />;
+}
+```
+
+Expo Router baut auf [React Navigation](https://reactnavigation.org) auf
+und erzeugt die Routen aus den Dateien in `app/`, ähnlich wie Next.js im
+Web. Jede Route hat einen Pfad wie eine URL; Deep Links in die App
+funktionieren deshalb ohne weitere Konfiguration.
+
+| Navigation 3 (Compose) | Navigator (Flutter) | Expo Router |
+|---|---|---|
+| Back Stack als Liste im State | Stapel im `Navigator` | Stapel im `Stack` |
+| `backStack.add(CityWeather(city))` | `Navigator.push(…)` | `router.push({ pathname, params })` |
+| `backStack.removeLastOrNull()` | `Navigator.pop(context)` | `router.back()` |
+| Routen als `@Serializable`-Typen | Route mit `builder` | Dateien in `app/` |
+| Argumente als Properties | Argumente im Konstruktor | Parameter als Strings in der URL |
+| Zurück-Pfeil selbst einbauen | Zurück-Pfeil automatisch | Zurück-Pfeil automatisch |
+
+Die Vorlage von Expo aktiviert **Typed Routes** (`"typedRoutes": true` in
+`app.json`): Expo erzeugt beim Start von `npx expo start` Typen für alle
+Routen. Ein Tippfehler wie `pathname: '/wetter'` fällt dann schon beim
+Schreiben auf. Meldet TypeScript eine neue Route als unbekannt, läuft
+der Entwicklungsserver nicht; nach dem Start ist der Fehler weg.
+
+Statt `router.push` gibt es auch die Komponente `<Link href=…>`, die wie
+ein Link im Web funktioniert. Für eine Zeile, die beim Antippen mehr tun
+soll (siehe Übung Stadtsuche), ist `router.push` im `onPress` einfacher.
+</DocsOnly>
+
+## Route mit Parametern
+
+Parameter kommen über die URL und sind immer Strings. Gelesen werden sie mit `useLocalSearchParams`.
+
+```tsx
+const { name, latitude, longitude } = useLocalSearchParams<{
+  name: string;
+  latitude: string;
+  longitude: string;
+}>();
+```
+
+<DocsOnly>
+Neue Datei `app/weather.tsx`:
+
+```tsx
+import { useLocalSearchParams } from 'expo-router';
+import { useMemo } from 'react';
+
+import type { City } from '@/model/city';
+import { WeatherScreen } from '@/ui/weather-screen';
+
+export default function WeatherRoute() {
+  // Parameter aus der URL sind immer Strings
+  const { name, latitude, longitude } = useLocalSearchParams<{
+    name: string;
+    latitude: string;
+    longitude: string;
+  }>();
+
+  // useMemo: dasselbe Objekt, solange sich die Parameter nicht ändern
+  const city = useMemo<City>(
+    () => ({ name, latitude: Number(latitude), longitude: Number(longitude) }),
+    [name, latitude, longitude],
+  );
+
+  return <WeatherScreen city={city} />;
+}
+```
+
+Weil Parameter Teil der URL sind, kommen sie immer als Strings an.
+`Number(…)` macht aus `'47.5596'` wieder eine Zahl. Ein ganzes Objekt wie
+in Navigation 3 lässt sich nicht übergeben. Wir übergeben deshalb alle
+drei Felder von `City` und bauen die Stadt im Screen wieder zusammen. So
+funktioniert der Wetter-Screen für jede Stadt, auch für eine, die nicht
+in `fakeCities` steht (siehe Übung Stadtsuche).
+
+`useMemo` merkt sich das Ergebnis der Funktion und berechnet es nur neu,
+wenn sich ein Wert in `[name, latitude, longitude]` ändert. Das ist hier
+wichtig: `city` ist eine Abhängigkeit des Effekts in `useWeather`. Ohne
+`useMemo` entstünde bei jedem Rendern ein neues Objekt, und der Effekt
+würde immer wieder laden (siehe
+[ViewModel und Architektur](./03-architektur#laden-mit-useeffect)).
+</DocsOnly>
+
+## Laden beim Öffnen
+
+Jeder Wetter-Screen ruft `useWeather(city)` auf und lädt beim Öffnen. Das ist schon seit Schritt 7 so.
+
+<DocsOnly>
+In `ui/weather-screen.tsx` bekommt `WeatherContent` die neue Prop
+`city`, und der Header zeigt statt „Wetter“ den Namen der Stadt. So
+steht er schon während des Ladens da:
+
+```tsx
+export function WeatherScreen({ city }: WeatherScreenProps) {
+  const uiState = useWeather(city);
+  const [isCelsius, setIsCelsius] = useState(true);
+
+  return (
+    <WeatherContent
+      city={city}
+      uiState={uiState}
+      isCelsius={isCelsius}
+      onToggleUnit={() => setIsCelsius(!isCelsius)}
+    />
+  );
+}
+
+type WeatherContentProps = {
+  city: City;
+  uiState: WeatherUiState;
+  isCelsius: boolean;
+  onToggleUnit: () => void;
+};
+
+// Zeigt nur an, was es über Props bekommt
+function WeatherContent({
+  city,
+  uiState,
+  isCelsius,
+  onToggleUnit,
+}: WeatherContentProps) {
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          title: city.name,
+          headerRight: () => (
+            <UnitToggle isCelsius={isCelsius} onToggle={onToggleUnit} />
+          ),
+        }}
+      />
+      <WeatherBody uiState={uiState} isCelsius={isCelsius} />
+    </>
+  );
+}
+```
+
+Vollständig:
+[`weather-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-08/src/ui/weather-screen.tsx)
+
+Wie in Flutter lebt der Zustand genau so lange wie der Screen: Jeder
+Wetter-Screen hat seinen eigenen Hook. Wechselt man schnell zwischen
+Städten, kann keine alte Antwort im neuen Screen landen.
+
+Verlässt man den Screen, während noch geladen wird, räumt React den
+Effekt auf und setzt `ignore` auf `true`. Die Antwort wird dann
+verworfen. Eine Stolperfalle wie das „used after being disposed“ in
+Flutter gibt es nicht, weil React sich selbst um den Lebenszyklus
+kümmert.
+
+Code: [`schritt-08`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-08) ·
+[Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-07...schritt-08)
+</DocsOnly>
+
+## API-Anbindung mit einem Coding Agent
+
+Aufgabe für den Agent: ein Repository für Open-Meteo bauen und im Hook einsetzen.
+
+- Plan anfordern und prüfen, bevor Code entsteht
+- umsetzen lassen, `npx tsc --noEmit` und `npx expo lint`, App testen
+- Diff lesen und erklären können
+- erst dann committen
+
+<DocsOnly>
+Die Datei `AGENTS.md` im Repository gibt dem Agent Regeln vor, z. B.
+`fetch` statt axios, kein TanStack Query, keine weiteren Pakete ohne
+Nachfrage, die UI nicht anfassen, nicht selbst committen. Gängige Agents
+lesen sie automatisch, z. B. Claude Code, Codex oder GitHub Copilot in
+VS Code. Die Vorlage von Expo bringt schon eine `AGENTS.md` mit; im
+Referenz-Repository ist sie durch eine kürzere auf Deutsch ersetzt.
+
+Hinein gehört nur, was der Agent nicht aus dem Code ablesen kann:
+Abweichungen vom Üblichen und Regeln für die Zusammenarbeit. Bei Expo
+gehört der Hinweis dazu, die Doku zur verwendeten SDK-Version zu lesen:
+Expo ändert sich so schnell, dass das Wissen eines Modells oft veraltet
+ist. Eine Beschreibung des Projekts hilft dagegen kaum, denn der Agent
+liest den Code ohnehin. Jede Zeile kostet bei jeder Anfrage Tokens.
+
+Ein möglicher Prompt:
+
+> Baue ein Repository `createApiWeatherRepository`, das das aktuelle
+> Wetter einer Stadt von Open-Meteo lädt (Temperatur, Wettercode,
+> Windgeschwindigkeit; Koordinaten aus `City`). Setze es als Default in
+> `useWeather` ein. Zeig mir zuerst deinen Plan.
+
+Die API braucht keinen Schlüssel. Eine Antwort lässt sich vorab im
+Browser ansehen:
+[api.open-meteo.com/v1/forecast?latitude=47.62&longitude=7.66&current=temperature_2m,weather_code,wind_speed_10m](https://api.open-meteo.com/v1/forecast?latitude=47.62&longitude=7.66&current=temperature_2m,weather_code,wind_speed_10m)
+</DocsOnly>
+
+## HTTP mit fetch
+
+`fetch` ist in React Native eingebaut, wie im Browser. Ein Paket braucht es nicht.
+
+<SlideOnly>
+```ts
+const params = new URLSearchParams({
+  latitude: String(city.latitude),
+  longitude: String(city.longitude),
+  current: 'temperature_2m,weather_code,wind_speed_10m',
+});
+const response = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`);
+if (!response.ok) throw new Error(`HTTP-Fehler ${response.status}`);
+const json = (await response.json()) as ForecastResponseDto;
+return toCurrentWeather(json.current);
+```
+</SlideOnly>
+
+<DocsOnly>
+Neue Datei `data/api-weather-repository.ts`, so wie der Agent sie im
+Referenz-Repository angelegt hat:
+
+```ts
+import type {
+  CurrentDto,
+  ForecastResponseDto,
+} from '@/data/api/open-meteo-dto';
+import type { WeatherRepository } from '@/data/weather-repository';
+import type {
+  CurrentWeather,
+  WeatherCondition,
+} from '@/model/current-weather';
+
+export function createApiWeatherRepository(): WeatherRepository {
+  return {
+    async getCurrentWeather(city) {
+      const params = new URLSearchParams({
+        latitude: String(city.latitude),
+        longitude: String(city.longitude),
+        current: 'temperature_2m,weather_code,wind_speed_10m',
+        timezone: 'auto',
+      });
+      const response = await fetch(
+        `https://api.open-meteo.com/v1/forecast?${params}`,
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP-Fehler ${response.status}`);
+      }
+      const json = (await response.json()) as ForecastResponseDto;
+      return toCurrentWeather(json.current);
+    },
+  };
+}
+
+function toCurrentWeather(dto: CurrentDto): CurrentWeather {
+  return {
+    temperature: dto.temperature_2m,
+    windSpeed: dto.wind_speed_10m,
+    condition: weatherConditionFromWmoCode(dto.weather_code),
+  };
+}
+
+// WMO-Wettercodes, siehe https://open-meteo.com/en/docs (Abschnitt "WMO Weather interpretation codes")
+function weatherConditionFromWmoCode(code: number): WeatherCondition {
+  if (code === 0) return 'clear';
+  if (code === 1 || code === 2) return 'partlyCloudy';
+  if (code === 3) return 'cloudy';
+  if (code === 45 || code === 48) return 'fog';
+  if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) return 'rain';
+  if ((code >= 71 && code <= 77) || code === 85 || code === 86) return 'snow';
+  if (code >= 95 && code <= 99) return 'thunderstorm';
+  return 'cloudy';
+}
+```
+
+`URLSearchParams` baut den Query-String und kodiert Sonderzeichen. In
+einem Template-String wird es automatisch zu
+`latitude=47.6156&longitude=7.6614&…`.
+
+Wie das Paket `http` in Flutter wirft `fetch` bei HTTP-Fehlern (4xx,
+5xx) keine Exception. Deshalb prüft der Code `response.ok` selbst. Nur
+wenn gar keine Verbindung zustande kommt, wirft `fetch` einen Fehler.
+
+`response.json()` liest die Antwort und macht daraus ein
+JavaScript-Objekt, Umlaute inklusive. Ein `utf8.decode` wie in Flutter
+braucht es nicht.
+
+Die Wetterlage liefert die API als Zahl (WMO-Code). Eine Kette von `if`
+bildet sie auf `WeatherCondition` ab. Ein `switch` mit Bereichen wie in
+Kotlin und Dart gibt es in TypeScript nicht.
+
+<Callout type="info">
+Eine Berechtigung für das Internet müssen wir nicht eintragen. Expo
+nimmt `android.permission.INTERNET` automatisch in das Manifest auf,
+auch für den Release-Build. In Flutter war das ein typischer Fehler
+beim Review.
+</Callout>
+</DocsOnly>
+
+## DTO und Datenmodell
+
+Die JSON-Antwort bekommt eigene Typen (DTOs). Sie werden auf unser Datenmodell abgebildet.
+
+```ts
+// Ausschnitt der Antwort von https://api.open-meteo.com/v1/forecast
+export type ForecastResponseDto = {
+  current: CurrentDto;
+};
+
+export type CurrentDto = {
+  temperature_2m: number;
+  weather_code: number;
+  wind_speed_10m: number;
+};
+```
+
+<DocsOnly>
+Die DTOs stehen in der neuen Datei `data/api/open-meteo-dto.ts`. Die
+Feldnamen sind genau die aus dem JSON, deshalb in `snake_case`.
+`ForecastResponseDto` beschreibt die Hülle der Antwort, weil die API die
+Werte im Feld `current` liefert.
+
+`as ForecastResponseDto` ist eine **Typ-Behauptung**: Wir sagen
+TypeScript, welche Form das JSON hat. Geprüft wird das zur Laufzeit
+nicht. Liefert die API etwas anderes, fällt das erst beim Zugriff auf.
+Ein `fromJson` mit Prüfung wie in Flutter schreibt man in TypeScript
+selten von Hand; dafür gibt es Bibliotheken wie
+[zod](https://zod.dev). `AGENTS.md` schließt sie für diese App aus.
+
+`toCurrentWeather` bildet das DTO auf das Datenmodell ab. Warum nicht
+gleich `CurrentWeather` mit den Feldnamen der API? Weil das Datenmodell
+dann vom Format der API abhängt. Mit DTOs bleibt eine Änderung der API
+auf die Datenschicht beschränkt; die Oberfläche merkt nichts davon.
+
+Die Funktionen `toCurrentWeather` und `weatherConditionFromWmoCode`
+haben kein `export` und sind damit nur in ihrer Datei sichtbar, wie
+`private` in Kotlin.
+</DocsOnly>
+
+## Der Nutzen der Architektur
+
+Für echte Daten wurde keine einzige Komponente geändert.
+
+```
+$ git diff --stat schritt-08 schritt-09
+ src/data/api-weather-repository.ts | 50 ++++++++++++++++++++++++++++++++++++++
+ src/data/api/open-meteo-dto.ts     | 10 ++++++++
+ src/ui/use-weather.ts              |  4 +--
+ 3 files changed, 62 insertions(+), 2 deletions(-)
+```
+
+<DocsOnly>
+Im Hook haben sich nur Import und Default geändert:
+
+```ts
+import { createApiWeatherRepository } from '@/data/api-weather-repository';
+
+const defaultRepository = createApiWeatherRepository();
+```
+
+Anders als bei Flutter und Android kommt keine Abhängigkeit hinzu:
+`package.json` bleibt unverändert, weil `fetch` eingebaut ist.
+
+Fehler wie fehlendes Internet landen automatisch im Zustand `error`,
+weil der Hook die Fehler des Repositorys bereits abfängt.
+
+Ein Blick beim Review lohnt sich trotzdem: Angezeigt wird
+`String(error)`, und das kommt jetzt von `fetch`, im Android-Emulator
+z. B. „Error: fetch failed: java.net.UnknownHostException: Unable to
+resolve host "api.open-meteo.com": No address associated with hostname“.
+Das ist Englisch und für Nutzer unverständlich, obwohl `AGENTS.md`
+deutsche Texte verlangt. Am einfachsten im Emulator mit Flugmodus
+ausprobieren (siehe Übungen).
+
+Im Flugmodus verliert Expo Go auch die Verbindung zum
+Entwicklungsserver („Cannot connect to Expo CLI“). Die App läuft
+trotzdem weiter. Danach WLAN wieder einschalten und die App mit `r` im
+Terminal neu laden.
+
+Code: [`schritt-09`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-09) ·
+[Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-08...schritt-09)
+</DocsOnly>
+
+## Übungen
+
+Selbst oder mit einem Coding Agent umsetzen, jeweils Plan und Diff prüfen.
+
+- Stadtsuche über die Geocoding-API von Open-Meteo
+- 7-Tage-Vorhersage im Wetter-Screen
+- Button „Erneut versuchen“ bei Fehlern
+- Pull-to-Refresh im Wetter-Screen
+- Unit-Tests für den Hook mit dem Fake-Repository
+
+<DocsOnly>
+Hinweise zu den Übungen:
+
+- **Stadtsuche:** Endpunkt
+  `https://geocoding-api.open-meteo.com/v1/search?name=…&count=5&language=de`.
+  Die Städteliste wird dafür zu State in einem eigenen Hook
+  (`useCityList`), den `CityListScreen` aufruft. Den Text im Suchfeld
+  hält `CityListScreen` mit `useState` und einem `TextInput`
+  (`value`, `onChangeText`, `onSubmitEditing`). Fehlt das Feld `results`
+  in der Antwort, wurde nichts gefunden. Negative Koordinaten (Süd, West)
+  sollten als „33.87° S“ statt „-33.87° N“ erscheinen. Wer schnell
+  hintereinander sucht, kann Antworten in falscher Reihenfolge bekommen;
+  eine laufende Nummer pro Suche (in einem `useRef`) verhindert, dass
+  eine ältere Antwort die neuere überschreibt. Weil gleichnamige Städte
+  vorkommen, taugt der Name nicht mehr als `key`; besser die Koordinaten.
+  Eine Referenzlösung liegt im Tag
+  [`schritt-11`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-11)
+  ([Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-10...schritt-11)).
+  Statt eines `UiState`-Typs hält der Hook dort mehrere Werte
+  (`cities`, `searchResults`, `isSearching`, `errorMessage`), weil diese
+  Zustände gleichzeitig auftreten können. Die Liste ist dort eine
+  `SectionList` mit den Abschnitten „Suchergebnisse“ und „Meine Städte“.
+  Weiterführend, nicht in der Referenzlösung: Mehrere Städte heißen
+  gleich (es gibt mehrere „Hamburg“). Die Felder `admin1` (Bundesland)
+  und `country` der Antwort unterscheiden sie in der Trefferliste, dafür
+  braucht `City` weitere Felder.
+- **7-Tage-Vorhersage:** Parameter `daily=weather_code,temperature_2m_max,temperature_2m_min`,
+  neues Datenmodell `DailyForecast`, Liste im Wetter-Screen.
+- **Erneut versuchen:** Der Hook gibt zusätzlich eine Funktion `reload`
+  zurück, z. B. über einen Zähler im State, der in den Abhängigkeiten
+  des Effekts steht. `WeatherContent` bekommt einen Callback `onRetry`.
+- **Pull-to-Refresh:** `FlatList` hat dafür die Props `refreshing` und
+  `onRefresh`, `ScrollView` die Prop `refreshControl` mit einem
+  `RefreshControl`.
+- **Fehlermeldungen auf Deutsch:** Im Hook statt `String(error)` eigene
+  Texte setzen, z. B. „Keine Internetverbindung“ bei einem Fehler von
+  `fetch` und „Wetterdaten konnten nicht geladen werden“ bei einem
+  HTTP-Fehler.
+- **Unit-Tests:** Expo empfiehlt
+  [Jest mit `jest-expo`](https://docs.expo.dev/develop/unit-testing/);
+  die nötigen Pakete und Einstellungen stehen in der Anleitung.
+  `formatTemperature` lässt sich direkt testen. Für den Hook gibt es
+  `renderHook` aus der
+  [React Native Testing Library](https://callstack.github.io/react-native-testing-library/).
+
+## Weiterführendes Material
+
+- [FlatList](https://reactnative.dev/docs/flatlist) und
+  [SectionList](https://reactnative.dev/docs/sectionlist)
+- [Expo Router: Einführung](https://docs.expo.dev/router/introduction/)
+- [Navigieren zwischen Seiten](https://docs.expo.dev/router/basics/navigation/)
+- [URL-Parameter](https://docs.expo.dev/router/reference/url-parameters/)
+- [Typed Routes](https://docs.expo.dev/router/reference/typed-routes/)
+- [Netzwerk in React Native](https://reactnative.dev/docs/network)
+- [Open-Meteo API](https://open-meteo.com/en/docs)
+- [useMemo](https://react.dev/reference/react/useMemo)
+</DocsOnly>

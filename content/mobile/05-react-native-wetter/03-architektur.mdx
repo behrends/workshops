@@ -1,0 +1,543 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 15 Minuten
+slideGoal: Zustand und Daten sauber von der Oberfläche trennen
+slideTopics:
+  - MVVM-Schichten mit einem Custom Hook
+  - UiState als Union-Typ
+  - Repository und async/await
+  - Laden mit useEffect
+---
+
+import { Callout } from 'nextra/components'
+
+# ViewModel und Architektur
+
+<DocsOnly>
+Bisher stecken die Daten direkt im Code der Oberfläche. Für echte Daten
+aus dem Netz braucht die App eine klare Aufteilung: Wer lädt die Daten,
+wer hält den Zustand, wer zeigt ihn an?
+
+Android und Flutter empfehlen dafür in ihrer Dokumentation **MVVM**
+(Model, View, ViewModel). React und Expo schreiben keine Architektur
+vor. Verbreitet ist, die Logik eines Screens in einen eigenen
+**Custom Hook** zu legen. Dieser Hook übernimmt die Rolle des
+ViewModels. So bleibt die App mit der Android- und der Flutter-Version
+vergleichbar, ganz ohne zusätzliche Pakete.
+</DocsOnly>
+
+## MVVM-Schichten
+
+Jede Schicht hat eine Aufgabe und kennt nur die Schicht darunter.
+
+![MVVM-Schichten der Wetter-App mit einem Custom Hook als ViewModel](/images/mobile/reactnative/wetter/mvvm-schichten.svg)
+
+<DocsOnly>
+- **UI** (Komponenten): zeigt den Zustand an und meldet Events
+- **ViewModel** (Custom Hook `useWeather`): hält den Zustand des Screens
+  und lädt die Daten
+- **Repository**: liefert Daten, egal ob aus Fake-Daten, Datenbank oder Netz
+
+Der Hook liegt im Ordner `ui/`, neben dem Screen, zu dem er gehört.
+
+Der Clou: Das Repository ist nur ein Typ. In Schritt 7 steckt dahinter
+eine Fake-Implementierung, in Schritt 9 die echte API. UI und Hook
+merken davon nichts.
+</DocsOnly>
+
+## UiState als Union-Typ
+
+Der Screen ist immer in genau einem von drei Zuständen.
+
+```ts
+import type { City } from '@/model/city';
+import type { CurrentWeather } from '@/model/current-weather';
+
+export type WeatherUiState =
+  | { status: 'loading' }
+  | { status: 'success'; city: City; weather: CurrentWeather }
+  | { status: 'error'; message: string };
+```
+
+<DocsOnly>
+Neue Datei `ui/weather-ui-state.ts`.
+
+Das ist eine **Discriminated Union**: Jeder Zustand ist ein Objekt mit
+dem Feld `status`, und an dessen Wert erkennt TypeScript, welche
+weiteren Felder es gibt. Das entspricht `sealed interface` in Kotlin und
+`sealed class` in Dart, ohne eigene Klassen.
+
+Nach `case 'success':` in einem `switch` weiß TypeScript, dass
+`uiState.weather` existiert; im Fall `'error'` gibt es dagegen nur
+`uiState.message`. Das entspricht dem Smart Cast in Kotlin und dem
+Pattern Matching in Dart.
+</DocsOnly>
+
+## ViewModel als Custom Hook
+
+Ein Custom Hook ist eine Funktion, deren Name mit `use` beginnt und die selbst Hooks aufruft. Er hält den Zustand und gibt ihn zurück.
+
+```ts
+import { useState } from 'react';
+
+import { fakeCities, fakeCurrentWeather } from '@/data/fake-data';
+import type { WeatherUiState } from '@/ui/weather-ui-state';
+
+export function useWeather(): WeatherUiState {
+  const [uiState] = useState<WeatherUiState>({
+    status: 'success',
+    city: fakeCities[0],
+    weather: fakeCurrentWeather[fakeCities[0].name],
+  });
+
+  return uiState;
+}
+```
+
+<DocsOnly>
+Neue Datei `ui/use-weather.ts`.
+
+`useState<WeatherUiState>(…)` gibt den Typ ausdrücklich an. Sonst würde
+TypeScript nur den Typ des Startwerts ableiten, und der Zustand könnte
+später nie `loading` oder `error` werden.
+
+Nach außen gibt der Hook nur den Zustand frei. Ändern kann ihn nur der
+Hook selbst; den Setter brauchen wir erst mit dem Repository.
+
+| Android | Flutter | React Native |
+|---|---|---|
+| Klasse `WeatherViewModel` | Klasse `WeatherViewModel` | Funktion `useWeather` |
+| `StateFlow<WeatherUiState>` | Getter `uiState` + `notifyListeners()` | Rückgabewert, `useState` |
+| `collectAsStateWithLifecycle()` | `ListenableBuilder` | entfällt: neues Rendern |
+| Lebenszyklus vom System | `dispose()` von Hand | lebt mit der Komponente |
+
+Ein Hook ist keine eigene Instanz wie ein ViewModel. Jede Komponente,
+die `useWeather()` aufruft, bekommt ihren eigenen Zustand, und er
+verschwindet, wenn die Komponente verschwindet. Für unsere App mit einem
+Hook pro Screen passt das genau.
+</DocsOnly>
+
+## Stateful und stateless
+
+Eine Komponente holt den Zustand aus dem Hook, eine zweite zeigt ihn nur an.
+
+```tsx
+export function WeatherScreen() {
+  const uiState = useWeather();
+  const [isCelsius, setIsCelsius] = useState(true);
+
+  return (
+    <WeatherContent
+      uiState={uiState}
+      isCelsius={isCelsius}
+      onToggleUnit={() => setIsCelsius(!isCelsius)}
+    />
+  );
+}
+```
+
+<DocsOnly>
+Beide stehen in `ui/weather-screen.tsx`. Aus dem bisherigen Inhalt von
+`WeatherScreen` werden die neuen Komponenten `WeatherContent` und
+`WeatherBody`. `WeatherScreen` bekommt keine Daten mehr als Props;
+`app/index.tsx` setzt nur noch `<WeatherScreen />` ein:
+
+```tsx
+import { WeatherScreen } from '@/ui/weather-screen';
+
+export default function Index() {
+  return <WeatherScreen />;
+}
+```
+
+Der Anfang von `ui/weather-screen.tsx` mit den neuen Imports:
+
+```tsx
+import { Stack } from 'expo-router';
+import { type ReactElement, useState } from 'react';
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+
+import type { City } from '@/model/city';
+import type { CurrentWeather } from '@/model/current-weather';
+import { useWeather } from '@/ui/use-weather';
+import {
+  conditionEmoji,
+  conditionLabel,
+  formatTemperature,
+} from '@/ui/weather-condition-ui';
+import type { WeatherUiState } from '@/ui/weather-ui-state';
+```
+
+Danach folgt `WeatherScreen` von oben. `WeatherContent` setzt die
+Optionen des Headers und überlässt den Inhalt `WeatherBody`:
+
+```tsx
+type WeatherContentProps = {
+  uiState: WeatherUiState;
+  isCelsius: boolean;
+  onToggleUnit: () => void;
+};
+
+// Zeigt nur an, was es über Props bekommt
+function WeatherContent({
+  uiState,
+  isCelsius,
+  onToggleUnit,
+}: WeatherContentProps) {
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          title: 'Wetter',
+          headerRight: () => (
+            <UnitToggle isCelsius={isCelsius} onToggle={onToggleUnit} />
+          ),
+        }}
+      />
+      <WeatherBody uiState={uiState} isCelsius={isCelsius} />
+    </>
+  );
+}
+```
+
+`<>…</>` ist ein **Fragment**: Es fasst mehrere Elemente zusammen, ohne
+selbst etwas anzuzeigen. Der Header zeigt vorerst den festen Titel
+„Wetter“; den Namen der Stadt bekommt er mit der Navigation.
+
+`WeatherBody` entscheidet mit einem `switch`, was angezeigt wird:
+
+```tsx
+type WeatherBodyProps = {
+  uiState: WeatherUiState;
+  isCelsius: boolean;
+};
+
+function WeatherBody({ uiState, isCelsius }: WeatherBodyProps): ReactElement {
+  switch (uiState.status) {
+    case 'loading':
+      return (
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    case 'success':
+      return (
+        <ScrollView>
+          <CurrentWeatherCard
+            city={uiState.city}
+            weather={uiState.weather}
+            isCelsius={isCelsius}
+          />
+        </ScrollView>
+      );
+    case 'error':
+      return (
+        <View style={styles.centered}>
+          <Text>{uiState.message}</Text>
+        </View>
+      );
+  }
+}
+```
+
+Der Rückgabetyp `ReactElement` sorgt dafür, dass TypeScript alle Fälle
+verlangt: Fehlt ein `case`, liefert die Funktion in diesem Fall nichts,
+und TypeScript meldet „Function lacks ending return statement“. Kommt
+ein Zustand hinzu, findet der Compiler so jede Stelle, die ihn noch
+nicht behandelt. Ausprobieren: den Fall `'error'` löschen und
+`npx tsc --noEmit` ausführen.
+
+`ActivityIndicator` ist die Ladeanzeige der Plattform. In `styles` kommt
+`centered` hinzu, das Gegenstück zu `Center` in Flutter:
+
+```tsx
+centered: {
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 16,
+},
+```
+
+`UnitToggle` und `CurrentWeatherCard` bleiben unverändert. Vollständig:
+[`weather-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-06/src/ui/weather-screen.tsx)
+
+Warum die Aufteilung? `WeatherContent` bekommt alles über Props und
+lässt sich deshalb mit jedem Zustand anzeigen, z. B. in einem Test, ohne
+Hook und ohne Daten.
+
+Der Umschalter °C/°F bleibt als `useState` in `WeatherScreen`. Er ist
+reiner Anzeige-Zustand (UI-Element-State) und gehört nicht in den Hook.
+
+Code: [`schritt-06`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-06) ·
+[Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-05...schritt-06)
+</DocsOnly>
+
+## Repository
+
+Das Repository liefert die Daten. Der Hook kennt nur den Typ.
+
+```ts
+import type { City } from '@/model/city';
+import type { CurrentWeather } from '@/model/current-weather';
+
+export type WeatherRepository = {
+  getCurrentWeather(city: City): Promise<CurrentWeather>;
+};
+```
+
+<SlideBreak />
+
+<SlideOnly>
+```ts
+export function createFakeWeatherRepository({
+  shouldFail = false,
+} = {}): WeatherRepository {
+  return {
+    async getCurrentWeather(city) {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      if (shouldFail) throw new Error('Keine Verbindung (simuliert)');
+      // ... Fake-Daten zur Stadt zurückgeben
+    },
+  };
+}
+```
+</SlideOnly>
+
+<DocsOnly>
+```ts
+import { fakeCurrentWeather } from '@/data/fake-data';
+import type { WeatherRepository } from '@/data/weather-repository';
+
+export function createFakeWeatherRepository({
+  shouldFail = false,
+} = {}): WeatherRepository {
+  return {
+    async getCurrentWeather(city) {
+      // wie ein langsamer Server
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      if (shouldFail) {
+        throw new Error('Keine Verbindung zum Server (simuliert)');
+      }
+      const weather = fakeCurrentWeather[city.name];
+      if (!weather) {
+        throw new Error(`Keine Wetterdaten für ${city.name}`);
+      }
+      return weather;
+    },
+  };
+}
+```
+
+Neue Dateien `data/weather-repository.ts` und
+`data/fake-weather-repository.ts`.
+
+Ein `interface` mit Klassen wie in Kotlin wäre auch in TypeScript
+möglich. In React-Code sind aber Objekte und Funktionen üblicher: Der
+Typ `WeatherRepository` beschreibt ein Objekt mit der Methode
+`getCurrentWeather`, und jedes Objekt mit dieser Methode passt dazu.
+`createFakeWeatherRepository` ist eine **Factory**: eine Funktion, die
+so ein Objekt erzeugt.
+
+`{ shouldFail = false } = {}` ist ein optionales Objekt mit benannten
+Einstellungen und Standardwert. Aufruf mit
+`createFakeWeatherRepository()` oder
+`createFakeWeatherRepository({ shouldFail: true })`.
+
+Ein `Promise<T>` ist ein Wert, der später ankommt, wie `Future<T>` in
+Dart. Eine `async`-Funktion liefert immer ein `Promise`; mit `await`
+wartet sie darauf, ohne die Oberfläche zu blockieren. Das entspricht
+`suspend` in Kotlin. Mit `setTimeout` verhält sich das Fake-Repository
+wie ein langsamer Server: Der Ladezustand wird sichtbar.
+</DocsOnly>
+
+## Laden mit useEffect
+
+`useEffect` führt Code aus, **nachdem** die Komponente angezeigt wurde. Damit lädt der Hook die Daten.
+
+<SlideOnly>
+```ts
+useEffect(() => {
+  let ignore = false;
+
+  async function loadWeather() {
+    const weather = await repository.getCurrentWeather(city);
+    if (!ignore) setUiState({ status: 'success', city, weather });
+    // bei Fehler: setUiState({ status: 'error', … })
+  }
+
+  loadWeather();
+  return () => { ignore = true; }; // Aufräumen
+}, [city, repository]);
+```
+</SlideOnly>
+
+<DocsOnly>
+Vollständig in `ui/use-weather.ts`:
+
+```ts
+import { useEffect, useState } from 'react';
+
+import { createFakeWeatherRepository } from '@/data/fake-weather-repository';
+import type { WeatherRepository } from '@/data/weather-repository';
+import type { City } from '@/model/city';
+import type { WeatherUiState } from '@/ui/weather-ui-state';
+
+const defaultRepository = createFakeWeatherRepository();
+
+export function useWeather(
+  city: City,
+  repository: WeatherRepository = defaultRepository,
+): WeatherUiState {
+  const [uiState, setUiState] = useState<WeatherUiState>({
+    status: 'loading',
+  });
+
+  useEffect(() => {
+    // wird true, sobald die Antwort nicht mehr gebraucht wird
+    let ignore = false;
+
+    async function loadWeather() {
+      try {
+        const weather = await repository.getCurrentWeather(city);
+        if (!ignore) setUiState({ status: 'success', city, weather });
+      } catch (error) {
+        if (!ignore) setUiState({ status: 'error', message: String(error) });
+      }
+    }
+
+    loadWeather();
+
+    // Aufräumen: beim Verlassen des Screens oder vor dem nächsten Laden
+    return () => {
+      ignore = true;
+    };
+  }, [city, repository]);
+
+  return uiState;
+}
+```
+
+Der Startwert ist `loading`. Nach dem ersten Anzeigen startet der Effekt
+das Laden; kommt die Antwort, setzt er `success` oder `error`, und React
+rendert neu.
+
+Das Array am Ende, `[city, repository]`, sind die **Abhängigkeiten**:
+React führt den Effekt erneut aus, wenn sich einer dieser Werte ändert.
+`npx expo lint` prüft, dass dort alles steht, was der Effekt verwendet.
+
+Die Funktion, die der Effekt zurückgibt, ist das **Aufräumen**. React
+ruft sie auf, bevor der Effekt erneut läuft und wenn die Komponente
+verschwindet. Weil sich ein `Promise` nicht abbrechen lässt, merkt sich
+der Effekt mit `ignore`, dass die Antwort nicht mehr gebraucht wird. So
+kann keine alte Antwort einen neueren Zustand überschreiben. In Android
+übernimmt das der `viewModelScope`, in Flutter das Feld `_disposed`.
+
+`String(error)` macht aus dem Fehler einen Text, z. B. „Error: Keine
+Verbindung zum Server (simuliert)“. Der Typ von `error` ist `unknown`,
+weil in JavaScript alles geworfen werden kann, nicht nur `Error`.
+
+<Callout type="warning">
+Die Abhängigkeiten vergleicht React mit `===`, bei Objekten also die
+Identität, nicht den Inhalt. Ein Objekt, das bei jedem Rendern neu
+entsteht, z. B. `useWeather({ name: 'Lörrach', … })` oder
+`useWeather(city, createFakeWeatherRepository())`, wäre bei jedem
+Rendern „neu“. Der Effekt liefe dann immer wieder, lädt, setzt State,
+rendert neu und so weiter. Deshalb ist `defaultRepository` eine
+Konstante außerhalb des Hooks, und `fakeCities[0]` ist immer dasselbe
+Objekt.
+</Callout>
+</DocsOnly>
+
+## Repository als Default-Parameter
+
+Der Hook bekommt sein Repository als optionalen Parameter. Für die echte API ändert sich später nur eine Zeile.
+
+```ts
+const defaultRepository = createFakeWeatherRepository();
+
+export function useWeather(
+  city: City,
+  repository: WeatherRepository = defaultRepository,
+): WeatherUiState {
+```
+
+<DocsOnly>
+Ein Default-Wert wie in Kotlin, hier ohne den Umweg über `??` wie in
+Dart. Das macht den Hook auch testbar, z. B. mit
+`useWeather(city, failingRepository)` und einem Repository mit
+`shouldFail: true`.
+
+Zum Ausprobieren des Fehlerzustands genügt es, die Konstante zu ändern:
+`createFakeWeatherRepository({ shouldFail: true })`. Nach dem Speichern
+lädt Fast Refresh den Hook neu; weil sich `repository` geändert hat,
+läuft der Effekt erneut und zeigt den Fehler.
+
+In größeren Apps übernimmt ein Context von React oder eine Bibliothek
+die Bereitstellung solcher Objekte. Für diese App reicht der
+Default-Parameter, und das Prinzip ist dasselbe: Der Hook ist nicht fest
+an eine Datenquelle gebunden.
+
+`WeatherScreen` bekommt dafür die Prop `city` und gibt sie an den Hook
+weiter:
+
+```tsx
+type WeatherScreenProps = {
+  city: City;
+};
+
+// Holt den Zustand aus dem Hook und hält den UI-State für °C/°F
+export function WeatherScreen({ city }: WeatherScreenProps) {
+  const uiState = useWeather(city);
+  const [isCelsius, setIsCelsius] = useState(true);
+  // return wie bisher
+}
+```
+
+Vollständig:
+[`weather-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-07/src/ui/weather-screen.tsx)
+
+`app/index.tsx` übergibt vorerst Lörrach:
+
+```tsx
+import { fakeCities } from '@/data/fake-data';
+import { WeatherScreen } from '@/ui/weather-screen';
+
+export default function Index() {
+  return <WeatherScreen city={fakeCities[0]} />;
+}
+```
+
+Ab Schritt 8 übergibt die Navigation die angetippte Stadt.
+
+Code: [`schritt-07`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-07) ·
+[Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-06...schritt-07)
+
+<Callout type="info">
+Laden mit `useEffect` ist der Weg mit Bordmitteln von React. In größeren
+Apps übernimmt das meist eine Bibliothek wie
+[TanStack Query](https://tanstack.com/query/latest/docs/framework/react/react-native):
+Sie kümmert sich um Laden, Fehler, Caching und erneutes Laden. Der Hook
+schrumpft dann auf
+`useQuery({ queryKey: ['weather', city.name], queryFn: () => repository.getCurrentWeather(city) })`;
+Screen und Repository bleiben gleich. Für diese App verzichten wir
+darauf, um zu sehen, was dabei passiert.
+</Callout>
+
+## Weiterführendes Material
+
+- [Logik mit Custom Hooks wiederverwenden](https://react.dev/learn/reusing-logic-with-custom-hooks)
+- [Synchronisieren mit Effects](https://react.dev/learn/synchronizing-with-effects)
+- [You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect):
+  wann ein Effekt nötig ist und wann nicht
+- [Discriminated Unions in TypeScript](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions)
+- [async/await in JavaScript](https://developer.mozilla.org/de/docs/Learn_web_development/Extensions/Async_JS/Promises)
+</DocsOnly>

@@ -1,0 +1,410 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 10 Minuten
+slideGoal: Farben und Schriften aus einem Theme statt fester Werte
+slideTopics:
+  - Farben für hell und dunkel
+  - ThemeProvider von Expo Router
+  - Dark Mode
+---
+
+import { Callout } from 'nextra/components'
+
+# Theme und Dark Mode
+
+<DocsOnly>
+Zum Schluss der Feinschliff: Die Karte im Wetter-Screen hat bisher eine
+feste Farbe (`'#BBDEFB'`) und feste Schriftgrößen. Ist das Gerät auf
+Dark Mode eingestellt, bleibt die App trotzdem hell.
+
+Anders als Compose und Flutter bringt React Native kein Material Design
+mit, also auch kein fertiges Theme mit `colorScheme` und `textTheme`.
+Wir legen deshalb selbst eine Datei mit Farben und Schriften an. Die
+Namen orientieren sich an Material 3, damit der Vergleich leichtfällt.
+</DocsOnly>
+
+## Farben für hell und dunkel
+
+Alle Farben stehen an einer Stelle, je einmal für hell und dunkel. Der Hook `useColorScheme` verrät, was am Gerät eingestellt ist.
+
+```ts
+export function useAppColors(): AppColors {
+  return useColorScheme() === 'dark' ? darkColors : lightColors;
+}
+```
+
+<DocsOnly>
+Neue Datei `ui/theme.ts`:
+
+```ts
+import { DarkTheme, DefaultTheme, type Theme } from 'expo-router';
+import { StyleSheet, useColorScheme } from 'react-native';
+
+const lightColors = {
+  background: '#F8F9FF',
+  text: '#191C20',
+  textSecondary: '#43474E',
+  primary: '#1565C0',
+  primaryContainer: '#D1E4FF',
+  onPrimaryContainer: '#001D36',
+  divider: '#C3C6CF',
+  pressed: '#E1E2E8',
+};
+
+const darkColors: AppColors = {
+  background: '#111418',
+  text: '#E1E2E8',
+  textSecondary: '#C3C6CF',
+  primary: '#9ECAFF',
+  primaryContainer: '#00497D',
+  onPrimaryContainer: '#D1E4FF',
+  divider: '#43474E',
+  pressed: '#2D3135',
+};
+
+export type AppColors = typeof lightColors;
+
+// Farben passend zur Einstellung des Geräts (hell oder dunkel)
+export function useAppColors(): AppColors {
+  return useColorScheme() === 'dark' ? darkColors : lightColors;
+}
+
+// Farben für Header und Hintergrund der Screens von Expo Router
+export const lightNavigationTheme: Theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: lightColors.primary,
+    background: lightColors.background,
+    card: lightColors.background,
+    text: lightColors.text,
+    border: lightColors.divider,
+  },
+};
+
+export const darkNavigationTheme: Theme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    primary: darkColors.primary,
+    background: darkColors.background,
+    card: darkColors.background,
+    text: darkColors.text,
+    border: darkColors.divider,
+  },
+};
+
+// Schriftgrößen an einer Stelle, Namen wie in Material 3
+export const typography = StyleSheet.create({
+  displayLarge: { fontSize: 57 },
+  headlineMedium: { fontSize: 28 },
+  titleMedium: { fontSize: 18 },
+  bodyLarge: { fontSize: 16 },
+  bodyMedium: { fontSize: 14 },
+});
+```
+
+`typeof lightColors` leitet den Typ aus dem Objekt ab: ein Objekt mit
+genau diesen Feldern, alle vom Typ `string`. `darkColors: AppColors`
+erzwingt, dass die dunklen Farben dieselben Namen haben. Fehlt eine,
+meldet TypeScript einen Fehler.
+
+`useAppColors` ist ein Custom Hook, weil er selbst den Hook
+`useColorScheme` aufruft. Er übernimmt die Rolle von
+`MaterialTheme.colorScheme` bzw. `Theme.of(context).colorScheme`.
+Ändert sich die Einstellung am Gerät, rendert React jede Komponente neu,
+die ihn verwendet.
+
+Die Farben stammen aus einem Material-3-Farbschema mit Blau als
+Grundfarbe. Eigene Farbschemata lassen sich mit dem
+[Material Theme Builder](https://material-foundation.github.io/material-theme-builder/)
+erzeugen.
+
+`...DefaultTheme` (*Spread*) kopiert alle Felder des Standard-Themes von
+Expo Router; die folgenden Zeilen überschreiben einzelne davon. So
+bleiben z. B. die Schriften für den Header erhalten.
+</DocsOnly>
+
+## ThemeProvider
+
+Der `ThemeProvider` im Layout gibt Header und Hintergrund aller Screens die passenden Farben.
+
+<SlideOnly>
+```tsx
+export default function RootLayout() {
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
+
+  return (
+    <ThemeProvider value={isDark ? darkNavigationTheme : lightNavigationTheme}>
+      <Stack />
+    </ThemeProvider>
+  );
+}
+```
+</SlideOnly>
+
+<DocsOnly>
+```tsx
+import { Stack, ThemeProvider } from 'expo-router';
+import { useColorScheme } from 'react-native';
+
+import { darkNavigationTheme, lightNavigationTheme } from '@/ui/theme';
+
+export default function RootLayout() {
+  const colorScheme = useColorScheme();
+
+  return (
+    <ThemeProvider
+      value={
+        colorScheme === 'dark' ? darkNavigationTheme : lightNavigationTheme
+      }
+    >
+      <Stack />
+    </ThemeProvider>
+  );
+}
+```
+
+Das ist die vollständige neue `app/_layout.tsx`. Der `ThemeProvider`
+stellt das Theme für alles darunter bereit, hier den `Stack` mit allen
+Screens. Ohne ihn verwendet Expo Router immer das helle Standard-Theme.
+
+`app.json` erlaubt der App schon beide Modi
+(`"userInterfaceStyle": "automatic"`). Steht dort `"light"`, liefert
+`useColorScheme` immer `'light'`.
+</DocsOnly>
+
+## Farben in den Komponenten
+
+Jede Komponente holt sich die Farben mit `useAppColors()`. Feste Styles bleiben im `StyleSheet`, Farben kommen als zweiter Style dazu.
+
+```tsx
+const colors = useAppColors();
+const textColor = { color: colors.onPrimaryContainer };
+
+<View style={[styles.card, { backgroundColor: colors.primaryContainer }]}>
+  <Text style={[typography.headlineMedium, textColor]}>{city.name}</Text>
+```
+
+<DocsOnly>
+Ein Array in `style` kombiniert mehrere Styles; bei gleichen
+Eigenschaften gewinnt der letzte. `StyleSheet.create` kennt die Farben
+nicht, weil sie erst beim Rendern feststehen.
+
+In `ui/weather-screen.tsx` kommt ein Import hinzu:
+
+```tsx
+import { typography, useAppColors } from '@/ui/theme';
+```
+
+`CurrentWeatherCard` verwendet die Farben und Schriften aus dem Theme:
+
+```tsx
+function CurrentWeatherCard({
+  city,
+  weather,
+  isCelsius,
+}: CurrentWeatherCardProps) {
+  const colors = useAppColors();
+  const textColor = { color: colors.onPrimaryContainer };
+
+  return (
+    <View style={[styles.card, { backgroundColor: colors.primaryContainer }]}>
+      <Text style={[typography.headlineMedium, textColor]}>{city.name}</Text>
+      <Text style={styles.emoji}>{conditionEmoji[weather.condition]}</Text>
+      <Text style={[typography.displayLarge, textColor]}>
+        {formatTemperature(weather.temperature, isCelsius)}
+      </Text>
+      <View style={styles.row}>
+        <Text style={[typography.bodyLarge, textColor]}>
+          Wind: {Math.round(weather.windSpeed)} km/h
+        </Text>
+        <Text style={[typography.bodyLarge, textColor]}>
+          {conditionLabel[weather.condition]}
+        </Text>
+      </View>
+    </View>
+  );
+}
+```
+
+Nur das Emoji behält eine feste Größe, weil es im Theme keinen passenden
+Schriftstil dafür gibt.
+
+Auch `WeatherBody` und `UnitToggle` holen sich die Farben. Am Anfang von
+`WeatherBody` steht `const colors = useAppColors();`, und zwei Stellen
+ändern sich:
+
+```tsx
+<ActivityIndicator size="large" color={colors.primary} />
+```
+
+```tsx
+<Text style={[typography.bodyLarge, { color: colors.text }]}>
+  {uiState.message}
+</Text>
+```
+
+`UnitToggle` bekommt die Farbe `primary`:
+
+```tsx
+function UnitToggle({ isCelsius, onToggle }: UnitToggleProps) {
+  const colors = useAppColors();
+
+  return (
+    <Pressable onPress={onToggle} hitSlop={12}>
+      <Text style={[styles.toggle, { color: colors.primary }]}>
+        {isCelsius ? '°C' : '°F'}
+      </Text>
+    </Pressable>
+  );
+}
+```
+
+In `styles` fallen die festen Farben und Schriftgrößen weg:
+
+```tsx
+const styles = StyleSheet.create({
+  centered: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  toggle: { fontSize: 18, paddingHorizontal: 8 },
+  card: {
+    margin: 16, // außen
+    padding: 24, // innen
+    borderRadius: 24,
+    alignItems: 'center',
+  },
+  emoji: { fontSize: 72 },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    marginTop: 16,
+  },
+});
+```
+
+Vollständig:
+[`weather-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-10/src/ui/weather-screen.tsx)
+
+<Callout type="warning">
+Ein `Text` ohne Farbangabe kennt unser Theme nicht. Anders als in
+Compose und Flutter übernimmt er keine Farbe daraus; auf iOS ist er z. B.
+immer schwarz, auch im Dark Mode. Deshalb braucht jeder `Text` eine Farbe aus `useAppColors()`.
+Vergessene Stellen fallen erst im Dark Mode auf: schwarze Schrift auf
+dunklem Grund. Die Vorlage von Expo löst das mit einer eigenen
+Komponente `ThemedText`, die die Farbe selbst setzt.
+</Callout>
+
+In `ui/city-list-screen.tsx` holen sich `CityRow` und `Divider` die
+Farben ebenso. Die vollständige Datei:
+
+```tsx
+import { router, Stack } from 'expo-router';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+
+import type { City } from '@/model/city';
+import { typography, useAppColors } from '@/ui/theme';
+
+type CityListScreenProps = {
+  cities: City[];
+};
+
+export function CityListScreen({ cities }: CityListScreenProps) {
+  return (
+    <>
+      <Stack.Screen options={{ title: 'Städte' }} />
+      <FlatList
+        data={cities}
+        keyExtractor={(city) => city.name}
+        renderItem={({ item }) => <CityRow city={item} />}
+        ItemSeparatorComponent={Divider}
+      />
+    </>
+  );
+}
+
+function CityRow({ city }: { city: City }) {
+  const colors = useAppColors();
+
+  function openWeather() {
+    // Navigieren = neuen Screen auf den Stack legen
+    router.push({
+      pathname: '/weather',
+      params: {
+        name: city.name,
+        latitude: city.latitude,
+        longitude: city.longitude,
+      },
+    });
+  }
+
+  return (
+    <Pressable
+      onPress={openWeather}
+      style={({ pressed }) => [
+        styles.row,
+        pressed && { backgroundColor: colors.pressed },
+      ]}
+    >
+      <Text style={[typography.titleMedium, { color: colors.text }]}>
+        {city.name}
+      </Text>
+      <Text style={[typography.bodyMedium, { color: colors.textSecondary }]}>
+        {city.latitude.toFixed(2)}° N, {city.longitude.toFixed(2)}° O
+      </Text>
+    </Pressable>
+  );
+}
+
+function Divider() {
+  const colors = useAppColors();
+
+  return (
+    <View style={[styles.divider, { backgroundColor: colors.divider }]} />
+  );
+}
+
+const styles = StyleSheet.create({
+  row: { paddingHorizontal: 16, paddingVertical: 12 },
+  divider: { height: StyleSheet.hairlineWidth },
+});
+```
+</DocsOnly>
+
+## Dark Mode
+
+Weil alle Farben aus dem Theme kommen, folgt die App jetzt der Einstellung des Geräts.
+
+- Emulator: Dark Mode in den Schnelleinstellungen umschalten
+- Header, Hintergrund, Karte und Liste wechseln sofort die Farben
+- kein Neustart nötig: `useColorScheme` meldet die Änderung
+
+<DocsOnly>
+Zum Testen im Emulator die Schnelleinstellungen von oben herunterziehen
+und *Dark theme* antippen. Die App muss dafür nicht neu starten.
+
+Ein Gegenstück zu `dynamicColor` aus der Android-Vorlage gibt es nicht
+eingebaut. Wer Material Design mit fertigen Komponenten wie `Card` oder
+`Button` möchte, kann eine Bibliothek wie
+[React Native Paper](https://reactnativepaper.com) verwenden. Sie
+bringt Material 3 mit, die App sieht dann aber auch auf iOS nach Android
+aus.
+
+Code: [`schritt-10`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-10) ·
+[Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-09...schritt-10)
+
+## Weiterführendes Material
+
+- [Farbschemata in Expo](https://docs.expo.dev/develop/user-interface/color-themes/)
+- [useColorScheme](https://reactnative.dev/docs/usecolorscheme)
+- [Themes in React Navigation](https://reactnavigation.org/docs/themes/)
+- [Material Design 3](https://m3.material.io): Richtlinien und Farben
+- [React Native Paper](https://reactnativepaper.com): Material-3-Komponenten
+</DocsOnly>

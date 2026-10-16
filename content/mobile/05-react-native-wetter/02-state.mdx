@@ -1,0 +1,266 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 10 Minuten
+slideGoal: Verstehen, wie React auf Zustandsänderungen reagiert
+slideTopics:
+  - Hook useState
+  - Neu rendern
+  - Lifting State Up
+---
+
+import { Callout } from 'nextra/components'
+
+# State
+
+<DocsOnly>
+Bisher zeigt die App nur feste Daten an. Jetzt soll die Oberfläche
+auf Eingaben reagieren: Ein Umschalter im Header wechselt die
+Temperaturanzeige zwischen °C und °F.
+
+Code: [`schritt-05`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-05) ·
+[Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-04...schritt-05)
+</DocsOnly>
+
+## Erster Versuch
+
+Eine normale Variable reicht nicht: Antippen ändert den Wert, aber die Anzeige bleibt gleich.
+
+```tsx
+export function WeatherScreen({ city, weather }: WeatherScreenProps) {
+  let isCelsius = true; // funktioniert nicht!
+
+  return (
+    <Pressable onPress={() => (isCelsius = !isCelsius)}>
+      <Text>{isCelsius ? '°C' : '°F'}</Text>
+    </Pressable>
+  );
+}
+```
+
+<DocsOnly>
+React weiß nicht, dass sich `isCelsius` geändert hat, und ruft die
+Funktion deshalb nicht erneut auf. Selbst wenn, stünde `isCelsius`
+danach wieder auf `true`, weil die Funktion von vorne ausgeführt wird.
+
+`Pressable` macht seinen Inhalt antippbar; `onPress` bekommt eine
+Funktion, die beim Antippen aufgerufen wird.
+
+Der Name `isCelsius` statt `useCelsius` wie in Android und Flutter ist
+Absicht: In React beginnen nur **Hooks** mit `use` (siehe unten). Für
+Werte vom Typ `boolean` ist `is…` üblich.
+</DocsOnly>
+
+## Hook useState
+
+`useState` gibt den aktuellen Wert und eine Funktion zum Ändern zurück. React merkt sich den Wert über das erneute Aufrufen hinweg.
+
+```tsx
+const [isCelsius, setIsCelsius] = useState(true);
+
+<Pressable onPress={() => setIsCelsius(!isCelsius)}>
+  <Text>{isCelsius ? '°C' : '°F'}</Text>
+</Pressable>
+```
+
+<DocsOnly>
+`useState(true)` legt den Startwert fest. Zurück kommt ein Array mit zwei
+Elementen, das wir gleich auf zwei Variablen aufteilen. Den Typ
+`boolean` leitet TypeScript aus dem Startwert ab.
+
+`setIsCelsius` ändert den Wert **und** sagt React, dass die Komponente
+neu gerendert werden muss. Damit übernimmt `useState` die Rolle von
+`remember { mutableStateOf(…) }` in Compose bzw. von Feld und `setState`
+in Flutter, ohne eigene Klasse.
+
+`useState` ist ein **Hook**: eine Funktion von React, deren Name mit
+`use` beginnt und die sich etwas über das Rendern hinweg merkt. Hooks
+dürfen nur ganz oben in einer Komponente aufgerufen werden, nicht in
+`if`, Schleifen oder Callbacks. React erkennt sie an der Reihenfolge der
+Aufrufe. Bei Verstößen meldet sich `npx expo lint`.
+</DocsOnly>
+
+## Neu rendern
+
+Merksatz wie bei Compose und Flutter: **UI = f(State)**. Ändert sich der State, ruft React die Komponente neu auf.
+
+<DocsOnly>
+Das erneute Rendern lässt sich beobachten: in `CurrentWeatherCard` die
+Zeile `console.log('render CurrentWeatherCard');` vor dem `return`
+einfügen. Die Ausgabe erscheint im Terminal von `npx expo start`. Jedes
+Umschalten erzeugt eine neue Zeile.
+
+Wie Flutter rendert React beim Ändern von State den ganzen Teilbaum
+unterhalb der Komponente neu. Das ist billig: Gerendert wird nur eine
+Beschreibung, die nativen Views ändert React Native nur dort, wo sich
+wirklich etwas unterscheidet. Die Vorlage von Expo schaltet außerdem
+den [React Compiler](https://react.dev/learn/react-compiler) ein
+(`"reactCompiler": true` in `app.json`), der unveränderte Teile
+automatisch überspringt.
+
+Beim Drehen des Bildschirms bleibt der State erhalten; React Native
+erzeugt dabei nichts neu. In unserer App ist das Drehen allerdings
+abgeschaltet (siehe `app.json`).
+</DocsOnly>
+
+## Lifting State Up
+
+Den State dort halten, wo alle ihn brauchen, und ihn nach unten weitergeben. Änderungen kommen als Callbacks zurück nach oben.
+
+![Unidirectional Data Flow: State nach unten, Events nach oben](/images/mobile/reactnative/wetter/udf-lifting-state.svg)
+
+<DocsOnly>
+Der Umschalter (`UnitToggle`) und die Karte (`CurrentWeatherCard`)
+brauchen beide `isCelsius`. Deshalb liegt der State in der gemeinsamen
+Eltern-Komponente `WeatherScreen`. React nennt das Muster **Lifting
+State Up**, wie Flutter; in Compose heißt es *State Hoisting*.
+</DocsOnly>
+
+<SlideBreak />
+
+```tsx
+const [isCelsius, setIsCelsius] = useState(true);
+
+<UnitToggle
+  isCelsius={isCelsius} // State ↓
+  onToggle={() => setIsCelsius(!isCelsius)} // Event ↑
+/>
+<CurrentWeatherCard city={city} weather={weather} isCelsius={isCelsius} />
+```
+
+<DocsOnly>
+Vollständig in `ui/weather-screen.tsx`: `UnitToggle` steckt in der
+Option `headerRight` des Headers, die Karte in der `ScrollView`.
+
+```tsx
+import { Stack } from 'expo-router';
+import { useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+
+import type { City } from '@/model/city';
+import type { CurrentWeather } from '@/model/current-weather';
+import {
+  conditionEmoji,
+  conditionLabel,
+  formatTemperature,
+} from '@/ui/weather-condition-ui';
+
+type WeatherScreenProps = {
+  city: City;
+  weather: CurrentWeather;
+};
+
+export function WeatherScreen({ city, weather }: WeatherScreenProps) {
+  const [isCelsius, setIsCelsius] = useState(true);
+
+  return (
+    <ScrollView>
+      <Stack.Screen
+        options={{
+          title: city.name,
+          headerRight: () => (
+            <UnitToggle
+              isCelsius={isCelsius} // State ↓
+              onToggle={() => setIsCelsius(!isCelsius)} // Event ↑
+            />
+          ),
+        }}
+      />
+      <CurrentWeatherCard city={city} weather={weather} isCelsius={isCelsius} />
+    </ScrollView>
+  );
+}
+```
+
+`headerRight` erwartet eine Funktion, die den Inhalt für die rechte Seite
+des Headers zurückgibt. Weil `WeatherScreen` bei jeder Änderung neu
+gerendert wird, bekommt auch der Header den neuen Wert.
+
+`UnitToggle` steht ebenfalls in `ui/weather-screen.tsx`. Es hat keinen
+eigenen State, bekommt den aktuellen Wert und meldet das Antippen über
+`onToggle`:
+
+```tsx
+type UnitToggleProps = {
+  isCelsius: boolean;
+  onToggle: () => void;
+};
+
+function UnitToggle({ isCelsius, onToggle }: UnitToggleProps) {
+  return (
+    <Pressable onPress={onToggle} hitSlop={12}>
+      <Text style={styles.toggle}>{isCelsius ? '°C' : '°F'}</Text>
+    </Pressable>
+  );
+}
+```
+
+`() => void` ist der Typ einer Funktion ohne Parameter und Rückgabewert,
+wie `() -> Unit` in Kotlin. `hitSlop={12}` vergrößert die antippbare
+Fläche um 12 dp in jede Richtung, ohne dass sich das Aussehen ändert.
+
+In `styles` kommt dafür ein Eintrag hinzu:
+
+```tsx
+toggle: { fontSize: 18, color: '#1565C0', paddingHorizontal: 8 },
+```
+
+`CurrentWeatherCard` bekommt eine neue Prop `isCelsius: boolean` (im
+Typ `CurrentWeatherCardProps` und in der Parameterliste) und zeigt die
+Temperatur so an:
+
+```tsx
+<Text style={styles.temperature}>
+  {formatTemperature(weather.temperature, isCelsius)}
+</Text>
+```
+
+Vollständig:
+[`weather-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-05/src/ui/weather-screen.tsx)
+
+Die Umrechnung steckt in einer Hilfsfunktion am Ende von
+`ui/weather-condition-ui.ts`:
+
+```ts
+export function formatTemperature(celsius: number, isCelsius: boolean): string {
+  return isCelsius
+    ? `${Math.round(celsius)} °C`
+    : `${Math.round((celsius * 9) / 5 + 32)} °F`;
+}
+```
+
+Benannte Parameter wie in Kotlin und Dart gibt es in TypeScript nicht.
+Weil die Variable beim Aufruf `isCelsius` heißt, ist trotzdem klar, was
+`true` bedeutet.
+</DocsOnly>
+
+## Zusammenfassung
+
+<Callout type="info">
+State in React: `useState` liefert Wert und Setter, der Setter löst neues
+Rendern aus, State so weit oben wie nötig, Events als Callbacks nach oben.
+</Callout>
+
+<DocsOnly>
+| Compose | Flutter | React Native |
+|---|---|---|
+| `remember { mutableStateOf(…) }` | Feld im `State` | `useState(…)` |
+| Zuweisung `useCelsius = …` | `setState(() => …)` | `setIsCelsius(…)` |
+| Recomposition | erneuter Aufruf von `build` | erneutes Rendern |
+| `rememberSaveable` | beim Drehen nicht nötig | beim Drehen nicht nötig |
+| State Hoisting | Lifting State Up | Lifting State Up |
+| `() -> Unit` | `VoidCallback` | `() => void` |
+
+Für einen einzelnen Schalter reicht `useState`. In der nächsten Lektion
+wandert der Zustand des ganzen Screens in einen eigenen Hook, der die
+Rolle des ViewModels übernimmt.
+
+## Weiterführendes Material
+
+- [State: das Gedächtnis einer Komponente](https://react.dev/learn/state-a-components-memory)
+- [Rendern und Commit](https://react.dev/learn/render-and-commit)
+- [State zwischen Komponenten teilen](https://react.dev/learn/sharing-state-between-components):
+  Lifting State Up
+- [Regeln für Hooks](https://react.dev/reference/rules/rules-of-hooks)
+- [Pressable](https://reactnative.dev/docs/pressable)
+</DocsOnly>

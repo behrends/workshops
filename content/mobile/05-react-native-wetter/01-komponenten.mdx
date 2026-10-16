@@ -1,0 +1,691 @@
+---
+slides: true
+titleSlide: true
+slideDuration: 20 Minuten
+slideGoal: Die Bausteine von React Native kennenlernen
+slideTopics:
+  - Expo Snack und Projekt mit Expo anlegen
+  - Komponenten und Fast Refresh
+  - View, Text und Flexbox
+  - Typen in TypeScript, Fake-Daten
+  - Header mit Expo Router
+---
+
+import { Callout } from 'nextra/components'
+
+# Komponenten-Grundlagen
+
+<DocsOnly>
+Wir bauen die Oberfläche der Wetter-App Schritt für Schritt mit React
+Native auf. Am Ende dieser Seite zeigt die App das Wetter einer Stadt
+mit Fake-Daten an, genau wie die Android- und die Flutter-App nach
+Schritt 4.
+
+Code: [Repository auf GitHub](https://github.com/behrends/WeatherReactNativeTIF24),
+Schritte 0 bis 4.
+
+Die Codebeispiele lassen sich direkt kopieren. Wo etwas weggelassen ist,
+steht ein Link auf die vollständige Datei im Repository beim passenden
+Tag.
+</DocsOnly>
+
+## React Native und Expo
+
+[React Native](https://reactnative.dev) ist ein Open-Source-Framework von
+Meta für Apps auf Android und iOS. Programmiert wird in JavaScript oder
+TypeScript mit [React](https://react.dev).
+
+- Komponenten wie `View` und `Text` werden zu echten nativen
+  UI-Elementen von Android bzw. iOS
+- der JavaScript-Code läuft in einer eigenen Engine (Hermes) auf dem Gerät
+- [Expo](https://expo.dev) ist das Framework rund um React Native:
+  Projektvorlage, Navigation, Werkzeuge, Bibliotheken
+
+<DocsOnly>
+Wie Compose und Flutter beschreibt React die Oberfläche **deklarativ**
+als Baum verschachtelter Bausteine. Der Unterschied liegt darunter:
+Flutter zeichnet jedes Pixel selbst, React Native erzeugt die nativen
+UI-Elemente der Plattform. Eine `ScrollView` wird auf Android also zu
+einer nativen `ScrollView`, auf iOS zu einer `UIScrollView`. Deshalb sieht eine React-Native-App
+auf Android und iOS nicht ganz gleich aus, z. B. der Header oder die
+Ladeanzeige.
+
+Die [React-Native-Doku](https://reactnative.dev/docs/environment-setup)
+empfiehlt selbst, neue Apps mit einem Framework wie Expo zu beginnen.
+Wir verwenden Expo und
+[TypeScript](https://www.typescriptlang.org), wie in der Vorlage von
+Expo vorgesehen.
+</DocsOnly>
+
+## Expo Snack
+
+[Expo Snack](https://snack.expo.dev) ist eine Entwicklungsumgebung für React Native im Browser.
+
+- Code links, Vorschau rechts: Android, iOS oder Web
+- App auf dem Handy öffnen: QR-Code mit der App *Expo Go* scannen
+- ideal zum Ausprobieren einzelner Komponenten
+
+<DocsOnly>
+Für die Wetter-App arbeiten wir lokal mit VS Code, denn sie besteht aus
+vielen Dateien und wird mit Git versioniert. Kleine Experimente, z. B.
+mit Flexbox, gehen in Snack aber schneller.
+
+Snack unterstützt nicht immer sofort die neueste SDK-Version von Expo.
+Die verwendete Version lässt sich in Snack auswählen.
+</DocsOnly>
+
+## Projekt anlegen
+
+Voraussetzung: [Node.js](https://nodejs.org) (LTS) und VS Code mit der Extension *Expo Tools*.
+
+```bash
+npx create-expo-app@latest WeatherReactNativeTIF24 --template default@sdk-57
+cd WeatherReactNativeTIF24
+npm run reset-project
+npx expo lint
+npx expo start
+```
+
+<DocsOnly>
+- `create-expo-app` legt ein Projekt mit der Vorlage *default* an:
+  TypeScript, Expo Router und einige Beispiel-Screens. Ein Git-Repository
+  mit einem ersten Commit legt es gleich mit an.
+- `npm run reset-project` entfernt die Beispiel-Screens. Die Frage, ob
+  sie nach `/example` verschoben werden sollen, mit `n` beantworten.
+  Übrig bleiben `src/app/_layout.tsx` und `src/app/index.tsx`.
+- `npx expo lint` richtet beim ersten Aufruf ESLint ein (Datei
+  `eslint.config.js`) und prüft dann den Code.
+- `npx expo start` startet den Entwicklungsserver (*Metro*). Im Terminal
+  öffnet `a` die App im Android-Emulator, `r` lädt sie neu.
+
+`--template default@sdk-57` legt die SDK-Version fest. Das ist nötig, weil
+die App *Expo Go* aus dem Play Store bzw. App Store immer nur eine
+SDK-Version öffnen kann (siehe unten). Ohne die Angabe nimmt
+`create-expo-app` die neueste Version.
+
+Im Referenz-Repository sind in `schritt-00` außerdem das Skript
+`reset-project` (Eintrag in `package.json` und Ordner `scripts/`) und die
+nicht mehr benötigten Beispielbilder in `assets/images/` gelöscht, z. B.
+`react-logo.png` und der Ordner `tabIcons/`. Die App-Icons und
+`splash-icon.png` bleiben. Außerdem gibt es eine eigene `AGENTS.md` mit
+Regeln für Coding Agents (siehe [Navigation und API](./04-navigation-api)).
+
+Wer nicht selbst tippen möchte, klont das Repository, wechselt mit
+`git checkout schritt-00` an den Anfang und führt `npm install` aus.
+
+<Callout type="info">
+**App starten: Emulator oder Handy**
+
+- **Android-Emulator:** Den Emulator aus dem *Device Manager* von
+  Android Studio starten, dann im Terminal von `npx expo start` die
+  Taste `a` drücken. Expo installiert die passende Version von Expo Go
+  im Emulator selbst und öffnet die App.
+- **Eigenes Handy:** Die App *Expo Go* aus dem Play Store bzw. App Store
+  installieren und den QR-Code im Terminal scannen (iPhone: mit der
+  Kamera-App). Handy und Rechner müssen im selben WLAN sein. Im WLAN der
+  DHBW klappt das nicht; dann hilft `npx expo start --tunnel`.
+
+Expo Go ist eine fertige App, die unseren JavaScript-Code vom Rechner
+lädt. Einen Build mit Gradle oder Xcode braucht es dafür nicht. Dafür
+enthält Expo Go nur die nativen Module, die Expo mitliefert; für die
+Wetter-App reicht das.
+</Callout>
+
+<Callout type="warning">
+Expo Go aus dem Store unterstützt nur die **neueste** SDK-Version. Stand
+Oktober 2026 ist das SDK 57; SDK 58 ist gerade erschienen, und Expo Go
+für SDK 58 folgt in den nächsten Wochen. Danach öffnet Expo Go aus dem
+Store keine Projekte mit SDK 57 mehr. Im Emulator ist das kein Problem,
+weil Expo die passende Version selbst installiert. Auf dem eigenen Handy
+hilft es, automatische Updates für Expo Go abzuschalten, oder das
+Projekt mit `npx expo install expo@^58 --fix` auf SDK 58 zu heben.
+</Callout>
+
+Ausgangspunkt (`schritt-00`) ist die Vorlage nach `reset-project`.
+`src/app/_layout.tsx` legt einen *Stack* an, der die Screens verwaltet
+und oben einen Header anzeigt:
+
+```tsx
+import { Stack } from "expo-router";
+
+export default function RootLayout() {
+  return <Stack />;
+}
+```
+
+`src/app/index.tsx` ist der erste Screen. Dort steht vorerst nur ein
+Hinweistext in einer `View`.
+</DocsOnly>
+
+## Projektstruktur
+
+Der Code liegt in `src/`, nach Aufgaben in Ordner aufgeteilt.
+
+```
+src/
+├── app/         Routen (Screens), _layout.tsx
+├── ui/          Komponenten, Hooks (ViewModels), Theme
+├── model/       Datenmodell: City, CurrentWeather
+└── data/        Datenquellen: Fake-Daten, Repositorys
+    └── api/     DTOs für die API (ab Schritt 9)
+app.json         Name, Icon, Einstellungen der App
+package.json     Abhängigkeiten und Skripte
+```
+
+<DocsOnly>
+`ui/`, `model/` und `data/` sind dieselben Ordner wie in der Android- und
+der Flutter-App. Neu ist `app/`: **Expo Router** macht aus jeder Datei
+darin einen Screen (dateibasiertes Routing). Was kein Screen ist, gehört
+nach den Regeln von Expo Router nicht in diesen Ordner.
+
+Pfade auf dieser und den folgenden Seiten (z. B. `ui/weather-screen.tsx`)
+beziehen sich auf `src/`. Dateinamen schreiben wir in `kebab-case` wie
+die Vorlage von Expo, Komponenten in `PascalCase`. Importiert wird mit
+dem Alias `@/` für `src/`, z. B.
+`import type { City } from '@/model/city';`. Den Alias richtet die
+Vorlage in `tsconfig.json` ein.
+
+`package.json` entspricht `pubspec.yaml` bzw. `build.gradle.kts`: Hier
+stehen die Abhängigkeiten. Die Ordner `android/` und `ios/` gibt es
+nicht. Expo erzeugt sie erst beim Bauen einer eigenen App
+([Continuous Native Generation](https://docs.expo.dev/workflow/continuous-native-generation/)).
+
+<Callout type="info">
+**Tipps für VS Code**
+
+| Aktion | macOS | Windows/Linux |
+|---|---|---|
+| Quick Fix, z. B. fehlender Import | ⌘ . | Ctrl+. |
+| Code formatieren (*Format Document*) | ⇧ ⌥ F | Shift+Alt+F |
+| Umbenennen, überall (*Rename Symbol*) | F2 | F2 |
+| Zur Definition springen | ⌘ + Klick | Ctrl+Klick |
+| Parameter einer Funktion anzeigen | ⇧ ⌘ Leertaste | Ctrl+Shift+Leertaste |
+| Command Palette | ⇧ ⌘ P | Ctrl+Shift+P |
+
+TypeScript prüft den Code schon beim Tippen. Fehler erscheinen rot
+unterstrichen und im Panel *Problems*. Im Terminal prüft
+`npx tsc --noEmit` das ganze Projekt.
+</Callout>
+</DocsOnly>
+
+## Komponenten
+
+In React ist alles eine Komponente: eine Funktion, die beschreibt, was angezeigt wird.
+
+<DocsOnly>
+Neue Datei `ui/weather-screen.tsx` im neuen Ordner `ui`:
+</DocsOnly>
+
+```tsx
+import { Text, View } from 'react-native';
+
+export function WeatherScreen() {
+  return (
+    <View>
+      <Text>Lörrach</Text>
+      <Text>14 °C</Text>
+    </View>
+  );
+}
+```
+
+<DocsOnly>
+Eine Komponente ist eine Funktion, die **JSX** zurückgibt: die
+HTML-ähnlichen Tags im JavaScript-Code. Sie gibt genau ein Element
+zurück; mehrere Kinder brauchen deshalb eine `View`, die sie umschließt.
+Texte müssen in React Native immer in einem `Text` stehen.
+
+React arbeitet wie Compose und Flutter **deklarativ**: Wir beschreiben,
+*was* angezeigt werden soll. Ändern sich die Daten, ruft React die
+Funktion erneut auf.
+
+| Compose | Flutter | React Native |
+|---|---|---|
+| Funktion mit `@Composable` | Klasse mit `build` | Funktion, die JSX zurückgibt |
+| Parameter der Funktion | Felder, Konstruktor | **Props** (ein Objekt) |
+| `Column { … }` | `Column(children: [ … ])` | `<View>…</View>` |
+| `Text("…")` | `Text('…')` | `<Text>…</Text>` |
+| `modifier` | eigene Widgets | `style` (siehe unten) |
+
+Damit `WeatherScreen` erscheint, ersetzen wir den Inhalt von
+`app/index.tsx`:
+
+```tsx
+import { WeatherScreen } from '@/ui/weather-screen';
+
+export default function Index() {
+  return <WeatherScreen />;
+}
+```
+
+Eine Route in `app/` braucht einen **default export**; der Name der
+Funktion ist beliebig. Komponenten in
+`ui/` exportieren wir mit Namen (`export function`), damit Imports und
+Umbenennungen in VS Code eindeutig sind.
+
+Über dem Inhalt zeigt der Stack einen Header mit dem Titel „index“, dem
+Namen der Datei. Das ändern wir in Schritt 4.
+</DocsOnly>
+
+<SlideBreak />
+
+**Fast Refresh:** Speichern genügt, die Änderung ist sofort im Emulator.
+
+- Fast Refresh (Speichern): Code neu laden, State bleibt erhalten
+- Reload (`r` im Terminal): App neu laden, State geht verloren
+- neuer Build nötig bei nativen Änderungen, nicht in Expo Go
+
+<DocsOnly>
+Fast Refresh entspricht Hot Reload in Flutter. Am besten ausprobieren:
+Text ändern, speichern, Ergebnis ansehen.
+
+Das Entwicklermenü öffnet sich im Emulator mit ⌘ M bzw. Ctrl+M oder
+über den runden Knopf mit dem Zahnrad, den Expo Go über die App legt.
+Verdeckt der Knopf etwas, lässt er sich verschieben.
+
+Fehler im Code zeigt React Native als rote Fehlermeldung direkt in der
+App an (*Redbox*). Nach dem Korrigieren und Speichern verschwindet sie.
+
+Code: [`schritt-01`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-01) ·
+[Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-00...schritt-01)
+</DocsOnly>
+
+## Layouts mit Flexbox
+
+Jede `View` ist ein Flexbox-Container. Ohne weitere Angabe stehen die Kinder untereinander.
+
+- `flexDirection: 'column'` (Standard): untereinander
+- `flexDirection: 'row'`: nebeneinander
+- `justifyContent`: Verteilung entlang der Hauptachse
+- `alignItems`: Ausrichtung quer zur Hauptachse
+- `flex: 1`: nimmt den freien Platz ein
+
+<SlideBreak />
+
+<SlideOnly>
+```tsx
+<View style={styles.card}>
+  <Text style={styles.city}>Lörrach</Text>
+  <Text style={styles.emoji}>⛅</Text>
+  <Text style={styles.temperature}>14 °C</Text>
+  <View style={styles.row}>
+    <Text>Wind: 8 km/h</Text>
+    <Text>Teilweise bewölkt</Text>
+  </View>
+</View>
+```
+</SlideOnly>
+
+<DocsOnly>
+```tsx
+function CurrentWeatherCard() {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.city}>Lörrach</Text>
+      <Text style={styles.emoji}>⛅</Text>
+      <Text style={styles.temperature}>14 °C</Text>
+      <View style={styles.row}>
+        <Text>Wind: 8 km/h</Text>
+        <Text>Teilweise bewölkt</Text>
+      </View>
+    </View>
+  );
+}
+```
+
+Die neue Komponente `CurrentWeatherCard` steht ebenfalls in
+`ui/weather-screen.tsx`, ohne `export`, weil sie nur dort verwendet wird.
+`WeatherScreen` gibt nur noch die Karte zurück; der Import ändert sich,
+weil jetzt auch `StyleSheet` gebraucht wird:
+
+```tsx
+import { StyleSheet, Text, View } from 'react-native';
+
+export function WeatherScreen() {
+  return <CurrentWeatherCard />;
+}
+```
+
+Flexbox kennen wir aus CSS. In React Native gibt es zwei Unterschiede:
+Die Standardrichtung ist `column` (in CSS `row`), und jede `View` ist
+automatisch ein Flex-Container, ein `display: flex` braucht es nicht.
+
+Größen sind Zahlen ohne Einheit, gemeint sind *dp* wie in Android. Text
+skaliert automatisch mit der Schriftgröße aus den Systemeinstellungen.
+</DocsOnly>
+
+## Abstände und Hintergrund
+
+Statt `Modifier` gibt es die Eigenschaft `style`, gesammelt in einem `StyleSheet` am Ende der Datei.
+
+<SlideOnly>
+```tsx
+const styles = StyleSheet.create({
+  card: {
+    margin: 16, // außen
+    padding: 24, // innen
+    borderRadius: 24,
+    backgroundColor: '#BBDEFB',
+    alignItems: 'center',
+  },
+  // city, emoji, temperature, row …
+});
+```
+</SlideOnly>
+
+<DocsOnly>
+```tsx
+const styles = StyleSheet.create({
+  card: {
+    margin: 16, // außen
+    padding: 24, // innen
+    borderRadius: 24,
+    backgroundColor: '#BBDEFB',
+    alignItems: 'center',
+  },
+  city: { fontSize: 28 },
+  emoji: { fontSize: 72 },
+  temperature: { fontSize: 48 },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    marginTop: 16,
+  },
+});
+```
+
+Die Namen kommen aus CSS, geschrieben in `camelCase`
+(`backgroundColor` statt `background-color`). Wie in Flutter spielt die
+Reihenfolge keine Rolle: `margin` ist immer außen, `padding` immer innen.
+
+`alignItems: 'center'` zentriert die Texte in der Karte. Die Zeile mit
+Wind und Wetterlage soll aber die ganze Breite einnehmen:
+`alignSelf: 'stretch'` setzt für dieses eine Kind die Ausrichtung des
+Elternelements außer Kraft. `justifyContent: 'space-between'` schiebt
+die beiden Texte an die Ränder, wie `Spacer()` in Compose und Flutter.
+
+Die Karte ist ohne Angabe so breit wie der Bildschirm, weil Kinder in
+einer `column` quer zur Hauptachse gestreckt werden
+(`alignItems: 'stretch'` ist der Standard). Ein `fillMaxWidth()` oder
+`width: double.infinity` braucht es nicht.
+
+Am besten mit Fast Refresh ausprobieren: `margin`, `padding` oder
+`alignSelf` ändern oder entfernen und den Unterschied ansehen.
+
+Vollständig:
+[`weather-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-02/src/ui/weather-screen.tsx)
+
+Code: [`schritt-02`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-02) ·
+[Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-01...schritt-02)
+</DocsOnly>
+
+## Datenmodell mit Typen
+
+Statt fester Texte bekommen Komponenten nun Daten als Props. Die Form der Daten beschreiben **Typen** in TypeScript.
+
+```ts
+export type City = {
+  name: string;
+  latitude: number;
+  longitude: number;
+};
+```
+
+<DocsOnly>
+Neue Datei `model/city.ts` im neuen Ordner `model`. Die Endung ist `.ts`,
+weil die Datei kein JSX enthält; Dateien mit Komponenten enden auf
+`.tsx`.
+
+Ein `type` beschreibt nur die Form eines Objekts, wie eine `data class`
+ohne Methoden. Objekte dieses Typs schreiben wir als Literal:
+`{ name: 'Lörrach', latitude: 47.6156, longitude: 7.6614 }`. Fehlt ein
+Feld oder ist ein Wert vom falschen Typ, meldet TypeScript einen Fehler.
+Zahlen haben nur einen Typ, `number`; `Int` und `Double` gibt es nicht.
+
+Neue Datei `model/current-weather.ts`:
+
+```ts
+export type WeatherCondition =
+  | 'clear'
+  | 'partlyCloudy'
+  | 'cloudy'
+  | 'fog'
+  | 'rain'
+  | 'snow'
+  | 'thunderstorm';
+
+export type CurrentWeather = {
+  temperature: number; // °C
+  windSpeed: number; // km/h
+  condition: WeatherCondition;
+};
+```
+
+Statt eines `enum` verwenden wir eine **Union** aus festen Strings: Eine
+`WeatherCondition` ist genau einer dieser sieben Werte. Das ist in
+TypeScript üblicher als `enum`, und der Wert ist zur Laufzeit ein
+normaler String.
+
+Die Fake-Daten liegen in `data/fake-data.ts` im neuen Ordner `data`:
+
+```ts
+import type { City } from '@/model/city';
+import type { CurrentWeather } from '@/model/current-weather';
+
+export const fakeCities: City[] = [
+  { name: 'Lörrach', latitude: 47.6156, longitude: 7.6614 },
+  { name: 'Freiburg', latitude: 47.999, longitude: 7.8421 },
+  { name: 'Basel', latitude: 47.5596, longitude: 7.5886 },
+];
+
+export const fakeCurrentWeather: Record<string, CurrentWeather> = {
+  Lörrach: { temperature: 14.2, windSpeed: 8.5, condition: 'partlyCloudy' },
+  Freiburg: { temperature: 15.0, windSpeed: 6.1, condition: 'clear' },
+  Basel: { temperature: 13.6, windSpeed: 11.2, condition: 'rain' },
+};
+```
+
+`City[]` ist eine Liste von `City`. `Record<string, CurrentWeather>` ist
+ein Objekt mit beliebigen String-Schlüsseln und Werten vom Typ
+`CurrentWeather`, wie eine `Map`. `import type` importiert nur einen Typ;
+im fertigen JavaScript bleibt davon nichts übrig.
+
+<Callout type="info">
+**TypeScript für Kotlin- und Dart-Kenner:** Der Typ steht hinter dem
+Namen wie in Kotlin (`name: string`). `const` entspricht `val` bzw.
+`final`, `let` entspricht `var`. Strings stehen in `'…'`, Templates in
+Backticks: `` `${city.name}` ``. Null-Safety gibt es mit
+`string | null`, `?.` und `??`. Die Typen prüft nur der Compiler; zur
+Laufzeit ist alles normales JavaScript.
+</Callout>
+</DocsOnly>
+
+<SlideBreak />
+
+Komponenten sollten Daten als Props erhalten und sie nicht eigenständig holen.
+
+<SlideOnly>
+```tsx
+type CurrentWeatherCardProps = {
+  city: City;
+  weather: CurrentWeather;
+};
+
+function CurrentWeatherCard({ city, weather }: CurrentWeatherCardProps) {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.city}>{city.name}</Text>
+      {/* ... Emoji, Temperatur, Wind und Wetterlage */}
+    </View>
+  );
+}
+```
+</SlideOnly>
+
+<DocsOnly>
+```tsx
+type CurrentWeatherCardProps = {
+  city: City;
+  weather: CurrentWeather;
+};
+
+function CurrentWeatherCard({ city, weather }: CurrentWeatherCardProps) {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.city}>{city.name}</Text>
+      <Text style={styles.emoji}>{conditionEmoji[weather.condition]}</Text>
+      <Text style={styles.temperature}>
+        {Math.round(weather.temperature)} °C
+      </Text>
+      <View style={styles.row}>
+        <Text>Wind: {Math.round(weather.windSpeed)} km/h</Text>
+        <Text>{conditionLabel[weather.condition]}</Text>
+      </View>
+    </View>
+  );
+}
+```
+
+Eine Komponente bekommt **ein** Objekt mit allen Props. Mit
+`{ city, weather }` holen wir die Felder direkt heraus (*Destructuring*).
+Der Typ `CurrentWeatherCardProps` legt fest, welche Props es gibt. Fehlt
+beim Aufruf eine, meldet TypeScript einen Fehler.
+
+In JSX steht JavaScript in geschweiften Klammern: `{city.name}`,
+`{Math.round(weather.temperature)}`.
+
+Die Anzeige der Wetterlage steht in `ui/weather-condition-ui.ts`. Sie
+gehört zur UI, nicht ins Datenmodell:
+
+```ts
+import type { WeatherCondition } from '@/model/current-weather';
+
+export const conditionEmoji: Record<WeatherCondition, string> = {
+  clear: '☀️',
+  partlyCloudy: '⛅',
+  cloudy: '☁️',
+  fog: '🌫️',
+  rain: '🌧️',
+  snow: '❄️',
+  thunderstorm: '⛈️',
+};
+
+export const conditionLabel: Record<WeatherCondition, string> = {
+  clear: 'Sonnig',
+  partlyCloudy: 'Teilweise bewölkt',
+  cloudy: 'Bewölkt',
+  fog: 'Nebel',
+  rain: 'Regen',
+  snow: 'Schnee',
+  thunderstorm: 'Gewitter',
+};
+```
+
+`Record<WeatherCondition, string>` verlangt für **jeden** Wert der Union
+einen Eintrag. Kommt eine Wetterlage hinzu, meldet TypeScript jede
+Tabelle, in der sie fehlt, wie `when` in Kotlin oder `switch` in Dart.
+
+`WeatherScreen` bekommt `city` und `weather` als Props und reicht sie
+an die Karte weiter. Der Anfang von `ui/weather-screen.tsx`:
+
+```tsx
+import { StyleSheet, Text, View } from 'react-native';
+
+import type { City } from '@/model/city';
+import type { CurrentWeather } from '@/model/current-weather';
+import { conditionEmoji, conditionLabel } from '@/ui/weather-condition-ui';
+
+type WeatherScreenProps = {
+  city: City;
+  weather: CurrentWeather;
+};
+
+export function WeatherScreen({ city, weather }: WeatherScreenProps) {
+  return <CurrentWeatherCard city={city} weather={weather} />;
+}
+```
+
+Darunter folgen `CurrentWeatherCard` von oben und `styles` wie bisher.
+Vollständig:
+[`weather-screen.tsx`](https://github.com/behrends/WeatherReactNativeTIF24/blob/schritt-03/src/ui/weather-screen.tsx)
+
+`app/index.tsx` übergibt die Fake-Daten:
+
+```tsx
+import { fakeCities, fakeCurrentWeather } from '@/data/fake-data';
+import { WeatherScreen } from '@/ui/weather-screen';
+
+export default function Index() {
+  const city = fakeCities[0];
+  return <WeatherScreen city={city} weather={fakeCurrentWeather[city.name]} />;
+}
+```
+
+Anders als Dart meldet TypeScript hier nichts, obwohl es den Schlüssel
+vielleicht nicht gibt: Für ein `Record<string, …>` nimmt es an, dass
+jeder Schlüssel existiert. Fehlt er doch, ist der Wert `undefined`, und
+die App stürzt beim Zugriff auf `weather.condition` ab.
+
+Code: [`schritt-03`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-03) ·
+[Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-02...schritt-03)
+</DocsOnly>
+
+## Header mit Expo Router
+
+Den Header zeigt der `Stack` aus dem Layout. Jeder Screen setzt seinen Titel selbst.
+
+```tsx
+export function WeatherScreen({ city, weather }: WeatherScreenProps) {
+  return (
+    <ScrollView>
+      <Stack.Screen options={{ title: city.name }} />
+      <CurrentWeatherCard city={city} weather={weather} />
+    </ScrollView>
+  );
+}
+```
+
+<DocsOnly>
+Dazu kommen zwei Imports am Anfang von `ui/weather-screen.tsx`:
+
+```tsx
+import { Stack } from 'expo-router';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+```
+
+`<Stack.Screen>` zeigt selbst nichts an. Es setzt nur die Optionen des
+Screens, in dem es steht, hier den Titel. Weitere Optionen folgen mit
+dem Umschalter °C/°F. Das entspricht `Scaffold` mit `TopAppBar` bzw.
+`AppBar`, nur dass das Gerüst im Layout steht und jeder Screen es
+anpasst.
+
+`ScrollView` macht den Inhalt scrollbar, wenn er nicht auf den
+Bildschirm passt. Anders als im Web scrollt in React Native nichts von
+selbst. Zu große Inhalte werden abgeschnitten. Die App ist in `app.json`
+auf Hochformat festgelegt (`"orientation": "portrait"`); Querformat
+spielt hier also keine Rolle.
+
+Der Header berücksichtigt die Statusleiste selbst. Ein `SafeAreaView`
+braucht es dafür nicht.
+
+Die Karte behält vorerst ihre feste Farbe und Schriftgrößen. Farben aus
+einem Theme und Dark Mode kommen am Ende dazu (siehe
+[Theme und Dark Mode](./05-theme)).
+
+Code: [`schritt-04`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-04) ·
+[Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-03...schritt-04)
+</DocsOnly>
+
+<DocsOnly>
+## Weiterführendes Material
+
+- [Expo: Projekt anlegen](https://docs.expo.dev/get-started/create-a-project/)
+- [Kernkomponenten von React Native](https://reactnative.dev/docs/intro-react-native-components)
+- [Layout mit Flexbox](https://reactnative.dev/docs/flexbox)
+- [Styles](https://reactnative.dev/docs/style)
+- [Fast Refresh](https://reactnative.dev/docs/fast-refresh)
+- [JSX in React](https://react.dev/learn/writing-markup-with-jsx)
+- [Expo Router: Stack](https://docs.expo.dev/router/advanced/stack/)
+- [TypeScript in Expo](https://docs.expo.dev/guides/typescript/)
+</DocsOnly>
