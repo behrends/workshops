@@ -37,6 +37,10 @@ In der Wetter-App haben wir diese Dateien beim Übernehmen gelöscht.
 `AndroidPlatform` liest die Android-Version über `Build.VERSION.SDK_INT`,
 `IOSPlatform` die iOS-Version über `UIDevice`. In `androidMain` und
 `iosMain` stehen also die nativen APIs der jeweiligen Plattform zur Verfügung.
+Die drei Dateien im Repository:
+[`Platform.kt`](https://github.com/behrends/WeatherKMPTIF24/blob/kmp-00/shared/src/commonMain/kotlin/com/example/weatherkmptif24/Platform.kt),
+[`Platform.android.kt`](https://github.com/behrends/WeatherKMPTIF24/blob/kmp-00/shared/src/androidMain/kotlin/com/example/weatherkmptif24/Platform.android.kt) und
+[`Platform.ios.kt`](https://github.com/behrends/WeatherKMPTIF24/blob/kmp-00/shared/src/iosMain/kotlin/com/example/weatherkmptif24/Platform.ios.kt).
 
 So ließe sich zum Beispiel Dynamic Color zurückholen: unter Android die
 Farben aus dem Hintergrundbild, unter iOS die festen Farben.
