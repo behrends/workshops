@@ -902,7 +902,11 @@ Hinweise zu den Übungen:
   (Bundesland) und `country` der Antwort unterscheiden; dafür braucht
   `City` ein weiteres Feld. Negative Koordinaten (Süd, West) sollten als
   „33,87° S“ statt „-33,87° N“ erscheinen. Auch bei der Suche können
-  sich Anfragen überholen (siehe Laden abbrechen).
+  sich Anfragen überholen (siehe Laden abbrechen). Eine neue Stadt kommt
+  als neue Liste in den State:
+  `_uiState.update { it.copy(cities = it.cities + city) }`. Eine
+  `MutableList`, deren Inhalt man ändert, bliebe dasselbe Objekt; der
+  `StateFlow` sendet dann keinen neuen Wert, und die UI ändert sich nicht.
   Eine Referenzlösung liegt im Tag
   [`schritt-11`](https://github.com/behrends/WeatherAndroidTIF24/tree/schritt-11)
   ([Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-10...schritt-11)).

@@ -882,6 +882,88 @@ Code: [`schritt-04`](https://github.com/behrends/WeatherAndroidTIF24/tree/schrit
 [Änderungen](https://github.com/behrends/WeatherAndroidTIF24/compare/schritt-03...schritt-04)
 </DocsOnly>
 
+## Übung: Karte gestalten
+
+- Farben, Abstände und Schriftgrößen der Karte ändern, in der Preview ausprobieren
+- Bonus: neuer Parameter `highlighted`, der die Karte mit einem Rahmen hervorhebt
+
+<DocsOnly>
+Der Aufruf in `WeatherScreen` soll so aussehen:
+
+```kotlin
+CurrentWeatherCard(
+    city = city,
+    weather = weather,
+    modifier = Modifier.padding(innerPadding),
+    highlighted = true,
+)
+```
+
+Ohne `highlighted` soll die Karte aussehen wie bisher.
+
+Tipps: Ein Parameter mit Standardwert (`highlighted: Boolean = false`)
+ist beim Aufruf optional. Einen Rahmen zeichnet `Modifier.border(…)`.
+Mit `.then(…)` lässt sich ein Modifier nur unter einer Bedingung in die
+Kette einfügen; `Modifier` allein fügt nichts hinzu. Wo in der Kette der
+Rahmen stehen muss, zeigt der Abschnitt [Modifier](#modifier).
+
+<details>
+<summary>Lösung</summary>
+
+```kotlin filename="ui/WeatherScreen.kt" {6,8,13-15}
+@Composable
+fun CurrentWeatherCard(
+    city: City,
+    weather: CurrentWeather,
+    modifier: Modifier = Modifier,
+    highlighted: Boolean = false,
+) {
+    val shape = RoundedCornerShape(24.dp)
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .then(
+                if (highlighted) Modifier.border(3.dp, Color(0xFF1565C0), shape) else Modifier,
+            )
+            .background(Color(0xFFBBDEFB), shape)
+            .padding(24.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = city.name, fontSize = 28.sp)
+            Text(text = weather.condition.emoji(), fontSize = 72.sp)
+            Text(text = "${weather.temperature.roundToInt()} °C", fontSize = 48.sp)
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(text = "Wind: ${weather.windSpeed.roundToInt()} km/h")
+                Spacer(modifier = Modifier.weight(1f))
+                Text(text = weather.condition.label())
+            }
+        }
+    }
+}
+```
+
+Dazu kommt ein Import:
+
+```kotlin filename="ui/WeatherScreen.kt"
+import androidx.compose.foundation.border
+```
+
+Der Rahmen steht zwischen den beiden `padding`: nach dem äußeren
+Abstand, damit er am Rand der Karte liegt, und vor dem inneren, damit er
+nicht um den Text läuft. Die Form steht in `shape`, damit Rahmen und
+Hintergrund dieselben runden Ecken haben. `highlighted` steht nach
+`modifier`: Nach den Richtlinien von Compose ist `modifier` der erste
+optionale Parameter.
+</details>
+
+Das Referenz-Repository enthält diese Änderung nicht. Die eingeklappten
+Dateien auf den folgenden Seiten überschreiben sie; wer sie behalten
+will, muss sie dort selbst wieder einbauen.
+</DocsOnly>
+
 <DocsOnly>
 ## Weiterführendes Material
 
