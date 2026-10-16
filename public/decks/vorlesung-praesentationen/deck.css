@@ -588,7 +588,6 @@
   line-height: 1.45;
 }
 
-.mini-slide .mini-icon,
 .mini-slide .mini-arrow {
   fill: none;
   stroke: currentColor;
@@ -597,11 +596,6 @@
   stroke-linejoin: round;
 }
 
-.mini-slide .mini-icon {
-  width: 72px;
-  height: 72px;
-  color: rgba(66, 83, 93, 0.35);
-}
 
 .mini-slide .mini-flow {
   display: flex;
@@ -646,6 +640,65 @@
   background: rgba(66, 83, 93, 0.7);
   border-radius: 6px;
   box-sizing: border-box;
+}
+
+.mini-slide.mini-photo-slide {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mini-slide.mini-photo-slide img {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  margin: 0;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.demo-slide .demo-grid {
+  display: grid;
+  grid-template-columns: 310px 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.demo-slide .demo-photo {
+  aspect-ratio: 1;
+  border-radius: 18px;
+  background: url('/images/praesi/presentation-hero.png') 60% 30% / 220% auto
+    no-repeat;
+  box-shadow: var(--deck-shadow);
+}
+
+.reveal .demo-slide .demo-question {
+  margin: 0 0 0.6rem;
+  font-size: var(--deck-copy-size);
+  font-weight: 700;
+}
+
+.demo-slide .demo-point {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+  background: var(--deck-surface);
+  border: 1px solid var(--deck-line);
+  border-radius: 14px;
+}
+
+.demo-slide .demo-point .body-icon {
+  flex: none;
+  width: 44px;
+  height: 44px;
+}
+
+.reveal .demo-slide .demo-point p {
+  margin: 0;
+  font-size: var(--deck-card-size);
+  font-weight: 600;
 }
 
 .readability-slide .size-demo {
