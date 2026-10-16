@@ -78,7 +78,7 @@ Die verwendete Version lässt sich in Snack auswählen.
 
 ## Projekt anlegen
 
-Voraussetzung: [Node.js](https://nodejs.org) (LTS) und VS Code mit der Extension *Expo Tools*.
+Voraussetzung: [Node.js](https://nodejs.org) (LTS), [Git](https://git-scm.com) und [VS Code](https://code.visualstudio.com) mit der Extension *Expo Tools*.
 
 ```bash
 npx create-expo-app@latest WeatherReactNativeTIF24 --template default@sdk-57
@@ -125,7 +125,8 @@ Wer nicht selbst tippen möchte, klont das Repository, wechselt mit
 - **Eigenes Handy:** Die App *Expo Go* aus dem Play Store bzw. App Store
   installieren und den QR-Code im Terminal scannen (iPhone: mit der
   Kamera-App). Handy und Rechner müssen im selben WLAN sein. Im WLAN der
-  DHBW klappt das nicht; dann hilft `npx expo start --tunnel`.
+  DHBW klappt das nicht; dann hilft `npx expo start --tunnel`
+  ([Tunneling](https://docs.expo.dev/more/expo-cli/#tunneling)).
 
 Expo Go ist eine fertige App, die unseren JavaScript-Code vom Rechner
 lädt. Einen Build mit Gradle oder Xcode braucht es dafür nicht. Dafür
@@ -781,7 +782,10 @@ auf Hochformat festgelegt (`"orientation": "portrait"`); Querformat
 spielt hier also keine Rolle.
 
 Der Header berücksichtigt die Statusleiste selbst. Ein `SafeAreaView`
-braucht es dafür nicht.
+braucht es dafür nicht. Ohne Header, z. B. bei einem Vollbild-Screen,
+übernimmt das die Bibliothek
+[react-native-safe-area-context](https://docs.expo.dev/versions/latest/sdk/safe-area-context/),
+die Expo schon mitbringt.
 
 Die Karte behält vorerst ihre feste Farbe und Schriftgrößen. Farben aus
 einem Theme und Dark Mode kommen am Ende dazu (siehe
@@ -862,6 +866,8 @@ Code: [`schritt-04`](https://github.com/behrends/WeatherReactNativeTIF24/tree/sc
 <DocsOnly>
 ## Weiterführendes Material
 
+- [Expo: Installation](https://docs.expo.dev/get-started/installation/)
+  und [Entwicklungsumgebung einrichten](https://docs.expo.dev/get-started/set-up-your-environment/)
 - [Expo: Projekt anlegen](https://docs.expo.dev/get-started/create-a-project/)
 - [Kernkomponenten von React Native](https://reactnative.dev/docs/intro-react-native-components)
 - [Layout mit Flexbox](https://reactnative.dev/docs/flexbox)

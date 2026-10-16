@@ -783,6 +783,7 @@ Selbst oder mit einem Coding Agent umsetzen, jeweils Plan und Diff prüfen.
 - Button „Erneut versuchen“ bei Fehlern
 - Pull-to-Refresh im Wetter-Screen
 - Unit-Tests für den Hook mit dem Fake-Repository
+- Favoriten: Städte auf dem Gerät speichern
 
 <DocsOnly>
 Hinweise zu den Übungen:
@@ -791,7 +792,8 @@ Hinweise zu den Übungen:
   `https://geocoding-api.open-meteo.com/v1/search?name=…&count=5&language=de`.
   Die Städteliste wird dafür zu State in einem eigenen Hook
   (`useCityList`), den `CityListScreen` aufruft. Den Text im Suchfeld
-  hält `CityListScreen` mit `useState` und einem `TextInput`
+  hält `CityListScreen` mit `useState` und einem
+  [`TextInput`](https://reactnative.dev/docs/textinput)
   (`value`, `onChangeText`, `onSubmitEditing`). Fehlt das Feld `results`
   in der Antwort, wurde nichts gefunden. Negative Koordinaten (Süd, West)
   sollten als „33.87° S“ statt „-33.87° N“ erscheinen. Wer schnell
@@ -830,6 +832,16 @@ Hinweise zu den Übungen:
   Texte setzen, z. B. „Keine Internetverbindung“ bei einem Fehler von
   `fetch` und „Wetterdaten konnten nicht geladen werden“ bei einem
   HTTP-Fehler.
+- **Favoriten:** Für wenige Werte reicht ein Key-Value-Speicher:
+  [AsyncStorage](https://docs.expo.dev/versions/latest/sdk/async-storage/)
+  oder der
+  [Key-Value-Storage von SQLite](https://docs.expo.dev/versions/latest/sdk/sqlite/#key-value-storage).
+  Die Liste der Städte wird dafür z. B. mit `JSON.stringify` als String
+  gespeichert. Für mehr Daten gibt es
+  [SQLite](https://docs.expo.dev/versions/latest/sdk/sqlite/), für Daten
+  in der Cloud z. B. [Firebase](https://docs.expo.dev/guides/using-firebase/).
+  Pakete mit `npx expo install` hinzufügen; `AGENTS.md` verlangt, dass
+  ein Agent vorher nachfragt.
 - **Unit-Tests:** Expo empfiehlt
   [Jest mit `jest-expo`](https://docs.expo.dev/develop/unit-testing/);
   die nötigen Pakete und Einstellungen stehen in der Anleitung.
@@ -846,6 +858,9 @@ Hinweise zu den Übungen:
 - [URL-Parameter](https://docs.expo.dev/router/reference/url-parameters/)
 - [Typed Routes](https://docs.expo.dev/router/reference/typed-routes/)
 - [Netzwerk in React Native](https://reactnative.dev/docs/network)
+- [TextInput](https://reactnative.dev/docs/textinput) und
+  [KeyboardAvoidingView](https://reactnative.dev/docs/keyboardavoidingview):
+  Eingabefelder, die die Tastatur nicht verdeckt
 - [Open-Meteo API](https://open-meteo.com/en/docs)
 - [useMemo](https://react.dev/reference/react/useMemo)
 </DocsOnly>
