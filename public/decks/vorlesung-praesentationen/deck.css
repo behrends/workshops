@@ -368,6 +368,12 @@
 
 .body-slide .body-grid.cols-2 {
   grid-template-columns: repeat(2, 1fr);
+  gap: 1.1rem 1.4rem;
+}
+
+.body-slide .body-grid.cols-2 .body-card {
+  min-height: 120px;
+  padding: 0.8rem 1.05rem 0.8rem;
 }
 
 .body-slide .body-meta {
