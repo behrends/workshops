@@ -274,9 +274,27 @@
   box-shadow: var(--deck-shadow);
 }
 
+/* Icons: Lucide (https://lucide.dev), ISC-Lizenz */
+.body-slide .body-icon,
+.body-slide .meta-icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .body-slide .body-icon {
-  font-size: 2.6em;
-  filter: saturate(0.7);
+  width: 64px;
+  height: 64px;
+  color: var(--deck-accent);
+}
+
+.body-slide .meta-icon {
+  width: 1.1em;
+  height: 1.1em;
+  margin-right: 0.3em;
+  vertical-align: -0.2em;
 }
 
 .body-slide .body-card p {
