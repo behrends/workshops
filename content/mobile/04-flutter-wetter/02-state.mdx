@@ -68,17 +68,63 @@ class _WeatherScreenState extends State<WeatherScreen> {
 ```
 
 <DocsOnly>
-Das Widget selbst bleibt unveränderlich. Den veränderlichen Zustand hält
-das `State`-Objekt, das Flutter einmal erzeugt und bei jedem neuen
-`build` wiederverwendet. Damit übernimmt es die Rolle von `remember` in
-Compose.
+Den Umbau von `WeatherScreen` machen wir einmal von Hand, um zu sehen,
+was dabei passiert.
+
+**1.** `WeatherScreen` erbt von `StatefulWidget` statt von
+`StatelessWidget` und bekommt die Methode `createState`. Die
+`build`-Methode zunächst ausschneiden, sie zieht gleich um:
+
+```dart filename="lib/ui/weather_screen.dart" {1,7-8}
+class WeatherScreen extends StatefulWidget {
+  const WeatherScreen({super.key, required this.city, required this.weather});
+
+  final City city;
+  final CurrentWeather weather;
+
+  @override
+  State<WeatherScreen> createState() => _WeatherScreenState();
+}
+```
+
+Ein `StatefulWidget` hat selbst keine `build`-Methode. `createState`
+ruft Flutter einmal auf, wenn das Widget in den Baum kommt.
+
+**2.** Darunter die Klasse `_WeatherScreenState` anlegen und `build`
+dort einfügen:
+
+```dart filename="lib/ui/weather_screen.dart" {1,5,7}
+class _WeatherScreenState extends State<WeatherScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(widget.city.name)),
+      body: SingleChildScrollView(
+        child: CurrentWeatherCard(city: widget.city, weather: widget.weather),
+      ),
+    );
+  }
+}
+```
+
+**3.** `city` und `weather` sind jetzt Felder einer *anderen* Klasse.
+Der Analyzer meldet deshalb Fehler, bis jeder Zugriff `widget.`
+voranstellt: `widget.city`, `widget.weather`. `widget` ist das aktuelle
+Widget, zu dem dieser `State` gehört.
+
+**4.** Erst jetzt kommt der eigentliche Zustand dazu: das Feld
+`bool _useCelsius = true;` in `_WeatherScreenState`. Wie es geändert
+wird, zeigt der nächste Abschnitt.
 
 Der Unterstrich in `_WeatherScreenState` und `_useCelsius` macht beides
-privat für die Datei. Auf die Felder des Widgets greift der `State` über
-`widget.` zu, z. B. `widget.city.name`.
+privat für die Datei. Das Widget selbst bleibt unveränderlich. Den
+veränderlichen Zustand hält das `State`-Objekt, das Flutter einmal
+erzeugt und bei jedem neuen `build` wiederverwendet. Damit übernimmt es
+die Rolle von `remember` in Compose.
 
-Am schnellsten geht der Umbau mit Quick Fix (⌘ .) auf
-`StatelessWidget`: *Convert to StatefulWidget*.
+Wer den Umbau einmal von Hand gemacht hat, kann künftig den Quick Fix
+nutzen: Cursor auf `StatelessWidget`, ⌘ . (Windows/Linux: Strg + .) und
+*Convert to StatefulWidget*. Er erledigt die Schritte 1 bis 3.
 </DocsOnly>
 
 ## setState
@@ -142,7 +188,7 @@ CurrentWeatherCard(city: …, weather: …, useCelsius: _useCelsius), // State �
 Vollständig in `_WeatherScreenState`: `UnitToggle` steckt in den
 `actions` der `AppBar`, die Karte im `body` des `Scaffold`.
 
-```dart
+```dart filename="lib/ui/weather_screen.dart"
 @override
 Widget build(BuildContext context) {
   return Scaffold(
@@ -167,15 +213,66 @@ Widget build(BuildContext context) {
 ```
 
 `CurrentWeatherCard` bekommt dafür ein neues Feld `useCelsius` und
-zeigt die Temperatur mit
-`formatTemperature(weather.temperature, useCelsius: useCelsius)` an
-(siehe unten).
+zeigt die Temperatur mit `formatTemperature` an (siehe unten):
 
-`UnitToggle` steht ebenfalls in `ui/weather_screen.dart`. Es ist
+<details>
+<summary>Code: `CurrentWeatherCard` in `lib/ui/weather_screen.dart` (schritt-05)</summary>
+
+```dart filename="lib/ui/weather_screen.dart" {6,11,29}
+class CurrentWeatherCard extends StatelessWidget {
+  const CurrentWeatherCard({
+    super.key,
+    required this.city,
+    required this.weather,
+    required this.useCelsius,
+  });
+
+  final City city;
+  final CurrentWeather weather;
+  final bool useCelsius;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: const Color(0xFFBBDEFB),
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(city.name, style: const TextStyle(fontSize: 28)),
+          Text(weather.condition.emoji, style: const TextStyle(fontSize: 72)),
+          Text(
+            formatTemperature(weather.temperature, useCelsius: useCelsius),
+            style: const TextStyle(fontSize: 48),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              Text('Wind: ${weather.windSpeed.round()} km/h'),
+              const Spacer(),
+              Text(weather.condition.label),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
+</details>
+
+`UnitToggle` steht in derselben Datei, zwischen
+`_WeatherScreenState` und `CurrentWeatherCard`. Es ist
 stateless, bekommt den aktuellen Wert und meldet das Antippen über
 `onToggle`:
 
-```dart
+```dart filename="lib/ui/weather_screen.dart"
 class UnitToggle extends StatelessWidget {
   const UnitToggle({super.key, required this.useCelsius, required this.onToggle});
 
@@ -195,10 +292,10 @@ class UnitToggle extends StatelessWidget {
 `VoidCallback` ist der Typ einer Funktion ohne Parameter und
 Rückgabewert, wie `() -> Unit` in Kotlin.
 
-Die Umrechnung steckt in einer Hilfsfunktion in
-`ui/weather_condition_ui.dart`:
+Die Umrechnung steckt in einer Hilfsfunktion am Ende der Datei, außerhalb
+der Extension:
 
-```dart
+```dart filename="lib/ui/weather_condition_ui.dart"
 String formatTemperature(double celsius, {required bool useCelsius}) =>
     useCelsius
     ? '${celsius.round()} °C'
