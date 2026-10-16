@@ -85,8 +85,6 @@
 
 .reveal p.enum.offset {
   max-width: 1040px;
-  margin-top: 0.45rem;
-  margin-bottom: 0.45rem;
   transform: translateX(1.4rem);
   background: var(--deck-bg-soft);
   border-left-color: rgba(var(--deck-accent-rgb), 0.35);
@@ -466,10 +464,32 @@
   color: var(--deck-muted);
 }
 
+.timeline-slide .timeline-wrap {
+  position: relative;
+  margin-top: 2.4rem;
+}
+
 .timeline-slide .timeline {
   display: flex;
   gap: 6px;
-  height: 92px;
+  height: 72px;
+}
+
+.timeline-slide .tl-mark {
+  position: absolute;
+  top: -2.1rem;
+  bottom: -0.4rem;
+  z-index: 1;
+  border-left: 3px dashed var(--deck-ink);
+}
+
+.timeline-slide .tl-mark span {
+  position: absolute;
+  top: -0.2rem;
+  left: 0.4rem;
+  font-size: 0.48em;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .timeline-slide .tl-slide,
@@ -665,6 +685,7 @@
 }
 
 .demo-slide .demo-photo {
+  position: relative;
   aspect-ratio: 1;
   border-radius: 18px;
   background: url('/images/praesi/presentation-hero.png') 60% 30% / 220% auto
@@ -699,6 +720,93 @@
   margin: 0;
   font-size: var(--deck-card-size);
   font-weight: 600;
+}
+
+.reveal .mini-slide .mini-table {
+  width: 100%;
+  margin: 0.6rem 0 0;
+  font-size: 0.42em;
+  border-collapse: collapse;
+}
+
+.reveal .mini-slide .mini-table th,
+.reveal .mini-slide .mini-table td {
+  padding: 0.15rem 0.4rem;
+  text-align: left;
+  border-bottom: 1px solid var(--deck-line);
+}
+
+.reveal .mini-slide .mini-quote {
+  margin-top: 0.8rem;
+  font-size: 0.46em;
+  font-style: italic;
+}
+
+.reveal .mini-slide .mini-source {
+  margin-top: 0.3rem;
+  font-size: 0.38em;
+  font-style: normal;
+  color: var(--deck-muted);
+}
+
+.reveal .mini-slide .mini-quote .mini-source {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.85em;
+}
+
+.steps-slide .steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  counter-reset: step;
+}
+
+.steps-slide .step {
+  position: relative;
+  padding: 1rem 1.1rem 1.1rem;
+  background: var(--deck-surface);
+  border: 1px solid var(--deck-line);
+  border-radius: 18px;
+  box-shadow: var(--deck-shadow);
+}
+
+.steps-slide .step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  font-size: 0.8em;
+  font-weight: 700;
+  color: #fff;
+  background: var(--deck-accent);
+  border-radius: 999px;
+}
+
+.reveal .steps-slide .step p {
+  margin: 0.6rem 0 0;
+  font-size: var(--deck-card-size);
+  font-weight: 600;
+  line-height: 1.22;
+}
+
+.reveal .image-credit {
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.6rem;
+  margin: 0;
+  padding: 0.15rem 0.5rem;
+  font-size: 13px;
+  color: #fff;
+  background: rgba(30, 38, 43, 0.55);
+  border-radius: 6px;
+}
+
+.reveal .slides section.title-slide-hero > .image-credit {
+  right: auto;
+  left: 0.8rem;
+  margin: 0;
 }
 
 .readability-slide .size-demo {

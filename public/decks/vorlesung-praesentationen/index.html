@@ -46,6 +46,7 @@
             <p class="title-subtitle">Vorlesung zu Präsentationen</p>
             <p class="title-author">Prof. Dr. Erik Behrends</p>
           </div>
+          <p class="image-credit">Titelbild: Mit KI generiert</p>
           <aside class="notes">
             Kurz den Rahmen der Sitzung setzen: Zielgruppe sind Studierende in
             Projekt- und Präsentationsphasen. Danach direkt mit der Agenda
@@ -171,21 +172,31 @@
 
         <section class="timeline-slide">
           <h2>Abgrenzung und Umfang</h2>
-          <p class="timeline-lead">Beispiel: 15 Minuten Vortrag</p>
-          <div
-            class="timeline"
-            role="img"
-            aria-label="15 Minuten Vortrag: 8 Folien mit je etwa 1,5 Minuten und 3 Minuten Puffer"
-          >
-            <div class="tl-slide fragment" data-fragment-index="1">1</div>
-            <div class="tl-slide fragment" data-fragment-index="1">2</div>
-            <div class="tl-slide fragment" data-fragment-index="1">3</div>
-            <div class="tl-slide fragment" data-fragment-index="1">4</div>
-            <div class="tl-slide fragment" data-fragment-index="1">5</div>
-            <div class="tl-slide fragment" data-fragment-index="1">6</div>
-            <div class="tl-slide fragment" data-fragment-index="1">7</div>
-            <div class="tl-slide fragment" data-fragment-index="1">8</div>
-            <div class="tl-buffer fragment" data-fragment-index="2">Puffer</div>
+          <p class="timeline-lead">
+            Beispiel: 15 Minuten Vortrag, 1-2 Minuten pro Folie
+          </p>
+          <div class="timeline-wrap">
+            <div class="tl-mark fragment" data-fragment-index="3" style="left: 40%">
+              <span>Min. 6: Folie 5</span>
+            </div>
+            <div class="tl-mark fragment" data-fragment-index="3" style="left: 80%">
+              <span>Min. 12: Ende</span>
+            </div>
+            <div
+              class="timeline"
+              role="img"
+              aria-label="15 Minuten Vortrag: 8 Folien mit je etwa 1,5 Minuten und 3 Minuten Puffer"
+            >
+              <div class="tl-slide fragment" data-fragment-index="1">1</div>
+              <div class="tl-slide fragment" data-fragment-index="1">2</div>
+              <div class="tl-slide fragment" data-fragment-index="1">3</div>
+              <div class="tl-slide fragment" data-fragment-index="1">4</div>
+              <div class="tl-slide fragment" data-fragment-index="1">5</div>
+              <div class="tl-slide fragment" data-fragment-index="1">6</div>
+              <div class="tl-slide fragment" data-fragment-index="1">7</div>
+              <div class="tl-slide fragment" data-fragment-index="1">8</div>
+              <div class="tl-buffer fragment" data-fragment-index="2">Puffer</div>
+            </div>
           </div>
           <div class="timeline-axis" aria-hidden="true">
             <span style="left: 0%">0</span>
@@ -193,16 +204,18 @@
             <span style="left: 66.67%">10</span>
             <span style="left: 100%">15 min</span>
           </div>
-          <p class="deck-pill fragment" data-fragment-index="1">
-            1-2 Minuten pro Folie: etwa 8 Folien.
-          </p>
           <p class="deck-pill fragment" data-fragment-index="3">
+            Zwischenziele prüfen, bei Zeitnot markierte Folien überspringen.
+          </p>
+          <p class="deck-pill fragment" data-fragment-index="4">
             Vorher festlegen: Was gehört dazu, was nicht?
           </p>
           <aside class="notes">
             Erst die Folien zeigen, dann den Puffer. Puffer für Fragen,
-            Technik und Verzögerungen. Eine klare Abgrenzung vermeidet falsche
-            Erwartungen.
+            Technik und Verzögerungen. Zwischenziele auf die Notizkarten
+            schreiben und beim Vortrag auf die Uhr schauen. Vorher festlegen,
+            welche Folien bei Zeitnot wegfallen, und nie das Fazit opfern.
+            Eine klare Abgrenzung vermeidet falsche Erwartungen.
           </aside>
         </section>
 
@@ -328,6 +341,7 @@
                   src="/images/praesi/presentation-hero.png"
                   alt="Allgemeines Foto eines Hörsaals mit Publikum"
                 />
+                <p class="mini-source">Bild: Mit KI generiert</p>
               </div>
             </div>
             <div class="example-good fragment">
@@ -350,12 +364,54 @@
               </div>
             </div>
           </div>
-          <p class="deck-pill fragment">Quellen von Bildern und Daten angeben.</p>
           <aside class="notes">
             Links: das Titelbild dieser Vorlesung. Es sieht gut aus, sagt aber
             nichts über die Projektergebnisse und lenkt nur ab. Rechts: Die
             Skizze erklärt den Aufbau dieser Vorlesung. Folien nicht
             überladen.
+          </aside>
+        </section>
+
+        <section class="compare-slide">
+          <h2>Diagramm statt Tabelle</h2>
+          <div class="compare-grid">
+            <div class="example-bad">
+              <h3>So eher nicht</h3>
+              <div class="mini-slide">
+                <p class="mini-title">Ladezeiten</p>
+                <table class="mini-table">
+                  <thead>
+                    <tr><th>Messung</th><th>Ohne Cache</th><th>Mit Cache</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>1</td><td>2,3 s</td><td>1,1 s</td></tr>
+                    <tr><td>2</td><td>2,5 s</td><td>1,3 s</td></tr>
+                    <tr><td>3</td><td>2,4 s</td><td>1,2 s</td></tr>
+                    <tr><td>4</td><td>2,4 s</td><td>1,2 s</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="example-good fragment">
+              <h3>So besser</h3>
+              <div class="mini-slide">
+                <p class="mini-title">Ladezeiten (Mittelwert)</p>
+                <div class="mini-bars" aria-hidden="true">
+                  <span class="mini-bar-label">Ohne Cache</span>
+                  <span class="mini-bar" style="width: 100%">2,4 s</span>
+                  <span class="mini-bar-label">Mit Cache</span>
+                  <span class="mini-bar" style="width: 50%">1,2 s</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="deck-pill fragment">
+            Den Vergleich zeigen, Einzelwerte in den Anhang.
+          </p>
+          <aside class="notes">
+            Erfundenes Beispiel, keine echten Messwerte. In der Tabelle muss
+            das Publikum selbst rechnen und vergleichen, das Diagramm zeigt den
+            Unterschied sofort. Die nächste Folie geht einen Schritt weiter.
           </aside>
         </section>
 
@@ -400,6 +456,51 @@
           </aside>
         </section>
 
+        <section class="compare-slide">
+          <h2>Quellen angeben</h2>
+          <div class="compare-grid">
+            <div class="example-bad">
+              <h3>So eher nicht</h3>
+              <div class="mini-slide">
+                <p class="mini-title">Caching halbiert die Ladezeit</p>
+                <div class="mini-bars" aria-hidden="true">
+                  <span class="mini-bar-label">Ohne Cache</span>
+                  <span class="mini-bar" style="width: 100%">2,4 s</span>
+                  <span class="mini-bar-label">Mit Cache</span>
+                  <span class="mini-bar" style="width: 50%">1,2 s</span>
+                </div>
+                <p class="mini-quote">„Caching ist die wirksamste Optimierung.“</p>
+              </div>
+            </div>
+            <div class="example-good fragment">
+              <h3>So besser</h3>
+              <div class="mini-slide">
+                <p class="mini-title">Caching halbiert die Ladezeit</p>
+                <div class="mini-bars" aria-hidden="true">
+                  <span class="mini-bar-label">Ohne Cache</span>
+                  <span class="mini-bar" style="width: 100%">2,4 s</span>
+                  <span class="mini-bar-label">Mit Cache</span>
+                  <span class="mini-bar" style="width: 50%">1,2 s</span>
+                </div>
+                <p class="mini-source">Eigene Messung, n = 4</p>
+                <p class="mini-quote">
+                  „Caching ist die wirksamste Optimierung.“
+                  <span class="mini-source">(Müller 2023, S. 12)</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <p class="deck-pill fragment">
+            Kurzbeleg auf der Folie, Literaturverzeichnis hinter dem Fazit.
+          </p>
+          <aside class="notes">
+            Müller 2023 ist ein Platzhalter. Wie in der Ausarbeitung gilt:
+            Jede fremde Aussage, Zahl und Abbildung braucht einen Beleg.
+            Fremde und KI-generierte Bilder kennzeichnen. Eigene Messungen
+            ebenfalls als solche ausweisen.
+          </aside>
+        </section>
+
         <section class="section-slide">
           <h2>3. Vortrag</h2>
         </section>
@@ -439,7 +540,9 @@
               class="demo-photo"
               role="img"
               aria-label="Vortragender im Hörsaal, zum Publikum gewandt, zeigt auf ein Diagramm"
-            ></div>
+            >
+              <p class="image-credit">Bild: Mit KI generiert</p>
+            </div>
             <div class="demo-points">
               <p class="demo-question">Was macht die Person richtig?</p>
               <div class="demo-point fragment">
@@ -498,13 +601,36 @@
           <p class="enum offset fragment">
             Auf Reaktionen des Publikums achten.
           </p>
-          <p class="enum offset fragment">
-            Backup-Folien für Fragen vorbereiten.
+        </section>
+
+        <section class="steps-slide">
+          <h2>Umgang mit Fragen</h2>
+          <div class="steps">
+            <div class="step fragment">
+              <span class="step-num">1</span>
+              <p>Ausreden lassen und zuhören.</p>
+            </div>
+            <div class="step fragment">
+              <span class="step-num">2</span>
+              <p>Frage kurz wiederholen.</p>
+            </div>
+            <div class="step fragment">
+              <span class="step-num">3</span>
+              <p>Kurz nachdenken, dann antworten.</p>
+            </div>
+          </div>
+          <p class="deck-pill fragment">
+            Nicht gewusst? Ehrlich sagen, wie Sie es herausfinden würden.
+          </p>
+          <p class="deck-pill fragment">
+            Passende Backup-Folie zeigen.
           </p>
           <aside class="notes">
-            Backup-Folien kommen hinter das Fazit und werden nur bei passenden
-            Fragen gezeigt, zum Beispiel mit Details zu Messungen oder
-            Alternativen.
+            Bei der Verteidigung einer Abschlussarbeit ist die Fragerunde oft
+            so lang wie der Vortrag. Das Wiederholen sichert ab, dass die Frage
+            richtig verstanden wurde, und verschafft Zeit. Backup-Folien
+            liegen hinter dem Fazit, zum Beispiel mit Details zu Messungen
+            oder verworfenen Alternativen. Nicht raten und nicht ausweichen.
           </aside>
         </section>
 
