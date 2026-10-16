@@ -16,6 +16,17 @@ export default withNextra({
         destination: '/mobile/04-flutter',
         permanent: true,
       },
+      // React Native: Wetter-App ersetzt die frühere Todo-App
+      {
+        source: '/mobile/05-react-native-wetter/:path*',
+        destination: '/mobile/05-react-native/:path*',
+        permanent: true,
+      },
+      {
+        source: '/mobile/05-react-native/:slug(01-setup|02-intro|03-app|04-components|05-todos-list|06-state|07-todo-input|08-next-steps)',
+        destination: '/mobile/05-react-native',
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
