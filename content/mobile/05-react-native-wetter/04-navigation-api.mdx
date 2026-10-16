@@ -799,8 +799,14 @@ Hinweise zu den Übungen:
   sollten als „33.87° S“ statt „-33.87° N“ erscheinen. Wer schnell
   hintereinander sucht, kann Antworten in falscher Reihenfolge bekommen;
   eine laufende Nummer pro Suche (in einem `useRef`) verhindert, dass
-  eine ältere Antwort die neuere überschreibt. Weil gleichnamige Städte
-  vorkommen, taugt der Name nicht mehr als `key`; besser die Koordinaten.
+  eine ältere Antwort die neuere überschreibt. Eine Stadt aus der Suche
+  kommt mit einem **neuen** Array in die Liste:
+  `setCities([...cities, city])`. Ein `cities.push(city)` ändert das
+  bisherige Array, und React rendert nicht neu, weil es dasselbe Array
+  wie vorher ist. `...` (*Spread*) kopiert die Elemente in das neue
+  Array. Die Referenzlösung verwendet die Form
+  `setCities((current) => [...current, city])`, die immer mit dem
+  aktuellen Stand rechnet. Weil gleichnamige Städte vorkommen, taugt der Name nicht mehr als `key`; besser die Koordinaten.
   Eine Referenzlösung liegt im Tag
   [`schritt-11`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-11)
   ([Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-10...schritt-11)).

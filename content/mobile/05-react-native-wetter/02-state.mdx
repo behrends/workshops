@@ -64,6 +64,10 @@ const [isCelsius, setIsCelsius] = useState(true);
 ```
 
 <DocsOnly>
+`useState` kommt aus dem Paket `react`, nicht aus `react-native`:
+`import { useState } from 'react';`. Hooks gehören zu React selbst und
+funktionieren genauso im Web.
+
 `useState(true)` legt den Startwert fest. Zurück kommt ein Array mit zwei
 Elementen, das wir gleich auf zwei Variablen aufteilen. Den Typ
 `boolean` leitet TypeScript aus dem Startwert ab.
@@ -355,6 +359,72 @@ export function formatTemperature(celsius: number, isCelsius: boolean): string {
 Benannte Parameter wie in Kotlin und Dart gibt es in TypeScript nicht.
 Weil die Variable beim Aufruf `isCelsius` heißt, ist trotzdem klar, was
 `true` bedeutet.
+</DocsOnly>
+
+## Übung: Zähler
+
+In [Expo Snack](https://snack.expo.dev) einen Zähler bauen:
+
+- eine große Zahl, darunter Buttons „+1“, „+10“ und „Zurücksetzen“
+- Bonus: Button „−1“, der nicht unter 0 zählt
+- Bonus: die Buttons in eine eigene Komponente `CounterButtons` auslagern
+
+<DocsOnly>
+Ein neuer Snack enthält schon eine `App.tsx` bzw. `App.js` mit Beispielcode;
+deren Inhalt wird ersetzt. Ein `Button` von React Native braucht die
+Props `title` und `onPress`.
+
+Bei der zweiten Bonus-Aufgabe kommt Lifting State Up ins Spiel: Der State
+bleibt in `App`, `CounterButtons` bekommt nur Callbacks.
+
+<details>
+<summary>Lösung</summary>
+
+```tsx filename="App.tsx"
+import { useState } from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
+
+export default function App() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.count}>{count}</Text>
+      <CounterButtons
+        onAdd={(amount) => setCount(Math.max(0, count + amount))}
+        onReset={() => setCount(0)}
+      />
+    </View>
+  );
+}
+
+type CounterButtonsProps = {
+  onAdd: (amount: number) => void;
+  onReset: () => void;
+};
+
+function CounterButtons({ onAdd, onReset }: CounterButtonsProps) {
+  return (
+    <View style={styles.buttons}>
+      <Button title="−1" onPress={() => onAdd(-1)} />
+      <Button title="+1" onPress={() => onAdd(1)} />
+      <Button title="+10" onPress={() => onAdd(10)} />
+      <Button title="Zurücksetzen" onPress={onReset} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  count: { fontSize: 96 },
+  buttons: { flexDirection: 'row', gap: 8 },
+});
+```
+
+`Math.max(0, …)` verhindert negative Werte. `(amount: number) => void`
+ist der Typ eines Callbacks mit einem Parameter, wie `(Int) -> Unit` in
+Kotlin. `gap` setzt einen Abstand zwischen den Kindern einer `View`.
+</details>
 </DocsOnly>
 
 ## Zusammenfassung

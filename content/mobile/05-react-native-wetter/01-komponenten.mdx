@@ -89,6 +89,10 @@ npx expo start
 ```
 
 <DocsOnly>
+`npx` gehört zu Node.js und führt ein Paket aus, ohne es vorher global
+zu installieren. Fehlt das Paket, lädt `npx` es herunter. `npx expo …`
+verwendet dagegen die Version von Expo, die im Projekt installiert ist.
+
 - `create-expo-app` legt ein Projekt mit der Vorlage *default* an:
   TypeScript, Expo Router und einige Beispiel-Screens. Ein Git-Repository
   mit einem ersten Commit legt es gleich mit an.
@@ -602,10 +606,23 @@ function CurrentWeatherCard({ city, weather }: CurrentWeatherCardProps) {
 }
 ```
 
-Eine Komponente bekommt **ein** Objekt mit allen Props. Mit
-`{ city, weather }` holen wir die Felder direkt heraus (*Destructuring*).
-Der Typ `CurrentWeatherCardProps` legt fest, welche Props es gibt. Fehlt
-beim Aufruf eine, meldet TypeScript einen Fehler.
+Eine Komponente bekommt **ein** Objekt mit allen Props. Ohne
+Destructuring sähe der Anfang so aus:
+
+```tsx
+function CurrentWeatherCard(props: CurrentWeatherCardProps) {
+  return (
+    <View style={styles.card}>
+      <Text style={styles.city}>{props.city.name}</Text>
+```
+
+Beim Aufruf `<CurrentWeatherCard city={city} weather={weather} />` ist
+`props` das Objekt `{ city: …, weather: … }`; die Attribute werden zu
+seinen Feldern. Weil `props.` überall stört, holen wir die Felder mit
+`{ city, weather }` gleich in der Parameterliste heraus
+(*Destructuring*). Das ist kürzer und in React üblich. Der Typ
+`CurrentWeatherCardProps` legt fest, welche Props es gibt. Fehlt beim
+Aufruf eine, meldet TypeScript einen Fehler.
 
 In JSX steht JavaScript in geschweiften Klammern: `{city.name}`,
 `{Math.round(weather.temperature)}`.
@@ -861,6 +878,72 @@ const styles = StyleSheet.create({
 
 Code: [`schritt-04`](https://github.com/behrends/WeatherReactNativeTIF24/tree/schritt-04) ·
 [Änderungen](https://github.com/behrends/WeatherReactNativeTIF24/compare/schritt-03...schritt-04)
+</DocsOnly>
+
+## Übung: Karte gestalten
+
+- Farben, Abstände und Schriftgrößen der Karte ändern, mit Fast Refresh ausprobieren
+- Bonus: neue Prop `highlighted`, die die Karte mit einem Rahmen hervorhebt
+
+<DocsOnly>
+Der Aufruf soll so aussehen:
+
+```tsx
+<CurrentWeatherCard city={city} weather={weather} highlighted />
+```
+
+Eine Prop ohne Wert wie `highlighted` ist die Kurzform für
+`highlighted={true}`. Ohne die Prop soll die Karte aussehen wie bisher.
+
+Tipps: Eine optionale Prop bekommt im Typ ein `?` (`highlighted?: boolean`)
+und in der Parameterliste einen Standardwert. Ein Rahmen entsteht mit
+`borderWidth` und `borderColor`. `style` nimmt auch ein Array von Styles.
+
+<details>
+<summary>Lösung</summary>
+
+```tsx filename="src/ui/weather-screen.tsx" {4,10,13}
+type CurrentWeatherCardProps = {
+  city: City;
+  weather: CurrentWeather;
+  highlighted?: boolean;
+};
+
+function CurrentWeatherCard({
+  city,
+  weather,
+  highlighted = false,
+}: CurrentWeatherCardProps) {
+  return (
+    <View style={[styles.card, highlighted && styles.highlighted]}>
+      <Text style={styles.city}>{city.name}</Text>
+      <Text style={styles.emoji}>{conditionEmoji[weather.condition]}</Text>
+      <Text style={styles.temperature}>
+        {Math.round(weather.temperature)} °C
+      </Text>
+      <View style={styles.row}>
+        <Text>Wind: {Math.round(weather.windSpeed)} km/h</Text>
+        <Text>{conditionLabel[weather.condition]}</Text>
+      </View>
+    </View>
+  );
+}
+```
+
+In `styles` kommt ein Eintrag hinzu:
+
+```tsx filename="src/ui/weather-screen.tsx"
+highlighted: { borderWidth: 3, borderColor: '#1565C0' },
+```
+
+`highlighted && styles.highlighted` ergibt `false`, wenn die Prop fehlt;
+`false` ignoriert React Native in einem Style-Array. Bei gleichen
+Eigenschaften gewinnt der letzte Style im Array.
+</details>
+
+Das Referenz-Repository enthält diese Änderung nicht. Die eingeklappten
+Dateien auf den folgenden Seiten überschreiben sie; wer sie behalten
+will, muss sie dort selbst wieder einbauen.
 </DocsOnly>
 
 <DocsOnly>
