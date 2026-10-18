@@ -15,7 +15,7 @@ export default {
   '03-themen': 'Themen und Teams (4 Std.)',
   themen: 'Themenlisten',
   '04-infos': 'Infos und Teamarbeit (4 Std.)',
-  '05-beispiel': 'Beispiel und Teamarbeit (4 Std.)',
+  '05-beispiel': 'Beispiel und Teamarbeit (ganzer Tag)',
   section3: {
     type: 'separator',
     title: '',
