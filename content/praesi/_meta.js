@@ -1,29 +1,11 @@
 export default {
   index: 'Übersicht',
-  section1: {
-    type: 'separator',
-    title: '',
-  },
   '00-einstieg': 'Einstieg (4 Std.)',
-  '01-lernen': 'Effektives Lernen (4 Std.)',
-  section2: {
-    type: 'separator',
-    title: '',
-  },
-  '02-demos': 'Demos und Beispiele (4 Std.)',
-  demos: 'Live-Beispiele',
-  '03-themen': 'Themen und Teams (4 Std.)',
-  themen: 'Themenlisten',
+  '01-lernen': 'Effektives Lernen (2 Std.)',
+  '02-ki-tools': 'KI-Tools (4 Std.)',
+  '03-themen': 'Themenliste',
+  '03a-umgang-ki': 'Umgang mit KI-Tools (???)',
   '04-infos': 'Infos und Teamarbeit (4 Std.)',
-  '05-beispiel': 'Beispiel und Teamarbeit (ganzer Tag)',
-  section3: {
-    type: 'separator',
-    title: '',
-  },
-  '06-praesi': 'Präsentationen (6 Std.)',
-  section4: {
-    type: 'separator',
-    title: '',
-  },
-  rest: 'Sonstiges',
+  '05-beispiel': 'Teamarbeit und Abnahme (8 Std.)',
+  '06-praesi': 'Präsentationen (8 Std.)',
 };
