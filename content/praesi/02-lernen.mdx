@@ -10,10 +10,11 @@ einen Teil zu den Prüfungsformen hier fortzusetzen (bis zu 30 Minuten).
 
 Im [Einstieg](/praesi/01-einstieg) haben wir besprochen, wie man sich auf die verschiedenen
 Prüfungsformen an der DHBW vorbereitet. Hier erfahren Sie, warum manche Lernmethoden besser
-wirken als andere, und lernen, konzentriert zu arbeiten.
+wirken als andere, lernen, konzentriert zu arbeiten, und wie Sie KI-Tools gezielt zum Lernen einsetzen.
 
 - Lernstrategien nach Barbara Oakley
 - Konzentriert arbeiten nach Cal Newport
+- Umgang mit KI-Tools beim Lernen
 
 <Callout type="info">
 Diese Lektion stützt sich vor allem auf zwei bekannte und einflussreiche Personen: die Ingenieurin
@@ -179,18 +180,65 @@ Pseudo-Arbeit (_pseudo-working_).
 - Barbara Oakley, [*Mindshift*](https://barbaraoakley.com/books/mindshift/): sich neue Fachgebiete erschließen und
   sich beruflich weiterentwickeln.
 
-## Umgang mit KI-Tools (restliche Zeit)
+## PAUSE
 
-TODO: Hier könnte Input/Folien/Vorlesung zu Agentic Coding bzw. Umgang mit KI erfolgen.
+## Umgang mit KI-Tools (ca. 90 Minuten bzw. restliche Zeit)
 
-Notfalls können auch verschiedene KI-Tools aus unterschiedlichen Bereichen vorgeführt werden.
+<Callout type="info" emoji="🧑‍🏫">
+Ablauf bei 90 Minuten: Input mit Live-Demos (ca. 45 Minuten), Übung (ca. 35 Minuten), Abrufübung (ca. 10 Minuten).
+Wurde der Teil zu den Prüfungsformen fortgesetzt, bleiben ca. 60 Minuten: Input (35), Übung nur mit den Schritten 1–4 (20), Abrufübung (5).
+</Callout>
 
-Sinnvoll wären weitere Informationen zum Umgang mit KI Agents:
+KI-Chats wie ChatGPT, Claude oder Gemini erklären geduldig, erstellen Übungsaufgaben und fragen ab.
+Sie können das Lernen aber auch verhindern, etwa wenn sie Aufgaben lösen, die Sie selbst üben sollten.
+Eine flüssige KI-Erklärung zu lesen erzeugt außerdem leicht die Illusion von Kompetenz aus dem Oakley-Teil.
+Wer versteht, wie diese Tools funktionieren, kann sie gezielt zum Lernen einsetzen.
 
-- Begriffe: LLMs, Modelle, Reasoning, Tokens, Context, Subagents, 
-- Text, Bilder, Code im Chat erstellen
-- Computer Use: Work mit jeglichem digitalem Tool, z. B. mit Powerpoint
-- AGENTS.md, Skills/Plugins, MCP, usw.
-- Kritischer Umgang: Berechtigungen, Halluzinationen, Brain Rot 
-- &rarr; dies könnte Ausgangspunkt eines eigenen Workshops sein (TIF und weitere?)
-- u.v.a.m.
+### Begriffe und was daraus folgt
+
+- **LLM (Large Language Model, großes Sprachmodell).** Ein LLM wurde mit riesigen Textmengen trainiert. Es erzeugt Antworten, indem es Stück für Stück das wahrscheinlich passende nächste Textstück vorhersagt, und schlägt dabei nichts nach. Deshalb klingt jede Antwort flüssig und überzeugend, auch wenn sie falsch ist. Wie überzeugend eine Antwort klingt, sagt also nichts darüber, ob sie stimmt.
+- **Kontext und Kontextfenster.** Das Modell berücksichtigt nur, was im aktuellen Chat steht: Ihre Nachrichten, seine Antworten und hochgeladene Dateien. Dieses Kontextfenster ist begrenzt, in sehr langen Chats gehen frühere Details leichter unter. Laden Sie Folien oder Skript hoch, damit die Antworten zu Ihrer Vorlesung passen (sofern die Dozierenden das erlauben), und beginnen Sie für jedes neue Thema einen neuen Chat.
+- **Prompt und Rolle.** Der Prompt ist Ihre Anweisung an das Modell. Ohne Vorgabe löst ein Chat Aufgaben meist sofort vollständig, und Sie üben nichts. Geben Sie ihm deshalb die Rolle eines Tutors, z. B. „Stelle mir Fragen und zeige die Lösung erst nach meiner Antwort“ (siehe Mastery-Prompt im [Einstieg](/praesi/01-einstieg)).
+- **Halluzination.** Ein Modell kann Fakten, Zahlen, Paragrafen oder Literaturangaben erfinden, die echt aussehen. Verlangen Sie bei wichtigen Aussagen eine Quelle, öffnen Sie diese selbst und gleichen Sie die Aussage mit Ihren Unterlagen ab.
+- **Gefälligkeit (_sycophancy_).** Modelle neigen dazu, Ihnen zuzustimmen und Sie zu loben. Auf „Stimmt meine Erklärung?“ folgt deshalb oft ein Ja, auch wenn die Erklärung Fehler enthält. Fragen Sie stattdessen: „Finde die Fehler in meiner Erklärung und begründe sie.“
+- **Modelle und Versionen.** Hinter einem Chat stecken verschiedene Modelle. Kostenlose Versionen nutzen oft kleinere Modelle oder begrenzen die Nutzung. Achten Sie darauf, welches Modell Sie gerade verwenden. Eine schwache Antwort heißt nicht, dass „die KI“ etwas grundsätzlich nicht kann.
+- **Datenschutz.** Je nach Anbieter und Einstellung werden Eingaben gespeichert und zum Training weiterer Modelle verwendet. Geben Sie keine internen Daten Ihres Praxispartners und keine personenbezogenen Daten ein. Prüfen Sie die Einstellungen zum Training und fragen Sie in Ihrem Unternehmen nach, welche KI-Tools freigegeben sind.
+
+Außerdem hilfreich:
+
+- **Token.** Modelle verarbeiten Text in Bausteinen, den Tokens. Häufige Wörter sind ein Token, seltene oder lange Wörter werden zerlegt. Limits und Kosten werden in Tokens gemessen. Deshalb gelingt z. B. das Zählen von Buchstaben oft schlechter als erwartet.
+- **Wissensstand.** Das Training endet an einem Stichtag. Bei aktuellen Themen wie neuen Versionen oder geänderten Regeln nutzen Sie die Websuche des Chats und prüfen die angegebenen Quellen.
+- **Zufall in der Antwort.** Dieselbe Frage ergibt nicht immer dieselbe Antwort. Lassen Sie eine Antwort neu erzeugen: Weichen die Antworten inhaltlich voneinander ab, prüfen Sie nach. Abwandlungen einer Aufgabe eignen sich gut als neue Übungsaufgaben.
+- **Reasoning-Modelle.** Sie „denken“ vor der Antwort länger nach und sind bei Mathematik, Logik und Code meist zuverlässiger. Für einfache Fragen brauchen Sie sie nicht.
+- **Multimodal.** Viele Modelle verstehen auch Bilder, PDFs und Handschrift. Fotografieren Sie z. B. Ihre handschriftliche Lösung und lassen Sie sie auf Fehler prüfen.
+
+**Ausblick: Agents.** Ein Agent ist ein LLM, das in einer Schleife Werkzeuge benutzt, z. B. im Web sucht, Dateien liest
+oder Code ausführt. Solche Tools lernen Sie im Termin [KI-Tools und Themenwahl](/praesi/03-ki-tools) und später im Studium kennen.
+
+<Callout type="info" emoji="🧑‍🏫">
+Live-Demos, möglichst mit kostenloser und ggf. bezahlter Version:
+
+- Gefälligkeit: die Lernkarte von oben mit vertauschten Schleifen als eigene Erklärung vorlegen, einmal mit „Stimmt das?“ und in einem neuen Chat mit „Finde die Fehler“. Je nach Modell fällt der Effekt unterschiedlich stark aus, subtilere Fehler eignen sich besser.
+- Halluzination: ohne Websuche nach Literatur mit Seitenzahlen zu einem Nischenthema oder nach dem genauen Wortlaut von § 42 der Studien- und Prüfungsordnung fragen und mit der Quelle vergleichen.
+- Kontext: dieselbe Frage zu einer Vorlesung einmal ohne und einmal mit hochgeladenen Folien stellen.
+- Zufall: eine Antwort zweimal neu erzeugen und vergleichen.
+- Token: einen deutschen Satz im [Tokenizer von OpenAI](https://platform.openai.com/tokenizer) zerlegen.
+</Callout>
+
+### Übung: KI als Lernpartner einrichten
+
+Wählen Sie ein Modul aus diesem Semester mit einem Thema, das bald geprüft wird.
+
+1. Beginnen Sie einen neuen Chat und notieren Sie, welches Modell Sie verwenden.
+2. Laden Sie Folien oder Skript zum Thema hoch, sofern die Dozierenden das erlauben. Alternativ beschreiben Sie das Thema und die Lernziele selbst.
+3. Lassen Sie sich mit einem Tutor-Prompt drei Aufgaben stellen und beantworten Sie diese ohne Unterlagen.
+4. Schreiben Sie eine kurze Erklärung zum Thema mit einem absichtlichen Fehler. Fragen Sie zuerst „Stimmt das?“ und in einem neuen Chat „Finde die Fehler in meiner Erklärung“. Vergleichen Sie die Antworten.
+5. Lassen Sie sich zu einer Aussage eine Quelle nennen, öffnen Sie diese und prüfen Sie, ob sie die Aussage tatsächlich stützt.
+6. Lassen Sie eine Antwort neu erzeugen oder stellen Sie dieselbe Frage einem anderen Modell. Wo weichen die Antworten ab?
+
+Halten Sie fest, was Sie überrascht hat, und tauschen Sie sich zu zweit aus.
+
+<Callout type="info" emoji="🧑‍🏫">
+Abrufübung: Die Studierenden schreiben zwei Minuten lang aus dem Kopf auf, welche drei Begriffe sie beim Lernen mit KI
+ab jetzt beachten und was sie konkret anders machen. Danach einige Antworten im Kurs sammeln.
+</Callout>
