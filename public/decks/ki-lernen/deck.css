@@ -1,0 +1,345 @@
+@import url("/decks/lernstrategien/deck.css");
+
+/* Titelfolie mit angedeutetem Tutor-Chat */
+.reveal .chat-mock {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reveal .chat-mock .chat-msg {
+  max-width: 82%;
+  margin: 0;
+  padding: 0.55rem 0.9rem;
+  border-radius: 16px;
+  font-size: 0.6em;
+  line-height: 1.3;
+}
+
+.reveal .chat-mock .chat-user {
+  align-self: flex-end;
+  border-radius: 16px 16px 4px 16px;
+  background: var(--deck-heading);
+  color: #ffffff;
+}
+
+.reveal .chat-mock .chat-ai {
+  align-self: flex-start;
+  border-left: 4px solid var(--deck-accent);
+  border-radius: 4px 16px 16px 16px;
+  background: var(--deck-surface-soft);
+}
+
+/* Ausgabeformen generativer KI */
+.reveal .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 0.5rem;
+}
+
+.reveal .chips span {
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  background: var(--deck-accent);
+  color: #ffffff;
+  font-size: 0.56em;
+  font-weight: 700;
+}
+
+/* Vorhersage des nächsten Textstücks */
+.reveal .next-token {
+  margin: 0.3rem auto 0.6rem;
+  color: var(--deck-heading);
+  font-size: 1.05em;
+  font-weight: 600;
+}
+
+.reveal .next-token .blank {
+  display: inline-block;
+  min-width: 3.2em;
+  border-bottom: 4px solid var(--deck-accent);
+  color: var(--deck-accent);
+  text-align: center;
+}
+
+.reveal .predictions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto 0.6rem;
+}
+
+.reveal .prediction {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.reveal .prediction-word {
+  font-size: 0.62em;
+  font-weight: 700;
+  text-align: right;
+}
+
+.reveal .prediction-bar {
+  display: flex;
+  align-items: center;
+  width: var(--p);
+  min-width: fit-content;
+  height: 38px;
+  padding: 0 0.6rem;
+  border-radius: 8px;
+  background: var(--deck-accent);
+  color: #ffffff;
+  font-size: 0.5em;
+  font-weight: 700;
+  box-sizing: border-box;
+}
+
+.reveal .prediction:not(:first-child) .prediction-bar {
+  background: var(--deck-muted);
+}
+
+/* Drei Karten nebeneinander */
+.reveal .cards {
+  display: grid;
+  gap: 24px;
+  margin: 0.6rem auto;
+}
+
+.reveal .cards-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.reveal .card {
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--deck-line);
+  border-top: 6px solid var(--deck-muted);
+  border-radius: 16px;
+  background: var(--deck-surface);
+  box-shadow: var(--deck-shadow);
+}
+
+.reveal .card-accent {
+  border-top-color: var(--deck-accent);
+}
+
+.reveal .card p {
+  margin: 0;
+  font-size: 0.62em;
+}
+
+.reveal .card .card-name {
+  margin-bottom: 0.5rem;
+  color: var(--deck-heading);
+  font-size: 0.78em;
+  font-weight: 700;
+}
+
+/* Kontextfenster als Leiste von Nachrichten */
+.reveal .context-window {
+  display: flex;
+  gap: 8px;
+  margin: 0.2rem auto 0.5rem;
+  padding: 10px;
+  border: 3px dashed var(--deck-line);
+  border-radius: 14px;
+}
+
+.reveal .ctx {
+  flex: 1;
+  padding: 0.35rem 0.4rem;
+  border-radius: 8px;
+  background: var(--deck-heading);
+  color: #ffffff;
+  font-size: 0.48em;
+  font-weight: 600;
+  text-align: center;
+}
+
+.reveal .ctx-faded {
+  opacity: 0.3;
+}
+
+.reveal .ctx-now {
+  background: var(--deck-accent);
+}
+
+.reveal .context-window ~ p.enum {
+  margin: 0.4rem auto;
+  font-size: 0.74em;
+}
+
+/* Textreiche Folien etwas kompakter */
+.reveal .dense p.enum {
+  margin: 0.4rem auto;
+  font-size: 0.74em;
+}
+
+/* Gegenüberstellung zweier Fragen */
+.reveal .ask-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 0.5rem auto 0.7rem;
+}
+
+.reveal .ask {
+  padding: 0.8rem 1rem;
+  border-radius: 16px;
+  background: var(--deck-surface-soft);
+  border-left: 5px solid var(--deck-muted);
+}
+
+.reveal .ask-better {
+  border-left-color: var(--deck-accent);
+}
+
+.reveal .ask p {
+  margin: 0;
+  font-size: 0.66em;
+}
+
+.reveal .ask .ask-prompt {
+  margin-bottom: 0.5rem;
+  color: var(--deck-heading);
+  font-weight: 700;
+}
+
+.reveal .ask .ask-answer {
+  color: var(--deck-muted);
+  font-style: italic;
+}
+
+/* Ergebnisse der Studie */
+.reveal .study {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 10px 16px;
+  align-items: center;
+  margin: 0.4rem auto 0.6rem;
+}
+
+.reveal .study-head {
+  color: var(--deck-muted);
+  font-size: 0.56em;
+  font-weight: 700;
+  text-align: center;
+}
+
+.reveal .study-label {
+  font-size: 0.62em;
+  font-weight: 700;
+}
+
+.reveal .study-value {
+  padding: 0.4rem 0;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 0.7em;
+  font-weight: 800;
+  text-align: center;
+}
+
+.reveal .study-up {
+  background: var(--deck-muted);
+}
+
+.reveal .study-down {
+  background: var(--deck-accent);
+}
+
+.reveal .study-even {
+  background: var(--deck-heading);
+  font-size: 0.6em;
+}
+
+/* Prompt mit markierten Bestandteilen */
+.reveal .prompt-parts p {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  align-items: baseline;
+  column-gap: 16px;
+  margin: 0.25rem 0;
+}
+
+.reveal .part-tag {
+  padding: 0.05rem 0.5rem;
+  border-radius: 999px;
+  background: var(--deck-accent);
+  color: #ffffff;
+  font-size: 0.8em;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Agent-Schleife */
+.reveal .agent-loop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 0.4rem auto 0.8rem;
+}
+
+.reveal .loop-step {
+  padding: 0.4rem 0.9rem;
+  border-radius: 12px;
+  background: var(--deck-heading);
+  color: #ffffff;
+  font-size: 0.62em;
+  font-weight: 600;
+}
+
+.reveal .loop-arrow,
+.reveal .loop-back {
+  color: var(--deck-accent);
+  font-size: 0.9em;
+  font-weight: 700;
+}
+
+/* Nummerierte Übungsschritte */
+.reveal .steps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 24px;
+  margin: 0.5rem auto 0.6rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.reveal .steps li {
+  position: relative;
+  margin: 0;
+  padding: 0.5rem 0.8rem 0.5rem 2.8em;
+  border: 1px solid var(--deck-line);
+  border-radius: 14px;
+  background: var(--deck-surface);
+  box-shadow: var(--deck-shadow);
+  font-size: 0.56em;
+  line-height: 1.3;
+  counter-increment: step;
+}
+
+.reveal .steps li::before {
+  content: counter(step);
+  position: absolute;
+  top: 50%;
+  left: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 50%;
+  background: var(--deck-accent);
+  color: #ffffff;
+  font-weight: 700;
+  transform: translateY(-50%);
+}

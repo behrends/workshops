@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Umgang mit KI-Tools beim Lernen: Begriffe, typische Fehler und gezielter Einsatz"
+    />
+    <meta name="author" content="Prof. Dr. Erik Behrends" />
+    <title>Lernen mit KI</title>
+    <base href="/decks/ki-lernen/" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/vendor/reveal/dist/reset.css" />
+    <link rel="stylesheet" href="/vendor/reveal/dist/reveal.css" />
+    <link rel="stylesheet" href="/vendor/reveal/dist/theme/dhbw.css" />
+    <link rel="stylesheet" href="/decks/shared-deck.css" />
+    <link rel="stylesheet" href="./deck.css" />
+  </head>
+  <body>
+    <div id="speaker-status" class="speaker-status" hidden>
+      Popup blockiert - bitte mit <strong>S</strong> die Speaker View öffnen.
+    </div>
+
+    <div class="reveal">
+      <img src="/images/dhbw-logo.svg" alt="DHBW Logo" class="deck-logo" />
+      <div class="slides">
+        <section class="title-slide">
+          <div class="title-layout">
+            <div class="title-copy">
+              <h3>Lernen mit KI-Tools</h3>
+              <h4>Wie KI-Chats funktionieren und wie Sie sie gezielt zum Lernen einsetzen</h4>
+            </div>
+            <ul class="chat-mock" aria-label="Beispiel eines Tutor-Chats">
+              <li class="chat-msg chat-user">Erklär mir die Bilanz.</li>
+              <li class="chat-msg chat-ai">
+                Gern. Was wissen Sie schon darüber? Nennen Sie zwei Begriffe.
+              </li>
+              <li class="chat-msg chat-user">Aktiva und Passiva?</li>
+              <li class="chat-msg chat-ai">Gut. Was steht auf welcher Seite?</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>Lernpartner oder Lernbremse?</h3>
+          <div class="modes">
+            <div class="mode mode-focus fragment">
+              <p class="mode-name">Lernpartner</p>
+              <p>Erklärt geduldig, erstellt Übungsaufgaben und fragt Sie ab.</p>
+            </div>
+            <div class="mode fragment">
+              <p class="mode-name">Lernbremse</p>
+              <p>Löst die Aufgaben, die Sie selbst üben sollten.</p>
+            </div>
+          </div>
+          <p class="enum fragment">
+            Eine flüssige KI-Erklärung zu lesen erzeugt leicht die
+            <b>Illusion von Kompetenz</b>.
+          </p>
+          <p class="quiet fragment">
+            &rarr; Wer versteht, wie diese Tools funktionieren, kann sie gezielt
+            zum Lernen einsetzen.
+          </p>
+        </section>
+
+        <section
+          class="chapter"
+          data-chapter="01"
+          data-background-color="#2f3a40"
+        >
+          <p class="chapter-label">Teil 1</p>
+          <h3>Wie KI-Chats funktionieren</h3>
+          <p class="chapter-lead">Begriffe und was daraus folgt</p>
+        </section>
+
+        <section>
+          <h3>Generative KI</h3>
+          <div class="modes">
+            <div class="mode fragment">
+              <p class="mode-name">Klassische KI</p>
+              <p>Ordnet vorhandene Daten ein, z.&nbsp;B. Spamfilter oder Produktempfehlungen.</p>
+            </div>
+            <div class="mode mode-focus fragment">
+              <p class="mode-name">Generative KI</p>
+              <p>Erzeugt neue Inhalte.</p>
+              <div class="chips">
+                <span>Text</span><span>Bild</span><span>Audio</span><span>Video</span><span>Code</span>
+              </div>
+            </div>
+          </div>
+          <p class="enum fragment">
+            Ein <b>LLM</b> (Large Language Model, großes Sprachmodell) ist
+            generative KI für Text. KI-Chats sind also nur eine Form von KI.
+          </p>
+          <p class="quiet fragment">
+            &rarr; Auch Skizzen, Diagramme oder Audio-Zusammenfassungen zum
+            Lernen erzeugen lassen und genauso kritisch prüfen wie Texte.
+          </p>
+        </section>
+
+        <section>
+          <h3>Wie ein LLM antwortet</h3>
+          <p class="next-token fragment">
+            Die Bilanz ist ein Foto, die GuV ein <span class="blank">…</span>
+          </p>
+          <div class="predictions fragment">
+            <div class="prediction">
+              <span class="prediction-word">Film</span>
+              <span class="prediction-bar" style="--p: 71%">71&nbsp;%</span>
+            </div>
+            <div class="prediction">
+              <span class="prediction-word">Video</span>
+              <span class="prediction-bar" style="--p: 18%">18&nbsp;%</span>
+            </div>
+            <div class="prediction">
+              <span class="prediction-word">Bild</span>
+              <span class="prediction-bar" style="--p: 6%">6&nbsp;%</span>
+            </div>
+          </div>
+          <p class="enum fragment">
+            Es sagt Stück für Stück das wahrscheinlich passende nächste
+            Textstück vorher und schlägt dabei nichts nach.
+          </p>
+          <p class="quiet fragment">
+            &rarr; Wie überzeugend eine Antwort klingt, sagt nichts darüber, ob
+            sie stimmt.
+          </p>
+          <aside class="notes">
+            Die Prozentwerte sind ausgedacht und dienen nur der
+            Veranschaulichung.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Multimodal</h3>
+          <div class="cards cards-3">
+            <div class="card fragment">
+              <p class="card-name">Bilder, PDFs, Handschrift</p>
+              <p>Handschriftliche Lösung fotografieren und auf Fehler prüfen lassen.</p>
+            </div>
+            <div class="card card-accent fragment">
+              <p class="card-name">Sprachmodus</p>
+              <p>In Echtzeit sprechen: mündliche Prüfungen und Präsentationen üben, unterwegs abfragen lassen.</p>
+            </div>
+            <div class="card fragment">
+              <p class="card-name">Kamera und Bildschirm</p>
+              <p>In manchen Apps live teilen, etwa um eine Fehlermeldung zu zeigen.</p>
+            </div>
+          </div>
+          <aside class="notes">
+            Live-Demo Sprachmodus: sich zu einem Thema wie in einer mündlichen
+            Prüfung abfragen lassen.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Kontext und Kontextfenster</h3>
+          <div class="context-window fragment">
+            <span class="ctx ctx-faded">frühe Nachricht</span>
+            <span class="ctx ctx-faded">Antwort</span>
+            <span class="ctx">Folien.pdf</span>
+            <span class="ctx">Frage</span>
+            <span class="ctx">Antwort</span>
+            <span class="ctx ctx-now">neue Frage</span>
+          </div>
+          <p class="enum fragment">
+            Das Modell berücksichtigt, was im aktuellen Chat steht. Das Fenster
+            ist begrenzt, in langen Chats gehen frühe Details unter.
+          </p>
+          <p class="enum fragment">
+            Folien oder Skript hochladen (sofern erlaubt) und für jedes neue
+            Thema einen neuen Chat beginnen.
+          </p>
+          <p class="enum fragment">
+            <b>Festgefahren?</b> Auch Fehler bleiben im Kontext. Nachricht
+            bearbeiten oder neuen Chat beginnen.
+          </p>
+          <aside class="notes">
+            Live-Demo Kontext: dieselbe Frage zu einer Vorlesung einmal ohne und
+            einmal mit hochgeladenen Folien stellen.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Gedächtnis und Projekte</h3>
+          <p class="enum fragment">
+            Viele Chats merken sich Informationen über Sie (<b>Memory</b>) und
+            übernehmen dauerhafte Anweisungen (<b>Custom Instructions</b>) in
+            jeden neuen Chat.
+          </p>
+          <div class="modes">
+            <div class="mode fragment">
+              <p class="mode-name">Für Tests</p>
+              <p>Ein neuer Chat ist nicht ganz unvoreingenommen. Besser einen temporären Chat nutzen.</p>
+            </div>
+            <div class="mode mode-focus fragment">
+              <p class="mode-name">Zum Lernen</p>
+              <p>Tutor-Rolle und Unterlagen einmal in einem Projekt hinterlegen.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Modelle und Versionen</h3>
+          <p class="enum fragment">
+            Hinter einem Chat stecken verschiedene Modelle. Kostenlose Versionen
+            nutzen oft kleinere Modelle oder begrenzen die Nutzung.
+          </p>
+          <p class="enum fragment">
+            <b>Reasoning-Modelle</b> „denken“ vor der Antwort länger nach und
+            sind bei Mathematik, Logik und Code meist zuverlässiger.
+          </p>
+          <p class="quiet fragment">
+            &rarr; Achten Sie darauf, welches Modell Sie verwenden. Eine schwache
+            Antwort heißt nicht, dass „die KI“ etwas grundsätzlich nicht kann.
+          </p>
+        </section>
+
+        <section
+          class="chapter"
+          data-chapter="02"
+          data-background-color="#2f3a40"
+        >
+          <p class="chapter-label">Teil 2</p>
+          <h3>Typische Fehler erkennen</h3>
+          <p class="chapter-lead">Erfundene Quellen, Zustimmung, Zufall</p>
+        </section>
+
+        <section>
+          <h3>Halluzination und Quellen</h3>
+          <p class="enum fragment">
+            Modelle erfinden Fakten, Zahlen, Paragrafen oder Literaturangaben,
+            die echt aussehen.
+          </p>
+          <div class="modes">
+            <div class="mode fragment">
+              <p class="mode-name">Ohne Websuche</p>
+              <p>Quellenangaben sind besonders oft erfunden.</p>
+            </div>
+            <div class="mode mode-focus fragment">
+              <p class="mode-name">Mit Websuche</p>
+              <p>Links sind meist echt, belegen die Aussage aber nicht immer.</p>
+            </div>
+          </div>
+          <p class="quiet fragment">
+            &rarr; Quelle öffnen und prüfen, ob sie wirklich sagt, was der Chat
+            behauptet.
+          </p>
+          <aside class="notes">
+            Live-Demo Halluzination: ohne Websuche nach Literatur mit
+            Seitenzahlen zu einem Nischenthema oder nach dem genauen Wortlaut
+            von § 42 der Studien- und Prüfungsordnung fragen und mit der Quelle
+            vergleichen.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Gefälligkeit (<i>sycophancy</i>)</h3>
+          <div class="ask-compare">
+            <div class="ask fragment">
+              <p class="ask-prompt">„Stimmt meine Erklärung?“</p>
+              <p class="ask-answer">„Ja, sehr gut erklärt!“</p>
+            </div>
+            <div class="ask ask-better fragment">
+              <p class="ask-prompt">„Finde die Fehler in meiner Erklärung und begründe sie.“</p>
+              <p class="ask-answer">„Zwei Punkte stimmen nicht: …“</p>
+            </div>
+          </div>
+          <p class="enum fragment">
+            Modelle werden u.&nbsp;a. mit Bewertungen durch Menschen trainiert,
+            und zustimmende Antworten werden oft besser bewertet.
+          </p>
+          <aside class="notes">
+            Live-Demo Gefälligkeit: die Lernkarte mit for- und while-Schleife
+            mit vertauschten Schleifen als eigene Erklärung vorlegen, einmal mit
+            „Stimmt das?“ und in einem neuen temporären Chat mit „Finde die
+            Fehler“. Je nach Modell fällt der Effekt unterschiedlich stark aus,
+            subtilere Fehler eignen sich besser.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Weitere Eigenheiten</h3>
+          <ul class="small-list">
+            <li class="fragment">
+              <b>Token:</b> Modelle verarbeiten Text in Bausteinen. Limits und
+              Kosten werden in Tokens gemessen. Buchstaben zählen gelingt oft
+              schlechter als erwartet.
+            </li>
+            <li class="fragment">
+              <b>Rechnen:</b> Auch Rechenergebnisse werden als Text vorhergesagt.
+              Rechnungen mit Code ausführen lassen oder selbst nachrechnen.
+            </li>
+            <li class="fragment">
+              <b>Wissensstand:</b> Das Training endet an einem Stichtag. Bei
+              aktuellen Themen die Websuche nutzen und Quellen prüfen.
+            </li>
+            <li class="fragment">
+              <b>Zufall:</b> Dieselbe Frage ergibt nicht immer dieselbe Antwort.
+              Weichen Antworten inhaltlich ab, nachprüfen. Abwandlungen eignen
+              sich als neue Übungsaufgaben.
+            </li>
+          </ul>
+          <aside class="notes">
+            Live-Demo Token: einen deutschen Satz im Tokenizer von OpenAI
+            zerlegen (platform.openai.com/tokenizer). Live-Demo Zufall: eine
+            Antwort zweimal neu erzeugen und vergleichen.
+          </aside>
+        </section>
+
+        <section
+          class="chapter"
+          data-chapter="03"
+          data-background-color="#2f3a40"
+        >
+          <p class="chapter-label">Teil 3</p>
+          <h3>Gezielt zum Lernen einsetzen</h3>
+          <p class="chapter-lead">Selbst denken, gut prompten, Daten schützen</p>
+        </section>
+
+        <section>
+          <h3>Kognitives Auslagern</h3>
+          <p class="quiet">
+            Studie mit fast 1.000 Lernenden in Mathematik (Bastani et al.,
+            <a
+              href="https://doi.org/10.1073/pnas.2422633122"
+              target="_blank"
+              rel="noreferrer"
+              >PNAS 2025</a
+            >), Vergleich mit einer Gruppe ohne KI
+          </p>
+          <div class="study fragment">
+            <span class="study-head"></span>
+            <span class="study-head">Übung mit KI</span>
+            <span class="study-head">Prüfung ohne KI</span>
+            <span class="study-label">Freier Zugang zu GPT-4</span>
+            <span class="study-value study-up">+48&nbsp;%</span>
+            <span class="study-value study-down">−17&nbsp;%</span>
+            <span class="study-label">Mit Tutor-Vorgaben</span>
+            <span class="study-value study-up">+127&nbsp;%</span>
+            <span class="study-value study-even">kein Nachteil</span>
+          </div>
+          <p class="enum fragment">
+            Wer das Denken der KI überlässt, bekommt ein Ergebnis, lernt aber
+            wenig.
+          </p>
+          <p class="quiet fragment">
+            &rarr; Aufgaben zuerst selbst versuchen. Beim Feststecken einen
+            Hinweis holen, nicht die Lösung.
+          </p>
+        </section>
+
+        <section>
+          <h3>Prompt und Rolle</h3>
+          <p class="enum fragment">
+            Ohne Vorgabe löst ein Chat Aufgaben meist sofort vollständig, und
+            Sie üben nichts.
+          </p>
+          <div class="prompt prompt-parts fragment">
+            <p><span class="part-tag">Rolle</span>Sei mein Tutor. Stelle mir Fragen und zeige die Lösung erst nach meiner Antwort.</p>
+            <p><span class="part-tag">Niveau</span>Ich bin im 1. Semester.</p>
+            <p><span class="part-tag">Ziel</span>In zwei Wochen schreibe ich die Klausur zur Kostenrechnung.</p>
+          </div>
+          <p class="quiet fragment">
+            &rarr; Ohne Niveau und Ziel erklärt das Modell oft zu allgemein oder
+            zu fortgeschritten. Siehe auch den Mastery-Prompt aus dem Einstieg.
+          </p>
+        </section>
+
+        <section class="dense">
+          <h3>Datenschutz und lokale Modelle</h3>
+          <p class="enum fragment">
+            Je nach Anbieter und Einstellung werden Eingaben gespeichert und zum
+            Training verwendet. Keine internen Daten des Praxispartners und
+            keine personenbezogenen Daten eingeben.
+          </p>
+          <p class="enum fragment">
+            Einstellungen zum Training prüfen und im Unternehmen nachfragen,
+            welche KI-Tools freigegeben sind.
+          </p>
+          <p class="enum fragment">
+            <b>Lokale Modelle</b> (<i>open weights</i>) laufen mit
+            <a href="https://lmstudio.ai" target="_blank" rel="noreferrer">LM Studio</a>
+            oder
+            <a href="https://ollama.com" target="_blank" rel="noreferrer">Ollama</a>
+            auf dem eigenen Rechner. Die Eingaben verlassen das Gerät nicht,
+            die Modelle sind aber meist schwächer.
+          </p>
+        </section>
+
+        <section>
+          <h3>Ausblick: Agents</h3>
+          <div class="agent-loop fragment">
+            <span class="loop-step">LLM plant</span>
+            <span class="loop-arrow">&rarr;</span>
+            <span class="loop-step">Werkzeug nutzen</span>
+            <span class="loop-arrow">&rarr;</span>
+            <span class="loop-step">Ergebnis lesen</span>
+            <span class="loop-back">&#8635;</span>
+          </div>
+          <p class="enum fragment">
+            Ein Agent ist ein LLM, das in einer Schleife Werkzeuge benutzt,
+            z.&nbsp;B. im Web sucht, Dateien liest oder Code ausführt.
+          </p>
+          <p class="quiet fragment">
+            Mehr dazu im Termin „KI-Tools und Themenwahl“ und später im Studium.
+          </p>
+        </section>
+
+        <section>
+          <h3>Übung: KI als Lernpartner</h3>
+          <p class="quiet">Ein Modul aus diesem Semester mit einem Thema, das bald geprüft wird</p>
+          <ol class="steps">
+            <li>Neuen Chat beginnen und notieren, welches Modell Sie verwenden.</li>
+            <li>Folien oder Skript hochladen (sofern erlaubt) oder Thema und Lernziele beschreiben.</li>
+            <li>Mit einem Tutor-Prompt drei Aufgaben stellen lassen und ohne Unterlagen beantworten.</li>
+            <li>Erklärung mit absichtlichem Fehler: „Stimmt das?“ und im temporären Chat „Finde die Fehler“.</li>
+            <li>Quelle zu einer Aussage nennen lassen, öffnen und prüfen.</li>
+            <li>Antwort neu erzeugen oder ein anderes Modell fragen. Wo weichen die Antworten ab?</li>
+          </ol>
+          <p class="quiet">Halten Sie fest, was Sie überrascht hat, und tauschen Sie sich zu zweit aus.</p>
+          <aside class="notes">
+            Bei nur 60 Minuten Gesamtzeit nur die Schritte 1–4 (ca. 20 Minuten),
+            sonst ca. 35 Minuten.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Abrufübung</h3>
+          <p class="question">
+            Welche drei Begriffe beachten Sie beim Lernen mit KI ab jetzt, und
+            was machen Sie konkret anders?
+          </p>
+          <p class="quiet">Zwei Minuten aus dem Kopf aufschreiben, dann im Kurs sammeln.</p>
+        </section>
+      </div>
+    </div>
+    <script src="/vendor/reveal/dist/reveal.js"></script>
+    <script src="/vendor/reveal/dist/plugin/notes.js"></script>
+    <script src="/vendor/reveal/dist/plugin/zoom.js"></script>
+    <script src="/decks/reveal-init.js"></script>
+    <script src="/decks/dev-reload.js"></script>
+  </body>
+</html>
