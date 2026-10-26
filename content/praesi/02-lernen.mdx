@@ -199,21 +199,27 @@ Wer versteht, wie diese Tools funktionieren, kann sie gezielt zum Lernen einsetz
 
 ### Begriffe und was daraus folgt
 
-- **LLM (Large Language Model, großes Sprachmodell).** Ein LLM wurde mit riesigen Textmengen trainiert. Es erzeugt Antworten, indem es Stück für Stück das wahrscheinlich passende nächste Textstück vorhersagt, und schlägt dabei nichts nach. Deshalb klingt jede Antwort flüssig und überzeugend, auch wenn sie falsch ist. Wie überzeugend eine Antwort klingt, sagt also nichts darüber, ob sie stimmt.
-- **Kontext und Kontextfenster.** Das Modell berücksichtigt nur, was im aktuellen Chat steht: Ihre Nachrichten, seine Antworten und hochgeladene Dateien. Dieses Kontextfenster ist begrenzt, in sehr langen Chats gehen frühere Details leichter unter. Laden Sie Folien oder Skript hoch, damit die Antworten zu Ihrer Vorlesung passen (sofern die Dozierenden das erlauben), und beginnen Sie für jedes neue Thema einen neuen Chat.
-- **Prompt und Rolle.** Der Prompt ist Ihre Anweisung an das Modell. Ohne Vorgabe löst ein Chat Aufgaben meist sofort vollständig, und Sie üben nichts. Geben Sie ihm deshalb die Rolle eines Tutors, z. B. „Stelle mir Fragen und zeige die Lösung erst nach meiner Antwort“ (siehe Mastery-Prompt im [Einstieg](/praesi/01-einstieg)).
+- **Generative KI.** Generative KI erzeugt neue Inhalte wie Texte, Bilder, Audio, Video oder Code. Klassische KI ordnet dagegen vorhandene Daten ein, etwa als Spamfilter oder bei Produktempfehlungen. KI-Chats sind also nur eine Form von KI. Zum Lernen können Sie sich auch Skizzen, Diagramme oder Audio-Zusammenfassungen erzeugen lassen. Prüfen Sie diese genauso kritisch wie Texte.
+- **LLM (Large Language Model, großes Sprachmodell).** Ein LLM ist generative KI für Text und wurde mit riesigen Textmengen trainiert. Es erzeugt Antworten, indem es Stück für Stück das wahrscheinlich passende nächste Textstück vorhersagt, und schlägt dabei nichts nach. Deshalb klingt jede Antwort flüssig und überzeugend, auch wenn sie falsch ist. Wie überzeugend eine Antwort klingt, sagt also nichts darüber, ob sie stimmt.
+- **Multimodal.** Viele Modelle verstehen neben Text auch Bilder, PDFs und Handschrift. Fotografieren Sie z. B. Ihre handschriftliche Lösung und lassen Sie sie auf Fehler prüfen. Im Sprachmodus sprechen Sie in Echtzeit mit dem Modell. So üben Sie mündliche Prüfungen und Präsentationen oder lassen sich unterwegs abfragen. In manchen Apps können Sie außerdem Kamera oder Bildschirm teilen, etwa um eine Fehlermeldung zu zeigen.
+- **Kontext und Kontextfenster.** Das Modell berücksichtigt, was im aktuellen Chat steht: Ihre Nachrichten, seine Antworten und hochgeladene Dateien. Dieses Kontextfenster ist begrenzt, in sehr langen Chats gehen frühere Details leichter unter. Laden Sie Folien oder Skript hoch, damit die Antworten zu Ihrer Vorlesung passen (sofern die Dozierenden das erlauben), und beginnen Sie für jedes neue Thema einen neuen Chat. Auch Fehler bleiben im Kontext: Hat das Modell einen falschen Ansatz gewählt, hält es im selben Chat oft daran fest. Bearbeiten Sie dann Ihre Nachricht oder beginnen Sie einen neuen Chat.
+- **Gedächtnis und Projekte.** Viele Chats merken sich Informationen über Sie (Memory) und übernehmen dauerhafte Anweisungen (Custom Instructions) in jeden neuen Chat. Ein neuer Chat startet dann nicht ganz unvoreingenommen. Für Tests eignet sich ein temporärer Chat. Umgekehrt können Sie die Tutor-Rolle und Ihre Unterlagen einmal in einem Projekt hinterlegen, statt sie jedes Mal neu einzugeben.
+- **Kognitives Auslagern (_cognitive offloading_).** Wer das Denken der KI überlässt, bekommt ein Ergebnis, lernt aber wenig. In einer [Studie mit fast 1.000 Lernenden](https://doi.org/10.1073/pnas.2422633122) lösten Schülerinnen und Schüler mit freiem Zugang zu GPT-4 die Übungsaufgaben deutlich besser. In der anschließenden Prüfung ohne KI schnitten sie aber um 17 % schlechter ab als die Gruppe ohne KI. Eine Version mit Tutor-Vorgaben glich diesen Nachteil weitgehend aus. Versuchen Sie Aufgaben deshalb zuerst selbst und lassen Sie sich beim Feststecken einen Hinweis geben, nicht die Lösung.
+- **Prompt und Rolle.** Der Prompt ist Ihre Anweisung an das Modell. Ohne Vorgabe löst ein Chat Aufgaben meist sofort vollständig, und Sie üben nichts. Geben Sie ihm deshalb die Rolle eines Tutors, z. B. „Stelle mir Fragen und zeige die Lösung erst nach meiner Antwort“ (siehe Mastery-Prompt im [Einstieg](/praesi/01-einstieg)). Nennen Sie außerdem Ihr Niveau und Ihr Ziel, z. B. „Ich bin im 1. Semester und schreibe in zwei Wochen die Klausur zur Kostenrechnung“. Sonst erklärt das Modell oft zu allgemein oder zu fortgeschritten.
 - **Halluzination.** Ein Modell kann Fakten, Zahlen, Paragrafen oder Literaturangaben erfinden, die echt aussehen. Verlangen Sie bei wichtigen Aussagen eine Quelle, öffnen Sie diese selbst und gleichen Sie die Aussage mit Ihren Unterlagen ab.
-- **Gefälligkeit (_sycophancy_).** Modelle neigen dazu, Ihnen zuzustimmen und Sie zu loben. Auf „Stimmt meine Erklärung?“ folgt deshalb oft ein Ja, auch wenn die Erklärung Fehler enthält. Fragen Sie stattdessen: „Finde die Fehler in meiner Erklärung und begründe sie.“
+- **Websuche und Quellen.** Ohne Websuche sind Quellenangaben besonders oft erfunden. Mit Websuche durchsucht der Chat aktuelle Seiten und verlinkt sie. Die Links sind dann meist echt, belegen die Aussage aber nicht immer. Prüfen Sie deshalb, ob die verlinkte Seite wirklich sagt, was der Chat behauptet.
+- **Gefälligkeit (_sycophancy_).** Modelle werden u. a. mit Bewertungen durch Menschen trainiert, und zustimmende Antworten werden oft besser bewertet. Deshalb neigen Modelle dazu, Ihnen zuzustimmen und Sie zu loben. Auf „Stimmt meine Erklärung?“ folgt oft ein Ja, auch wenn die Erklärung Fehler enthält. Fragen Sie stattdessen: „Finde die Fehler in meiner Erklärung und begründe sie.“
 - **Modelle und Versionen.** Hinter einem Chat stecken verschiedene Modelle. Kostenlose Versionen nutzen oft kleinere Modelle oder begrenzen die Nutzung. Achten Sie darauf, welches Modell Sie gerade verwenden. Eine schwache Antwort heißt nicht, dass „die KI“ etwas grundsätzlich nicht kann.
 - **Datenschutz.** Je nach Anbieter und Einstellung werden Eingaben gespeichert und zum Training weiterer Modelle verwendet. Geben Sie keine internen Daten Ihres Praxispartners und keine personenbezogenen Daten ein. Prüfen Sie die Einstellungen zum Training und fragen Sie in Ihrem Unternehmen nach, welche KI-Tools freigegeben sind.
+- **Lokale Modelle.** Offene Modelle (_open weights_) laufen mit Programmen wie [LM Studio](https://lmstudio.ai) oder [Ollama](https://ollama.com) auf dem eigenen Rechner, die Eingaben verlassen das Gerät nicht. Sie sind meist kleiner und schwächer als die großen Chats, reichen aber oft für Zusammenfassungen oder Abfragen. Ob Sie damit interne Daten verarbeiten dürfen, klären Sie trotzdem vorher im Unternehmen.
 
 Außerdem hilfreich:
 
 - **Token.** Modelle verarbeiten Text in Bausteinen, den Tokens. Häufige Wörter sind ein Token, seltene oder lange Wörter werden zerlegt. Limits und Kosten werden in Tokens gemessen. Deshalb gelingt z. B. das Zählen von Buchstaben oft schlechter als erwartet.
+- **Rechnen.** Auch Rechenergebnisse sagt ein Modell als Text vorher und macht dabei Fehler. Lassen Sie Rechnungen, etwa in Statistik oder Rechnungswesen, vom Chat mit Code ausführen oder rechnen Sie selbst nach.
 - **Wissensstand.** Das Training endet an einem Stichtag. Bei aktuellen Themen wie neuen Versionen oder geänderten Regeln nutzen Sie die Websuche des Chats und prüfen die angegebenen Quellen.
 - **Zufall in der Antwort.** Dieselbe Frage ergibt nicht immer dieselbe Antwort. Lassen Sie eine Antwort neu erzeugen: Weichen die Antworten inhaltlich voneinander ab, prüfen Sie nach. Abwandlungen einer Aufgabe eignen sich gut als neue Übungsaufgaben.
 - **Reasoning-Modelle.** Sie „denken“ vor der Antwort länger nach und sind bei Mathematik, Logik und Code meist zuverlässiger. Für einfache Fragen brauchen Sie sie nicht.
-- **Multimodal.** Viele Modelle verstehen auch Bilder, PDFs und Handschrift. Fotografieren Sie z. B. Ihre handschriftliche Lösung und lassen Sie sie auf Fehler prüfen.
 
 **Ausblick: Agents.** Ein Agent ist ein LLM, das in einer Schleife Werkzeuge benutzt, z. B. im Web sucht, Dateien liest
 oder Code ausführt. Solche Tools lernen Sie im Termin [KI-Tools und Themenwahl](/praesi/03-ki-tools) und später im Studium kennen.
@@ -221,10 +227,11 @@ oder Code ausführt. Solche Tools lernen Sie im Termin [KI-Tools und Themenwahl]
 <Callout type="info" emoji="🧑‍🏫">
 Live-Demos, möglichst mit kostenloser und ggf. bezahlter Version:
 
-- Gefälligkeit: die Lernkarte von oben mit vertauschten Schleifen als eigene Erklärung vorlegen, einmal mit „Stimmt das?“ und in einem neuen Chat mit „Finde die Fehler“. Je nach Modell fällt der Effekt unterschiedlich stark aus, subtilere Fehler eignen sich besser.
+- Gefälligkeit: die Lernkarte von oben mit vertauschten Schleifen als eigene Erklärung vorlegen, einmal mit „Stimmt das?“ und in einem neuen temporären Chat mit „Finde die Fehler“. Je nach Modell fällt der Effekt unterschiedlich stark aus, subtilere Fehler eignen sich besser.
 - Halluzination: ohne Websuche nach Literatur mit Seitenzahlen zu einem Nischenthema oder nach dem genauen Wortlaut von § 42 der Studien- und Prüfungsordnung fragen und mit der Quelle vergleichen.
 - Kontext: dieselbe Frage zu einer Vorlesung einmal ohne und einmal mit hochgeladenen Folien stellen.
 - Zufall: eine Antwort zweimal neu erzeugen und vergleichen.
+- Sprachmodus: sich zu einem Thema wie in einer mündlichen Prüfung abfragen lassen.
 - Token: einen deutschen Satz im [Tokenizer von OpenAI](https://platform.openai.com/tokenizer) zerlegen.
 </Callout>
 
@@ -235,7 +242,7 @@ Wählen Sie ein Modul aus diesem Semester mit einem Thema, das bald geprüft wir
 1. Beginnen Sie einen neuen Chat und notieren Sie, welches Modell Sie verwenden.
 2. Laden Sie Folien oder Skript zum Thema hoch, sofern die Dozierenden das erlauben. Alternativ beschreiben Sie das Thema und die Lernziele selbst.
 3. Lassen Sie sich mit einem Tutor-Prompt drei Aufgaben stellen und beantworten Sie diese ohne Unterlagen.
-4. Schreiben Sie eine kurze Erklärung zum Thema mit einem absichtlichen Fehler. Fragen Sie zuerst „Stimmt das?“ und in einem neuen Chat „Finde die Fehler in meiner Erklärung“. Vergleichen Sie die Antworten.
+4. Schreiben Sie eine kurze Erklärung zum Thema mit einem absichtlichen Fehler. Fragen Sie zuerst „Stimmt das?“ und in einem neuen temporären Chat „Finde die Fehler in meiner Erklärung“. Vergleichen Sie die Antworten.
 5. Lassen Sie sich zu einer Aussage eine Quelle nennen, öffnen Sie diese und prüfen Sie, ob sie die Aussage tatsächlich stützt.
 6. Lassen Sie eine Antwort neu erzeugen oder stellen Sie dieselbe Frage einem anderen Modell. Wo weichen die Antworten ab?
 
