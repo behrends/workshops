@@ -14,14 +14,6 @@ export default withNextra({
         source: '/decks/:deck/',
         destination: '/decks/:deck/index.html',
       },
-      {
-        source: '/praesi/vorlesung-praesentationen',
-        destination: '/decks/vorlesung-praesentationen/index.html',
-      },
-      {
-        source: '/praesi/vorlesung-praesentationen/',
-        destination: '/decks/vorlesung-praesentationen/index.html',
-      },
     ];
   },
 });
