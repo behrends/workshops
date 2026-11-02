@@ -8,12 +8,22 @@ import { Callout } from 'nextra/components'
 - [Appwrite](https://appwrite.io/)
 - u.v.a.m
 
+<Callout type="info">
+Supabase und Convex bieten jeweils einen kostenlosen Tarif an, der auch das
+Speichern von Dateien (z. B. Bildern) umfasst – ohne Angabe einer Kreditkarte.
+Bei Supabase werden kostenlose Projekte allerdings nach einer Woche ohne
+Nutzung pausiert und müssen dann im Dashboard wieder aktiviert werden.
+Die genauen Freikontingente stehen auf den Preisseiten der Anbieter.
+</Callout>
+
 ## Firebase
 
-Vorbemerkung: Firebase kann kostenlos genutzt werden. Leider ist jedoch
-für Firebase Cloud Storage eine Kreditkarte zur Verifikation der Identität
-notwendig, auch wenn nur die kostenlose Stufe genutzt wird. Firebase Cloud
-Storage wird jedoch benötigt, um Dateien wie z. B. Bilder in Firebase hochzuladen.
+Vorbemerkung: Viele Firebase-Dienste (z. B. Authentication, Firestore) können im
+kostenlosen Spark-Tarif genutzt werden. Für Cloud Storage for Firebase, das z. B.
+zum Hochladen von Bildern benötigt wird, muss das Projekt jedoch auf den
+Pay-as-you-go-Tarif „Blaze“ umgestellt werden. Dafür ist ein Abrechnungskonto
+mit Kreditkarte nötig. Auch im Blaze-Tarif gibt es Freikontingente, bei deren
+Überschreitung fallen aber echte Kosten an.
 
 Zu Firebase gibt es ein Beispiel-Projekt: https://github.com/behrends/firebase-expo. 
 Das Readme im Projekt beschreibt die Vorgehensweise zur Einrichtung des Firebase-Projekts 
