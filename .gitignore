@@ -40,3 +40,6 @@ build-storybook.log
 _pagefind/
 
 public/sitemap.xml
+
+# generated deck catalog (scripts/decks-catalog.mjs)
+lib/decks/catalog.generated.json

@@ -24,6 +24,8 @@ The site is a Next.js + Nextra docs app. Key locations:
 - `components/`: shared React components (e.g., `SectionLinks.js`, `slides/`).
 - `public/`: static assets, sitemap, and Pagefind search index (`_pagefind`).
 - `leitfaden/`: internal teaching guides (not part of the site).
+- `scripts/`: dev/build helpers (dev server, slides check, deck catalog, Pagefind index).
+- `lib/decks/catalog.generated.json`: generated (gitignored) data for the `/decks` overview, written by `npm run decks:catalog` (runs on install, dev, build and in `decks:watch`). App code must not read the filesystem outside `content/` at runtime, otherwise Next.js file tracing pulls those files into every server function.
 
 ## Build, Test, and Development Commands
 - `npm run dev`: start the local dev server with hot reload.

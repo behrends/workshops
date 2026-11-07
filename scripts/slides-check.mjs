@@ -1,17 +1,37 @@
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 
 import {
   formatIssue,
-  listContentMdxFiles,
   readMdxSource,
   routeSegmentsFromContentFile,
   validateAndBuildSlides,
 } from '../lib/slides/model.mjs';
 
+async function listContentMdxFiles(dir) {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  const files = [];
+
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+
+    if (entry.isDirectory()) {
+      files.push(...(await listContentMdxFiles(fullPath)));
+      continue;
+    }
+
+    if (entry.isFile() && entry.name.endsWith('.mdx')) {
+      files.push(fullPath);
+    }
+  }
+
+  return files;
+}
+
 async function main() {
   const cwd = process.cwd();
-  const files = await listContentMdxFiles(cwd);
+  const files = await listContentMdxFiles(path.join(cwd, 'content'));
   const slideEntries = [];
 
   for (const filePath of files) {

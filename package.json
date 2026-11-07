@@ -11,14 +11,16 @@
     "dev": "node scripts/dev.mjs",
     "dev:next": "next",
     "decks:watch": "node scripts/decks-watch.mjs",
+    "decks:catalog": "node scripts/decks-catalog.mjs",
     "slides:check": "node scripts/slides-check.mjs",
     "patch:nextra-theme-docs": "node scripts/patch-nextra-theme-docs.mjs",
-    "postinstall": "npm run patch:nextra-theme-docs",
-    "prebuild": "npm run patch:nextra-theme-docs",
+    "postinstall": "npm run patch:nextra-theme-docs && npm run decks:catalog",
+    "prebuild": "npm run patch:nextra-theme-docs && npm run decks:catalog",
     "start": "next start",
     "build:site": "next build",
     "build": "npm run slides:check && npm run build:site",
-    "postbuild": "next-sitemap && node scripts/pagefind-index.mjs"
+    "postbuild": "next-sitemap && node scripts/pagefind-index.mjs",
+    "predev": "npm run decks:catalog"
   },
   "dependencies": {
     "@revealjs/react": "^0.1.2",

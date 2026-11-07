@@ -17,7 +17,7 @@ export const generateStaticParams = generateStaticParamsFor('mdxPath');
 
 const loadDocPage = cache(async (segments = []) => {
   try {
-    await resolveContentFileFromSegments(process.cwd(), segments);
+    await resolveContentFileFromSegments(segments);
   } catch {
     return null;
   }
@@ -59,7 +59,7 @@ export default async function Page(props) {
   let hasSlides = false;
   if (metadata.slides === true) {
     try {
-      const contentFile = await resolveContentFileFromSegments(process.cwd(), mdxPath);
+      const contentFile = await resolveContentFileFromSegments(mdxPath);
       const source = await readMdxSource(contentFile);
       const { status } = validateAndBuildSlides({
         metadata,

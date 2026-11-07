@@ -1,4 +1,4 @@
-import { getDeckCatalog } from '../lib/decks/catalog.mjs';
+import decks from '../lib/decks/catalog.generated.json';
 
 function linkClassName(tone = 'primary') {
   if (tone === 'secondary') {
@@ -36,8 +36,7 @@ function getDeckDescription(deck) {
   return 'PDF-Fassung der Präsentation zum direkten Öffnen oder Herunterladen.';
 }
 
-export default async function DeckIndex() {
-  const decks = await getDeckCatalog();
+export default function DeckIndex() {
   const titleCounts = decks.reduce((counts, deck) => {
     counts.set(deck.title, (counts.get(deck.title) || 0) + 1);
     return counts;

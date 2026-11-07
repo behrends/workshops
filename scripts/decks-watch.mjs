@@ -4,6 +4,8 @@ import process from 'node:process';
 
 import chokidar from 'chokidar';
 
+import { writeDeckCatalog } from './decks-catalog.mjs';
+
 const HOST = process.env.DECK_RELOAD_HOST || '127.0.0.1';
 const PORT = Number(process.env.DECK_RELOAD_PORT || 35729);
 const WATCH_PATHS = ['public/decks', 'public/vendor/reveal'];
@@ -46,6 +48,40 @@ function handleChange(eventName, filePath) {
 
   broadcast(payload);
   console.log(`[decks] ${eventName}: ${normalizedPath}`);
+
+  if (normalizedPath.startsWith('public/decks/')) {
+    refreshCatalog();
+  }
+}
+
+// Only one catalog run at a time. Events during a run trigger exactly one
+// follow-up run, so an older run can never overwrite a newer catalog.
+let catalogRunning = false;
+let catalogPending = false;
+
+async function refreshCatalog() {
+  if (catalogRunning) {
+    catalogPending = true;
+    return;
+  }
+
+  catalogRunning = true;
+
+  try {
+    do {
+      catalogPending = false;
+
+      try {
+        if (await writeDeckCatalog()) {
+          console.log('[decks] catalog updated');
+        }
+      } catch (error) {
+        console.error('[decks] catalog error:', error);
+      }
+    } while (catalogPending);
+  } finally {
+    catalogRunning = false;
+  }
 }
 
 const server = createServer((req, res) => {
