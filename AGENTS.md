@@ -15,15 +15,15 @@ This repository hosts **workshop materials** for teaching programming concepts, 
 - `mobile/`: Mobile app development covering Android (Kotlin/Compose), Flutter, React Native, and cross-platform frameworks.
 - `praesi/`: Presentation topics including AI tools and creative coding (p5.js).
 
-The site is built with Next.js and Nextra, deployed via Vercel, and uses MDX for rich, interactive content with embedded code editors (Sandpack).
+The site is built with Next.js and Nextra, deployed via Vercel, and uses MDX for content, with Reveal.js slides generated from MDX and static decks under `public/decks`.
 
 ## Project Structure & Module Organization
 The site is a Next.js + Nextra docs app. Key locations:
 - `app/`: App Router entry, layout, and global styles.
 - `content/`: MDX workshop content organized by topic; `_meta.js` files drive navigation.
-- `components/`: shared React components (e.g., `JSEditor.js`).
+- `components/`: shared React components (e.g., `SectionLinks.js`, `slides/`).
 - `public/`: static assets, sitemap, and Pagefind search index (`_pagefind`).
-- `assets/`, `diagrams/`: source documents and diagrams used in content.
+- `leitfaden/`: internal teaching guides (not part of the site).
 
 ## Build, Test, and Development Commands
 - `npm run dev`: start the local dev server with hot reload.
@@ -32,7 +32,7 @@ The site is a Next.js + Nextra docs app. Key locations:
 - `npm run postbuild`: generate sitemap and Pagefind index (runs after `build`).
 
 ## Coding Style & Naming Conventions
-Use the existing style: 2-space indentation, semicolons, and ESM imports. Components use `PascalCase` names (e.g., `JSEditor.js`). Content folders and files are numbered and kebab-cased (e.g., `content/mobile/07-projekt`). Keep navigation data in `_meta.js` alongside MDX files. No lint/format script is configured; keep changes consistent with surrounding code.
+Use the existing style: 2-space indentation, semicolons, and ESM imports. Components use `PascalCase` names (e.g., `SectionLinks.js`). Content folders and files are numbered and kebab-cased (e.g., `content/mobile/07-projekt`). Keep navigation data in `_meta.js` alongside MDX files. No lint/format script is configured; keep changes consistent with surrounding code.
 
 ## Testing Guidelines
 There is no automated test runner configured in `package.json`. If you add tests, prefer `__tests__/` or `*.test.jsx` naming and introduce a script such as `npm test` so contributors have a single entry point.
